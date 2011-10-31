@@ -1,4 +1,4 @@
-
+﻿
 {* $Id: header.tpl 287 2010-01-07 23:46:33Z steve $ *}
 
 {* INCLUDE HEADER CODE *}
@@ -10,7 +10,7 @@
 
 
 
-{* BEGIN CENTERING TABLE *}
+{* BEGIN CENTERING TABLE *}<!-- BEGIN CENTERING TABLE -->
 <table cellpadding='0' cellspacing='0' class='body' align='center'>
 <tr>
 <td>
@@ -18,33 +18,20 @@
 
 
 {* START TOPBAR *}
-<div>
-
-  {* PAGE-TOP ADVERTISEMENT BANNER *}
-  {if $ads->ad_top != ""}
-    <div class='ad_top' style='display: block; visibility: visible;'>{$ads->ad_top}</div>
-  {/if}
-
-  {* LOGO AND SEARCH *}
-  <table cellpadding='0' cellspacing='0' style='width: 100%; padding-top: 20px;' align='center'>
-  <tr>
-  <td align='left' valign='bottom'>
-    <a href='./'><img src='./images/logo.gif' border='0' alt='' /></a>
-  </td>
-  <td align='right' valign='bottom' style='padding-bottom: 10px;'>
-    <form action='search.php' method='post'>
-    {lang_print id=643}
-    <input type='text' name='search_text' class='text' size='25' />
-    <input type='submit' class='button' value='{lang_print id=644}' />
-    <input type='hidden' name='task' value='dosearch' />
-    <input type='hidden' name='t' value='0' />
-    </form>
-    <a href='search_advanced.php'>{lang_print id=926}</a>
-  </td>
-  </tr>
-  </table>
-
-</div>
+    <!--HEAD-->
+    <div class="head">
+        <div class="fix">
+            <div class="logo"><a href="#"><img src="/images/logo.png" alt="" /></a></div>
+            <ul class="menu">
+                <li><a href="#">{lang_print id=200}<!-- Поиск --></a></li>
+                <li><a href="#">{lang_print id=647}<!-- Пригласить --></a></li>
+                <li><a href="#">{lang_print id=6000144}<!-- Подарки --></a></li>
+                <li><a href="#"><span>{lang_print id=687}<!-- Язык --></span></a></li>
+                <li><a href="#">{lang_print id=6000145}<!-- войти --></a></li>
+            </ul>
+        </div>
+	</div>
+    <!--END HEAD-->
 {* END TOP BAR *}
 
 

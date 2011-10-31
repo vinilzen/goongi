@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-04 17:00:27
+<?php /* Smarty version 2.6.14, created on 2011-10-31 19:13:12
          compiled from user_home.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'user_home.tpl', 79, false),array('modifier', 'choptext', 'user_home.tpl', 79, false),array('modifier', 'count', 'user_home.tpl', 109, false),array('function', 'math', 'user_home.tpl', 205, false),array('block', 'hook_foreach', 'user_home.tpl', 245, false),)), $this);
@@ -464,4 +464,4 @@ unset($_smarty_tpl_vars);
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
- ?>
+ ?>

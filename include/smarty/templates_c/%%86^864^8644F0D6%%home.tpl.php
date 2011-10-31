@@ -1,11 +1,11 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-04 16:45:43
+<?php /* Smarty version 2.6.14, created on 2011-10-31 19:13:52
          compiled from home.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'escape', 'home.tpl', 45, false),array('modifier', 'count', 'home.tpl', 102, false),array('modifier', 'regex_replace', 'home.tpl', 125, false),array('modifier', 'truncate', 'home.tpl', 125, false),array('modifier', 'replace', 'home.tpl', 204, false),array('modifier', 'choptext', 'home.tpl', 204, false),array('function', 'math', 'home.tpl', 102, false),array('function', 'cycle', 'home.tpl', 122, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'home.tpl', 50, false),array('function', 'cycle', 'home.tpl', 71, false),array('modifier', 'count', 'home.tpl', 50, false),array('modifier', 'regex_replace', 'home.tpl', 74, false),array('modifier', 'truncate', 'home.tpl', 74, false),array('modifier', 'replace', 'home.tpl', 164, false),array('modifier', 'choptext', 'home.tpl', 164, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(659,89,29,975,691,30,660,509,510,26,1115,511,665,977,976,671,672,850009,657,664,737,666,667,668,669,670);
+SELanguage::_preload_multi(509,510,26,1115,511,665,977,976,671,672,850009,657,643,644,926,664,737,6000142,28,675,29,660,30,6000143,666,667,668,669,670);
 SELanguage::load();
-?><?php $_smarty_tpl_vars = $this->_tpl_vars;
+?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
@@ -21,64 +21,7 @@ unset($_smarty_tpl_vars);
 <div style='float: left; width: 200px;'>
 
     <?php if (! $this->_tpl_vars['user']->user_exists): ?>
-    <div class='header'><?php echo SELanguage::_get(659); ?></div>
-    <div class='portal_content'>
-      <form action='login.php' method='post'>
-      <table cellpadding='0' cellspacing='0' align='center'>
-      <tr>
-        <td>
-          <?php echo SELanguage::_get(89); ?>:<br />
-          <input type='text' class='text' name='email' size='25' maxlength='100' value='<?php echo $this->_tpl_vars['prev_email']; ?>
-' />
-        </td>
-      </tr>
-      <tr>
-        <td style='padding-top: 6px;'>
-          <?php echo SELanguage::_get(29); ?>:<br />
-          <input type='password' class='text' name='password' size='25' maxlength='100' />
-        </td>
-      </tr>
-      <?php if (! empty ( $this->_tpl_vars['setting']['setting_login_code'] )): ?>
-      <tr>
-        <td style='padding-top: 6px;'>
-          <table cellpadding='0' cellspacing='0'>
-            <tr>
-              <td><input type='text' name='login_secure' class='text' size='6' maxlength='10' />&nbsp;</td>
-              <td>
-                <table cellpadding='0' cellspacing='0'>
-                  <tr>
-                    <td align='center'>
-                      <img src='./images/secure.php' id='secure_image' border='0' height='20' width='67' class='signup_code' alt='' /><br />
-                      <a href="javascript:void(0);" onClick="$('secure_image').src = './images/secure.php?' + (new Date()).getTime();"><?php echo SELanguage::_get(975); ?></a>
-                    </td>
-                    <td><?php ob_start(); 
- echo SELanguage::_get(691); 
- $this->_smarty_vars['capture']['default'] = ob_get_contents();  $this->assign('tip', ob_get_contents());ob_end_clean(); ?><img src='./images/icons/tip.gif' border='0' class='Tips1' title='<?php echo ((is_array($_tmp=$this->_tpl_vars['tip'])) ? $this->_run_mod_handler('escape', true, $_tmp, 'quotes') : smarty_modifier_escape($_tmp, 'quotes')); ?>
-' alt='' /></td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <?php endif; ?>
-      <tr>
-        <td style='padding-top: 10px;'>
-          <input type='submit' class='button' value='<?php echo SELanguage::_get(30); ?>' />&nbsp;
-          <input type='checkbox' class='checkbox' name='persistent' value='1' id='rememberme' />
-          <label for='rememberme'><?php echo SELanguage::_get(660); ?></label>
-        </td>
-      </tr>
-      </table>
-      
-      <noscript><input type='hidden' name='javascript_disabled' value='1' /></noscript>
-      <input type='hidden' name='task' value='dologin' />
-      <input type='hidden' name='ip' value='<?php echo $this->_tpl_vars['ip']; ?>
-' />
-      </form>
-    </div>
-    <div class='portal_spacer'></div>
+
 
     <?php else: ?>
     <div class='portal_login'>
@@ -102,8 +45,7 @@ unset($_smarty_tpl_vars);
     <div class='portal_spacer'></div>
   <?php endif; ?>
 
-    <?php if (! empty ( $this->_tpl_vars['site_statistics'] )): ?>
-    <div class='header'><?php echo SELanguage::_get(511); ?></div>
+    <?php if (! empty ( $this->_tpl_vars['site_statistics'] ) && 0): ?>     <div class='header'><?php echo SELanguage::_get(511); ?></div>
     <div class='portal_content'>
       <?php $_from = $this->_tpl_vars['site_statistics']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['stat_name'] => $this->_tpl_vars['stat_array']):
@@ -116,8 +58,7 @@ unset($_smarty_tpl_vars);
   
     <?php echo smarty_function_math(array('assign' => 'total_online_users','equation' => "x+y",'x' => count($this->_tpl_vars['online_users'][0]),'y' => $this->_tpl_vars['online_users'][1]), $this);?>
 
-  <?php if ($this->_tpl_vars['total_online_users'] > 0): ?>
-    <div class='header'><?php echo SELanguage::_get(665); ?> (<?php echo $this->_tpl_vars['total_online_users']; ?>
+  <?php if ($this->_tpl_vars['total_online_users'] > 0 && 0): ?>     <div class='header'><?php echo SELanguage::_get(665); ?> (<?php echo $this->_tpl_vars['total_online_users']; ?>
 )</div>
     <div class='portal_content'>
       <?php if (count($this->_tpl_vars['online_users'][0]) == 0): ?>
@@ -158,7 +99,7 @@ $this->_sections['online_loop']['last']       = ($this->_sections['online_loop']
     <div class='portal_spacer'></div>
   <?php endif; ?>
 
-    <div class='header'><?php echo SELanguage::_get(671); ?></div>
+  	<?php if (0): ?>   <div class='header'><?php echo SELanguage::_get(671); ?></div>
   <div class='portal_content'>
     <?php if (! empty ( $this->_tpl_vars['logins'] )): ?>
     <table cellpadding='0' cellspacing='0' align='center'>
@@ -210,6 +151,7 @@ $this->_sections['login_loop']['last']       = ($this->_sections['login_loop']['
     <?php endif; ?>
   </div>
   <div class='portal_spacer'></div>
+  <?php endif; ?>
 
 </div>
 
@@ -237,6 +179,16 @@ $this->_sections['login_loop']['last']       = ($this->_sections['login_loop']['
     <div style='padding: 5px 10px 0px 0px;'>
     <div class='page_header'><?php echo SELanguage::_get(850009); ?></div>
     <?php echo SELanguage::_get(657); ?>
+	
+	<form action='search.php' method='post'>
+		<?php echo SELanguage::_get(643); ?>
+		<input type='text' name='search_text' class='text' size='25' />
+		<input type='submit' class='button' value='<?php echo SELanguage::_get(644); ?>' />
+		<input type='hidden' name='task' value='dosearch' />
+		<input type='hidden' name='t' value='0' />
+    </form>
+    <a href='search_advanced.php'><?php echo SELanguage::_get(926); ?></a>
+	
   </div>
   <div class='portal_spacer'></div>
 
@@ -281,8 +233,7 @@ $this->_sections['news_loop']['last']       = ($this->_sections['news_loop']['it
   <?php endif; ?>
 
     
-  <?php if (count($this->_tpl_vars['actions']) > 0): ?>
-    <div class='page_header'><?php echo SELanguage::_get(737); ?></div>
+  <?php if (count($this->_tpl_vars['actions']) > 0 && 0): ?>     <div class='page_header'><?php echo SELanguage::_get(737); ?></div>
     <div class='portal_whatsnew'>
 
             <?php if ($this->_tpl_vars['ads']->ad_feed != ""): ?>
@@ -381,8 +332,34 @@ $this->_sections['action_media_loop']['last']       = ($this->_sections['action_
 
 
 <div style='float: left; width: 200px;'>
-
-    <div class='header'><?php echo SELanguage::_get(666); ?></div>
+	<?php if (! $this->_tpl_vars['user']->user_exists): ?>
+	
+	<div class="block1">
+		<div class="bg">
+			<div class="c">
+				<div class="form_login">
+					<h1><?php echo SELanguage::_get(6000142); ?><!-- Войти на сайт --></h1>
+				<form action='login.php' method='post'>
+					<div class="input"><label><?php echo SELanguage::_get(28); ?><!-- Логин --></label><input type="text" value='<?php echo $this->_tpl_vars['prev_email']; ?>
+' name="email"  size='25' maxlength='100' /></div>
+					
+					<div class="input"><label><a href="#"><?php echo SELanguage::_get(675); ?><!-- Забыли пароль? --></a><?php echo SELanguage::_get(29); ?><!-- Пароль --></label><input type="password" value="" name='password' size='25' maxlength='100' /></div>
+					
+					<div class="check"><label><input type='checkbox' class='checkbox' name='persistent' value='1' id='rememberme' /><span><?php echo SELanguage::_get(660); ?><!-- Запомнить меня --></span></label></div>
+					
+					<span class="button1"><span class="l">&nbsp;</span><span class="c"><input type="submit" value='<?php echo SELanguage::_get(30); ?>' /></span><span class="r">&nbsp;</span></span>
+				</form>
+					<a href="#" class="reg"><?php echo SELanguage::_get(6000143); ?><!-- Зарегистрироваться --></a>
+				</div>
+			</div>
+		</div>
+		<div class="b"></div>
+	</div>
+	
+    <div class='portal_spacer'></div>
+	<?php endif; 
+ if (0): ?>  
+  <div class='header'><?php echo SELanguage::_get(666); ?></div>
   <div class='portal_content'>
     <?php if (! empty ( $this->_tpl_vars['signups'] )): ?>
     <table cellpadding='0' cellspacing='0' align='center'>
@@ -487,8 +464,8 @@ $this->_sections['friends_loop']['last']       = ($this->_sections['friends_loop
     <?php endif; ?>
     </div>
     <div class='portal_spacer'></div>
-  <?php endif; ?>
-
+  <?php endif; 
+ endif; ?>
 </div>
 
 

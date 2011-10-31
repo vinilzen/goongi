@@ -1,11 +1,11 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-04 16:45:43
+<?php /* Smarty version 2.6.14, created on 2011-10-31 19:10:54
          compiled from header.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header.tpl', 76, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header.tpl', 63, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(643,644,926,645,647,1316,1019,649,26,650,30,1198,1199,1161,1162,652,1163,1164,1165,1166,654,784,1167,1168,1169,653,1170,1171,1172,655,1173,1174);
+SELanguage::_preload_multi(200,647,6000144,687,6000145,645,1316,1019,649,26,650,30,1198,1199,1161,1162,652,1163,1164,1165,1166,654,784,1167,1168,1169,653,1170,1171,1172,655,1173,1174);
 SELanguage::load();
-?>
+?>﻿
 
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header_global.tpl", 'smarty_include_vars' => array()));
@@ -24,38 +24,27 @@ unset($_smarty_tpl_vars);
 
 
 
+<!-- BEGIN CENTERING TABLE -->
 <table cellpadding='0' cellspacing='0' class='body' align='center'>
 <tr>
 <td>
 
 
 
-<div>
-
-    <?php if ($this->_tpl_vars['ads']->ad_top != ""): ?>
-    <div class='ad_top' style='display: block; visibility: visible;'><?php echo $this->_tpl_vars['ads']->ad_top; ?>
-</div>
-  <?php endif; ?>
-
-    <table cellpadding='0' cellspacing='0' style='width: 100%; padding-top: 20px;' align='center'>
-  <tr>
-  <td align='left' valign='bottom'>
-    <a href='./'><img src='./images/logo.gif' border='0' alt='' /></a>
-  </td>
-  <td align='right' valign='bottom' style='padding-bottom: 10px;'>
-    <form action='search.php' method='post'>
-    <?php echo SELanguage::_get(643); ?>
-    <input type='text' name='search_text' class='text' size='25' />
-    <input type='submit' class='button' value='<?php echo SELanguage::_get(644); ?>' />
-    <input type='hidden' name='task' value='dosearch' />
-    <input type='hidden' name='t' value='0' />
-    </form>
-    <a href='search_advanced.php'><?php echo SELanguage::_get(926); ?></a>
-  </td>
-  </tr>
-  </table>
-
-</div>
+    <!--HEAD-->
+    <div class="head">
+        <div class="fix">
+            <div class="logo"><a href="#"><img src="/images/logo.png" alt="" /></a></div>
+            <ul class="menu">
+                <li><a href="#"><?php echo SELanguage::_get(200); ?><!-- Поиск --></a></li>
+                <li><a href="#"><?php echo SELanguage::_get(647); ?><!-- Пригласить --></a></li>
+                <li><a href="#"><?php echo SELanguage::_get(6000144); ?><!-- Подарки --></a></li>
+                <li><a href="#"><span><?php echo SELanguage::_get(687); ?><!-- Язык --></span></a></li>
+                <li><a href="#"><?php echo SELanguage::_get(6000145); ?><!-- войти --></a></li>
+            </ul>
+        </div>
+	</div>
+    <!--END HEAD-->
 
 
 

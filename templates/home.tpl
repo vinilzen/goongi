@@ -1,4 +1,4 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 
 {* $Id: home.tpl 288 2010-01-11 20:17:09Z steve $ *}
 
@@ -13,59 +13,7 @@
 
   {* SHOW LOGIN FORM IF USER IS NOT LOGGED IN *}
   {if !$user->user_exists}
-    <div class='header'>{lang_print id=659}</div>
-    <div class='portal_content'>
-      <form action='login.php' method='post'>
-      <table cellpadding='0' cellspacing='0' align='center'>
-      <tr>
-        <td>
-          {lang_print id=89}:<br />
-          <input type='text' class='text' name='email' size='25' maxlength='100' value='{$prev_email}' />
-        </td>
-      </tr>
-      <tr>
-        <td style='padding-top: 6px;'>
-          {lang_print id=29}:<br />
-          <input type='password' class='text' name='password' size='25' maxlength='100' />
-        </td>
-      </tr>
-      {if !empty($setting.setting_login_code)}
-      <tr>
-        <td style='padding-top: 6px;'>
-          <table cellpadding='0' cellspacing='0'>
-            <tr>
-              <td><input type='text' name='login_secure' class='text' size='6' maxlength='10' />&nbsp;</td>
-              <td>
-                <table cellpadding='0' cellspacing='0'>
-                  <tr>
-                    <td align='center'>
-                      <img src='./images/secure.php' id='secure_image' border='0' height='20' width='67' class='signup_code' alt='' /><br />
-                      <a href="javascript:void(0);" onClick="$('secure_image').src = './images/secure.php?' + (new Date()).getTime();">{lang_print id=975}</a>
-                    </td>
-                    <td>{capture assign=tip}{lang_print id=691}{/capture}<img src='./images/icons/tip.gif' border='0' class='Tips1' title='{$tip|escape:quotes}' alt='' /></td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      {/if}
-      <tr>
-        <td style='padding-top: 10px;'>
-          <input type='submit' class='button' value='{lang_print id=30}' />&nbsp;
-          <input type='checkbox' class='checkbox' name='persistent' value='1' id='rememberme' />
-          <label for='rememberme'>{lang_print id=660}</label>
-        </td>
-      </tr>
-      </table>
-      
-      <noscript><input type='hidden' name='javascript_disabled' value='1' /></noscript>
-      <input type='hidden' name='task' value='dologin' />
-      <input type='hidden' name='ip' value='{$ip}' />
-      </form>
-    </div>
-    <div class='portal_spacer'></div>
+
 
   {* SHOW HELLO MESSAGE IF USER IS LOGGED IN *}
   {else}
@@ -88,7 +36,7 @@
   {/if}
 
   {* SHOW NETWORK STATISTICS *}
-  {if !empty($site_statistics)}
+  {if !empty($site_statistics) && 0} {* poka chto nax statistiku *}
     <div class='header'>{lang_print id=511}</div>
     <div class='portal_content'>
       {foreach from=$site_statistics key=stat_name item=stat_array}
@@ -100,7 +48,7 @@
   
   {* SHOW ONLINE USERS IF MORE THAN ZERO *}
   {math assign='total_online_users' equation="x+y" x=$online_users[0]|@count y=$online_users[1]}
-  {if $total_online_users > 0}
+  {if $total_online_users > 0 && 0} {* poka chto nax user_online *}
     <div class='header'>{lang_print id=665} ({$total_online_users})</div>
     <div class='portal_content'>
       {if $online_users[0]|@count == 0}
@@ -114,6 +62,7 @@
   {/if}
 
   {* SHOW LAST LOGINS *}
+	{if 0} {* poka chto nax LAST LOGINS *}
   <div class='header'>{lang_print id=671}</div>
   <div class='portal_content'>
     {if !empty($logins)}
@@ -135,6 +84,7 @@
     {/if}
   </div>
   <div class='portal_spacer'></div>
+  {/if}
 
 </div>
 
@@ -164,6 +114,16 @@
   <div style='padding: 5px 10px 0px 0px;'>
     <div class='page_header'>{lang_print id=850009}</div>
     {lang_print id=657}
+	
+	<form action='search.php' method='post'>
+		{lang_print id=643}
+		<input type='text' name='search_text' class='text' size='25' />
+		<input type='submit' class='button' value='{lang_print id=644}' />
+		<input type='hidden' name='task' value='dosearch' />
+		<input type='hidden' name='t' value='0' />
+    </form>
+    <a href='search_advanced.php'>{lang_print id=926}</a>
+	
   </div>
   <div class='portal_spacer'></div>
 
@@ -180,7 +140,7 @@
   {/if}
 
   {* SHOW PUBLIC VERSION OF ACTIVITY LIST *}  
-  {if $actions|@count > 0}
+  {if $actions|@count > 0 && 0} {* nax ACTIVITY LIST *}
     <div class='page_header'>{lang_print id=737}</div>
     <div class='portal_whatsnew'>
 
@@ -224,8 +184,34 @@
 
 {* BEGIN RIGHT COLUMN CONTENT *}
 <div style='float: left; width: 200px;'>
-
+	{if !$user->user_exists}
+	
+	<div class="block1">
+		<div class="bg">
+			<div class="c">
+				<div class="form_login">
+					<h1>{lang_print id=6000142}<!-- Войти на сайт --></h1>
+				<form action='login.php' method='post'>
+					<div class="input"><label>{lang_print id=28}<!-- Логин --></label><input type="text" value='{$prev_email}' name="email"  size='25' maxlength='100' /></div>
+					
+					<div class="input"><label><a href="#">{lang_print id=675}<!-- Забыли пароль? --></a>{lang_print id=29}<!-- Пароль --></label><input type="password" value="" name='password' size='25' maxlength='100' /></div>
+					
+					<div class="check"><label><input type='checkbox' class='checkbox' name='persistent' value='1' id='rememberme' /><span>{lang_print id=660}<!-- Запомнить меня --></span></label></div>
+					
+					<span class="button1"><span class="l">&nbsp;</span><span class="c"><input type="submit" value='{lang_print id=30}' /></span><span class="r">&nbsp;</span></span>
+				</form>
+					<a href="#" class="reg">{lang_print id=6000143}<!-- Зарегистрироваться --></a>
+				</div>
+			</div>
+		</div>
+		<div class="b"></div>
+	</div>
+	
+    <div class='portal_spacer'></div>
+	{/if}
+{if 0}{* skroem poka "poslednih dobavlenih" i "samih drugnih" *}
   {* SHOW LAST SIGNUPS *}
+
   <div class='header'>{lang_print id=666}</div>
   <div class='portal_content'>
     {if !empty($signups)}
@@ -271,7 +257,7 @@
     </div>
     <div class='portal_spacer'></div>
   {/if}
-
+{/if}
 </div>
 
 
