@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-04 17:01:30
+<?php /* Smarty version 2.6.14, created on 2011-11-01 15:15:07
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'escape', 'profile.tpl', 81, false),array('modifier', 'substr', 'profile.tpl', 333, false),array('modifier', 'count', 'profile.tpl', 344, false),array('modifier', 'replace', 'profile.tpl', 376, false),array('modifier', 'choptext', 'profile.tpl', 376, false),array('modifier', 'default', 'profile.tpl', 565, false),array('block', 'hook_foreach', 'profile.tpl', 104, false),array('function', 'math', 'profile.tpl', 464, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'escape', 'profile.tpl', 81, false),array('modifier', 'substr', 'profile.tpl', 337, false),array('modifier', 'count', 'profile.tpl', 348, false),array('modifier', 'replace', 'profile.tpl', 380, false),array('modifier', 'choptext', 'profile.tpl', 380, false),array('modifier', 'default', 'profile.tpl', 569, false),array('block', 'hook_foreach', 'profile.tpl', 104, false),array('function', 'math', 'profile.tpl', 468, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(786,1204,876,838,887,885,875,837,784,839,857,840,869,841,868,842,843,844,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850,652,653,854,1317,852,851,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,922,39,155,175,187,787,829,830,831,832,833,834,835,856,891,1025,1026,1032,1034,1071);
 SELanguage::load();
@@ -148,7 +148,9 @@ unset($_smarty_tpl_vars);
 
     <?php else: ?>
 
-        <?php if (( $this->_tpl_vars['owner']->level_info['level_profile_status'] != 0 && ( $this->_tpl_vars['owner']->user_info['user_status'] != "" || $this->_tpl_vars['owner']->user_info['user_id'] == $this->_tpl_vars['user']->user_info['user_id'] ) ) || $this->_tpl_vars['is_online'] == 1): ?>
+     <!-- status -->
+	<?php if (0): ?>
+    <?php if (( $this->_tpl_vars['owner']->level_info['level_profile_status'] != 0 && ( $this->_tpl_vars['owner']->user_info['user_status'] != "" || $this->_tpl_vars['owner']->user_info['user_id'] == $this->_tpl_vars['user']->user_info['user_id'] ) ) || $this->_tpl_vars['is_online'] == 1): ?>
       <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
       <tr>
       <td class='header'><?php echo SELanguage::_get(768); ?></td>
@@ -229,8 +231,11 @@ if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_lis
       </tr>
       </table>
     <?php endif; ?>
+    <?php endif; ?>
         
-        <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
+    <!-- stats -->
+	<?php if (0): ?>
+    <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
     <tr><td class='header'><?php echo SELanguage::_get(24); ?></td></tr>
     <tr>
     <td class='profile'>
@@ -248,6 +253,7 @@ if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_lis
     </td>
     </tr>
     </table>
+	<?php endif; ?>
         
     
         <?php $this->_tag_stack[] = array('hook_foreach', array('name' => 'profile_side','var' => 'profile_side_args')); $_block_repeat=true;smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>
@@ -842,4 +848,4 @@ unset($_smarty_tpl_vars);
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
- ?>
+ ?>

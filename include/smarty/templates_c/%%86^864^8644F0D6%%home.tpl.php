@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-31 19:13:52
+<?php /* Smarty version 2.6.14, created on 2011-11-01 14:19:14
          compiled from home.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'home.tpl', 50, false),array('function', 'cycle', 'home.tpl', 71, false),array('modifier', 'count', 'home.tpl', 50, false),array('modifier', 'regex_replace', 'home.tpl', 74, false),array('modifier', 'truncate', 'home.tpl', 74, false),array('modifier', 'replace', 'home.tpl', 164, false),array('modifier', 'choptext', 'home.tpl', 164, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'home.tpl', 49, false),array('function', 'cycle', 'home.tpl', 70, false),array('modifier', 'count', 'home.tpl', 49, false),array('modifier', 'regex_replace', 'home.tpl', 73, false),array('modifier', 'truncate', 'home.tpl', 73, false),array('modifier', 'replace', 'home.tpl', 163, false),array('modifier', 'choptext', 'home.tpl', 163, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(509,510,26,1115,511,665,977,976,671,672,850009,657,643,644,926,664,737,6000142,28,675,29,660,30,6000143,666,667,668,669,670);
 SELanguage::load();
@@ -55,7 +55,6 @@ unset($_smarty_tpl_vars);
     </div>
     <div class='portal_spacer'></div>
   <?php endif; ?>
-  
     <?php echo smarty_function_math(array('assign' => 'total_online_users','equation' => "x+y",'x' => count($this->_tpl_vars['online_users'][0]),'y' => $this->_tpl_vars['online_users'][1]), $this);?>
 
   <?php if ($this->_tpl_vars['total_online_users'] > 0 && 0): ?>     <div class='header'><?php echo SELanguage::_get(665); ?> (<?php echo $this->_tpl_vars['total_online_users']; ?>
@@ -331,8 +330,9 @@ $this->_sections['action_media_loop']['last']       = ($this->_sections['action_
 
 
 
+<?php if (! $this->_tpl_vars['user']->user_exists): ?>
 <div style='float: left; width: 200px;'>
-	<?php if (! $this->_tpl_vars['user']->user_exists): ?>
+	
 	
 	<div class="block1">
 		<div class="bg">
@@ -357,8 +357,8 @@ $this->_sections['action_media_loop']['last']       = ($this->_sections['action_
 	</div>
 	
     <div class='portal_spacer'></div>
-	<?php endif; 
- if (0): ?>  
+	
+<?php if (0): ?>  
   <div class='header'><?php echo SELanguage::_get(666); ?></div>
   <div class='portal_content'>
     <?php if (! empty ( $this->_tpl_vars['signups'] )): ?>
@@ -467,7 +467,7 @@ $this->_sections['friends_loop']['last']       = ($this->_sections['friends_loop
   <?php endif; 
  endif; ?>
 </div>
-
+<?php endif; ?>
 
 
 

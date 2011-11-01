@@ -135,7 +135,8 @@
   {* DISPLAY ONLY IF PROFILE IS NOT PRIVATE TO VIEWING USER *}
   {else}
 
-    {* BEGIN STATUS *}
+    {* BEGIN STATUS *} <!-- status -->
+	{if 0}
     {if ($owner->level_info.level_profile_status != 0 && ($owner->user_info.user_status != "" || $owner->user_info.user_id == $user->user_info.user_id)) || $is_online == 1}
       <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
       <tr>
@@ -196,9 +197,11 @@
       </tr>
       </table>
     {/if}
+    {/if}
     {* END STATUS *}
     
-    {* BEGIN STATS *}
+    {* BEGIN STATS *}<!-- stats -->
+	{if 0}
     <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
     <tr><td class='header'>{lang_print id=24}</td></tr>
     <tr>
@@ -214,6 +217,7 @@
     </td>
     </tr>
     </table>
+	{/if}
     {* END STATS *}
     
     
