@@ -45,7 +45,6 @@
     </div>
     <div class='portal_spacer'></div>
   {/if}
-  
   {* SHOW ONLINE USERS IF MORE THAN ZERO *}
   {math assign='total_online_users' equation="x+y" x=$online_users[0]|@count y=$online_users[1]}
   {if $total_online_users > 0 && 0} {* poka chto nax user_online *}
@@ -182,9 +181,9 @@
 
 
 
-{* BEGIN RIGHT COLUMN CONTENT *}
+{* BEGIN RIGHT COLUMN CONTENT *}{if !$user->user_exists}
 <div style='float: left; width: 200px;'>
-	{if !$user->user_exists}
+	
 	
 	<div class="block1">
 		<div class="bg">
@@ -208,7 +207,7 @@
 	</div>
 	
     <div class='portal_spacer'></div>
-	{/if}
+	
 {if 0}{* skroem poka "poslednih dobavlenih" i "samih drugnih" *}
   {* SHOW LAST SIGNUPS *}
 
@@ -259,7 +258,7 @@
   {/if}
 {/if}
 </div>
-
+{/if}
 
 
 
