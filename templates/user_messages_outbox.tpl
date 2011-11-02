@@ -2,6 +2,11 @@
 
 {* $Id: user_messages_outbox.tpl 8 2009-01-11 06:02:53Z john $ *}
 
+	<!-- start USER MENU -->
+	{include file='menu_main.tpl'}
+	<!-- end USER MENU -->
+
+
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
 <td class='tab0'>&nbsp;</td>

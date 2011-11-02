@@ -1,6 +1,9 @@
 {include file='header.tpl'}
 
 {* $Id: user_messages_view.tpl 194 2009-07-15 21:44:24Z john $ *}
+	<!-- start USER MENU -->
+	{include file='menu_main.tpl'}
+	<!-- end USER MENU -->
 
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>

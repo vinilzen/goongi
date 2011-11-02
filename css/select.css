@@ -1,0 +1,64 @@
+
+/************** Skin 2 *********************/
+.dd2 {
+	/*display:inline-block !important;*/
+	text-align:left;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	float:left;
+	position:relative;
+}
+.dd2 .ddTitle {
+	background:#a6b5c0;
+	padding:0 0;
+	text-indent:0;
+	cursor:default;
+	overflow:hidden;
+	height:25px;
+}
+
+.dd2 .ddTitle span.arrow {
+	background:transparent url(../images/nnb.jpg) no-repeat 0 0; right:0; display:inline-block;width:28px; height:25px; cursor:pointer; position:absolute;  
+}
+
+.dd2 .ddTitle span.ddTitleText {padding-left:4px;text-indent:1px; font-size:14px; overflow:hidden; line-height:25px; color:#292929;}
+.dd2 .ddTitle span.ddTitleText img{text-align:left; padding:0 0px 0 0;}
+.dd2 .ddTitle img.selected {
+	padding:0 0px 0 0;
+	vertical-align:top;
+}
+.dd2 .ddChild {
+	position:absolute;
+	border:1px solid #a6b5c0;
+	display:none;
+	width:auto;
+	overflow:auto;
+	overflow-x:hidden !important;
+	background-color:#a6b5c0;
+	font-size:12px;
+}
+.dd2 .ddChild .opta a, .dd2 .ddChild .opta a:visited {padding-left:10px}
+.dd2 .ddChild a {
+	display:block;
+	padding:3px 0 3px 7px;
+	text-decoration:none;
+	color:#000;
+	overflow:hidden;
+	white-space:nowrap; font-size:14px;
+	cursor:pointer;
+	
+}
+.dd2 .ddChild a:hover {
+	background-color:#3e78cd;
+}
+.dd2 .ddChild a img {
+	border:0;
+	padding:0 2px 0 0;
+	vertical-align:middle;
+}
+.dd2 .ddChild a.selected {
+	background-color:#1e58ad;	
+}
+
+
+

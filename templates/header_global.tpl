@@ -1,4 +1,4 @@
-<!DOCTYPE html 
+﻿<!DOCTYPE html 
 	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns='http://www.w3.org/1999/xhtml'>
@@ -11,8 +11,18 @@
 <meta name='Description' content="{if $global_page_description != ""}{lang_sprintf id=$global_page_description[0] 1=$global_page_description[1] 2=$global_page_description[2]}{else}{lang_print id=1156}{/if}" />
 
 {* INLUCDE MAIN STYLESHEET *}
-<link rel="stylesheet" href="./templates/styles_global.css" title="stylesheet" type="text/css" />  
-<link rel="stylesheet" href="./templates/styles.css" title="stylesheet" type="text/css" />  
+<link rel="stylesheet" href="/templates/styles_global.css" title="stylesheet" type="text/css" />  
+<link rel="stylesheet" href="/templates/styles.css" title="stylesheet" type="text/css" />  
+<link rel="stylesheet" href="/css/style.css" title="stylesheet" type="text/css" />  
+<!--[if IE]>
+	<link rel="stylesheet" href="/css/ie.css" type="text/css" media="screen" />
+<![endif]-->
+<!--[if IE 7]>
+	<link rel="stylesheet" href="/css/ie7.css" type="text/css" media="screen" />
+<![endif]-->
+<!--[if lte IE 6]>
+    <meta http-equiv="refresh" content="0; url=/ie6/ie6.html" />
+<![endif]-->
 
 {* CODE FOR VARIOUS JAVASCRIPT-BASED FEATURES, DO NOT REMOVE *}
 <script type="text/javascript" src="./include/js/mootools12-min.js"></script>
@@ -101,6 +111,5 @@
 
 </head>
 <body>
-
 {* GLOBAL IFRAME FOR AJAX FUNCTIONALITY *}
 <iframe id='ajaxframe' name='ajaxframe' style='display: none;' src='javascript:false;'></iframe>

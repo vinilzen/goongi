@@ -1,235 +1,29 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 
 {* $Id: profile.tpl 255 2009-11-18 02:21:01Z steve $ *}
+<!-- <div class='page_header'>{lang_sprintf id=786 1=$owner->user_displayname}</div> -->
 
-<div class='page_header'>{lang_sprintf id=786 1=$owner->user_displayname}</div>
+<div class="all">
+            	<div class="center_all">
+                	<div class="block4">
+                        <div class="c">
 
-<table cellpadding='0' cellspacing='0' width='100%'>
-<tr>
-<td class='profile_leftside' width='200'>
-{* BEGIN LEFT COLUMN *}
-
-  {* SHOW USER PHOTO *}
-  <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
-  <tr>
-  <td class='profile_photo'><img class='photo' src='{$owner->user_photo("./images/nophoto.gif")}' border='0'></td>
-  </tr>
-  </table>
-
-  <table class='profile_menu' cellpadding='0' cellspacing='0' width='100%'>
-
-  {* SHOW PHOTOS OF THIS PERSON *}
-  {if $total_photo_tags != 0}
-    <tr><td class='profile_menu1' nowrap='nowrap'><a href='profile_photos.php?user={$owner->user_info.user_username}'><img src='./images/icons/photos16.gif' class='icon' border='0'>{lang_sprintf id=1204 1=$owner->user_displayname_short 2=$total_photo_tags}</a></td></tr>
-    {assign var='showmenu' value='1'}
-  {/if}
-
-
-  {* SHOW BUTTONS IF LOGGED IN AND VIEWING SOMEONE ELSE *}
-  {if $owner->user_info.user_id != $user->user_info.user_id}
- 
-    {* SHOW ADD OR REMOVE FRIEND MENU ITEM *}
-    {if $friendship_allowed != 0 && $user->user_exists != 0}
-      <tr><td class='profile_menu1' nowrap='nowrap'>
-        {* JAVASCRIPT FOR CHANGING FRIEND MENU OPTION *}
-        {literal}
-        <script type="text/javascript">
-        <!-- 
-        function friend_update(status, id) {
-          if(status == 'pending') {
-            if($('addfriend_'+id))
-              $('addfriend_'+id).style.display = 'none';
-            if($('confirmfriend_'+id))
-              $('confirmfriend_'+id).style.display = 'none';
-            if($('pendingfriend_'+id))
-              $('pendingfriend_'+id).style.display = 'block';
-            if($('removefriend_'+id))
-              $('removefriend_'+id).style.display = 'none';
-          } else if(status == 'remove') {
-            if($('addfriend_'+id))
-              $('addfriend_'+id).style.display = 'none';
-            if($('confirmfriend_'+id))
-              $('confirmfriend_'+id).style.display = 'none';
-            if($('pendingfriend_'+id))
-              $('pendingfriend_'+id).style.display = 'none';
-            if($('removefriend_'+id))
-              $('removefriend_'+id).style.display = 'block';
-          } else if(status == 'add') {
-            if($('addfriend_'+id))
-              $('addfriend_'+id).style.display = 'block';
-            if($('confirmfriend_'+id))
-              $('confirmfriend_'+id).style.display = 'none';
-            if($('pendingfriend_'+id))
-              $('pendingfriend_'+id).style.display = 'none';
-            if($('removefriend_'+id))
-              $('removefriend_'+id).style.display = 'none';
-          }
-        }
-        //-->
-        </script>
-        {/literal}
-        <div id='addfriend_{$owner->user_info.user_id}'{if $is_friend == TRUE || $is_friend_pending != 0} style='display: none;'{/if}><a href="javascript:TB_show('{lang_print id=876}', 'user_friends_manage.php?user={$owner->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=838}</a></div>
-        <div id='confirmfriend_{$owner->user_info.user_id}'{if $is_friend_pending != 1} style='display: none;'{/if}><a href="javascript:TB_show('{lang_print id=887}', 'user_friends_manage.php?user={$owner->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=885}</a></div>
-        <div id='pendingfriend_{$owner->user_info.user_id}'{if $is_friend_pending != 2} style='display: none;'{/if} class='nolink'><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=875}</div>
-        <div id='removefriend_{$owner->user_info.user_id}'{if $is_friend == FALSE || $is_friend_pending != 0} style='display: none;'{/if}><a href="javascript:TB_show('{lang_print id=837}', 'user_friends_manage.php?task=remove&user={$owner->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/remove_friend16.gif' class='icon' border='0'>{lang_print id=837}</a></div>
-      </td></tr>
-      {assign var='showmenu' value='1'}
-    {/if}
     
-    {* SHOW SEND MESSAGE MENU ITEM *}
-    {if ($user->level_info.level_message_allow == 2 || ($user->level_info.level_message_allow == 1 && $is_friend)) && $owner->level_info.level_message_allow != 0}
-      <tr><td class='profile_menu1' nowrap='nowrap'><a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?to_user={$owner->user_displayname|escape:url}&to_id={$owner->user_info.user_username}&TB_iframe=true&height=400&width=450', '', './images/trans.gif');"><img src='./images/icons/sendmessage16.gif' class='icon' border='0'>{lang_print id=839}</a></td></tr>
-      {assign var='showmenu' value='1'}
-    {/if}
-    
-    {* SHOW REPORT THIS PERSON MENU ITEM *}
-    {if $user->user_exists != 0}
-      <tr><td class='profile_menu1' nowrap='nowrap'><a href="javascript:TB_show('{lang_print id=857}', 'user_report.php?return_url={$url->url_current()|escape:url}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/report16.gif' class='icon' border='0'>{lang_print id=840}</a></td></tr>
-      {assign var='showmenu' value='1'}
-    {/if}
-    
-    {* SHOW BLOCK OR UNBLOCK THIS PERSON MENU ITEM *}
-    {if $user->level_info.level_profile_block != 0}
-      <tr><td class='profile_menu1' nowrap='nowrap'>
-        <div id='unblock'{if $user->user_blocked($owner->user_info.user_id) == FALSE} style='display: none;'{/if}><a href="javascript:TB_show('{lang_print id=869}', 'user_friends_block.php?task=unblock&user={$owner->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/unblock16.gif' class='icon' border='0'>{lang_print id=841}</a></div>
-        <div id='block'{if $user->user_blocked($owner->user_info.user_id) == TRUE} style='display: none;'{/if}><a href="javascript:TB_show('{lang_print id=868}', 'user_friends_block.php?task=block&user={$owner->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/block16.gif' class='icon' border='0'>{lang_print id=842}</a></div>
-      </td></tr>
-      {assign var='showmenu' value='1'}
-    {/if}
-
-  {/if}
-
-
-  {* PLUGIN RELATED PROFILE MENU ITEMS *}
-  {hook_foreach name=profile_menu var=profile_menu_args}
-    {assign var='showmenu' value='1'}
-    <tr>
-      <td class='profile_menu1' nowrap='nowrap'>
-        <a href='{$profile_menu_args.file}'>
-          <img src='./images/icons/{$profile_menu_args.icon}' class='icon' border='0' />
-          {lang_sprintf id=$profile_menu_args.title 1=$profile_menu_args.title_1 2=$profile_menu_args.title_2}
-        </a>
-      </td>
-    </tr>
-  {/hook_foreach}
-  
-  </table>
-
-  {if $showmenu == 1}
-    <div style='height: 10px; font-size: 1pt;'>&nbsp;</div>
-  {/if}
-
-
-  {* DISPLAY IF PROFILE IS PRIVATE TO VIEWING USER *}
-  {if $is_profile_private != 0}
-
-    {* END LEFT COLUMN *}
-    </td>
-    <td class='profile_rightside'>
     {* BEGIN RIGHT COLUMN *}
-
-      <img src='./images/icons/error48.gif' border='0' class='icon_big'>
       <div class='page_header'>{lang_print id=843}</div>
       {lang_print id=844}
 
   {* DISPLAY ONLY IF PROFILE IS NOT PRIVATE TO VIEWING USER *}
-  {else}
 
-    {* BEGIN STATUS *} <!-- status -->
-	{if 0}
-    {if ($owner->level_info.level_profile_status != 0 && ($owner->user_info.user_status != "" || $owner->user_info.user_id == $user->user_info.user_id)) || $is_online == 1}
-      <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
-      <tr>
-      <td class='header'>{lang_print id=768}</td>
-      <tr>
-      <td class='profile'>
-        {if $is_online == 1}
-          <table cellpadding='0' cellspacing='0'>
-          <tr>
-          <td valign='top'><img src='./images/icons/online16.gif' border='0' class='icon'></td>
-          <td>{lang_sprintf id=845 1=$owner->user_displayname_short}</td>
-          </tr>
-          </table>
-        {/if}
-        
-        {if $owner->level_info.level_profile_status != 0 && ($owner->user_info.user_status != "" || $owner->user_info.user_id == $user->user_info.user_id)}
-          <table cellpadding='0' cellspacing='0'{if $is_online == 1} style='margin-top: 5px;'{/if}>
-          <tr>
-          <td valign='top'><img src='./images/icons/status16.gif' border='0' class='icon'></td>
-          <td>
-            {if $owner->user_info.user_id == $user->user_info.user_id}
-              {* JAVASCRIPT FOR CHANGING STATUS - THIS IS ONLY SHOWN WHEN OWNER IS VIEWING OWN PROFILE, SO WE CAN USE VIEWER OBJECT *}
-              {lang_javascript ids=773,1113 range=743-747}
-              {literal}
-              <script type="text/javascript">
-              <!-- 
-              SocialEngine.Viewer.user_status = '{/literal}{$user->user_info.user_status}{literal}';
-              //-->
-              </script>
-              {/literal}
-              
-              <div id='ajax_status'>
-              {if $owner->user_info.user_status != ""}
-                {assign var='status_date' value=$datetime->time_since($user->user_info.user_status_date)}
-                {$user->user_displayname_short} <span id='ajax_currentstatus_value'>{$user->user_info.user_status}</span>
-                <div style='padding-top: 5px;'>
-                  <div style='float: left; padding-right: 5px;'>[ <a href="javascript:void(0);" onClick="SocialEngine.Viewer.userStatusChange(); return false;">{lang_print id=745}</a> ]</div>
-                  <div class='home_updated'>
-                    {lang_print id=1113}
-                    <span id='ajax_currentstatus_date'>{lang_sprintf id=$status_date[0] 1=$status_date[1]}</span>
-                  </div>
-                  <div style='clear: both; height: 0px;'></div>
-                </div>
-              {else}
-                <a href="javascript:void(0);" onClick="SocialEngine.Viewer.userStatusChange(); return false;">{lang_print id=743}</a>
-              {/if}
-              </div>
-            {else}
-              {assign var='status_date' value=$datetime->time_since($owner->user_info.user_status_date)}
-              {$owner->user_displayname_short} {$owner->user_info.user_status}
-              <br>{lang_print id=1113} <span id='ajax_currentstatus_date'>{lang_sprintf id=$status_date[0] 1=$status_date[1]}</span>
-            {/if}
-          </td>
-          </tr>
-          </table>
-        {/if}
-      </td>
-      </tr>
-      </table>
-    {/if}
-    {/if}
-    {* END STATUS *}
-    
-    {* BEGIN STATS *}<!-- stats -->
-	{if 0}
-    <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
-    <tr><td class='header'>{lang_print id=24}</td></tr>
-    <tr>
-    <td class='profile'>
-      <table cellpadding='0' cellspacing='0'>
-      <tr><td width='80' valign='top'>{lang_print id=1120}</td><td><a href='search_advanced.php?cat_selected={$owner->profilecat_info.profilecat_id}'>{lang_print id=$owner->profilecat_info.profilecat_title}</a></td></tr>
-      <tr><td valign='top'>{lang_print id=1119}</td><td>{lang_print id=$owner->subnet_info.subnet_name}</td></tr>
-      <tr><td>{lang_print id=846}</td><td>{lang_sprintf id=740 1=$profile_views}</td></tr>
-      {if $setting.setting_connection_allow != 0}<tr><td>{lang_print id=847}</td><td>{lang_sprintf id=848 1=$total_friends}</td></tr>{/if}
-      {if $owner->user_info.user_dateupdated != ""}<tr><td>{lang_print id=1113}</td><td>{assign var='last_updated' value=$datetime->time_since($owner->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}</td></tr>{/if}
-      {if $owner->user_info.user_signupdate != ""}<tr><td>{lang_print id=850}</td><td>{$datetime->cdate("`$setting.setting_dateformat`", $datetime->timezone("`$owner->user_info.user_signupdate`", $global_timezone))}</td></tr>{/if}
-      </table>
-    </td>
-    </tr>
-    </table>
-	{/if}
-    {* END STATS *}
-    
+  
     
     {* PLUGIN RELATED PROFILE SIDEBAR *}
     {hook_foreach name=profile_side var=profile_side_args}
       {include file=$profile_side_args.file}
     {/hook_foreach}
-    
-    
+
   {* END LEFT COLUMN *}
-  </td>
-  <td class='profile_rightside'>
+
   {* BEGIN RIGHT COLUMN *}
     
     {* JAVASCRIPT FOR SWITCHING TABS *}
@@ -259,7 +53,7 @@
     </script>
     {/literal}
     
-    {* SHOW PROFILE TAB BUTTONS *}
+    {* SHOW PROFILE TAB BUTTONS *}<!-- SHOW PROFILE TAB BUTTONS start -->
     <table cellpadding='0' cellspacing='0'>
     <tr>
     <td valign='bottom'><table cellpadding='0' cellspacing='0'><tr><td class='profile_tab{if $v == 'profile'}2{/if}' id='profile_tabs_profile' onMouseUp="this.blur()"><a href='javascript:void(0);' onMouseDown="loadProfileTab('profile')" onMouseUp="this.blur()">{lang_print id=652}</a></td></tr></table></td>
@@ -311,7 +105,7 @@
     <td width='100%' class='profile_tab_end'>&nbsp;</td>
     </tr>
     </table>
-    
+    <!-- SHOW PROFILE TAB BUTTONS end -->
     
     
     
@@ -612,8 +406,10 @@
   </div>
 
 {* END RIGHT COLUMN *}
-</td>
-</tr>
-</table>
+			</div>
+			<div class="b"></div>
+		</div>
+	</div>
+</div>
 
 {include file='footer.tpl'}

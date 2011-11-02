@@ -1,4 +1,4 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 
 {* $Id: user_home.tpl 226 2009-10-28 23:57:07Z steve $ *}
 

@@ -1,0 +1,52 @@
+.foo	{ position:relative;height: 52px; width:69px; margin:5px auto 0 auto; overflow:hidden; z-index:3;}
+.carousel,
+.foo .carousel-wrap{margin:0;border:0;zoom:1; overflow: hidden;width:69px; margin:0 auto;}
+.foo.js .carousel-wrap{ height: 52px; width:69px; margin:0 auto;}
+.IE .foo.js .carousel-wrap{display:inline;}
+.foo ul{margin:0;padding:0;zoom:1;}
+.foo.js ul li{overflow:hidden;float:left;width:69px; height: 52px; position:relative; z-index:2;}
+.foo .carousel-control{overflow:hidden;display: inline-block; border:0; z-index:111; position:absolute; top:0; vertical-align:middle;width:5px;height:52px;cursor:pointer;line-height:999px;zoom:1;}
+.foo .carousel-next{background:url(../images/next.gif) 0 50% no-repeat; right:0px;}
+.foo .carousel-previous{background:url(../images/prev.gif) 0 50% no-repeat;left:0px;}
+.foo .carousel-control:hover{ background-position:0 50%;}
+.foo .disabled,.foo .disabled:hover{cursor:default; background-position:0 50%;}
+.foo div{margin:0;padding:0;border:0;}
+.foo ul{padding:0;list-style:none;}
+.foo ul li{position:relative; height:auto;margin:0; text-align:center;}
+
+.foo div.center-wrap{overflow:hidden;clear:both;zoom:1; position: absolute; width:69px; left:9px; top:15px; z-index:100; height:12px;}
+.foo div.center-wrap div{border:0;margin:0px 0; position:absolute; top:0; width:69px;}
+.foo div.center-wrap div p{ padding:0; text-align:center;}
+.foo div.center-wrap a{ width:12px; height:12px; text-align:center;	display:inline-block; margin:0px 1px 0 0; font:bold 12px arial; line-height:20px; color:#241d10; text-decoration:none; background:url(../images/dots.png) 100% 0 no-repeat; cursor:pointer;}
+.foo div.center-wrap a.hover,
+.foo div.center-wrap a.active{background-position:0 0;color:#ffd269;}
+.foo div.center-wrap a:hover	{ color:#ffd269;}
+.foo div.center-wrap a:hover.active{color:#ffd269;}
+
+
+.foo2	{ position:relative;height: 121px; width:671px; margin:0 0 0 -30px; overflow:hidden; z-index:3;}
+.carousel,
+.foo2 .carousel-wrap{margin:0;border:0;zoom:1; overflow: hidden;width:614px; margin:0 auto;}
+.foo2.js .carousel-wrap{ height: 121px; width:614px; margin:0 auto;}
+.IE .foo2.js .carousel-wrap{display:inline;}
+.foo2 ul{margin:0;padding:0;zoom:1;}
+.foo2.js ul li{overflow:hidden;float:left;width:214px; height: 121px; position:relative; z-index:2;}
+.foo2 .carousel-control{overflow:hidden;display: inline-block; border:0; z-index:111; position:absolute; top:0; vertical-align:middle;width:13px;height:121px;cursor:pointer;line-height:999px;zoom:1;}
+.foo2 .carousel-next{background:url(../images/tnext.png) 0 50% no-repeat; right:0px;}
+.foo2 .carousel-previous{background:url(../images/tprev.png) 0 50% no-repeat;left:0px;}
+.foo2 .carousel-control:hover{ background-position:0 50%;}
+.foo2 .disabled,.foo2 .disabled:hover{cursor:default; background-position:0 50%;}
+.foo2 div{margin:0;padding:0;border:0;}
+.foo2 ul{padding:0;list-style:none;}
+.foo2 ul li{position:relative; height:auto;margin:0;}
+.foo2 ul li img	{ padding:2px; background:#fff; border:1px solid #ccc;}
+.foo2 ul li a:hover img	{ border:1px solid #5fa4e5;}
+
+.foo2 div.center-wrap{overflow:hidden;clear:both;zoom:1; position: absolute; width:69px; left:9px; top:15px; z-index:100; height:12px;}
+.foo2 div.center-wrap div{border:0;margin:0px 0; position:absolute; top:0; width:69px;}
+.foo2 div.center-wrap div p{ padding:0; text-align:center;}
+.foo2 div.center-wrap a{ width:12px; height:12px; text-align:center;	display:inline-block; margin:0px 1px 0 0; font:bold 12px arial; line-height:20px; color:#241d10; text-decoration:none; background:url(../images/dots.png) 100% 0 no-repeat; cursor:pointer;}
+.foo2 div.center-wrap a.hover,
+.foo2 div.center-wrap a.active{background-position:0 0;color:#ffd269;}
+.foo2 div.center-wrap a:hover	{ color:#ffd269;}
+.foo2 div.center-wrap a:hover.active{color:#ffd269;}
