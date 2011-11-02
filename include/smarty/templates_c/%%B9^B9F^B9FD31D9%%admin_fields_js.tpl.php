@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-04 16:46:15
+<?php /* Smarty version 2.6.14, created on 2011-11-01 16:55:42
          compiled from admin_fields_js.tpl */
 ?><?php
 SELanguage::_preload_multi(105,98,99,1202,1203,100,101,144,145,39,140,141,148,102,142);
@@ -473,4 +473,3 @@ function removefield_result(fieldid) {
 '; ?>
 
 
-

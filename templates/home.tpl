@@ -3,11 +3,6 @@
 {* $Id: home.tpl 288 2010-01-11 20:17:09Z steve $ *}
 
 
-
-
-
-
-
 {* BEGIN LEFT COLUMN *}
 <div style='float: left; width: 200px;'>
 

@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-01 14:19:14
+<?php /* Smarty version 2.6.14, created on 2011-11-02 12:21:17
          compiled from home.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'home.tpl', 49, false),array('function', 'cycle', 'home.tpl', 70, false),array('modifier', 'count', 'home.tpl', 49, false),array('modifier', 'regex_replace', 'home.tpl', 73, false),array('modifier', 'truncate', 'home.tpl', 73, false),array('modifier', 'replace', 'home.tpl', 163, false),array('modifier', 'choptext', 'home.tpl', 163, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'home.tpl', 44, false),array('function', 'cycle', 'home.tpl', 65, false),array('modifier', 'count', 'home.tpl', 44, false),array('modifier', 'regex_replace', 'home.tpl', 68, false),array('modifier', 'truncate', 'home.tpl', 68, false),array('modifier', 'replace', 'home.tpl', 158, false),array('modifier', 'choptext', 'home.tpl', 158, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(509,510,26,1115,511,665,977,976,671,672,850009,657,643,644,926,664,737,6000142,28,675,29,660,30,6000143,666,667,668,669,670);
 SELanguage::load();
@@ -10,11 +10,6 @@ $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
-
-
-
-
-
 
 
 

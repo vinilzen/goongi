@@ -1,11 +1,11 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-04 16:45:43
+<?php /* Smarty version 2.6.14, created on 2011-11-02 12:22:44
          compiled from header_global.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header_global.tpl', 91, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header_global.tpl', 101, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(642,1156);
 SELanguage::load();
-?><!DOCTYPE html 
+?>﻿<!DOCTYPE html 
 	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns='http://www.w3.org/1999/xhtml'>
@@ -23,8 +23,18 @@ SELanguage::load();
  echo SELanguage::_get(1156); 
  endif; ?>" />
 
-<link rel="stylesheet" href="./templates/styles_global.css" title="stylesheet" type="text/css" />  
-<link rel="stylesheet" href="./templates/styles.css" title="stylesheet" type="text/css" />  
+<link rel="stylesheet" href="/templates/styles_global.css" title="stylesheet" type="text/css" />  
+<link rel="stylesheet" href="/templates/styles.css" title="stylesheet" type="text/css" />  
+<link rel="stylesheet" href="/css/style.css" title="stylesheet" type="text/css" />  
+<!--[if IE]>
+	<link rel="stylesheet" href="/css/ie.css" type="text/css" media="screen" />
+<![endif]-->
+<!--[if IE 7]>
+	<link rel="stylesheet" href="/css/ie7.css" type="text/css" media="screen" />
+<![endif]-->
+<!--[if lte IE 6]>
+    <meta http-equiv="refresh" content="0; url=/ie6/ie6.html" />
+<![endif]-->
 
 <script type="text/javascript" src="./include/js/mootools12-min.js"></script>
 
@@ -105,5 +115,4 @@ SELanguage::load();
 
 </head>
 <body>
-
-<iframe id='ajaxframe' name='ajaxframe' style='display: none;' src='javascript:false;'></iframe>
+<iframe id='ajaxframe' name='ajaxframe' style='display: none;' src='javascript:false;'></iframe>

@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-01 15:15:07
+<?php /* Smarty version 2.6.14, created on 2011-11-02 11:46:13
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'escape', 'profile.tpl', 81, false),array('modifier', 'substr', 'profile.tpl', 337, false),array('modifier', 'count', 'profile.tpl', 348, false),array('modifier', 'replace', 'profile.tpl', 380, false),array('modifier', 'choptext', 'profile.tpl', 380, false),array('modifier', 'default', 'profile.tpl', 569, false),array('block', 'hook_foreach', 'profile.tpl', 104, false),array('function', 'math', 'profile.tpl', 468, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'profile.tpl', 123, false),array('modifier', 'substr', 'profile.tpl', 235, false),array('modifier', 'count', 'profile.tpl', 246, false),array('modifier', 'replace', 'profile.tpl', 278, false),array('modifier', 'choptext', 'profile.tpl', 278, false),array('modifier', 'default', 'profile.tpl', 467, false),array('function', 'math', 'profile.tpl', 366, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(786,1204,876,838,887,885,875,837,784,839,857,840,869,841,868,842,843,844,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850,652,653,854,1317,852,851,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,922,39,155,175,187,787,829,830,831,832,833,834,835,856,891,1025,1026,1032,1034,1071);
+SELanguage::_preload_multi(786,843,844,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850,652,653,854,1317,852,851,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839,39,155,175,187,787,829,830,831,832,833,834,835,856,891,1025,1026,1032,1034,1071);
 SELanguage::load();
 ?><?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -16,130 +16,24 @@ unset($_smarty_tpl_vars);
 
 <table cellpadding='0' cellspacing='0' width='100%'>
 <tr>
-<td class='profile_leftside' width='200'>
+	<td class='profile_leftside' width='200'>
+		
+				<!-- start USER MENU -->
+				<?php $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include(array('smarty_include_tpl_file' => 'menu_main.tpl', 'smarty_include_vars' => array()));
+$this->_tpl_vars = $_smarty_tpl_vars;
+unset($_smarty_tpl_vars);
+ ?>
+				<!-- end USER MENU -->
 
-    <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
-  <tr>
-  <td class='profile_photo'><img class='photo' src='<?php echo $this->_tpl_vars['owner']->user_photo("./images/nophoto.gif"); ?>
-' border='0'></td>
-  </tr>
-  </table>
-
-  <table class='profile_menu' cellpadding='0' cellspacing='0' width='100%'>
-
-    <?php if ($this->_tpl_vars['total_photo_tags'] != 0): ?>
-    <tr><td class='profile_menu1' nowrap='nowrap'><a href='profile_photos.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-'><img src='./images/icons/photos16.gif' class='icon' border='0'><?php echo sprintf(SELanguage::_get(1204), $this->_tpl_vars['owner']->user_displayname_short, $this->_tpl_vars['total_photo_tags']); ?></a></td></tr>
-    <?php $this->assign('showmenu', '1'); ?>
-  <?php endif; ?>
+			  <?php if ($this->_tpl_vars['showmenu'] == 1): ?>
+				<div style='height: 10px; font-size: 1pt;'>&nbsp;</div>
+			  <?php endif; ?>
 
 
-    <?php if ($this->_tpl_vars['owner']->user_info['user_id'] != $this->_tpl_vars['user']->user_info['user_id']): ?>
- 
-        <?php if ($this->_tpl_vars['friendship_allowed'] != 0 && $this->_tpl_vars['user']->user_exists != 0): ?>
-      <tr><td class='profile_menu1' nowrap='nowrap'>
-                <?php echo '
-        <script type="text/javascript">
-        <!-- 
-        function friend_update(status, id) {
-          if(status == \'pending\') {
-            if($(\'addfriend_\'+id))
-              $(\'addfriend_\'+id).style.display = \'none\';
-            if($(\'confirmfriend_\'+id))
-              $(\'confirmfriend_\'+id).style.display = \'none\';
-            if($(\'pendingfriend_\'+id))
-              $(\'pendingfriend_\'+id).style.display = \'block\';
-            if($(\'removefriend_\'+id))
-              $(\'removefriend_\'+id).style.display = \'none\';
-          } else if(status == \'remove\') {
-            if($(\'addfriend_\'+id))
-              $(\'addfriend_\'+id).style.display = \'none\';
-            if($(\'confirmfriend_\'+id))
-              $(\'confirmfriend_\'+id).style.display = \'none\';
-            if($(\'pendingfriend_\'+id))
-              $(\'pendingfriend_\'+id).style.display = \'none\';
-            if($(\'removefriend_\'+id))
-              $(\'removefriend_\'+id).style.display = \'block\';
-          } else if(status == \'add\') {
-            if($(\'addfriend_\'+id))
-              $(\'addfriend_\'+id).style.display = \'block\';
-            if($(\'confirmfriend_\'+id))
-              $(\'confirmfriend_\'+id).style.display = \'none\';
-            if($(\'pendingfriend_\'+id))
-              $(\'pendingfriend_\'+id).style.display = \'none\';
-            if($(\'removefriend_\'+id))
-              $(\'removefriend_\'+id).style.display = \'none\';
-          }
-        }
-        //-->
-        </script>
-        '; ?>
+			  			  <?php if ($this->_tpl_vars['is_profile_private'] != 0): ?>
 
-        <div id='addfriend_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
-'<?php if ($this->_tpl_vars['is_friend'] == TRUE || $this->_tpl_vars['is_friend_pending'] != 0): ?> style='display: none;'<?php endif; ?>><a href="javascript:TB_show('<?php echo SELanguage::_get(876); ?>', 'user_friends_manage.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/addfriend16.gif' class='icon' border='0'><?php echo SELanguage::_get(838); ?></a></div>
-        <div id='confirmfriend_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
-'<?php if ($this->_tpl_vars['is_friend_pending'] != 1): ?> style='display: none;'<?php endif; ?>><a href="javascript:TB_show('<?php echo SELanguage::_get(887); ?>', 'user_friends_manage.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/addfriend16.gif' class='icon' border='0'><?php echo SELanguage::_get(885); ?></a></div>
-        <div id='pendingfriend_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
-'<?php if ($this->_tpl_vars['is_friend_pending'] != 2): ?> style='display: none;'<?php endif; ?> class='nolink'><img src='./images/icons/addfriend16.gif' class='icon' border='0'><?php echo SELanguage::_get(875); ?></div>
-        <div id='removefriend_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
-'<?php if ($this->_tpl_vars['is_friend'] == FALSE || $this->_tpl_vars['is_friend_pending'] != 0): ?> style='display: none;'<?php endif; ?>><a href="javascript:TB_show('<?php echo SELanguage::_get(837); ?>', 'user_friends_manage.php?task=remove&user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/remove_friend16.gif' class='icon' border='0'><?php echo SELanguage::_get(837); ?></a></div>
-      </td></tr>
-      <?php $this->assign('showmenu', '1'); ?>
-    <?php endif; ?>
-    
-        <?php if (( $this->_tpl_vars['user']->level_info['level_message_allow'] == 2 || ( $this->_tpl_vars['user']->level_info['level_message_allow'] == 1 && $this->_tpl_vars['is_friend'] ) ) && $this->_tpl_vars['owner']->level_info['level_message_allow'] != 0): ?>
-      <tr><td class='profile_menu1' nowrap='nowrap'><a href="javascript:TB_show('<?php echo SELanguage::_get(784); ?>', 'user_messages_new.php?to_user=<?php echo ((is_array($_tmp=$this->_tpl_vars['owner']->user_displayname)) ? $this->_run_mod_handler('escape', true, $_tmp, 'url') : smarty_modifier_escape($_tmp, 'url')); ?>
-&to_id=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-&TB_iframe=true&height=400&width=450', '', './images/trans.gif');"><img src='./images/icons/sendmessage16.gif' class='icon' border='0'><?php echo SELanguage::_get(839); ?></a></td></tr>
-      <?php $this->assign('showmenu', '1'); ?>
-    <?php endif; ?>
-    
-        <?php if ($this->_tpl_vars['user']->user_exists != 0): ?>
-      <tr><td class='profile_menu1' nowrap='nowrap'><a href="javascript:TB_show('<?php echo SELanguage::_get(857); ?>', 'user_report.php?return_url=<?php echo ((is_array($_tmp=$this->_tpl_vars['url']->url_current())) ? $this->_run_mod_handler('escape', true, $_tmp, 'url') : smarty_modifier_escape($_tmp, 'url')); ?>
-&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/report16.gif' class='icon' border='0'><?php echo SELanguage::_get(840); ?></a></td></tr>
-      <?php $this->assign('showmenu', '1'); ?>
-    <?php endif; ?>
-    
-        <?php if ($this->_tpl_vars['user']->level_info['level_profile_block'] != 0): ?>
-      <tr><td class='profile_menu1' nowrap='nowrap'>
-        <div id='unblock'<?php if ($this->_tpl_vars['user']->user_blocked($this->_tpl_vars['owner']->user_info['user_id']) == FALSE): ?> style='display: none;'<?php endif; ?>><a href="javascript:TB_show('<?php echo SELanguage::_get(869); ?>', 'user_friends_block.php?task=unblock&user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/unblock16.gif' class='icon' border='0'><?php echo SELanguage::_get(841); ?></a></div>
-        <div id='block'<?php if ($this->_tpl_vars['user']->user_blocked($this->_tpl_vars['owner']->user_info['user_id']) == TRUE): ?> style='display: none;'<?php endif; ?>><a href="javascript:TB_show('<?php echo SELanguage::_get(868); ?>', 'user_friends_block.php?task=block&user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/block16.gif' class='icon' border='0'><?php echo SELanguage::_get(842); ?></a></div>
-      </td></tr>
-      <?php $this->assign('showmenu', '1'); ?>
-    <?php endif; ?>
-
-  <?php endif; ?>
-
-
-    <?php $this->_tag_stack[] = array('hook_foreach', array('name' => 'profile_menu','var' => 'profile_menu_args')); $_block_repeat=true;smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>
-    <?php $this->assign('showmenu', '1'); ?>
-    <tr>
-      <td class='profile_menu1' nowrap='nowrap'>
-        <a href='<?php echo $this->_tpl_vars['profile_menu_args']['file']; ?>
-'>
-          <img src='./images/icons/<?php echo $this->_tpl_vars['profile_menu_args']['icon']; ?>
-' class='icon' border='0' />
-          <?php echo sprintf(SELanguage::_get($this->_tpl_vars['profile_menu_args']['title']), $this->_tpl_vars['profile_menu_args']['title_1'], $this->_tpl_vars['profile_menu_args']['title_2']); ?>
-        </a>
-      </td>
-    </tr>
-  <?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?>
-  
-  </table>
-
-  <?php if ($this->_tpl_vars['showmenu'] == 1): ?>
-    <div style='height: 10px; font-size: 1pt;'>&nbsp;</div>
-  <?php endif; ?>
-
-
-    <?php if ($this->_tpl_vars['is_profile_private'] != 0): ?>
-
-        </td>
+		    </td>
     <td class='profile_rightside'>
     
       <img src='./images/icons/error48.gif' border='0' class='icon_big'>
@@ -297,7 +191,8 @@ unset($_smarty_tpl_vars);
     '; ?>
 
     
-        <table cellpadding='0' cellspacing='0'>
+    <!-- SHOW PROFILE TAB BUTTONS start -->
+    <table cellpadding='0' cellspacing='0'>
     <tr>
     <td valign='bottom'><table cellpadding='0' cellspacing='0'><tr><td class='profile_tab<?php if ($this->_tpl_vars['v'] == 'profile'): ?>2<?php endif; ?>' id='profile_tabs_profile' onMouseUp="this.blur()"><a href='javascript:void(0);' onMouseDown="loadProfileTab('profile')" onMouseUp="this.blur()"><?php echo SELanguage::_get(652); ?></a></td></tr></table></td>
     <?php if ($this->_tpl_vars['total_friends_all'] != 0): ?><td valign='bottom'><table cellpadding='0' cellspacing='0'><td class='profile_tab<?php if ($this->_tpl_vars['v'] == 'friends'): ?>2<?php endif; ?>' id='profile_tabs_friends' onMouseUp="this.blur()"><a href='javascript:void(0);' onMouseDown="loadProfileTab('friends');" onMouseUp="this.blur()"><?php echo SELanguage::_get(653); ?></a></td></tr></table></td><?php endif; ?>
@@ -350,7 +245,7 @@ unset($_smarty_tpl_vars);
     <td width='100%' class='profile_tab_end'>&nbsp;</td>
     </tr>
     </table>
-    
+    <!-- SHOW PROFILE TAB BUTTONS end -->
     
     
     

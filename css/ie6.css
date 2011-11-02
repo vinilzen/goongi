@@ -1,0 +1,17 @@
+.menu li.mn1 ul.menu2 li.name	{ height:33px;}
+
+.solution	{ width:960px; height:262px; background:#efefef; border:1px solid #d8d8d8; border-top:0px; margin-bottom:9px; position:relative; z-index:0;}
+	.solution ul	{ position: absolute;  z-index:1; bottom:0px; left:0px; height:67px; overflow:hidden; width:960px;}
+	.solution ul li	{ float:left; width:20%; height:67px; overflow:hidden; background:url(../images/bg6.gif) repeat-x 0 100%; position:relative;}
+	.solution ul li:hover	{ background:url(../images/bg6.gif) repeat-x 0 0;}
+	.solution ul li.active	{ background:#efefef;}
+	.solution ul li a		{ padding:21px 0 16px 40px;}
+	.solution ul li span	{ height:60px; width:1px; overflow:hidden; left:0; position:absolute; bottom:-1px; background:#d8d8d8;}
+
+	.galleria-image-nav-right{left:auto;right:-1px;}
+
+	.dhx_cal_container .bl,
+	.dhx_cal_container .br	{ bottom:-1px;} 
+	
+	.contact_forms .form		{ width:394px;}
+	.button span.c input	{ padding:3px 10px 3px 10px;}
