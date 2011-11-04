@@ -18,8 +18,7 @@ if( !$user->level_info['level_photo_allow'] )
 $is_error = 0;
 
 // DELETE PHOTO
-if( $task == "remove" )
-{
+if( $task == "remove" ) {
   $user->user_photo_delete();
   $user->user_lastupdate();
   exit();
@@ -27,18 +26,16 @@ if( $task == "remove" )
 
 
 // UPLOAD PHOTO
-if( $task == "upload" )
-{
+if( $task == "upload" ) {
   $user->user_photo_upload("photo");
   $is_error = $user->is_error;
-  if( !$is_error )
-  {
+  if( !$is_error ) {
     // SAVE LAST UPDATE DATE
     $user->user_lastupdate(); 
     
     // DETERMINE SIZE OF THUMBNAIL TO SHOW IN ACTION
-    $photo_width = $misc->photo_size($user->user_photo(), "100", "100", "w");
-    $photo_height = $misc->photo_size($user->user_photo(), "100", "100", "h");
+    $photo_width = $misc->photo_size($user->user_photo(), "111", "111", "w");
+    $photo_height = $misc->photo_size($user->user_photo(), "111", "111", "h");
     
     // INSERT ACTION
     $action_media = Array(Array('media_link'=>$url->url_create('profile', $user->user_info['user_username']), 'media_path'=>$user->user_photo(), 'media_width'=>$photo_width, 'media_height'=>$photo_height));

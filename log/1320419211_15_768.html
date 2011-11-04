@@ -1,0 +1,451 @@
+<table style="width: 100%;" cellpadding='0' cellspacing='0'>
+  <tr>
+    <td nowrap="nowrap" width="1" id='se_debug_tabs_summary' class="profile_tab2" style="border-top: 0px solid #ffffff;">
+      <a href="javascript:void(0);" onclick="loadDebugTab('summary');return false;">Summary</a>
+    </td>
+    <td nowrap="nowrap" width="1" id='se_debug_tabs_php' class="profile_tab" style="border-top: 0px solid #ffffff;">
+      <a href="javascript:void(0);" onclick="loadDebugTab('php');return false;">PHP</a>
+    </td>
+    <td nowrap="nowrap" width="1" id='se_debug_tabs_sql' class="profile_tab" style="border-top: 0px solid #ffffff;">
+      <a href="javascript:void(0);" onclick="loadDebugTab('sql');return false;">SQL</a>
+    </td>
+    <td class="profile_tab" style="border-top: 0px solid #ffffff;">&nbsp;</td>
+  </tr>
+</table>
+
+
+
+
+<div id="se_debug_summary" align='left' style="margin: 5px;">
+  <div>Total Time: 0.4279961586</div>
+  <div>Total SQL Time: 0.0271469</div>
+  <div>Total SQL Queries: 10</div>
+  <div>Total SQL Queries (failed): 0</div>
+</div>
+
+
+
+<div id="se_debug_php" align='left' style="margin: 5px;display:none;">
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Label: total</span>
+          <span style="display:block;">Time: 0.4265</span>
+          <span style="display:block;">Index: 1</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_benchmark_details_total').style.display = ( $('se_debug_benchmark_details_total').style.display=='none' ? '' : 'none');">Details</a></span>
+          <span id="se_debug_benchmark_details_total" style="display: none;">
+                        <span style="display:block;">Index: 0</span>
+            <span style="display:block;">Delta: 0.4265 / 5149432</span>
+            <span style="display:block;">Start: 1320419211.1504 / 562168</span>
+            <span style="display:block;">End: 1320419211.5769 / 5711600</span>
+            <span style="display:block;">Note: </span>
+                      </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Label: include</span>
+          <span style="display:block;">Time: 0.1649</span>
+          <span style="display:block;">Index: 1</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_benchmark_details_include').style.display = ( $('se_debug_benchmark_details_include').style.display=='none' ? '' : 'none');">Details</a></span>
+          <span id="se_debug_benchmark_details_include" style="display: none;">
+                        <span style="display:block;">Index: 0</span>
+            <span style="display:block;">Delta: 0.1649 / 4909384</span>
+            <span style="display:block;">Start: 1320419211.1509 / 563128</span>
+            <span style="display:block;">End: 1320419211.3158 / 5472512</span>
+            <span style="display:block;">Note: </span>
+                      </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Label: initialization</span>
+          <span style="display:block;">Time: 0.0949</span>
+          <span style="display:block;">Index: 1</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_benchmark_details_initialization').style.display = ( $('se_debug_benchmark_details_initialization').style.display=='none' ? '' : 'none');">Details</a></span>
+          <span id="se_debug_benchmark_details_initialization" style="display: none;">
+                        <span style="display:block;">Index: 0</span>
+            <span style="display:block;">Delta: 0.0949 / 190832</span>
+            <span style="display:block;">Start: 1320419211.3167 / 5473096</span>
+            <span style="display:block;">End: 1320419211.4115 / 5663928</span>
+            <span style="display:block;">Note: </span>
+                      </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Label: plugins</span>
+          <span style="display:block;">Time: 0.0072</span>
+          <span style="display:block;">Index: 1</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_benchmark_details_plugins').style.display = ( $('se_debug_benchmark_details_plugins').style.display=='none' ? '' : 'none');">Details</a></span>
+          <span id="se_debug_benchmark_details_plugins" style="display: none;">
+                        <span style="display:block;">Index: 0</span>
+            <span style="display:block;">Delta: 0.0072 / 5288</span>
+            <span style="display:block;">Start: 1320419211.4121 / 5664488</span>
+            <span style="display:block;">End: 1320419211.4193 / 5669776</span>
+            <span style="display:block;">Note: </span>
+                      </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Label: page</span>
+          <span style="display:block;">Time: 0.0081</span>
+          <span style="display:block;">Index: 1</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_benchmark_details_page').style.display = ( $('se_debug_benchmark_details_page').style.display=='none' ? '' : 'none');">Details</a></span>
+          <span id="se_debug_benchmark_details_page" style="display: none;">
+                        <span style="display:block;">Index: 0</span>
+            <span style="display:block;">Delta: 0.0081 / -104216</span>
+            <span style="display:block;">Start: 1320419211.4198 / 5670336</span>
+            <span style="display:block;">End: 1320419211.4280 / 5566120</span>
+            <span style="display:block;">Note: </span>
+                      </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Label: shutdown</span>
+          <span style="display:block;">Time: 0.0064</span>
+          <span style="display:block;">Index: 1</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_benchmark_details_shutdown').style.display = ( $('se_debug_benchmark_details_shutdown').style.display=='none' ? '' : 'none');">Details</a></span>
+          <span id="se_debug_benchmark_details_shutdown" style="display: none;">
+                        <span style="display:block;">Index: 0</span>
+            <span style="display:block;">Delta: 0.0064 / 3376</span>
+            <span style="display:block;">Start: 1320419211.4285 / 5566696</span>
+            <span style="display:block;">End: 1320419211.4349 / 5570072</span>
+            <span style="display:block;">Note: </span>
+                      </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Label: output</span>
+          <span style="display:block;">Time: 0.1408</span>
+          <span style="display:block;">Index: 1</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_benchmark_details_output').style.display = ( $('se_debug_benchmark_details_output').style.display=='none' ? '' : 'none');">Details</a></span>
+          <span id="se_debug_benchmark_details_output" style="display: none;">
+                        <span style="display:block;">Index: 0</span>
+            <span style="display:block;">Delta: 0.1408 / 140360</span>
+            <span style="display:block;">Start: 1320419211.4356 / 5570808</span>
+            <span style="display:block;">End: 1320419211.5764 / 5711168</span>
+            <span style="display:block;">Note: </span>
+                      </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  </div>
+
+
+
+<div id="se_debug_sql" align='left' style="margin: 5px;display:none;">
+  <div>Total SQL Time: 0.0271469</div>
+  <div>Total SQL Queries: 10</div>
+  <div>Total SQL Queries (failed): 0</div>
+  <br />
+  <br />
+  
+  <div id="sqlexplaindiv" style="display:none;">
+    <div id="sqlquery"   style="width: 98%; display: block; padding: 5px; border:1px solid #cccccc; border-bottom:none;"></div>
+    <div id="sqlexplain" style="width: 98%; display: block; padding: 5px; border:1px solid #cccccc;"></div>
+  </div>
+  
+  
+  
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="width:10px;background:#aaff00;">&nbsp;</td>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Index: 8</span>
+          <span style="display:block;">Hash: 0b619fc22f20dee8136708933cbe838e</span>
+                    <span style="display:block;">Benchmark: 0.0049591</span>
+          <span style="display:block;">Short: SELECT languagevar_id, languagevar_value FROM se_languagevars WHERE...</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_sql_query_8').style.display = ( $('se_debug_sql_query_8').style.display=='none' ? '' : 'none');">Details</a></span>
+          <div id="se_debug_sql_query_8" style="display:none;">
+            
+                          <span style="display:block;">Backtrace 1:  \include\language\storage\mysql.php [179] database_query</span>
+                          <span style="display:block;">Backtrace 2:  \include\language\language.php [690] load</span>
+                          <span style="display:block;">Backtrace 3:  \include\smarty\templates_c\%%97^978^97877735%%invite.tpl.php [7] load</span>
+                          <span style="display:block;">Backtrace 4:  \include\smarty\Smarty.class.php [1258] include</span>
+                          <span style="display:block;">Backtrace 5:  \include\smarty\Smarty.class.php [1108] fetch</span>
+                          <span style="display:block;">Backtrace 6:  \footer.php [79] display</span>
+                          <span style="display:block;">Backtrace 7:  \invite.php [98] include</span>
+                        <span style="display:block;">Query: SELECT languagevar_id, languagevar_value FROM se_languagevars WHERE languagevar_id IN('643', '644', '926', '645', '647', '1316', '1019', '649', '26', '650', '30', '1198', '1199', '1161', '1162', '652', '1163', '1164', '1165', '1166', '654', '784', '1167', '1168', '1169', '653', '1170', '1171', '1172', '655', '1173', '1174', '642', '1156', '1175', '752', '753', '754', '200', '6000144', '687', '6000145', '6000146', '6000143', '6000142', '6000147', '773', '774', '775', '776', '777', '778', '779', '1074', '1075', '1078', '1076', '1077', '1079', '1080', '1081', '1082', '856', '728') AND languagevar_language_id='2'</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="width:10px;background:#aaff00;">&nbsp;</td>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Index: 5</span>
+          <span style="display:block;">Hash: 36fcf16d97464478dff069542247c966</span>
+                    <span style="display:block;">Benchmark: 0.0040321</span>
+          <span style="display:block;">Short: 
+    INSERT INTO se_stats
+      (`stat_date`, `stat_views`)...</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_sql_query_5').style.display = ( $('se_debug_sql_query_5').style.display=='none' ? '' : 'none');">Details</a></span>
+          <div id="se_debug_sql_query_5" style="display:none;">
+            
+                          <span style="display:block;">Backtrace 1:  \include\functions_stats.php [39] database_query</span>
+                          <span style="display:block;">Backtrace 2:  \header.php [274] update_stats</span>
+                          <span style="display:block;">Backtrace 3:  \invite.php [6] include</span>
+                        <span style="display:block;">Query: 
+    INSERT INTO se_stats
+      (`stat_date`, `stat_views`)
+    VALUES
+      (UNIX_TIMESTAMP(CURDATE()), 1) 
+    ON DUPLICATE KEY UPDATE
+      `stat_views`=`stat_views`+1
+  </span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="width:10px;background:#aaff00;">&nbsp;</td>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Index: 4</span>
+          <span style="display:block;">Hash: c5862342aeddfb3b6166416198a82305</span>
+                    <span style="display:block;">Benchmark: 0.0028338</span>
+          <span style="display:block;">Short: SELECT * FROM se_languages ORDER BY language_default DESC</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_sql_query_4').style.display = ( $('se_debug_sql_query_4').style.display=='none' ? '' : 'none');">Details</a></span>
+          <div id="se_debug_sql_query_4" style="display:none;">
+            
+                          <span style="display:block;">Backtrace 1:  \include\language\storage\mysql.php [21] database_query</span>
+                          <span style="display:block;">Backtrace 2:  \include\language\language.php [371] _languages</span>
+                          <span style="display:block;">Backtrace 3:  \include\language\language.php [237] _languages</span>
+                          <span style="display:block;">Backtrace 4:  \header.php [247] select</span>
+                          <span style="display:block;">Backtrace 5:  \invite.php [6] include</span>
+                        <span style="display:block;">Query: SELECT * FROM se_languages ORDER BY language_default DESC</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="width:10px;background:#aaff00;">&nbsp;</td>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Index: 3</span>
+          <span style="display:block;">Hash: f4f5bc8b7a6e87c8319fcb35ae5fd7b1</span>
+                    <span style="display:block;">Benchmark: 0.0027442</span>
+          <span style="display:block;">Short: 
+        INSERT INTO se_visitors (
+          visitor_ip,...</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_sql_query_3').style.display = ( $('se_debug_sql_query_3').style.display=='none' ? '' : 'none');">Details</a></span>
+          <div id="se_debug_sql_query_3" style="display:none;">
+            
+                          <span style="display:block;">Backtrace 1:  \include\class_user.php [599] database_query</span>
+                          <span style="display:block;">Backtrace 2:  \header.php [203] user_checkCookies</span>
+                          <span style="display:block;">Backtrace 3:  \invite.php [6] include</span>
+                        <span style="display:block;">Query: 
+        INSERT INTO se_visitors (
+          visitor_ip,
+          visitor_browser,
+          visitor_lastactive,
+          visitor_invisible,
+          visitor_user_id,
+          visitor_user_username,
+          visitor_user_displayname
+        ) VALUES (
+          '2130706433',
+          '4c854780ebbe3fcc3180be6408d7f0c7',
+          '1320419211',
+          '',
+          '0',
+          NULL, /* PRE-QUOTED */
+          NULL /* PRE-QUOTED */
+        ) ON DUPLICATE KEY UPDATE
+          visitor_lastactive='1320419211',
+          visitor_invisible='' /* ,
+          visitor_user_id='0',
+          visitor_user_username='NULL',
+          visitor_user_displayname='NULL'
+          */
+      </span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="width:10px;background:#aaff00;">&nbsp;</td>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Index: 1</span>
+          <span style="display:block;">Hash: 3dd96c784470c8111c2a8be4126d827a</span>
+                    <span style="display:block;">Benchmark: 0.002687</span>
+          <span style="display:block;">Short: SELECT * FROM se_settings LIMIT 1</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_sql_query_1').style.display = ( $('se_debug_sql_query_1').style.display=='none' ? '' : 'none');">Details</a></span>
+          <div id="se_debug_sql_query_1" style="display:none;">
+            
+                          <span style="display:block;">Backtrace 1:  \include\class_core.php [40] database_query</span>
+                          <span style="display:block;">Backtrace 2:  \header.php [119] getSettings</span>
+                          <span style="display:block;">Backtrace 3:  \invite.php [6] include</span>
+                        <span style="display:block;">Query: SELECT * FROM se_settings LIMIT 1</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="width:10px;background:#aaff00;">&nbsp;</td>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Index: 6</span>
+          <span style="display:block;">Hash: d2e0f5764c529782a4f47d5ea4c0033d</span>
+                    <span style="display:block;">Benchmark: 0.002686</span>
+          <span style="display:block;">Short: SELECT ad_id, ad_position, ad_html FROM se_ads WHERE...</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_sql_query_6').style.display = ( $('se_debug_sql_query_6').style.display=='none' ? '' : 'none');">Details</a></span>
+          <div id="se_debug_sql_query_6" style="display:none;">
+            
+                          <span style="display:block;">Backtrace 1:  \include\class_ads.php [70] database_query</span>
+                          <span style="display:block;">Backtrace 2:  \header.php [277] load</span>
+                          <span style="display:block;">Backtrace 3:  \invite.php [6] include</span>
+                        <span style="display:block;">Query: SELECT ad_id, ad_position, ad_html FROM se_ads WHERE ad_date_start<'1320419211' AND (ad_date_end>'1320419211' OR ad_date_end='0') AND ad_paused!='1' AND (ad_limit_views=0 OR ad_limit_views>ad_total_views) AND (ad_limit_clicks=0 OR ad_limit_clicks>ad_total_clicks) AND (ad_limit_ctr=0 OR ad_limit_ctr<(ad_total_clicks/(ad_total_views+1))*100) AND ad_public='1' ORDER BY RAND()</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="width:10px;background:#aaff00;">&nbsp;</td>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Index: 7</span>
+          <span style="display:block;">Hash: cb7bce38e89524e224c9c0f6c2106e10</span>
+                    <span style="display:block;">Benchmark: 0.002624</span>
+          <span style="display:block;">Short: SELECT plugin_type, plugin_icon FROM se_plugins WHERE...</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_sql_query_7').style.display = ( $('se_debug_sql_query_7').style.display=='none' ? '' : 'none');">Details</a></span>
+          <div id="se_debug_sql_query_7" style="display:none;">
+            
+                          <span style="display:block;">Backtrace 1:  \include\class_core.php [74] database_query</span>
+                          <span style="display:block;">Backtrace 2:  \header.php [295] getPlugins</span>
+                          <span style="display:block;">Backtrace 3:  \invite.php [6] include</span>
+                        <span style="display:block;">Query: SELECT plugin_type, plugin_icon FROM se_plugins WHERE plugin_disabled=0 ORDER BY plugin_order ASC</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="width:10px;background:#aaff00;">&nbsp;</td>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Index: 2</span>
+          <span style="display:block;">Hash: 1c77dcf302b44c303f4c59cf2aab3450</span>
+                    <span style="display:block;">Benchmark: 0.002337</span>
+          <span style="display:block;">Short: SELECT url_file, url_regular, url_subdirectory FROM se_urls</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_sql_query_2').style.display = ( $('se_debug_sql_query_2').style.display=='none' ? '' : 'none');">Details</a></span>
+          <div id="se_debug_sql_query_2" style="display:none;">
+            
+                          <span style="display:block;">Backtrace 1:  \include\class_url.php [79] database_query</span>
+                          <span style="display:block;">Backtrace 2:  \include\class_url.php [47] getSettings</span>
+                          <span style="display:block;">Backtrace 3:  \header.php [122] SEUrl</span>
+                          <span style="display:block;">Backtrace 4:  \invite.php [6] include</span>
+                        <span style="display:block;">Query: SELECT url_file, url_regular, url_subdirectory FROM se_urls</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="width:10px;background:#aaff00;">&nbsp;</td>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Index: 9</span>
+          <span style="display:block;">Hash: dba75dde0a85f986e0711ac06e201b46</span>
+                    <span style="display:block;">Benchmark: 0.0017898</span>
+          <span style="display:block;">Short: SELECT languagevar_id, languagevar_value FROM se_languagevars WHERE...</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_sql_query_9').style.display = ( $('se_debug_sql_query_9').style.display=='none' ? '' : 'none');">Details</a></span>
+          <div id="se_debug_sql_query_9" style="display:none;">
+            
+                          <span style="display:block;">Backtrace 1:  \include\language\storage\mysql.php [179] database_query</span>
+                          <span style="display:block;">Backtrace 2:  \include\language\language.php [690] load</span>
+                          <span style="display:block;">Backtrace 3:  \include\smarty\templates_c\%%5E^5E8^5E8BB37E%%menu_main.tpl.php [7] load</span>
+                          <span style="display:block;">Backtrace 4:  \include\smarty\Smarty.class.php [1871] include</span>
+                          <span style="display:block;">Backtrace 5:  \include\smarty\templates_c\%%0E^0E4^0E407559%%footer.tpl.php [25] _smarty_include</span>
+                          <span style="display:block;">Backtrace 6:  \include\smarty\Smarty.class.php [1871] include</span>
+                          <span style="display:block;">Backtrace 7:  \include\smarty\templates_c\%%97^978^97877735%%invite.tpl.php [115] _smarty_include</span>
+                          <span style="display:block;">Backtrace 8:  \include\smarty\Smarty.class.php [1258] include</span>
+                          <span style="display:block;">Backtrace 9:  \include\smarty\Smarty.class.php [1108] fetch</span>
+                          <span style="display:block;">Backtrace 10:  \footer.php [79] display</span>
+                          <span style="display:block;">Backtrace 11:  \invite.php [98] include</span>
+                        <span style="display:block;">Query: SELECT languagevar_id, languagevar_value FROM se_languagevars WHERE languagevar_id IN('1204', '876', '838', '887', '885', '875', '837', '839', '857', '840', '869', '841', '868', '842', '768', '845', '1113', '743', '744', '745', '746', '747', '24', '1120', '1119', '846', '740', '847', '848', '850') AND languagevar_language_id='2'</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div style="display:block;border: 1px solid #cccccc;">
+    <table cellpadding='0' cellspacing='0'>
+      <tr>
+        <td style="width:10px;background:#55ff00;">&nbsp;</td>
+        <td style="padding: 5px 10px 5px 10px;">
+          <span style="display:block;">Index: 0</span>
+          <span style="display:block;">Hash: 8cbda06ed17b18f54d68c9e06431779a</span>
+                    <span style="display:block;">Benchmark: 0.0004539</span>
+          <span style="display:block;">Short: SET @SE_PRIVACY_SELF = 1, @SE_PRIVACY_FRIEND = 2,...</span>
+          <span style="display:block;"><a href="javascript:void(0);" onclick="$('se_debug_sql_query_0').style.display = ( $('se_debug_sql_query_0').style.display=='none' ? '' : 'none');">Details</a></span>
+          <div id="se_debug_sql_query_0" style="display:none;">
+            
+                          <span style="display:block;">Backtrace 1:  \header.php [113] database_query</span>
+                          <span style="display:block;">Backtrace 2:  \invite.php [6] include</span>
+                        <span style="display:block;">Query: SET @SE_PRIVACY_SELF = 1, @SE_PRIVACY_FRIEND = 2, @SE_PRIVACY_FRIEND2 = 4, @SE_PRIVACY_SUBNET = 8, @SE_PRIVACY_REGISTERED = 16, @SE_PRIVACY_ANONYMOUS = 32</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+    
+  
+  <script type="text/javascript">
+    
+    window.addEvent('load', function()
+    {
+      if( failed_queries>0 )
+        alert_summary(failed_queries);
+    });
+    
+  </script>
+  
+</div>

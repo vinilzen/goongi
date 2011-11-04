@@ -1,10 +1,10 @@
-﻿{* $Id: header.tpl 287 2010-01-07 23:46:33Z steve $ *}
+{* $Id: header.tpl 287 2010-01-07 23:46:33Z steve $ *}
 {* INCLUDE HEADER CODE *}
 {include file="header_global.tpl"}
 
 {if $smarty.const.SE_DEBUG && $admin->admin_exists}{include file="header_debug.tpl"}{/if}
 
-<div id="smoothbox_container"></div>
+<!-- <div id="smoothbox_container"></div> -->
 
 
 

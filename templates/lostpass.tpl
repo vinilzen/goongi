@@ -1,12 +1,16 @@
 {include file='header.tpl'}
 
 {* $Id: lostpass.tpl 133 2009-03-22 20:16:35Z john $ *}
-
-<div class='page_header'>{lang_print id=33}</div>
+<div class="all">
+	<div class="center_one">
+		<div class="block3">
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">
+						<div class="form auth">
+							<h1>{lang_print id=33}</h1>
 
 {lang_print id=34}
-<br />
-<br />
 
 {* SHOW SUCCESS MESSAGE IF NO ERROR *}
 {if $submitted == 1 AND $is_error == 0}
@@ -56,4 +60,17 @@
 
 {/if}
 
-{include file='footer.tpl'}
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="b"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div id="clearfooter"></div>
+</div>
+{include file='footer_without_left_menu.tpl'}

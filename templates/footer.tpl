@@ -1,8 +1,7 @@
-﻿
 {* $Id: footer.tpl 62 2009-02-18 02:59:27Z john $ *}
 
   {* SHOW PAGE BOTTOM ADVERTISEMENT BANNER *}
-  {if $ads->ad_bottom != ""}
+  {if $ads->ad_bottom != "" && 0}
     <div class='ad_bottom' style='display: block; visibility: visible;'>
       {$ads->ad_bottom}
     </div>
@@ -13,16 +12,10 @@
 
 
 {* END BODY CONTAINER *}
-</td>
 {* SHOW RIGHT-SIDE ADVERTISEMENT BANNER *}
-{if $ads->ad_right != ""}
-  <td valign='top'><div class='ad_right' width='1' style='display: table-cell; visibility: visible;'>{$ads->ad_right}</div></td>
+{if $ads->ad_right != "" && 0}
+  <div class='ad_right' width='1' style='display: table-cell; visibility: visible;'>{$ads->ad_right}</div>
 {/if}
-</tr>
-</table>
-
-
-			</div>
             <div class="left_small">
             	<div class="left_c">
 					<!-- start USER MENU -->
