@@ -1,11 +1,11 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-02 12:21:17
+<?php /* Smarty version 2.6.14, created on 2011-11-02 12:54:52
          compiled from header.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header.tpl', 60, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(200,647,6000144,687,6000147,6000145,645,1316,1019,649,26,650,30,1198,1199);
 SELanguage::load();
-?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
+?><?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header_global.tpl", 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
@@ -18,7 +18,7 @@ unset($_smarty_tpl_vars);
  
  endif; ?>
 
-<div id="smoothbox_container"></div>
+<!-- <div id="smoothbox_container"></div> -->
 
 
 

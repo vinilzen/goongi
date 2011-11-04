@@ -356,12 +356,6 @@ form {
 	margin: 0px;
 }
 
-div.center {
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
-
 div.error {
 	vertical-align: middle;
 	color: #FF0000;

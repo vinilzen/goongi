@@ -1,7 +1,6 @@
-﻿<!DOCTYPE html 
-	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns='http://www.w3.org/1999/xhtml'>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
 {* $Id: header_global.tpl 146 2009-03-27 02:48:07Z john $ *}
 <head>
 <title>{lang_print id=642}{if $global_page_title != ""} - {lang_sprintf id=$global_page_title[0] 1=$global_page_title[1] 2=$global_page_title[2]}{/if}</title>
@@ -95,7 +94,6 @@
 </script>
 {/literal}
 
-
 {* ASSIGN PLUGIN MENU ITEMS AND INCLUDE NECESSARY STYLE/JAVASCRIPT FILES *}
 {hook_include name=header}
 {hook_foreach name=styles var=hook_stylesheet}
@@ -105,9 +103,6 @@
 <script type="text/javascript" src="{$hook_script}"></script>
 {/hook_foreach}
 
-
-{* INSERT USER'S CUSTOM CSS IF ANY *}
-<style type='text/css'>{$global_css}</style>
 
 </head>
 <body>

@@ -1,14 +1,13 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-02 12:22:44
+<?php /* Smarty version 2.6.14, created on 2011-11-02 12:54:52
          compiled from header_global.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header_global.tpl', 101, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header_global.tpl', 99, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(642,1156);
 SELanguage::load();
-?>﻿<!DOCTYPE html 
-	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns='http://www.w3.org/1999/xhtml'>
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
 <head>
 <title><?php echo SELanguage::_get(642); 
  if ($this->_tpl_vars['global_page_title'] != ""): ?> - <?php echo sprintf(SELanguage::_get($this->_tpl_vars['global_page_title'][0]), $this->_tpl_vars['global_page_title'][1], $this->_tpl_vars['global_page_title'][2]); 
@@ -109,9 +108,6 @@ SELanguage::load();
 "></script>
 <?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?>
 
-
-<style type='text/css'><?php echo $this->_tpl_vars['global_css']; ?>
-</style>
 
 </head>
 <body>

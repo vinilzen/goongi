@@ -1,4 +1,4 @@
-﻿  {* SHOW PHOTOS OF THIS PERSON *}
+  {* SHOW PHOTOS OF THIS PERSON *}
   {if $total_photo_tags != 0 && 0}
    <a href='profile_photos.php?user={$owner->user_info.user_username}'><img src='./images/icons/photos16.gif' class='icon' border='0'>{lang_sprintf id=1204 1=$owner->user_displayname_short 2=$total_photo_tags}</a>
     {assign var='showmenu' value='1'}
@@ -196,7 +196,6 @@ function SwapBack(id1) {
     {assign var='showmenu' value='1'}
 
         <a href='{$profile_menu_args.file}'>
-          <img src='./images/icons/{$profile_menu_args.icon}' class='icon' border='0' />
           {lang_sprintf id=$profile_menu_args.title 1=$profile_menu_args.title_1 2=$profile_menu_args.title_2}
         </a>
 

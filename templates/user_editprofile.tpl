@@ -288,8 +288,4 @@
 </tr>
 </form>
 </table>
-
-
-
-
 {include file='footer.tpl'}

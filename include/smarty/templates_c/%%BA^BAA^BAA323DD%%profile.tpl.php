@@ -1,154 +1,29 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-02 11:46:13
+<?php /* Smarty version 2.6.14, created on 2011-11-04 16:33:07
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'profile.tpl', 123, false),array('modifier', 'substr', 'profile.tpl', 235, false),array('modifier', 'count', 'profile.tpl', 246, false),array('modifier', 'replace', 'profile.tpl', 278, false),array('modifier', 'choptext', 'profile.tpl', 278, false),array('modifier', 'default', 'profile.tpl', 467, false),array('function', 'math', 'profile.tpl', 366, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'profile.tpl', 21, false),array('modifier', 'substr', 'profile.tpl', 130, false),array('modifier', 'count', 'profile.tpl', 141, false),array('modifier', 'replace', 'profile.tpl', 173, false),array('modifier', 'choptext', 'profile.tpl', 173, false),array('modifier', 'default', 'profile.tpl', 364, false),array('function', 'math', 'profile.tpl', 261, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(786,843,844,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850,652,653,854,1317,852,851,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839,39,155,175,187,787,829,830,831,832,833,834,835,856,891,1025,1026,1032,1034,1071);
+SELanguage::_preload_multi(786,843,844,652,653,854,1317,852,851,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839,39,155,175,187,787,829,830,831,832,833,834,835,856,891,1025,1026,1032,1034,1071);
 SELanguage::load();
-?><?php $_smarty_tpl_vars = $this->_tpl_vars;
+?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
+<!-- <div class='page_header'><?php echo sprintf(SELanguage::_get(786), $this->_tpl_vars['owner']->user_displayname); ?></div> -->
 
-<div class='page_header'><?php echo sprintf(SELanguage::_get(786), $this->_tpl_vars['owner']->user_displayname); ?></div>
+<div class="all">
+            	<div class="center_all">
+                	<div class="block4">
+                        <div class="c">
 
-<table cellpadding='0' cellspacing='0' width='100%'>
-<tr>
-	<td class='profile_leftside' width='200'>
-		
-				<!-- start USER MENU -->
-				<?php $_smarty_tpl_vars = $this->_tpl_vars;
-$this->_smarty_include(array('smarty_include_tpl_file' => 'menu_main.tpl', 'smarty_include_vars' => array()));
-$this->_tpl_vars = $_smarty_tpl_vars;
-unset($_smarty_tpl_vars);
- ?>
-				<!-- end USER MENU -->
-
-			  <?php if ($this->_tpl_vars['showmenu'] == 1): ?>
-				<div style='height: 10px; font-size: 1pt;'>&nbsp;</div>
-			  <?php endif; ?>
-
-
-			  			  <?php if ($this->_tpl_vars['is_profile_private'] != 0): ?>
-
-		    </td>
-    <td class='profile_rightside'>
     
-      <img src='./images/icons/error48.gif' border='0' class='icon_big'>
-      <div class='page_header'><?php echo SELanguage::_get(843); ?></div>
+          <div class='page_header'><?php echo SELanguage::_get(843); ?></div>
       <?php echo SELanguage::_get(844); ?>
 
-    <?php else: ?>
-
-     <!-- status -->
-	<?php if (0): ?>
-    <?php if (( $this->_tpl_vars['owner']->level_info['level_profile_status'] != 0 && ( $this->_tpl_vars['owner']->user_info['user_status'] != "" || $this->_tpl_vars['owner']->user_info['user_id'] == $this->_tpl_vars['user']->user_info['user_id'] ) ) || $this->_tpl_vars['is_online'] == 1): ?>
-      <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
-      <tr>
-      <td class='header'><?php echo SELanguage::_get(768); ?></td>
-      <tr>
-      <td class='profile'>
-        <?php if ($this->_tpl_vars['is_online'] == 1): ?>
-          <table cellpadding='0' cellspacing='0'>
-          <tr>
-          <td valign='top'><img src='./images/icons/online16.gif' border='0' class='icon'></td>
-          <td><?php echo sprintf(SELanguage::_get(845), $this->_tpl_vars['owner']->user_displayname_short); ?></td>
-          </tr>
-          </table>
-        <?php endif; ?>
-        
-        <?php if ($this->_tpl_vars['owner']->level_info['level_profile_status'] != 0 && ( $this->_tpl_vars['owner']->user_info['user_status'] != "" || $this->_tpl_vars['owner']->user_info['user_id'] == $this->_tpl_vars['user']->user_info['user_id'] )): ?>
-          <table cellpadding='0' cellspacing='0'<?php if ($this->_tpl_vars['is_online'] == 1): ?> style='margin-top: 5px;'<?php endif; ?>>
-          <tr>
-          <td valign='top'><img src='./images/icons/status16.gif' border='0' class='icon'></td>
-          <td>
-            <?php if ($this->_tpl_vars['owner']->user_info['user_id'] == $this->_tpl_vars['user']->user_info['user_id']): ?>
-                            <?php 
-$javascript_lang_import_list = SELanguage::_javascript_redundancy_filter(array(773,1113,743,744,745,746,747));
-$javascript_lang_import_first = TRUE;
-if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_list) )
-{
-  echo "\n<script type='text/javascript'>\n<!--\n";
-  echo "SocialEngine.Language.Import({\n";
-  foreach( $javascript_lang_import_list as $javascript_import_id )
-  {
-    if( !$javascript_lang_import_first ) echo ",\n";
-    echo "  ".$javascript_import_id." : '".addslashes(SE_Language::_get($javascript_import_id))."'";
-    $javascript_lang_import_first = FALSE;
-  }
-  echo "\n});\n//-->\n</script>\n";
-}
- ?>
-              <?php echo '
-              <script type="text/javascript">
-              <!-- 
-              SocialEngine.Viewer.user_status = \''; 
- echo $this->_tpl_vars['user']->user_info['user_status']; 
- echo '\';
-              //-->
-              </script>
-              '; ?>
-
-              
-              <div id='ajax_status'>
-              <?php if ($this->_tpl_vars['owner']->user_info['user_status'] != ""): ?>
-                <?php $this->assign('status_date', $this->_tpl_vars['datetime']->time_since($this->_tpl_vars['user']->user_info['user_status_date'])); ?>
-                <?php echo $this->_tpl_vars['user']->user_displayname_short; ?>
- <span id='ajax_currentstatus_value'><?php echo $this->_tpl_vars['user']->user_info['user_status']; ?>
-</span>
-                <div style='padding-top: 5px;'>
-                  <div style='float: left; padding-right: 5px;'>[ <a href="javascript:void(0);" onClick="SocialEngine.Viewer.userStatusChange(); return false;"><?php echo SELanguage::_get(745); ?></a> ]</div>
-                  <div class='home_updated'>
-                    <?php echo SELanguage::_get(1113); ?>
-                    <span id='ajax_currentstatus_date'><?php echo sprintf(SELanguage::_get($this->_tpl_vars['status_date'][0]), $this->_tpl_vars['status_date'][1]); ?></span>
-                  </div>
-                  <div style='clear: both; height: 0px;'></div>
-                </div>
-              <?php else: ?>
-                <a href="javascript:void(0);" onClick="SocialEngine.Viewer.userStatusChange(); return false;"><?php echo SELanguage::_get(743); ?></a>
-              <?php endif; ?>
-              </div>
-            <?php else: ?>
-              <?php $this->assign('status_date', $this->_tpl_vars['datetime']->time_since($this->_tpl_vars['owner']->user_info['user_status_date'])); ?>
-              <?php echo $this->_tpl_vars['owner']->user_displayname_short; ?>
- <?php echo $this->_tpl_vars['owner']->user_info['user_status']; ?>
-
-              <br><?php echo SELanguage::_get(1113); ?> <span id='ajax_currentstatus_date'><?php echo sprintf(SELanguage::_get($this->_tpl_vars['status_date'][0]), $this->_tpl_vars['status_date'][1]); ?></span>
-            <?php endif; ?>
-          </td>
-          </tr>
-          </table>
-        <?php endif; ?>
-      </td>
-      </tr>
-      </table>
-    <?php endif; ?>
-    <?php endif; ?>
-        
-    <!-- stats -->
-	<?php if (0): ?>
-    <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
-    <tr><td class='header'><?php echo SELanguage::_get(24); ?></td></tr>
-    <tr>
-    <td class='profile'>
-      <table cellpadding='0' cellspacing='0'>
-      <tr><td width='80' valign='top'><?php echo SELanguage::_get(1120); ?></td><td><a href='search_advanced.php?cat_selected=<?php echo $this->_tpl_vars['owner']->profilecat_info['profilecat_id']; ?>
-'><?php echo SELanguage::_get($this->_tpl_vars['owner']->profilecat_info['profilecat_title']); ?></a></td></tr>
-      <tr><td valign='top'><?php echo SELanguage::_get(1119); ?></td><td><?php echo SELanguage::_get($this->_tpl_vars['owner']->subnet_info['subnet_name']); ?></td></tr>
-      <tr><td><?php echo SELanguage::_get(846); ?></td><td><?php echo sprintf(SELanguage::_get(740), $this->_tpl_vars['profile_views']); ?></td></tr>
-      <?php if ($this->_tpl_vars['setting']['setting_connection_allow'] != 0): ?><tr><td><?php echo SELanguage::_get(847); ?></td><td><?php echo sprintf(SELanguage::_get(848), $this->_tpl_vars['total_friends']); ?></td></tr><?php endif; ?>
-      <?php if ($this->_tpl_vars['owner']->user_info['user_dateupdated'] != ""): ?><tr><td><?php echo SELanguage::_get(1113); ?></td><td><?php $this->assign('last_updated', $this->_tpl_vars['datetime']->time_since($this->_tpl_vars['owner']->user_info['user_dateupdated'])); 
- echo sprintf(SELanguage::_get($this->_tpl_vars['last_updated'][0]), $this->_tpl_vars['last_updated'][1]); ?></td></tr><?php endif; ?>
-      <?php if ($this->_tpl_vars['owner']->user_info['user_signupdate'] != ""): ?><tr><td><?php echo SELanguage::_get(850); ?></td><td><?php echo $this->_tpl_vars['datetime']->cdate(($this->_tpl_vars['setting']['setting_dateformat']),$this->_tpl_vars['datetime']->timezone(($this->_tpl_vars['owner']->user_info['user_signupdate']),$this->_tpl_vars['global_timezone'])); ?>
-</td></tr><?php endif; ?>
-      </table>
-    </td>
-    </tr>
-    </table>
-	<?php endif; ?>
-        
+  
+  
     
         <?php $this->_tag_stack[] = array('hook_foreach', array('name' => 'profile_side','var' => 'profile_side_args')); $_block_repeat=true;smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>
       <?php $_smarty_tpl_vars = $this->_tpl_vars;
@@ -157,10 +32,8 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
     <?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?>
-    
-    
-    </td>
-  <td class='profile_rightside'>
+
+  
       
         <?php echo '
     <script type=\'text/javascript\'>
@@ -192,8 +65,7 @@ unset($_smarty_tpl_vars);
 
     
     <!-- SHOW PROFILE TAB BUTTONS start -->
-    <table cellpadding='0' cellspacing='0'>
-    <tr>
+    <table cellpadding='0' cellspacing='0'> <tr>
     <td valign='bottom'><table cellpadding='0' cellspacing='0'><tr><td class='profile_tab<?php if ($this->_tpl_vars['v'] == 'profile'): ?>2<?php endif; ?>' id='profile_tabs_profile' onMouseUp="this.blur()"><a href='javascript:void(0);' onMouseDown="loadProfileTab('profile')" onMouseUp="this.blur()"><?php echo SELanguage::_get(652); ?></a></td></tr></table></td>
     <?php if ($this->_tpl_vars['total_friends_all'] != 0): ?><td valign='bottom'><table cellpadding='0' cellspacing='0'><td class='profile_tab<?php if ($this->_tpl_vars['v'] == 'friends'): ?>2<?php endif; ?>' id='profile_tabs_friends' onMouseUp="this.blur()"><a href='javascript:void(0);' onMouseDown="loadProfileTab('friends');" onMouseUp="this.blur()"><?php echo SELanguage::_get(653); ?></a></td></tr></table></td><?php endif; ?>
     <?php if ($this->_tpl_vars['allowed_to_comment'] != 0 || $this->_tpl_vars['total_comments'] != 0): ?><td valign='bottom'><table cellpadding='0' cellspacing='0'><td class='profile_tab<?php if ($this->_tpl_vars['v'] == 'comments'): ?>2<?php endif; ?>' id='profile_tabs_comments' onMouseUp="this.blur()"><a href='javascript:void(0);' onMouseDown="loadProfileTab('comments');SocialEngine.ProfileComments.getComments(1)" onMouseUp="this.blur()"><?php echo SELanguage::_get(854); ?></a></td></tr></table></td><?php endif; ?>
@@ -635,8 +507,10 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
         
                 <div id="profile_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
 _postcomment"></div>
-        <div id="profile_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
-_comments" style='margin-left: auto; margin-right: auto;'></div>
+		<h2>Записи на стене</h2>
+		<ul class="comments wall">
+			<li><div id="profile_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
+_comments" style='margin-left: auto; margin-right: auto;'></div></li>
         
         <?php 
 $javascript_lang_import_list = SELanguage::_javascript_redundancy_filter(array(39,155,175,182,183,184,185,187,784,787,829,830,831,832,833,834,835,854,856,891,1025,1026,1032,1034,1071));
@@ -731,13 +605,15 @@ unset($_smarty_tpl_vars);
     <?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?>
     
     
-  <?php endif; ?>
+
   
   </div>
 
-</td>
-</tr>
-</table>
+			</div>
+			<div class="b"></div>
+		</div>
+	</div>
+</div>
 
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));

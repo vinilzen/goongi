@@ -1,12 +1,11 @@
-﻿{include file='header.tpl'}
+{include file='header.tpl'}
 
 {* $Id: user_home.tpl 226 2009-10-28 23:57:07Z steve $ *}
 
-<table cellpadding='0' cellspacing='0' width='100%'>
-  <tr>
-    
-    {* BEGIN LEFT COLUMN *}
-    <td class='home_left'>
+<div class="all">
+            	<div class="center_all">
+                	<div class="block4">
+                        <div class="c">
       
       
       {* ACTIVITY FEED PREFERENCES *}
@@ -85,18 +84,15 @@
           {lang_print id=738}
         {/section}
       </div>
-    </td>
+
     
     {* BEGIN RIGHT COLUMN *}
-    <td class='home_right' width='220'>
       
-      {* SHOW STATS AND NOTIFICATIONS *}  
+      {* SHOW STATS AND NOTIFICATIONS *} 
+	  {if 0}
       <table cellpadding='0' cellspacing='0' width='100%'>
-        <tr>
-          <td class='header'>{lang_print id=739}</td>
-        </tr>
-        <tr>
-          <td class='home_box'>
+        <tr> <td class='header'>{lang_print id=739}</td> </tr>
+        <tr> <td class='home_box'>
             {* SHOW NUMBER OF TIMES PROFILE HAS BEEN VIEWED *}
             <div>
               <img src='./images/icons/newviews16.gif' border='0' class='icon' />
@@ -121,13 +117,11 @@
               {/if}
               {/if}
             </div>
-          </td>
-        </tr>
+          </td> </tr>
       </table>
-      <div class='spacer10'></div>
-      
+      {/if}
       {* SHOW STATUS *}
-      {if $user->level_info.level_profile_status != 0}
+      {if $user->level_info.level_profile_status != 0 && 0}
       
         {lang_javascript ids=773,1113 range=743-747}
         {literal}
@@ -173,9 +167,8 @@
         <div class='spacer10'></div>
       {/if}
       
-      
       {* SHOW LAST 3 NEWS ANNOUNCEMENTS *}
-      {if $news|@count > 0}
+      {if $news|@count > 0 && 0}
         <table cellpadding='0' cellspacing='0' width='100%'>
           <tr>
             <td class='header'>{lang_print id=664}</td>
@@ -202,6 +195,7 @@
       
       
       {* SHOW ONLINE USERS IF MORE THAN ZERO *}
+	  {if 0}
       {math assign='total_online_users' equation="x+y" x=$online_users[0]|@count y=$online_users[1]}
       {if $total_online_users > 0}
         <table cellpadding='0' cellspacing='0' class='portal_table' align='center' width='100%'>
@@ -226,8 +220,10 @@
         </table>
         {* padding in portal_table class <div class='spacer10'></div> *}
       {/if}
+      {/if}
       
       {* SHOW UPCOMING BIRTHDAYS *}
+	  {if 0}
       <div class='header'>{lang_print id=1176}</div>
       <div class='network_content'>
         {section name=birthday_loop loop=$birthdays max=20}
@@ -240,13 +236,15 @@
         {/section}
       </div>
       <div class='spacer10'></div>
-      
+      {/if}
       {* PLUGIN RELATED USER HOME SIDEBAR *}
       {hook_foreach name=user_home var=user_home_args}
         {include file=$user_home_args.file}
       {/hook_foreach}
-    </td>
-  </tr>
-</table>
+			</div>
+			<div class="b"></div>
+		</div>
+	</div>
+</div>
 
 {include file='footer.tpl'}

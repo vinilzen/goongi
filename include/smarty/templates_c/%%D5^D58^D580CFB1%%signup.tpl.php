@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-31 18:14:17
+<?php /* Smarty version 2.6.14, created on 2011-11-04 17:23:59
          compiled from signup.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'signup.tpl', 184, false),array('modifier', 'in_array', 'signup.tpl', 344, false),array('modifier', 'escape', 'signup.tpl', 483, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'signup.tpl', 154, false),array('modifier', 'in_array', 'signup.tpl', 314, false),array('modifier', 'escape', 'signup.tpl', 435, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(729,730,731,732,733,734,693,735,722,723,724,725,726,727,728,717,712,713,714,715,716,349,710,711,679,680,681,37,682,29,53,266,683,684,28,685,686,709,206,687,688,689,690,975,691,692);
 SELanguage::load();
@@ -9,10 +9,18 @@ SELanguage::load();
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
- 
- if ($this->_tpl_vars['step'] == 5): ?>
-  <img src='./images/icons/signup48.gif' border='0' class='icon_big'>
-  <div class='page_header'><?php echo SELanguage::_get(729); ?></div>
+ ?>
+
+<div class="all">
+	<div class="center_one">
+		<div class="block3">
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">
+						<div class="form auth">
+<?php if ($this->_tpl_vars['step'] == 5): ?>
+
+ <h1><?php echo SELanguage::_get(729); ?></h1>
   <div><?php echo SELanguage::_get(730); ?>
   <?php if ($this->_tpl_vars['setting']['setting_signup_enable'] == 0): 
  echo SELanguage::_get(731); 
@@ -26,8 +34,6 @@ unset($_smarty_tpl_vars);
  echo SELanguage::_get(734); 
  endif; ?>
   </div>
-  <br />
-  <br />
   
   <?php if ($this->_tpl_vars['setting']['setting_signup_verify'] == 0 && $this->_tpl_vars['setting']['setting_signup_enable'] != 0 && $this->_tpl_vars['setting']['setting_signup_randpass'] == 0): ?>
     <form action='login.php' method='GET'>
@@ -41,87 +47,58 @@ unset($_smarty_tpl_vars);
     </form>
   <?php endif; 
  elseif ($this->_tpl_vars['step'] == 4): ?>
-  <img src='./images/icons/signup48.gif' border='0' class='icon_big'>
-  <div class='page_header'><?php echo SELanguage::_get(722); ?></div>
+ <h1><?php echo SELanguage::_get(722); ?></h1>
   <div><?php echo SELanguage::_get(723); ?></div>
   <br />
   <br />
 
-  <form action='signup.php' method='POST'>
-  <table cellpadding='0' cellspacing='0' class='form'>
-  <tr>
-    <td>
-      <b><?php echo SELanguage::_get(724); ?></b>
-      <div><?php echo SELanguage::_get(725); ?></div>
-      <textarea name='invite_emails' rows='3' cols='70' style='margin-top: 3px;'></textarea><br><br>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <b><?php echo SELanguage::_get(726); ?></b>
-      <div><?php echo SELanguage::_get(727); ?></div>
-      <textarea name='invite_message' rows='3' cols='70' style='margin-top: 3px;'></textarea>
-    </td>
-  </tr>
-  </table>
+<form action='signup.php' method='POST'>
+	<b><?php echo SELanguage::_get(724); ?></b>
+	<div><?php echo SELanguage::_get(725); ?></div>
+	<textarea name='invite_emails' rows='3' cols='70' style='margin-top: 3px;'></textarea><br><br>
 
-  <br>
+	<b><?php echo SELanguage::_get(726); ?></b>
+	<div><?php echo SELanguage::_get(727); ?></div>
+	<textarea name='invite_message' rows='3' cols='70' style='margin-top: 3px;'></textarea>
 
-  <table cellpadding='0' cellspacing='0'>
-  <tr>
-  <td>
-    <input type='submit' class='button' value='<?php echo SELanguage::_get(728); ?>'>&nbsp;
-    <input type='hidden' name='task' value='<?php echo $this->_tpl_vars['next_task']; ?>
+	<input type='submit' class='button' value='<?php echo SELanguage::_get(728); ?>'>&nbsp;
+	<input type='hidden' name='task' value='<?php echo $this->_tpl_vars['next_task']; ?>
 '>
-    </form>
-  </td>
-  <td>
-    <form action='signup.php' method='POST'><input type='submit' class='button' value='<?php echo SELanguage::_get(717); ?>'>
-    <input type='hidden' name='task' value='<?php echo $this->_tpl_vars['next_task']; ?>
+</form>
+
+<form action='signup.php' method='POST'><input type='submit' class='button' value='<?php echo SELanguage::_get(717); ?>'>
+	<input type='hidden' name='task' value='<?php echo $this->_tpl_vars['next_task']; ?>
 '>
-    <input type='hidden' name='step' value='<?php echo $this->_tpl_vars['step']; ?>
+	<input type='hidden' name='step' value='<?php echo $this->_tpl_vars['step']; ?>
 '>
-    </form>
-  </td>
-  </tr>
-  </table>
+</form>
+
 
 
 
 
 
 <?php elseif ($this->_tpl_vars['step'] == 3): ?>
-  <img src='./images/icons/signup48.gif' border='0' class='icon_big'>
-  <div class='page_header'><?php echo SELanguage::_get(712); ?></div>
+ <h1><?php echo SELanguage::_get(712); ?></h1>
   <div><?php echo SELanguage::_get(713); ?></div><br>
   <br>
 
     <?php if ($this->_tpl_vars['is_error'] != 0): ?>
-    <table cellpadding='0' cellspacing='0'>
-    <tr><td class='result'>
-      <div class='error'><img src='./images/error.gif' border='0' class='icon'> <?php echo SELanguage::_get($this->_tpl_vars['is_error']); ?></div>
-    </td></tr></table>
-    <br>
+      <div class='error'><?php echo SELanguage::_get($this->_tpl_vars['is_error']); ?></div>
   <?php endif; ?>
-
-  <table cellpadding='0' cellspacing='0' align='center' width='450'>
-  <tr>
-  <td class='signup_photo'>
     <form action='signup.php' method='POST' enctype='multipart/form-data'>
-    <input type='file' class='text' name='photo' size='40'>
-    <input type='submit' class='button' value='<?php echo SELanguage::_get(714); ?>'>
-    <input type='hidden' name='step' value='<?php echo $this->_tpl_vars['step']; ?>
+		<input type='file' class='text' name='photo' size='40'>
+		<input type='submit' class='button' value='<?php echo SELanguage::_get(714); ?>'>
+		<input type='hidden' name='step' value='<?php echo $this->_tpl_vars['step']; ?>
 '>
-    <input type='hidden' name='task' value='<?php echo $this->_tpl_vars['next_task']; ?>
+		<input type='hidden' name='task' value='<?php echo $this->_tpl_vars['next_task']; ?>
 '>
-    <input type='hidden' name='MAX_FILE_SIZE' value='5000000'>
+		<input type='hidden' name='MAX_FILE_SIZE' value='5000000'>
     </form>
     <div class='signup_photo_desc'>
       <?php echo SELanguage::_get(715); ?> <?php echo $this->_tpl_vars['new_user']->level_info['level_photo_exts']; ?>
 .
     </div>
-  </td>
-  </table>
 
   <br>
 
@@ -130,8 +107,8 @@ unset($_smarty_tpl_vars);
       <img src='<?php echo $this->_tpl_vars['new_user']->user_photo(); ?>
 ' border='0' class='photo'><br><br>
       <form action='signup.php' method='POST'>
-      <input type='submit' class='button' value='<?php echo SELanguage::_get(716); ?>'>
-      <input type='hidden' name='task' value='<?php echo $this->_tpl_vars['last_task']; ?>
+		  <input type='submit' class='button' value='<?php echo SELanguage::_get(716); ?>'>
+		  <input type='hidden' name='task' value='<?php echo $this->_tpl_vars['last_task']; ?>
 '>
       </form>
     </div>
@@ -139,8 +116,8 @@ unset($_smarty_tpl_vars);
     <div class='center'>
       <div style='font-size: 22px; font-weight: bold;'><?php echo SELanguage::_get(349); ?></div><br>
       <form action='signup.php' method='POST'>
-      <input type='submit' class='button' value='<?php echo SELanguage::_get(717); ?>'>
-      <input type='hidden' name='task' value='<?php echo $this->_tpl_vars['last_task']; ?>
+		  <input type='submit' class='button' value='<?php echo SELanguage::_get(717); ?>'>
+		  <input type='hidden' name='task' value='<?php echo $this->_tpl_vars['last_task']; ?>
 '>
       </form>
     </div>
@@ -152,17 +129,12 @@ unset($_smarty_tpl_vars);
 
 
 <?php elseif ($this->_tpl_vars['step'] == 2): ?>
-  <img src='./images/icons/signup48.gif' border='0' class='icon_big'>
-  <div class='page_header'><?php echo SELanguage::_get(710); ?></div>
+ <h1><?php echo SELanguage::_get(710); ?></h1>
   <div><?php echo SELanguage::_get(711); ?></div><br>
   <br><br>
 
     <?php if ($this->_tpl_vars['is_error'] != 0): ?>
-    <table cellpadding='0' cellspacing='0'>
-    <tr><td class='result'>
       <div class='error'><img src='./images/error.gif' border='0' class='icon'> <?php echo SELanguage::_get($this->_tpl_vars['is_error']); ?></div>
-    </td></tr></table>
-    <br>
   <?php endif; ?>
 
     <?php echo '
@@ -845,8 +817,7 @@ _option<?php echo $this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']
 
 
 <?php else: ?>
-  <img src='./images/icons/signup48.gif' border='0' class='icon_big' />
-  <div class='page_header'><?php echo SELanguage::_get(679); ?></div>
+ <h1><?php echo SELanguage::_get(679); ?></h1>
   <div><?php echo SELanguage::_get(680); ?></div>
   <br />
   <br />
@@ -866,39 +837,22 @@ _option<?php echo $this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']
   <?php endif; ?>
 
   <form action='signup.php' method='POST'>
-  <div class='signup_header'><?php echo SELanguage::_get(681); ?></div>
-  <table cellpadding='0' cellspacing='0'>
-    <tr>
-      <td class='form1' width='100'><?php echo SELanguage::_get(37); ?></td>
-      <td class='form2'>
-        <input name='signup_email' type='text' class='text' maxlength='70' size='40' value='<?php echo $this->_tpl_vars['signup_email']; ?>
-' />
-        <div class='form_desc'><?php echo SELanguage::_get(682); ?></div>
-      </td>
-    </tr>
+  <h1><?php echo SELanguage::_get(681); ?></h1>
+        <div class="input"><label><?php echo SELanguage::_get(37); ?></label><input name='signup_email' type='text' class='text' maxlength='70' size='40' value='<?php echo $this->_tpl_vars['signup_email']; ?>
+' /></div>
+        <!-- <div class='form_desc'><?php echo SELanguage::_get(682); ?></div> -->
 
   <?php if ($this->_tpl_vars['setting']['setting_signup_randpass'] == 0): ?>
-    <tr>
-      <td class='form1'><?php echo SELanguage::_get(29); ?>:</td>
-      <td class='form2'>
-        <input name='signup_password' type='password' class='text' maxlength='50' size='40' value='<?php echo $this->_tpl_vars['signup_password']; ?>
-'>
-        <div class='form_desc'><?php echo SELanguage::_get(53); ?></div>
-      </td>
-    </tr>
-    <tr>
-      <td class='form1'><?php echo SELanguage::_get(266); ?>:</td>
-      <td class='form2'>
-        <input name='signup_password2' type='password' class='text' maxlength='50' size='40' value='<?php echo $this->_tpl_vars['signup_password2']; ?>
-'>
-        <div class='form_desc'><?php echo SELanguage::_get(683); ?></div>
-      </td>
-    </tr>
+        <div class="input"><label><?php echo SELanguage::_get(29); ?></label><input name='signup_password' type='password' class='text' maxlength='50' size='40' value='<?php echo $this->_tpl_vars['signup_password']; ?>
+' /></div>
+        <!-- <div class='form_desc'><?php echo SELanguage::_get(53); ?></div> -->
+        <div class="input"><label><?php echo SELanguage::_get(266); ?></label><input name='signup_password2' type='password' class='text' maxlength='50' size='40' value='<?php echo $this->_tpl_vars['signup_password2']; ?>
+' /></div>
+        <!-- <div class='form_desc'><?php echo SELanguage::_get(683); ?></div> -->
   <?php else: ?>
     <input type='hidden' name='signup_password' value=''>
     <input type='hidden' name='signup_password2' value=''>
   <?php endif; ?>
-  </table>
   <br />
   
   
@@ -1056,7 +1010,7 @@ $this->_sections['lang_loop']['last']       = ($this->_sections['lang_loop']['it
           <tr>
             <td><input type='text' name='signup_secure' class='text' size='6' maxlength='10'>&nbsp;</td>
             <td>
-              <table cellpadding='0' cellspacing='0'>
+              <t	able cellpadding='0' cellspacing='0'>
                 <tr>
                   <td align='center'>
                     <img src='./images/secure.php' id='secure_image' border='0' height='20' width='67' class='signup_code'><br />
@@ -1100,9 +1054,23 @@ $this->_sections['lang_loop']['last']       = ($this->_sections['lang_loop']['it
 '>
   </form>
 
-<?php endif; 
- $_smarty_tpl_vars = $this->_tpl_vars;
-$this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
+<?php endif; ?>
+
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="b"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div id="clearfooter"></div>
+</div>
+<?php $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include(array('smarty_include_tpl_file' => 'footer_without_left_menu.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>

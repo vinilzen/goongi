@@ -54,8 +54,7 @@
     {/literal}
     
     {* SHOW PROFILE TAB BUTTONS *}<!-- SHOW PROFILE TAB BUTTONS start -->
-    <table cellpadding='0' cellspacing='0'>
-    <tr>
+    <table cellpadding='0' cellspacing='0'> <tr>
     <td valign='bottom'><table cellpadding='0' cellspacing='0'><tr><td class='profile_tab{if $v == 'profile'}2{/if}' id='profile_tabs_profile' onMouseUp="this.blur()"><a href='javascript:void(0);' onMouseDown="loadProfileTab('profile')" onMouseUp="this.blur()">{lang_print id=652}</a></td></tr></table></td>
     {if $total_friends_all != 0}<td valign='bottom'><table cellpadding='0' cellspacing='0'><td class='profile_tab{if $v == 'friends'}2{/if}' id='profile_tabs_friends' onMouseUp="this.blur()"><a href='javascript:void(0);' onMouseDown="loadProfileTab('friends');" onMouseUp="this.blur()">{lang_print id=653}</a></td></tr></table></td>{/if}
     {if $allowed_to_comment != 0 || $total_comments != 0}<td valign='bottom'><table cellpadding='0' cellspacing='0'><td class='profile_tab{if $v == 'comments'}2{/if}' id='profile_tabs_comments' onMouseUp="this.blur()"><a href='javascript:void(0);' onMouseDown="loadProfileTab('comments');SocialEngine.ProfileComments.getComments(1)" onMouseUp="this.blur()">{lang_print id=854}</a></td></tr></table></td>{/if}
@@ -328,7 +327,9 @@
         
         {* COMMENTS *}
         <div id="profile_{$owner->user_info.user_id}_postcomment"></div>
-        <div id="profile_{$owner->user_info.user_id}_comments" style='margin-left: auto; margin-right: auto;'></div>
+		<h2>Записи на стене</h2>
+		<ul class="comments wall">
+			<li><div id="profile_{$owner->user_info.user_id}_comments" style='margin-left: auto; margin-right: auto;'></div></li>
         
         {lang_javascript ids=39,155,175,182,183,184,185,187,784,787,829,830,831,832,833,834,835,854,856,891,1025,1026,1032,1034,1071}
         
@@ -400,7 +401,7 @@
     {/hook_foreach}
     
     
-  {/if}
+
   {* END PRIVACY IF STATEMENT *}
 
   </div>

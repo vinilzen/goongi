@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-31 18:56:20
+<?php /* Smarty version 2.6.14, created on 2011-11-04 17:11:52
          compiled from invite.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'invite.tpl', 90, false),)), $this);
@@ -12,21 +12,22 @@ unset($_smarty_tpl_vars);
  ?>
 
 
-<img src='./images/icons/invite48.gif' border='0' class='icon_big'>
-<div class='page_header'><?php echo SELanguage::_get(1074); ?></div>
+<div class="all">
+	<div class="center_one">
+		<div class="block3">
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">
+						<div class="form auth">
+							<h1><?php echo SELanguage::_get(1074); ?></h1>
 <div><?php echo SELanguage::_get(1075); ?></div>
 <?php if ($this->_tpl_vars['setting']['setting_signup_invite'] == 2): ?> <?php echo SELanguage::_get(1078); 
  endif; ?>
 <br />
 <br />
 
-<?php if ($this->_tpl_vars['result'] != 0): ?>
-  <table cellpadding='0' cellspacing='0'>
-  <tr>
-  <td class='success'><img src='./images/success.gif' border='0' class='icon'><?php echo SELanguage::_get($this->_tpl_vars['result']); ?></td>
-  </tr>
-  </table>
-<?php endif; 
+<?php if ($this->_tpl_vars['result'] != 0): ?><img src='./images/success.gif' border='0' class='icon'><?php echo SELanguage::_get($this->_tpl_vars['result']); 
+ endif; 
  if ($this->_tpl_vars['setting']['setting_signup_invite'] == 2 && $this->_tpl_vars['user']->user_exists == 0): ?>
 
   <table cellpadding='0' cellspacing='0'>
@@ -71,7 +72,7 @@ unset($_smarty_tpl_vars);
   <tr>
   <td class='form1'><?php echo SELanguage::_get(1079); ?></td>
   <td class='form2'>
-  <textarea name='invite_emails' rows='2' cols='60'><?php echo $this->_tpl_vars['invite_emails']; ?>
+  <textarea name='invite_emails' rows='2' cols='45''><?php echo $this->_tpl_vars['invite_emails']; ?>
 </textarea><br>
   <?php echo SELanguage::_get(1080); ?>
   </td>
@@ -79,7 +80,7 @@ unset($_smarty_tpl_vars);
   <tr>
   <td class='form1'><?php echo SELanguage::_get(1081); ?></td>
   <td class='form2'>
-  <textarea name='invite_message' rows='5' cols='60'><?php echo $this->_tpl_vars['invite_message']; ?>
+  <textarea name='invite_message' rows='5' cols='45''><?php echo $this->_tpl_vars['invite_message']; ?>
 </textarea><br>
   <?php echo SELanguage::_get(1082); ?>
   </td>
@@ -111,8 +112,21 @@ unset($_smarty_tpl_vars);
   </form>
 <?php endif; ?>
   
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="b"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div id="clearfooter"></div>
+</div>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
-$this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
+$this->_smarty_include(array('smarty_include_tpl_file' => 'footer_without_left_menu.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>

@@ -1,11 +1,10 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-02 12:17:26
+<?php /* Smarty version 2.6.14, created on 2011-11-04 12:09:37
          compiled from footer.tpl */
 ?><?php
 SELanguage::_preload_multi(6000146);
 SELanguage::load();
-?>﻿
-
-    <?php if ($this->_tpl_vars['ads']->ad_bottom != ""): ?>
+?>
+    <?php if ($this->_tpl_vars['ads']->ad_bottom != "" && 0): ?>
     <div class='ad_bottom' style='display: block; visibility: visible;'>
       <?php echo $this->_tpl_vars['ads']->ad_bottom; ?>
 
@@ -15,16 +14,10 @@ SELanguage::load();
 </div>
 
 
-</td>
-<?php if ($this->_tpl_vars['ads']->ad_right != ""): ?>
-  <td valign='top'><div class='ad_right' width='1' style='display: table-cell; visibility: visible;'><?php echo $this->_tpl_vars['ads']->ad_right; ?>
-</div></td>
+<?php if ($this->_tpl_vars['ads']->ad_right != "" && 0): ?>
+  <div class='ad_right' width='1' style='display: table-cell; visibility: visible;'><?php echo $this->_tpl_vars['ads']->ad_right; ?>
+</div>
 <?php endif; ?>
-</tr>
-</table>
-
-
-			</div>
             <div class="left_small">
             	<div class="left_c">
 					<!-- start USER MENU -->

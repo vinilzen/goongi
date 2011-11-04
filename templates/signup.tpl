@@ -1,18 +1,22 @@
 {include file='header.tpl'}
 
 {* $Id: signup.tpl 235 2009-11-13 04:30:39Z phil $ *}
-
+<div class="all">
+	<div class="center_one">
+		<div class="block3">
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">
+						<div class="form auth">
 {if $step == 5}
 {* SHOW COMPLETION PAGE *}
-  <img src='./images/icons/signup48.gif' border='0' class='icon_big'>
-  <div class='page_header'>{lang_print id=729}</div>
+
+ <h1>{lang_print id=729}</h1>
   <div>{lang_print id=730}
   {if $setting.setting_signup_enable == 0}{lang_print id=731}{/if}
   {if $setting.setting_signup_randpass == 1}{lang_print id=732}{/if}
   {if $setting.setting_signup_verify == 0}{lang_print id=733}{else}{lang_print id=734}{/if}
   </div>
-  <br />
-  <br />
   
   {if $setting.setting_signup_verify == 0 && $setting.setting_signup_enable != 0 && $setting.setting_signup_randpass == 0}
     <form action='login.php' method='GET'>
@@ -27,47 +31,29 @@
 
 {* SHOW STEP FOUR *}
 {elseif $step == 4}
-  <img src='./images/icons/signup48.gif' border='0' class='icon_big'>
-  <div class='page_header'>{lang_print id=722}</div>
+ <h1>{lang_print id=722}</h1>
   <div>{lang_print id=723}</div>
   <br />
   <br />
 
-  <form action='signup.php' method='POST'>
-  <table cellpadding='0' cellspacing='0' class='form'>
-  <tr>
-    <td>
-      <b>{lang_print id=724}</b>
-      <div>{lang_print id=725}</div>
-      <textarea name='invite_emails' rows='3' cols='70' style='margin-top: 3px;'></textarea><br><br>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <b>{lang_print id=726}</b>
-      <div>{lang_print id=727}</div>
-      <textarea name='invite_message' rows='3' cols='70' style='margin-top: 3px;'></textarea>
-    </td>
-  </tr>
-  </table>
+<form action='signup.php' method='POST'>
+	<b>{lang_print id=724}</b>
+	<div>{lang_print id=725}</div>
+	<textarea name='invite_emails' rows='3' cols='70' style='margin-top: 3px;'></textarea><br><br>
 
-  <br>
+	<b>{lang_print id=726}</b>
+	<div>{lang_print id=727}</div>
+	<textarea name='invite_message' rows='3' cols='70' style='margin-top: 3px;'></textarea>
 
-  <table cellpadding='0' cellspacing='0'>
-  <tr>
-  <td>
-    <input type='submit' class='button' value='{lang_print id=728}'>&nbsp;
-    <input type='hidden' name='task' value='{$next_task}'>
-    </form>
-  </td>
-  <td>
-    <form action='signup.php' method='POST'><input type='submit' class='button' value='{lang_print id=717}'>
-    <input type='hidden' name='task' value='{$next_task}'>
-    <input type='hidden' name='step' value='{$step}'>
-    </form>
-  </td>
-  </tr>
-  </table>
+	<input type='submit' class='button' value='{lang_print id=728}'>&nbsp;
+	<input type='hidden' name='task' value='{$next_task}'>
+</form>
+
+<form action='signup.php' method='POST'><input type='submit' class='button' value='{lang_print id=717}'>
+	<input type='hidden' name='task' value='{$next_task}'>
+	<input type='hidden' name='step' value='{$step}'>
+</form>
+
 
 
 
@@ -75,35 +61,24 @@
 
 {* SHOW STEP THREE *}
 {elseif $step == 3}
-  <img src='./images/icons/signup48.gif' border='0' class='icon_big'>
-  <div class='page_header'>{lang_print id=712}</div>
+ <h1>{lang_print id=712}</h1>
   <div>{lang_print id=713}</div><br>
   <br>
 
   {* SHOW ERROR MESSAGE *}
   {if $is_error != 0}
-    <table cellpadding='0' cellspacing='0'>
-    <tr><td class='result'>
-      <div class='error'><img src='./images/error.gif' border='0' class='icon'> {lang_print id=$is_error}</div>
-    </td></tr></table>
-    <br>
+      <div class='error'>{lang_print id=$is_error}</div>
   {/if}
-
-  <table cellpadding='0' cellspacing='0' align='center' width='450'>
-  <tr>
-  <td class='signup_photo'>
     <form action='signup.php' method='POST' enctype='multipart/form-data'>
-    <input type='file' class='text' name='photo' size='40'>
-    <input type='submit' class='button' value='{lang_print id=714}'>
-    <input type='hidden' name='step' value='{$step}'>
-    <input type='hidden' name='task' value='{$next_task}'>
-    <input type='hidden' name='MAX_FILE_SIZE' value='5000000'>
+		<input type='file' class='text' name='photo' size='40'>
+		<input type='submit' class='button' value='{lang_print id=714}'>
+		<input type='hidden' name='step' value='{$step}'>
+		<input type='hidden' name='task' value='{$next_task}'>
+		<input type='hidden' name='MAX_FILE_SIZE' value='5000000'>
     </form>
     <div class='signup_photo_desc'>
       {lang_print id=715} {$new_user->level_info.level_photo_exts}.
     </div>
-  </td>
-  </table>
 
   <br>
 
@@ -112,16 +87,16 @@
     <div class='center'>
       <img src='{$new_user->user_photo()}' border='0' class='photo'><br><br>
       <form action='signup.php' method='POST'>
-      <input type='submit' class='button' value='{lang_print id=716}'>
-      <input type='hidden' name='task' value='{$last_task}'>
+		  <input type='submit' class='button' value='{lang_print id=716}'>
+		  <input type='hidden' name='task' value='{$last_task}'>
       </form>
     </div>
   {else}
     <div class='center'>
       <div style='font-size: 22px; font-weight: bold;'>{lang_print id=349}</div><br>
       <form action='signup.php' method='POST'>
-      <input type='submit' class='button' value='{lang_print id=717}'>
-      <input type='hidden' name='task' value='{$last_task}'>
+		  <input type='submit' class='button' value='{lang_print id=717}'>
+		  <input type='hidden' name='task' value='{$last_task}'>
       </form>
     </div>
   {/if}
@@ -133,18 +108,13 @@
 
 {* SHOW STEP TWO *}
 {elseif $step == 2}
-  <img src='./images/icons/signup48.gif' border='0' class='icon_big'>
-  <div class='page_header'>{lang_print id=710}</div>
+ <h1>{lang_print id=710}</h1>
   <div>{lang_print id=711}</div><br>
   <br><br>
 
   {* SHOW ERROR MESSAGE *}
   {if $is_error != 0}
-    <table cellpadding='0' cellspacing='0'>
-    <tr><td class='result'>
       <div class='error'><img src='./images/error.gif' border='0' class='icon'> {lang_print id=$is_error}</div>
-    </td></tr></table>
-    <br>
   {/if}
 
   {* JAVASCRIPT FOR SHOWING DEP FIELDS *}
@@ -417,8 +387,7 @@
 
 {* SHOW STEP ONE *}
 {else}
-  <img src='./images/icons/signup48.gif' border='0' class='icon_big' />
-  <div class='page_header'>{lang_print id=679}</div>
+ <h1>{lang_print id=679}</h1>
   <div>{lang_print id=680}</div>
   <br />
   <br />
@@ -439,36 +408,19 @@
   {/if}
 
   <form action='signup.php' method='POST'>
-  <div class='signup_header'>{lang_print id=681}</div>
-  <table cellpadding='0' cellspacing='0'>
-    <tr>
-      <td class='form1' width='100'>{lang_print id=37}</td>
-      <td class='form2'>
-        <input name='signup_email' type='text' class='text' maxlength='70' size='40' value='{$signup_email}' />
-        <div class='form_desc'>{lang_print id=682}</div>
-      </td>
-    </tr>
+  <h1>{lang_print id=681}</h1>
+        <div class="input"><label>{lang_print id=37}</label><input name='signup_email' type='text' class='text' maxlength='70' size='40' value='{$signup_email}' /></div>
+        <!-- <div class='form_desc'>{lang_print id=682}</div> -->
 
   {if $setting.setting_signup_randpass == 0}
-    <tr>
-      <td class='form1'>{lang_print id=29}:</td>
-      <td class='form2'>
-        <input name='signup_password' type='password' class='text' maxlength='50' size='40' value='{$signup_password}'>
-        <div class='form_desc'>{lang_print id=53}</div>
-      </td>
-    </tr>
-    <tr>
-      <td class='form1'>{lang_print id=266}:</td>
-      <td class='form2'>
-        <input name='signup_password2' type='password' class='text' maxlength='50' size='40' value='{$signup_password2}'>
-        <div class='form_desc'>{lang_print id=683}</div>
-      </td>
-    </tr>
+        <div class="input"><label>{lang_print id=29}</label><input name='signup_password' type='password' class='text' maxlength='50' size='40' value='{$signup_password}' /></div>
+        <!-- <div class='form_desc'>{lang_print id=53}</div> -->
+        <div class="input"><label>{lang_print id=266}</label><input name='signup_password2' type='password' class='text' maxlength='50' size='40' value='{$signup_password2}' /></div>
+        <!-- <div class='form_desc'>{lang_print id=683}</div> -->
   {else}
     <input type='hidden' name='signup_password' value=''>
     <input type='hidden' name='signup_password2' value=''>
   {/if}
-  </table>
   <br />
   
   
@@ -572,7 +524,7 @@
           <tr>
             <td><input type='text' name='signup_secure' class='text' size='6' maxlength='10'>&nbsp;</td>
             <td>
-              <table cellpadding='0' cellspacing='0'>
+              <t	able cellpadding='0' cellspacing='0'>
                 <tr>
                   <td align='center'>
                     <img src='./images/secure.php' id='secure_image' border='0' height='20' width='67' class='signup_code'><br />
@@ -613,5 +565,17 @@
 
 {/if}
 
-
-{include file='footer.tpl'}
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="b"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div id="clearfooter"></div>
+</div>
+{include file='footer_without_left_menu.tpl'}

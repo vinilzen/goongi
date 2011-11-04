@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-31 19:13:12
+<?php /* Smarty version 2.6.14, created on 2011-11-04 12:41:44
          compiled from user_home.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'user_home.tpl', 79, false),array('modifier', 'choptext', 'user_home.tpl', 79, false),array('modifier', 'count', 'user_home.tpl', 109, false),array('function', 'math', 'user_home.tpl', 205, false),array('block', 'hook_foreach', 'user_home.tpl', 245, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'user_home.tpl', 78, false),array('modifier', 'choptext', 'user_home.tpl', 78, false),array('modifier', 'count', 'user_home.tpl', 105, false),array('function', 'math', 'user_home.tpl', 199, false),array('block', 'hook_foreach', 'user_home.tpl', 241, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(737,1070,1069,173,39,1068,738,739,740,741,1064,1182,1063,773,1113,743,744,745,746,747,742,664,665,977,976,1176,1180);
 SELanguage::load();
@@ -12,10 +12,10 @@ unset($_smarty_tpl_vars);
  ?>
 
 
-<table cellpadding='0' cellspacing='0' width='100%'>
-  <tr>
-    
-        <td class='home_left'>
+<div class="all">
+            	<div class="center_all">
+                	<div class="block4">
+                        <div class="c">
       
       
             <div style='margin-bottom: 7px;'>
@@ -174,17 +174,14 @@ $this->_sections['action_media_loop']['last']       = ($this->_sections['action_
           <?php echo SELanguage::_get(738); ?>
         <?php endif; ?>
       </div>
-    </td>
+
     
-        <td class='home_right' width='220'>
-      
-        
+          
+       
+	  <?php if (0): ?>
       <table cellpadding='0' cellspacing='0' width='100%'>
-        <tr>
-          <td class='header'><?php echo SELanguage::_get(739); ?></td>
-        </tr>
-        <tr>
-          <td class='home_box'>
+        <tr> <td class='header'><?php echo SELanguage::_get(739); ?></td> </tr>
+        <tr> <td class='home_box'>
                         <div>
               <img src='./images/icons/newviews16.gif' border='0' class='icon' />
               <?php echo sprintf(SELanguage::_get(740), $this->_tpl_vars['profile_views']); ?>
@@ -233,12 +230,10 @@ $this->_sections['viewer_loop']['last']       = ($this->_sections['viewer_loop']
               <?php endif; ?>
               <?php endif; ?>
             </div>
-          </td>
-        </tr>
+          </td> </tr>
       </table>
-      <div class='spacer10'></div>
-      
-            <?php if ($this->_tpl_vars['user']->level_info['level_profile_status'] != 0): ?>
+      <?php endif; ?>
+            <?php if ($this->_tpl_vars['user']->level_info['level_profile_status'] != 0 && 0): ?>
       
         <?php 
 $javascript_lang_import_list = SELanguage::_javascript_redundancy_filter(array(773,1113,743,744,745,746,747));
@@ -304,8 +299,7 @@ if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_lis
         <div class='spacer10'></div>
       <?php endif; ?>
       
-      
-            <?php if (count($this->_tpl_vars['news']) > 0): ?>
+            <?php if (count($this->_tpl_vars['news']) > 0 && 0): ?>
         <table cellpadding='0' cellspacing='0' width='100%'>
           <tr>
             <td class='header'><?php echo SELanguage::_get(664); ?></td>
@@ -357,7 +351,8 @@ $this->_sections['news_loop']['last']       = ($this->_sections['news_loop']['it
       <?php endif; ?>
       
       
-            <?php echo smarty_function_math(array('assign' => 'total_online_users','equation' => "x+y",'x' => count($this->_tpl_vars['online_users'][0]),'y' => $this->_tpl_vars['online_users'][1]), $this);?>
+      	  <?php if (0): ?>
+      <?php echo smarty_function_math(array('assign' => 'total_online_users','equation' => "x+y",'x' => count($this->_tpl_vars['online_users'][0]),'y' => $this->_tpl_vars['online_users'][1]), $this);?>
 
       <?php if ($this->_tpl_vars['total_online_users'] > 0): ?>
         <table cellpadding='0' cellspacing='0' class='portal_table' align='center' width='100%'>
@@ -407,8 +402,10 @@ $this->_sections['online_loop']['last']       = ($this->_sections['online_loop']
           </tr>
         </table>
               <?php endif; ?>
+      <?php endif; ?>
       
-            <div class='header'><?php echo SELanguage::_get(1176); ?></div>
+      	  <?php if (0): ?>
+      <div class='header'><?php echo SELanguage::_get(1176); ?></div>
       <div class='network_content'>
         <?php unset($this->_sections['birthday_loop']);
 $this->_sections['birthday_loop']['name'] = 'birthday_loop';
@@ -448,7 +445,7 @@ $this->_sections['birthday_loop']['last']       = ($this->_sections['birthday_lo
         <?php endif; ?>
       </div>
       <div class='spacer10'></div>
-      
+      <?php endif; ?>
             <?php $this->_tag_stack[] = array('hook_foreach', array('name' => 'user_home','var' => 'user_home_args')); $_block_repeat=true;smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>
         <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => $this->_tpl_vars['user_home_args']['file'], 'smarty_include_vars' => array()));
@@ -456,9 +453,11 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
       <?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?>
-    </td>
-  </tr>
-</table>
+			</div>
+			<div class="b"></div>
+		</div>
+	</div>
+</div>
 
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));

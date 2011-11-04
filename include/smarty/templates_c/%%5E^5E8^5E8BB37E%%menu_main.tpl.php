@@ -1,11 +1,11 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-02 12:23:12
+<?php /* Smarty version 2.6.14, created on 2011-11-02 18:08:38
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 88, false),array('modifier', 'escape', 'menu_main.tpl', 174, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(1204,1161,1162,652,1163,1164,1165,1166,654,784,1167,1168,1169,653,1170,1171,1172,655,1173,1174,876,838,887,885,875,837,839,857,840,869,841,868,842,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850);
 SELanguage::load();
-?>﻿    <?php if ($this->_tpl_vars['total_photo_tags'] != 0 && 0): ?>
+?>    <?php if ($this->_tpl_vars['total_photo_tags'] != 0 && 0): ?>
    <a href='profile_photos.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
 '><img src='./images/icons/photos16.gif' class='icon' border='0'><?php echo sprintf(SELanguage::_get(1204), $this->_tpl_vars['owner']->user_displayname_short, $this->_tpl_vars['total_photo_tags']); ?></a>
     <?php $this->assign('showmenu', '1'); ?>
@@ -207,8 +207,6 @@ function SwapBack(id1) {
 
         <a href='<?php echo $this->_tpl_vars['profile_menu_args']['file']; ?>
 '>
-          <img src='./images/icons/<?php echo $this->_tpl_vars['profile_menu_args']['icon']; ?>
-' class='icon' border='0' />
           <?php echo sprintf(SELanguage::_get($this->_tpl_vars['profile_menu_args']['title']), $this->_tpl_vars['profile_menu_args']['title_1'], $this->_tpl_vars['profile_menu_args']['title_2']); ?>
         </a>
 

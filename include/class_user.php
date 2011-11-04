@@ -113,8 +113,7 @@ class SEUser
     $user_unique_email = ( !empty($user_unique[2]) ? $user_unique[2] : NULL );
 	  
 	  // VERIFY USER_ID/USER_USERNAME/USER_EMAIL IS VALID AND SET APPROPRIATE OBJECT VARIABLES
-	  if( $user_unique_id || $user_unique_username || $user_unique_email )
-    {
+	  if( $user_unique_id || $user_unique_username || $user_unique_email ) {
 	    // SET USERNAME AND EMAIL TO LOWERCASE
 	    $user_username = strtolower($user_unique_username);
 	    $user_email = strtolower($user_unique_email);
@@ -182,6 +181,8 @@ class SEUser
 	      SE_Language::_preload($this->subnet_info['subnet_name']);
 	    }
 	  }
+
+		//var_dump($this->level_info); die();
 	}
   
   // END SEUser() METHOD
@@ -312,8 +313,7 @@ class SEUser
 
 
 
-  function &getProfileValues($user_id)
-  {
+  function &getProfileValues($user_id) {
     static $user_profiles;
     
     if( !is_array($user_profiles) ) $user_profiles = array();
@@ -1225,8 +1225,7 @@ class SEUser
 	  $new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
     
 	  // UPLOAD AND RESIZE PHOTO IF NO ERROR
-	  if( !$new_photo->is_error )
-    {
+	  if( !$new_photo->is_error ) {
 	    // DELETE OLD AVATAR IF EXISTS
 	    $this->user_photo_delete();
       
@@ -1234,18 +1233,14 @@ class SEUser
 	    $new_photo->upload_thumb($thumb_dest);
       
 	    // CHECK IF IMAGE RESIZING IS AVAILABLE, OTHERWISE MOVE UPLOADED IMAGE
-	    if( $new_photo->is_image )
-      {
+	    if( $new_photo->is_image ) {
 	      $new_photo->upload_photo($file_dest);
-	    }
-      else
-      {
+	    } else {
 	      $new_photo->upload_file($file_dest);
 	    }
       
 	    // UPDATE USER INFO WITH IMAGE IF STILL NO ERROR
-	    if( !$new_photo->is_error )
-      {
+	    if( !$new_photo->is_error ) {
 	      $database->database_query("UPDATE se_users SET user_photo='{$photo_newname}' WHERE user_id='{$this->user_info['user_id']}' LIMIT 1");
 	      $this->user_info['user_photo'] = $photo_newname;
 	    }
