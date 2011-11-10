@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-01 15:15:31
+<?php /* Smarty version 2.6.14, created on 2011-11-10 12:08:39
          compiled from user_editprofile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'user_editprofile.tpl', 95, false),array('modifier', 'in_array', 'user_editprofile.tpl', 236, false),)), $this);
@@ -685,10 +685,6 @@ _option<?php echo $this->_tpl_vars['fields'][$this->_sections['field_loop']['ind
 </tr>
 </form>
 </table>
-
-
-
-
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
