@@ -44,6 +44,7 @@ else
   error_reporting(E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_USER_ERROR);
 }
 
+
 // BENCHMARK
 include "include/class_benchmark.php";
 $_benchmark = SEBenchmark::getInstance('default');

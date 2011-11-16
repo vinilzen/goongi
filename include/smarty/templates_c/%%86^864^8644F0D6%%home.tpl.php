@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-04 16:46:08
+<?php /* Smarty version 2.6.14, created on 2011-11-15 17:53:15
          compiled from home.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'home.tpl', 47, false),array('modifier', 'replace', 'home.tpl', 78, false),array('modifier', 'choptext', 'home.tpl', 78, false),array('modifier', 'regex_replace', 'home.tpl', 160, false),array('modifier', 'truncate', 'home.tpl', 160, false),array('function', 'math', 'home.tpl', 136, false),array('function', 'cycle', 'home.tpl', 157, false),)), $this);
@@ -336,7 +336,7 @@ $this->_sections['login_loop']['last']       = ($this->_sections['login_loop']['
 			<div class="c">
 				<div class="form_login">
 					<h1><?php echo SELanguage::_get(6000142); ?><!-- Войти на сайт --></h1>
-					<form action='login.php' method='post'>
+					<form action='login.php' name="login" method='post'>
 						<div class="input"><label><?php echo SELanguage::_get(28); ?><!-- Логин --></label><input type="text" value='<?php echo $this->_tpl_vars['prev_email']; ?>
 ' name="email"  size='25' maxlength='100' /></div>
 						
@@ -345,6 +345,7 @@ $this->_sections['login_loop']['last']       = ($this->_sections['login_loop']['
 						<div class="check"><label><input type='checkbox' class='checkbox' name='persistent' value='1' id='rememberme' /><span><?php echo SELanguage::_get(660); ?><!-- Запомнить меня --></span></label></div>
 						
 						<span class="button1"><span class="l">&nbsp;</span><span class="c"><input type="submit" value='<?php echo SELanguage::_get(30); ?>' /></span><span class="r">&nbsp;</span></span>
+						<input type="hidden" name="task" value="dologin">
 					</form>
 					<a href="#" class="reg"><?php echo SELanguage::_get(6000143); ?><!-- Зарегистрироваться --></a>
 				</div>

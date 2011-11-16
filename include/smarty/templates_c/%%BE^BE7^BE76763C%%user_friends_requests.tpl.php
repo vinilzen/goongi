@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-01 16:13:07
+<?php /* Smarty version 2.6.14, created on 2011-11-16 14:20:26
          compiled from user_friends_requests.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends_requests.tpl', 50, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends_requests.tpl', 57, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(894,895,896,909,910,182,184,185,183,509,849,906,882,907,887,911,784,839);
+SELanguage::_preload_multi(895,894,896,909,910,182,184,185,183,509,849,906,882,907,887,911,784,839);
 SELanguage::load();
 ?><?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -11,7 +11,14 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-
+<div class="all">
+	<div class="center_all">
+		<div class="block4">
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">
+						<h1><?php echo SELanguage::_get(895); ?><!-- Со мной хотят дружить --></h1>
+						
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
 <td class='tab0'>&nbsp;</td>
@@ -144,7 +151,12 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
   <?php endif; ?>
   
 <?php endif; ?>  
-
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;

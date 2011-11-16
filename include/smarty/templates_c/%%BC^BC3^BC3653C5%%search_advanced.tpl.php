@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-02 11:48:35
+<?php /* Smarty version 2.6.14, created on 2011-11-16 15:15:12
          compiled from search_advanced.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'search_advanced.tpl', 39, false),array('modifier', 'date_format', 'search_advanced.tpl', 125, false),array('modifier', 'in_array', 'search_advanced.tpl', 165, false),array('modifier', 'truncate', 'search_advanced.tpl', 239, false),array('function', 'math', 'search_advanced.tpl', 125, false),array('function', 'cycle', 'search_advanced.tpl', 242, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'search_advanced.tpl', 42, false),array('modifier', 'date_format', 'search_advanced.tpl', 128, false),array('modifier', 'in_array', 'search_advanced.tpl', 168, false),array('modifier', 'truncate', 'search_advanced.tpl', 242, false),array('function', 'math', 'search_advanced.tpl', 128, false),array('function', 'cycle', 'search_advanced.tpl', 245, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(1087,1088,1083,1084,1114,1089,736,1116,1117,1091,1092,1093,1094,1095,1096,1122,1121,1090,1085,182,184,185,183,509,1086);
 SELanguage::load();
@@ -9,18 +9,23 @@ SELanguage::load();
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
- 
- if ($this->_tpl_vars['showfields'] == 1): ?>
-  <img src='./images/icons/search48.gif' border='0' class='icon_big'>
+ ?>
+
+<div class="all">
+	<div class="center_all">
+		<div class="block4">
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">
+						<h1><?php echo SELanguage::_get(1087); ?><!-- Поиск по сайту --></h1>
+						(<?php echo SELanguage::_get(1088); ?>)
+<?php if ($this->_tpl_vars['showfields'] == 1): ?>
   <div class='page_header'><?php echo SELanguage::_get(1087); ?></div>
-  <div><?php echo SELanguage::_get(1088); ?></div>
+  <div></div>
 <?php elseif ($this->_tpl_vars['showfields'] == 0): ?>
-  <img src='./images/icons/search48.gif' border='0' class='icon_big'>
   <div class='page_header'><?php echo sprintf(SELanguage::_get(1083), ($this->_tpl_vars['linked_field_title']).": ".($this->_tpl_vars['linked_field_value'])); ?></div>
   <div><?php echo sprintf(SELanguage::_get(1084), $this->_tpl_vars['total_users'], ($this->_tpl_vars['linked_field_title']).": ".($this->_tpl_vars['linked_field_value'])); ?></div>
 <?php endif; ?>
-
-<br><br>
 
 <table cellpadding='0' cellspacing='0' width='100%'>
 <tr>
@@ -679,7 +684,12 @@ cat_selected=<?php echo $this->_tpl_vars['cat_selected']; ?>
 </td>
 </tr>
 </table>
-
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;

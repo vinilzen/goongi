@@ -9,7 +9,7 @@ body		{margin:0; padding:0; color:#000;}
 * html #content			{height:100%;}
 html>body #minHeight	{float:left;width:0px;height:100%;}
 
-#clearfooter			{ clear:both; position:relative; height:266px;}
+#clearfooter			{ clear:both; /*position:relative;*/ height:266px;}
 #footer					{ margin:0 auto; clear:both; position:relative; height:266px;}
 
 
@@ -94,7 +94,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.block4 .b	{ width:732px; height:19px; overflow:hidden; background:url(../images/b4_b.jpg) no-repeat 0 0;}
 	.block4 .c	{ background:#fff;}
 	.block4 .bg_l	{ background:url(../images/b2_l.jpg) repeat-y 0 0;}
-	.block4 .bg_r	{ overflow:hidden; background:url(../images/b2_r.jpg) repeat-y 100% 0; padding:20px 35px 10px 34px;}
+	.block4 .bg_r	{ overflow:hidden; background:url(../images/b2_r.jpg) repeat-y 100% 0; padding:20px 35px 10px 34px;min-height:700px;}
 	
 	.center	{ margin:0 248px 0 252px;}
 	.center_one	{ width:538px; margin-left:223px;}

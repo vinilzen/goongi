@@ -1,19 +1,22 @@
 {include file='header.tpl'}
 
 {* $Id: search_advanced.tpl 217 2009-08-11 23:20:02Z phil $ *}
-
+<div class="all">
+	<div class="center_all">
+		<div class="block4">
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">
+						<h1>{lang_print id=1087}<!-- Поиск по сайту --></h1>
+						({lang_print id=1088})
 {* SHOW PAGE TITLE *}
 {if $showfields == 1}
-  <img src='./images/icons/search48.gif' border='0' class='icon_big'>
   <div class='page_header'>{lang_print id=1087}</div>
-  <div>{lang_print id=1088}</div>
+  <div></div>
 {elseif $showfields == 0}
-  <img src='./images/icons/search48.gif' border='0' class='icon_big'>
   <div class='page_header'>{lang_sprintf id=1083 1="`$linked_field_title`: `$linked_field_value`"}</div>
   <div>{lang_sprintf id=1084 1=$total_users 2="`$linked_field_title`: `$linked_field_value`"}</div>
 {/if}
-
-<br><br>
 
 <table cellpadding='0' cellspacing='0' width='100%'>
 <tr>
@@ -261,5 +264,10 @@
 </td>
 </tr>
 </table>
-
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {include file='footer.tpl'}

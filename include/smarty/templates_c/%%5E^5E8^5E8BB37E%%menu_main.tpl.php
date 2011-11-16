@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-02 18:08:38
+<?php /* Smarty version 2.6.14, created on 2011-11-15 18:55:29
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 88, false),array('modifier', 'escape', 'menu_main.tpl', 174, false),)), $this);
@@ -7,7 +7,7 @@ SELanguage::_preload_multi(1204,1161,1162,652,1163,1164,1165,1166,654,784,1167,1
 SELanguage::load();
 ?>    <?php if ($this->_tpl_vars['total_photo_tags'] != 0 && 0): ?>
    <a href='profile_photos.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-'><img src='./images/icons/photos16.gif' class='icon' border='0'><?php echo sprintf(SELanguage::_get(1204), $this->_tpl_vars['owner']->user_displayname_short, $this->_tpl_vars['total_photo_tags']); ?></a>
+'><?php echo sprintf(SELanguage::_get(1204), $this->_tpl_vars['owner']->user_displayname_short, $this->_tpl_vars['total_photo_tags']); ?></a>
     <?php $this->assign('showmenu', '1'); ?>
   <?php endif; ?>
 
@@ -73,7 +73,7 @@ function SwapBack(id1) {
 	<div class="bg">
 		<div class="c">
 			<div class="pro">
-				<div><img src="<?php echo $this->_tpl_vars['owner']->user_photo("./images/nophoto.gif"); ?>
+				<div><img src="<?php echo $this->_tpl_vars['user']->user_photo("./images/nophoto.gif"); ?>
 " alt="" /></div>
 					<ul>
 												<li><a href='user_home.php'><?php echo SELanguage::_get(1161); ?></a></li>
@@ -172,20 +172,20 @@ function SwapBack(id1) {
 &TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/addfriend16.gif' class='icon' border='0'><?php echo SELanguage::_get(885); ?></a></div>
         <div id='pendingfriend_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
 '<?php if ($this->_tpl_vars['is_friend_pending'] != 2): ?> style='display: none;'<?php endif; ?> class='nolink'><img src='./images/icons/addfriend16.gif' class='icon' border='0'><?php echo SELanguage::_get(875); ?></div>
-        <div id='removefriend_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
+       <!--  <div id='removefriend_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
 '<?php if ($this->_tpl_vars['is_friend'] == FALSE || $this->_tpl_vars['is_friend_pending'] != 0): ?> style='display: none;'<?php endif; ?>><a href="javascript:TB_show('<?php echo SELanguage::_get(837); ?>', 'user_friends_manage.php?task=remove&user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/remove_friend16.gif' class='icon' border='0'><?php echo SELanguage::_get(837); ?></a></div>
+&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/remove_friend16.gif' class='icon' border='0'><?php echo SELanguage::_get(837); ?></a></div> -->
       <?php $this->assign('showmenu', '1'); ?>
     <?php endif; ?>
     
-        <?php if (( $this->_tpl_vars['user']->level_info['level_message_allow'] == 2 || ( $this->_tpl_vars['user']->level_info['level_message_allow'] == 1 && $this->_tpl_vars['is_friend'] ) ) && $this->_tpl_vars['owner']->level_info['level_message_allow'] != 0): ?>
+        <?php if (0 && ( $this->_tpl_vars['user']->level_info['level_message_allow'] == 2 || ( $this->_tpl_vars['user']->level_info['level_message_allow'] == 1 && $this->_tpl_vars['is_friend'] ) ) && $this->_tpl_vars['owner']->level_info['level_message_allow'] != 0): ?>
       <a href="javascript:TB_show('<?php echo SELanguage::_get(784); ?>', 'user_messages_new.php?to_user=<?php echo ((is_array($_tmp=$this->_tpl_vars['owner']->user_displayname)) ? $this->_run_mod_handler('escape', true, $_tmp, 'url') : smarty_modifier_escape($_tmp, 'url')); ?>
 &to_id=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
 &TB_iframe=true&height=400&width=450', '', './images/trans.gif');"><img src='./images/icons/sendmessage16.gif' class='icon' border='0'><?php echo SELanguage::_get(839); ?></a>
       <?php $this->assign('showmenu', '1'); ?>
     <?php endif; ?>
     
-        <?php if ($this->_tpl_vars['user']->user_exists != 0): ?>
+        <?php if ($this->_tpl_vars['user']->user_exists != 0 && 0): ?>
       <a href="javascript:TB_show('<?php echo SELanguage::_get(857); ?>', 'user_report.php?return_url=<?php echo ((is_array($_tmp=$this->_tpl_vars['url']->url_current())) ? $this->_run_mod_handler('escape', true, $_tmp, 'url') : smarty_modifier_escape($_tmp, 'url')); ?>
 &TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/report16.gif' class='icon' border='0'><?php echo SELanguage::_get(840); ?></a>
       <?php $this->assign('showmenu', '1'); ?>
