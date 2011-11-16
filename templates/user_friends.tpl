@@ -1,7 +1,33 @@
 ﻿{include file='header.tpl'}
 
 {* $Id: user_friends.tpl 8 2009-01-11 06:02:53Z john $ *}
-
+<div class="all">
+	<div class="center_all">
+		<div class="block4">
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">
+						<h1>{lang_print id=894}<!-- Мои друзья --></h1>
+						<div class="crumb">
+							<a href="/">Главная</a>
+							<a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a>
+							<span>{lang_print id=894}<!-- Мои друзья --></span>
+						</div>
+						<div class="buttons">
+							<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Создать группу" name="creat" /></span><span class="r">&nbsp;</span></span>
+						</div>
+							<div class="group_list">
+								<h2>Список групп</h2>
+								<ul>
+									<li><a href="#">Vip</a></li>
+									<li><a href="#">Название группы</a></li>
+									<li><a href="#">Родственники</a></li>
+									<li><a href="#">Близкие друзья</a></li>
+									<li><a href="#">Коллеги</a></li>
+									<li><a href="#">Друзья по школе</a></li>
+									<li><a href="#">Друзья по вузу</a></li>
+								</ul>
+							</div>
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
 <td class='tab0'>&nbsp;</td>
@@ -13,12 +39,6 @@
 <td class='tab3'>&nbsp;</td>
 </tr>
 </table>
-
-<img src='./images/icons/friends48.gif' border='0' class='icon_big'>
-<div class='page_header'>{lang_print id=897}</div>
-<div>{lang_print id=898}</div>
-<br />
-<br />
 
 {* JAVASCRIPT FOR CREATING SUGGESTION BOX *}
 {literal}
@@ -120,36 +140,38 @@
     </div>
   {/if}
 
-  <div style='margin-left: auto; margin-right: auto; width: 850px;'> 
+  <div style='margin-left: auto; margin-right: auto; width: 850px;'>
+  <ul class="friends_list">
     {section name=friend_loop loop=$friends}
     {* LOOP THROUGH FRIENDS *}
-      <div class='friends_result' style='width: 398px; height: 100px; float: left; margin-left: 10px;'>
-        <table cellpadding='0' cellspacing='0'>
-        <tr>
-        <td class='friends_result0' style='width: 90px; text-align: center;'><a href='{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}'><img src='{$friends[friend_loop]->user_photo('./images/nophoto.gif')}' class='photo' width='{$misc->photo_size($friends[friend_loop]->user_photo('./images/nophoto.gif'),'90','90','w')}' border='0' alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}"></a></td>
-        <td class='friends_result1' width='100%' valign='top'>
-          <div class='friends_name'><a href='{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}'></a><a href='{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}'>{$friends[friend_loop]->user_displayname|truncate:30:"...":true|chunk_split:12:"<wbr>&shy;"}</a></div>
-	  <div class='friends_stats'>
-            {if $friends[friend_loop]->user_info.user_dateupdated != 0}<div>{lang_print id=849} {assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}</div>{/if}
-            {if $friends[friend_loop]->user_info.user_lastlogindate != 0}<div>{lang_print id=906} {assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}</div>{/if}
-            {if $show_details != 0}
-              {if $friends[friend_loop]->friend_type != ""}<div>{lang_print id=882} &nbsp;{$friends[friend_loop]->friend_type}</div>{/if}
-              {if $friends[friend_loop]->friend_explain != ""}<div>{lang_print id=907} &nbsp;{$friends[friend_loop]->friend_explain|truncate:30:"...":true}</div>{/if}
-            {/if}
-	  </div>
-        </td>
-        <td class='friends_result2' valign='top' nowrap='nowrap'>
-          <div>{if $show_details != 0}<a href="javascript:TB_show('{lang_print id=908}', 'user_friends_manage.php?user={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=908}</a></div>{/if}
-          <div><a href="javascript:TB_show('{lang_print id=837}', 'user_friends_manage.php?task=remove&user={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=889}</a></div>
-          <div><a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?to_user={$friends[friend_loop]->user_displayname}&to_id={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=839}</a></div>
-          <div><a href='profile.php?user={$friends[friend_loop]->user_info.user_username}&v=friends'>{assign var="user_displayname_short" value=$friends[friend_loop]->user_displayname_short|truncate:15:"...":true}{lang_sprintf id=836 1=$user_displayname_short}</a></div>
-        </td>
-        </tr>
-        </table>
-      </div>
+	<li>
+		<a href="{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}">
+			<img src='{$friends[friend_loop]->user_photo('./images/nophoto.gif')}' class='photo' width='{$misc->photo_size($friends[friend_loop]->user_photo('./images/nophoto.gif'),'90','90','w')}' border='0' alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}">
+		</a>
+		<div>
+			<p><a href="#">vip</a><a href="#">название группы</a></p>
+			<a href='{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}'></a>
+			<a href='{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}'>
+				{$friends[friend_loop]->user_displayname|truncate:30:"...":true}
+			</a>
+			
+			<div class='friends_stats'>
+			{if $friends[friend_loop]->user_info.user_dateupdated != 0}<div>{lang_print id=849} {assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}</div>{/if}
+			{if $friends[friend_loop]->user_info.user_lastlogindate != 0}<div>{lang_print id=906} {assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}</div>{/if}
+			{if $show_details != 0}
+			  {if $friends[friend_loop]->friend_type != ""}<div>{lang_print id=882} &nbsp;{$friends[friend_loop]->friend_type}</div>{/if}
+			  {if $friends[friend_loop]->friend_explain != ""}<div>{lang_print id=907} &nbsp;{$friends[friend_loop]->friend_explain|truncate:30:"...":true}</div>{/if}
+			{/if}
+			</div>
+			<div>{if $show_details != 0}<a href="javascript:TB_show('{lang_print id=908}', 'user_friends_manage.php?user={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=908}</a></div>{/if}
+			<div><a href="javascript:TB_show('{lang_print id=837}', 'user_friends_manage.php?task=remove&user={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=889}</a></div>
+			<div><a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?to_user={$friends[friend_loop]->user_displayname}&to_id={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=839}</a></div>
+			<div><a href='profile.php?user={$friends[friend_loop]->user_info.user_username}&v=friends'>{assign var="user_displayname_short" value=$friends[friend_loop]->user_displayname_short|truncate:15:"...":true}{lang_sprintf id=836 1=$user_displayname_short}</a></div>
+		</div>
+	</li>
       {cycle values=",<div style='clear: both;'></div>"} 
     {/section}
-    <div style='clear: both;'></div>
+    </ul>
   </div>
 
   {* DISPLAY PAGINATION MENU IF APPLICABLE *}
@@ -166,5 +188,10 @@
   {/if}
 
 {/if}
-
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {include file='footer.tpl'}

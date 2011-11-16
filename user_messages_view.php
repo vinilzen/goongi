@@ -32,7 +32,7 @@ if( !$pmconvo_info )
 
 $pm_info = $user->user_message_view($pmconvo_info['pmconvo_id']);
 
-
+// echo '<pre>'; var_dump($pm_info); die('');
 // GOES THROUGH THE ARRAY AND TAKE THE COLLABORATOR OUT AS A USER OBJECT
 foreach( $pm_info['collaborators'] as $index => $coll )
 {

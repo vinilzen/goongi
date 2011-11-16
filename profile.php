@@ -6,8 +6,7 @@ $page = "profile";
 include "header.php";
 
 // DISPLAY ERROR PAGE IF USER IS NOT LOGGED IN AND ADMIN SETTING REQUIRES REGISTRATION
-if($user->user_exists == 0 && $setting['setting_permission_profile'] == 0)
-{
+if($user->user_exists == 0 && $setting['setting_permission_profile'] == 0) {
   $page = "error";
   $smarty->assign('error_header', 639);
   $smarty->assign('error_message', 656);
@@ -16,8 +15,7 @@ if($user->user_exists == 0 && $setting['setting_permission_profile'] == 0)
 }
 
 // DISPLAY ERROR PAGE IF NO OWNER
-if($owner->user_exists == 0)
-{
+if($owner->user_exists == 0) {
   $page = "error";
   $smarty->assign('error_header', 639);
   $smarty->assign('error_message', 828);
@@ -202,6 +200,10 @@ $global_page_title[1] = $owner->user_displayname;
 $global_page_description[0] = 1158;
 $global_page_description[1] = $owner->user_displayname;
 $global_page_description[2] = strip_tags(implode(" - ", $field->field_values));
+
+
+//echo '<pre>'; var_dump($owner->user_info); die();
+
 
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('v', $v);

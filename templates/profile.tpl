@@ -4,17 +4,40 @@
 <!-- <div class='page_header'>{lang_sprintf id=786 1=$owner->user_displayname}</div> -->
 
 <div class="all">
-            	<div class="center_all">
-                	<div class="block4">
-                        <div class="c">
-
-    
-    {* BEGIN RIGHT COLUMN *}
-      <div class='page_header'>{lang_print id=843}</div>
-      {lang_print id=844}
-
-  {* DISPLAY ONLY IF PROFILE IS NOT PRIVATE TO VIEWING USER *}
-
+	<div class="center_all">
+		<div class="block4">
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">
+						<h1>{$owner->user_info.user_displayname}</h1>
+						<div class="crumb"><a href="/">Главная</a><span>{lang_print id=652}<!-- Профиль --></span></div>
+						<div class="buttons">
+							<span class="button2">
+								<span class="l">&nbsp;</span><span class="c">
+									<input type="button" value="Редактировать информацию" name="creat" />
+								</span><span class="r">&nbsp;</span>
+							</span>
+						</div>
+						<div class="my_page_info">
+							{* SHOW PROFILE CATS AND FIELDS *}
+							{section name=cat_loop loop=$cats}
+								{section name=subcat_loop loop=$cats[cat_loop].subcats}
+									<h2>{lang_print id=$cats[cat_loop].subcats[subcat_loop].subcat_title}<!-- персональная инфорвация --></h2>
+									{* LOOP THROUGH FIELDS IN TAB, ONLY SHOW FIELDS THAT HAVE BEEN FILLED IN *}
+									{section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
+									<p>
+										<span>
+											{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}:
+										</span>
+										{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_formatted}
+										{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1 && $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value|substr:0:4 != "0000"} ({lang_sprintf id=852 1=$datetime->age($cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value)}){/if}
+									</p>
+									{/section}
+									
+								{/section}
+							{/section}
+						</div>
+      <!-- <div class='page_header'></div> -->
   
     
     {* PLUGIN RELATED PROFILE SIDEBAR *}
@@ -113,28 +136,7 @@
     {* PROFILE TAB *}
     <div id='profile_profile'{if $v != 'profile'} style='display: none;'{/if}>
       
-      {* SHOW PROFILE CATS AND FIELDS *}
-      {section name=cat_loop loop=$cats}
-        {section name=subcat_loop loop=$cats[cat_loop].subcats}
-          <div class='profile_headline{if !$smarty.section.subcat_loop.first}2{/if}'><b>{lang_print id=$cats[cat_loop].subcats[subcat_loop].subcat_title}</b></div>
-            
-            <table cellpadding='0' cellspacing='0'>
-            {* LOOP THROUGH FIELDS IN TAB, ONLY SHOW FIELDS THAT HAVE BEEN FILLED IN *}
-            {section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
-              <tr>
-              <td valign='top' style='padding-right: 10px;' nowrap='nowrap'>
-                {lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}:
-              </td>
-              <td>
-                <div class='profile_field_value'>{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_formatted}</div>
-                {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1 && $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value|substr:0:4 != "0000"} ({lang_sprintf id=852 1=$datetime->age($cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value)}){/if}
-              </td>
-              </tr>
-            {/section}
-            </table>
-          
-        {/section}
-      {/section}
+
       {* END PROFILE TABS AND FIELDS *}
       
       {* SHOW RECENT ACTIVITY *}
@@ -267,33 +269,31 @@
             {if $p_friends != $maxpage_friends}<a href='profile.php?user={$owner->user_info.user_username}&v=friends&search={$search}&m={$m}&p={math equation='p+1' p=$p_friends}'>{lang_print id=183} &#187;</a>{else}<font class='disabled'>{lang_print id=183} &#187;</font>{/if}
           </div>
         {/if}
-        
+        <ul class="friends_list">
         {* LOOP THROUGH FRIENDS *}
         {section name=friend_loop loop=$friends}
-          <div class='browse_friends_result' style='overflow: hidden;'>
-            <div class='profile_friend_photo'>
-              <a href='{$url->url_create("profile",$friends[friend_loop]->user_info.user_username)}'>
-                <img src='{$friends[friend_loop]->user_photo("./images/nophoto.gif")}' width='{$misc->photo_size($friends[friend_loop]->user_photo("./images/nophoto.gif"),"90","90","w")}' border='0' alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}">
-              </a>
-            </div>
-            <div class='profile_friend_info'>
-              <div class='profile_friend_name'><a href='{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}'>{$friends[friend_loop]->user_displayname}</a></div>
-              <div class='profile_friend_details'>
-                {if $friends[friend_loop]->user_info.user_dateupdated != 0}<div>{lang_print id=849} {assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}</div>{/if}
-                {if $show_details != 0}
-                  {if $friends[friend_loop]->friend_type != ""}<div>{lang_print id=882} {$friends[friend_loop]->friend_type}</div>{/if}
-                  {if $friends[friend_loop]->friend_explain != ""}<div>{lang_print id=907} {$friends[friend_loop]->friend_explain}</div>{/if}
-                {/if}
-              </div>
-            </div>
-            <div class='profile_friend_options'>
-              {if !$friends[friend_loop]->is_viewers_friend && !$friends[friend_loop]->is_viewers_blocklisted && $friends[friend_loop]->user_info.user_id != $user->user_info.user_id && $user->user_exists != 0}<div id='addfriend_{$friends[friend_loop]->user_info.user_id}'><a href="javascript:TB_show('{lang_print id=876}', 'user_friends_manage.php?user={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=922}</a></div>{/if}
-              {if !$members[member_loop].member->is_viewer_blocklisted && ($user->level_info.level_message_allow == 2 || ($user->level_info.level_message_allow == 1 && $friends[friend_loop]->is_viewers_friend == 2)) && $friends[friend_loop]->user_info.user_id != $user->user_info.user_id}<a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?to_user={$friends[friend_loop]->user_displayname}&to_id={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=839}</a>{/if}
-            </div>
-            <div style='clear: both;'></div>
-          </div>
+			<li>
+				<a href='{$url->url_create("profile",$friends[friend_loop]->user_info.user_username)}'>
+					<img src='{$friends[friend_loop]->user_photo("./images/nophoto.gif")}' width='{$misc->photo_size($friends[friend_loop]->user_photo("./images/nophoto.gif"),"90","90","w")}' border='0' alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}">
+				</a>
+				<div>
+					<p><a href="#">vip</a><a href="#">название группы</a></p>	
+					<h2>
+						<a href='{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}'>{$friends[friend_loop]->user_displayname}</a>
+					</h2>
+				  
+					{if $friends[friend_loop]->user_info.user_dateupdated != 0}<div>{lang_print id=849} {assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}</div>{/if}
+					{if $show_details != 0}
+					  {if $friends[friend_loop]->friend_type != ""}<div>{lang_print id=882} {$friends[friend_loop]->friend_type}</div>{/if}
+					  {if $friends[friend_loop]->friend_explain != ""}<div>{lang_print id=907} {$friends[friend_loop]->friend_explain}</div>{/if}
+					{/if}
+					
+				  {if !$friends[friend_loop]->is_viewers_friend && !$friends[friend_loop]->is_viewers_blocklisted && $friends[friend_loop]->user_info.user_id != $user->user_info.user_id && $user->user_exists != 0}<div id='addfriend_{$friends[friend_loop]->user_info.user_id}'><a href="javascript:TB_show('{lang_print id=876}', 'user_friends_manage.php?user={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=922}</a></div>{/if}
+				  {if !$members[member_loop].member->is_viewer_blocklisted && ($user->level_info.level_message_allow == 2 || ($user->level_info.level_message_allow == 1 && $friends[friend_loop]->is_viewers_friend == 2)) && $friends[friend_loop]->user_info.user_id != $user->user_info.user_id}<a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?to_user={$friends[friend_loop]->user_displayname}&to_id={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=839}</a>{/if}
+				</div>
+          </li>
         {/section}
-        
+        </ul>
         
         {* DISPLAY PAGINATION MENU IF APPLICABLE *}
         {if $maxpage_friends > 1}
@@ -407,6 +407,8 @@
   </div>
 
 {* END RIGHT COLUMN *}
+					</div>
+				</div>
 			</div>
 			<div class="b"></div>
 		</div>

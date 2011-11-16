@@ -1,39 +1,36 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 
 {* $Id: search.tpl 8 2009-01-11 06:02:53Z john $ *}
 
-<img src='./images/icons/search48.gif' border='0' class='icon_big'>
-<div class='page_header'>{lang_print id=646}</div>
-<div>{lang_print id=924}</div>
-<br />
-<br />
-
-<form action='search.php' name='search_form' method='post'>
-<table cellpadding='0' cellspacing='0' align='center'>
-<tr>
-<td class='search'>
-  <table cellpadding='0' cellspacing='0' align='center'>
-  <tr>
-  <td>{lang_print id=925}</td>
-  <td>&nbsp;<input type='text' size='30' class='text' name='search_text' id='search_text' value='{$search_text}' maxlength='100'></td>
-  <td>
-    &nbsp;<input type='submit' class='button' value='{lang_print id=646}'>
-    <input type='hidden' name='task' value='dosearch'>
-    <input type='hidden' name='t' value='0'>
-  </td>
-  </tr>
-  <tr>
-  <td>&nbsp;</td>
-  <td colspan='2'>&nbsp;<a href='search_advanced.php'>{lang_print id=926}</a></td>
-  </tr>
-  </table>
-</div>
-</form>
-</td>
-</tr>
-</table>
-
-<br>
+<div class="all">
+	<div class="center_all">
+		<div class="block4">
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">
+						<h1>{lang_print id=924}<!-- Поиск по сайту --></h1>
+						<div class="crumb"><a href="#">Главная</a><span>{lang_print id=646}<!-- Поиск --></span></div>
+						<div class="buttons">
+							<form action='search.php' name='search_form' method='post'>
+								
+								<input type='text' size='30' class="srch_inp" name='search_text' id='search_text' value='{$search_text}' maxlength='100'></td>
+								<span class="button2" style="margin:0;"><span class="l">&nbsp;</span><span class="c">
+									<input type='submit' class='button' value='{lang_print id=646}'>
+								</span><span class="r">&nbsp;</span></span>
+								<input type='hidden' name='task' value='dosearch'>
+								<input type='hidden' name='t' value='0'>
+								<a href='search_advanced.php'>{lang_print id=926}</a>
+							</form>						
+						</div>
+						<div class="group_list">
+							<ul>
+								<li><a href="#">Быстрый поиск</a></li>
+								<li><a href="#">Поиск людей</a></li>
+								<li><a href="#">Поиск мероприятий</a></li>
+								<li><a href="#">Поиск событий</a></li>
+								<li><a href="#">Поиск статей</a></li>
+							</ul>
+						</div>
 
 {if $search_text != ""}
 
@@ -75,31 +72,27 @@
       {if $p != $maxpage}&nbsp;&nbsp;|&nbsp; <a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{/if}
 
       <br><br>
-
+<ul class="friends_list">
       {* SHOW RESULTS *}
       {section name=result_loop loop=$results}
-	
-	<div class='search_result{cycle name="class_name" values="1,2,2,1"}' style='width: 400px; float: left; border: 1px solid #CCCCCC; margin: 5px;'>
-	<table cellpadding='0' cellspacing='0'>
-        <tr>
-        <td valign='top' style='padding-right: 4px;'>
-	  <a href="{$results[result_loop].result_url}" class="title"><img src='{$results[result_loop].result_icon}' class='photo' width='60' height='60' border='0'></a>
-	</td>
-	<td valign='top'>
-          <div class='search_result_text'>
-	    {capture assign='result_title'}{lang_sprintf id=$results[result_loop].result_name 1=$results[result_loop].result_name_1}{/capture}
-            <a href="{$results[result_loop].result_url}" class="title">{$result_title|truncate:40:"...":true}</a>
-            <div class='search_result_text2'>{lang_sprintf id=$results[result_loop].result_desc 1=$results[result_loop].result_desc_1 2=$results[result_loop].result_desc_2 3=$results[result_loop].result_desc_3}</div>
-	    {if $results[result_loop].result_online == 1}<div style='margin-top: 5px;'><img src='./images/icons/online16.gif' border='0' class='icon'>{lang_print id=929}</div>{/if}
-          </div>
-	</td>
-	</tr>
-	</table>
+<li>
+	<a href="{$results[result_loop].result_url}"><img src='{$results[result_loop].result_icon}' class='photo' border='0'></a>
+	<div>
+		<p><a href="#">vip</a><a href="#">название группы</a></p>
+		<h2><a href="{$results[result_loop].result_url}">
+			{$results[result_loop].result_name_1|truncate:30:"...":true}
+		</a></h2>
+		<a href="#" class="add_msg">Написать сообщение</a><br />
+		<a href="#">Добавить в группу</a><br />
+		<!-- <a href="#" class="del">Убрать из друзей</a> -->
+	   
+        <a href="{$results[result_loop].result_url}" class="title"></a>
+        <div class='search_result_text2'>{lang_sprintf id=$results[result_loop].result_desc 1=$results[result_loop].result_desc_1 2=$results[result_loop].result_desc_2 3=$results[result_loop].result_desc_3}</div>
+	    {if $results[result_loop].result_online == 1}<span>{lang_print id=929}</span>{/if}
 	</div>
+</li>
         {cycle name="clear_cycle" values=",<div style='clear: both; height: 0px;'></div>"}
       {/section}
-
-      <div style='clear:both;'></div><br />
 
       {* SHOW PAGES *}
       {if $p != 1}<a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a> &nbsp;|&nbsp;&nbsp;{/if}
@@ -125,5 +118,10 @@
 </script>
 {/literal}
 
-
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {include file='footer.tpl'}

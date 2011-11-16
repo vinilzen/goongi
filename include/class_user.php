@@ -2848,7 +2848,7 @@ class SEUser
       WHERE
         pm_pmconvo_id='{$convo_id}'
       ORDER BY
-        pm_date
+        pm_date DESC
     ";
     
     $resource = $database->database_query($sql);

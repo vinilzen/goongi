@@ -1,20 +1,21 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 
 {* $Id: user_messages_view.tpl 194 2009-07-15 21:44:24Z john $ *}
-	<!-- start USER MENU -->
-	{include file='menu_main.tpl'}
-	<!-- end USER MENU -->
-
-<table class='tabs' cellpadding='0' cellspacing='0'>
-<tr>
-<td class='tab0'>&nbsp;</td>
-<td class='tab{if $b == 0}1{else}2{/if}' NOWRAP><a href='user_messages.php'>{lang_print id=780}</a></td>
-<td class='tab'>&nbsp;</td>
-<td class='tab{if $b == 0}2{else}1{/if}' NOWRAP><a href='user_messages_outbox.php'>{lang_print id=781}</a></td>
-<td class='tab3'>&nbsp;</td>
-</tr>
-</table>
-
+<div class="all">
+	<div class="center_all">
+		<div class="block4">
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">
+						<h1>мои сообщения</h1>
+						<div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><span>Mои сообщения</span></div>
+						<ul class="vk">
+							<li class="active"><a href="/user_messages.php">{lang_print id=780}<!-- Полученные --><font>{if $user_unread_pms>0}({$user_unread_pms}){/if}</font></a></li>
+							<li><a href="/user_messages_outbox.php">{lang_print id=781}<!-- Отправленные --></a></li>
+							<li><a href="#">Спам  <font>(8)</font></a></li>
+							<li id="add_msg"><a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=784}<!-- Написать сообщение --></a></li>
+						</ul>
+						
 <img src='./images/icons/messages48.gif' border='0' class='icon_big' />
 <div class='page_header'>{$pmconvo_info.pmconvo_subject}</div>
 {capture assign='collaborators'}{section name=coll_loop loop=$collaborators}<a href='{$url->url_create("profile", $collaborators[coll_loop]->user_info.user_username)}'>{$collaborators[coll_loop]->user_displayname}</a>{if $smarty.section.coll_loop.last != TRUE}, {/if}{/section}{/capture}
@@ -32,28 +33,6 @@
 </script>
 {/literal}
 
-
-{* LOOP THROUGH MESSAGES IN THREAD *}
-<table cellpadding='0' cellspacing='0' width='100%'>
-{section name=pm_loop loop=$pms}
-  <tr>
-  <td class='messages_view1' width='1'>
-    <a href='{$url->url_create("profile",$pms[pm_loop].author->user_info.user_username)}'><img class='photo' src='{$pms[pm_loop].author->user_photo("./images/nophoto.gif", TRUE)}' width='60' height='60' border='0'></a>
-    {if $smarty.section.pm_loop.last}<a name='bottom'></a>{/if}
-  </td>
-  <td class='messages_authorbox' nowrap='nowrap'>
-    <div class='messages_author'><a href='{$url->url_create("profile",$pms[pm_loop].author->user_info.user_username)}'>{$pms[pm_loop].author->user_displayname|truncate:20:"...":true}</a></div>
-    <div class='messages_date'>{$datetime->cdate("`$setting.setting_timeformat` `$setting.setting_dateformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</div>
-  </td>
-  <td class='messages_view2'>{$pms[pm_loop].pm_body|choptext:75:"<br>"}</td>
-  </tr>
-  <tr><td colspan='3'>&nbsp;</td></tr>
-{/section}
-
-{* DISPLAY REPLY TO ALL BOX *}
-<tr>
-<td colspan='2'>&nbsp;</td>
-<td class='messages_view2_bottom'>
   <a name='reply'></a>
   <div id='reply_error' style='display: none;'>{lang_print id=796}</div>
   {if $blockerror}<div id='reply_error2' style='display: {$blockerror};'>{lang_print id=1321}</div>{/if}
@@ -75,13 +54,34 @@
   <input type='hidden' name='pmconvo_id' value='{$pmconvo_info.pmconvo_id}'>
   </form>
 
+
+{* LOOP THROUGH MESSAGES IN THREAD *}
+<ul class="comment_list">
+{section name=pm_loop loop=$pms}
+<li>
+	<!-- <a href="#" class="del">Удалить</a> -->
+	<a href="{$url->url_create("profile",$pms[pm_loop].author->user_info.user_username)}">
+		<img src="{$pms[pm_loop].author->user_photo("./images/nophoto.gif", TRUE)}" alt="" />
+	</a>
+	<a href="{$url->url_create("profile",$pms[pm_loop].author->user_info.user_username)}" class="name">{$pms[pm_loop].author->user_displayname|truncate:20:"...":true}</a>
+	<span>{$datetime->cdate("`$setting.setting_timeformat` `$setting.setting_dateformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</span>
+	<p>{$pms[pm_loop].pm_body|choptext:75:"<br>"}</p>
+	{if $smarty.section.pm_loop.last}<a name='bottom'></a>{/if}
+</li>
+{/section}
+
+{* DISPLAY REPLY TO ALL BOX *}
+<div>
+
   <div style='padding-top: 15px;'><a href='user_messages_view.php?pmconvo_id={$pmconvo_info.pmconvo_id}&task=delete'>{lang_print id=1181}</a></div>
-
-</td>
-</tr>
-
-</table>
+</div>
+</ul>
 
 
-
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {include file='footer.tpl'}

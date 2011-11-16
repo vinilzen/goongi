@@ -1,6 +1,6 @@
   {* SHOW PHOTOS OF THIS PERSON *}
   {if $total_photo_tags != 0 && 0}
-   <a href='profile_photos.php?user={$owner->user_info.user_username}'><img src='./images/icons/photos16.gif' class='icon' border='0'>{lang_sprintf id=1204 1=$owner->user_displayname_short 2=$total_photo_tags}</a>
+   <a href='profile_photos.php?user={$owner->user_info.user_username}'>{lang_sprintf id=1204 1=$owner->user_displayname_short 2=$total_photo_tags}</a>
     {assign var='showmenu' value='1'}
   {/if}
 
@@ -67,7 +67,7 @@ function SwapBack(id1) {
 	<div class="bg">
 		<div class="c">
 			<div class="pro">
-				<div><img src="{$owner->user_photo("./images/nophoto.gif")}" alt="" /></div>
+				<div><img src="{$user->user_photo("./images/nophoto.gif")}" alt="" /></div>
 					<ul>
 						{* SHOW WHATS NEW MENU ITEM *}
 						<li><a href='user_home.php'>{lang_print id=1161}</a></li>
@@ -165,18 +165,18 @@ function SwapBack(id1) {
         <div id='addfriend_{$owner->user_info.user_id}'{if $is_friend == TRUE || $is_friend_pending != 0} style='display: none;'{/if}><a href="javascript:TB_show('{lang_print id=876}', 'user_friends_manage.php?user={$owner->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=838}</a></div>
         <div id='confirmfriend_{$owner->user_info.user_id}'{if $is_friend_pending != 1} style='display: none;'{/if}><a href="javascript:TB_show('{lang_print id=887}', 'user_friends_manage.php?user={$owner->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=885}</a></div>
         <div id='pendingfriend_{$owner->user_info.user_id}'{if $is_friend_pending != 2} style='display: none;'{/if} class='nolink'><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=875}</div>
-        <div id='removefriend_{$owner->user_info.user_id}'{if $is_friend == FALSE || $is_friend_pending != 0} style='display: none;'{/if}><a href="javascript:TB_show('{lang_print id=837}', 'user_friends_manage.php?task=remove&user={$owner->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/remove_friend16.gif' class='icon' border='0'>{lang_print id=837}</a></div>
+       <!--  <div id='removefriend_{$owner->user_info.user_id}'{if $is_friend == FALSE || $is_friend_pending != 0} style='display: none;'{/if}><a href="javascript:TB_show('{lang_print id=837}', 'user_friends_manage.php?task=remove&user={$owner->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/remove_friend16.gif' class='icon' border='0'>{lang_print id=837}</a></div> -->
       {assign var='showmenu' value='1'}
     {/if}
     
     {* SHOW SEND MESSAGE MENU ITEM *}
-    {if ($user->level_info.level_message_allow == 2 || ($user->level_info.level_message_allow == 1 && $is_friend)) && $owner->level_info.level_message_allow != 0}
+    {if 0 && ($user->level_info.level_message_allow == 2 || ($user->level_info.level_message_allow == 1 && $is_friend)) && $owner->level_info.level_message_allow != 0}
       <a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?to_user={$owner->user_displayname|escape:url}&to_id={$owner->user_info.user_username}&TB_iframe=true&height=400&width=450', '', './images/trans.gif');"><img src='./images/icons/sendmessage16.gif' class='icon' border='0'>{lang_print id=839}</a>
       {assign var='showmenu' value='1'}
     {/if}
     
     {* SHOW REPORT THIS PERSON MENU ITEM *}
-    {if $user->user_exists != 0}
+    {if $user->user_exists != 0 && 0}
       <a href="javascript:TB_show('{lang_print id=857}', 'user_report.php?return_url={$url->url_current()|escape:url}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/report16.gif' class='icon' border='0'>{lang_print id=840}</a>
       {assign var='showmenu' value='1'}
     {/if}
