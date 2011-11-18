@@ -169,7 +169,9 @@ window.addEvent('domready', function() {ldelim}
 <div class="all">
 	{if $login || $lostpass || $signup || $invite}
 		<div class="center_one"><div class="block3">
-	{else}
+	{elseif $home && $user->user_exists == 0}
+		<div class="center"><div class="block2">
+	{else}	
 		<div class="center_all"><div class="block4">
 	{/if}	
 			<div class="c">

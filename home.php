@@ -110,6 +110,7 @@ $smarty->assign_by_ref('actions', $actions_array);
 
 
 // ASSIGN SMARTY VARIABLES AND INCLUDE FOOTER
+$smarty->assign('home', 1);
 $smarty->assign('prev_email', $prev_email);
 $smarty->assign('ip', $_SERVER['REMOTE_ADDR']);
 
