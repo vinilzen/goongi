@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-04 17:10:45
+<?php /* Smarty version 2.6.14, created on 2011-11-18 14:58:45
          compiled from lostpass.tpl */
 ?><?php
 SELanguage::_preload_multi(33,34,35,37,749,39);
@@ -9,14 +9,8 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-<div class="all">
-	<div class="center_one">
-		<div class="block3">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<div class="form auth">
-							<h1><?php echo SELanguage::_get(33); ?></h1>
+<div class="form auth">
+	<h1><?php echo SELanguage::_get(33); ?></h1>
 
 <?php echo SELanguage::_get(34); 
  if ($this->_tpl_vars['submitted'] == 1 && $this->_tpl_vars['is_error'] == 0): ?>
@@ -66,22 +60,8 @@ unset($_smarty_tpl_vars);
     </tr>
   </table>
 
-<?php endif; ?>
-
-									</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="b"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div id="clearfooter"></div>
-</div>
-<?php $_smarty_tpl_vars = $this->_tpl_vars;
+<?php endif; 
+ $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer_without_left_menu.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);

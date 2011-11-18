@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-10 17:20:38
+<?php /* Smarty version 2.6.14, created on 2011-11-18 14:50:05
          compiled from user_messages_outbox.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_messages_outbox.tpl', 50, false),array('modifier', 'truncate', 'user_messages_outbox.tpl', 84, false),array('modifier', 'choptext', 'user_messages_outbox.tpl', 92, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_messages_outbox.tpl', 44, false),array('modifier', 'truncate', 'user_messages_outbox.tpl', 78, false),array('modifier', 'choptext', 'user_messages_outbox.tpl', 86, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(780,781,784,182,184,185,183,799,155,786,788);
 SELanguage::load();
@@ -11,22 +11,16 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1>мои сообщения</h1>
-						<div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><span>Mои сообщения</span></div>
-						<ul class="vk">
-							<li><a href="/user_messages.php"><?php echo SELanguage::_get(780); ?><!-- Полученные --><font><?php if ($this->_tpl_vars['user_unread_pms'] > 0): ?>(<?php echo $this->_tpl_vars['user_unread_pms']; ?>
+<h1>мои сообщения</h1>
+<div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><span>Mои сообщения</span></div>
+<ul class="vk">
+	<li><a href="/user_messages.php"><?php echo SELanguage::_get(780); ?><!-- Полученные --><font><?php if ($this->_tpl_vars['user_unread_pms'] > 0): ?>(<?php echo $this->_tpl_vars['user_unread_pms']; ?>
 )<?php endif; ?></font></a></li>
-							<li class="active"><a href="/user_messages_outbox.php"><?php echo SELanguage::_get(781); ?><!-- Отправленные --></a></li>
-							<li><a href="#">Спам  <font>(8)</font></a></li>
-							<li id="add_msg"><a href="javascript:TB_show('<?php echo SELanguage::_get(784); ?>', 'user_messages_new.php?TB_iframe=true&height=400&width=450', '', './images/trans.gif');"><?php echo SELanguage::_get(784); ?><!-- Написать сообщение --></a></li>
-						</ul>
-						<div class="message">
+	<li class="active"><a href="/user_messages_outbox.php"><?php echo SELanguage::_get(781); ?><!-- Отправленные --></a></li>
+	<li><a href="#">Спам  <font>(8)</font></a></li>
+	<li id="add_msg"><a href="javascript:TB_show('<?php echo SELanguage::_get(784); ?>', 'user_messages_new.php?TB_iframe=true&height=400&width=450', '', './images/trans.gif');"><?php echo SELanguage::_get(784); ?><!-- Написать сообщение --></a></li>
+</ul>
+<div class="message">
 <?php echo '
   <script language=\'JavaScript\'> 
   <!---
@@ -141,12 +135,6 @@ $this->_sections['pm_loop']['last']       = ($this->_sections['pm_loop']['iterat
   </form>
 
 <?php endif; ?>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));

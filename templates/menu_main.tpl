@@ -6,71 +6,16 @@
 
 
 {* START USER MENU *}  <!-- START USER MENU -->
-{literal}
-<script type='text/javascript'>
-<!--
-var open_menu;
-var current_timeout = new Array();
-
-function showMenu(id1)
-{
-  if($(id1))
-  {
-    if($(id1).style.display == 'none')
-    {
-      if($(open_menu)) { hideMenu($(open_menu)); }
-      $(id1).style.display='inline';
-      startMenuTimeout($(id1));
-      $(id1).addEvent('mouseover', function(e) { killMenuTimeout(this); });
-      $(id1).addEvent('mouseout', function(e) { startMenuTimeout(this); });
-      open_menu = id1;
-    }
-  }
-}
-
-function killMenuTimeout(divEl)
-{
-  clearTimeout(current_timeout[divEl.id]);
-  current_timeout[divEl.id] = '';
-}
-
-function startMenuTimeout(divEl)
-{
-  if(current_timeout[divEl.id] == '') {
-    current_timeout[divEl.id] = setTimeout(function() { hideMenu(divEl); }, 1000);
-  }
-}
-
-function hideMenu(divEl)
-{
-  divEl.style.display = 'none'; 
-  current_timeout[divEl.id] = '';
-  divEl.removeEvent('mouseover', function(e) { killMenuTimeout(this); });
-  divEl.removeEvent('mouseout', function(e) { startMenuTimeout(this); });
-}
-
-function SwapOut(id1) {
-  $(id1).src = Rollarrow1.src;
-  return true;
-}
-
-function SwapBack(id1) {
-  $(id1).src = Rollarrow0.src;
-  return true;
-}
-//-->
-</script>
-{/literal}
 
 {if $user->user_exists != 0}	
 <div class="block0">
 	<div class="bg">
 		<div class="c">
 			<div class="pro">
-				<div><img src="{$user->user_photo("./images/nophoto.gif")}" alt="" /></div>
+				<div id="main_photo"><img src="{$user->user_photo("./images/nophoto.gif")}" alt="" /></div>
 					<ul>
 						{* SHOW WHATS NEW MENU ITEM *}
-						<li><a href='user_home.php'>{lang_print id=1161}</a></li>
+						<!-- <li><a href='user_home.php'>{lang_print id=1161}</a></li>
 						<!-- <li><a href='network.php'>{lang_print id=1162}</a></li> -->
     
 					{* SHOW PROFILE MENU ITEM *}
@@ -94,6 +39,7 @@ function SwapBack(id1) {
 					{if $user->level_info.level_message_allow != 0}
 						<!--<li><a href='user_messages.php'>{lang_print id=654}{if $user_unread_pms != 0} ({$user_unread_pms}){/if}</a></li> -->
 						<li><a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=1167}</a></li>
+						<li  id="add_msg_l"><a href="#" >->{lang_print id=1167}</a></li>
 						<li><a href='user_messages.php'>{lang_print id=1168}</a></li>
 						<li><a href='user_messages_outbox.php'>{lang_print id=1169}</a></li>
 					{/if}
@@ -114,6 +60,7 @@ function SwapBack(id1) {
 			</div>
 		</div>
 	</div>
+	 <div class="b"></div>
 </div>
 {/if}
 {* END USER MENU *}<!-- END USER MENU -->

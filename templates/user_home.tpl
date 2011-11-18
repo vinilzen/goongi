@@ -1,13 +1,8 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 
 {* $Id: user_home.tpl 226 2009-10-28 23:57:07Z steve $ *}
-
-<div class="all">
-            	<div class="center_all">
-                	<div class="block4">
-                        <div class="c">
-      
-      
+<h1>Новости</h1>
+ 
       {* ACTIVITY FEED PREFERENCES *}
       <div style='margin-bottom: 7px;'>
         <div class='page_header' style='width: 50%; float: left;'>{lang_print id=737}</div>
@@ -241,10 +236,5 @@
       {hook_foreach name=user_home var=user_home_args}
         {include file=$user_home_args.file}
       {/hook_foreach}
-			</div>
-			<div class="b"></div>
-		</div>
-	</div>
-</div>
 
 {include file='footer.tpl'}

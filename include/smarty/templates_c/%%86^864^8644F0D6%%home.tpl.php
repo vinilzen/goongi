@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-15 17:53:15
+<?php /* Smarty version 2.6.14, created on 2011-11-18 15:13:46
          compiled from home.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'home.tpl', 47, false),array('modifier', 'replace', 'home.tpl', 78, false),array('modifier', 'choptext', 'home.tpl', 78, false),array('modifier', 'regex_replace', 'home.tpl', 160, false),array('modifier', 'truncate', 'home.tpl', 160, false),array('function', 'math', 'home.tpl', 136, false),array('function', 'cycle', 'home.tpl', 157, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'home.tpl', 41, false),array('modifier', 'replace', 'home.tpl', 72, false),array('modifier', 'choptext', 'home.tpl', 72, false),array('modifier', 'regex_replace', 'home.tpl', 154, false),array('modifier', 'truncate', 'home.tpl', 154, false),array('function', 'math', 'home.tpl', 130, false),array('function', 'cycle', 'home.tpl', 151, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(850009,643,644,926,664,737,509,510,26,1115,511,665,977,976,671,672,6000142,28,675,29,660,30,6000143,666,667,668,669,670);
 SELanguage::load();
@@ -13,12 +13,6 @@ unset($_smarty_tpl_vars);
 
 
 
-<div class="all">
-	<div class="center">
-		<div class="block2">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
 						<div class="first_time">
 							<p>Если вы хотите найти и поделиться с родными и близкими историей вашего рода &mdash; 
 							наш проект Goongi то что вам нужно.</p>
@@ -37,7 +31,7 @@ unset($_smarty_tpl_vars);
 								</span>
 								<input type='hidden' name='task' value='dosearch' />
 								<input type='hidden' name='t' value='0' />
-								<input type="text" class="srch" name="search_text" onblur="if (this.value == '') " onfocus="if (this.value == 'Введите сюда фамилию') " value="Введите сюда фамилию" />
+								<input type="text" class="srch" name="search_text" onblur="if (this.value == '') this.value='Введите сюда фамилию'; if (this.value == '') this.style.color='#999999';" onfocus="if (this.value == 'Введите сюда фамилию') this.value =''; if (this.value == 'Введите сюда фамилию')  this.style.color='#000000';" value="Введите сюда фамилию" />
 							</form>
 							<a href='search_advan	ced.php'><?php echo SELanguage::_get(926); ?><!-- Расширенный поиск --></a>
 						</div>
@@ -340,14 +334,14 @@ $this->_sections['login_loop']['last']       = ($this->_sections['login_loop']['
 						<div class="input"><label><?php echo SELanguage::_get(28); ?><!-- Логин --></label><input type="text" value='<?php echo $this->_tpl_vars['prev_email']; ?>
 ' name="email"  size='25' maxlength='100' /></div>
 						
-						<div class="input"><label><a href="#"><?php echo SELanguage::_get(675); ?><!-- Забыли пароль? --></a><?php echo SELanguage::_get(29); ?><!-- Пароль --></label><input type="password" value="" name='password' size='25' maxlength='100' /></div>
+						<div class="input"><label><a href="/lostpass.php"><?php echo SELanguage::_get(675); ?><!-- Забыли пароль? --></a><?php echo SELanguage::_get(29); ?><!-- Пароль --></label><input type="password" value="" name='password' size='25' maxlength='100' /></div>
 						
 						<div class="check"><label><input type='checkbox' class='checkbox' name='persistent' value='1' id='rememberme' /><span><?php echo SELanguage::_get(660); ?><!-- Запомнить меня --></span></label></div>
 						
 						<span class="button1"><span class="l">&nbsp;</span><span class="c"><input type="submit" value='<?php echo SELanguage::_get(30); ?>' /></span><span class="r">&nbsp;</span></span>
 						<input type="hidden" name="task" value="dologin">
 					</form>
-					<a href="#" class="reg"><?php echo SELanguage::_get(6000143); ?><!-- Зарегистрироваться --></a>
+					<a href="/signup.php" class="reg"><?php echo SELanguage::_get(6000143); ?><!-- Зарегистрироваться --></a>
 				</div>
 			</div>
 		</div>

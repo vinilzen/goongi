@@ -1,7 +1,6 @@
 {include file='header.tpl'}
 
 {* $Id: user_account_privacy.tpl 8 2009-01-11 06:02:53Z john $ *}
-
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
 <td class='tab0'>&nbsp;</td>
@@ -188,5 +187,4 @@
 </table>
 <input type='hidden' name='task' value='dosave'>
 </form>
-
 {include file='footer.tpl'}

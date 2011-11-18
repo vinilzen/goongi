@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-16 15:45:50
+<?php /* Smarty version 2.6.14, created on 2011-11-18 16:09:49
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 33, false),array('modifier', 'count', 'profile.tpl', 143, false),array('modifier', 'replace', 'profile.tpl', 175, false),array('modifier', 'choptext', 'profile.tpl', 175, false),array('modifier', 'default', 'profile.tpl', 364, false),array('block', 'hook_foreach', 'profile.tpl', 44, false),array('function', 'math', 'profile.tpl', 263, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 26, false),array('modifier', 'count', 'profile.tpl', 132, false),array('modifier', 'replace', 'profile.tpl', 164, false),array('modifier', 'choptext', 'profile.tpl', 164, false),array('block', 'hook_foreach', 'profile.tpl', 37, false),array('function', 'math', 'profile.tpl', 251, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(786,652,852,653,854,1317,851,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839,39,155,175,187,787,829,830,831,832,833,834,835,856,891,1025,1026,1032,1034,1071);
+SELanguage::_preload_multi(786,652,852,653,854,1317,851,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839);
 SELanguage::load();
 ?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -12,25 +12,18 @@ unset($_smarty_tpl_vars);
  ?>
 
 <!-- <div class='page_header'><?php echo sprintf(SELanguage::_get(786), $this->_tpl_vars['owner']->user_displayname); ?></div> -->
-
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1><?php echo $this->_tpl_vars['owner']->user_info['user_displayname']; ?>
+<h1><?php echo $this->_tpl_vars['owner']->user_info['user_displayname']; ?>
 </h1>
-						<div class="crumb"><a href="/">Главная</a><span><?php echo SELanguage::_get(652); ?><!-- Профиль --></span></div>
-						<div class="buttons">
-							<span class="button2">
-								<span class="l">&nbsp;</span><span class="c">
-									<input type="button" value="Редактировать информацию" name="creat" />
-								</span><span class="r">&nbsp;</span>
-							</span>
-						</div>
-						<div class="my_page_info">
-														<?php unset($this->_sections['cat_loop']);
+<div class="crumb"><a href="/">Главная</a><span><?php echo SELanguage::_get(652); ?><!-- Профиль --></span></div>
+<div class="buttons">
+	<span class="button2">
+		<span class="l">&nbsp;</span><span class="c">
+			<a href="/user_editprofile.php">Редактировать информацию</a>
+		</span><span class="r">&nbsp;</span>
+	</span>
+</div>
+<div class="my_page_info">
+		<?php unset($this->_sections['cat_loop']);
 $this->_sections['cat_loop']['name'] = 'cat_loop';
 $this->_sections['cat_loop']['loop'] = is_array($_loop=$this->_tpl_vars['cats']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['cat_loop']['show'] = true;
@@ -54,7 +47,7 @@ $this->_sections['cat_loop']['index_next'] = $this->_sections['cat_loop']['index
 $this->_sections['cat_loop']['first']      = ($this->_sections['cat_loop']['iteration'] == 1);
 $this->_sections['cat_loop']['last']       = ($this->_sections['cat_loop']['iteration'] == $this->_sections['cat_loop']['total']);
 ?>
-								<?php unset($this->_sections['subcat_loop']);
+		<?php unset($this->_sections['subcat_loop']);
 $this->_sections['subcat_loop']['name'] = 'subcat_loop';
 $this->_sections['subcat_loop']['loop'] = is_array($_loop=$this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['subcat_loop']['show'] = true;
@@ -78,8 +71,8 @@ $this->_sections['subcat_loop']['index_next'] = $this->_sections['subcat_loop'][
 $this->_sections['subcat_loop']['first']      = ($this->_sections['subcat_loop']['iteration'] == 1);
 $this->_sections['subcat_loop']['last']       = ($this->_sections['subcat_loop']['iteration'] == $this->_sections['subcat_loop']['total']);
 ?>
-									<h2><?php echo SELanguage::_get($this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['subcat_title']); ?><!-- персональная инфорвация --></h2>
-																		<?php unset($this->_sections['field_loop']);
+			<h2><?php echo SELanguage::_get($this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['subcat_title']); ?><!-- персональная инфорвация --></h2>
+						<?php unset($this->_sections['field_loop']);
 $this->_sections['field_loop']['name'] = 'field_loop';
 $this->_sections['field_loop']['loop'] = is_array($_loop=$this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
 $this->_sections['field_loop']['show'] = true;
@@ -103,19 +96,19 @@ $this->_sections['field_loop']['index_next'] = $this->_sections['field_loop']['i
 $this->_sections['field_loop']['first']      = ($this->_sections['field_loop']['iteration'] == 1);
 $this->_sections['field_loop']['last']       = ($this->_sections['field_loop']['iteration'] == $this->_sections['field_loop']['total']);
 ?>
-									<p>
-										<span>
-											<?php echo SELanguage::_get($this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields'][$this->_sections['field_loop']['index']]['field_title']); ?>:
-										</span>
-										<?php echo $this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields'][$this->_sections['field_loop']['index']]['field_value_formatted']; ?>
+			<p>
+				<span>
+					<?php echo SELanguage::_get($this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields'][$this->_sections['field_loop']['index']]['field_title']); ?>:
+				</span>
+				<?php echo $this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields'][$this->_sections['field_loop']['index']]['field_value_formatted']; ?>
 
-										<?php if ($this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields'][$this->_sections['field_loop']['index']]['field_special'] == 1 && ((is_array($_tmp=$this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields'][$this->_sections['field_loop']['index']]['field_value'])) ? $this->_run_mod_handler('substr', true, $_tmp, 0, 4) : substr($_tmp, 0, 4)) != '0000'): ?> (<?php echo sprintf(SELanguage::_get(852), $this->_tpl_vars['datetime']->age($this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields'][$this->_sections['field_loop']['index']]['field_value'])); ?>)<?php endif; ?>
-									</p>
-									<?php endfor; endif; ?>
-									
-								<?php endfor; endif; ?>
-							<?php endfor; endif; ?>
-						</div>
+				<?php if ($this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields'][$this->_sections['field_loop']['index']]['field_special'] == 1 && ((is_array($_tmp=$this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields'][$this->_sections['field_loop']['index']]['field_value'])) ? $this->_run_mod_handler('substr', true, $_tmp, 0, 4) : substr($_tmp, 0, 4)) != '0000'): ?> (<?php echo sprintf(SELanguage::_get(852), $this->_tpl_vars['datetime']->age($this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields'][$this->_sections['field_loop']['index']]['field_value'])); ?>)<?php endif; ?>
+			</p>
+			<?php endfor; endif; ?>
+			
+		<?php endfor; endif; ?>
+	<?php endfor; endif; ?>
+</div>
       <!-- <div class='page_header'></div> -->
   
     
@@ -128,25 +121,21 @@ unset($_smarty_tpl_vars);
     <?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?>
 
   
-      
+  
         <?php echo '
     <script type=\'text/javascript\'>
     <!--
       var visible_tab = \''; 
  echo $this->_tpl_vars['v']; 
  echo '\';
-      function loadProfileTab(tabId)
-      {
-        if(tabId == visible_tab)
-        {
+      function loadProfileTab(tabId){
+        if(tabId == visible_tab){
           return false;
         }
-        if($(\'profile_\'+tabId))
-        {
+        if($(\'profile_\'+tabId)){
           $(\'profile_tabs_\'+tabId).className=\'profile_tab2\';
           $(\'profile_\'+tabId).style.display = "block";
-          if($(\'profile_tabs_\'+visible_tab))
-          {
+          if($(\'profile_tabs_\'+visible_tab)){
             $(\'profile_tabs_\'+visible_tab).className=\'profile_tab\';
             $(\'profile_\'+visible_tab).style.display = "none";
           }
@@ -157,7 +146,7 @@ unset($_smarty_tpl_vars);
     </script>
     '; ?>
 
-    
+   
     <!-- SHOW PROFILE TAB BUTTONS start -->
     <table cellpadding='0' cellspacing='0'> <tr>
     <td valign='bottom'><table cellpadding='0' cellspacing='0'><tr><td class='profile_tab<?php if ($this->_tpl_vars['v'] == 'profile'): ?>2<?php endif; ?>' id='profile_tabs_profile' onMouseUp="this.blur()"><a href='javascript:void(0);' onMouseDown="loadProfileTab('profile')" onMouseUp="this.blur()"><?php echo SELanguage::_get(652); ?></a></td></tr></table></td>
@@ -326,7 +315,6 @@ $this->_sections['action_media_loop']['last']       = ($this->_sections['action_
     
         <?php if ($this->_tpl_vars['total_friends_all'] != 0): ?>
       <div id='profile_friends'<?php if ($this->_tpl_vars['v'] != 'friends'): ?> style='display: none;'<?php endif; ?>>
-        
         <div>
           <div style='float: left; width: 50%;'>
             <div class='profile_headline'>
@@ -382,14 +370,14 @@ $this->_sections['action_media_loop']['last']       = ($this->_sections['action_
           <br>
           <table cellpadding='0' cellspacing='0'>
           <tr><td class='result'>
-            <img src='./images/icons/bulb16.gif' border='0' class='icon'><?php echo sprintf(SELanguage::_get(934), $this->_tpl_vars['owner']->user_displayname_short); ?>
+            <?php echo sprintf(SELanguage::_get(934), $this->_tpl_vars['owner']->user_displayname_short); ?>
           </td></tr>
           </table>
         <?php elseif ($this->_tpl_vars['m'] == 1 && $this->_tpl_vars['total_friends'] == 0): ?>
           <br>
           <table cellpadding='0' cellspacing='0'>
           <tr><td class='result'>
-            <img src='./images/icons/bulb16.gif' border='0' class='icon'><?php echo sprintf(SELanguage::_get(1023), $this->_tpl_vars['owner']->user_displayname_short); ?>
+            <?php echo sprintf(SELanguage::_get(1023), $this->_tpl_vars['owner']->user_displayname_short); ?>
           </td></tr>
           </table>
         <?php endif; ?>
@@ -453,7 +441,6 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
 '><?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_displayname; ?>
 </a>
 					</h2>
-				  
 					<?php if ($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_dateupdated'] != 0): ?><div><?php echo SELanguage::_get(849); ?> <?php $this->assign('last_updated', $this->_tpl_vars['datetime']->time_since($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_dateupdated'])); 
  echo sprintf(SELanguage::_get($this->_tpl_vars['last_updated'][0]), $this->_tpl_vars['last_updated'][1]); ?></div><?php endif; ?>
 					<?php if ($this->_tpl_vars['show_details'] != 0): ?>
@@ -515,80 +502,14 @@ _postcomment"></div>
 			<li><div id="profile_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
 _comments" style='margin-left: auto; margin-right: auto;'></div></li>
         
-        <?php 
-$javascript_lang_import_list = SELanguage::_javascript_redundancy_filter(array(39,155,175,182,183,184,185,187,784,787,829,830,831,832,833,834,835,854,856,891,1025,1026,1032,1034,1071));
-$javascript_lang_import_first = TRUE;
-if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_list) )
-{
-  echo "\n<script type='text/javascript'>\n<!--\n";
-  echo "SocialEngine.Language.Import({\n";
-  foreach( $javascript_lang_import_list as $javascript_import_id )
-  {
-    if( !$javascript_lang_import_first ) echo ",\n";
-    echo "  ".$javascript_import_id." : '".addslashes(SE_Language::_get($javascript_import_id))."'";
-    $javascript_lang_import_first = FALSE;
-  }
-  echo "\n});\n//-->\n</script>\n";
-}
- ?>
-        
-        <?php echo '
+               <?php echo '
         <style type=\'text/css\'>
-          div.comment_headline {
-            font-size: 13px; 
-            margin-bottom: 7px;
-            font-weight: bold;
-            padding: 0px;
-            border: none;
-            background: none;
-            color: #555555;
-          }
+          div.comment_headline {font-size: 13px;margin-bottom: 7px;font-weight: bold;padding: 0px; border: none;background: none;color: #555555;}
         </style>
         '; ?>
 
-        
-        <script type="text/javascript">
-        
-          SocialEngine.ProfileComments = new SocialEngineAPI.Comments({
-            'canComment' : <?php if ($this->_tpl_vars['allowed_to_comment']): ?>true<?php else: ?>false<?php endif; ?>,
-            'commentHTML' : '<?php echo ((is_array($_tmp=$this->_tpl_vars['setting']['setting_comment_html'])) ? $this->_run_mod_handler('replace', true, $_tmp, ",", ", ") : smarty_modifier_replace($_tmp, ",", ", ")); ?>
-',
-            'commentCode' : <?php if ($this->_tpl_vars['setting']['setting_comment_code']): ?>true<?php else: ?>false<?php endif; ?>,
-            
-            'type' : 'profile',
-            'typeIdentifier' : 'user_id',
-            'typeID' : <?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
-,
-            
-            'typeTab' : 'users',
-            'typeCol' : 'user',
-            
-            'initialTotal' : <?php echo ((is_array($_tmp=@$this->_tpl_vars['total_comments'])) ? $this->_run_mod_handler('default', true, $_tmp, 0) : smarty_modifier_default($_tmp, 0)); ?>
-,
-            
-            'paginate' : true,
-            'cpp' : 10,
-            
-            'commentLinks' : <?php echo '{\'reply\' : true, \'walltowall\' : true}'; ?>
-
-          });
-        
-          SocialEngine.RegisterModule(SocialEngine.ProfileComments);
-       
-          // Backwards
-          function addComment(is_error, comment_body, comment_date)
-          {
-            SocialEngine.ProfileComments.addComment(is_error, comment_body, comment_date);
-          }
-        
-          function getComments(direction)
-          {
-            SocialEngine.ProfileComments.getComments(direction);
-          }
-
-        </script>
-        
-        
+		
+                
       </div>
       
       
@@ -610,16 +531,6 @@ unset($_smarty_tpl_vars);
     
 
   
-  </div>
-
-					</div>
-				</div>
-			</div>
-			<div class="b"></div>
-		</div>
-	</div>
-</div>
-
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;

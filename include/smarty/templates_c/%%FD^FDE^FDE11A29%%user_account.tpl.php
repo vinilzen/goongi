@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-31 19:11:23
+<?php /* Smarty version 2.6.14, created on 2011-11-18 14:50:20
          compiled from user_account.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'user_account.tpl', 54, false),array('modifier', 'count', 'user_account.tpl', 60, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'user_account.tpl', 53, false),array('modifier', 'count', 'user_account.tpl', 59, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(655,1055,756,757,755,808,616,818,766,28,809,810,709,1014,206,959,960,173);
 SELanguage::load();
@@ -10,7 +10,6 @@ $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
-
 
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
@@ -205,7 +204,6 @@ $this->_sections['notifytype_loop']['last']       = ($this->_sections['notifytyp
 </table>
 <input type='hidden' name='task' value='dosave'>
 </form>
-
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;

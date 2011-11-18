@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-16 14:17:57
+<?php /* Smarty version 2.6.14, created on 2011-11-18 14:47:58
          compiled from search.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'search.tpl', 66, false),array('function', 'cycle', 'search.tpl', 94, false),array('modifier', 'truncate', 'search.tpl', 83, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'search.tpl', 60, false),array('function', 'cycle', 'search.tpl', 88, false),array('modifier', 'truncate', 'search.tpl', 77, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(924,646,926,927,182,184,928,185,183,929);
 SELanguage::load();
@@ -12,36 +12,30 @@ unset($_smarty_tpl_vars);
  ?>
 
 
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1><?php echo SELanguage::_get(924); ?><!-- Поиск по сайту --></h1>
-						<div class="crumb"><a href="#">Главная</a><span><?php echo SELanguage::_get(646); ?><!-- Поиск --></span></div>
-						<div class="buttons">
-							<form action='search.php' name='search_form' method='post'>
-								
-								<input type='text' size='30' class="srch_inp" name='search_text' id='search_text' value='<?php echo $this->_tpl_vars['search_text']; ?>
+<h1><?php echo SELanguage::_get(924); ?><!-- Поиск по сайту --></h1>
+<div class="crumb"><a href="#">Главная</a><span><?php echo SELanguage::_get(646); ?><!-- Поиск --></span></div>
+<div class="buttons">
+	<form action='search.php' name='search_form' method='post'>
+		
+		<input type='text' size='30' class="srch_inp" name='search_text' id='search_text' value='<?php echo $this->_tpl_vars['search_text']; ?>
 ' maxlength='100'></td>
-								<span class="button2" style="margin:0;"><span class="l">&nbsp;</span><span class="c">
-									<input type='submit' class='button' value='<?php echo SELanguage::_get(646); ?>'>
-								</span><span class="r">&nbsp;</span></span>
-								<input type='hidden' name='task' value='dosearch'>
-								<input type='hidden' name='t' value='0'>
-								<a href='search_advanced.php'><?php echo SELanguage::_get(926); ?></a>
-							</form>						
-						</div>
-						<div class="group_list">
-							<ul>
-								<li><a href="#">Быстрый поиск</a></li>
-								<li><a href="#">Поиск людей</a></li>
-								<li><a href="#">Поиск мероприятий</a></li>
-								<li><a href="#">Поиск событий</a></li>
-								<li><a href="#">Поиск статей</a></li>
-							</ul>
-						</div>
+		<span class="button2" style="margin:0;"><span class="l">&nbsp;</span><span class="c">
+			<input type='submit' class='button' value='<?php echo SELanguage::_get(646); ?>'>
+		</span><span class="r">&nbsp;</span></span>
+		<input type='hidden' name='task' value='dosearch'>
+		<input type='hidden' name='t' value='0'>
+		<a href='search_advanced.php'><?php echo SELanguage::_get(926); ?></a>
+	</form>						
+</div>
+<div class="group_list">
+	<ul>
+		<li><a href="#">Быстрый поиск</a></li>
+		<li><a href="#">Поиск людей</a></li>
+		<li><a href="#">Поиск мероприятий</a></li>
+		<li><a href="#">Поиск событий</a></li>
+		<li><a href="#">Поиск статей</a></li>
+	</ul>
+</div>
 
 <?php if ($this->_tpl_vars['search_text'] != ""): ?>
 
@@ -188,16 +182,8 @@ $this->_sections['result_loop']['last']       = ($this->_sections['result_loop']
   window.addEvent(\'load\', function(){ $(\'search_text\').focus(); });
 //-->
 </script>
-'; ?>
-
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<?php $_smarty_tpl_vars = $this->_tpl_vars;
+'; 
+ $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);

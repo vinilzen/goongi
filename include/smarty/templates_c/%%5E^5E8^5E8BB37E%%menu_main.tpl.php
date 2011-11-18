@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-15 18:55:29
+<?php /* Smarty version 2.6.14, created on 2011-11-18 18:44:52
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 88, false),array('modifier', 'escape', 'menu_main.tpl', 174, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 33, false),array('modifier', 'escape', 'menu_main.tpl', 121, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(1204,1161,1162,652,1163,1164,1165,1166,654,784,1167,1168,1169,653,1170,1171,1172,655,1173,1174,876,838,887,885,875,837,839,857,840,869,841,868,842,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850);
 SELanguage::load();
@@ -13,70 +13,16 @@ SELanguage::load();
 
 
   <!-- START USER MENU -->
-<?php echo '
-<script type=\'text/javascript\'>
-<!--
-var open_menu;
-var current_timeout = new Array();
 
-function showMenu(id1)
-{
-  if($(id1))
-  {
-    if($(id1).style.display == \'none\')
-    {
-      if($(open_menu)) { hideMenu($(open_menu)); }
-      $(id1).style.display=\'inline\';
-      startMenuTimeout($(id1));
-      $(id1).addEvent(\'mouseover\', function(e) { killMenuTimeout(this); });
-      $(id1).addEvent(\'mouseout\', function(e) { startMenuTimeout(this); });
-      open_menu = id1;
-    }
-  }
-}
-
-function killMenuTimeout(divEl)
-{
-  clearTimeout(current_timeout[divEl.id]);
-  current_timeout[divEl.id] = \'\';
-}
-
-function startMenuTimeout(divEl)
-{
-  if(current_timeout[divEl.id] == \'\') {
-    current_timeout[divEl.id] = setTimeout(function() { hideMenu(divEl); }, 1000);
-  }
-}
-
-function hideMenu(divEl)
-{
-  divEl.style.display = \'none\'; 
-  current_timeout[divEl.id] = \'\';
-  divEl.removeEvent(\'mouseover\', function(e) { killMenuTimeout(this); });
-  divEl.removeEvent(\'mouseout\', function(e) { startMenuTimeout(this); });
-}
-
-function SwapOut(id1) {
-  $(id1).src = Rollarrow1.src;
-  return true;
-}
-
-function SwapBack(id1) {
-  $(id1).src = Rollarrow0.src;
-  return true;
-}
-//-->
-</script>
-'; 
- if ($this->_tpl_vars['user']->user_exists != 0): ?>	
+<?php if ($this->_tpl_vars['user']->user_exists != 0): ?>	
 <div class="block0">
 	<div class="bg">
 		<div class="c">
 			<div class="pro">
-				<div><img src="<?php echo $this->_tpl_vars['user']->user_photo("./images/nophoto.gif"); ?>
+				<div id="main_photo"><img src="<?php echo $this->_tpl_vars['user']->user_photo("./images/nophoto.gif"); ?>
 " alt="" /></div>
 					<ul>
-												<li><a href='user_home.php'><?php echo SELanguage::_get(1161); ?></a></li>
+												<!-- <li><a href='user_home.php'><?php echo SELanguage::_get(1161); ?></a></li>
 						<!-- <li><a href='network.php'><?php echo SELanguage::_get(1162); ?></a></li> -->
     
 										<li><a href='<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['user']->user_info['user_username']); ?>
@@ -100,6 +46,7 @@ function SwapBack(id1) {
  if ($this->_tpl_vars['user_unread_pms'] != 0): ?> (<?php echo $this->_tpl_vars['user_unread_pms']; ?>
 )<?php endif; ?></a></li> -->
 						<li><a href="javascript:TB_show('<?php echo SELanguage::_get(784); ?>', 'user_messages_new.php?TB_iframe=true&height=400&width=450', '', './images/trans.gif');"><?php echo SELanguage::_get(1167); ?></a></li>
+						<li  id="add_msg_l"><a href="#" >-><?php echo SELanguage::_get(1167); ?></a></li>
 						<li><a href='user_messages.php'><?php echo SELanguage::_get(1168); ?></a></li>
 						<li><a href='user_messages_outbox.php'><?php echo SELanguage::_get(1169); ?></a></li>
 					<?php endif; ?>
@@ -118,6 +65,7 @@ function SwapBack(id1) {
 			</div>
 		</div>
 	</div>
+	 <div class="b"></div>
 </div>
 <?php endif; ?>
 <!-- END USER MENU -->

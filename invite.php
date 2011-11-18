@@ -91,6 +91,7 @@ $global_page_description[0] = 1075;
 
 
 // ASSIGN VARIABLES AND INCLUDE FOOTER
+$smarty->assign('invite', 1);
 $smarty->assign('result', $result);
 $smarty->assign('is_error', $is_error);
 $smarty->assign('invite_emails', $invite_emails);

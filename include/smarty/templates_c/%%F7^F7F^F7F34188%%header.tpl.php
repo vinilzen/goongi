@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-02 12:54:52
+<?php /* Smarty version 2.6.14, created on 2011-11-18 19:10:02
          compiled from header.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header.tpl', 60, false),)), $this);
@@ -19,7 +19,7 @@ unset($_smarty_tpl_vars);
  endif; ?>
 
 <!-- <div id="smoothbox_container"></div> -->
-
+<iframe id='ajaxframe' name='ajaxframe' style='display: none;'  src='javascript:false;'></iframe> <!-- style='display: none;' -->
 
 
 <!-- BEGIN CENTERING TABLE/ mycontainer -->
@@ -137,7 +137,7 @@ unset($_smarty_tpl_vars);
 </tr>
 </table>
 <?php endif; 
- if ($this->_tpl_vars['user']->user_exists): 
+ if ($this->_tpl_vars['user']->user_exists && 0): 
  
 $javascript_lang_import_list = SELanguage::_javascript_redundancy_filter(array(1198,1199));
 $javascript_lang_import_first = TRUE;
@@ -185,4 +185,13 @@ window.addEvent('domready', function() {
     	<div class="width">
 
     <?php if ($this->_tpl_vars['ads']->ad_belowmenu != ""): ?><div class='ad_belowmenu' style='display: block; visibility: visible;'><?php echo $this->_tpl_vars['ads']->ad_belowmenu; ?>
-</div><?php endif; ?>
+</div><?php endif; ?>
+<div class="all">
+	<?php if ($this->_tpl_vars['login'] || $this->_tpl_vars['lostpass'] || $this->_tpl_vars['signup'] || $this->_tpl_vars['invite']): ?>
+		<div class="center_one"><div class="block3">
+	<?php else: ?>
+		<div class="center_all"><div class="block4">
+	<?php endif; ?>	
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">

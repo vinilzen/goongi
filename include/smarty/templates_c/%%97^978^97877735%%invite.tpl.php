@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-04 17:11:52
+<?php /* Smarty version 2.6.14, created on 2011-11-18 19:09:03
          compiled from invite.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'invite.tpl', 90, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'invite.tpl', 84, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(1074,1075,1078,1076,1077,1079,1080,1081,1082,856,728);
 SELanguage::load();
@@ -12,14 +12,8 @@ unset($_smarty_tpl_vars);
  ?>
 
 
-<div class="all">
-	<div class="center_one">
-		<div class="block3">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<div class="form auth">
-							<h1><?php echo SELanguage::_get(1074); ?></h1>
+	<div class="form auth">
+		<h1><?php echo SELanguage::_get(1074); ?></h1>
 <div><?php echo SELanguage::_get(1075); ?></div>
 <?php if ($this->_tpl_vars['setting']['setting_signup_invite'] == 2): ?> <?php echo SELanguage::_get(1078); 
  endif; ?>
@@ -112,19 +106,6 @@ unset($_smarty_tpl_vars);
   </form>
 <?php endif; ?>
   
-									</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="b"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div id="clearfooter"></div>
-</div>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer_without_left_menu.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;

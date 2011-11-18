@@ -1,9 +1,16 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-04 12:09:37
+<?php /* Smarty version 2.6.14, created on 2011-11-18 14:38:28
          compiled from footer.tpl */
 ?><?php
 SELanguage::_preload_multi(6000146);
 SELanguage::load();
-?>
+?>						
+					</div>
+				</div>
+			</div>
+			<div class="b"></div>
+		</div>
+	</div>
+</div>
     <?php if ($this->_tpl_vars['ads']->ad_bottom != "" && 0): ?>
     <div class='ad_bottom' style='display: block; visibility: visible;'>
       <?php echo $this->_tpl_vars['ads']->ad_bottom; ?>
@@ -73,6 +80,18 @@ unset($_smarty_tpl_vars);
   }
 } ?>
 
-
+<div id="popup"></div>
+<div class="window rezina" id="add_msg_w">
+	<div class="close"></div>
+	<div class="w_t">
+    	<h1>Написать сообщение</h1>
+    </div>
+	<div class="w_c">
+    	<div class="form add_w" id="add_msg_b">
+        	
+        </div>
+    </div>
+	<div class="w_b"></div>
+</div>
 </body>
 </html>

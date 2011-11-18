@@ -1,13 +1,7 @@
 {include file='header.tpl'}
 
 {* $Id: user_friends_requests.tpl 8 2009-01-11 06:02:53Z john $ *}
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1>{lang_print id=895}<!-- Со мной хотят дружить --></h1>
+<h1>{lang_print id=895}<!-- Со мной хотят дружить --></h1>
 						
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
@@ -104,10 +98,4 @@
   {/if}
   
 {/if}  
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 {include file='footer.tpl'}

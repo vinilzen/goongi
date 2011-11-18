@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-16 15:15:12
+<?php /* Smarty version 2.6.14, created on 2011-11-18 14:48:12
          compiled from search_advanced.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'search_advanced.tpl', 42, false),array('modifier', 'date_format', 'search_advanced.tpl', 128, false),array('modifier', 'in_array', 'search_advanced.tpl', 168, false),array('modifier', 'truncate', 'search_advanced.tpl', 242, false),array('function', 'math', 'search_advanced.tpl', 128, false),array('function', 'cycle', 'search_advanced.tpl', 245, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'search_advanced.tpl', 36, false),array('modifier', 'date_format', 'search_advanced.tpl', 122, false),array('modifier', 'in_array', 'search_advanced.tpl', 162, false),array('modifier', 'truncate', 'search_advanced.tpl', 236, false),array('function', 'math', 'search_advanced.tpl', 122, false),array('function', 'cycle', 'search_advanced.tpl', 239, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(1087,1088,1083,1084,1114,1089,736,1116,1117,1091,1092,1093,1094,1095,1096,1122,1121,1090,1085,182,184,185,183,509,1086);
 SELanguage::load();
@@ -11,14 +11,8 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1><?php echo SELanguage::_get(1087); ?><!-- Поиск по сайту --></h1>
-						(<?php echo SELanguage::_get(1088); ?>)
+<h1><?php echo SELanguage::_get(1087); ?><!-- Поиск по сайту --></h1>
+(<?php echo SELanguage::_get(1088); ?>)
 <?php if ($this->_tpl_vars['showfields'] == 1): ?>
   <div class='page_header'><?php echo SELanguage::_get(1087); ?></div>
   <div></div>
@@ -680,16 +674,9 @@ cat_selected=<?php echo $this->_tpl_vars['cat_selected']; ?>
     </div>
   <?php endif; 
  endif; ?>
-
-</td>
-</tr>
+		</td>
+	</tr>
 </table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;

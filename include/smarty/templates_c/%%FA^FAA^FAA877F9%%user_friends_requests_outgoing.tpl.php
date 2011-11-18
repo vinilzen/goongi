@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-16 14:20:37
+<?php /* Smarty version 2.6.14, created on 2011-11-18 14:50:20
          compiled from user_friends_requests_outgoing.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends_requests_outgoing.tpl', 57, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends_requests_outgoing.tpl', 51, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(896,894,895,915,916,182,184,185,183,509,849,906,882,907,887,917,784,839);
 SELanguage::load();
@@ -11,23 +11,17 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1><?php echo SELanguage::_get(896); ?><!-- ß ÕÎ×Ó ÄÐÓÆÈÒÜ Ñ ... --></h1>
+<h1><?php echo SELanguage::_get(896); ?><!-- ß ÕÎ×Ó ÄÐÓÆÈÒÜ Ñ ... --></h1>
 <table class='tabs' cellpadding='0' cellspacing='0'>
-<tr>
-<td class='tab0'>&nbsp;</td>
-<td class='tab2' NOWRAP><a href='user_friends.php'><?php echo SELanguage::_get(894); ?></a></td>
-<td class='tab'>&nbsp;</td>
-<td class='tab2' NOWRAP><a href='user_friends_requests.php'><?php echo SELanguage::_get(895); ?></a></td>
-<td class='tab'>&nbsp;</td>
-<td class='tab1' NOWRAP><a href='user_friends_requests_outgoing.php'><?php echo SELanguage::_get(896); ?></a></td>
-<td class='tab3'>&nbsp;</td>
-</tr>
+	<tr>
+	<td class='tab0'>&nbsp;</td>
+	<td class='tab2' NOWRAP><a href='user_friends.php'><?php echo SELanguage::_get(894); ?></a></td>
+	<td class='tab'>&nbsp;</td>
+	<td class='tab2' NOWRAP><a href='user_friends_requests.php'><?php echo SELanguage::_get(895); ?></a></td>
+	<td class='tab'>&nbsp;</td>
+	<td class='tab1' NOWRAP><a href='user_friends_requests_outgoing.php'><?php echo SELanguage::_get(896); ?></a></td>
+	<td class='tab3'>&nbsp;</td>
+	</tr>
 </table>
 
 
@@ -148,14 +142,8 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
     </div>
   <?php endif; ?>
   
-<?php endif; ?>  
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<?php $_smarty_tpl_vars = $this->_tpl_vars;
+<?php endif; 
+ $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);

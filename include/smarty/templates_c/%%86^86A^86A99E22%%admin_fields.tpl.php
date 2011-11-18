@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-04 17:12:44
+<?php /* Smarty version 2.6.14, created on 2011-11-18 17:06:41
          compiled from admin_fields.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'admin_fields.tpl', 157, false),)), $this);

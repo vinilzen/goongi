@@ -4,12 +4,6 @@
 
 
 {* BEGIN MIDDLE COLUMN *}
-<div class="all">
-	<div class="center">
-		<div class="block2">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
 						<div class="first_time">
 							<p>Если вы хотите найти и поделиться с родными и близкими историей вашего рода &mdash; 
 							наш проект Goongi то что вам нужно.</p>
@@ -28,7 +22,7 @@
 								</span>
 								<input type='hidden' name='task' value='dosearch' />
 								<input type='hidden' name='t' value='0' />
-								<input type="text" class="srch" name="search_text" onblur="if (this.value == '') {this.value='Введите сюда фамилию';this.style.color='#999999';}" onfocus="if (this.value == 'Введите сюда фамилию') {this.value ='';this.style.color='#000000';}" value="Введите сюда фамилию" />
+								<input type="text" class="srch" name="search_text" onblur="if (this.value == '') this.value='Введите сюда фамилию'; if (this.value == '') this.style.color='#999999';" onfocus="if (this.value == 'Введите сюда фамилию') this.value =''; if (this.value == 'Введите сюда фамилию')  this.style.color='#000000';" value="Введите сюда фамилию" />
 							</form>
 							<a href='search_advan	ced.php'>{lang_print id=926}<!-- Расширенный поиск --></a>
 						</div>
@@ -189,14 +183,14 @@
 					<form action='login.php' name="login" method='post'>
 						<div class="input"><label>{lang_print id=28}<!-- Логин --></label><input type="text" value='{$prev_email}' name="email"  size='25' maxlength='100' /></div>
 						
-						<div class="input"><label><a href="#">{lang_print id=675}<!-- Забыли пароль? --></a>{lang_print id=29}<!-- Пароль --></label><input type="password" value="" name='password' size='25' maxlength='100' /></div>
+						<div class="input"><label><a href="/lostpass.php">{lang_print id=675}<!-- Забыли пароль? --></a>{lang_print id=29}<!-- Пароль --></label><input type="password" value="" name='password' size='25' maxlength='100' /></div>
 						
 						<div class="check"><label><input type='checkbox' class='checkbox' name='persistent' value='1' id='rememberme' /><span>{lang_print id=660}<!-- Запомнить меня --></span></label></div>
 						
 						<span class="button1"><span class="l">&nbsp;</span><span class="c"><input type="submit" value='{lang_print id=30}' /></span><span class="r">&nbsp;</span></span>
 						<input type="hidden" name="task" value="dologin">
 					</form>
-					<a href="#" class="reg">{lang_print id=6000143}<!-- Зарегистрироваться --></a>
+					<a href="/signup.php" class="reg">{lang_print id=6000143}<!-- Зарегистрироваться --></a>
 				</div>
 			</div>
 		</div>

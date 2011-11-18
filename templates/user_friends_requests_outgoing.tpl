@@ -1,23 +1,17 @@
 {include file='header.tpl'}
 
 {* $Id: user_friends_requests_outgoing.tpl 8 2009-01-11 06:02:53Z john $ *}
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1>{lang_print id=896}<!-- ß ÕÎ×Ó ÄÐÓÆÈÒÜ Ñ ... --></h1>
+<h1>{lang_print id=896}<!-- ß ÕÎ×Ó ÄÐÓÆÈÒÜ Ñ ... --></h1>
 <table class='tabs' cellpadding='0' cellspacing='0'>
-<tr>
-<td class='tab0'>&nbsp;</td>
-<td class='tab2' NOWRAP><a href='user_friends.php'>{lang_print id=894}</a></td>
-<td class='tab'>&nbsp;</td>
-<td class='tab2' NOWRAP><a href='user_friends_requests.php'>{lang_print id=895}</a></td>
-<td class='tab'>&nbsp;</td>
-<td class='tab1' NOWRAP><a href='user_friends_requests_outgoing.php'>{lang_print id=896}</a></td>
-<td class='tab3'>&nbsp;</td>
-</tr>
+	<tr>
+	<td class='tab0'>&nbsp;</td>
+	<td class='tab2' NOWRAP><a href='user_friends.php'>{lang_print id=894}</a></td>
+	<td class='tab'>&nbsp;</td>
+	<td class='tab2' NOWRAP><a href='user_friends_requests.php'>{lang_print id=895}</a></td>
+	<td class='tab'>&nbsp;</td>
+	<td class='tab1' NOWRAP><a href='user_friends_requests_outgoing.php'>{lang_print id=896}</a></td>
+	<td class='tab3'>&nbsp;</td>
+	</tr>
 </table>
 
 
@@ -102,11 +96,5 @@
     </div>
   {/if}
   
-{/if}  
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+{/if}
 {include file='footer.tpl'}

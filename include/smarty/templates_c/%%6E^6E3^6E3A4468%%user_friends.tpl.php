@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-16 14:18:16
+<?php /* Smarty version 2.6.14, created on 2011-11-18 14:49:59
          compiled from user_friends.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends.tpl', 133, false),array('function', 'cycle', 'user_friends.tpl', 172, false),array('modifier', 'truncate', 'user_friends.tpl', 155, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends.tpl', 127, false),array('function', 'cycle', 'user_friends.tpl', 166, false),array('modifier', 'truncate', 'user_friends.tpl', 149, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(894,652,895,896,899,646,900,901,902,903,905,904,182,184,185,183,509,849,906,882,907,908,837,889,784,839,836);
 SELanguage::load();
@@ -11,34 +11,28 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1><?php echo SELanguage::_get(894); ?><!-- Мои друзья --></h1>
-						<div class="crumb">
-							<a href="/">Главная</a>
-							<a href='<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['user']->user_info['user_username']); ?>
+<h1><?php echo SELanguage::_get(894); ?><!-- Мои друзья --></h1>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<a href='<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['user']->user_info['user_username']); ?>
 '><?php echo SELanguage::_get(652); ?></a>
-							<span><?php echo SELanguage::_get(894); ?><!-- Мои друзья --></span>
-						</div>
-						<div class="buttons">
-							<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Создать группу" name="creat" /></span><span class="r">&nbsp;</span></span>
-						</div>
-							<div class="group_list">
-								<h2>Список групп</h2>
-								<ul>
-									<li><a href="#">Vip</a></li>
-									<li><a href="#">Название группы</a></li>
-									<li><a href="#">Родственники</a></li>
-									<li><a href="#">Близкие друзья</a></li>
-									<li><a href="#">Коллеги</a></li>
-									<li><a href="#">Друзья по школе</a></li>
-									<li><a href="#">Друзья по вузу</a></li>
-								</ul>
-							</div>
+	<span><?php echo SELanguage::_get(894); ?><!-- Мои друзья --></span>
+</div>
+<div class="buttons">
+	<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Создать группу" name="creat" /></span><span class="r">&nbsp;</span></span>
+</div>
+<div class="group_list">
+	<h2>Список групп</h2>
+	<ul>
+		<li><a href="#">Vip</a></li>
+		<li><a href="#">Название группы</a></li>
+		<li><a href="#">Родственники</a></li>
+		<li><a href="#">Близкие друзья</a></li>
+		<li><a href="#">Коллеги</a></li>
+		<li><a href="#">Друзья по школе</a></li>
+		<li><a href="#">Друзья по вузу</a></li>
+	</ul>
+</div>
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
 <td class='tab0'>&nbsp;</td>
@@ -251,14 +245,8 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
 '><?php echo SELanguage::_get(183); ?> &#187;</a><?php else: ?><font class='disabled'><?php echo SELanguage::_get(183); ?> &#187;</font><?php endif; ?>
     </div>
   <?php endif; 
- endif; ?>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<?php $_smarty_tpl_vars = $this->_tpl_vars;
+ endif; 
+ $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);

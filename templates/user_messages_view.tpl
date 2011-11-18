@@ -1,21 +1,15 @@
 ﻿{include file='header.tpl'}
 
 {* $Id: user_messages_view.tpl 194 2009-07-15 21:44:24Z john $ *}
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1>мои сообщения</h1>
-						<div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><span>Mои сообщения</span></div>
-						<ul class="vk">
-							<li class="active"><a href="/user_messages.php">{lang_print id=780}<!-- Полученные --><font>{if $user_unread_pms>0}({$user_unread_pms}){/if}</font></a></li>
-							<li><a href="/user_messages_outbox.php">{lang_print id=781}<!-- Отправленные --></a></li>
-							<li><a href="#">Спам  <font>(8)</font></a></li>
-							<li id="add_msg"><a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=784}<!-- Написать сообщение --></a></li>
-						</ul>
-						
+<h1>мои сообщения</h1>
+<div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><span>Mои сообщения</span></div>
+<ul class="vk">
+	<li class="active"><a href="/user_messages.php">{lang_print id=780}<!-- Полученные --><font>{if $user_unread_pms>0}({$user_unread_pms}){/if}</font></a></li>
+	<li><a href="/user_messages_outbox.php">{lang_print id=781}<!-- Отправленные --></a></li>
+	<li><a href="#">Спам  <font>(8)</font></a></li>
+	<li id="add_msg"><a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=784}<!-- Написать сообщение --></a></li>
+</ul>
+
 <img src='./images/icons/messages48.gif' border='0' class='icon_big' />
 <div class='page_header'>{$pmconvo_info.pmconvo_subject}</div>
 {capture assign='collaborators'}{section name=coll_loop loop=$collaborators}<a href='{$url->url_create("profile", $collaborators[coll_loop]->user_info.user_username)}'>{$collaborators[coll_loop]->user_displayname}</a>{if $smarty.section.coll_loop.last != TRUE}, {/if}{/section}{/capture}
@@ -76,12 +70,4 @@
   <div style='padding-top: 15px;'><a href='user_messages_view.php?pmconvo_id={$pmconvo_info.pmconvo_id}&task=delete'>{lang_print id=1181}</a></div>
 </div>
 </ul>
-
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 {include file='footer.tpl'}

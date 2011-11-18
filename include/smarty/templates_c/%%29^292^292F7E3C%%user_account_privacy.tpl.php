@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-01 17:11:28
+<?php /* Smarty version 2.6.14, created on 2011-11-18 14:50:21
          compiled from user_account_privacy.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'user_account_privacy.tpl', 115, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'user_account_privacy.tpl', 114, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(655,1055,756,757,1056,1057,191,813,814,815,1058,1059,1060,1061,1062,967,968,969,970,971,972,973,974,811,812,173);
 SELanguage::load();
@@ -10,7 +10,6 @@ $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
-
 
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
@@ -245,7 +244,6 @@ $this->_sections['actiontypes_loop']['last']       = ($this->_sections['actionty
 </table>
 <input type='hidden' name='task' value='dosave'>
 </form>
-
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;

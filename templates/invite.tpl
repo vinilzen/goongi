@@ -2,14 +2,8 @@
 
 {* $Id: invite.tpl 8 2009-01-11 06:02:53Z john $ *}
 
-<div class="all">
-	<div class="center_one">
-		<div class="block3">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<div class="form auth">
-							<h1>{lang_print id=1074}</h1>
+	<div class="form auth">
+		<h1>{lang_print id=1074}</h1>
 <div>{lang_print id=1075}</div>
 {if $setting.setting_signup_invite == 2} {lang_print id=1078}{/if}
 <br />
@@ -103,17 +97,4 @@
   </form>
 {/if}
   
-									</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="b"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div id="clearfooter"></div>
-</div>
 {include file='footer_without_left_menu.tpl'}

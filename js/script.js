@@ -38,12 +38,20 @@ $(document).ready(function(){
 		$('#add_user_w').css("top", scrOfY + 50 + 'px').fadeIn();
 		e.preventDefault();
 	});
-	$('#add_msg').click(function(e){
+	$('#add_msg, #add_msg_l').click(function(e){
+		$('#ajaxframe').attr('src','user_messages_new.php');
+		$('#add_msg_b').html('');
+		//v = $('').html();
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();
 		$('#add_msg_w').css("top", scrOfY + 50 + 'px').fadeIn();
-		e.preventDefault();
-	});
+		$('#ajaxframe').load(function() {
+			$('#add_msg_b').html($("#ajaxframe").contents().find("#form_div").html());
+			//$('#add_msg_w').css("top", scrOfY + 50 + 'px').fadeIn();
+			e.preventDefault();
+		});
+		return false;
+	});	
 	$('#add_event').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();

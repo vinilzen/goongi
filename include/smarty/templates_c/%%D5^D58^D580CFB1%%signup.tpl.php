@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-04 17:23:59
+<?php /* Smarty version 2.6.14, created on 2011-11-18 15:10:56
          compiled from signup.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'signup.tpl', 154, false),array('modifier', 'in_array', 'signup.tpl', 314, false),array('modifier', 'escape', 'signup.tpl', 435, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'signup.tpl', 148, false),array('modifier', 'in_array', 'signup.tpl', 308, false),array('modifier', 'escape', 'signup.tpl', 415, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(729,730,731,732,733,734,693,735,722,723,724,725,726,727,728,717,712,713,714,715,716,349,710,711,679,680,681,37,682,29,53,266,683,684,28,685,686,709,206,687,688,689,690,975,691,692);
 SELanguage::load();
@@ -11,13 +11,7 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-<div class="all">
-	<div class="center_one">
-		<div class="block3">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<div class="form auth">
+<div class="form auth">
 <?php if ($this->_tpl_vars['step'] == 5): ?>
 
  <h1><?php echo SELanguage::_get(729); ?></h1>
@@ -820,21 +814,8 @@ _option<?php echo $this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']
  <h1><?php echo SELanguage::_get(679); ?></h1>
   <div><?php echo SELanguage::_get(680); ?></div>
   <br />
-  <br />
 
-    <?php if ($this->_tpl_vars['is_error'] != 0): ?>
-    <table cellpadding='0' cellspacing='0'>
-      <tr>
-        <td class='result'>
-          <div class='error'>
-            <img src='./images/error.gif' border='0' class='icon' />
-            <?php echo SELanguage::_get($this->_tpl_vars['is_error']); ?>
-          </div>
-        </td>
-      </tr>
-    </table>
-    <br />
-  <?php endif; ?>
+    <?php if ($this->_tpl_vars['is_error'] != 0): ?><div class='error'><?php echo SELanguage::_get($this->_tpl_vars['is_error']); ?></div><?php endif; ?>
 
   <form action='signup.php' method='POST'>
   <h1><?php echo SELanguage::_get(681); ?></h1>
@@ -857,11 +838,10 @@ _option<?php echo $this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']
   
   
   <div class='signup_header'><?php echo SELanguage::_get(684); ?></div>
-  <table cellpadding='0' cellspacing='0'>
-  <?php if ($this->_tpl_vars['setting']['setting_username']): ?>
-    <tr>
-      <td class='form1'><?php echo SELanguage::_get(28); ?>:</td>
-      <td class='form2'>
+ 
+  <?php if ($this->_tpl_vars['setting']['setting_username']): 
+ echo SELanguage::_get(28); ?>:
+
         <input name='signup_username' type='text' class='text' maxlength='50' size='40' value='<?php echo $this->_tpl_vars['signup_username']; ?>
 '>
         <?php ob_start(); 
@@ -870,13 +850,10 @@ _option<?php echo $this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']
         <img src='./images/icons/tip.gif' border='0' class='Tips1' title="<?php echo ((is_array($_tmp=$this->_tpl_vars['tip'])) ? $this->_run_mod_handler('escape', true, $_tmp, 'quotes') : smarty_modifier_escape($_tmp, 'quotes')); ?>
 ">
         <div class='form_desc'><?php echo SELanguage::_get(686); ?></div>
-      </td>
-    </tr>
+
   <?php endif; ?>
-  <?php if (count($this->_tpl_vars['cats']) > 1): ?>
-    <tr>
-      <td class='form1'><?php echo SELanguage::_get(709); ?>:</td>
-      <td class='form2'>
+  <?php if (count($this->_tpl_vars['cats']) > 1): 
+ echo SELanguage::_get(709); ?>:
         <select name='signup_cat'>
         <?php unset($this->_sections['cat_loop']);
 $this->_sections['cat_loop']['name'] = 'cat_loop';
@@ -906,50 +883,44 @@ $this->_sections['cat_loop']['last']       = ($this->_sections['cat_loop']['iter
 '<?php if ($this->_tpl_vars['signup_cat'] == $this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['cat_id']): ?> selected='selected'<?php endif; ?>><?php echo SELanguage::_get($this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['cat_title']); ?></option>
         <?php endfor; endif; ?>
         </select>
-      </td>
-    </tr>
-  <?php endif; ?>
-  <tr>
-    <td class='form1' width='100'><?php echo SELanguage::_get(206); ?>:</td>
-    <td class='form2'>
+
+  <?php endif; 
+ echo SELanguage::_get(206); ?>:
       <select name='signup_timezone'>
-      <option value='-8'<?php if ($this->_tpl_vars['signup_timezone'] == "-8"): ?> SELECTED<?php endif; ?>>Pacific Time (US & Canada)</option>
-      <option value='-7'<?php if ($this->_tpl_vars['signup_timezone'] == "-7"): ?> SELECTED<?php endif; ?>>Mountain Time (US & Canada)</option>
-      <option value='-6'<?php if ($this->_tpl_vars['signup_timezone'] == "-6"): ?> SELECTED<?php endif; ?>>Central Time (US & Canada)</option>
-      <option value='-5'<?php if ($this->_tpl_vars['signup_timezone'] == "-5"): ?> SELECTED<?php endif; ?>>Eastern Time (US & Canada)</option>
-      <option value='-4'<?php if ($this->_tpl_vars['signup_timezone'] == "-4"): ?> SELECTED<?php endif; ?>>Atlantic Time (Canada)</option>
-      <option value='-9'<?php if ($this->_tpl_vars['signup_timezone'] == "-9"): ?> SELECTED<?php endif; ?>>Alaska (US & Canada)</option>
-      <option value='-10'<?php if ($this->_tpl_vars['signup_timezone'] == "-10"): ?> SELECTED<?php endif; ?>>Hawaii (US)</option>
-      <option value='-11'<?php if ($this->_tpl_vars['signup_timezone'] == "-11"): ?> SELECTED<?php endif; ?>>Midway Island, Samoa</option>
-      <option value='-12'<?php if ($this->_tpl_vars['signup_timezone'] == "-12"): ?> SELECTED<?php endif; ?>>Eniwetok, Kwajalein</option>
-      <option value='-3.3'<?php if ($this->_tpl_vars['signup_timezone'] == "-3.3"): ?> SELECTED<?php endif; ?>>Newfoundland</option>
-      <option value='-3'<?php if ($this->_tpl_vars['signup_timezone'] == "-3"): ?> SELECTED<?php endif; ?>>Brasilia, Buenos Aires, Georgetown</option>
-      <option value='-2'<?php if ($this->_tpl_vars['signup_timezone'] == "-2"): ?> SELECTED<?php endif; ?>>Mid-Atlantic</option>
-      <option value='-1'<?php if ($this->_tpl_vars['signup_timezone'] == "-1"): ?> SELECTED<?php endif; ?>>Azores, Cape Verde Is.</option>
-      <option value='0'<?php if ($this->_tpl_vars['signup_timezone'] == '0'): ?> SELECTED<?php endif; ?>>Greenwich Mean Time (Lisbon, London)</option>
-      <option value='1'<?php if ($this->_tpl_vars['signup_timezone'] == '1'): ?> SELECTED<?php endif; ?>>Amsterdam, Berlin, Paris, Rome, Madrid</option>
-      <option value='2'<?php if ($this->_tpl_vars['signup_timezone'] == '2'): ?> SELECTED<?php endif; ?>>Athens, Helsinki, Istanbul, Cairo, E. Europe</option>
-      <option value='3'<?php if ($this->_tpl_vars['signup_timezone'] == '3'): ?> SELECTED<?php endif; ?>>Baghdad, Kuwait, Nairobi, Moscow</option>
-      <option value='3.3'<?php if ($this->_tpl_vars['signup_timezone'] == "3.3"): ?> SELECTED<?php endif; ?>>Tehran</option>
-      <option value='4'<?php if ($this->_tpl_vars['signup_timezone'] == '4'): ?> SELECTED<?php endif; ?>>Abu Dhabi, Kazan, Muscat</option>
-      <option value='4.3'<?php if ($this->_tpl_vars['signup_timezone'] == "4.3"): ?> SELECTED<?php endif; ?>>Kabul</option>
-      <option value='5'<?php if ($this->_tpl_vars['signup_timezone'] == '5'): ?> SELECTED<?php endif; ?>>Islamabad, Karachi, Tashkent</option>
-      <option value='5.5'<?php if ($this->_tpl_vars['signup_timezone'] == "5.5"): ?> SELECTED<?php endif; ?>>Bombay, Calcutta, New Delhi</option>
-      <option value='6'<?php if ($this->_tpl_vars['signup_timezone'] == '6'): ?> SELECTED<?php endif; ?>>Almaty, Dhaka</option>
-      <option value='7'<?php if ($this->_tpl_vars['signup_timezone'] == '7'): ?> SELECTED<?php endif; ?>>Bangkok, Jakarta, Hanoi</option>
-      <option value='8'<?php if ($this->_tpl_vars['signup_timezone'] == '8'): ?> SELECTED<?php endif; ?>>Beijing, Hong Kong, Singapore, Taipei</option>
-      <option value='9'<?php if ($this->_tpl_vars['signup_timezone'] == '9'): ?> SELECTED<?php endif; ?>>Tokyo, Osaka, Sapporto, Seoul, Yakutsk</option>
-      <option value='9.3'<?php if ($this->_tpl_vars['signup_timezone'] == "9.3"): ?> SELECTED<?php endif; ?>>Adelaide, Darwin</option>
-      <option value='10'<?php if ($this->_tpl_vars['signup_timezone'] == '10'): ?> SELECTED<?php endif; ?>>Brisbane, Melbourne, Sydney, Guam</option>
-      <option value='11'<?php if ($this->_tpl_vars['signup_timezone'] == '11'): ?> SELECTED<?php endif; ?>>Magadan, Soloman Is., New Caledonia</option>
-      <option value='12'<?php if ($this->_tpl_vars['signup_timezone'] == '12'): ?> SELECTED<?php endif; ?>>Fiji, Kamchatka, Marshall Is., Wellington</option>
+		  <option value='-8'<?php if ($this->_tpl_vars['signup_timezone'] == "-8"): ?> SELECTED<?php endif; ?>>Pacific Time (US & Canada)</option>
+		  <option value='-7'<?php if ($this->_tpl_vars['signup_timezone'] == "-7"): ?> SELECTED<?php endif; ?>>Mountain Time (US & Canada)</option>
+		  <option value='-6'<?php if ($this->_tpl_vars['signup_timezone'] == "-6"): ?> SELECTED<?php endif; ?>>Central Time (US & Canada)</option>
+		  <option value='-5'<?php if ($this->_tpl_vars['signup_timezone'] == "-5"): ?> SELECTED<?php endif; ?>>Eastern Time (US & Canada)</option>
+		  <option value='-4'<?php if ($this->_tpl_vars['signup_timezone'] == "-4"): ?> SELECTED<?php endif; ?>>Atlantic Time (Canada)</option>
+		  <option value='-9'<?php if ($this->_tpl_vars['signup_timezone'] == "-9"): ?> SELECTED<?php endif; ?>>Alaska (US & Canada)</option>
+		  <option value='-10'<?php if ($this->_tpl_vars['signup_timezone'] == "-10"): ?> SELECTED<?php endif; ?>>Hawaii (US)</option>
+		  <option value='-11'<?php if ($this->_tpl_vars['signup_timezone'] == "-11"): ?> SELECTED<?php endif; ?>>Midway Island, Samoa</option>
+		  <option value='-12'<?php if ($this->_tpl_vars['signup_timezone'] == "-12"): ?> SELECTED<?php endif; ?>>Eniwetok, Kwajalein</option>
+		  <option value='-3.3'<?php if ($this->_tpl_vars['signup_timezone'] == "-3.3"): ?> SELECTED<?php endif; ?>>Newfoundland</option>
+		  <option value='-3'<?php if ($this->_tpl_vars['signup_timezone'] == "-3"): ?> SELECTED<?php endif; ?>>Brasilia, Buenos Aires, Georgetown</option>
+		  <option value='-2'<?php if ($this->_tpl_vars['signup_timezone'] == "-2"): ?> SELECTED<?php endif; ?>>Mid-Atlantic</option>
+		  <option value='-1'<?php if ($this->_tpl_vars['signup_timezone'] == "-1"): ?> SELECTED<?php endif; ?>>Azores, Cape Verde Is.</option>
+		  <option value='0'<?php if ($this->_tpl_vars['signup_timezone'] == '0'): ?> SELECTED<?php endif; ?>>Greenwich Mean Time (Lisbon, London)</option>
+		  <option value='1'<?php if ($this->_tpl_vars['signup_timezone'] == '1'): ?> SELECTED<?php endif; ?>>Amsterdam, Berlin, Paris, Rome, Madrid</option>
+		  <option value='2'<?php if ($this->_tpl_vars['signup_timezone'] == '2'): ?> SELECTED<?php endif; ?>>Athens, Helsinki, Istanbul, Cairo, E. Europe</option>
+		  <option value='3'<?php if ($this->_tpl_vars['signup_timezone'] == '3'): ?> SELECTED<?php endif; ?>>Baghdad, Kuwait, Nairobi, Moscow</option>
+		  <option value='3.3'<?php if ($this->_tpl_vars['signup_timezone'] == "3.3"): ?> SELECTED<?php endif; ?>>Tehran</option>
+		  <option value='4'<?php if ($this->_tpl_vars['signup_timezone'] == '4'): ?> SELECTED<?php endif; ?>>Abu Dhabi, Kazan, Muscat</option>
+		  <option value='4.3'<?php if ($this->_tpl_vars['signup_timezone'] == "4.3"): ?> SELECTED<?php endif; ?>>Kabul</option>
+		  <option value='5'<?php if ($this->_tpl_vars['signup_timezone'] == '5'): ?> SELECTED<?php endif; ?>>Islamabad, Karachi, Tashkent</option>
+		  <option value='5.5'<?php if ($this->_tpl_vars['signup_timezone'] == "5.5"): ?> SELECTED<?php endif; ?>>Bombay, Calcutta, New Delhi</option>
+		  <option value='6'<?php if ($this->_tpl_vars['signup_timezone'] == '6'): ?> SELECTED<?php endif; ?>>Almaty, Dhaka</option>
+		  <option value='7'<?php if ($this->_tpl_vars['signup_timezone'] == '7'): ?> SELECTED<?php endif; ?>>Bangkok, Jakarta, Hanoi</option>
+		  <option value='8'<?php if ($this->_tpl_vars['signup_timezone'] == '8'): ?> SELECTED<?php endif; ?>>Beijing, Hong Kong, Singapore, Taipei</option>
+		  <option value='9'<?php if ($this->_tpl_vars['signup_timezone'] == '9'): ?> SELECTED<?php endif; ?>>Tokyo, Osaka, Sapporto, Seoul, Yakutsk</option>
+		  <option value='9.3'<?php if ($this->_tpl_vars['signup_timezone'] == "9.3"): ?> SELECTED<?php endif; ?>>Adelaide, Darwin</option>
+		  <option value='10'<?php if ($this->_tpl_vars['signup_timezone'] == '10'): ?> SELECTED<?php endif; ?>>Brisbane, Melbourne, Sydney, Guam</option>
+		  <option value='11'<?php if ($this->_tpl_vars['signup_timezone'] == '11'): ?> SELECTED<?php endif; ?>>Magadan, Soloman Is., New Caledonia</option>
+		  <option value='12'<?php if ($this->_tpl_vars['signup_timezone'] == '12'): ?> SELECTED<?php endif; ?>>Fiji, Kamchatka, Marshall Is., Wellington</option>
       </select>
-    </td>
-  </tr>
-  <?php if ($this->_tpl_vars['setting']['setting_lang_allow'] == 1): ?>
-    <tr>
-      <td class='form1'><?php echo SELanguage::_get(687); ?>:</td>
-      <td class='form2'>
+
+  <?php if ($this->_tpl_vars['setting']['setting_lang_allow'] == 1): 
+ echo SELanguage::_get(687); ?>:
         <select name='signup_lang'>
           <?php unset($this->_sections['lang_loop']);
 $this->_sections['lang_loop']['name'] = 'lang_loop';
@@ -980,73 +951,41 @@ $this->_sections['lang_loop']['last']       = ($this->_sections['lang_loop']['it
 </option>
           <?php endfor; endif; ?>
         </select>
-      </td>
-    </tr>
   <?php endif; ?>
   
   
   <?php if ($this->_tpl_vars['setting']['setting_signup_code'] || $this->_tpl_vars['setting']['setting_signup_tos'] || $this->_tpl_vars['setting']['setting_signup_invite']): ?>
-  </table>
   <br />
   
   <div class='signup_header'><?php echo SELanguage::_get(688); ?></div>
-  <table cellpadding='0' cellspacing='0'>
+
   <?php endif; ?>
   
     
-    <?php if ($this->_tpl_vars['setting']['setting_signup_invite']): ?>
-    <tr>
-      <td class='form1' width='100'><?php echo SELanguage::_get(689); ?></td>
-      <td class='form2'><input type='text' name='signup_invite' value='<?php echo $this->_tpl_vars['signup_invite']; ?>
-' class='text' size='10' maxlength='10'></td>
-    </tr>
+    <?php if ($this->_tpl_vars['setting']['setting_signup_invite']): 
+ echo SELanguage::_get(689); ?><input type='text' name='signup_invite' value='<?php echo $this->_tpl_vars['signup_invite']; ?>
+' class='text' size='10' maxlength='10'>
     <?php endif; ?>
     
-    <?php if ($this->_tpl_vars['setting']['setting_signup_code']): ?>
-    <tr>
-      <td class='form1' width='100'><?php echo SELanguage::_get(690); ?></td>
-      <td class='form2'>
-        <table cellpadding='0' cellspacing='0'>
-          <tr>
-            <td><input type='text' name='signup_secure' class='text' size='6' maxlength='10'>&nbsp;</td>
-            <td>
-              <t	able cellpadding='0' cellspacing='0'>
-                <tr>
-                  <td align='center'>
+    <?php if ($this->_tpl_vars['setting']['setting_signup_code']): 
+ echo SELanguage::_get(690); ?>
+<input type='text' name='signup_secure' class='text' size='6' maxlength='10'>&nbsp;
+
                     <img src='./images/secure.php' id='secure_image' border='0' height='20' width='67' class='signup_code'><br />
-                    <a href="javascript:void(0);" onClick="$('secure_image').src = './images/secure.php?' + (new Date()).getTime();"><?php echo SELanguage::_get(975); ?></a>
-                  </td>
-                  <td><?php ob_start(); 
+                    <a href="#" onClick="$('secure_image').src = './images/secure.php?' + (new Date()).getTime();"><?php echo SELanguage::_get(975); ?></a>
+          <?php ob_start(); 
  echo SELanguage::_get(691); 
  $this->_smarty_vars['capture']['default'] = ob_get_contents();  $this->assign('tip', ob_get_contents());ob_end_clean(); ?><img src='./images/icons/tip.gif' border='0' class='Tips1' title='<?php echo ((is_array($_tmp=$this->_tpl_vars['tip'])) ? $this->_run_mod_handler('escape', true, $_tmp, 'quotes') : smarty_modifier_escape($_tmp, 'quotes')); ?>
 '></td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
+
     <?php endif; ?>
     
     <?php if ($this->_tpl_vars['setting']['setting_signup_tos']): ?>
-    <tr>
-      <td class='form1' width='100'>&nbsp;</td>
-      <td class='form2'>
         <input type='checkbox' name='signup_agree' id='tos' value='1'<?php if ($this->_tpl_vars['signup_agree'] == 1): ?> CHECKED<?php endif; ?>>
         <label for='tos'> <?php echo SELanguage::_get(692); ?></label>
-      </td>
-    </tr>
     <?php endif; ?>
     
-    <tr>
-      <td colspan='2'>&nbsp;</td>
-    </tr>
-    <tr>
-      <td class='form1'>&nbsp;</td>
-      <td class='form2'><input type='submit' class='button' value='<?php echo SELanguage::_get(693); ?>'></td>
-    </tr>
-  </table>
+      <input type='submit' class='button' value='<?php echo SELanguage::_get(693); ?>'>
   
   <input type='hidden' name='task' value='<?php echo $this->_tpl_vars['next_task']; ?>
 '>
@@ -1054,22 +993,8 @@ $this->_sections['lang_loop']['last']       = ($this->_sections['lang_loop']['it
 '>
   </form>
 
-<?php endif; ?>
-
-									</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="b"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div id="clearfooter"></div>
-</div>
-<?php $_smarty_tpl_vars = $this->_tpl_vars;
+<?php endif; 
+ $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer_without_left_menu.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);

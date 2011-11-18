@@ -1,33 +1,27 @@
 ﻿{include file='header.tpl'}
 
 {* $Id: user_friends.tpl 8 2009-01-11 06:02:53Z john $ *}
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1>{lang_print id=894}<!-- Мои друзья --></h1>
-						<div class="crumb">
-							<a href="/">Главная</a>
-							<a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a>
-							<span>{lang_print id=894}<!-- Мои друзья --></span>
-						</div>
-						<div class="buttons">
-							<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Создать группу" name="creat" /></span><span class="r">&nbsp;</span></span>
-						</div>
-							<div class="group_list">
-								<h2>Список групп</h2>
-								<ul>
-									<li><a href="#">Vip</a></li>
-									<li><a href="#">Название группы</a></li>
-									<li><a href="#">Родственники</a></li>
-									<li><a href="#">Близкие друзья</a></li>
-									<li><a href="#">Коллеги</a></li>
-									<li><a href="#">Друзья по школе</a></li>
-									<li><a href="#">Друзья по вузу</a></li>
-								</ul>
-							</div>
+<h1>{lang_print id=894}<!-- Мои друзья --></h1>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a>
+	<span>{lang_print id=894}<!-- Мои друзья --></span>
+</div>
+<div class="buttons">
+	<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Создать группу" name="creat" /></span><span class="r">&nbsp;</span></span>
+</div>
+<div class="group_list">
+	<h2>Список групп</h2>
+	<ul>
+		<li><a href="#">Vip</a></li>
+		<li><a href="#">Название группы</a></li>
+		<li><a href="#">Родственники</a></li>
+		<li><a href="#">Близкие друзья</a></li>
+		<li><a href="#">Коллеги</a></li>
+		<li><a href="#">Друзья по школе</a></li>
+		<li><a href="#">Друзья по вузу</a></li>
+	</ul>
+</div>
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
 <td class='tab0'>&nbsp;</td>
@@ -188,10 +182,4 @@
   {/if}
 
 {/if}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 {include file='footer.tpl'}

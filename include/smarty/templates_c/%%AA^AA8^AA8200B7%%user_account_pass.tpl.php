@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-02 11:46:34
+<?php /* Smarty version 2.6.14, created on 2011-11-18 14:50:43
          compiled from user_account_pass.tpl */
 ?><?php
 SELanguage::_preload_multi(655,1055,756,757,758,191,269,46,47,173);
@@ -8,7 +8,6 @@ $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
-
 
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
@@ -55,7 +54,6 @@ unset($_smarty_tpl_vars);
 </table>
 <input type='hidden' name='task' value='dosave'>
 </form>
-
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;

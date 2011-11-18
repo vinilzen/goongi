@@ -1,23 +1,18 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-04 12:41:44
+<?php /* Smarty version 2.6.14, created on 2011-11-18 14:49:28
          compiled from user_home.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'user_home.tpl', 78, false),array('modifier', 'choptext', 'user_home.tpl', 78, false),array('modifier', 'count', 'user_home.tpl', 105, false),array('function', 'math', 'user_home.tpl', 199, false),array('block', 'hook_foreach', 'user_home.tpl', 241, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'user_home.tpl', 73, false),array('modifier', 'choptext', 'user_home.tpl', 73, false),array('modifier', 'count', 'user_home.tpl', 100, false),array('function', 'math', 'user_home.tpl', 194, false),array('block', 'hook_foreach', 'user_home.tpl', 236, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(737,1070,1069,173,39,1068,738,739,740,741,1064,1182,1063,773,1113,743,744,745,746,747,742,664,665,977,976,1176,1180);
 SELanguage::load();
-?><?php $_smarty_tpl_vars = $this->_tpl_vars;
+?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-
-<div class="all">
-            	<div class="center_all">
-                	<div class="block4">
-                        <div class="c">
-      
-      
+<h1>Новости</h1>
+ 
             <div style='margin-bottom: 7px;'>
         <div class='page_header' style='width: 50%; float: left;'><?php echo SELanguage::_get(737); ?></div>
         <div style='width: 50%; float: right; text-align: right; padding-top: 13px;'><?php if ($this->_tpl_vars['setting']['setting_actions_preference'] == 1): ?> <a href='javascript:actionprefs();'><?php echo SELanguage::_get(1070); ?></a><?php endif; ?></div>
@@ -452,14 +447,8 @@ $this->_smarty_include(array('smarty_include_tpl_file' => $this->_tpl_vars['user
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
-      <?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?>
-			</div>
-			<div class="b"></div>
-		</div>
-	</div>
-</div>
-
-<?php $_smarty_tpl_vars = $this->_tpl_vars;
+      <?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); 
+ $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
