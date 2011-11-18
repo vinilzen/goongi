@@ -23,23 +23,39 @@ $submitted = 0;
 
 
 // TRY TO SEND MESSAGE
-if($task == "send")
-{
-  $to = $_POST['to'];
-  $subject = $_POST['subject'];
-  $message = $_POST['message'];
+if($task == "send") {
+	if ( isset($_POST['to']) && $_POST['to'] != '' ) {
+		$to = $_POST['to'];
+	} elseif ( isset($_POST['to_display']) && $_POST['to_display'] != '' )  {
+		$to = $_POST['to_display'];
+	}
+	
+	$subject = $_POST['subject'];
+	$message = $_POST['message'];
+	
+	$user->user_message_send($to, $subject, $message);
+	$is_error = $user->is_error;
 
-  $user->user_message_send($to, $subject, $message);
-  $is_error = $user->is_error;
-
-  if($is_error != 0) { SE_Language::_preload($is_error); SE_Language::load(); $error_message = SE_Language::_get($is_error); }
+	if($is_error != 0) {
+		SE_Language::_preload($is_error);
+		SE_Language::load();
+		$error_message = SE_Language::_get($is_error);
+	}
  
-
-  // SEND AJAX CONFIRMATION
-  echo "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><script type='text/javascript'>";
-  echo "window.parent.messageSent('$is_error', '".str_replace("'", "\'", $error_message)."');";
-  echo "</script></head><body></body></html>";
-  exit();
+ 	echo 'all ok'; die();
+ 
+	/*
+ 	// SEND AJAX CONFIRMATION
+	echo "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><body><script type='text/javascript'>";
+	echo "$('#add_msg_b').html('<h2>lilio</h2>');
+		$('.window .close').click(function(e) {
+		$('#popup').fadeOut(300);
+		$('.window').hide();
+		e.preventDefault(); });";
+	echo "</script></body></html>";
+	
+	*/
+	exit();
 }
 
 
@@ -48,6 +64,7 @@ if($task == "send")
 $total_friends = $user->user_friend_total(0);
 $friends = $user->user_friend_list(0, $total_friends, 0);
 
+//echo '<pre>'; print_r($friends); die();
 
 // ASSIGN SMARTY VARS AND INCLUDE FOOTER
 $smarty->assign('is_error', $is_error);

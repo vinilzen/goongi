@@ -83,6 +83,7 @@ $global_page_description[0] = 673;
 
 
 // ASSIGN VARIABLES AND INCLUDE FOOTER
+$smarty->assign('login', 1);
 $smarty->assign('email', $email);
 $smarty->assign('is_error', $is_error);
 $smarty->assign('return_url', $return_url);

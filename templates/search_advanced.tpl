@@ -1,14 +1,8 @@
 {include file='header.tpl'}
 
 {* $Id: search_advanced.tpl 217 2009-08-11 23:20:02Z phil $ *}
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1>{lang_print id=1087}<!-- Поиск по сайту --></h1>
-						({lang_print id=1088})
+<h1>{lang_print id=1087}<!-- Поиск по сайту --></h1>
+({lang_print id=1088})
 {* SHOW PAGE TITLE *}
 {if $showfields == 1}
   <div class='page_header'>{lang_print id=1087}</div>
@@ -260,14 +254,7 @@
   {/if}
 
 {/if}
-
-</td>
-</tr>
+		</td>
+	</tr>
 </table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 {include file='footer.tpl'}

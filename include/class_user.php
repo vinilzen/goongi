@@ -1468,6 +1468,8 @@ class SEUser
           {$start}, {$limit}
       ";
       
+      //echo $friend_query; die();
+      
 	    // LOOP OVER FRIENDS
 	    $friends = $database->database_query($friend_query);
 	    while($friend_info = $database->database_fetch_assoc($friends))

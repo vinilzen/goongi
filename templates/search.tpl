@@ -2,35 +2,29 @@
 
 {* $Id: search.tpl 8 2009-01-11 06:02:53Z john $ *}
 
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1>{lang_print id=924}<!-- Поиск по сайту --></h1>
-						<div class="crumb"><a href="#">Главная</a><span>{lang_print id=646}<!-- Поиск --></span></div>
-						<div class="buttons">
-							<form action='search.php' name='search_form' method='post'>
-								
-								<input type='text' size='30' class="srch_inp" name='search_text' id='search_text' value='{$search_text}' maxlength='100'></td>
-								<span class="button2" style="margin:0;"><span class="l">&nbsp;</span><span class="c">
-									<input type='submit' class='button' value='{lang_print id=646}'>
-								</span><span class="r">&nbsp;</span></span>
-								<input type='hidden' name='task' value='dosearch'>
-								<input type='hidden' name='t' value='0'>
-								<a href='search_advanced.php'>{lang_print id=926}</a>
-							</form>						
-						</div>
-						<div class="group_list">
-							<ul>
-								<li><a href="#">Быстрый поиск</a></li>
-								<li><a href="#">Поиск людей</a></li>
-								<li><a href="#">Поиск мероприятий</a></li>
-								<li><a href="#">Поиск событий</a></li>
-								<li><a href="#">Поиск статей</a></li>
-							</ul>
-						</div>
+<h1>{lang_print id=924}<!-- Поиск по сайту --></h1>
+<div class="crumb"><a href="#">Главная</a><span>{lang_print id=646}<!-- Поиск --></span></div>
+<div class="buttons">
+	<form action='search.php' name='search_form' method='post'>
+		
+		<input type='text' size='30' class="srch_inp" name='search_text' id='search_text' value='{$search_text}' maxlength='100'></td>
+		<span class="button2" style="margin:0;"><span class="l">&nbsp;</span><span class="c">
+			<input type='submit' class='button' value='{lang_print id=646}'>
+		</span><span class="r">&nbsp;</span></span>
+		<input type='hidden' name='task' value='dosearch'>
+		<input type='hidden' name='t' value='0'>
+		<a href='search_advanced.php'>{lang_print id=926}</a>
+	</form>						
+</div>
+<div class="group_list">
+	<ul>
+		<li><a href="#">Быстрый поиск</a></li>
+		<li><a href="#">Поиск людей</a></li>
+		<li><a href="#">Поиск мероприятий</a></li>
+		<li><a href="#">Поиск событий</a></li>
+		<li><a href="#">Поиск статей</a></li>
+	</ul>
+</div>
 
 {if $search_text != ""}
 
@@ -117,11 +111,4 @@
 //-->
 </script>
 {/literal}
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 {include file='footer.tpl'}

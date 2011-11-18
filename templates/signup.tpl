@@ -1,13 +1,7 @@
 {include file='header.tpl'}
 
 {* $Id: signup.tpl 235 2009-11-13 04:30:39Z phil $ *}
-<div class="all">
-	<div class="center_one">
-		<div class="block3">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<div class="form auth">
+<div class="form auth">
 {if $step == 5}
 {* SHOW COMPLETION PAGE *}
 
@@ -390,22 +384,9 @@
  <h1>{lang_print id=679}</h1>
   <div>{lang_print id=680}</div>
   <br />
-  <br />
 
   {* SHOW ERROR MESSAGE *}
-  {if $is_error != 0}
-    <table cellpadding='0' cellspacing='0'>
-      <tr>
-        <td class='result'>
-          <div class='error'>
-            <img src='./images/error.gif' border='0' class='icon' />
-            {lang_print id=$is_error}
-          </div>
-        </td>
-      </tr>
-    </table>
-    <br />
-  {/if}
+  {if $is_error != 0}<div class='error'>{lang_print id=$is_error}</div>{/if}
 
   <form action='signup.php' method='POST'>
   <h1>{lang_print id=681}</h1>
@@ -425,157 +406,101 @@
   
   
   <div class='signup_header'>{lang_print id=684}</div>
-  <table cellpadding='0' cellspacing='0'>
+ 
   {if $setting.setting_username}
-    <tr>
-      <td class='form1'>{lang_print id=28}:</td>
-      <td class='form2'>
+{lang_print id=28}:
+
         <input name='signup_username' type='text' class='text' maxlength='50' size='40' value='{$signup_username}'>
         {capture assign=tip}{lang_print id=685}{/capture}
         <img src='./images/icons/tip.gif' border='0' class='Tips1' title="{$tip|escape:quotes}">
         <div class='form_desc'>{lang_print id=686}</div>
-      </td>
-    </tr>
+
   {/if}
   {if $cats|@count > 1}
-    <tr>
-      <td class='form1'>{lang_print id=709}:</td>
-      <td class='form2'>
+{lang_print id=709}:
         <select name='signup_cat'>
         {section name=cat_loop loop=$cats}
           <option value='{$cats[cat_loop].cat_id}'{if $signup_cat == $cats[cat_loop].cat_id} selected='selected'{/if}>{lang_print id=$cats[cat_loop].cat_title}</option>
         {/section}
         </select>
-      </td>
-    </tr>
+
   {/if}
-  <tr>
-    <td class='form1' width='100'>{lang_print id=206}:</td>
-    <td class='form2'>
+{lang_print id=206}:
       <select name='signup_timezone'>
-      <option value='-8'{if $signup_timezone == "-8"} SELECTED{/if}>Pacific Time (US & Canada)</option>
-      <option value='-7'{if $signup_timezone == "-7"} SELECTED{/if}>Mountain Time (US & Canada)</option>
-      <option value='-6'{if $signup_timezone == "-6"} SELECTED{/if}>Central Time (US & Canada)</option>
-      <option value='-5'{if $signup_timezone == "-5"} SELECTED{/if}>Eastern Time (US & Canada)</option>
-      <option value='-4'{if $signup_timezone == "-4"} SELECTED{/if}>Atlantic Time (Canada)</option>
-      <option value='-9'{if $signup_timezone == "-9"} SELECTED{/if}>Alaska (US & Canada)</option>
-      <option value='-10'{if $signup_timezone == "-10"} SELECTED{/if}>Hawaii (US)</option>
-      <option value='-11'{if $signup_timezone == "-11"} SELECTED{/if}>Midway Island, Samoa</option>
-      <option value='-12'{if $signup_timezone == "-12"} SELECTED{/if}>Eniwetok, Kwajalein</option>
-      <option value='-3.3'{if $signup_timezone == "-3.3"} SELECTED{/if}>Newfoundland</option>
-      <option value='-3'{if $signup_timezone == "-3"} SELECTED{/if}>Brasilia, Buenos Aires, Georgetown</option>
-      <option value='-2'{if $signup_timezone == "-2"} SELECTED{/if}>Mid-Atlantic</option>
-      <option value='-1'{if $signup_timezone == "-1"} SELECTED{/if}>Azores, Cape Verde Is.</option>
-      <option value='0'{if $signup_timezone == "0"} SELECTED{/if}>Greenwich Mean Time (Lisbon, London)</option>
-      <option value='1'{if $signup_timezone == "1"} SELECTED{/if}>Amsterdam, Berlin, Paris, Rome, Madrid</option>
-      <option value='2'{if $signup_timezone == "2"} SELECTED{/if}>Athens, Helsinki, Istanbul, Cairo, E. Europe</option>
-      <option value='3'{if $signup_timezone == "3"} SELECTED{/if}>Baghdad, Kuwait, Nairobi, Moscow</option>
-      <option value='3.3'{if $signup_timezone == "3.3"} SELECTED{/if}>Tehran</option>
-      <option value='4'{if $signup_timezone == "4"} SELECTED{/if}>Abu Dhabi, Kazan, Muscat</option>
-      <option value='4.3'{if $signup_timezone == "4.3"} SELECTED{/if}>Kabul</option>
-      <option value='5'{if $signup_timezone == "5"} SELECTED{/if}>Islamabad, Karachi, Tashkent</option>
-      <option value='5.5'{if $signup_timezone == "5.5"} SELECTED{/if}>Bombay, Calcutta, New Delhi</option>
-      <option value='6'{if $signup_timezone == "6"} SELECTED{/if}>Almaty, Dhaka</option>
-      <option value='7'{if $signup_timezone == "7"} SELECTED{/if}>Bangkok, Jakarta, Hanoi</option>
-      <option value='8'{if $signup_timezone == "8"} SELECTED{/if}>Beijing, Hong Kong, Singapore, Taipei</option>
-      <option value='9'{if $signup_timezone == "9"} SELECTED{/if}>Tokyo, Osaka, Sapporto, Seoul, Yakutsk</option>
-      <option value='9.3'{if $signup_timezone == "9.3"} SELECTED{/if}>Adelaide, Darwin</option>
-      <option value='10'{if $signup_timezone == "10"} SELECTED{/if}>Brisbane, Melbourne, Sydney, Guam</option>
-      <option value='11'{if $signup_timezone == "11"} SELECTED{/if}>Magadan, Soloman Is., New Caledonia</option>
-      <option value='12'{if $signup_timezone == "12"} SELECTED{/if}>Fiji, Kamchatka, Marshall Is., Wellington</option>
+		  <option value='-8'{if $signup_timezone == "-8"} SELECTED{/if}>Pacific Time (US & Canada)</option>
+		  <option value='-7'{if $signup_timezone == "-7"} SELECTED{/if}>Mountain Time (US & Canada)</option>
+		  <option value='-6'{if $signup_timezone == "-6"} SELECTED{/if}>Central Time (US & Canada)</option>
+		  <option value='-5'{if $signup_timezone == "-5"} SELECTED{/if}>Eastern Time (US & Canada)</option>
+		  <option value='-4'{if $signup_timezone == "-4"} SELECTED{/if}>Atlantic Time (Canada)</option>
+		  <option value='-9'{if $signup_timezone == "-9"} SELECTED{/if}>Alaska (US & Canada)</option>
+		  <option value='-10'{if $signup_timezone == "-10"} SELECTED{/if}>Hawaii (US)</option>
+		  <option value='-11'{if $signup_timezone == "-11"} SELECTED{/if}>Midway Island, Samoa</option>
+		  <option value='-12'{if $signup_timezone == "-12"} SELECTED{/if}>Eniwetok, Kwajalein</option>
+		  <option value='-3.3'{if $signup_timezone == "-3.3"} SELECTED{/if}>Newfoundland</option>
+		  <option value='-3'{if $signup_timezone == "-3"} SELECTED{/if}>Brasilia, Buenos Aires, Georgetown</option>
+		  <option value='-2'{if $signup_timezone == "-2"} SELECTED{/if}>Mid-Atlantic</option>
+		  <option value='-1'{if $signup_timezone == "-1"} SELECTED{/if}>Azores, Cape Verde Is.</option>
+		  <option value='0'{if $signup_timezone == "0"} SELECTED{/if}>Greenwich Mean Time (Lisbon, London)</option>
+		  <option value='1'{if $signup_timezone == "1"} SELECTED{/if}>Amsterdam, Berlin, Paris, Rome, Madrid</option>
+		  <option value='2'{if $signup_timezone == "2"} SELECTED{/if}>Athens, Helsinki, Istanbul, Cairo, E. Europe</option>
+		  <option value='3'{if $signup_timezone == "3"} SELECTED{/if}>Baghdad, Kuwait, Nairobi, Moscow</option>
+		  <option value='3.3'{if $signup_timezone == "3.3"} SELECTED{/if}>Tehran</option>
+		  <option value='4'{if $signup_timezone == "4"} SELECTED{/if}>Abu Dhabi, Kazan, Muscat</option>
+		  <option value='4.3'{if $signup_timezone == "4.3"} SELECTED{/if}>Kabul</option>
+		  <option value='5'{if $signup_timezone == "5"} SELECTED{/if}>Islamabad, Karachi, Tashkent</option>
+		  <option value='5.5'{if $signup_timezone == "5.5"} SELECTED{/if}>Bombay, Calcutta, New Delhi</option>
+		  <option value='6'{if $signup_timezone == "6"} SELECTED{/if}>Almaty, Dhaka</option>
+		  <option value='7'{if $signup_timezone == "7"} SELECTED{/if}>Bangkok, Jakarta, Hanoi</option>
+		  <option value='8'{if $signup_timezone == "8"} SELECTED{/if}>Beijing, Hong Kong, Singapore, Taipei</option>
+		  <option value='9'{if $signup_timezone == "9"} SELECTED{/if}>Tokyo, Osaka, Sapporto, Seoul, Yakutsk</option>
+		  <option value='9.3'{if $signup_timezone == "9.3"} SELECTED{/if}>Adelaide, Darwin</option>
+		  <option value='10'{if $signup_timezone == "10"} SELECTED{/if}>Brisbane, Melbourne, Sydney, Guam</option>
+		  <option value='11'{if $signup_timezone == "11"} SELECTED{/if}>Magadan, Soloman Is., New Caledonia</option>
+		  <option value='12'{if $signup_timezone == "12"} SELECTED{/if}>Fiji, Kamchatka, Marshall Is., Wellington</option>
       </select>
-    </td>
-  </tr>
+
   {if $setting.setting_lang_allow == 1}
-    <tr>
-      <td class='form1'>{lang_print id=687}:</td>
-      <td class='form2'>
+{lang_print id=687}:
         <select name='signup_lang'>
           {section name=lang_loop loop=$lang_packlist}
             <option value='{$lang_packlist[lang_loop].language_id}'{if $lang_packlist[lang_loop].language_default == 1} selected='selected'{/if}>{$lang_packlist[lang_loop].language_name}</option>
           {/section}
         </select>
-      </td>
-    </tr>
   {/if}
   
   
   {if $setting.setting_signup_code || $setting.setting_signup_tos || $setting.setting_signup_invite}
-  </table>
   <br />
   
   <div class='signup_header'>{lang_print id=688}</div>
-  <table cellpadding='0' cellspacing='0'>
+
   {/if}
   
     
     {if $setting.setting_signup_invite}
-    <tr>
-      <td class='form1' width='100'>{lang_print id=689}</td>
-      <td class='form2'><input type='text' name='signup_invite' value='{$signup_invite}' class='text' size='10' maxlength='10'></td>
-    </tr>
+{lang_print id=689}<input type='text' name='signup_invite' value='{$signup_invite}' class='text' size='10' maxlength='10'>
     {/if}
     
     {if $setting.setting_signup_code}
-    <tr>
-      <td class='form1' width='100'>{lang_print id=690}</td>
-      <td class='form2'>
-        <table cellpadding='0' cellspacing='0'>
-          <tr>
-            <td><input type='text' name='signup_secure' class='text' size='6' maxlength='10'>&nbsp;</td>
-            <td>
-              <t	able cellpadding='0' cellspacing='0'>
-                <tr>
-                  <td align='center'>
+{lang_print id=690}
+<input type='text' name='signup_secure' class='text' size='6' maxlength='10'>&nbsp;
+
                     <img src='./images/secure.php' id='secure_image' border='0' height='20' width='67' class='signup_code'><br />
-                    <a href="javascript:void(0);" onClick="$('secure_image').src = './images/secure.php?' + (new Date()).getTime();">{lang_print id=975}</a>
-                  </td>
-                  <td>{capture assign=tip}{lang_print id=691}{/capture}<img src='./images/icons/tip.gif' border='0' class='Tips1' title='{$tip|escape:quotes}'></td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
+                    <a href="#" onClick="$('secure_image').src = './images/secure.php?' + (new Date()).getTime();">{lang_print id=975}</a>
+          {capture assign=tip}{lang_print id=691}{/capture}<img src='./images/icons/tip.gif' border='0' class='Tips1' title='{$tip|escape:quotes}'></td>
+
     {/if}
     
     {if $setting.setting_signup_tos}
-    <tr>
-      <td class='form1' width='100'>&nbsp;</td>
-      <td class='form2'>
         <input type='checkbox' name='signup_agree' id='tos' value='1'{if $signup_agree == 1} CHECKED{/if}>
         <label for='tos'> {lang_print id=692}</label>
-      </td>
-    </tr>
     {/if}
     
-    <tr>
-      <td colspan='2'>&nbsp;</td>
-    </tr>
-    <tr>
-      <td class='form1'>&nbsp;</td>
-      <td class='form2'><input type='submit' class='button' value='{lang_print id=693}'></td>
-    </tr>
-  </table>
+      <input type='submit' class='button' value='{lang_print id=693}'>
   
   <input type='hidden' name='task' value='{$next_task}'>
   <input type='hidden' name='step' value='{$step}'>
   </form>
 
 {/if}
-
-									</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="b"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div id="clearfooter"></div>
-</div>
 {include file='footer_without_left_menu.tpl'}

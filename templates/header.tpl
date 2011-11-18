@@ -5,7 +5,7 @@
 {if $smarty.const.SE_DEBUG && $admin->admin_exists}{include file="header_debug.tpl"}{/if}
 
 <!-- <div id="smoothbox_container"></div> -->
-
+<iframe id='ajaxframe' name='ajaxframe' style='display: none;'  src='javascript:false;'></iframe> <!-- style='display: none;' -->
 
 
 {* BEGIN CENTERING TABLE *}<!-- BEGIN CENTERING TABLE/ mycontainer -->
@@ -132,7 +132,7 @@
 
 
 {* USER NOTIFICATIONS *}
-{if $user->user_exists}
+{if $user->user_exists && 0}
 {lang_javascript ids=1198,1199}
 <script type='text/javascript'>
 <!--
@@ -166,3 +166,12 @@ window.addEvent('domready', function() {ldelim}
 
   {* SHOW BELOW-MENU ADVERTISEMENT BANNER *}
   {if $ads->ad_belowmenu != ""}<div class='ad_belowmenu' style='display: block; visibility: visible;'>{$ads->ad_belowmenu}</div>{/if}
+<div class="all">
+	{if $login || $lostpass || $signup || $invite}
+		<div class="center_one"><div class="block3">
+	{else}
+		<div class="center_all"><div class="block4">
+	{/if}	
+			<div class="c">
+				<div class="bg_l">
+					<div class="bg_r">

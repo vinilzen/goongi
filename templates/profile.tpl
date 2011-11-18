@@ -2,41 +2,34 @@
 
 {* $Id: profile.tpl 255 2009-11-18 02:21:01Z steve $ *}
 <!-- <div class='page_header'>{lang_sprintf id=786 1=$owner->user_displayname}</div> -->
-
-<div class="all">
-	<div class="center_all">
-		<div class="block4">
-			<div class="c">
-				<div class="bg_l">
-					<div class="bg_r">
-						<h1>{$owner->user_info.user_displayname}</h1>
-						<div class="crumb"><a href="/">Главная</a><span>{lang_print id=652}<!-- Профиль --></span></div>
-						<div class="buttons">
-							<span class="button2">
-								<span class="l">&nbsp;</span><span class="c">
-									<input type="button" value="Редактировать информацию" name="creat" />
-								</span><span class="r">&nbsp;</span>
-							</span>
-						</div>
-						<div class="my_page_info">
-							{* SHOW PROFILE CATS AND FIELDS *}
-							{section name=cat_loop loop=$cats}
-								{section name=subcat_loop loop=$cats[cat_loop].subcats}
-									<h2>{lang_print id=$cats[cat_loop].subcats[subcat_loop].subcat_title}<!-- персональная инфорвация --></h2>
-									{* LOOP THROUGH FIELDS IN TAB, ONLY SHOW FIELDS THAT HAVE BEEN FILLED IN *}
-									{section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
-									<p>
-										<span>
-											{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}:
-										</span>
-										{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_formatted}
-										{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1 && $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value|substr:0:4 != "0000"} ({lang_sprintf id=852 1=$datetime->age($cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value)}){/if}
-									</p>
-									{/section}
-									
-								{/section}
-							{/section}
-						</div>
+<h1>{$owner->user_info.user_displayname}</h1>
+<div class="crumb"><a href="/">Главная</a><span>{lang_print id=652}<!-- Профиль --></span></div>
+<div class="buttons">
+	<span class="button2">
+		<span class="l">&nbsp;</span><span class="c">
+			<a href="/user_editprofile.php">Редактировать информацию</a>
+		</span><span class="r">&nbsp;</span>
+	</span>
+</div>
+<div class="my_page_info">
+	{* SHOW PROFILE CATS AND FIELDS *}
+	{section name=cat_loop loop=$cats}
+		{section name=subcat_loop loop=$cats[cat_loop].subcats}
+			<h2>{lang_print id=$cats[cat_loop].subcats[subcat_loop].subcat_title}<!-- персональная инфорвация --></h2>
+			{* LOOP THROUGH FIELDS IN TAB, ONLY SHOW FIELDS THAT HAVE BEEN FILLED IN *}
+			{section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
+			<p>
+				<span>
+					{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}:
+				</span>
+				{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_formatted}
+				{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1 && $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value|substr:0:4 != "0000"} ({lang_sprintf id=852 1=$datetime->age($cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value)}){/if}
+			</p>
+			{/section}
+			
+		{/section}
+	{/section}
+</div>
       <!-- <div class='page_header'></div> -->
   
     
@@ -48,24 +41,20 @@
   {* END LEFT COLUMN *}
 
   {* BEGIN RIGHT COLUMN *}
-    
+
     {* JAVASCRIPT FOR SWITCHING TABS *}
     {literal}
     <script type='text/javascript'>
     <!--
       var visible_tab = '{/literal}{$v}{literal}';
-      function loadProfileTab(tabId)
-      {
-        if(tabId == visible_tab)
-        {
+      function loadProfileTab(tabId){
+        if(tabId == visible_tab){
           return false;
         }
-        if($('profile_'+tabId))
-        {
+        if($('profile_'+tabId)){
           $('profile_tabs_'+tabId).className='profile_tab2';
           $('profile_'+tabId).style.display = "block";
-          if($('profile_tabs_'+visible_tab))
-          {
+          if($('profile_tabs_'+visible_tab)){
             $('profile_tabs_'+visible_tab).className='profile_tab';
             $('profile_'+visible_tab).style.display = "none";
           }
@@ -75,7 +64,7 @@
     //-->
     </script>
     {/literal}
-    
+   
     {* SHOW PROFILE TAB BUTTONS *}<!-- SHOW PROFILE TAB BUTTONS start -->
     <table cellpadding='0' cellspacing='0'> <tr>
     <td valign='bottom'><table cellpadding='0' cellspacing='0'><tr><td class='profile_tab{if $v == 'profile'}2{/if}' id='profile_tabs_profile' onMouseUp="this.blur()"><a href='javascript:void(0);' onMouseDown="loadProfileTab('profile')" onMouseUp="this.blur()">{lang_print id=652}</a></td></tr></table></td>
@@ -192,7 +181,6 @@
     {* FRIENDS TAB *}
     {if $total_friends_all != 0}
       <div id='profile_friends'{if $v != 'friends'} style='display: none;'{/if}>
-        
         <div>
           <div style='float: left; width: 50%;'>
             <div class='profile_headline'>
@@ -244,14 +232,14 @@
           <br>
           <table cellpadding='0' cellspacing='0'>
           <tr><td class='result'>
-            <img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_sprintf id=934 1=$owner->user_displayname_short}
+            {lang_sprintf id=934 1=$owner->user_displayname_short}
           </td></tr>
           </table>
         {elseif $m == 1 && $total_friends == 0}
           <br>
           <table cellpadding='0' cellspacing='0'>
           <tr><td class='result'>
-            <img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_sprintf id=1023 1=$owner->user_displayname_short}
+            {lang_sprintf id=1023 1=$owner->user_displayname_short}
           </td></tr>
           </table>
         {/if}
@@ -281,7 +269,6 @@
 					<h2>
 						<a href='{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}'>{$friends[friend_loop]->user_displayname}</a>
 					</h2>
-				  
 					{if $friends[friend_loop]->user_info.user_dateupdated != 0}<div>{lang_print id=849} {assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}</div>{/if}
 					{if $show_details != 0}
 					  {if $friends[friend_loop]->friend_type != ""}<div>{lang_print id=882} {$friends[friend_loop]->friend_type}</div>{/if}
@@ -331,22 +318,16 @@
 		<ul class="comments wall">
 			<li><div id="profile_{$owner->user_info.user_id}_comments" style='margin-left: auto; margin-right: auto;'></div></li>
         
-        {lang_javascript ids=39,155,175,182,183,184,185,187,784,787,829,830,831,832,833,834,835,854,856,891,1025,1026,1032,1034,1071}
-        
+       {*
+	   {lang_javascript ids=39,155,175,182,183,184,185,187,784,787,829,830,831,832,833,834,835,854,856,891,1025,1026,1032,1034,1071}
+		*}
         {literal}
         <style type='text/css'>
-          div.comment_headline {
-            font-size: 13px; 
-            margin-bottom: 7px;
-            font-weight: bold;
-            padding: 0px;
-            border: none;
-            background: none;
-            color: #555555;
-          }
+          div.comment_headline {font-size: 13px;margin-bottom: 7px;font-weight: bold;padding: 0px; border: none;background: none;color: #555555;}
         </style>
         {/literal}
-        
+		
+        {*
         <script type="text/javascript">
         
           SocialEngine.ProfileComments = new SocialEngineAPI.Comments({ldelim}
@@ -383,7 +364,7 @@
           {rdelim}
 
         </script>
-        
+        *}
         
       </div>
       
@@ -404,15 +385,5 @@
 
   {* END PRIVACY IF STATEMENT *}
 
-  </div>
-
 {* END RIGHT COLUMN *}
-					</div>
-				</div>
-			</div>
-			<div class="b"></div>
-		</div>
-	</div>
-</div>
-
 {include file='footer.tpl'}

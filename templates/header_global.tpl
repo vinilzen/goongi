@@ -10,9 +10,12 @@
 <meta name='Description' content="{if $global_page_description != ""}{lang_sprintf id=$global_page_description[0] 1=$global_page_description[1] 2=$global_page_description[2]}{else}{lang_print id=1156}{/if}" />
 
 {* INLUCDE MAIN STYLESHEET *}
+{*
 <link rel="stylesheet" href="/templates/styles_global.css" title="stylesheet" type="text/css" />  
-<link rel="stylesheet" href="/templates/styles.css" title="stylesheet" type="text/css" />  
+<link rel="stylesheet" href="/templates/styles.css" title="stylesheet" type="text/css" />
+*}
 <link rel="stylesheet" href="/css/style.css" title="stylesheet" type="text/css" />  
+<link rel="stylesheet" href="/css/autocomplete.css" title="stylesheet" type="text/css" />  
 <!--[if IE]>
 	<link rel="stylesheet" href="/css/ie.css" type="text/css" media="screen" />
 <![endif]-->
@@ -22,15 +25,22 @@
 <!--[if lte IE 6]>
     <meta http-equiv="refresh" content="0; url=/ie6/ie6.html" />
 <![endif]-->
+{* JQUERY my js code *}
+   	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="/js/jquery.autocomplete-min.js"></script>
+	<script type="text/javascript" src="/js/script.js"></script>
+
 
 {* CODE FOR VARIOUS JAVASCRIPT-BASED FEATURES, DO NOT REMOVE *}
-<script type="text/javascript" src="./include/js/mootools12-min.js"></script>
 {*
+<script type="text/javascript" src="./include/js/mootools12-min.js"></script>
+
 <script type="text/javascript" src="./include/js/mootools12.js"></script>
 <script type="text/javascript" src="./include/js/mootools12-more.js"></script>
-*}
 
-<script type="text/javascript" src="./include/js/core-min.js"></script>
+
+<script type="text/javascript" src="./include/js/core-min.js"></script>*}
 {*
 <script type="text/javascript" src="./include/js/autogrow.js"></script>
 <script type="text/javascript" src="./include/js/smoothbox.js"></script>
@@ -46,6 +56,7 @@
 *}
 
 {* INSTALIZE API *}
+{*
 <script type="text/javascript">
 <!--
   var SocialEngine = new SocialEngineAPI.Base();
@@ -86,25 +97,24 @@
 <script type="text/javascript">
 <!--
   // ADD TIP FUNCTION
-  window.addEvent('load', function()
-  {
+  window.addEvent('load', function()  {
     var Tips1 = new Tips($$('.Tips1'));
   });
 //-->
 </script>
 {/literal}
-
+*}
 {* ASSIGN PLUGIN MENU ITEMS AND INCLUDE NECESSARY STYLE/JAVASCRIPT FILES *}
 {hook_include name=header}
 {hook_foreach name=styles var=hook_stylesheet}
 <link rel="stylesheet" href="{$hook_stylesheet}" title="stylesheet" type="text/css" />
 {/hook_foreach}
-{hook_foreach name=scripts var=hook_script}
-<script type="text/javascript" src="{$hook_script}"></script>
-{/hook_foreach}
-
+{*
+	{hook_foreach name=scripts var=hook_script}
+	<script type="text/javascript" src="{$hook_script}"></script>
+	{/hook_foreach}
+*}
 
 </head>
 <body>
 {* GLOBAL IFRAME FOR AJAX FUNCTIONALITY *}
-<iframe id='ajaxframe' name='ajaxframe' style='display: none;' src='javascript:false;'></iframe>

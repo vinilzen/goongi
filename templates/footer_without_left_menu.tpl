@@ -1,4 +1,17 @@
-﻿<!--Footer-->
+﻿									</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="b"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div id="clearfooter"></div>
+</div>
+<!--Footer-->
 <div id="footer">
 	<div class="foot_l">
     	<div class="foot_r">

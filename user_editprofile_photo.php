@@ -8,8 +8,7 @@ include "header.php";
 $task = ( isset($_POST['task']) ? $_POST['task'] : NULL );
 
 // CHECK FOR ADMIN ALLOWANCE OF PHOTO
-if( !$user->level_info['level_photo_allow'] )
-{
+if( !$user->level_info['level_photo_allow'] ) {
   header("Location: user_home.php");
   exit();
 }
@@ -21,6 +20,7 @@ $is_error = 0;
 if( $task == "remove" ) {
   $user->user_photo_delete();
   $user->user_lastupdate();
+  echo 'Вы можете загрузить новое фото!'; die();
   exit();
 }
 

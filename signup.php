@@ -430,6 +430,7 @@ $global_page_description[0] = 680;
 
 
 // ASSIGN VARIABLES AND INCLUDE FOOTER
+$smarty->assign('signup', 1);
 $smarty->assign('is_error', $is_error);
 $smarty->assign('new_user', $new_user);
 $smarty->assign('cats', $field->cats);
