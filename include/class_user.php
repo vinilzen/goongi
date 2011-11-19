@@ -1503,13 +1503,97 @@ class SEUser
 	  return $friend_array;
 	}
   
-  // END user_friend_list() METHOD
 
 
 
+	// THIS METHOD GET A GROUP OF THE CURRENT USER
+	// INPUT:	$user_id REPRESENTING THE USER ID OF THE GROUP TO BE ADDED
+	// 			$group_name GROUP NAME
+	// OUTPUT: ARRAY user group 
+  
+	function user_check_group_name( $group_name ) {
+		global $database, $setting, $user;
+		$user_id = $user->user_info['user_id'];
+		$sql = "SELECT * FROM `se_groups` WHERE `group_name`='$group_name' LIMIT 1";
+		$resource = $database->database_query($sql);
+		if ( $database->database_num_rows($resource) > 0 )
+			return true;
+		else
+		 	return false;
+	}
+  // END user_check_group_name() METHOD
 
 
 
+	function user_add_group ( $group_name ) {
+		global $database, $setting, $user;
+		$user_id = $user->user_info['user_id'];
+		
+		if ( !$this->user_check_group_name($group_name) )  {
+			$sql = "INSERT INTO `se_groups` (`user_id`, `group_name`) VALUES ( '{$user_id}', '{$group_name}');";
+			//echo $sql; die();	
+			$database->database_query($sql);
+			$group_id = $database->database_insert_id();
+			return $group_id;
+		} else {
+			return false;
+		}
+	 	
+	}
+
+	function user_group_list() {
+		
+		global $database, $setting, $user;
+		$user_id = $user->user_info['user_id'];
+		
+		
+		
+		$sql = "SELECT * FROM `se_groups` WHERE `user_id`='$user_id'";	
+		$result = $database->database_query($sql);
+		$groups = array();
+		while($group = $database->database_fetch_assoc($result)) {
+			
+			$groups[$group['group_id']]['name'] = $group['group_name'];
+			
+		}
+		
+		
+		
+		if ( count($groups) ) {
+			
+			$group_users = $this->get_group_users( implode(',',array_keys($groups)) );
+			
+			foreach ( $groups AS $k=>$v ) {
+				$groups[$k]['users'] = $group_users[$k];
+			}
+		}
+		return $groups;
+	}
+
+	function get_group_users($group_list = 0) {
+		
+		global $database, $setting, $user;
+		if ($group_list != 0 && strlen($group_list) ) {
+			$sql = "SELECT * FROM `se_group_users` WHERE `group_id` IN ($group_list)";
+		} else {
+			$sql = "SELECT * FROM `se_group_users`";
+		}
+		
+		$users = $database->database_query($sql);
+		$groups = array();
+		while($user = $database->database_fetch_assoc($users)) {
+			$groups[$user['group_id']][] = $user['user_id'];
+		}
+		//print_r($sql); die();
+		$result_group = array();
+		if ( count($groups) ) {
+			foreach ( $groups AS $k=>$v ) {
+				$result_group[$k] = implode(',', $v);
+			}
+		}
+		//print_r($result_group); die();
+		return $result_group;
+	}
 
 
 	// THIS METHOD ADDS A USER AS A FRIEND OF THE CURRENT USER
@@ -1519,9 +1603,8 @@ class SEUser
 	//	  $friend_explain REPRESENTING A TEXTUAL EXPLANATION OF THE FRIENDSHIP
 	// OUTPUT:
   
-	function user_friend_add($other_user_id, $friend_status, $friend_type, $friend_explain)
-  {
-	  global $database;
+	function user_friend_add($other_user_id, $friend_status, $friend_type, $friend_explain) {
+		global $database;
     
 	  // CHECK EXISTANCE OF FRIENDSHIP
 	  if( $database->database_num_rows($database->database_query("SELECT TRUE FROM se_friends WHERE friend_user_id1='{$this->user_info['user_id']}' AND friend_user_id2='{$other_user_id}' LIMIT 1")) )
