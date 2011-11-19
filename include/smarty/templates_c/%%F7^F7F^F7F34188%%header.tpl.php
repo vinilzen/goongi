@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 19:10:02
+<?php /* Smarty version 2.6.14, created on 2011-11-18 20:00:30
          compiled from header.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header.tpl', 60, false),)), $this);
@@ -189,7 +189,9 @@ window.addEvent('domready', function() {
 <div class="all">
 	<?php if ($this->_tpl_vars['login'] || $this->_tpl_vars['lostpass'] || $this->_tpl_vars['signup'] || $this->_tpl_vars['invite']): ?>
 		<div class="center_one"><div class="block3">
-	<?php else: ?>
+	<?php elseif ($this->_tpl_vars['home'] && $this->_tpl_vars['user']->user_exists == 0): ?>
+		<div class="center"><div class="block2">
+	<?php else: ?>	
 		<div class="center_all"><div class="block4">
 	<?php endif; ?>	
 			<div class="c">

@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 14:49:59
+<?php /* Smarty version 2.6.14, created on 2011-11-19 20:02:23
          compiled from user_friends.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends.tpl', 127, false),array('function', 'cycle', 'user_friends.tpl', 166, false),array('modifier', 'truncate', 'user_friends.tpl', 149, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends.tpl', 202, false),array('function', 'cycle', 'user_friends.tpl', 241, false),array('modifier', 'truncate', 'user_friends.tpl', 224, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(894,652,895,896,899,646,900,901,902,903,905,904,182,184,185,183,509,849,906,882,907,908,837,889,784,839,836);
 SELanguage::load();
@@ -19,19 +19,119 @@ unset($_smarty_tpl_vars);
 	<span><?php echo SELanguage::_get(894); ?><!-- Мои друзья --></span>
 </div>
 <div class="buttons">
-	<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Создать группу" name="creat" /></span><span class="r">&nbsp;</span></span>
+	<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c">
+		<input type="button" value="Создать группу" id="create_group" name="creat" />
+	</span><span class="r">&nbsp;</span></span>
 </div>
+<?php echo '
+<script type="text/javascript">
+function createGroup() {
+
+	$(\'#msg_gr\').html(\'<img src="/images/96.gif" border="0" />\');
+	var go = 1;
+	if (go == 1) {
+		go = 0;
+		$.post(
+			"user_add_group.php", 	
+			
+			{ task: \'add\' , gn: $(\'#group_name\').attr(\'value\') },
+			
+			function(data) {
+				//$(\'.w_t\').hide();
+				if ( data.success == \'0\') {
+					$(\'#msg_gr\').html(data.msg);
+					go = 1;
+				}
+				if (data.success == \'1\') {
+					//$(\'#add_group1\').hide();
+					$(\'#msg_gr\').html(data.msg);
+					setTimeout ( function() {
+						$(\'#popup\').fadeOut(300);
+						$(\'.window\').hide();
+						e.preventDefault();
+					}, 1500);
+					
+					update_group_list();
+					
+				}
+				
+			}
+			, "json" 
+		);
+	}
+}
+function update_group_list() {
+
+	$.post(
+			"user_add_group.php", 
+			
+			{ task: \'update\' },
+			
+			function(data) {
+				//$(\'.w_t\').hide();
+				if ( data.success == \'0\') {
+					alert(data.msg);
+					//$(\'#msg_gr\').html(data.msg);
+					go = 1;
+				}
+				if (data.success == \'1\') {
+					//$(\'#add_group1\').hide();
+					$(\'#user_groups\').html(data.msg);
+					/*setTimeout ( function() {
+						$(\'#popup\').fadeOut(300);
+						$(\'.window\').hide();
+						e.preventDefault();
+					}, 1500);
+					update_group_list();
+					*/
+				}
+				
+			}
+			, "json" 
+		);
+	
+}
+function show_user() {
+	alert(\'filtr\');
+}
+
+</script>
+'; ?>
+
 <div class="group_list">
 	<h2>Список групп</h2>
-	<ul>
-		<li><a href="#">Vip</a></li>
-		<li><a href="#">Название группы</a></li>
-		<li><a href="#">Родственники</a></li>
-		<li><a href="#">Близкие друзья</a></li>
-		<li><a href="#">Коллеги</a></li>
-		<li><a href="#">Друзья по школе</a></li>
-		<li><a href="#">Друзья по вузу</a></li>
+		<ul id="user_groups">
+		<?php unset($this->_sections['group_loop']);
+$this->_sections['group_loop']['name'] = 'group_loop';
+$this->_sections['group_loop']['loop'] = is_array($_loop=$this->_tpl_vars['groups']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['group_loop']['show'] = true;
+$this->_sections['group_loop']['max'] = $this->_sections['group_loop']['loop'];
+$this->_sections['group_loop']['step'] = 1;
+$this->_sections['group_loop']['start'] = $this->_sections['group_loop']['step'] > 0 ? 0 : $this->_sections['group_loop']['loop']-1;
+if ($this->_sections['group_loop']['show']) {
+    $this->_sections['group_loop']['total'] = $this->_sections['group_loop']['loop'];
+    if ($this->_sections['group_loop']['total'] == 0)
+        $this->_sections['group_loop']['show'] = false;
+} else
+    $this->_sections['group_loop']['total'] = 0;
+if ($this->_sections['group_loop']['show']):
+
+            for ($this->_sections['group_loop']['index'] = $this->_sections['group_loop']['start'], $this->_sections['group_loop']['iteration'] = 1;
+                 $this->_sections['group_loop']['iteration'] <= $this->_sections['group_loop']['total'];
+                 $this->_sections['group_loop']['index'] += $this->_sections['group_loop']['step'], $this->_sections['group_loop']['iteration']++):
+$this->_sections['group_loop']['rownum'] = $this->_sections['group_loop']['iteration'];
+$this->_sections['group_loop']['index_prev'] = $this->_sections['group_loop']['index'] - $this->_sections['group_loop']['step'];
+$this->_sections['group_loop']['index_next'] = $this->_sections['group_loop']['index'] + $this->_sections['group_loop']['step'];
+$this->_sections['group_loop']['first']      = ($this->_sections['group_loop']['iteration'] == 1);
+$this->_sections['group_loop']['last']       = ($this->_sections['group_loop']['iteration'] == $this->_sections['group_loop']['total']);
+?>
+			<li><a href="#" onclick="show_user(<?php echo $this->_tpl_vars['groups'][$this->_sections['group_loop']['index']]['users']; ?>
+);return false;"><?php echo $this->_tpl_vars['groups'][$this->_sections['group_loop']['index']]['name']; ?>
+</a></li>
+		<?php endfor; endif; ?>
 	</ul>
+	
+	
 </div>
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>

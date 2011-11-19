@@ -8,19 +8,94 @@
 	<span>{lang_print id=894}<!-- Мои друзья --></span>
 </div>
 <div class="buttons">
-	<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Создать группу" name="creat" /></span><span class="r">&nbsp;</span></span>
+	<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c">
+		<input type="button" value="Создать группу" id="create_group" name="creat" />
+	</span><span class="r">&nbsp;</span></span>
 </div>
+{literal}
+<script type="text/javascript">
+function createGroup() {
+
+	$('#msg_gr').html('<img src="/images/96.gif" border="0" />');
+	var go = 1;
+	if (go == 1) {
+		go = 0;
+		$.post(
+			"user_add_group.php", 	
+			
+			{ task: 'add' , gn: $('#group_name').attr('value') },
+			
+			function(data) {
+				//$('.w_t').hide();
+				if ( data.success == '0') {
+					$('#msg_gr').html(data.msg);
+					go = 1;
+				}
+				if (data.success == '1') {
+					//$('#add_group1').hide();
+					$('#msg_gr').html(data.msg);
+					setTimeout ( function() {
+						$('#popup').fadeOut(300);
+						$('.window').hide();
+						e.preventDefault();
+					}, 1500);
+					
+					update_group_list();
+					
+				}
+				
+			}
+			, "json" 
+		);
+	}
+}
+function update_group_list() {
+
+	$.post(
+			"user_add_group.php", 
+			
+			{ task: 'update' },
+			
+			function(data) {
+				//$('.w_t').hide();
+				if ( data.success == '0') {
+					alert(data.msg);
+					//$('#msg_gr').html(data.msg);
+					go = 1;
+				}
+				if (data.success == '1') {
+					//$('#add_group1').hide();
+					$('#user_groups').html(data.msg);
+					/*setTimeout ( function() {
+						$('#popup').fadeOut(300);
+						$('.window').hide();
+						e.preventDefault();
+					}, 1500);
+					update_group_list();
+					*/
+				}
+				
+			}
+			, "json" 
+		);
+	
+}
+function show_user() {
+	alert('filtr');
+}
+
+</script>
+{/literal}
 <div class="group_list">
 	<h2>Список групп</h2>
-	<ul>
-		<li><a href="#">Vip</a></li>
-		<li><a href="#">Название группы</a></li>
-		<li><a href="#">Родственники</a></li>
-		<li><a href="#">Близкие друзья</a></li>
-		<li><a href="#">Коллеги</a></li>
-		<li><a href="#">Друзья по школе</a></li>
-		<li><a href="#">Друзья по вузу</a></li>
+	{print_r($groups)}
+	<ul id="user_groups">
+		{section name=group_loop loop=$groups}
+			<li><a href="#" onclick="show_user({$groups[group_loop].users});return false;">{$groups[group_loop].name}</a></li>
+		{/section}
 	</ul>
+	
+	
 </div>
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>

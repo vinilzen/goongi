@@ -84,5 +84,21 @@
     </div>
 	<div class="w_b"></div>
 </div>
+<div class="window" id="add_group">
+	<div class="close"></div>
+	<div class="w_c">
+    	<h1>Создать группу</h1>
+        <div class="form" id="add_group_bl">
+        	<div class="input">
+				<label>Название группы</label>
+				<input type="text" id="group_name" value="" name="" />
+				<span class="button2" id="add_group1"><span class="l">&nbsp;</span><span class="c">
+					<input type="submit" onclick="createGroup(); return false;" value="Создать" name="creat" />
+				</span><span class="r">&nbsp;</span></span>
+				<p id="msg_gr"></p>
+			</div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
