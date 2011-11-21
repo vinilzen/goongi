@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-19 19:03:55
+<?php /* Smarty version 2.6.14, created on 2011-11-21 12:53:48
          compiled from footer.tpl */
 ?><?php
 SELanguage::_preload_multi(6000146);
@@ -19,7 +19,6 @@ SELanguage::load();
   <?php endif; ?>
 
 </div>
-
 
 <?php if ($this->_tpl_vars['ads']->ad_right != "" && 0): ?>
   <div class='ad_right' width='1' style='display: table-cell; visibility: visible;'><?php echo $this->_tpl_vars['ads']->ad_right; ?>

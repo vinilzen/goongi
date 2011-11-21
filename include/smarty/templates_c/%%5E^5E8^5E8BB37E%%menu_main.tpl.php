@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 18:44:52
+<?php /* Smarty version 2.6.14, created on 2011-11-21 13:54:58
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 33, false),array('modifier', 'escape', 'menu_main.tpl', 121, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 32, false),array('modifier', 'escape', 'menu_main.tpl', 120, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(1204,1161,1162,652,1163,1164,1165,1166,654,784,1167,1168,1169,653,1170,1171,1172,655,1173,1174,876,838,887,885,875,837,839,857,840,869,841,868,842,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850);
 SELanguage::load();
@@ -13,7 +13,6 @@ SELanguage::load();
 
 
   <!-- START USER MENU -->
-
 <?php if ($this->_tpl_vars['user']->user_exists != 0): ?>	
 <div class="block0">
 	<div class="bg">

@@ -6,7 +6,6 @@
 
 
 {* START USER MENU *}  <!-- START USER MENU -->
-
 {if $user->user_exists != 0}	
 <div class="block0">
 	<div class="bg">

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-19 20:02:23
+<?php /* Smarty version 2.6.14, created on 2011-11-21 12:59:25
          compiled from user_friends.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends.tpl', 202, false),array('function', 'cycle', 'user_friends.tpl', 241, false),array('modifier', 'truncate', 'user_friends.tpl', 224, false),)), $this);
@@ -18,6 +18,7 @@ unset($_smarty_tpl_vars);
 '><?php echo SELanguage::_get(652); ?></a>
 	<span><?php echo SELanguage::_get(894); ?><!-- Мои друзья --></span>
 </div>
+
 <div class="buttons">
 	<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c">
 		<input type="button" value="Создать группу" id="create_group" name="creat" />
@@ -100,7 +101,7 @@ function show_user() {
 
 <div class="group_list">
 	<h2>Список групп</h2>
-		<ul id="user_groups">
+	<ul id="user_groups">
 		<?php unset($this->_sections['group_loop']);
 $this->_sections['group_loop']['name'] = 'group_loop';
 $this->_sections['group_loop']['loop'] = is_array($_loop=$this->_tpl_vars['groups']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);

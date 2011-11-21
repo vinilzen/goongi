@@ -1581,8 +1581,8 @@ class SEUser
 		
 		$users = $database->database_query($sql);
 		$groups = array();
-		while($user = $database->database_fetch_assoc($users)) {
-			$groups[$user['group_id']][] = $user['user_id'];
+		while($fr = $database->database_fetch_assoc($users)) {
+			$groups[$fr['group_id']][] = $fr['user_id'];
 		}
 		//print_r($sql); die();
 		$result_group = array();

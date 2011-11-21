@@ -17,7 +17,6 @@
 {* END CONTENT CONTAINER *}
 </div>
 
-
 {* END BODY CONTAINER *}
 {* SHOW RIGHT-SIDE ADVERTISEMENT BANNER *}
 {if $ads->ad_right != "" && 0}

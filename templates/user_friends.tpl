@@ -7,6 +7,7 @@
 	<a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a>
 	<span>{lang_print id=894}<!-- Мои друзья --></span>
 </div>
+
 <div class="buttons">
 	<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c">
 		<input type="button" value="Создать группу" id="create_group" name="creat" />
@@ -88,7 +89,6 @@ function show_user() {
 {/literal}
 <div class="group_list">
 	<h2>Список групп</h2>
-	{print_r($groups)}
 	<ul id="user_groups">
 		{section name=group_loop loop=$groups}
 			<li><a href="#" onclick="show_user({$groups[group_loop].users});return false;">{$groups[group_loop].name}</a></li>
