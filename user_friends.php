@@ -52,19 +52,23 @@ $total_friends = $user->user_friend_total(0, 1, $is_where, $where);
 $friends_per_page = 10;
 $page_vars = make_page($total_friends, $friends_per_page, $p);
 
+//echo '<pre>'; print_r($user); die();
+
 // GET FRIEND ARRAY
 $friends = $user->user_friend_list($page_vars[0], $friends_per_page, 0, 1, $sort, $where, $show_details);
 $groups = $user->user_group_list();
-
+//echo '<pre>->'; print_r($user); die();
 
 // ASSIGN VARIABLES AND INCLUDE FOOTER
+$smarty->assign('$user_exists', $user->user_exists);
 $smarty->assign('s', $s);
 $smarty->assign('u', $u);
 $smarty->assign('l', $l);
 $smarty->assign('t', $t);
 $smarty->assign('search', $search);
 $smarty->assign('friends', $friends);
-$smarty->assign('groups', $groups);
+if ( isset($groups) && count($groups) )
+	$smarty->assign('groups', $groups);
 $smarty->assign('total_friends', $total_friends);
 $smarty->assign('maxpage', $page_vars[2]);
 $smarty->assign('p', $page_vars[1]);
