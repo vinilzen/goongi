@@ -26,7 +26,8 @@
                 <li>
 				{if $user->user_exists != 0}
 					<form method="POST" id="user_logout" action="user_logout.php" style="display:inline;margin:0;">
-						<a href="/user_logout.php?token={$token}" onclick="$('user_logout').submit(); return false;">{lang_print id=6000147}<!-- выйти --></a>
+						<input type="hidden" name="token" value="{$token}" />
+						<a href="#" onclick="$('#user_logout').submit(); return false;">{lang_print id=6000147}<!-- выйти --></a>
 					</form>
 				{else}
 					<a href="/login.php">{lang_print id=6000145}<!-- войти --></a>

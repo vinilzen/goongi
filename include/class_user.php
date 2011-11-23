@@ -1514,7 +1514,7 @@ class SEUser
 	function user_check_group_name( $group_name ) {
 		global $database, $setting, $user;
 		$user_id = $user->user_info['user_id'];
-		$sql = "SELECT * FROM `se_groups` WHERE `group_name`='$group_name' LIMIT 1";
+		$sql = "SELECT * FROM `se_groups` WHERE `user_id` = '$user_id' AND `group_name`='$group_name' LIMIT 1";
 		$resource = $database->database_query($sql);
 		if ( $database->database_num_rows($resource) > 0 )
 			return true;
@@ -1551,18 +1551,13 @@ class SEUser
 		$sql = "SELECT * FROM `se_groups` WHERE `user_id`='$user_id'";	
 		$result = $database->database_query($sql);
 		$groups = array();
+		
 		while($group = $database->database_fetch_assoc($result)) {
-			
-			$groups[$group['group_id']]['name'] = $group['group_name'];
-			
+			$groups[$group['group_id']]['name'] = $group['group_name'];			
 		}
-		
-		
-		
-		if ( count($groups) ) {
-			
+	
+		if ( count($groups) ) {	
 			$group_users = $this->get_group_users( implode(',',array_keys($groups)) );
-			
 			foreach ( $groups AS $k=>$v ) {
 				$groups[$k]['users'] = $group_users[$k];
 			}
@@ -1594,8 +1589,267 @@ class SEUser
 		//print_r($result_group); die();
 		return $result_group;
 	}
+	
+	function get_user_info($members_list, $json = false) {
+		global $database, $setting, $user;
+		$user_id = $user->user_info['user_id'];
+		$members = array(); 
+		if ( count($members_list) > 0 ) {
+			
+			$resourse = $database->database_query("SELECT * FROM `se_users` WHERE `user_id` IN (" . implode(',', $members_list) . ") LIMIT ". count($members_list) .";");
+			
+			if ($json) {
+				while($u = $database->database_fetch_assoc($resourse) ) 
+					$members[$u[user_id]] = array(
+						'id'	=>	$u['user_id'],
+			            'email' =>	$u['user_email'],
+			            'fname' =>	base64_encode($u['user_fname']),
+			            'lname' => base64_encode($u['user_lname']),
+			            'username' =>	base64_encode($u['user_username']),
+			            'displayname' =>	base64_encode($u['user_displayname']),
+			            'photo' => $u['user_photo'],
+			            'signupdate' => $u['user_signupdate'],
+			            'lastlogindate' => $u['user_lastlogindate'],
+			            'lastactive' => $u['user_lastactive'],
+			        );
+			} else {
+				while($u = $database->database_fetch_assoc($resourse) ) 
+					$members[$u[user_id]] = array(
+						'id'	=>	$u['user_id'],
+			            'email' =>	$u['user_email'],
+			            'fname' =>	$u['user_fname'],
+			            'lname' => $u['user_lname'],
+			            'username' =>	$u['user_username'],
+			            'displayname' => $u['user_displayname'],
+			            'photo' => $u['user_photo'],
+			            'signupdate' => $u['user_signupdate'],
+			            'lastlogindate' => $u['user_lastlogindate'],
+			            'lastactive' => $u['user_lastactive'],
+			        );
+			}
+		}
+
+		return $members;
+	}
+	
+	function get_family_id($user_id = 0) {
+		global $database, $setting, $user;
+		if ($user_id == 0)
+			$user_id = $user->user_info['user_id'];	
+		
+		$family = $database->database_query("SELECT `family_id` FROM `se_role_in_family` WHERE `user_id` = $user_id LIMIT 1;");
+		$family_id = $database->database_fetch_assoc($family);
+		if ( $family_id === false)
+			return 0;
+		else
+			return $family_id;
+	}
+	
+	function create_family($user_id = 0) {
+		global $database, $setting, $user;
+		if ($user_id == 0)
+			$user_id = $user->user_info['user_id'];
+		
+		$user_info = $this->get_user_info(array(0=>$user_id));
+		
+		$family_name = $user_info[$user_id]['lname'];
+		//var_dump($family_name);  die();
+		$sql = "INSERT INTO `se_family` (`family_id`, `family_name`, `family_createdate`) VALUES (NULL, '$family_name', UNIX_TIMESTAMP())";
+		$database->database_query($sql);
+		$id = $database->database_insert_id();
+		return $id;
+	}
+
+	function get_role($family_id , $role ) {
+		
+		$family = $database->database_query("SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` = '$family_id' AND `role` = '$role' LIMIT 1;");
+		$user_id = $database->database_fetch_assoc($family);
+		if ( $user_id === false)
+			return 0;
+		else
+			return $user_id;
+		
+	}
+	
+	
+	// insert in `se_role_in_family`
+	function add_role($family_id, $role, $user_id) {
+		$sql = "INSERT INTO `se_role_in_family` (`family_id`, `user_id`, `role`) VALUES ('$family_id', '$user_id', '$role')";
+		if ( $database->database_query($sql) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function update_role($family_id, $role, $user_id) {
+		
+		$sql = "UPDATE `se_role_in_family` SET `user_id` = $user_id WHERE `family_id` = $family_id AND `role` = '$role'  LIMIT 1;";
+		
+		if ( $database->database_query($sql) ) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
 
 
+	function add_role_for_user($start_user,$role,$user_rel,$rewrite) {
+		$success = false;
+		$family_id = $this->get_family_id($start_user);
+		if ($family_id == 0) 
+			$family_id = $this->create_family($start_user);
+		
+		$father_id = $this->get_role($family_id, 'father');
+		if ($father_id == 0) {
+			if ( $this->add_role($family_id, 'father', $user_rel) ) {
+				$success = true;
+			} else {
+				$msg = ' insert error (add_role) ';
+			}
+		} else {
+			if ($rewrite == 1) {
+				if ( $this->update_role($family_id, 'father', $user_rel) )
+					$success = true;
+			} else {
+				$msg = 'уже есть отец, заменить?';
+			}
+		}
+		return array(	'msg'	=> $msg,
+						'success'	=> $success,
+		);
+	}
+	
+	
+	function get_user_union ($user_id = 0) {
+		global $database, $setting, $user;
+		if ($user_id == 0)
+			$user_id = $user->user_info['user_id'];
+		
+		if ( $tree_members = $this->get_relatives() ) {
+			// get info about members in this tree
+
+			$members = $this->get_user_info($tree_members, true);
+			//print_r($members); die();
+			$u = array( 1 	=> array(	'father'	=>	1,
+										'mather'	=>	2,
+										'child1'	=>	3,
+										'child2'	=>	4,
+										'child3'	=>	5,
+										'child4'	=>	6,
+										'child5'	=>	7,
+										'child6'	=>	8,
+										'child7'	=>	9,
+										'child8'	=>	10),
+						2	=>	array(	'father'	=> 11),
+			);
+			$result_array = array (
+				'members'	=> $members,
+				'family'	=> $u,
+			);
+			echo json_encode(  $result_array ); die();
+
+		} else {
+			echo json_encode(array("success"=>"0","msg"=>"Произошла ошибка, попробуйте еще раз."));
+			die();
+		}
+	
+	}
+	
+	function get_relatives_displayname($user_id = 0) {
+		global $database, $setting, $user;
+		
+		if ($user_id == 0)
+			$user_id = $user->user_info['user_id'];
+		//print_r($user_id); die();
+		if ( $tree_members = $this->get_relatives($user_id) ) {
+			
+			if ( $members = $this->get_user_info($tree_members) ) {
+				
+				foreach ($members AS $k=>$v) {
+					$result_members[$v['id']] = $v['displayname'];
+				}
+				//print_r($result_members); die();
+				return $result_members;
+				
+			} else {
+				
+				return false;
+				
+			}
+			
+		} else {
+			//print_r('false'); die();
+			return false;
+			
+		}
+	}
+
+	function get_relatives($user_id = 0) {
+		global $database, $setting, $user;
+		
+		if ($user_id == 0)
+			$user_id = $user->user_info['user_id'];
+		
+		$resourse = $database->database_query("SELECT `tree_id` FROM `se_tree_users` WHERE `user_id` = $user_id LIMIT 1;");
+		
+		if ($resourse) {
+			$tree = $database->database_fetch_assoc($resourse);
+			
+			if (isset($tree) && is_array($tree) && isset($tree['tree_id']) ){
+				
+				$tree_id = (int)$tree['tree_id'];
+				
+				// get users from a tree
+				$resourse = $database->database_query("SELECT * FROM `se_tree_users` WHERE `tree_id` = $tree_id;");
+				$tree_members = array();
+				while($tm = $database->database_fetch_assoc($resourse) ) 
+					$tree_members[] = (int)$tm['user_id'];
+				
+				
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+		//var_dump($tree_members); die();
+		return $tree_members;
+	}
+	
+	function get_tree_info($tree_id) {
+		
+		global $database, $setting, $user;
+		//get tree info
+		if ($resourse = $database->database_query("SELECT * FROM `se_trees` WHERE `tree_id` = $tree_id LIMIT 1;")) {
+			if ( $tree_info = $database->database_fetch_assoc($resourse) ) {
+				return $tree_info;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	function convert($from, $to, $var)	{
+	    if (is_array($var))  {
+	    	
+	        $new = array();
+	        foreach ($var as $key => $val) {
+	            $new[$this->convert($from, $to, $key)] = $this->convert($from, $to, $val);
+	        }
+	        $var = $new;
+			
+	    } else if (is_string($var)) {
+	    	
+	        $var = iconv($from, $to, $var);
+			
+	    }
+	    return $var;
+	}
+	
 	// THIS METHOD ADDS A USER AS A FRIEND OF THE CURRENT USER
 	// INPUT: $other_user_id REPRESENTING THE USER ID OF THE FRIEND TO BE ADDED
 	//	  $friend_status REPRESENTING WHETHER THE FRIENDSHIP IS CONFIRMED OR NOT
@@ -1612,27 +1866,19 @@ class SEUser
 
 	  // ADD USER TO FRIENDS
 	  $database->database_query("
-      INSERT INTO se_friends
-        (friend_user_id1, friend_user_id2, friend_status, friend_type)
-      VALUES
-        ('{$this->user_info['user_id']}', '{$other_user_id}', '{$friend_status}', '{$friend_type}'
-      )
-    ");
+	      INSERT INTO se_friends	(friend_user_id1, friend_user_id2, friend_status, friend_type)
+	      VALUES					('{$this->user_info['user_id']}', '{$other_user_id}', '{$friend_status}', '{$friend_type}'      )    ");
 	  $friend_id = $database->database_insert_id();
     
 	  $database->database_query("
-      INSERT INTO se_friendexplains
-        (friendexplain_friend_id, friendexplain_body)
-      VALUES
-        ('{$friend_id}', '{$friend_explain}')
-    ");
+	      INSERT INTO se_friendexplains (friendexplain_friend_id, friendexplain_body)
+	      VALUES 						('{$friend_id}', '{$friend_explain}') ");
     
 	  // REMOVE FRIEND FROM BLOCKLIST
-	  if( $this->user_blocked($other_user_id) )
-    {
+	  if( $this->user_blocked($other_user_id) ) {
 	    $blocklist = explode(",", $this->user_info['user_blocklist']);
 	    $user_key = array_search($other_user_id, $blocklist);
-      $blocklist[$user_key] = "";
+      	$blocklist[$user_key] = "";
 	    $this->user_info['user_blocklist'] = implode(",", $blocklist);
 	    $database->database_query("UPDATE se_users SET user_blocklist='{$this->user_info['user_blocklist']}' WHERE user_id='{$this->user_info['user_id']}' LIMIT 1");
 	  }
@@ -1642,36 +1888,30 @@ class SEUser
 
 
 
-
-
-
-
-
 	// THIS METHOD REMOVES A USER AS A FRIEND OF THE CURRENT USER
 	// INPUT: $other_user_id REPRESENTING THE FRIEND'S USER ID
 	// OUTPUT: 
   
-	function user_friend_remove($other_user_id)
-  {
-	  global $database, $setting;
-    
-    // REMOVE IF FRIEND
-    $friend1 = $database->database_query("SELECT friend_id FROM se_friends WHERE friend_user_id1='{$this->user_info['user_id']}' AND friend_user_id2='{$other_user_id}'");
-    if( $database->database_num_rows($friend1) )
-    {
-      $friendship = $database->database_fetch_assoc($friend1);
-      $database->database_query("DELETE FROM se_friends WHERE friend_id='{$friendship['friend_id']}' LIMIT 1");
-      $database->database_query("DELETE FROM se_friendexplains WHERE friendexplain_friend_id='{$friendship['friend_id']}' LIMIT 1");
-    }
-    
-    // REMOVE ADDITIONAL ROW IF TWO-DIRECTIONAL
-    $friend2 = $database->database_query("SELECT friend_id FROM se_friends WHERE friend_user_id2='{$this->user_info['user_id']}' AND friend_user_id1='{$other_user_id}'");
-    if( $database->database_num_rows($friend2) && ($setting['setting_connection_framework'] == 0 || $setting['setting_connection_framework'] == 2) )
-    {
-      $friendship = $database->database_fetch_assoc($friend2);
-      $database->database_query("DELETE FROM se_friends WHERE friend_id='{$friendship['friend_id']}' LIMIT 1");
-      $database->database_query("DELETE FROM se_friendexplains WHERE friendexplain_friend_id='{$friendship['friend_id']}' LIMIT 1");    
-    }
+	function user_friend_remove($other_user_id) {
+		global $database, $setting;
+	    
+	    // REMOVE IF FRIEND
+	    $friend1 = $database->database_query("SELECT friend_id FROM se_friends WHERE friend_user_id1='{$this->user_info['user_id']}' AND friend_user_id2='{$other_user_id}'");
+	    if( $database->database_num_rows($friend1) )
+	    {
+	      $friendship = $database->database_fetch_assoc($friend1);
+	      $database->database_query("DELETE FROM se_friends WHERE friend_id='{$friendship['friend_id']}' LIMIT 1");
+	      $database->database_query("DELETE FROM se_friendexplains WHERE friendexplain_friend_id='{$friendship['friend_id']}' LIMIT 1");
+	    }
+	    
+	    // REMOVE ADDITIONAL ROW IF TWO-DIRECTIONAL
+	    $friend2 = $database->database_query("SELECT friend_id FROM se_friends WHERE friend_user_id2='{$this->user_info['user_id']}' AND friend_user_id1='{$other_user_id}'");
+	    if( $database->database_num_rows($friend2) && ($setting['setting_connection_framework'] == 0 || $setting['setting_connection_framework'] == 2) )
+	    {
+	      $friendship = $database->database_fetch_assoc($friend2);
+	      $database->database_query("DELETE FROM se_friends WHERE friend_id='{$friendship['friend_id']}' LIMIT 1");
+	      $database->database_query("DELETE FROM se_friendexplains WHERE friendexplain_friend_id='{$friendship['friend_id']}' LIMIT 1");    
+	    }
 	}
   
   // END user_friend_remove() METHOD

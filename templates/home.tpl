@@ -101,7 +101,6 @@
 					<div class='portal_login'>
 					  <div style='padding-bottom: 5px;'><a href='{$url->url_create("profile",$user->user_info.user_username)}'><img src='{$user->user_photo("./images/nophoto.gif")}' width='{$misc->photo_size($user->user_photo("./images/nophoto.gif"),"90","90","w")}' border='0' class='photo' alt="{lang_sprintf id=509 1=$user->user_info.user_username}" /></a></div>
 					  <div>{lang_sprintf id=510 1=$user->user_displayname_short}</div>
-					  <div>[ <form method="POST" id="user_logout" action="user_logout.php" style="display:inline;margin:0;"><a href='user_logout.php?token={$token}' class='top_menu_item' onclick="$('user_logout').submit(); return false;">{lang_print id=26}</a></form> ]</div>
 					</div>
 					<div class='portal_spacer'></div>
 					{/if}
