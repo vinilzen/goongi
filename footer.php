@@ -52,7 +52,7 @@ $smarty->assign_by_ref('owner', $owner);
 $smarty->assign_by_ref('ads', $ads);
 $smarty->assign_by_ref('setting', $setting);
 $smarty->assign_by_ref('se_javascript', $se_javascript);
-$smarty->assign('lang_packlist', $lang_packlist);
+$smarty->assign('lang_packlist', isset($lang_packlist)?$lang_packlist:null);
 $smarty->assign('notifys', $notify->notify_summary());
 $smarty->assign('global_plugins', $global_plugins);
 $smarty->assign('global_smoothbox', $global_smoothbox);

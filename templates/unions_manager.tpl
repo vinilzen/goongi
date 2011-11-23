@@ -18,10 +18,14 @@
 			</div><p>Обратите внимание, что все изображения должны быть в формате jpeg, gif, png. Размером до 1 Mb.</p>
 		</div> -->
 		<div class="input">
+			<label>msg-{$msg}</label>
+			<label>success-{$success}</label>
+		</div>
+		<div class="input">
 			<label>Добавить связь для:</label>
 			<select name="start_user">
 				{* users in your family *}
-				{foreach from=$family key=k item=v}
+				{foreach from=$users key=k item=v}
 					{if $user->user_info.user_id == $k}
 						<option value="{$k}">{$v}(Это Вы)</option>
 					{else}
@@ -38,6 +42,7 @@
 				<option value="pc">Сестру</option>
 				<option value="pc">Брата</option>
 				<option value="pw">Жену</option>
+				<option value="ph">Мужа</option>
 			</select>
 		</div>
 		
@@ -49,7 +54,7 @@
 				
 				<select name="relations_user">
 					{* other users in your family *}
-					{foreach from=$family key=k item=v}
+					{foreach from=$users key=k item=v}
 						{if $user->user_info.user_id != $k}
 							<option value="{$k}">{$v}</option>
 						{/if}
@@ -139,57 +144,4 @@ function show_user() {
 </script>
 {/literal}
 
-{* DISPLAY MESSAGE IF NO FRIENDS *}
-{if $total_friends == 0}
-
-  {* DISPLAY MESSAGE IF NO SEARCHED FRIENDS *}
-  {if $search != ""}
-    <table cellpadding='0' cellspacing='0' align='center'>
-    <tr><td class='result'>
-      <img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_print id=905}
-    </td></tr>
-    </table>
-  {* DISPLAY MESSAGE IF NO FRIENDS ON LIST *}
-  {else}
-    <table cellpadding='0' cellspacing='0' align='center'>
-    <tr><td class='result'>
-      <img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_print id=904}
-    </td></tr>
-    </table>
-  {/if}
-
-{* DISPLAY FRIENDS *}
-{else}
-
-
-  {* DISPLAY PAGINATION MENU IF APPLICABLE *}
-  {if $maxpage > 1}
-    <div class='center' style='margin-top: 10px;'>
-      {if $p != 1}<a href='user_friends.php?s={$s}&search={$search}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a>{else}<font class='disabled'>&#171; {lang_print id=182}</font>{/if}
-      {if $p_start == $p_end}
-        &nbsp;|&nbsp; {lang_sprintf id=184 1=$p_start 2=$total_friends} &nbsp;|&nbsp; 
-      {else}
-        &nbsp;|&nbsp; {lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_friends} &nbsp;|&nbsp; 
-      {/if}
-      {if $p != $maxpage}<a href='user_friends.php?s={$s}&search={$search}&p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{else}<font class='disabled'>{lang_print id=183} &#187;</font>{/if}
-    </div>
-  {/if}
-
-  <div style='margin-left: auto; margin-right: auto; width: 850px;'>
-
-  </div>
-
-  {* DISPLAY PAGINATION MENU IF APPLICABLE *}
-  {if $maxpage > 1}
-    <div clas	s='center' style='margin-top: 10px;'>
-      {if $p != 1}<a href='user_friends.php?s={$s}&search={$search}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a>{else}<font class='disabled'>&#171; {lang_print id=182}</font>{/if}
-      {if $p_start == $p_end}
-        &nbsp;|&nbsp; {lang_sprintf id=184 1=$p_start 2=$total_friends} &nbsp;|&nbsp; 
-      {else}
-        &nbsp;|&nbsp; {lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_friends} &nbsp;|&nbsp; 
-      {/if}
-      {if $p != $maxpage}<a href='user_friends.php?s={$s}&search={$search}&p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{else}<font class='disabled'>{lang_print id=183} &#187;</font>{/if}
-    </div>
-  {/if}
-{/if}
 {include file='footer.tpl'}
