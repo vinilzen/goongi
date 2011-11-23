@@ -425,42 +425,10 @@
         </select>
 
   {/if}
-{lang_print id=206}:
-      <select name='signup_timezone'>
-		  <option value='-8'{if $signup_timezone == "-8"} SELECTED{/if}>Pacific Time (US & Canada)</option>
-		  <option value='-7'{if $signup_timezone == "-7"} SELECTED{/if}>Mountain Time (US & Canada)</option>
-		  <option value='-6'{if $signup_timezone == "-6"} SELECTED{/if}>Central Time (US & Canada)</option>
-		  <option value='-5'{if $signup_timezone == "-5"} SELECTED{/if}>Eastern Time (US & Canada)</option>
-		  <option value='-4'{if $signup_timezone == "-4"} SELECTED{/if}>Atlantic Time (Canada)</option>
-		  <option value='-9'{if $signup_timezone == "-9"} SELECTED{/if}>Alaska (US & Canada)</option>
-		  <option value='-10'{if $signup_timezone == "-10"} SELECTED{/if}>Hawaii (US)</option>
-		  <option value='-11'{if $signup_timezone == "-11"} SELECTED{/if}>Midway Island, Samoa</option>
-		  <option value='-12'{if $signup_timezone == "-12"} SELECTED{/if}>Eniwetok, Kwajalein</option>
-		  <option value='-3.3'{if $signup_timezone == "-3.3"} SELECTED{/if}>Newfoundland</option>
-		  <option value='-3'{if $signup_timezone == "-3"} SELECTED{/if}>Brasilia, Buenos Aires, Georgetown</option>
-		  <option value='-2'{if $signup_timezone == "-2"} SELECTED{/if}>Mid-Atlantic</option>
-		  <option value='-1'{if $signup_timezone == "-1"} SELECTED{/if}>Azores, Cape Verde Is.</option>
-		  <option value='0'{if $signup_timezone == "0"} SELECTED{/if}>Greenwich Mean Time (Lisbon, London)</option>
-		  <option value='1'{if $signup_timezone == "1"} SELECTED{/if}>Amsterdam, Berlin, Paris, Rome, Madrid</option>
-		  <option value='2'{if $signup_timezone == "2"} SELECTED{/if}>Athens, Helsinki, Istanbul, Cairo, E. Europe</option>
-		  <option value='3'{if $signup_timezone == "3"} SELECTED{/if}>Baghdad, Kuwait, Nairobi, Moscow</option>
-		  <option value='3.3'{if $signup_timezone == "3.3"} SELECTED{/if}>Tehran</option>
-		  <option value='4'{if $signup_timezone == "4"} SELECTED{/if}>Abu Dhabi, Kazan, Muscat</option>
-		  <option value='4.3'{if $signup_timezone == "4.3"} SELECTED{/if}>Kabul</option>
-		  <option value='5'{if $signup_timezone == "5"} SELECTED{/if}>Islamabad, Karachi, Tashkent</option>
-		  <option value='5.5'{if $signup_timezone == "5.5"} SELECTED{/if}>Bombay, Calcutta, New Delhi</option>
-		  <option value='6'{if $signup_timezone == "6"} SELECTED{/if}>Almaty, Dhaka</option>
-		  <option value='7'{if $signup_timezone == "7"} SELECTED{/if}>Bangkok, Jakarta, Hanoi</option>
-		  <option value='8'{if $signup_timezone == "8"} SELECTED{/if}>Beijing, Hong Kong, Singapore, Taipei</option>
-		  <option value='9'{if $signup_timezone == "9"} SELECTED{/if}>Tokyo, Osaka, Sapporto, Seoul, Yakutsk</option>
-		  <option value='9.3'{if $signup_timezone == "9.3"} SELECTED{/if}>Adelaide, Darwin</option>
-		  <option value='10'{if $signup_timezone == "10"} SELECTED{/if}>Brisbane, Melbourne, Sydney, Guam</option>
-		  <option value='11'{if $signup_timezone == "11"} SELECTED{/if}>Magadan, Soloman Is., New Caledonia</option>
-		  <option value='12'{if $signup_timezone == "12"} SELECTED{/if}>Fiji, Kamchatka, Marshall Is., Wellington</option>
-      </select>
+	<input type="hidden" name="signup_timezone" value="2" />
+
 
   {if $setting.setting_lang_allow == 1}
-{lang_print id=687}:
         <select name='signup_lang'>
           {section name=lang_loop loop=$lang_packlist}
             <option value='{$lang_packlist[lang_loop].language_id}'{if $lang_packlist[lang_loop].language_default == 1} selected='selected'{/if}>{$lang_packlist[lang_loop].language_name}</option>
@@ -484,9 +452,8 @@
     {if $setting.setting_signup_code}
 {lang_print id=690}
 <input type='text' name='signup_secure' class='text' size='6' maxlength='10'>&nbsp;
-
-                    <img src='./images/secure.php' id='secure_image' border='0' height='20' width='67' class='signup_code'><br />
-                    <a href="#" onClick="$('secure_image').src = './images/secure.php?' + (new Date()).getTime();">{lang_print id=975}</a>
+    <img src='./images/secure.php' id='secure_image' border='0' height='20' width='67' class='signup_code'><br />
+    <a href="#" onClick="$('secure_image').src = './images/secure.php?' + (new Date()).getTime();">{lang_print id=975}</a>
           {capture assign=tip}{lang_print id=691}{/capture}<img src='./images/icons/tip.gif' border='0' class='Tips1' title='{$tip|escape:quotes}'></td>
 
     {/if}

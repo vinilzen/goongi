@@ -55,7 +55,7 @@
 			</div>
 			<div class="input imggg">
 				<label>{lang_print id=770}</label>
-				<div class="brdr">
+				<div id="brdr">
 					<img id="userEditPhotoImg" src='{$user->user_photo("./images/nophoto.gif")}' border='0' />
 				</div>
 				{if $user->user_photo() != ""}
@@ -67,11 +67,13 @@
 								"user_editprofile_photo.php", 
 								{ task: 'remove' },
 								function(data) {
+									$("#brdr").addClass("preloader");
 									$('#userEditPhotoImg').fadeOut();
 									$('#userEditRemovePhotoLink').html('');
 									setTimeout ( function() {
+										$("#brdr").removeClass("preloader");
 										$('#main_photo').html('<img width="111" src="/images/nophoto.gif" border="0" />');
-										$('.brdr').html('<img width="111" src="/images/nophoto.gif" border="0" />');
+										$('#brdr').html('<img width="111" src="/images/nophoto.gif" border="0" />');
 										$('#userEditRemovePhotoLink').html(data);
 									}, 2000);
 								}

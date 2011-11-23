@@ -1,9 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-22 16:51:04
+<?php /* Smarty version 2.6.14, created on 2011-11-23 14:54:05
          compiled from unions_manager.tpl */
-?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'unions_manager.tpl', 168, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(652,905,904,182,184,185,183);
+SELanguage::_preload_multi(652);
 SELanguage::load();
 ?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -29,9 +27,15 @@ unset($_smarty_tpl_vars);
 			</div><p>Обратите внимание, что все изображения должны быть в формате jpeg, gif, png. Размером до 1 Mb.</p>
 		</div> -->
 		<div class="input">
+			<label>msg-<?php echo $this->_tpl_vars['msg']; ?>
+</label>
+			<label>success-<?php echo $this->_tpl_vars['success']; ?>
+</label>
+		</div>
+		<div class="input">
 			<label>Добавить связь для:</label>
 			<select name="start_user">
-								<?php $_from = $this->_tpl_vars['family']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+								<?php $_from = $this->_tpl_vars['users']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
 					<?php if ($this->_tpl_vars['user']->user_info['user_id'] == $this->_tpl_vars['k']): ?>
@@ -51,8 +55,8 @@ unset($_smarty_tpl_vars);
 			<select name="unions_type">
 				<option value="pf">Отца</option>
 				<option value="pm">Мать</option>
-				<option value="pcw">Сестру</option>
-				<option value="pcm">Брата</option>
+				<option value="pc">Сестру</option>
+				<option value="pc">Брата</option>
 				<option value="pw">Жену</option>
 			</select>
 		</div>
@@ -64,7 +68,7 @@ unset($_smarty_tpl_vars);
 				<label>Или выбрать из списка:</label>
 				
 				<select name="relations_user">
-										<?php $_from = $this->_tpl_vars['family']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+										<?php $_from = $this->_tpl_vars['users']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
 						<?php if ($this->_tpl_vars['user']->user_info['user_id'] != $this->_tpl_vars['k']): ?>
@@ -157,64 +161,6 @@ function show_user() {
 
 </script>
 '; 
- if ($this->_tpl_vars['total_friends'] == 0): ?>
-
-    <?php if ($this->_tpl_vars['search'] != ""): ?>
-    <table cellpadding='0' cellspacing='0' align='center'>
-    <tr><td class='result'>
-      <img src='./images/icons/bulb16.gif' border='0' class='icon'><?php echo SELanguage::_get(905); ?>
-    </td></tr>
-    </table>
-    <?php else: ?>
-    <table cellpadding='0' cellspacing='0' align='center'>
-    <tr><td class='result'>
-      <img src='./images/icons/bulb16.gif' border='0' class='icon'><?php echo SELanguage::_get(904); ?>
-    </td></tr>
-    </table>
-  <?php endif; 
- else: ?>
-
-
-    <?php if ($this->_tpl_vars['maxpage'] > 1): ?>
-    <div class='center' style='margin-top: 10px;'>
-      <?php if ($this->_tpl_vars['p'] != 1): ?><a href='user_friends.php?s=<?php echo $this->_tpl_vars['s']; ?>
-&search=<?php echo $this->_tpl_vars['search']; ?>
-&p=<?php echo smarty_function_math(array('equation' => 'p-1','p' => $this->_tpl_vars['p']), $this);?>
-'>&#171; <?php echo SELanguage::_get(182); ?></a><?php else: ?><font class='disabled'>&#171; <?php echo SELanguage::_get(182); ?></font><?php endif; ?>
-      <?php if ($this->_tpl_vars['p_start'] == $this->_tpl_vars['p_end']): ?>
-        &nbsp;|&nbsp; <?php echo sprintf(SELanguage::_get(184), $this->_tpl_vars['p_start'], $this->_tpl_vars['total_friends']); ?> &nbsp;|&nbsp; 
-      <?php else: ?>
-        &nbsp;|&nbsp; <?php echo sprintf(SELanguage::_get(185), $this->_tpl_vars['p_start'], $this->_tpl_vars['p_end'], $this->_tpl_vars['total_friends']); ?> &nbsp;|&nbsp; 
-      <?php endif; ?>
-      <?php if ($this->_tpl_vars['p'] != $this->_tpl_vars['maxpage']): ?><a href='user_friends.php?s=<?php echo $this->_tpl_vars['s']; ?>
-&search=<?php echo $this->_tpl_vars['search']; ?>
-&p=<?php echo smarty_function_math(array('equation' => 'p+1','p' => $this->_tpl_vars['p']), $this);?>
-'><?php echo SELanguage::_get(183); ?> &#187;</a><?php else: ?><font class='disabled'><?php echo SELanguage::_get(183); ?> &#187;</font><?php endif; ?>
-    </div>
-  <?php endif; ?>
-
-  <div style='margin-left: auto; margin-right: auto; width: 850px;'>
-
-  </div>
-
-    <?php if ($this->_tpl_vars['maxpage'] > 1): ?>
-    <div clas	s='center' style='margin-top: 10px;'>
-      <?php if ($this->_tpl_vars['p'] != 1): ?><a href='user_friends.php?s=<?php echo $this->_tpl_vars['s']; ?>
-&search=<?php echo $this->_tpl_vars['search']; ?>
-&p=<?php echo smarty_function_math(array('equation' => 'p-1','p' => $this->_tpl_vars['p']), $this);?>
-'>&#171; <?php echo SELanguage::_get(182); ?></a><?php else: ?><font class='disabled'>&#171; <?php echo SELanguage::_get(182); ?></font><?php endif; ?>
-      <?php if ($this->_tpl_vars['p_start'] == $this->_tpl_vars['p_end']): ?>
-        &nbsp;|&nbsp; <?php echo sprintf(SELanguage::_get(184), $this->_tpl_vars['p_start'], $this->_tpl_vars['total_friends']); ?> &nbsp;|&nbsp; 
-      <?php else: ?>
-        &nbsp;|&nbsp; <?php echo sprintf(SELanguage::_get(185), $this->_tpl_vars['p_start'], $this->_tpl_vars['p_end'], $this->_tpl_vars['total_friends']); ?> &nbsp;|&nbsp; 
-      <?php endif; ?>
-      <?php if ($this->_tpl_vars['p'] != $this->_tpl_vars['maxpage']): ?><a href='user_friends.php?s=<?php echo $this->_tpl_vars['s']; ?>
-&search=<?php echo $this->_tpl_vars['search']; ?>
-&p=<?php echo smarty_function_math(array('equation' => 'p+1','p' => $this->_tpl_vars['p']), $this);?>
-'><?php echo SELanguage::_get(183); ?> &#187;</a><?php else: ?><font class='disabled'><?php echo SELanguage::_get(183); ?> &#187;</font><?php endif; ?>
-    </div>
-  <?php endif; 
- endif; 
  $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;

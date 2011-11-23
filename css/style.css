@@ -121,8 +121,9 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.pro	{ width:137px; overflow:hidden;}
 	.pro div	{ text-align:center; margin-bottom:10px;}
 	.pro div img{ padding:2px; border:1px solid #d7d7d7;}
-	.brdr { width:138px; height:138px;background:url(../images/96.gif) no-repeat center center;}
-	.brdr img{ padding:2px; border:1px solid #d7d7d7;}
+	#brdr { width:138px; height:138px; }
+	#brdr.preloader { background:url(../images/96.gif) no-repeat center center; }
+	#brdr img{ padding:2px; border:1px solid #d7d7d7;background:#ffffff;}
 	/*.brdr img{ padding:2px; border:1px solid #d7d7d7;}*/
 	.pro ul			{ list-style:none; overflow:hidden;}
 	.pro ul li		{ list-style:none; overflow:hidden; height:25px; padding-left:12px;}

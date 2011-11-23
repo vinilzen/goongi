@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 19:05:15
+<?php /* Smarty version 2.6.14, created on 2011-11-23 12:34:46
          compiled from user_editprofile_photo.tpl */
 ?><?php
 SELanguage::_preload_multi(769,652,713,772,715,770,771,714);
@@ -51,7 +51,7 @@ unset($_smarty_tpl_vars);
 			</div>
 			<div class="input imggg">
 				<label><?php echo SELanguage::_get(770); ?></label>
-				<div class="brdr">
+				<div id="brdr">
 					<img id="userEditPhotoImg" src='<?php echo $this->_tpl_vars['user']->user_photo("./images/nophoto.gif"); ?>
 ' border='0' />
 				</div>
@@ -64,11 +64,13 @@ unset($_smarty_tpl_vars);
 								"user_editprofile_photo.php", 
 								{ task: \'remove\' },
 								function(data) {
+									$("#brdr").addClass("preloader");
 									$(\'#userEditPhotoImg\').fadeOut();
 									$(\'#userEditRemovePhotoLink\').html(\'\');
 									setTimeout ( function() {
+										$("#brdr").removeClass("preloader");
 										$(\'#main_photo\').html(\'<img width="111" src="/images/nophoto.gif" border="0" />\');
-										$(\'.brdr\').html(\'<img width="111" src="/images/nophoto.gif" border="0" />\');
+										$(\'#brdr\').html(\'<img width="111" src="/images/nophoto.gif" border="0" />\');
 										$(\'#userEditRemovePhotoLink\').html(data);
 									}, 2000);
 								}
