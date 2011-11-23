@@ -5,8 +5,11 @@
 $page = "user_logout";
 include "header.php";
 
-if( @$_GET['token'] == $session->get('token') || strtoupper($_SERVER['REQUEST_METHOD']) === 'POST' )
-{
+//print_r($_SESSION);
+
+//echo $_GET['token'] . ' = ' . $session->get('token') . ' = ' . $_SERVER['REQUEST_METHOD'] ;
+
+if( @$_GET['token'] == $session->get('token') || strtoupper($_SERVER['REQUEST_METHOD']) === 'POST' ) {
   $user->user_logout();
 }
 

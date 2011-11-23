@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 15:13:46
+<?php /* Smarty version 2.6.14, created on 2011-11-21 14:50:06
          compiled from home.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'home.tpl', 41, false),array('modifier', 'replace', 'home.tpl', 72, false),array('modifier', 'choptext', 'home.tpl', 72, false),array('modifier', 'regex_replace', 'home.tpl', 154, false),array('modifier', 'truncate', 'home.tpl', 154, false),array('function', 'math', 'home.tpl', 130, false),array('function', 'cycle', 'home.tpl', 151, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'home.tpl', 41, false),array('modifier', 'replace', 'home.tpl', 72, false),array('modifier', 'choptext', 'home.tpl', 72, false),array('modifier', 'regex_replace', 'home.tpl', 153, false),array('modifier', 'truncate', 'home.tpl', 153, false),array('function', 'math', 'home.tpl', 129, false),array('function', 'cycle', 'home.tpl', 150, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(850009,643,644,926,664,737,509,510,26,1115,511,665,977,976,671,672,6000142,28,675,29,660,30,6000143,666,667,668,669,670);
+SELanguage::_preload_multi(850009,643,644,926,664,737,509,510,1115,511,665,977,976,671,672,6000142,28,675,29,660,30,6000143,666,667,668,669,670);
 SELanguage::load();
 ?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -194,8 +194,6 @@ $this->_sections['action_media_loop']['last']       = ($this->_sections['action_
 ' width='<?php echo $this->_tpl_vars['misc']->photo_size($this->_tpl_vars['user']->user_photo("./images/nophoto.gif"),'90','90','w'); ?>
 ' border='0' class='photo' alt="<?php echo sprintf(SELanguage::_get(509), $this->_tpl_vars['user']->user_info['user_username']); ?>" /></a></div>
 					  <div><?php echo sprintf(SELanguage::_get(510), $this->_tpl_vars['user']->user_displayname_short); ?></div>
-					  <div>[ <form method="POST" id="user_logout" action="user_logout.php" style="display:inline;margin:0;"><a href='user_logout.php?token=<?php echo $this->_tpl_vars['token']; ?>
-' class='top_menu_item' onclick="$('user_logout').submit(); return false;"><?php echo SELanguage::_get(26); ?></a></form> ]</div>
 					</div>
 					<div class='portal_spacer'></div>
 					<?php endif; ?>

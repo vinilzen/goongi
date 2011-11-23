@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-21 13:54:58
+<?php /* Smarty version 2.6.14, created on 2011-11-22 10:57:51
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 32, false),array('modifier', 'escape', 'menu_main.tpl', 120, false),)), $this);
@@ -112,8 +112,8 @@ SELanguage::load();
         '; ?>
 
         <div id='addfriend_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
-'<?php if ($this->_tpl_vars['is_friend'] == TRUE || $this->_tpl_vars['is_friend_pending'] != 0): ?> style='display: none;'<?php endif; ?>><a href="javascript:TB_show('<?php echo SELanguage::_get(876); ?>', 'user_friends_manage.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/addfriend16.gif' class='icon' border='0'><?php echo SELanguage::_get(838); ?></a></div>
+'<?php if ($this->_tpl_vars['is_friend'] == TRUE || $this->_tpl_vars['is_friend_pending'] != 0): ?> style='display: none;'<?php endif; ?>><a href="/user_friends_manage.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
+"><!-- <?php echo SELanguage::_get(876); ?> --><img src='./images/icons/addfriend16.gif' class='icon' border='0'><?php echo SELanguage::_get(838); ?></a></div>
         <div id='confirmfriend_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
 '<?php if ($this->_tpl_vars['is_friend_pending'] != 1): ?> style='display: none;'<?php endif; ?>><a href="javascript:TB_show('<?php echo SELanguage::_get(887); ?>', 'user_friends_manage.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
 &TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/addfriend16.gif' class='icon' border='0'><?php echo SELanguage::_get(885); ?></a></div>

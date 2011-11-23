@@ -2,7 +2,7 @@
 
 /* $Id: user_friends.php 42 2009-01-29 04:55:14Z john $ */
 
-$page = "user_friends";
+$page = "user_unions";
 include "header.php";
 
 if(isset($_POST['p'])) { $p = $_POST['p']; } elseif(isset($_GET['p'])) { $p = $_GET['p']; } else { $p = 1; }
@@ -56,8 +56,9 @@ $page_vars = make_page($total_friends, $friends_per_page, $p);
 
 // GET FRIEND ARRAY
 $friends = $user->user_friend_list($page_vars[0], $friends_per_page, 0, 1, $sort, $where, $show_details);
-$groups = $user->user_group_list();
-//echo '<pre>->'; print_r($groups); die();
+$unions = $user->get_user_union();
+
+echo '<pre>->'; print_r($user); echo '</pre>';  die();
 
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('$user_exists', $user->user_exists);

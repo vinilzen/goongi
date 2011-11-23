@@ -25,8 +25,7 @@ if( $user->user_exists )
 }
 
 // Token
-if( !defined('SE_PAGE_AJAX') )
-{
+if( !defined('SE_PAGE_AJAX') ) {
   $token = md5(uniqid(mt_rand(), true));
   $session->set('token', $token);
   $smarty->assign('token', $token);
@@ -64,8 +63,7 @@ $smarty->assign('global_css', $global_css);
 $smarty->assign('global_timezone', $global_timezone);
 $smarty->assign('global_language', SELanguage::info('language_id'));
 
-if( SE_DEBUG )
-{
+if( SE_DEBUG ) {
   $_benchmark->end('shutdown');
   
   $smarty->assign('debug_uid', $_benchmark->getUid());
@@ -79,8 +77,7 @@ if( SE_DEBUG )
 $smarty->display("$page.tpl");
 
 
-if( SE_DEBUG )
-{
+if( SE_DEBUG ) {
   $_benchmark->end('output');
   $_benchmark->end('total');
   

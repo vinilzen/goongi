@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-21 12:59:25
+<?php /* Smarty version 2.6.14, created on 2011-11-23 11:44:32
          compiled from user_friends.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends.tpl', 202, false),array('function', 'cycle', 'user_friends.tpl', 241, false),array('modifier', 'truncate', 'user_friends.tpl', 224, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends.tpl', 178, false),array('function', 'cycle', 'user_friends.tpl', 216, false),array('modifier', 'truncate', 'user_friends.tpl', 200, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(894,652,895,896,899,646,900,901,902,903,905,904,182,184,185,183,509,849,906,882,907,908,837,889,784,839,836);
 SELanguage::load();
@@ -34,17 +34,13 @@ function createGroup() {
 		go = 0;
 		$.post(
 			"user_add_group.php", 	
-			
 			{ task: \'add\' , gn: $(\'#group_name\').attr(\'value\') },
-			
 			function(data) {
-				//$(\'.w_t\').hide();
 				if ( data.success == \'0\') {
 					$(\'#msg_gr\').html(data.msg);
 					go = 1;
 				}
 				if (data.success == \'1\') {
-					//$(\'#add_group1\').hide();
 					$(\'#msg_gr\').html(data.msg);
 					setTimeout ( function() {
 						$(\'#popup\').fadeOut(300);
@@ -53,9 +49,7 @@ function createGroup() {
 					}, 1500);
 					
 					update_group_list();
-					
 				}
-				
 			}
 			, "json" 
 		);
@@ -65,28 +59,15 @@ function update_group_list() {
 
 	$.post(
 			"user_add_group.php", 
-			
 			{ task: \'update\' },
-			
 			function(data) {
-				//$(\'.w_t\').hide();
 				if ( data.success == \'0\') {
 					alert(data.msg);
-					//$(\'#msg_gr\').html(data.msg);
 					go = 1;
 				}
 				if (data.success == \'1\') {
-					//$(\'#add_group1\').hide();
 					$(\'#user_groups\').html(data.msg);
-					/*setTimeout ( function() {
-						$(\'#popup\').fadeOut(300);
-						$(\'.window\').hide();
-						e.preventDefault();
-					}, 1500);
-					update_group_list();
-					*/
 				}
-				
 			}
 			, "json" 
 		);
@@ -102,38 +83,16 @@ function show_user() {
 <div class="group_list">
 	<h2>Список групп</h2>
 	<ul id="user_groups">
-		<?php unset($this->_sections['group_loop']);
-$this->_sections['group_loop']['name'] = 'group_loop';
-$this->_sections['group_loop']['loop'] = is_array($_loop=$this->_tpl_vars['groups']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
-$this->_sections['group_loop']['show'] = true;
-$this->_sections['group_loop']['max'] = $this->_sections['group_loop']['loop'];
-$this->_sections['group_loop']['step'] = 1;
-$this->_sections['group_loop']['start'] = $this->_sections['group_loop']['step'] > 0 ? 0 : $this->_sections['group_loop']['loop']-1;
-if ($this->_sections['group_loop']['show']) {
-    $this->_sections['group_loop']['total'] = $this->_sections['group_loop']['loop'];
-    if ($this->_sections['group_loop']['total'] == 0)
-        $this->_sections['group_loop']['show'] = false;
-} else
-    $this->_sections['group_loop']['total'] = 0;
-if ($this->_sections['group_loop']['show']):
-
-            for ($this->_sections['group_loop']['index'] = $this->_sections['group_loop']['start'], $this->_sections['group_loop']['iteration'] = 1;
-                 $this->_sections['group_loop']['iteration'] <= $this->_sections['group_loop']['total'];
-                 $this->_sections['group_loop']['index'] += $this->_sections['group_loop']['step'], $this->_sections['group_loop']['iteration']++):
-$this->_sections['group_loop']['rownum'] = $this->_sections['group_loop']['iteration'];
-$this->_sections['group_loop']['index_prev'] = $this->_sections['group_loop']['index'] - $this->_sections['group_loop']['step'];
-$this->_sections['group_loop']['index_next'] = $this->_sections['group_loop']['index'] + $this->_sections['group_loop']['step'];
-$this->_sections['group_loop']['first']      = ($this->_sections['group_loop']['iteration'] == 1);
-$this->_sections['group_loop']['last']       = ($this->_sections['group_loop']['iteration'] == $this->_sections['group_loop']['total']);
+	<?php $_from = $this->_tpl_vars['groups']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+    foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
-			<li><a href="#" onclick="show_user(<?php echo $this->_tpl_vars['groups'][$this->_sections['group_loop']['index']]['users']; ?>
-);return false;"><?php echo $this->_tpl_vars['groups'][$this->_sections['group_loop']['index']]['name']; ?>
+	<li><a href="#" rel="<?php echo $this->_tpl_vars['k']; ?>
+" onclick="show_user(<?php echo $this->_tpl_vars['v']['users']; ?>
+);return false;"><?php echo $this->_tpl_vars['v']['name']; ?>
 </a></li>
-		<?php endfor; endif; ?>
-	</ul>
-	
-	
+	<?php endforeach; endif; unset($_from); ?></ul>
 </div>
+
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
 <td class='tab0'>&nbsp;</td>
@@ -174,7 +133,7 @@ $this->_sections['group_loop']['last']       = ($this->_sections['group_loop']['
     <form action='user_friends.php' method='post' name='searchform'>
     <input type='text' maxlength='100' size='30' class='text' id='search' name='search' value='<?php echo $this->_tpl_vars['search']; ?>
 '>&nbsp;
-    <br><div id='suggest' class='suggest'></div>
+    <div id='suggest' class='suggest'></div>
   </td>
   <td>
     <input type='submit' class='button' value='<?php echo SELanguage::_get(646); ?>'>
@@ -204,15 +163,12 @@ $this->_sections['group_loop']['last']       = ($this->_sections['group_loop']['
 <?php if ($this->_tpl_vars['total_friends'] == 0): ?>
 
     <?php if ($this->_tpl_vars['search'] != ""): ?>
-    <br>
     <table cellpadding='0' cellspacing='0' align='center'>
     <tr><td class='result'>
       <img src='./images/icons/bulb16.gif' border='0' class='icon'><?php echo SELanguage::_get(905); ?>
     </td></tr>
     </table>
-
     <?php else: ?>
-    <br>
     <table cellpadding='0' cellspacing='0' align='center'>
     <tr><td class='result'>
       <img src='./images/icons/bulb16.gif' border='0' class='icon'><?php echo SELanguage::_get(904); ?>
@@ -298,18 +254,17 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
 				<?php echo ((is_array($_tmp=$this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_displayname)) ? $this->_run_mod_handler('truncate', true, $_tmp, 30, "...", true) : smarty_modifier_truncate($_tmp, 30, "...", true)); ?>
 
 			</a>
-			
 			<div class='friends_stats'>
-			<?php if ($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_dateupdated'] != 0): ?><div><?php echo SELanguage::_get(849); ?> <?php $this->assign('last_updated', $this->_tpl_vars['datetime']->time_since($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_dateupdated'])); 
+				<?php if ($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_dateupdated'] != 0): ?><div><?php echo SELanguage::_get(849); ?> <?php $this->assign('last_updated', $this->_tpl_vars['datetime']->time_since($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_dateupdated'])); 
  echo sprintf(SELanguage::_get($this->_tpl_vars['last_updated'][0]), $this->_tpl_vars['last_updated'][1]); ?></div><?php endif; ?>
-			<?php if ($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_lastlogindate'] != 0): ?><div><?php echo SELanguage::_get(906); ?> <?php $this->assign('last_login', $this->_tpl_vars['datetime']->time_since($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_lastlogindate'])); 
+				<?php if ($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_lastlogindate'] != 0): ?><div><?php echo SELanguage::_get(906); ?> <?php $this->assign('last_login', $this->_tpl_vars['datetime']->time_since($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_lastlogindate'])); 
  echo sprintf(SELanguage::_get($this->_tpl_vars['last_login'][0]), $this->_tpl_vars['last_login'][1]); ?></div><?php endif; ?>
-			<?php if ($this->_tpl_vars['show_details'] != 0): ?>
-			  <?php if ($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->friend_type != ""): ?><div><?php echo SELanguage::_get(882); ?> &nbsp;<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->friend_type; ?>
+				<?php if ($this->_tpl_vars['show_details'] != 0): ?>
+				  <?php if ($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->friend_type != ""): ?><div><?php echo SELanguage::_get(882); ?> &nbsp;<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->friend_type; ?>
 </div><?php endif; ?>
-			  <?php if ($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->friend_explain != ""): ?><div><?php echo SELanguage::_get(907); ?> &nbsp;<?php echo ((is_array($_tmp=$this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->friend_explain)) ? $this->_run_mod_handler('truncate', true, $_tmp, 30, "...", true) : smarty_modifier_truncate($_tmp, 30, "...", true)); ?>
+				  <?php if ($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->friend_explain != ""): ?><div><?php echo SELanguage::_get(907); ?> &nbsp;<?php echo ((is_array($_tmp=$this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->friend_explain)) ? $this->_run_mod_handler('truncate', true, $_tmp, 30, "...", true) : smarty_modifier_truncate($_tmp, 30, "...", true)); ?>
 </div><?php endif; ?>
-			<?php endif; ?>
+				<?php endif; ?>
 			</div>
 			<div><?php if ($this->_tpl_vars['show_details'] != 0): ?><a href="javascript:TB_show('<?php echo SELanguage::_get(908); ?>', 'user_friends_manage.php?user=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']; ?>
 &TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><?php echo SELanguage::_get(908); ?></a></div><?php endif; ?>
@@ -330,7 +285,7 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
   </div>
 
     <?php if ($this->_tpl_vars['maxpage'] > 1): ?>
-    <div class='center' style='margin-top: 10px;'>
+    <div clas	s='center' style='margin-top: 10px;'>
       <?php if ($this->_tpl_vars['p'] != 1): ?><a href='user_friends.php?s=<?php echo $this->_tpl_vars['s']; ?>
 &search=<?php echo $this->_tpl_vars['search']; ?>
 &p=<?php echo smarty_function_math(array('equation' => 'p-1','p' => $this->_tpl_vars['p']), $this);?>

@@ -23,17 +23,13 @@ function createGroup() {
 		go = 0;
 		$.post(
 			"user_add_group.php", 	
-			
 			{ task: 'add' , gn: $('#group_name').attr('value') },
-			
 			function(data) {
-				//$('.w_t').hide();
 				if ( data.success == '0') {
 					$('#msg_gr').html(data.msg);
 					go = 1;
 				}
 				if (data.success == '1') {
-					//$('#add_group1').hide();
 					$('#msg_gr').html(data.msg);
 					setTimeout ( function() {
 						$('#popup').fadeOut(300);
@@ -42,9 +38,7 @@ function createGroup() {
 					}, 1500);
 					
 					update_group_list();
-					
 				}
-				
 			}
 			, "json" 
 		);
@@ -54,28 +48,15 @@ function update_group_list() {
 
 	$.post(
 			"user_add_group.php", 
-			
 			{ task: 'update' },
-			
 			function(data) {
-				//$('.w_t').hide();
 				if ( data.success == '0') {
 					alert(data.msg);
-					//$('#msg_gr').html(data.msg);
 					go = 1;
 				}
 				if (data.success == '1') {
-					//$('#add_group1').hide();
 					$('#user_groups').html(data.msg);
-					/*setTimeout ( function() {
-						$('#popup').fadeOut(300);
-						$('.window').hide();
-						e.preventDefault();
-					}, 1500);
-					update_group_list();
-					*/
 				}
-				
 			}
 			, "json" 
 		);
@@ -90,13 +71,11 @@ function show_user() {
 <div class="group_list">
 	<h2>Список групп</h2>
 	<ul id="user_groups">
-		{section name=group_loop loop=$groups}
-			<li><a href="#" onclick="show_user({$groups[group_loop].users});return false;">{$groups[group_loop].name}</a></li>
-		{/section}
-	</ul>
-	
-	
+	{foreach from=$groups key=k item=v}
+	<li><a href="#" rel="{$k}" onclick="show_user({$v.users});return false;">{$v.name}</a></li>
+	{/foreach}</ul>
 </div>
+
 <table class='tabs' cellpadding='0' cellspacing='0'>
 <tr>
 <td class='tab0'>&nbsp;</td>
@@ -136,7 +115,7 @@ function show_user() {
   <td>
     <form action='user_friends.php' method='post' name='searchform'>
     <input type='text' maxlength='100' size='30' class='text' id='search' name='search' value='{$search}'>&nbsp;
-    <br><div id='suggest' class='suggest'></div>
+    <div id='suggest' class='suggest'></div>
   </td>
   <td>
     <input type='submit' class='button' value='{lang_print id=646}'>
@@ -163,16 +142,13 @@ function show_user() {
 
   {* DISPLAY MESSAGE IF NO SEARCHED FRIENDS *}
   {if $search != ""}
-    <br>
     <table cellpadding='0' cellspacing='0' align='center'>
     <tr><td class='result'>
       <img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_print id=905}
     </td></tr>
     </table>
-
   {* DISPLAY MESSAGE IF NO FRIENDS ON LIST *}
   {else}
-    <br>
     <table cellpadding='0' cellspacing='0' align='center'>
     <tr><td class='result'>
       <img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_print id=904}
@@ -223,14 +199,13 @@ function show_user() {
 			<a href='{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}'>
 				{$friends[friend_loop]->user_displayname|truncate:30:"...":true}
 			</a>
-			
 			<div class='friends_stats'>
-			{if $friends[friend_loop]->user_info.user_dateupdated != 0}<div>{lang_print id=849} {assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}</div>{/if}
-			{if $friends[friend_loop]->user_info.user_lastlogindate != 0}<div>{lang_print id=906} {assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}</div>{/if}
-			{if $show_details != 0}
-			  {if $friends[friend_loop]->friend_type != ""}<div>{lang_print id=882} &nbsp;{$friends[friend_loop]->friend_type}</div>{/if}
-			  {if $friends[friend_loop]->friend_explain != ""}<div>{lang_print id=907} &nbsp;{$friends[friend_loop]->friend_explain|truncate:30:"...":true}</div>{/if}
-			{/if}
+				{if $friends[friend_loop]->user_info.user_dateupdated != 0}<div>{lang_print id=849} {assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}</div>{/if}
+				{if $friends[friend_loop]->user_info.user_lastlogindate != 0}<div>{lang_print id=906} {assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}</div>{/if}
+				{if $show_details != 0}
+				  {if $friends[friend_loop]->friend_type != ""}<div>{lang_print id=882} &nbsp;{$friends[friend_loop]->friend_type}</div>{/if}
+				  {if $friends[friend_loop]->friend_explain != ""}<div>{lang_print id=907} &nbsp;{$friends[friend_loop]->friend_explain|truncate:30:"...":true}</div>{/if}
+				{/if}
 			</div>
 			<div>{if $show_details != 0}<a href="javascript:TB_show('{lang_print id=908}', 'user_friends_manage.php?user={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=908}</a></div>{/if}
 			<div><a href="javascript:TB_show('{lang_print id=837}', 'user_friends_manage.php?task=remove&user={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=889}</a></div>
@@ -245,7 +220,7 @@ function show_user() {
 
   {* DISPLAY PAGINATION MENU IF APPLICABLE *}
   {if $maxpage > 1}
-    <div class='center' style='margin-top: 10px;'>
+    <div clas	s='center' style='margin-top: 10px;'>
       {if $p != 1}<a href='user_friends.php?s={$s}&search={$search}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a>{else}<font class='disabled'>&#171; {lang_print id=182}</font>{/if}
       {if $p_start == $p_end}
         &nbsp;|&nbsp; {lang_sprintf id=184 1=$p_start 2=$total_friends} &nbsp;|&nbsp; 
@@ -255,6 +230,5 @@ function show_user() {
       {if $p != $maxpage}<a href='user_friends.php?s={$s}&search={$search}&p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{else}<font class='disabled'>{lang_print id=183} &#187;</font>{/if}
     </div>
   {/if}
-
 {/if}
 {include file='footer.tpl'}

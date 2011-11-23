@@ -1,4 +1,4 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 
 {* $Id: network.tpl 53 2009-02-06 04:55:08Z john $ *}
 
@@ -48,7 +48,7 @@
     {section name=signups_loop loop=$signups max=6}
       {* START NEW ROW *}
       {cycle name="startrow" values="<table cellpadding='0' cellspacing='0' align='center'><tr>,"}
-      <td class='portal_member'><a href='{$url->url_create('profile',$signups[signups_loop]->user_info.user_username)}'>{$signups[signups_loop]->user_displayname|truncate:15:"...":true}<br><img src='{$signups[signups_loop]->user_photo('./images/nophoto.gif', TRUE)}' class='photo' width='60' height='60' border='0'></a></td>
+      <td class='portal_member'><a href='{$url->url_create('profile',$signups[signups_loop]->user_info.user_username)}'>{$signups[signups_loop]->user_displayname}<br><img src='{$signups[signups_loop]->user_photo('./images/nophoto.gif', TRUE)}' class='photo' width='60' height='60' border='0'></a></td>
       {* END ROW AFTER 2 RESULTS *}
       {if $smarty.section.signups_loop.last == true}
         </tr></table>
@@ -65,7 +65,12 @@
   <div class='header'>{lang_print id=1177}</div>
   <div class='network_content'>
     {section name=statuses_loop loop=$statuses max=5}
-      <div{if !$smarty.section.statuses_loop.first} style='padding-top: 7px;'{/if}><a href='{$url->url_create('profile', $statuses[statuses_loop].status_user_username)}'>{$statuses[statuses_loop].status_user_displayname}</a> {$statuses[statuses_loop].status_user_status}</div>
+      <div{if !$smarty.section.statuses_loop.first} style='padding-top: 7px;'{/if}>
+		<a href='{$url->url_create('profile', $statuses[statuses_loop].status_user_username)}'>
+			{$statuses[statuses_loop].status_user_displayname}
+		</a>
+		{$statuses[statuses_loop].status_user_status}
+		</div>
     {sectionelse}
       {lang_print id=1178}
     {/section}

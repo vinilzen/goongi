@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 20:00:30
+<?php /* Smarty version 2.6.14, created on 2011-11-21 14:39:17
          compiled from header.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header.tpl', 60, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header.tpl', 61, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(200,647,6000144,687,6000147,6000145,645,1316,1019,649,26,650,30,1198,1199);
 SELanguage::load();
@@ -39,8 +39,9 @@ unset($_smarty_tpl_vars);
                 <li>
 				<?php if ($this->_tpl_vars['user']->user_exists != 0): ?>
 					<form method="POST" id="user_logout" action="user_logout.php" style="display:inline;margin:0;">
-						<a href="/user_logout.php?token=<?php echo $this->_tpl_vars['token']; ?>
-" onclick="$('user_logout').submit(); return false;"><?php echo SELanguage::_get(6000147); ?><!-- выйти --></a>
+						<input type="hidden" name="token" value="<?php echo $this->_tpl_vars['token']; ?>
+" />
+						<a href="#" onclick="$('#user_logout').submit(); return false;"><?php echo SELanguage::_get(6000147); ?><!-- выйти --></a>
 					</form>
 				<?php else: ?>
 					<a href="/login.php"><?php echo SELanguage::_get(6000145); ?><!-- войти --></a>
