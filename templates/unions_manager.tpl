@@ -37,12 +37,12 @@
 		<div class="input">
 			<label>Добавить:</label>
 			<select name="unions_type">
-				<option value="pf">Отца</option>
-				<option value="pm">Мать</option>
-				<option value="pc">Сестру</option>
-				<option value="pc">Брата</option>
-				<option value="pw">Жену</option>
-				<option value="ph">Мужа</option>
+				<option value="pcf">Отца</option>
+				<option value="pcm">Мать</option>
+				<option value="pcc">Сестру/Брата</option>
+				<option value="pm">Жену</option>
+				<option value="pf">Мужа</option>
+				<option value="pc">Ребенка</option>
 			</select>
 		</div>
 		
@@ -55,9 +55,7 @@
 				<select name="relations_user">
 					{* other users in your family *}
 					{foreach from=$users key=k item=v}
-						{if $user->user_info.user_id != $k}
-							<option value="{$k}">{$v}</option>
-						{/if}
+						<option value="{$k}">{$v}</option>
 					{/foreach}
 				</select>
 			</div>

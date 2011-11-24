@@ -25,32 +25,37 @@ if ( isset($_POST['do']) && $_POST['do'] == 1 ) {
 				$start_user = (int)$_POST['start_user'];
 				$role = $_POST['unions_type'];
 				$user_rel = (int)$_POST['relations_user'];
-				$rewrite = (int)$_POST['rewrite'];
+				$rewrite = (int)$_POST['rewrite']; // rewrite if exist role
 				
 				switch ( $role ) {
 					
-					case $role == 'pf': // add father
+					case $role == 'pcf': // add father
 						$role = 'father';
 						$result = $user->add_role_for_user($start_user,$role,$user_rel, $rewrite );
 					break;
 					
-					case $role == 'pm': // add mother
+					case $role == 'pcm': // add mother
 						$role = 'mother';
+						$result = $user->add_role_for_user($start_user,$role,$user_rel, $rewrite );
+					break;
+					
+					case $role == 'pcc': // add btother / sister
+						$role = 'brother';
+						$result = $user->add_role_for_user($start_user,$role,$user_rel, $rewrite );
+					break;
+					
+					case $role == 'pm': // add spouse wife
+						$role = 'wife';
+						$result = $user->add_role_for_user($start_user,$role,$user_rel, $rewrite );
+					break;
+					
+					case $role == 'pf': // add spouse husband
+						$role = 'husbend';
 						$result = $user->add_role_for_user($start_user,$role,$user_rel, $rewrite );
 					break;
 					
 					case $role == 'pc': // add child
 						$role = 'child';
-						$result = $user->add_role_for_user($start_user,$role,$user_rel, $rewrite );
-					break;
-					
-					case $role == 'pw': // add spouse wife
-						$role = 'wife';
-						$result = $user->add_role_for_user($start_user,$role,$user_rel, $rewrite );
-					break;
-					
-					case $role == 'ph': // add spouse husband
-						$role = 'husband';
 						$result = $user->add_role_for_user($start_user,$role,$user_rel, $rewrite );
 					break;
 					

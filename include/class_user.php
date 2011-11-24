@@ -1631,30 +1631,44 @@ class SEUser
 
 		return $members;
 	}
-	
-	function get_family_id($user_id = 0, $user_rel = 0) {
+	//  role (father|mother|child|brother|husband|wife) 
+	function get_family_id($user_id = 0, $user_rel = 0, $role = '') {
 		global $database, $setting, $user;
 		if ($user_id == 0)
 			$user_id = $user->user_info['user_id'];
-			
-		$sql = "SELECT `family_id` FROM `se_role_in_family` WHERE `user_id` = $user_id OR `user_id` = $user_rel LIMIT 1;";
+		
+		if ($role == 'father' || $role == 'mother' ) {
+			$sql = "SELECT `family_id` FROM `se_role_in_family` WHERE (`user_id` = $user_id AND `role` = 'child') OR (`user_id` = $user_rel AND `role` = '$role') LIMIT 1;";
+		} elseif ($role == 'child' ) {
+			$sql = "SELECT `family_id` FROM `se_role_in_family` WHERE (`user_id` = $user_id AND (`role` = 'father' OR `role` = 'mother')) OR (`user_id` = $user_rel AND `role` = 'child') LIMIT 1;";
+		} elseif ($role == 'husbend' ) {
+			$sql = "SELECT `family_id` FROM `se_role_in_family` WHERE (`user_id` = $user_id AND `role` = 'mother') OR (`user_id` = $user_rel AND `role` = 'father') LIMIT 1;";
+		} elseif ($role == 'wife') {
+			$sql = "SELECT `family_id` FROM `se_role_in_family` WHERE (`user_id` = $user_rel AND `role` = 'mother') OR (`user_id` = $user_id AND `role` = 'father') LIMIT 1;";
+		} elseif ($role == 'brother') {
+			$sql = "SELECT `family_id` FROM `se_role_in_family` WHERE (`user_id` = $user_id OR `user_id` = $user_rel) AND `role` = 'child' LIMIT 1;";
+		}
+		
+		
 		$family = $database->database_query($sql);
 		$family_id = $database->database_fetch_assoc($family);
-		// var_dump($family_id); echo $family_id . ' - ' . $sql; die();
+		//var_dump($family_id);  echo  $sql. ' - ' . $sql; die();
 		if ( $family_id === false || !isset($family_id) )
 			return 0;
 		else
-			return $family_id;
+			return $family_id['family_id'];
 	}
 	
-	function create_family($user_id = 0) {
+	function create_family($user_id = 0, $family_name = '') {
 		global $database, $setting, $user;
 		if ($user_id == 0)
 			$user_id = $user->user_info['user_id'];
 		
-		$user_info = $this->get_user_info(array(0=>$user_id));
 		
-		$family_name = $user_info[$user_id]['lname'];
+		if ($family_name == '') {
+			$user_info = $this->get_user_info(array(0=>$user_id));
+			$family_name = $user_info[$user_id]['lname'];
+		}
 		//var_dump($family_name);  die();
 		$sql = "INSERT INTO `se_family` (`family_id`, `family_name`, `family_createdate`) VALUES (NULL, '$family_name', UNIX_TIMESTAMP())";
 		$database->database_query($sql);
@@ -1669,7 +1683,7 @@ class SEUser
 		if ( $user_id === false)
 			return 0;
 		else
-			return $user_id;
+			return $user_id['user_id'];
 		
 	}
 	
@@ -1699,60 +1713,90 @@ class SEUser
 
 
 	function add_role_for_user($start_user,$role,$user_rel,$rewrite) {
+		
 		$success = false;
 		$msg = '';
-		$family_id = $this->get_family_id($start_user,$user_rel);
+		$family_id = $this->get_family_id($start_user,$user_rel,$role); //  role (father|mother|child|brother|husband|wife) 
 		
+		//var_dump($family_id); die();
 		
 		if ($family_id == 0) {
 			
-			$family_id = $this->create_family($start_user);
-		
-			//echo 'create '.$family_id . '-' . $start_user; die();
-		} //else {
-			//echo 'isset '. $family_id . '-' . $start_user; die();
-		//}
-		
-		$father_id = $this->get_role($family_id, $role);
-		if ($father_id == 0) {
-			if ( $this->add_role($family_id, $role, $user_rel) ) {
-				$success = true;
-				$msg = 'Вы успешно добавили '.$role;
-				
-				if ($role == 'father' || $role == 'mother') {
-					
-					$role = 'child';
-					$this->add_role($family_id, $role, $start_user);
-					
-				} elseif ($role == 'child' ) {
-					
-					$sex = $this->get_sex($start_user);
-					if ( $sex != 0 ) {
-						
-						if ($sex == 'm')
-							$role == 'father';
-						elseif ($sex == 'w')
-							$role == 'mother';
+			if ($role == 'father' || $role == 'mother') {
+				$user_info = $this->get_user_info(array(0=>$user_rel));
+				$family_name = $user_info[$user_id]['lname'];
+			}
+			
+			$family_id = $this->create_family($start_user, $family_name);
+			
+		}
 
+		$real_role = $role;
+		
+		if ($role == 'brother') 
+			$real_role = 'child';
+		
+		if ($role == 'wife')
+			$real_role = 'mother';
+		
+		if ($role == 'husbend')
+			$real_role = 'father'; 
+		
+		
+		
+		$father_id = $this->get_role($family_id, $real_role);
+		
+		//var_dump($father_id); echo $father_id . '-' . $user_rel . '-' . $start_user; die(); 
+		
+		if ( $father_id == 0 || $real_role == 'child' || $father_id == $user_rel) {
+			if ($father_id == $user_rel)  { // parent exist, add only child
+				
+				$this->add_role($family_id, 'child', $start_user);
+				$success = true;
+				$msg = 'Вы успешно добавили '.$real_role;
+					
+			} else {
+				if ( $this->add_role($family_id, $real_role, $user_rel) ) {
+					$success = true;
+					$msg = 'Вы успешно добавили '.$real_role;
+					
+					if ($role == 'father' || $role == 'mother') {
+						
+						$role = 'child';
 						$this->add_role($family_id, $role, $start_user);
+						
+					} elseif ($role == 'child' ) {
+						
+						$sex = $this->get_sex($start_user);
+						if ($sex == 'w')
+							$role == 'mother';
+						elseif ($sex == 'm')  
+							$role == 'father';
+						
+						$this->add_role($family_id, $role, $start_user);
+	
+					} elseif ($role == 'husbend') {
+						
+						$role = 'mother';
+						$this->add_role($family_id, $role, $start_user);
+						
+					} elseif ($role == 'wife') {
+						
+						$role = 'father';
+						$this->add_role($family_id, $role, $start_user);
+	
+					} elseif ($role == 'brother') {
+						
+						$role = 'child';
+						$this->add_role($family_id, $role, $start_user);
+						
 					}
 					
-				} elseif ($role == 'wife') {
+				} else {
 					
-					$role = 'husband';
-					$this->add_role($family_id, $role, $start_user);
-					
-				} elseif ($role == 'husband') {
-					
-					$role = 'wife';
-					$this->add_role($family_id, $role, $start_user);
+					$msg = ' insert error (add_role) ';
 					
 				}
-				
-			} else {
-				
-				$msg = ' insert error (add_role) ';
-				
 			}
 		} else {
 			if ($rewrite == 1) {
@@ -1763,7 +1807,7 @@ class SEUser
 					$msg = 'Ошибка обновления';
 				}
 			} else {
-				$msg = 'уже есть '. $role .', заменить?';
+				$msg = 'уже есть '. $role .' c #id ' . $father_id . ' , заменить?';
 			}
 		}
 		return array(	'msg'	=> $msg,
@@ -1773,7 +1817,7 @@ class SEUser
 
 
 	function get_sex ($user_id) {
-		
+		global $database, $setting, $user;
 		$val = $database->database_query("SELECT `profilevalue_5` FROM `se_profilevalues` WHERE `profilevalue_id` = '$user_id' LIMIT 1;");
 		
 		$sex = $database->database_fetch_assoc($val);
