@@ -56,6 +56,7 @@ $page_vars = make_page($total_friends, $friends_per_page, $p);
 
 // GET FRIEND ARRAY
 $friends = $user->user_friend_list($page_vars[0], $friends_per_page, 0, 1, $sort, $where, $show_details);
+$user->get_family();
 $unions = $user->get_user_union();
 
 echo '<pre>->'; print_r($user); echo '</pre>';  die();
