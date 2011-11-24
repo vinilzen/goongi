@@ -1659,6 +1659,17 @@ class SEUser
 			return $family_id['family_id'];
 	}
 	
+	function get_family_list($user_id) {
+		global $database, $setting, $user;
+		$sql = "SELECT * FROM `se_role_in_family` WHERE `user_id` = $user_id;";
+		$resourse = $database->database_query($sql);
+		$family = array();
+		while($f = $database->database_fetch_assoc($resourse) )
+			$family[] = $f;
+		
+		return $family;
+	}
+	
 	function create_family($user_id = 0, $family_name = '') {
 		global $database, $setting, $user;
 		if ($user_id == 0)
@@ -1832,6 +1843,141 @@ class SEUser
 		
 	}
 	
+	function get_family($user_id = 0, $level = 1) {
+		global $database, $setting, $user;
+		if ($user_id == 0)
+			$user_id = $user->user_info['user_id'];
+		
+		//echo $user_id; die();
+		
+		
+		$result = array();
+		$result = $this->bild_tree($user_id);
+		
+		
+		
+		foreach ($result['users'] AS $k=>$v) {
+			if ($k != $user_id) {
+				$result['users'][$k] = $this->add_psc($k);
+			}
+		}
+		//var_dump($result); die();
+		//var_dump($relatives);
+		echo json_encode($result); //die();
+		var_dump($result);
+		//var_dump($family_ids); 
+		die();
+	}
+	
+	function bild_tree($user_id){
+		global $database, $setting, $user;
+		$familys = $this->get_family_list($user_id);  // list family
+		$family_ids = array();
+		
+		foreach ($familys as $key => $value) {
+			if ( $value['role'] == 'mother' || $value['role'] == 'father') {
+				$child_family = $value['family_id'];
+			} elseif ($value['role'] == 'child') {
+				$parent_family = $value['family_id'];
+			}
+			$family_ids[] = $value['family_id'];
+		}
+		//var_dump($parent_family); die();
+		
+		$relatives = $this->get_users_relatives($family_ids);
+		
+		array_push($relatives, $user_id);
+		$result_users = $this->get_user_info($relatives, true);
+		
+		$r['user'] = $this->add_psc($user_id);
+		$r['users'] = $result_users;
+		return $r;
+	}
+
+	function add_psc($user_id) { // parent_spouse_child
+		global $database, $setting, $user;
+		$familys = $this->get_family_list($user_id);  // list family
+		$family_ids = array();
+		$result_users = $this->get_user_info(array(0=>$user_id), true);
+		
+		foreach ($familys as $key => $value) {
+			if ( $value['role'] == 'mother' || $value['role'] == 'father') {
+				$child_family = $value['family_id'];
+			} elseif ($value['role'] == 'child') {
+				$parent_family = $value['family_id'];
+			}
+			$family_ids[] = $value['family_id'];
+		}
+		$r = $result_users[$user_id];
+		$r['father'] = $this->get_parent($parent_family, 'father');
+		$r['mother'] = $this->get_parent($parent_family, 'mother');
+		$r['spouse'] =  $this->get_parent($child_family, 'spouse', $user_id);
+		$r['children'] = $this->get_parent($child_family, 'child');	
+		
+		return $r;
+		
+	}
+	
+	function get_type_family($user_id, $type) {
+		global $database, $setting, $user;
+		if ($type == 'child')
+			$sql = "SELECT `user_id` FROM  `se_role_in_family` WHERE (`role` = 'father' OR `role` = 'mother') AND `user_id` = $user_id LIMIT 1;";
+		elseif ($type == 'parent') 
+			$sql = "SELECT `user_id` FROM  `se_role_in_family` WHERE `role` = 'child' AND `user_id` = $user_id LIMIT 1;";
+
+		$family_id = $database->database_fetch_assoc($family);
+		if ( $family_id === false)
+			return 0;
+		else
+			return $family_id['family_id'];
+	}
+	
+	function get_parent($family_id, $role, $user_id = 0) {
+		global $database, $setting, $user;
+		
+		if ($role == 'spouse') {
+			$where = " (`role` = 'mother' OR `role` = 'father' ) AND `user_id` != $user_id ";
+		} elseif ($role == 'father' || $role == 'mother' || $role == 'child') {
+			$where = " `role` = '$role' ";
+		}
+		
+		$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE $where AND `family_id` = $family_id;";
+		
+		$resourse = $database->database_query($sql);
+		
+		if ( $resourse === false) {
+			return 0;
+		} else {			
+			if ($role == 'child') {
+				$family_users = array();
+				while($f = $database->database_fetch_assoc($resourse) ) {
+					$family_users[] = $f['user_id'];
+					//print_r($f);
+				}
+				return $family_users;
+			} else {
+				$fam = $database->database_fetch_assoc($resourse);
+				return $fam['user_id'];
+			}
+		}
+	}
+	
+	function get_users_relatives($family_ids) {
+		global $database, $setting, $user;
+		
+		if (is_array($family_ids) && count($family_ids)) {
+			$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` IN ( " . implode(',',$family_ids) . " );";
+			$resourse = $database->database_query($sql);
+			$family = array();
+			while($f = $database->database_fetch_assoc($resourse) )
+				$family[] = $f['user_id'];
+			
+			return $family;
+		} else {
+			
+			return false;
+		}
+	}
 	
 	function get_user_union ($user_id = 0) {
 		global $database, $setting, $user;
@@ -2204,8 +2350,7 @@ class SEUser
 	//	  $profile_field_query REPRESENTING THE PARTIAL QUERY TO SAVE IN THE USER'S PROFILE VALUE TABLE
 	// OUTPUT: 
   
-	function user_create($signup_email, $signup_username, $signup_password, $signup_timezone, $signup_language, $signup_cat, $profile_field_query)
-  {
+	function user_create($signup_email, $signup_username, $signup_password, $signup_timezone, $signup_language, $signup_cat, $profile_field_query) {
 	  global $database, $setting, $url, $actions, $field;
     
 	  // PRESET VARS
@@ -2234,7 +2379,7 @@ class SEUser
     
 	  // ENCODE PASSWORD WITH MD5
 	  $crypt_password = $this->user_password_crypt($signup_password);
-    $signup_code = $user_salt = $this->user_salt;
+      $signup_code = $user_salt = $this->user_salt;
     
 	  // SET PRIVACY DEFAULT
 	  $allowable_privacy = unserialize($signup_level_info['level_profile_privacy']);

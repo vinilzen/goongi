@@ -16,6 +16,8 @@ if ( isset($_POST['do']) && $_POST['do'] == 1 ) {
 	if(isset($_POST['add_user']) && $_POST['add_user'] == 1) {
 		// user does not
 		echo 'add_user';
+		print_r($_POST);
+		die();
 		
 	} else {
 		// user exists, just add a relationship
@@ -70,7 +72,7 @@ if ( isset($_POST['do']) && $_POST['do'] == 1 ) {
 							'success'	=> 0,	); 
 		}
 		
-		//echo 'select_user';
+		//echo 'select_existing_user';
 	}
 	//die();
 }
