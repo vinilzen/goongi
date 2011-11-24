@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-23 14:54:05
+<?php /* Smarty version 2.6.14, created on 2011-11-24 13:03:06
          compiled from unions_manager.tpl */
 ?><?php
 SELanguage::_preload_multi(652);
@@ -53,11 +53,12 @@ unset($_smarty_tpl_vars);
 		<div class="input">
 			<label>Добавить:</label>
 			<select name="unions_type">
-				<option value="pf">Отца</option>
-				<option value="pm">Мать</option>
-				<option value="pc">Сестру</option>
-				<option value="pc">Брата</option>
-				<option value="pw">Жену</option>
+				<option value="pcf">Отца</option>
+				<option value="pcm">Мать</option>
+				<option value="pcc">Сестру/Брата</option>
+				<option value="pm">Жену</option>
+				<option value="pf">Мужа</option>
+				<option value="pc">Ребенка</option>
 			</select>
 		</div>
 		
@@ -71,11 +72,9 @@ unset($_smarty_tpl_vars);
 										<?php $_from = $this->_tpl_vars['users']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
-						<?php if ($this->_tpl_vars['user']->user_info['user_id'] != $this->_tpl_vars['k']): ?>
-							<option value="<?php echo $this->_tpl_vars['k']; ?>
+						<option value="<?php echo $this->_tpl_vars['k']; ?>
 "><?php echo $this->_tpl_vars['v']; ?>
 </option>
-						<?php endif; ?>
 					<?php endforeach; endif; unset($_from); ?>
 				</select>
 			</div>
