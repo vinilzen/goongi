@@ -274,7 +274,25 @@ $(document).ready(function(){
 	$('.catalog ul li').each(function(i){
 		if(i%3==2)$(this).css('padding-right','0');
 	});
-
 	
 });
 
+	function ajax_post( url, param, id) {
+		
+		//send with param to url	
+			$.post(
+				url,
+				param,
+				function(data) {
+					if (data.success == 1) {
+						$('#' + id).append(data.result);
+					} else {
+						$('#' + id).append('error');
+					}
+					/*setTimeout ( function() {
+						$('#popup').fadeOut(300);
+						$('.window').hide();
+						e.preventDefault();
+					}, 1500);*/
+				} , 'json');
+	}

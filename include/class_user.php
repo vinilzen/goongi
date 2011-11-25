@@ -1832,12 +1832,12 @@ class SEUser
 		$val = $database->database_query("SELECT `profilevalue_5` FROM `se_profilevalues` WHERE `profilevalue_id` = '$user_id' LIMIT 1;");
 		
 		$sex = $database->database_fetch_assoc($val);
-		
+		//print_r($sex); die();
 		if ( $sex === false) {
-			return 0;
-		} elseif ( $sex == '2') {
+			return null;
+		} elseif ( $sex['profilevalue_5'] == '2') {
 			return 'w';
-		} elseif ($sex == '1') {
+		} elseif ($sex['profilevalue_5'] == '1') {
 			return 'm';
 		}
 		
@@ -1855,16 +1855,16 @@ class SEUser
 		$result = $this->bild_tree($user_id);
 		
 		
-		
+		$result1['user'] = $result['user'];
 		foreach ($result['users'] AS $k=>$v) {
 			if ($k != $user_id) {
-				$result['users'][$k] = $this->add_psc($k);
+				$result1['users'][$k] = $this->add_psc($k);
 			}
 		}
 		//var_dump($result); die();
 		//var_dump($relatives);
-		echo json_encode($result); //die();
-		var_dump($result);
+		echo json_encode($result1); //die();
+		//var_dump($result);
 		//var_dump($family_ids); 
 		die();
 	}
@@ -1909,6 +1909,7 @@ class SEUser
 			$family_ids[] = $value['family_id'];
 		}
 		$r = $result_users[$user_id];
+		$r['sex'] = $this->get_sex($user_id);
 		$r['father'] = $this->get_parent($parent_family, 'father');
 		$r['mother'] = $this->get_parent($parent_family, 'mother');
 		$r['spouse'] =  $this->get_parent($child_family, 'spouse', $user_id);
@@ -1946,7 +1947,7 @@ class SEUser
 		$resourse = $database->database_query($sql);
 		
 		if ( $resourse === false) {
-			return 0;
+			return null;
 		} else {			
 			if ($role == 'child') {
 				$family_users = array();

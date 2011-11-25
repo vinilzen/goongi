@@ -74,8 +74,8 @@
       </table>
     </td>
     <td class='friends_result2' NOWRAP>
-      <a href="javascript:TB_show('{lang_print id=887}', 'user_friends_manage.php?task=cancel&user={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=917}</a><br>
-      {if $user->level_info.level_message_allow != 0}<a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?to_user={$friends[friend_loop]->user_displayname}&to_id={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=839}</a><br>{/if}
+      <a href="user_friends_manage.php?task=cancel&user={$friends[friend_loop]->user_info.user_username}">{lang_print id=917}</a><br>
+      {if $user->level_info.level_message_allow != 0}<a href="user_messages_new.php?to_user={$friends[friend_loop]->user_displayname}&to_id={$friends[friend_loop]->user_info.user_username}">{lang_print id=839}</a><br>{/if}
     </td>
     </tr>
     </table>

@@ -12,7 +12,27 @@
 		<div class="c">
 			<div class="pro">
 				<div id="main_photo"><img src="{$user->user_photo("./images/nophoto.gif")}" alt="" /></div>
-					<ul>
+					<ul>-{$is_friend_pending}-
+						{if $owner->user_info.user_id != 0}
+							<li id="add_to_fr_li">
+							
+{if $is_friend_pending == 2} {* отозвать запрос на  *}
+	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', {literal}{{/literal}task:'cancel', user: '{$owner->user_info.user_username}', ajax:1 {literal}}{/literal}, 'add_to_fr_li'); return false;">
+		{lang_print id=917}
+	</a>								
+{/if}
+{if $is_friend_pending == 0 && $is_friend == FALSE }
+	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', {literal}{{/literal}task:'add_do', user: '{$owner->user_info.user_username}', ajax:1 {literal}}{/literal}, 'add_to_fr_li'); return false;">
+		{lang_print id=838}
+	</a>
+{/if}
+{if $is_friend != FALSE }
+	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', {literal}{{/literal}task:'remove_do', user: '{$owner->user_info.user_username}', ajax:1 {literal}}{/literal}, 'add_to_fr_li'); return false;">
+		{lang_print id=917}-
+	</a>							
+{/if}
+							</li>
+						{/if}
 						{* SHOW WHATS NEW MENU ITEM *}
 						<!-- <li><a href='user_home.php'>{lang_print id=1161}</a></li>
 						<!-- <li><a href='network.php'>{lang_print id=1162}</a></li> -->
@@ -71,43 +91,6 @@
  
     {* SHOW ADD OR REMOVE FRIEND MENU ITEM *}
     {if $friendship_allowed != 0 && $user->user_exists != 0}
-        {* JAVASCRIPT FOR CHANGING FRIEND MENU OPTION *}
-        {literal}
-        <script type="text/javascript">
-        <!-- 
-        function friend_update(status, id) {
-          if(status == 'pending') {
-            if($('addfriend_'+id))
-              $('addfriend_'+id).style.display = 'none';
-            if($('confirmfriend_'+id))
-              $('confirmfriend_'+id).style.display = 'none';
-            if($('pendingfriend_'+id))
-              $('pendingfriend_'+id).style.display = 'block';
-            if($('removefriend_'+id))
-              $('removefriend_'+id).style.display = 'none';
-          } else if(status == 'remove') {
-            if($('addfriend_'+id))
-              $('addfriend_'+id).style.display = 'none';
-            if($('confirmfriend_'+id))
-              $('confirmfriend_'+id).style.display = 'none';
-            if($('pendingfriend_'+id))
-              $('pendingfriend_'+id).style.display = 'none';
-            if($('removefriend_'+id))
-              $('removefriend_'+id).style.display = 'block';
-          } else if(status == 'add') {
-            if($('addfriend_'+id))
-              $('addfriend_'+id).style.display = 'block';
-            if($('confirmfriend_'+id))
-              $('confirmfriend_'+id).style.display = 'none';
-            if($('pendingfriend_'+id))
-              $('pendingfriend_'+id).style.display = 'none';
-            if($('removefriend_'+id))
-              $('removefriend_'+id).style.display = 'none';
-          }
-        }
-        //-->
-        </script>
-        {/literal}
         <div id='addfriend_{$owner->user_info.user_id}'{if $is_friend == TRUE || $is_friend_pending != 0} style='display: none;'{/if}><a href="/user_friends_manage.php?user={$owner->user_info.user_username}"><!-- {lang_print id=876} --><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=838}</a></div>
         <div id='confirmfriend_{$owner->user_info.user_id}'{if $is_friend_pending != 1} style='display: none;'{/if}><a href="javascript:TB_show('{lang_print id=887}', 'user_friends_manage.php?user={$owner->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=885}</a></div>
         <div id='pendingfriend_{$owner->user_info.user_id}'{if $is_friend_pending != 2} style='display: none;'{/if} class='nolink'><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=875}</div>
