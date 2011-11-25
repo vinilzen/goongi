@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 14:50:20
+<?php /* Smarty version 2.6.14, created on 2011-11-25 19:37:10
          compiled from user_friends_requests_outgoing.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends_requests_outgoing.tpl', 51, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(896,894,895,915,916,182,184,185,183,509,849,906,882,907,887,917,784,839);
+SELanguage::_preload_multi(896,894,895,915,916,182,184,185,183,509,849,906,882,907,917,839);
 SELanguage::load();
 ?><?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -116,11 +116,11 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
       </table>
     </td>
     <td class='friends_result2' NOWRAP>
-      <a href="javascript:TB_show('<?php echo SELanguage::_get(887); ?>', 'user_friends_manage.php?task=cancel&user=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']; ?>
-&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><?php echo SELanguage::_get(917); ?></a><br>
-      <?php if ($this->_tpl_vars['user']->level_info['level_message_allow'] != 0): ?><a href="javascript:TB_show('<?php echo SELanguage::_get(784); ?>', 'user_messages_new.php?to_user=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_displayname; ?>
+      <a href="user_friends_manage.php?task=cancel&user=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']; ?>
+"><?php echo SELanguage::_get(917); ?></a><br>
+      <?php if ($this->_tpl_vars['user']->level_info['level_message_allow'] != 0): ?><a href="user_messages_new.php?to_user=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_displayname; ?>
 &to_id=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']; ?>
-&TB_iframe=true&height=400&width=450', '', './images/trans.gif');"><?php echo SELanguage::_get(839); ?></a><br><?php endif; ?>
+"><?php echo SELanguage::_get(839); ?></a><br><?php endif; ?>
     </td>
     </tr>
     </table>

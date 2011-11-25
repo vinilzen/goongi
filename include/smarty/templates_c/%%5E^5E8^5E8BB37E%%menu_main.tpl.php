@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-22 10:57:51
+<?php /* Smarty version 2.6.14, created on 2011-11-25 20:03:34
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 32, false),array('modifier', 'escape', 'menu_main.tpl', 120, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 52, false),array('modifier', 'escape', 'menu_main.tpl', 103, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(1204,1161,1162,652,1163,1164,1165,1166,654,784,1167,1168,1169,653,1170,1171,1172,655,1173,1174,876,838,887,885,875,837,839,857,840,869,841,868,842,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850);
+SELanguage::_preload_multi(1204,917,838,1161,1162,652,1163,1164,1165,1166,654,784,1167,1168,1169,653,1170,1171,1172,655,1173,1174,876,887,885,875,837,839,857,840,869,841,868,842,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850);
 SELanguage::load();
 ?>    <?php if ($this->_tpl_vars['total_photo_tags'] != 0 && 0): ?>
    <a href='profile_photos.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
@@ -20,7 +20,36 @@ SELanguage::load();
 			<div class="pro">
 				<div id="main_photo"><img src="<?php echo $this->_tpl_vars['user']->user_photo("./images/nophoto.gif"); ?>
 " alt="" /></div>
-					<ul>
+					<ul>-<?php echo $this->_tpl_vars['is_friend_pending']; ?>
+-
+						<?php if ($this->_tpl_vars['owner']->user_info['user_id'] != 0): ?>
+							<li id="add_to_fr_li">
+							
+<?php if ($this->_tpl_vars['is_friend_pending'] == 2): ?> 	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', <?php echo '{'; ?>
+task:'cancel', user: '<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
+', ajax:1 <?php echo '}'; ?>
+, 'add_to_fr_li'); return false;">
+		<?php echo SELanguage::_get(917); ?>
+	</a>								
+<?php endif; 
+ if ($this->_tpl_vars['is_friend_pending'] == 0 && $this->_tpl_vars['is_friend'] == FALSE): ?>
+	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', <?php echo '{'; ?>
+task:'add_do', user: '<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
+', ajax:1 <?php echo '}'; ?>
+, 'add_to_fr_li'); return false;">
+		<?php echo SELanguage::_get(838); ?>
+	</a>
+<?php endif; 
+ if ($this->_tpl_vars['is_friend'] != FALSE): ?>
+	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', <?php echo '{'; ?>
+task:'remove_do', user: '<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
+', ajax:1 <?php echo '}'; ?>
+, 'add_to_fr_li'); return false;">
+		<?php echo SELanguage::_get(917); ?>-
+	</a>							
+<?php endif; ?>
+							</li>
+						<?php endif; ?>
 												<!-- <li><a href='user_home.php'><?php echo SELanguage::_get(1161); ?></a></li>
 						<!-- <li><a href='network.php'><?php echo SELanguage::_get(1162); ?></a></li> -->
     
@@ -74,43 +103,6 @@ SELanguage::load();
     <?php if ($this->_tpl_vars['owner']->user_info['user_id'] != $this->_tpl_vars['user']->user_info['user_id']): ?>
  
         <?php if ($this->_tpl_vars['friendship_allowed'] != 0 && $this->_tpl_vars['user']->user_exists != 0): ?>
-                <?php echo '
-        <script type="text/javascript">
-        <!-- 
-        function friend_update(status, id) {
-          if(status == \'pending\') {
-            if($(\'addfriend_\'+id))
-              $(\'addfriend_\'+id).style.display = \'none\';
-            if($(\'confirmfriend_\'+id))
-              $(\'confirmfriend_\'+id).style.display = \'none\';
-            if($(\'pendingfriend_\'+id))
-              $(\'pendingfriend_\'+id).style.display = \'block\';
-            if($(\'removefriend_\'+id))
-              $(\'removefriend_\'+id).style.display = \'none\';
-          } else if(status == \'remove\') {
-            if($(\'addfriend_\'+id))
-              $(\'addfriend_\'+id).style.display = \'none\';
-            if($(\'confirmfriend_\'+id))
-              $(\'confirmfriend_\'+id).style.display = \'none\';
-            if($(\'pendingfriend_\'+id))
-              $(\'pendingfriend_\'+id).style.display = \'none\';
-            if($(\'removefriend_\'+id))
-              $(\'removefriend_\'+id).style.display = \'block\';
-          } else if(status == \'add\') {
-            if($(\'addfriend_\'+id))
-              $(\'addfriend_\'+id).style.display = \'block\';
-            if($(\'confirmfriend_\'+id))
-              $(\'confirmfriend_\'+id).style.display = \'none\';
-            if($(\'pendingfriend_\'+id))
-              $(\'pendingfriend_\'+id).style.display = \'none\';
-            if($(\'removefriend_\'+id))
-              $(\'removefriend_\'+id).style.display = \'none\';
-          }
-        }
-        //-->
-        </script>
-        '; ?>
-
         <div id='addfriend_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
 '<?php if ($this->_tpl_vars['is_friend'] == TRUE || $this->_tpl_vars['is_friend_pending'] != 0): ?> style='display: none;'<?php endif; ?>><a href="/user_friends_manage.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
 "><!-- <?php echo SELanguage::_get(876); ?> --><img src='./images/icons/addfriend16.gif' class='icon' border='0'><?php echo SELanguage::_get(838); ?></a></div>

@@ -2,7 +2,7 @@
 {* INCLUDE HEADER CODE *}
 {include file="header_global.tpl"}
 
-{if $smarty.const.SE_DEBUG && $admin->admin_exists}{include file="header_debug.tpl"}{/if}
+{if $smarty.const.SE_DEBUG && $admin->admin_exists && 0}{include file="header_debug.tpl"}{/if}
 
 <!-- <div id="smoothbox_container"></div> -->
 <iframe id='ajaxframe' name='ajaxframe' style='display: none;'  src='javascript:false;'></iframe> <!-- style='display: none;' -->

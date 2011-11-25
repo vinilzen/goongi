@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-21 14:39:17
+<?php /* Smarty version 2.6.14, created on 2011-11-25 19:16:29
          compiled from header.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header.tpl', 61, false),)), $this);
@@ -10,7 +10,7 @@ $this->_smarty_include(array('smarty_include_tpl_file' => "header_global.tpl", '
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  
- if (@SE_DEBUG && $this->_tpl_vars['admin']->admin_exists): 
+ if (@SE_DEBUG && $this->_tpl_vars['admin']->admin_exists && 0): 
  $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header_debug.tpl", 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
