@@ -16,6 +16,7 @@ if ( isset($_POST['existence_man']) && $_POST['existence_man'] == 1 ) {
 	$success = 0;
 	$fname = mysql_real_escape_string($_POST['fname']);
 	$lname = mysql_real_escape_string($_POST['lname']);
+	$fusers = array();
 	$fusers = $user->find_users($fname, $lname);
 	
 	if (count($fusers) > 0 ) {
@@ -23,6 +24,35 @@ if ( isset($_POST['existence_man']) && $_POST['existence_man'] == 1 ) {
 		$msg = 'Возможно такой пользователь уже есть на сайте. <br />Проверьте пользователей из списка';
 	} else {
 		$msg = 'Пользователя с такими lname and fname нету еще на сайте.';
+	}
+	$result = array(	'users'	=>	$fusers,
+						'msg'	=> $msg,
+						'success'	=> $success	);
+	echo json_encode($result);
+	die();
+}
+
+if ( isset($_POST['existence_mail']) && $_POST['existence_mail'] == 1 ) {
+	$msg = '';
+	$success = 0;
+	$email = mysql_real_escape_string($_POST['mail']);
+	
+	if(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)) {
+    	$result = array(	'users' => array(),
+    						'msg'	=> 'Не корректный email - '.$email,
+							'success'	=> 0 );
+		echo json_encode($result);
+		die();
+  	}
+	
+	$fusers = array();
+	$fusers = $user->find_users_email($email);
+	
+	if (count($fusers) > 0 ) {
+		$success = 1;
+		$msg = 'Такой пользователь уже есть на сайте:<br />';
+	} else {
+		$msg = 'Пользователя с такими же email нет на сайте.';
 	}
 	$result = array(	'users'	=>	$fusers,
 						'msg'	=> $msg,

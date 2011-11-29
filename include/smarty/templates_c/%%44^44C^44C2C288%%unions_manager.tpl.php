@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-29 21:28:02
+<?php /* Smarty version 2.6.14, created on 2011-11-30 00:31:54
          compiled from unions_manager.tpl */
 ?><?php
 SELanguage::_preload_multi(652);
@@ -87,13 +87,19 @@ unset($_smarty_tpl_vars);
 				<div id="prldr"></div>
 			</div>
 			<div class="input" id="find_u">
-				<label id="find_u_msg"><span id="count_fusers">(0)</span></label>
+				<label id="find_u_msg"></label>
 				<select id="fuser" name="sel_user" style="display:none;"></select>
 			</div>
 			<div class="input">
 				<label>Email</label>
 				<span>Выслать приглашение</span><input type="checkbox" name="send_request" value="1" /><br />
-				<input type="text" value="" name="email" />
+				<input type="text" value="" id="email" name="email" />
+				<div id="prldremail"></div><br />
+				<a href="#" id="check_email">Проверить email</a>
+			</div>
+			<div class="input" id="email_check">
+				<label id="email_u_msg"></label>
+				<select id="fuser_email" name="sel_user" style="display:none;"></select>
 			</div>
 			<div class="radio"><label>Пол</label><div><label><input type="radio" value="m" name="pol" /><span>Мужской</span></label><label><input type="radio" value="f" name="pol" /><span>Женский</span></label></div></div>
 			<div class="input date"><label>Дата рождения</label>
@@ -239,13 +245,13 @@ unset($_smarty_tpl_vars);
 					<option value="1920">1920</option>
 				</select>
 			</div>
-			<div class="input date" id="death"><label><input type="checkbox" value="" name="death" /><span>Дата смерти</span></label>
+			<!-- <div class="input date" id="death" ><label><input type="checkbox" value="" name="death" /><span>Дата смерти</span></label>
 				<select disabled="disabled" name="day_d" style="width:45px;"><option>01</option></select>
 				<select disabled="disabled" name="month_d" style="width:83px;"><option>августа</option></select>
 				<select disabled="disabled" name="year_d" style="width:58px;"><option>1975</option></select>
 			</div>
 			<div class="clear"></div>
-			<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Проверить email" name="log" /></span><span class="r">&nbsp;</span></span></div>
+			-->
 		</div>
 		<input type="hidden" name="do" value="1" />
 		<input type="hidden" name="rewrite" value="0" />

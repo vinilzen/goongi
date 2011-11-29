@@ -312,32 +312,67 @@
 			
 		}
 	});
+	
+	
+	$('#check_email').click(function() {
+		var email = $('#email').val();
+		email = $.trim(email);
+		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if (!filter.test(email)) {
+			alert('Please provide a valid email address');
+		} else {
+			$('#prldremail').html('<img src="/images/142.gif" border="0" />');
+			existence_mail(email);
+		}
+		return false;
+	});
 });
+
+	function existence_mail(email) {
+		$('#email_u_msg').html('');
+		$('#fuser_email').html('');
+		$.post(	'unions_manager.php',
+				{'mail': email, 'existence_mail':1},
+				function(data) {
+					if (data.success == 1) {
+						$('#fuser_email').show();
+						$('#email_u_msg').html(data.msg);
+						$.each(data.users, function(key, value) {
+						  $('#fuser_email').append('<option value="' + key + '">' + value + '</option>'); 
+						});
+					} else {
+						$('#fuser_email').hide();
+						$('#email_u_msg').html(data.msg);
+					}
+					$('#prldremail').html('&nbsp;');
+				},
+				'json');
+	}	
+
 
 	function existence_man(fname, lname) {
 		$('#find_u_msg').html('');
 		$('#fuser').html('');
-		$.post(		'unions_manager.php',
-					{'fname': fname, 'lname': lname, 'existence_man':1},
-					function(data) {
-						if (data.success == 1) {
-							
-							$('#fuser').show();
-							$('#find_u_msg').html(data.msg);
-							 $('#fuser').append('<option value="0">Это не те, добавить нового пользователя.</option>');
-							$.each(data.users, function(key, value) {
-							  $('#fuser').append('<option value="' + key + '">' + value + '</option>'); 
-							});
-							var c = $('#fuser option').size() - 1;
-							$('#find_u_msg').append(' ('+ c + '):<br />');
-						} else {
-							$('#fuser').hide();
-							$('#find_u_msg').html(data.msg);
-						}
-						$('#prldr').html('&nbsp;');
-					} ,
-					'json');
-	
+		$.post(	'unions_manager.php',
+				{'fname': fname, 'lname': lname, 'existence_man':1},
+				function(data) {
+					if (data.success == 1) {
+						
+						$('#fuser').show();
+						$('#find_u_msg').html(data.msg);
+						 $('#fuser').append('<option value="0">Это не те, добавить нового пользователя.</option>');
+						$.each(data.users, function(key, value) {
+						  $('#fuser').append('<option value="' + key + '">' + value + '</option>'); 
+						});
+						var c = $('#fuser option').size() - 1;
+						$('#find_u_msg').append(' ('+ c + '):<br />');
+					} else {
+						$('#fuser').hide();
+						$('#find_u_msg').html(data.msg);
+					}
+					$('#prldr').html('&nbsp;');
+				} ,
+				'json');
 	}
 
 	function ajax_post( url, param, id) {
