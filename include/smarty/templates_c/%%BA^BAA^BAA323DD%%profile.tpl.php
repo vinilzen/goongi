@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 16:09:49
+<?php /* Smarty version 2.6.14, created on 2011-11-29 17:14:11
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 26, false),array('modifier', 'count', 'profile.tpl', 132, false),array('modifier', 'replace', 'profile.tpl', 164, false),array('modifier', 'choptext', 'profile.tpl', 164, false),array('block', 'hook_foreach', 'profile.tpl', 37, false),array('function', 'math', 'profile.tpl', 251, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 46, false),array('modifier', 'count', 'profile.tpl', 152, false),array('modifier', 'replace', 'profile.tpl', 184, false),array('modifier', 'choptext', 'profile.tpl', 184, false),array('block', 'hook_foreach', 'profile.tpl', 57, false),array('function', 'math', 'profile.tpl', 271, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(786,652,852,653,854,1317,851,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839);
+SELanguage::_preload_multi(786,652,895,917,838,887,889,852,653,854,1317,851,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839);
 SELanguage::load();
 ?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -22,6 +22,35 @@ unset($_smarty_tpl_vars);
 		</span><span class="r">&nbsp;</span>
 	</span>
 </div>
+<?php if ($this->_tpl_vars['user']->user_exists != 0 && $this->_tpl_vars['owner']->user_info['user_id'] != $this->_tpl_vars['user']->user_info['user_id']): ?>
+	<?php if ($this->_tpl_vars['owner']->user_info['user_id'] != 0): ?>
+		<div class="buttons">
+			<?php if ($this->_tpl_vars['is_friend_pending'] == 1): ?> <span class="button2" id="preli" ><?php echo SELanguage::_get(895); ?></span><?php endif; ?>
+			<span class="button2">
+				<span class="l">&nbsp;</span><span id="add_to_fr_li" class="c">
+					<a href="#" id="add_to_fr" rev="<?php if ($this->_tpl_vars['is_friend_pending'] == 2): ?>cancel_do<?php endif; 
+ if ($this->_tpl_vars['is_friend_pending'] == 0 && $this->_tpl_vars['is_friend'] == FALSE || $this->_tpl_vars['is_friend_pending'] == 1): ?>add_do<?php endif; 
+ if ($this->_tpl_vars['is_friend'] != FALSE): ?>remove_do<?php endif; ?>" rel="<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
+">
+						<?php if ($this->_tpl_vars['is_friend_pending'] == 2): ?> <?php echo SELanguage::_get(917); 
+ endif; ?>
+						<?php if ($this->_tpl_vars['is_friend_pending'] == 0 && $this->_tpl_vars['is_friend'] == FALSE): 
+ echo SELanguage::_get(838); 
+ endif; ?>
+						<?php if ($this->_tpl_vars['is_friend_pending'] == 1): ?> <?php echo SELanguage::_get(887); 
+ endif; ?>
+						<?php if ($this->_tpl_vars['is_friend'] != FALSE): 
+ echo SELanguage::_get(889); 
+ endif; ?>
+					</a>							
+				
+			</span><span class="r">&nbsp;</span>
+			</span>
+			<span class="button2" id="prel">&nbsp;</span>
+		</div>
+		
+	<?php endif; 
+ endif; ?>
 <div class="my_page_info">
 		<?php unset($this->_sections['cat_loop']);
 $this->_sections['cat_loop']['name'] = 'cat_loop';

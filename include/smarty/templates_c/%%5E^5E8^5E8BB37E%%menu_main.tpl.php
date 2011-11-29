@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-25 20:03:34
+<?php /* Smarty version 2.6.14, created on 2011-11-29 18:05:50
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 52, false),array('modifier', 'escape', 'menu_main.tpl', 103, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 36, false),array('modifier', 'escape', 'menu_main.tpl', 79, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(1204,917,838,1161,1162,652,1163,1164,1165,1166,654,784,1167,1168,1169,653,1170,1171,1172,655,1173,1174,876,887,885,875,837,839,857,840,869,841,868,842,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850);
+SELanguage::_preload_multi(1204,1170,1161,1162,652,1163,1164,1166,654,784,1167,1169,1173,1174,876,838,887,885,875,837,839,857,840,869,841,868,842,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850);
 SELanguage::load();
 ?>    <?php if ($this->_tpl_vars['total_photo_tags'] != 0 && 0): ?>
    <a href='profile_photos.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
@@ -18,48 +18,22 @@ SELanguage::load();
 	<div class="bg">
 		<div class="c">
 			<div class="pro">
-				<div id="main_photo"><img src="<?php echo $this->_tpl_vars['user']->user_photo("./images/nophoto.gif"); ?>
+				<div id="main_photo"><img src="<?php echo $this->_tpl_vars['user']->user_photo('./images/nophoto.gif'); ?>
 " alt="" /></div>
-					<ul>-<?php echo $this->_tpl_vars['is_friend_pending']; ?>
--
-						<?php if ($this->_tpl_vars['owner']->user_info['user_id'] != 0): ?>
-							<li id="add_to_fr_li">
+					<ul>
+						<li <?php if ($this->_tpl_vars['global_page'] == 'my_tree'): ?>class="active"<?php endif; ?>><a href='/my_tree.php'>Мое дерево</a></li>
 							
-<?php if ($this->_tpl_vars['is_friend_pending'] == 2): ?> 	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', <?php echo '{'; ?>
-task:'cancel', user: '<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-', ajax:1 <?php echo '}'; ?>
-, 'add_to_fr_li'); return false;">
-		<?php echo SELanguage::_get(917); ?>
-	</a>								
-<?php endif; 
- if ($this->_tpl_vars['is_friend_pending'] == 0 && $this->_tpl_vars['is_friend'] == FALSE): ?>
-	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', <?php echo '{'; ?>
-task:'add_do', user: '<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-', ajax:1 <?php echo '}'; ?>
-, 'add_to_fr_li'); return false;">
-		<?php echo SELanguage::_get(838); ?>
-	</a>
-<?php endif; 
- if ($this->_tpl_vars['is_friend'] != FALSE): ?>
-	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', <?php echo '{'; ?>
-task:'remove_do', user: '<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
-', ajax:1 <?php echo '}'; ?>
-, 'add_to_fr_li'); return false;">
-		<?php echo SELanguage::_get(917); ?>-
-	</a>							
-<?php endif; ?>
-							</li>
+												<?php if ($this->_tpl_vars['setting']['setting_connection_allow'] != 0): ?>
+							<li <?php if ($this->_tpl_vars['global_page'] == 'user_friends'): ?>class="active"<?php endif; ?>><a href='/user_friends.php'><?php echo SELanguage::_get(1170); ?></a></li>
 						<?php endif; ?>
-												<!-- <li><a href='user_home.php'><?php echo SELanguage::_get(1161); ?></a></li>
-						<!-- <li><a href='network.php'><?php echo SELanguage::_get(1162); ?></a></li> -->
+						
+												<li <?php if ($this->_tpl_vars['global_page'] == 'user_home'): ?>class="active"<?php endif; ?>><a href='/user_home.php'><?php echo SELanguage::_get(1161); ?></a></li>
+						<li><a href='/network.php'><?php echo SELanguage::_get(1162); ?></a></li>
     
-										<li><a href='<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['user']->user_info['user_username']); ?>
-'><?php echo SELanguage::_get(652); ?></a></li>					</a>
-					<li><a href='user_editprofile.php'><?php echo SELanguage::_get(1163); ?></a></li>
-					<li><a href='user_editprofile_photo.php'><?php echo SELanguage::_get(1164); ?></a></li>
-					  <?php if ($this->_tpl_vars['user']->level_info['level_profile_style'] != 0 || $this->_tpl_vars['user']->level_info['level_profile_style_sample'] != 0): ?>
-						<li><a href='user_editprofile_style.php'><?php echo SELanguage::_get(1165); ?></a></li>
-					  <?php endif; ?>
+										<li <?php if ($this->_tpl_vars['global_page'] == 'profile'): ?>class="active"<?php endif; ?>><a href='<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['user']->user_info['user_username']); ?>
+'><?php echo SELanguage::_get(652); ?></a></li>
+					<li <?php if ($this->_tpl_vars['global_page'] == 'user_editprofile'): ?>class="active"<?php endif; ?>><a href='user_editprofile.php'><?php echo SELanguage::_get(1163); ?></a></li>
+					<li <?php if ($this->_tpl_vars['global_page'] == 'user_editprofile_photo'): ?>class="active"<?php endif; ?>><a href='user_editprofile_photo.php'><?php echo SELanguage::_get(1164); ?></a></li>
 
 										<?php if ($this->_tpl_vars['global_plugins']['plugin_controls']['show_menu_user']): ?>
 						<li><a href="javascript:showMenu('menu_dropdown_apps');" onMouseUp="this.blur()"><?php echo SELanguage::_get(1166); ?></a></li>
@@ -73,22 +47,15 @@ task:'remove_do', user: '<?php echo $this->_tpl_vars['owner']->user_info['user_u
 						<!--<li><a href='user_messages.php'><?php echo SELanguage::_get(654); 
  if ($this->_tpl_vars['user_unread_pms'] != 0): ?> (<?php echo $this->_tpl_vars['user_unread_pms']; ?>
 )<?php endif; ?></a></li> -->
-						<li><a href="javascript:TB_show('<?php echo SELanguage::_get(784); ?>', 'user_messages_new.php?TB_iframe=true&height=400&width=450', '', './images/trans.gif');"><?php echo SELanguage::_get(1167); ?></a></li>
-						<li  id="add_msg_l"><a href="#" >-><?php echo SELanguage::_get(1167); ?></a></li>
-						<li><a href='user_messages.php'><?php echo SELanguage::_get(1168); ?></a></li>
-						<li><a href='user_messages_outbox.php'><?php echo SELanguage::_get(1169); ?></a></li>
+						<!-- <li><a rel="<?php echo SELanguage::_get(784); ?>" href="/user_messages_new.php"><?php echo SELanguage::_get(1167); ?></a></li> -->
+						<!-- <li  id="add_msg_l"><a href="#" >-><?php echo SELanguage::_get(1167); ?></a></li> -->
+						<li <?php if ($this->_tpl_vars['global_page'] == 'user_messages'): ?>class="active"<?php endif; ?>><a href='user_messages.php'><?php echo SELanguage::_get(654); ?><!-- сообщения --></a></li>
+						<!-- <li><a href='user_messages_outbox.php'><?php echo SELanguage::_get(1169); ?></a></li> -->
 					<?php endif; ?>
-    
-										<?php if ($this->_tpl_vars['setting']['setting_connection_allow'] != 0): ?>
-						<!--<li><a href='user_friends.php'><?php echo SELanguage::_get(653); ?></a></li> -->
-						<li><a href='user_friends.php'><?php echo SELanguage::_get(1170); ?></a></li>
-						<li><a href='user_friends_requests.php'><?php echo SELanguage::_get(1171); ?></a></li>
-						<li><a href='user_friends_requests_outgoing.php'><?php echo SELanguage::_get(1172); ?></a></li>
-					<?php endif; ?>
-    
-										<!--<li><a href='user_account.php'><?php echo SELanguage::_get(655); ?></a></li> --><!-- настройки -->
-					<li><a href='user_account.php'><?php echo SELanguage::_get(1173); ?></a></li>
-					<li><a href='user_account_privacy.php'><?php echo SELanguage::_get(1174); ?></a></li>
+					
+										<li <?php if ($this->_tpl_vars['global_page'] == 'user_account'): ?>class="active"<?php endif; ?>><a href='user_account.php'><?php echo SELanguage::_get(1173); ?><!-- настройки аккаунта --></a></li>
+					<!-- <li><a href='user_account.php'><?php echo SELanguage::_get(1173); ?></a></li>
+					<li><a href='user_account_privacy.php'><?php echo SELanguage::_get(1174); ?></a></li> -->
 				<ul>
 			</div>
 		</div>

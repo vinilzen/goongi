@@ -11,6 +11,26 @@
 		</span><span class="r">&nbsp;</span>
 	</span>
 </div>
+{if $user->user_exists != 0 && $owner->user_info.user_id !=  $user->user_info.user_id}
+	{if $owner->user_info.user_id != 0}
+		<div class="buttons">
+			{if $is_friend_pending == 1} {* подтвердить запрос *}<span class="button2" id="preli" >{lang_print id=895}</span>{/if}
+			<span class="button2">
+				<span class="l">&nbsp;</span><span id="add_to_fr_li" class="c">
+					<a href="#" id="add_to_fr" rev="{if $is_friend_pending == 2}cancel_do{/if}{if $is_friend_pending == 0 && $is_friend == FALSE || $is_friend_pending == 1 }add_do{/if}{if $is_friend != FALSE }remove_do{/if}" rel="{$owner->user_info.user_username}">
+						{if $is_friend_pending == 2} {* отозвать запрос *}{lang_print id=917}{/if}
+						{if $is_friend_pending == 0 && $is_friend == FALSE }{lang_print id=838}{/if}
+						{if $is_friend_pending == 1} {* подтвердить запрос *}{lang_print id=887}{/if}
+						{if $is_friend != FALSE }{* remove *}{lang_print id=889}{/if}
+					</a>							
+				
+			</span><span class="r">&nbsp;</span>
+			</span>
+			<span class="button2" id="prel">&nbsp;</span>
+		</div>
+		
+	{/if}
+{/if}
 <div class="my_page_info">
 	{* SHOW PROFILE CATS AND FIELDS *}
 	{section name=cat_loop loop=$cats}
