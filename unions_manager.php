@@ -11,6 +11,26 @@ if( !$setting['setting_connection_allow'] ) {
   header("Location: user_home.php");
   exit();
 }
+if ( isset($_POST['existence_man']) && $_POST['existence_man'] == 1 ) {
+	$msg = '';
+	$success = 0;
+	$fname = mysql_real_escape_string($_POST['fname']);
+	$lname = mysql_real_escape_string($_POST['lname']);
+	$fusers = $user->find_users($fname, $lname);
+	
+	if (count($fusers) > 0 ) {
+		$success = 1;
+		$msg = 'Возможно такой пользователь уже есть на сайте. <br />Проверьте пользователей из списка';
+	} else {
+		$msg = 'Пользователя с такими lname and fname нету еще на сайте.';
+	}
+	$result = array(	'users'	=>	$fusers,
+						'msg'	=> $msg,
+						'success'	=> $success	);
+	echo json_encode($result);
+	die();
+}
+
 if ( isset($_POST['do']) && $_POST['do'] == 1 ) {
 	
 	if(isset($_POST['add_user']) && $_POST['add_user'] == 1) {

@@ -1,4 +1,4 @@
-$(document).ready(function(){
+﻿$(document).ready(function(){
 	
 	$('.head .menu li:last').addClass('last');
 	$('.head .menu li:last').prev().addClass('lang');
@@ -285,7 +285,60 @@ $(document).ready(function(){
 		return false;
 	});
 	
+	$('#lname').blur(function() {
+
+		var fname = $('#fname').val();
+		var lname = $('#lname').val();
+		if (fname != '' || lname != '') {
+			$('#prldr').html('<img src="/images/142.gif" border="0" />');
+			existence_man(fname, lname);
+		} else {
+			
+			$('#fuser').hide();
+			
+		}
+	});
+	
+	$('#fname').blur(function() {
+
+		var fname = $('#fname').val();
+		var lname = $('#lname').val();
+		if (fname != '' || lname != '') {
+			$('#prldr').html('<img src="/images/142.gif" border="0" />');
+			existence_man(fname, lname);
+		} else {
+			
+			$('#fuser').hide();
+			
+		}
+	});
 });
+
+	function existence_man(fname, lname) {
+		$('#find_u_msg').html('');
+		$('#fuser').html('');
+		$.post(		'unions_manager.php',
+					{'fname': fname, 'lname': lname, 'existence_man':1},
+					function(data) {
+						if (data.success == 1) {
+							
+							$('#fuser').show();
+							$('#find_u_msg').html(data.msg);
+							 $('#fuser').append('<option value="0">Это не те, добавить нового пользователя.</option>');
+							$.each(data.users, function(key, value) {
+							  $('#fuser').append('<option value="' + key + '">' + value + '</option>'); 
+							});
+							var c = $('#fuser option').size() - 1;
+							$('#find_u_msg').append(' ('+ c + '):<br />');
+						} else {
+							$('#fuser').hide();
+							$('#find_u_msg').html(data.msg);
+						}
+						$('#prldr').html('&nbsp;');
+					} ,
+					'json');
+	
+	}
 
 	function ajax_post( url, param, id) {
 		var r = false;
@@ -314,3 +367,4 @@ $(document).ready(function(){
 			} , 'json');
 		return r;
 	}
+	

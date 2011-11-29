@@ -2044,6 +2044,29 @@ class SEUser
 		}
 	}
 	
+	
+	function find_users($fname, $lname){
+		global $database, $setting, $user;
+		if (strlen($fname) > 0 && strlen($lname) > 0) {
+			$sql = "SELECT * FROM `se_users` WHERE `user_fname` LIKE '$fname%' AND `user_lname` LIKE '$lname%';";
+		} elseif (strlen($fname) > 0 && strlen($lname) == 0) {
+			$sql = "SELECT * FROM `se_users` WHERE `user_fname` LIKE '$fname%';";
+		} elseif (strlen($fname) == 0 && strlen($lname) > 0) {
+			$sql = "SELECT * FROM `se_users` WHERE `user_lname` LIKE '$lname%';";
+		} else {
+			return array();
+		}
+		$resourse = $database->database_query($sql);
+		$users = array();
+		while($u = $database->database_fetch_assoc($resourse) ) {
+			$users[$u['user_id']] = $u['user_lname'] . ' ' . $u['user_fname'];
+			//$users[$u['user_id']]['user_lname'] = $u['user_lname'];
+			//$users[$u['user_id']]['user_fname'] = $u['user_fname'];
+		}
+		return $users;
+	}
+	
+	
 	function get_users(){
 		global $database, $setting, $user;
 		$resourse = $database->database_query("SELECT * FROM `se_users` WHERE `user_enabled` = 1;");
