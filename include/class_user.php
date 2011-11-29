@@ -2066,6 +2066,19 @@ class SEUser
 		return $users;
 	}
 	
+	function find_users_email($email){
+		global $database, $setting, $user;
+		if (strlen($email) > 0) {
+			$sql = "SELECT * FROM `se_users` WHERE `user_email` = '$email' LIMIT 1;";
+		} 
+		$resourse = $database->database_query($sql);
+		$users = array();
+		while($u = $database->database_fetch_assoc($resourse) )
+			$users[$u['user_id']] = $u['user_lname'] . ' ' . $u['user_fname'];
+		
+		return $users;
+	}
+	
 	
 	function get_users(){
 		global $database, $setting, $user;

@@ -5,7 +5,7 @@
 $page = "user_friends_manage";
 include "header.php";
 
-var_dump($_SERVER); die();
+//var_dump($_SERVER); die();
 
 $task = ( isset($_POST['task']) ? $_POST['task'] : ( isset($_GET['task']) ? $_GET['task'] : NULL ) ); 
 
