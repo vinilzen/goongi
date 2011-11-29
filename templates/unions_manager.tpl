@@ -61,14 +61,21 @@
 			</div>
 		</div>
 		<div id="bloc_create_user" style="display:none;">
-			<div class="input"><label>Имя</label><input type="text" value="" name="name" /></div>
-			<div class="input"><label>Фамилия</label><input type="text" value="" name="last_name" /></div>
+			<div class="input"><label>Имя</label><input type="text" value="" id="fname" name="name" /></div>
+			<div class="input" >
+				<label>Фамилия</label>
+				<input type="text" value="" id="lname" name="last_name" />
+				<div id="prldr"></div>
+			</div>
+			<div class="input" id="find_u">
+				<label id="find_u_msg"><span id="count_fusers">(0)</span></label>
+				<select id="fuser" name="sel_user" style="display:none;"></select>
+			</div>
 			<div class="input">
 				<label>Email</label>
 				<span>Выслать приглашение</span><input type="checkbox" name="send_request" value="1" /><br />
 				<input type="text" value="" name="email" />
 			</div>
-			<div class="input"><label>Прозвище рода</label><input type="text" value="" name="nik" /></div>
 			<div class="radio"><label>Пол</label><div><label><input type="radio" value="m" name="pol" /><span>Мужской</span></label><label><input type="radio" value="f" name="pol" /><span>Женский</span></label></div></div>
 			<div class="input date"><label>Дата рождения</label>
 				<select name="day_b" style="width:45px;">
@@ -219,6 +226,7 @@
 				<select disabled="disabled" name="year_d" style="width:58px;"><option>1975</option></select>
 			</div>
 			<div class="clear"></div>
+			<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Проверить email" name="log" /></span><span class="r">&nbsp;</span></span></div>
 		</div>
 		<input type="hidden" name="do" value="1" />
 		<input type="hidden" name="rewrite" value="0" />
