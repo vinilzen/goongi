@@ -275,24 +275,42 @@ $(document).ready(function(){
 		if(i%3==2)$(this).css('padding-right','0');
 	});
 	
+	
+	// send requst frendship
+	
+	$('#add_to_fr').click(function(e){
+		var username = $(this).attr('rel');
+		var task_type = $(this).attr('rev');
+		ajax_post('user_friends_manage.php', { task: task_type, user: username, ajax:1 }, 'add_to_fr_li');
+		return false;
+	});
+	
 });
 
 	function ajax_post( url, param, id) {
-		
-		//send with param to url	
-			$.post(
-				url,
-				param,
-				function(data) {
-					if (data.success == 1) {
-						$('#' + id).append(data.result);
-					} else {
-						$('#' + id).append('error');
+		var r = false;
+		$('#prel').html('<img src="/images/142.gif" border="0" />');
+		//send with param to url
+		$.post(
+			url,
+			param,
+			function(data) {
+				// if send requet -> ability recall
+				// if frend > ability remove frend
+				// if no frend && no send request -> ability send request
+				// if you hav request -> ability confirm request or no confirm(to refuse) 
+			
+				if (data.success == 1) {
+					$('#' + id + ' a').html(data.button);
+					$('#prel').html(data.result);
+					$('#add_to_fr').attr('rev', data.task);
+					if (data.task == 'remove_do') {
+						$('#preli').hide();
 					}
-					/*setTimeout ( function() {
-						$('#popup').fadeOut(300);
-						$('.window').hide();
-						e.preventDefault();
-					}, 1500);*/
-				} , 'json');
+					r = true;
+				} else {
+					$('#' + id).append('error');
+				}
+			} , 'json');
+		return r;
 	}

@@ -11,39 +11,23 @@
 	<div class="bg">
 		<div class="c">
 			<div class="pro">
-				<div id="main_photo"><img src="{$user->user_photo("./images/nophoto.gif")}" alt="" /></div>
-					<ul>-{$is_friend_pending}-
-						{if $owner->user_info.user_id != 0}
-							<li id="add_to_fr_li">
+				<div id="main_photo"><img src="{$user->user_photo('./images/nophoto.gif')}" alt="" /></div>
+					<ul>
+						<li {if $global_page == 'my_tree'}class="active"{/if}><a href='/my_tree.php'>Мое дерево</a></li>
 							
-{if $is_friend_pending == 2} {* отозвать запрос на  *}
-	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', {literal}{{/literal}task:'cancel', user: '{$owner->user_info.user_username}', ajax:1 {literal}}{/literal}, 'add_to_fr_li'); return false;">
-		{lang_print id=917}
-	</a>								
-{/if}
-{if $is_friend_pending == 0 && $is_friend == FALSE }
-	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', {literal}{{/literal}task:'add_do', user: '{$owner->user_info.user_username}', ajax:1 {literal}}{/literal}, 'add_to_fr_li'); return false;">
-		{lang_print id=838}
-	</a>
-{/if}
-{if $is_friend != FALSE }
-	<a href="#" id="add_to_fr" onclick="ajax_post('user_friends_manage.php', {literal}{{/literal}task:'remove_do', user: '{$owner->user_info.user_username}', ajax:1 {literal}}{/literal}, 'add_to_fr_li'); return false;">
-		{lang_print id=917}-
-	</a>							
-{/if}
-							</li>
+						{* SHOW FRIENDS MENU ITEM IF ENABLED *}
+						{if $setting.setting_connection_allow != 0}
+							<li {if $global_page == 'user_friends'}class="active"{/if}><a href='/user_friends.php'>{lang_print id=1170}</a></li>
 						{/if}
+						
 						{* SHOW WHATS NEW MENU ITEM *}
-						<!-- <li><a href='user_home.php'>{lang_print id=1161}</a></li>
-						<!-- <li><a href='network.php'>{lang_print id=1162}</a></li> -->
+						<li {if $global_page == 'user_home'}class="active"{/if}><a href='/user_home.php'>{lang_print id=1161}</a></li>
+						<li><a href='/network.php'>{lang_print id=1162}</a></li>
     
 					{* SHOW PROFILE MENU ITEM *}
-					<li><a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a></li>					</a>
-					<li><a href='user_editprofile.php'>{lang_print id=1163}</a></li>
-					<li><a href='user_editprofile_photo.php'>{lang_print id=1164}</a></li>
-					  {if $user->level_info.level_profile_style != 0 || $user->level_info.level_profile_style_sample != 0}
-						<li><a href='user_editprofile_style.php'>{lang_print id=1165}</a></li>
-					  {/if}
+					<li {if $global_page == 'profile'}class="active"{/if}><a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a></li>
+					<li {if $global_page == 'user_editprofile'}class="active"{/if}><a href='user_editprofile.php'>{lang_print id=1163}</a></li>
+					<li {if $global_page == 'user_editprofile_photo'}class="active"{/if}><a href='user_editprofile_photo.php'>{lang_print id=1164}</a></li>
 
 					{* SHOW APPS MENU ITEM IF ENABLED *}
 					{if $global_plugins.plugin_controls.show_menu_user}
@@ -57,24 +41,16 @@
 					{* SHOW MESSAGES MENU ITEM IF ENABLED *}
 					{if $user->level_info.level_message_allow != 0}
 						<!--<li><a href='user_messages.php'>{lang_print id=654}{if $user_unread_pms != 0} ({$user_unread_pms}){/if}</a></li> -->
-						<li><a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=1167}</a></li>
-						<li  id="add_msg_l"><a href="#" >->{lang_print id=1167}</a></li>
-						<li><a href='user_messages.php'>{lang_print id=1168}</a></li>
-						<li><a href='user_messages_outbox.php'>{lang_print id=1169}</a></li>
+						<!-- <li><a rel="{lang_print id=784}" href="/user_messages_new.php">{lang_print id=1167}</a></li> -->
+						<!-- <li  id="add_msg_l"><a href="#" >->{lang_print id=1167}</a></li> -->
+						<li {if $global_page == 'user_messages'}class="active"{/if}><a href='user_messages.php'>{lang_print id=654}<!-- сообщения --></a></li>
+						<!-- <li><a href='user_messages_outbox.php'>{lang_print id=1169}</a></li> -->
 					{/if}
-    
-					{* SHOW FRIENDS MENU ITEM IF ENABLED *}
-					{if $setting.setting_connection_allow != 0}
-						<!--<li><a href='user_friends.php'>{lang_print id=653}</a></li> -->
-						<li><a href='user_friends.php'>{lang_print id=1170}</a></li>
-						<li><a href='user_friends_requests.php'>{lang_print id=1171}</a></li>
-						<li><a href='user_friends_requests_outgoing.php'>{lang_print id=1172}</a></li>
-					{/if}
-    
+					
 					{* SHOW SETTINGS MENU ITEM *}
-					<!--<li><a href='user_account.php'>{lang_print id=655}</a></li> --><!-- настройки -->
-					<li><a href='user_account.php'>{lang_print id=1173}</a></li>
-					<li><a href='user_account_privacy.php'>{lang_print id=1174}</a></li>
+					<li {if $global_page == 'user_account'}class="active"{/if}><a href='user_account.php'>{lang_print id=1173}<!-- настройки аккаунта --></a></li>
+					<!-- <li><a href='user_account.php'>{lang_print id=1173}</a></li>
+					<li><a href='user_account_privacy.php'>{lang_print id=1174}</a></li> -->
 				<ul>
 			</div>
 		</div>

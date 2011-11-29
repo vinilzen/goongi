@@ -5,6 +5,8 @@
 $page = "user_friends_manage";
 include "header.php";
 
+var_dump($_SERVER); die();
+
 $task = ( isset($_POST['task']) ? $_POST['task'] : ( isset($_GET['task']) ? $_GET['task'] : NULL ) ); 
 
 // INITIALIZE VARS
@@ -90,6 +92,8 @@ if( $task == "edit_do" ) {
 
   $status = "remove";
   $result = 923;
+  $task_j = "remove_do";
+  $button = "Удалить из друзей";
 }
 // REJECT FRIEND REQUEST
 elseif( $task == "reject_do" ) {
@@ -97,6 +101,8 @@ elseif( $task == "reject_do" ) {
   $database->database_query("DELETE FROM se_notifys WHERE notify_user_id='{$user->user_info['user_id']}' AND notify_notifytype_id='1' AND notify_object_id='{$owner->user_info['user_id']}'");
   $status = "remove";
   $result = 914;
+  $task_j = "add_do"; 
+  $button = 838;
 }
 // CANCEL FRIEND REQUEST
 elseif( $task == "cancel_do" ) {
@@ -104,12 +110,16 @@ elseif( $task == "cancel_do" ) {
   $database->database_query("DELETE FROM se_notifys WHERE notify_user_id='{$owner->user_info['user_id']}' AND notify_notifytype_id='1' AND notify_object_id='{$user->user_info['user_id']}'");
   $status = "remove";
   $result = 920;
+  $task_j = "add_do"; 
+  $button = 838;
 }
 // UNFRIEND USER
 elseif( $task == "remove_do" ) {
   $user->user_friend_remove($owner->user_info['user_id']);
   $status = "add";
   $result = 890;
+  $task_j = "add_do"; 
+  $button = 838;
 }
 // CONFIRM OR ADD FRIEND
 elseif( $task == "add_do" ) {
@@ -127,10 +137,10 @@ elseif( $task == "add_do" ) {
 
   // DETERMINE FRIENDSHIP FRAMEWORK
   switch($setting['setting_connection_framework']) {
-    case "0": $direction = 2; $friend_status = 0; $status = "pending"; $result = 878; break;
-    case "1": $direction = 1; $friend_status = 0; $status = "pending"; $result = 878; break;
-    case "2": $direction = 2; $friend_status = 1; $status = "remove"; $result = 879; break;
-    case "3": $direction = 1; $friend_status = 1; $status = "remove"; $result = 879; break;      
+    case "0": $direction = 2; $friend_status = 0; $status = "pending"; $result = 878; $task_j = "cancel_do"; $button = 917; break;
+    case "1": $direction = 1; $friend_status = 0; $status = "pending"; $result = 878; $task_j = "cancel_do"; $button = 917; break;
+    case "2": $direction = 2; $friend_status = 1; $status = "remove"; $result = 879; $task_j = "remove_do"; $button = 889; break;
+    case "3": $direction = 1; $friend_status = 1; $status = "remove"; $result = 879; $task_j = "remove_do"; $button = 889; break;      
   }
 
   // IF CONFIRMING AN EXISTING FRIEND REQUEST
@@ -150,12 +160,18 @@ elseif( $task == "add_do" ) {
       $actions->actions_add($user, "addfriend", Array($user->user_info['user_username'], $user->user_displayname, $owner->user_info['user_username'], $owner->user_displayname), Array(), 0, false, "user", $user->user_info['user_id'], $user->user_info['user_privacy']);
       $status = "remove";
       $result = 879;
+	  $task_j = "remove_do"; 
+	  $button = 889;
     } elseif( $user->user_friended($owner->user_info['user_id']) ) {
       $status = "remove";
       $result = 886;
+	  $task_j = "remove_do";
+	  $button = 889;
     } else {
       $status = "add";
       $result = 886;
+	  $task_j = "remove_do"; 
+	  $button = 889;
     }
 	
   }
@@ -168,9 +184,7 @@ elseif( $task == "add_do" ) {
     // INSERT ACTION
     if($friend_status == 1) { 
       $actions->actions_add($user, "addfriend", Array($user->user_info['user_username'], $user->user_displayname, $owner->user_info['user_username'], $owner->user_displayname), Array(), 0, false, "user", $user->user_info['user_id'], $user->user_info['user_privacy']); 
-    }
-    else
-    {
+    } else {
       $notify->notify_add($owner->user_info['user_id'], 'friendrequest', $user->user_info['user_id']);
     }
     
@@ -183,22 +197,27 @@ elseif( $task == "add_do" ) {
     
     // SEND FRIENDSHIP EMAIL
     $owner->user_settings();
-    if( $owner->usersetting_info['usersetting_notify_friendrequest'] )
-    {
+    if( $owner->usersetting_info['usersetting_notify_friendrequest'] ) {
       send_systememail('friendrequest', $owner->user_info['user_email'], Array($owner->user_displayname, $user->user_displayname, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
     }
   }
   
   // UPDATE STATS
   update_stats("friends");
-}  
+  
+
+}
 $is_ajax = ( isset($_POST['ajax']) && $_POST['ajax'] == 1 ) ? true : false;
 if ( $is_ajax) {
-	$res = array('status' =>$status , 'result' => $result, 'success' => 1);
+	$msg = '';
+	$res = array('status' =>$status , 'task' => $task_j, 'button' => SELanguage::get($button), 'result' => SELanguage::get($result), 'success' => 1, 'msg' => $msg);
 	echo json_encode($res); die();
 }
+//$v = get_class_methods(SELanguage);
 
+//var_dump($v); die();
 
+//  var_dump($GLOBALS['smarty']->_tpl_vars['se_language']); die();
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('result', $result);
 $smarty->assign('status', $status);
