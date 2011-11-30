@@ -4,6 +4,7 @@
 <!-- <div class='page_header'>{lang_sprintf id=786 1=$owner->user_displayname}</div> -->
 <h1>{$owner->user_info.user_displayname}</h1>
 <div class="crumb"><a href="/">Главная</a><span>{lang_print id=652}<!-- Профиль --></span></div>
+{if $owner->user_info.user_id == $user->user_info.user_id}
 <div class="buttons">
 	<span class="button2">
 		<span class="l">&nbsp;</span><span class="c">
@@ -11,6 +12,7 @@
 		</span><span class="r">&nbsp;</span>
 	</span>
 </div>
+{/if}
 {if $user->user_exists != 0 && $owner->user_info.user_id !=  $user->user_info.user_id}
 	{if $owner->user_info.user_id != 0}
 		<div class="buttons">
@@ -31,24 +33,28 @@
 		
 	{/if}
 {/if}
-<div class="my_page_info">
-	{* SHOW PROFILE CATS AND FIELDS *}
-	{section name=cat_loop loop=$cats}
-		{section name=subcat_loop loop=$cats[cat_loop].subcats}
-			<h2>{lang_print id=$cats[cat_loop].subcats[subcat_loop].subcat_title}<!-- персональная инфорвация --></h2>
-			{* LOOP THROUGH FIELDS IN TAB, ONLY SHOW FIELDS THAT HAVE BEEN FILLED IN *}
-			{section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
-			<p>
-				<span>
-					{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}:
-				</span>
-				{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_formatted}
-				{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1 && $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value|substr:0:4 != "0000"} ({lang_sprintf id=852 1=$datetime->age($cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value)}){/if}
-			</p>
+
+<div class="my_page_inf">
+	<div class="my_page_img"><img alt="" src="/uploads_user/1000/{$owner->user_info.user_id}/{$owner->user_info.user_photo}"></div>
+	<div class="my_page_info">
+		{* SHOW PROFILE CATS AND FIELDS *}
+		{section name=cat_loop loop=$cats}
+			{section name=subcat_loop loop=$cats[cat_loop].subcats}
+				<h2>{lang_print id=$cats[cat_loop].subcats[subcat_loop].subcat_title}<!-- персональная инфорвация --></h2>
+				{* LOOP THROUGH FIELDS IN TAB, ONLY SHOW FIELDS THAT HAVE BEEN FILLED IN *}
+				{section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
+				<p>
+					<span>
+						{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}:
+					</span>
+					{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_formatted}
+					{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1 && $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value|substr:0:4 != "0000"} ({lang_sprintf id=852 1=$datetime->age($cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value)}){/if}
+				</p>
+				{/section}
+				
 			{/section}
-			
 		{/section}
-	{/section}
+	</div>
 </div>
       <!-- <div class='page_header'></div> -->
   

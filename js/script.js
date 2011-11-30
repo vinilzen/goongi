@@ -314,6 +314,56 @@
 	});
 	
 	
+	$('.friends_list .cancel').click(function() {
+		var username = $(this).attr('rev');
+		var r=confirm("you want to delete a user " + username);
+		if (r==true) {
+			
+			var id = $(this).attr('rel');
+			if ( username != '' ) {
+				//alert('tut - ' + username);
+				$.post( 'user_friends_manage.php',
+						{task: 'cancel_do', user: username, ajax:1},
+						function(data) {
+							if (data.success == 1 && data.status == "remove" ) {
+								alert(data.result);
+								$('#frend_' + id).hide();
+							} else {
+								alert('error');	
+							}
+						},
+						'json'
+				);
+			}
+		}
+		return false;
+	});
+	
+	$('.friends_list .del').click(function() {
+		var username = $(this).attr('rev');
+		var r=confirm("you want to delete a user " + username);
+		if (r==true) {
+			
+			var id = $(this).attr('rel');
+			if ( username != '' ) {
+				//alert('tut - ' + username);
+				$.post( 'user_friends_manage.php',
+						{task: 'remove_do', user: username, ajax:1},
+						function(data) {
+							if (data.success == 1 && data.status == "add" ) {
+								alert(data.result);
+								$('#frend_' + id).hide();
+							} else {
+								alert('error');	
+							}
+						},
+						'json'
+				);
+			}
+		}
+		return false;
+	});
+	
 	$('#check_email').click(function() {
 		var email = $('#email').val();
 		email = $.trim(email);

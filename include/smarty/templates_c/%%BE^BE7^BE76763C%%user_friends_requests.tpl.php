@@ -1,29 +1,29 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 14:50:18
+<?php /* Smarty version 2.6.14, created on 2011-11-30 19:30:34
          compiled from user_friends_requests.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends_requests.tpl', 51, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends_requests.tpl', 50, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(895,894,896,909,910,182,184,185,183,509,849,906,882,907,887,911,784,839);
+SELanguage::_preload_multi(895,652,894,896,909,910,182,184,185,183,509,849,906,882,907,887,911,784,839);
 SELanguage::load();
-?><?php $_smarty_tpl_vars = $this->_tpl_vars;
+?>Ôªø<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-<h1><?php echo SELanguage::_get(895); ?><!-- —Ó ÏÌÓÈ ıÓÚˇÚ ‰ÛÊËÚ¸ --></h1>
+<h1><?php echo SELanguage::_get(895); ?><!-- –°–æ –º–Ω–æ–π —Ö–æ—Ç—è—Ç –¥—Ä—É–∂–∏—Ç—å --></h1>
 						
-<table class='tabs' cellpadding='0' cellspacing='0'>
-<tr>
-<td class='tab0'>&nbsp;</td>
-<td class='tab2' NOWRAP><a href='user_friends.php'><?php echo SELanguage::_get(894); ?></a></td>
-<td class='tab'>&nbsp;</td>
-<td class='tab1' NOWRAP><a href='user_friends_requests.php'><?php echo SELanguage::_get(895); ?></a></td>
-<td class='tab'>&nbsp;</td>
-<td class='tab2' NOWRAP><a href='user_friends_requests_outgoing.php'><?php echo SELanguage::_get(896); ?></a></td>
-<td class='tab3'>&nbsp;</td>
-</tr>
-</table>
+<div class="crumb">
+	<a href="/">–ì–ª–∞–≤–Ω–∞—è</a>
+	<a href='<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['user']->user_info['user_username']); ?>
+'><?php echo SELanguage::_get(652); ?></a>
+	<span><?php echo SELanguage::_get(895); ?><!-- –ú–æ–∏ –¥—Ä—É–∑—å—è --></span>
+</div>
+<ul class="vk">
+	<li><a href="user_friends.php"><?php echo SELanguage::_get(894); ?></a></li>
+	<li class="active"><a href="user_friends_requests.php" ><?php echo SELanguage::_get(895); ?></a></li>
+	<li><a href="user_friends_requests_outgoing.php"><?php echo SELanguage::_get(896); ?></a></li>
+</ul>
 
 <img src='./images/icons/friends48.gif' border='0' class='icon_big'>
 <div class='page_header'><?php echo SELanguage::_get(895); ?></div>
@@ -93,14 +93,13 @@ $this->_sections['friend_loop']['index_next'] = $this->_sections['friend_loop'][
 $this->_sections['friend_loop']['first']      = ($this->_sections['friend_loop']['iteration'] == 1);
 $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']['iteration'] == $this->_sections['friend_loop']['total']);
 ?>
-      <div class='friends_result'>
-    <table cellpadding='0' cellspacing='0'>
-    <tr>
-    <td class='friends_result0'><a href='<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']); ?>
+      <li class="friend_<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_id']; ?>
+">
+<a href='<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']); ?>
 '><img src='<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_photo('./images/nophoto.gif'); ?>
 ' class='photo' width='<?php echo $this->_tpl_vars['misc']->photo_size($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_photo('./images/nophoto.gif'),'90','90','w'); ?>
 ' border='0' alt="<?php echo sprintf(SELanguage::_get(509), $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_displayname_short); ?>"></a></td>
-    <td class='friends_result1' width='100%'>
+    
       <div><font class='big'><a href='<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']); ?>
 '><img src='./images/icons/user16.gif' border='0' class='icon'><?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_displayname; ?>
 </a></div></font><br>
@@ -113,9 +112,7 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
 </td></tr><?php endif; ?>
       <?php if ($this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->friend_explain != ""): ?><tr><td><?php echo SELanguage::_get(907); ?> &nbsp;</td><td><?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->friend_explain; ?>
 </td></tr><?php endif; ?>
-      </table>
-    </td>
-    <td class='friends_result2' NOWRAP>
+
     <a href="javascript:TB_show('<?php echo SELanguage::_get(887); ?>', 'user_friends_manage.php?user=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']; ?>
 &TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><?php echo SELanguage::_get(887); ?></a><br>
     <a href="javascript:TB_show('<?php echo SELanguage::_get(911); ?>', 'user_friends_manage.php?task=reject&user=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']; ?>
@@ -123,10 +120,7 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
     <?php if ($this->_tpl_vars['user']->level_info['level_message_allow'] != 0): ?><a href="javascript:TB_show('<?php echo SELanguage::_get(784); ?>', 'user_messages_new.php?to_user=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_displayname; ?>
 &to_id=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']; ?>
 &TB_iframe=true&height=400&width=450', '', './images/trans.gif');"><?php echo SELanguage::_get(839); ?></a><br><?php endif; ?>
-    </td>
-    </tr>
-    </table>
-    </div>
+    </li>
   <?php endfor; endif; ?>
 
     <?php if ($this->_tpl_vars['maxpage'] > 1): ?>

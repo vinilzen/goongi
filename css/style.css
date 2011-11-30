@@ -186,6 +186,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 
 	.friends_list		{ overflow:hidden; list-style:none; width:467px;}
 	.friends_list li		{ overflow:hidden; list-style:none; padding:20px 0; border-bottom:1px solid #d7d7d7;}
+	.friends_list li .frend_img	{ display:block; width:135px; /*border:1px solid red;*/ float:left;}
 	.friends_list li img	{ border:1px solid #d7d7d7; padding:2px; float:left; margin-right:20px;}
 	.friends_list li div	{ overflow:hidden;}
 	.friends_list li div h2	{ margin-bottom:12px;}
@@ -619,7 +620,13 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 #print_tree_w .form.add_w .button2		{ float:left;}
 #print_tree_w .form.add_w .reset		{ color:#2a86dc; font:11px arial; border:0; padding:0; margin:5px 0 0 20px; background:none; border-bottom:1px dashed #2a86dc;}
 
-
+.my_page_info { border-bottom: 1px solid #9E9E9E; margin-bottom: 15px;padding: 15px 0px 15px 0px;}
+.my_page_info p {padding-bottom: 13px;}
+.my_page_info p span {  color: #A1A1A1; display: inline-block; width: 165px;}
+.my_page_img {   float: left;   padding: 15px 0px 15px 0px; height:311px;   width: 385px;}
+.my_page_img img {   background: none repeat scroll 0 0 #FFFFFF;  border: 1px solid #D7D7D7;   padding: 2px;}
+.my_page_inf {    border-bottom: 1px solid #9E9E9E;    margin-bottom: 15px;    overflow: hidden;}
+.my_page_inf .my_page_info {    border-bottom: 0 none;    margin-bottom: 0;}
 
 
 

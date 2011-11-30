@@ -23,6 +23,8 @@ if($owner->user_exists == 0) {
   include "footer.php";
 }
 
+//var_dump($owner); die();
+
 // GET VIEW AND VARS
 if(isset($_POST['v'])) { $v = $_POST['v']; } elseif(isset($_GET['v'])) { $v = $_GET['v']; } else { $v = "profile"; }
 if(isset($_POST['search'])) { $search = $_POST['search']; } elseif(isset($_GET['search'])) { $search = $_GET['search']; } else { $search = ""; }
