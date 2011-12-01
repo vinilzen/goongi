@@ -17,7 +17,7 @@
     <!--HEAD-->
     <div class="head">
         <div class="fix">
-            <div class="logo"><a href="#"><img src="/images/logo.png" alt="" /></a></div>
+            <div class="logo"><a href="/"><img src="/images/logo.png" alt="" /></a></div>
             <ul class="menu">
                 <li><a href="/search.php">{lang_print id=200}<!-- Поиск --></a></li>
                 <li><a href="/invite.php">{lang_print id=647}<!-- Пригласить --></a></li>

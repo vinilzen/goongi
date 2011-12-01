@@ -66,7 +66,7 @@
   {if $owner->user_info.user_id != $user->user_info.user_id}
  
     {* SHOW ADD OR REMOVE FRIEND MENU ITEM *}
-    {if $friendship_allowed != 0 && $user->user_exists != 0}
+    {if $friendship_allowed != 0 && $user->user_exists != 0 && 0}
         <div id='addfriend_{$owner->user_info.user_id}'{if $is_friend == TRUE || $is_friend_pending != 0} style='display: none;'{/if}><a href="/user_friends_manage.php?user={$owner->user_info.user_username}"><!-- {lang_print id=876} --><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=838}</a></div>
         <div id='confirmfriend_{$owner->user_info.user_id}'{if $is_friend_pending != 1} style='display: none;'{/if}><a href="javascript:TB_show('{lang_print id=887}', 'user_friends_manage.php?user={$owner->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=885}</a></div>
         <div id='pendingfriend_{$owner->user_info.user_id}'{if $is_friend_pending != 2} style='display: none;'{/if} class='nolink'><img src='./images/icons/addfriend16.gif' class='icon' border='0'>{lang_print id=875}</div>

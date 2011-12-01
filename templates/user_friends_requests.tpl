@@ -14,18 +14,13 @@
 	<li><a href="user_friends_requests_outgoing.php">{lang_print id=896}</a></li>
 </ul>
 
-<img src='./images/icons/friends48.gif' border='0' class='icon_big'>
 <div class='page_header'>{lang_print id=895}</div>
 <div>{lang_print id=909}</div>
-<br />
-<br />
+
 
 {* DISPLAY MESSAGE IF NO FRIEND REQUESTS *}
 {if $total_friends == 0}
-
-  <table cellpadding='0' cellspacing='0' align='center'>
-  <tr><td class='result'><img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_print id=910}</td></tr>
-  </table>
+{lang_print id=910}
 
 {* DISPLAY FRIEND REQUESTS *}
 {else}
@@ -56,25 +51,30 @@
     {if $p != $maxpage}<a href='user_friends_requests.php?p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{else}<font class='disabled'>{lang_print id=183} &#187;</font>{/if}
     </div>
   {/if}
-
+ <ul class="friends_list">
   {section name=friend_loop loop=$friends}
   {* LOOP THROUGH FRIENDS *}
-    <li class="friend_{$friends[friend_loop]->user_info.user_id}">
-<a href='{$url->url_create('profile', $friends[friend_loop]->user_info.user_username)}'><img src='{$friends[friend_loop]->user_photo('./images/nophoto.gif')}' class='photo' width='{$misc->photo_size($friends[friend_loop]->user_photo('./images/nophoto.gif'),'90','90','w')}' border='0' alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}"></a></td>
+    <li id="frend_{$friends[friend_loop]->user_info.user_id}">
+		<a href="{$url->url_create('profile', $friends[friend_loop]->user_info.user_username)}" class="frend_img">
+			<img src="{$friends[friend_loop]->user_photo('./images/nophoto.gif')}" class="photo" width="{$misc->photo_size($friends[friend_loop]->user_photo('./images/nophoto.gif'),'90','90','w')}" border="0" alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}" />
+		</a>
     
-      <div><font class='big'><a href='{$url->url_create('profile', $friends[friend_loop]->user_info.user_username)}'><img src='./images/icons/user16.gif' border='0' class='icon'>{$friends[friend_loop]->user_displayname}</a></div></font><br>
-      <table cellpadding='0' cellspacing='0'>
-      {if $friends[friend_loop]->user_info.user_dateupdated != 0}<tr><td>{lang_print id=849} &nbsp;</td><td>{assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}</td></tr>{/if}
-      {if $friends[friend_loop]->user_info.user_lastlogindate != 0}<tr><td>{lang_print id=906} &nbsp;</td><td>{assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}</td></tr>{/if}
-      {if $friends[friend_loop]->friend_type != ""}<tr><td>{lang_print id=882} &nbsp;</td><td>{$friends[friend_loop]->friend_type}</td></tr>{/if}
-      {if $friends[friend_loop]->friend_explain != ""}<tr><td>{lang_print id=907} &nbsp;</td><td>{$friends[friend_loop]->friend_explain}</td></tr>{/if}
+		<div><font class='big'><a href='{$url->url_create('profile', $friends[friend_loop]->user_info.user_username)}'><img src='./images/icons/user16.gif' border='0' class='icon'>{$friends[friend_loop]->user_displayname}</a></div></font><br>
+      
+      {if $friends[friend_loop]->user_info.user_dateupdated != 0}{lang_print id=849} &nbsp;{assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}{/if}
+      {if $friends[friend_loop]->user_info.user_lastlogindate != 0}{lang_print id=906} &nbsp;{assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}{/if}
+      {if $friends[friend_loop]->friend_type != ""}{lang_print id=882} &nbsp;{$friends[friend_loop]->friend_type}{/if}
+      {if $friends[friend_loop]->friend_explain != ""}{lang_print id=907} &nbsp;{$friends[friend_loop]->friend_explain}</td></tr>{/if}
 
-    <a href="javascript:TB_show('{lang_print id=887}', 'user_friends_manage.php?user={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=887}</a><br>
-    <a href="javascript:TB_show('{lang_print id=911}', 'user_friends_manage.php?task=reject&user={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=911}</a><br>
-    {if $user->level_info.level_message_allow != 0}<a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?to_user={$friends[friend_loop]->user_displayname}&to_id={$friends[friend_loop]->user_info.user_username}&TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=839}</a><br>{/if}
+    <a class="add" rel="{$friends[friend_loop]->user_info.user_id}" rev="{$friends[friend_loop]->user_info.user_username}" href="user_friends_manage.php?user={$friends[friend_loop]->user_info.user_username}">{lang_print id=887}</a><br>
+    <a class="reject" rel="{$friends[friend_loop]->user_info.user_id}" rev="{$friends[friend_loop]->user_info.user_username}" href="user_friends_manage.php?task=reject&user={$friends[friend_loop]->user_info.user_username}">{lang_print id=911}</a><br>
+    {if $user->level_info.level_message_allow != 0}
+		<a href="user_messages_new.php?to_user={$friends[friend_loop]->user_displayname}&to_id={$friends[friend_loop]->user_info.user_username}">			{lang_print id=839}
+		</a><br>
+	{/if}
     </li>
   {/section}
-
+</ul>
   {* DISPLAY PAGINATION MENU IF APPLICABLE *}
   {if $maxpage > 1}
     <br>

@@ -12,9 +12,8 @@ $is_error = 0;
 
 
 // IF USER IS ALREADY LOGGED IN, FORWARD TO USER HOME PAGE
-if( $user->user_exists )
-{
-  header("Location: user_home.php");
+if( $user->user_exists ) {
+  header("Location: " . $user->user_info['user_username']);
   exit();
 }
 

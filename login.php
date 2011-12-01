@@ -6,9 +6,9 @@ $page = "login";
 include "header.php";
 
 // USER IS LOGGED IN, FORWARD TO USER HOME
-if( $user->user_exists )
-{
-  header("Location: user_home.php");
+if( $user->user_exists ) {
+	
+  header("Location: " . $user->user_info['user_username']);
   exit();
 }
 

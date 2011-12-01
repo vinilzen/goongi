@@ -190,8 +190,7 @@ if(in_array($owner->user_info['user_username'], $online_users_array[2])) { $is_o
 // GET PROFILE VIEWS
 $profile_views = 0;
 $view_query = $database->database_query("SELECT profileview_views, profileview_viewers FROM se_profileviews WHERE profileview_user_id='{$owner->user_info['user_id']}'");
-if($database->database_num_rows($view_query) == 1)
-{
+if($database->database_num_rows($view_query) == 1) {
   $views = $database->database_fetch_assoc($view_query);
   $profile_views = $views['profileview_views'];
 }
@@ -204,8 +203,7 @@ $global_page_description[1] = $owner->user_displayname;
 $global_page_description[2] = strip_tags(implode(" - ", $field->field_values));
 
 
-//echo '<pre>'; var_dump($owner->user_info); die();
-
+//echo '<pre>'; var_dump($actions->actions_display(0, $setting['setting_actions_actionsonprofile'], "se_actions.action_user_id='{$owner->user_info['user_id']}'")); die();
 
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('v', $v);
@@ -229,6 +227,6 @@ $smarty->assign('is_friend', $is_friend);
 $smarty->assign('is_friend_pending', $is_friend_pending);
 $smarty->assign('friendship_allowed', $friendship_allowed);
 $smarty->assign('is_online', $is_online);
-$smarty->assign('actions', $actions->actions_display(0, $setting['setting_actions_actionsonprofile'], "se_actions.action_user_id='{$owner->user_info['user_id']}'"));
+//$smarty->assign('actions', $actions->actions_display(0, $setting['setting_actions_actionsonprofile'], "se_actions.action_user_id='{$owner->user_info['user_id']}'"));
 include "footer.php";
 ?>
