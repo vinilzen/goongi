@@ -327,7 +327,7 @@
 						function(data) {
 							if (data.success == 1 && data.status == "remove" ) {
 								alert(data.result);
-								$('#frend_' + id).hide();
+								$('#frend_' + id).fadeOut();
 							} else {
 								alert('error');	
 							}
@@ -352,7 +352,56 @@
 						function(data) {
 							if (data.success == 1 && data.status == "add" ) {
 								alert(data.result);
-								$('#frend_' + id).hide();
+								$('#frend_' + id).fadeOut();
+							} else {
+								alert('error');	
+							}
+						},
+						'json'
+				);
+			}
+		}
+		return false;
+	});
+	$('.friends_list .reject').click(function() {
+		var username = $(this).attr('rev');
+		var r=confirm("you want to reject a user " + username);
+		if (r==true) {
+			
+			var id = $(this).attr('rel');
+			if ( username != '' ) {
+				//alert('tut - ' + username);
+				$.post( 'user_friends_manage.php',
+						{task: 'reject_do', user: username, ajax:1},
+						function(data) {
+							if (data.success == 1 && data.status == "remove" ) {
+								alert(data.result);
+								$('#frend_' + id).fadeOut();
+							} else {
+								alert('error');	
+							}
+						},
+						'json'
+				);
+			}
+		}
+		return false;
+	});
+	
+	$('.friends_list .add').click(function() {
+		var username = $(this).attr('rev');
+		var r=confirm("you want to add a user " + username);
+		if (r==true) {
+			
+			var id = $(this).attr('rel');
+			if ( username != '' ) {
+				//alert('tut - ' + username);
+				$.post( 'user_friends_manage.php',
+						{task: 'add_do', user: username, ajax:1},
+						function(data) {
+							if (data.success == 1 && data.status == "remove" ) {
+								alert(data.result);
+								$('#frend_' + id).fadeOut();
 							} else {
 								alert('error');	
 							}

@@ -311,8 +311,84 @@ class se_upload
 
 
 
-
-
+	// THIS METHOD UPLOADS A PHOTO
+	// INPUT: $photo_dest REPRESENTS THE DESTINATION OF THE UPLOADED PHOTO
+	//	  $file_maxwidth (OPTIONAL) REPRESENTING THE MAXIMUM WIDTH OF THE UPLOADED PHOTO
+	//	  $file_maxheight (OPTIONAL) REPRESENTING THE MAXIMUM HEIGHT OF THE UPLOADED PHOTO
+	// OUTPUT: BOOLEAN INDICATING WHETHER UPLOAD SUCCEEDED OR FAILED
+	function upload_photo_my($photo_dest, $file_maxwidth = "", $file_maxheight = "")
+  {
+	  // SET MAX WIDTH AND HEIGHT
+	  if( !$file_maxwidth  ) $file_maxwidth  = $this->file_maxwidth ;
+	  if( !$file_maxheight ) $file_maxheight = $this->file_maxheight;
+    
+	  // CHECK IF DIMENSIONS ARE LARGER THAN ADMIN SPECIFIED SETTINGS
+	  // AND SET DESIRED WIDTH AND HEIGHT
+    $width  = $this->file_width ;
+    $height = $this->file_height;
+    if( $height > $file_maxheight )
+    { 
+      $width = floor($width * $file_maxheight / $height); 
+      $height = $file_maxheight; 
+    } 
+    if( $width > $file_maxwidth )
+    {
+      $height = floor($height * $file_maxwidth / $width);
+      $width = $file_maxwidth;
+    }
+    
+    
+	  // RESIZE IMAGE AND PUT IN USER DIRECTORY
+	  switch($this->file_ext)
+    {
+	    case "gif":
+	      $file = imagecreatetruecolor($width, $height);
+	      $new = imagecreatefromgif($this->file_tempname);
+	      $kek=imagecolorallocate($file, 255, 255, 255);
+	      imagefill($file,0,0,$kek);
+	      imagecopyresampled($file, $new, 0, 0, 0, 0, $width, $height, $this->file_width, $this->file_height);
+	      imagejpeg($file, $photo_dest, 100);
+	      ImageDestroy($new);
+	      ImageDestroy($file);
+	      break;
+      
+	    case "bmp":
+	      $file = imagecreatetruecolor($width, $height);
+	      $new = $this->imagecreatefrombmp($this->file_tempname);
+	      for($i=0; $i<256; $i++) { imagecolorallocate($file, $i, $i, $i); }
+	      imagecopyresampled($file, $new, 0, 0, 0, 0, $width, $height, $this->file_width, $this->file_height); 
+	      imagejpeg($file, $photo_dest, 100);
+	      ImageDestroy($new);
+	      ImageDestroy($file);
+	      break;
+      
+	    case "jpeg":
+	    case "jpg":
+	      $file = imagecreatetruecolor($width, $height);
+	      $new = imagecreatefromjpeg($this->file_tempname);
+	      for($i=0; $i<256; $i++) { imagecolorallocate($file, $i, $i, $i); }
+	      imagecopyresampled($file, $new, 0, 0, 0, 0, $width, $height, $this->file_width, $this->file_height);
+	      imagejpeg($file, $photo_dest, 100);
+	      ImageDestroy($new);
+	      ImageDestroy($file);
+	      break;
+      
+	    case "png":
+	      $file = imagecreatetruecolor($width, $height);
+	      $new = imagecreatefrompng($this->file_tempname);
+	      for($i=0; $i<256; $i++) { imagecolorallocate($file, $i, $i, $i); }
+	      imagecopyresampled($file, $new, 0, 0, 0, 0, $width, $height, $this->file_width, $this->file_height); 
+	      imagejpeg($file, $photo_dest, 100);
+	      ImageDestroy($new);
+	      ImageDestroy($file);
+	      break;
+	  } 
+    
+	  chmod($photo_dest, 0777);
+    
+	  return true;
+	}
+  
 
 
 

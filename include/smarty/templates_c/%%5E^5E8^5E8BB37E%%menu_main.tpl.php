@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-29 18:05:50
+<?php /* Smarty version 2.6.14, created on 2011-12-01 16:14:04
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 36, false),array('modifier', 'escape', 'menu_main.tpl', 79, false),)), $this);
@@ -69,7 +69,7 @@ SELanguage::load();
 
     <?php if ($this->_tpl_vars['owner']->user_info['user_id'] != $this->_tpl_vars['user']->user_info['user_id']): ?>
  
-        <?php if ($this->_tpl_vars['friendship_allowed'] != 0 && $this->_tpl_vars['user']->user_exists != 0): ?>
+        <?php if ($this->_tpl_vars['friendship_allowed'] != 0 && $this->_tpl_vars['user']->user_exists != 0 && 0): ?>
         <div id='addfriend_<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
 '<?php if ($this->_tpl_vars['is_friend'] == TRUE || $this->_tpl_vars['is_friend_pending'] != 0): ?> style='display: none;'<?php endif; ?>><a href="/user_friends_manage.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
 "><!-- <?php echo SELanguage::_get(876); ?> --><img src='./images/icons/addfriend16.gif' class='icon' border='0'><?php echo SELanguage::_get(838); ?></a></div>

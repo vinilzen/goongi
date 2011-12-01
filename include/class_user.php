@@ -1220,7 +1220,11 @@ class SEUser
 	  $photo_newname = "0_".rand(1000, 9999).".jpg";
 	  $file_dest = $url->url_userdir($this->user_info['user_id']).$photo_newname;
 	  $thumb_dest = substr($file_dest, 0, strrpos($file_dest, "."))."_thumb".substr($file_dest, strrpos($file_dest, "."));
-    
+      $file_big_dest = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_id'].substr($file_dest, strrpos($file_dest, "."));
+	
+		// var_dump($file_dest); var_dump($thumb_dest); die();
+		
+	
 	  $new_photo = new se_upload();
 	  $new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
     
@@ -1238,6 +1242,8 @@ class SEUser
 	    } else {
 	      $new_photo->upload_file($file_dest);
 	    }
+		
+		$new_photo->upload_photo_my($file_big_dest, 277,275);
       
 	    // UPDATE USER INFO WITH IMAGE IF STILL NO ERROR
 	    if( !$new_photo->is_error ) {
