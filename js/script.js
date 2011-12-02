@@ -503,79 +503,21 @@
 	}
 	
 	function comment_post(user_name, user_id) {
-		
-		var txt = $('#comment_msg').val();
-		$.post( 'misc_js.php',
-				{task:'comment_post',
-				type:'profile',
-				iden:'user_id',
-				value: user_id,
-				tab:'users',
-				col:'user',
-				user: '' + user_name + '',
-				comment_body: '' + txt + ''},
-				function(data) {
-					if (data.is_error == null) {
-						$('#comment_msg').val('');
-						$('#comments_list').fadeOut();
-						$('#comments_list').html('');
-						comment_get('' + user_name + '', user_id);
-						$('#comments_list').fadeIn();
-					} else {
-						alert('error');
-					}
-				} ,
-				'json');
-	}
-	
-	function comment_get (user_username, user_id, th_user_id) {
-		$.post( 'misc_js.php',
-				{	task:'comment_get',
-					user:''+user_username+'',
-					object_owner:'',
-					object_owner_id:'',
+		var bat = 0
+		if (bat == 0) {
+			bat = 1;
+			var txt = $('#comment_msg').val();
+			$.post( 'misc_js.php',
+					{task:'comment_post',
 					type:'profile',
-					iden:'user_id', 
-					value: ''+user_id+'', 
-					cpp:10, 
-					p:1},
-				function(data) {
-					if (data.total_comments > 0 ) {
-						$.each(data.comments, function(i, val) {
-							var displayname = this.comment_authoruser_displayname;
-							var url = this.comment_authoruser_url;
-							var photo = this.comment_authoruser_photo;
-							var user_id = this.comment_authoruser_id;
-							var username = this.comment_authoruser_username;
-							var msg = this.comment_body;
-							var date = this.comment_date;
-							var str = '<li><div class="comment_text"><a href="' + url + '">';
-							str = str + '<img src="' + photo + '" alt="" /></a>';
-							str = str + '<div class="inf"><a href="' + url + '" class="name">' + displayname + '</a>';
-							str = str + '<p>' + msg + '</p>';
-							str = str + '<div class="date">';
-							str = str + '<a href="#" onclick="comment_del(\'' + username + '\', ' + i + ' , ' + th_user_id + ' ); return false;" class="del">Удалить</a>' + date + '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
-							str = str + '<a href="#">Комментировать</a></div></div></div></li>';
-							$('#comments_list').prepend(str);
-						});
-					}
-				},
-				'json'
-				);
-	}
-	
-	function comment_del(user_username, com_id, user_id) {
-		$.post( 'misc_js.php',
-				{	task:'comment_delete',
-					user:''+user_username+'',
-					comment_id: ''+com_id+'',
-					type:'profile',
-					iden:'user_id', 
-					value: ''+user_id+'', 
+					iden:'user_id',
+					value: user_id,
 					tab:'users',
-					col:'user'},
-				function(data) {
-						if (data.is_error == false) {
+					col:'user',
+					user: '' + user_name + '',
+					comment_body: '' + txt + ''},
+					function(data) {
+						if (data.is_error == null) {
 							$('#comment_msg').val('');
 							$('#comments_list').fadeOut();
 							$('#comments_list').html('');
@@ -585,7 +527,80 @@
 							alert('error');
 						}
 					} ,
-				'json')
+					'json');
+			bat = 0
+		}
+	}
+	
+	function comment_get (user_username, owner_id, user_id) {
+		$.post( 'misc_js.php',
+				{	task:'comment_get',
+					user:''+user_username+'',
+					object_owner:'',
+					object_owner_id:'',
+					type:'profile',
+					iden:'user_id', 
+					value: ''+owner_id+'', 
+					cpp:10, 
+					p:1},
+				function(data) {
+					if (data.total_comments > 0 ) {
+						//alert(data.comments);
+						var str = '';
+						$.each(data.comments, function(i, val) {
+							//alert(i);
+							var displayname = this.comment_authoruser_displayname;
+							var url = this.comment_authoruser_url;
+							var photo = this.comment_authoruser_photo;
+							var author_id = this.comment_authoruser_id;
+							var username = this.comment_authoruser_username;
+							var msg = this.comment_body;
+							var date = this.comment_date;
+							str = str + '<li id="comment_li_'+i+'"><div class="comment_text"><a href="' + url + '">';
+							str = str + '<img src="' + photo + '" alt="" /></a>';
+							str = str + '<div class="inf"><a href="' + url + '" class="name">' + i + ' - ' + displayname + '[' + author_id + ']</a>';
+							str = str + '<p id="comment_msg_'+i+'">' + msg + '</p>';
+							str = str + '<div class="date">';
+							if ( user_id == owner_id || author_id == user_id )
+								str = str + '<a href="#" onclick="comment_del(\'' + username + '\', ' + i + ' , ' + author_id + ', '+ user_id +'); return false;" class="del">Удалить</a>';
+							str = str + date;
+							//str = str + '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Комментировать</a>';
+							str = str + '</div></div></div></li>';
+							
+						});
+						$('#comments_list').append(str);
+					}
+				},
+				'json'
+				);
+	}
+	
+	function comment_del(author_username, com_id, author_id, user_id) {
+		var r=confirm("you want delete comment \r\n" + $('#comment_msg_'+com_id).html().trim());
+		if (r==true) {
+
+			$.post( 'misc_js.php',
+					{	task:'comment_delete',
+						user:''+author_username+'',
+						comment_id: ''+com_id+'',
+						type:'profile',
+						iden:'user_id', 
+						value: ''+author_id+'', 
+						tab:'users',
+						col:'user'},
+					function(data) {
+							if (data.is_error == false) {
+								$('#comment_msg').val('');
+								$('#comments_list').fadeOut();
+								$('#comments_list').html('');
+								comment_get('' + author_username + '', author_id, user_id);
+								$('#comments_list').fadeIn();
+							} else {
+								alert('error');
+							}
+						} ,
+					'json')
+		}
 	}
 
 	

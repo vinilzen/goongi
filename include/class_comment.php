@@ -141,11 +141,12 @@ class se_comment
 			WHERE 
 				`{$this->comment_type}comment_{$this->comment_identifier}`='{$this->comment_identifying_value}' 
 			ORDER BY
-        `{$this->comment_type}comment_id` DESC 
+        `{$this->comment_type}comment_date` DESC 
 			LIMIT
         {$start}, {$limit}
     ";
     
+    //print_r($comment_query); die();
 	  $comments = $database->database_query($comment_query);
 	  while($comment_info = $database->database_fetch_assoc($comments))
     {
@@ -165,7 +166,7 @@ class se_comment
 	      $author->user_info['user_photo'] = $comment_info['user_photo'];
 	      $author->user_displayname();
 	    }
-      
+      	
 	    // SET COMMENT ARRAY
 	    $comment_array[] = Array(
         'comment_id' => $comment_info[$this->comment_type.'comment_id'],
