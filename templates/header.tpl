@@ -11,8 +11,6 @@
 {* BEGIN CENTERING TABLE *}<!-- BEGIN CENTERING TABLE/ mycontainer -->
 <div id="content">
 
-
-
 {* START TOPBAR *}
     <!--HEAD-->
     <div class="head">

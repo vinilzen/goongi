@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-01 15:55:26
+<?php /* Smarty version 2.6.14, created on 2011-12-02 09:45:26
          compiled from header.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header.tpl', 61, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header.tpl', 59, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(200,647,6000144,687,6000147,6000145,645,1316,1019,649,26,650,30,1198,1199);
 SELanguage::load();
@@ -24,8 +24,6 @@ unset($_smarty_tpl_vars);
 
 <!-- BEGIN CENTERING TABLE/ mycontainer -->
 <div id="content">
-
-
 
     <!--HEAD-->
     <div class="head">

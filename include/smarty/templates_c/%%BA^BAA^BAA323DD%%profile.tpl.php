@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-01 18:08:45
+<?php /* Smarty version 2.6.14, created on 2011-12-02 15:31:33
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 51, false),array('modifier', 'count', 'profile.tpl', 78, false),array('block', 'hook_foreach', 'profile.tpl', 63, false),array('function', 'math', 'profile.tpl', 168, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 51, false),array('block', 'hook_foreach', 'profile.tpl', 63, false),array('function', 'math', 'profile.tpl', 166, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(786,652,895,917,838,887,889,852,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839);
 SELanguage::load();
@@ -161,35 +161,42 @@ unset($_smarty_tpl_vars);
   
 	<h2>Написать сообщение</h2>
 	<div class="form add_com napisat_so">
-		<div class="input"><textarea rows="3" cols="10" name="text"></textarea></div>
-		<span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Отправить" name="creat" /></span><span class="r">&nbsp;</span></span>
+		<div class="input">
+			<textarea id="comment_msg" rows="3" cols="10" name="text"></textarea>
+		</div>
+		<span class="button2"><span class="l">&nbsp;</span><span class="c">
+			<input type="submit" onclick="comment_post('<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
+',<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
+); return false;" value="Отправить" name="creat" />
+		</span><span class="r">&nbsp;</span></span>
 	</div>
 
-            <?php if (count($this->_tpl_vars['comments']) > 0 || 1): ?>
-		<h2>Записи на стене</h2>
-		<ul class="comments wall">
-
-		
-			<li>
-				<div class="comment_text">
-					<a href="#"><img src="images/3.jpg" alt="" /></a>
-					<div class="inf">
-						<a href="#" class="name">Илья Марчук</a>
-						<p>Жители Беларуси после смерти попадают либо в рай, либо обратно в Беларусь.</p>
-						<div class="date"><a href="#" class="del">Удалить</a>6 июл в 18:08&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Комментировать</a></div>
-					</div>
-				</div>
-			</li>
-			
-			
-		</ul>
+      	  <h2>Записи на стене</h2>
+		<ul class="comments wall" id="comments_list"></ul>
 		<div class="pager">
-			<a href="#" class="prev">Сюда</a><a href="#" class="active">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a> ... <a href="#">99</a><a href="#" class="next">Туда</a>
+			<a href="#" class="prev">Сюда</a>
+			
+			<a href="#" class="active">1</a>
+			<a href="#">2</a>
+			<a href="#">3</a>
+			<a href="#">4</a>
+			<a href="#">5</a>
+			<a href="#">6</a> ... <a href="#">99</a>
+			
+			<a href="#" class="next">Туда</a>
 		</div>
-      <?php endif; ?>
-      
-    
-    
+    <?php echo '
+	<script type="text/javascript">
+		comment_get(\''; 
+ echo $this->_tpl_vars['owner']->user_info['user_username']; 
+ echo '\','; 
+ echo $this->_tpl_vars['owner']->user_info['user_id']; 
+ echo ', '; 
+ echo $this->_tpl_vars['user']->user_info['user_id']; 
+ echo ');
+	</script>
+    '; ?>
+
     
     
     

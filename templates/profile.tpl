@@ -70,36 +70,34 @@
 
 	<h2>Написать сообщение</h2>
 	<div class="form add_com napisat_so">
-		<div class="input"><textarea rows="3" cols="10" name="text"></textarea></div>
-		<span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Отправить" name="creat" /></span><span class="r">&nbsp;</span></span>
+		<div class="input">
+			<textarea id="comment_msg" rows="3" cols="10" name="text"></textarea>
+		</div>
+		<span class="button2"><span class="l">&nbsp;</span><span class="c">
+			<input type="submit" onclick="comment_post('{$owner->user_info.user_username}',{$owner->user_info.user_id}); return false;" value="Отправить" name="creat" />
+		</span><span class="r">&nbsp;</span></span>
 	</div>
 
-      {* SHOW RECENT ACTIVITY *}
-      {if $comments|@count > 0 || 1}
-		<h2>Записи на стене</h2>
-		<ul class="comments wall">
-
-		
-			<li>
-				<div class="comment_text">
-					<a href="#"><img src="images/3.jpg" alt="" /></a>
-					<div class="inf">
-						<a href="#" class="name">Илья Марчук</a>
-						<p>Жители Беларуси после смерти попадают либо в рай, либо обратно в Беларусь.</p>
-						<div class="date"><a href="#" class="del">Удалить</a>6 июл в 18:08&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Комментировать</a></div>
-					</div>
-				</div>
-			</li>
-			
-			
-		</ul>
+      {* SHOW COMMENTS *}
+	  <h2>Записи на стене</h2>
+		<ul class="comments wall" id="comments_list"></ul>
 		<div class="pager">
-			<a href="#" class="prev">Сюда</a><a href="#" class="active">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a> ... <a href="#">99</a><a href="#" class="next">Туда</a>
+			<a href="#" class="prev">Сюда</a>
+			
+			<a href="#" class="active">1</a>
+			<a href="#">2</a>
+			<a href="#">3</a>
+			<a href="#">4</a>
+			<a href="#">5</a>
+			<a href="#">6</a> ... <a href="#">99</a>
+			
+			<a href="#" class="next">Туда</a>
 		</div>
-      {/if}
-      
-    
-    
+    {literal}
+	<script type="text/javascript">
+		comment_get('{/literal}{$owner->user_info.user_username}{literal}',{/literal}{$owner->user_info.user_id}{literal}, {/literal}{$user->user_info.user_id}{literal});
+	</script>
+    {/literal}
     
     
     
