@@ -241,7 +241,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.comments li img	{ border:1px solid #d7d7d7; padding:2px; float:left; margin-right:9px;}
 	.comments li .inf	{ overflow:hidden;}
 	.comments li .inf .name	{ color:#000; font-weight:bold; text-decoration:none; display:inline-block; margin-bottom:4px; overflow:hidden;}
-	.comments li .inf .date	{ color:#7f7f7f; font-size:11px;}
+	.comments li .inf .date	{ color:#7f7f7f; font-size:11px;clear: both;}
 	.comments li .inf p		{ font-size:11px;}
 	.comments li .inf .date a	{ color:#7f7f7f;}
 	.comments li .inf .date a.del	{ float:right; display:none;}
