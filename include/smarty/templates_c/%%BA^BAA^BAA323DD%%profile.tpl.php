@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-02 15:31:33
+<?php /* Smarty version 2.6.14, created on 2011-12-02 16:56:39
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 51, false),array('block', 'hook_foreach', 'profile.tpl', 63, false),array('function', 'math', 'profile.tpl', 166, false),)), $this);
@@ -13,7 +13,8 @@ unset($_smarty_tpl_vars);
 
 <!-- <div class='page_header'><?php echo sprintf(SELanguage::_get(786), $this->_tpl_vars['owner']->user_displayname); ?></div> -->
 <h1><?php echo $this->_tpl_vars['owner']->user_info['user_displayname']; ?>
-</h1>
+ [<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
+]</h1>
 <div class="crumb"><a href="/">Главная</a><span><?php echo SELanguage::_get(652); ?><!-- Профиль --></span></div>
 <?php if ($this->_tpl_vars['owner']->user_info['user_id'] == $this->_tpl_vars['user']->user_info['user_id']): ?>
 <div class="buttons">

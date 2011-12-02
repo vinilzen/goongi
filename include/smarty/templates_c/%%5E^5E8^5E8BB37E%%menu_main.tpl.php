@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-01 16:14:04
+<?php /* Smarty version 2.6.14, created on 2011-12-02 18:34:48
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 36, false),array('modifier', 'escape', 'menu_main.tpl', 79, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 37, false),array('modifier', 'escape', 'menu_main.tpl', 80, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(1204,1170,1161,1162,652,1163,1164,1166,654,784,1167,1169,1173,1174,876,838,887,885,875,837,839,857,840,869,841,868,842,768,845,773,1113,743,744,745,746,747,24,1120,1119,846,740,847,848,850);
 SELanguage::load();
@@ -21,6 +21,8 @@ SELanguage::load();
 				<div id="main_photo"><img src="<?php echo $this->_tpl_vars['user']->user_photo('./images/nophoto.gif'); ?>
 " alt="" /></div>
 					<ul>
+						<li>вы - id[<?php echo $this->_tpl_vars['user']->user_info['user_id']; ?>
+]</li>
 						<li <?php if ($this->_tpl_vars['global_page'] == 'my_tree'): ?>class="active"<?php endif; ?>><a href='/my_tree.php'>Мое дерево</a></li>
 							
 												<?php if ($this->_tpl_vars['setting']['setting_connection_allow'] != 0): ?>

@@ -2,7 +2,7 @@
 
 {* $Id: profile.tpl 255 2009-11-18 02:21:01Z steve $ *}
 <!-- <div class='page_header'>{lang_sprintf id=786 1=$owner->user_displayname}</div> -->
-<h1>{$owner->user_info.user_displayname}</h1>
+<h1>{$owner->user_info.user_displayname} [{$owner->user_info.user_id}]</h1>
 <div class="crumb"><a href="/">Главная</a><span>{lang_print id=652}<!-- Профиль --></span></div>
 {if $owner->user_info.user_id == $user->user_info.user_id}
 <div class="buttons">

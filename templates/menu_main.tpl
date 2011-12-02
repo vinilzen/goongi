@@ -13,6 +13,7 @@
 			<div class="pro">
 				<div id="main_photo"><img src="{$user->user_photo('./images/nophoto.gif')}" alt="" /></div>
 					<ul>
+						<li>вы - id[{$user->user_info.user_id}]</li>
 						<li {if $global_page == 'my_tree'}class="active"{/if}><a href='/my_tree.php'>Мое дерево</a></li>
 							
 						{* SHOW FRIENDS MENU ITEM IF ENABLED *}
