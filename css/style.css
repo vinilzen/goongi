@@ -238,6 +238,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.comments li		{ overflow:hidden; list-style:none; cursor:pointer;}
 	.comments li ul		{ margin-left:60px; border:0; margin-bottom:0;}
 	.comments li .comment_text		{ padding:20px 0; border-top:1px solid #cccccc;}
+	.comments li a.img	{float: left; width:130px; }
 	.comments li img	{ border:1px solid #d7d7d7; padding:2px; float:left; margin-right:9px;}
 	.comments li .inf	{ overflow:hidden;}
 	.comments li .inf .name	{ color:#000; font-weight:bold; text-decoration:none; display:inline-block; margin-bottom:4px; overflow:hidden;}
@@ -278,7 +279,6 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.visitka_list li span	{ font-size:11px; color:#7f7f7f; display:inline-block; padding-bottom:8px;}
 	
 	.message	{ width:510px; overflow:hidden; margin:0 auto;}
-	.message .img	{ float:left; margin-right:20px;}
 	.message .img img	{ border:1px solid #d7d7d7; padding:2px;}
 	.message .inf	{ overflow:hidden; margin-bottom:20px;}
 	.message .inf h1	{ margin-bottom:3px;}
