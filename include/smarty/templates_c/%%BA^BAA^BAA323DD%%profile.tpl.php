@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-02 16:56:39
+<?php /* Smarty version 2.6.14, created on 2011-12-04 17:08:51
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 51, false),array('block', 'hook_foreach', 'profile.tpl', 63, false),array('function', 'math', 'profile.tpl', 166, false),)), $this);
@@ -168,6 +168,7 @@ unset($_smarty_tpl_vars);
 		<span class="button2"><span class="l">&nbsp;</span><span class="c">
 			<input type="submit" onclick="comment_post('<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
 ',<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
+, <?php echo $this->_tpl_vars['user']->user_info['user_id']; ?>
 ); return false;" value="Отправить" name="creat" />
 		</span><span class="r">&nbsp;</span></span>
 	</div>

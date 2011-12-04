@@ -74,7 +74,7 @@
 			<textarea id="comment_msg" rows="3" cols="10" name="text"></textarea>
 		</div>
 		<span class="button2"><span class="l">&nbsp;</span><span class="c">
-			<input type="submit" onclick="comment_post('{$owner->user_info.user_username}',{$owner->user_info.user_id}); return false;" value="Отправить" name="creat" />
+			<input type="submit" onclick="comment_post('{$owner->user_info.user_username}',{$owner->user_info.user_id}, {$user->user_info.user_id}); return false;" value="Отправить" name="creat" />
 		</span><span class="r">&nbsp;</span></span>
 	</div>
 

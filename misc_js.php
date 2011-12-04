@@ -377,6 +377,8 @@ elseif($task == "comment_get")
   $tab = ( isset($_POST['tab']) ? $_POST['tab'] : NULL );
   $col = ( isset($_POST['col']) ? $_POST['col'] : NULL );
   
+  //print_r($iden);  print_r($type);  print_r($value); die();
+  
   if( !$type || !$iden || !$value ) exit();
   
   // CHECK TO SEE IF OWNER EXISTS
@@ -426,7 +428,7 @@ elseif($task == "comment_get")
       'comment_authoruser_exists'       => (bool)   $comment_data['comment_author']->user_exists,
       'comment_authoruser_private'      => (bool)   $comment_data['comment_author_private'],
       'comment_authoruser_url'          => (string) $url->url_create('profile', $comment_data['comment_author']->user_info['user_username']),
-      'comment_authoruser_photo'        => (string) $comment_data['comment_author']->user_photo('./images/nophoto.gif'),
+      'comment_authoruser_photo'        => (string) $comment_data['comment_author']->user_photo('./images/nophoto.gif', true),
       'comment_authoruser_photo_width'  => (int)    $misc->photo_size($comment_data['comment_author']->user_photo('./images/nophoto.gif'),'75','75','w'),
       'comment_authoruser_username'     => (string) $comment_data['comment_author']->user_info['user_username'],
       'comment_authoruser_displayname'  => (string) $comment_data['comment_author']->user_displayname,
@@ -595,6 +597,7 @@ elseif( $task == "comment_delete" )
   $object_owner = ( isset($_POST['object_owner']) ? $_POST['object_owner'] : NULL );
   $object_owner_id = ( isset($_POST['object_owner_id']) ? $_POST['object_owner_id'] : NULL );
   
+  
   if( !$type || !$iden || !$value || !$tab || !$col || !$comment_id ) exit();
   
   $type = preg_replace('/[^A-Z0-9_\.-]/i', '', $type);
@@ -602,10 +605,11 @@ elseif( $task == "comment_delete" )
   $col  = preg_replace('/[^A-Z0-9_\.-]/i', '', $col );
   
   // CHECK TO SEE IF OBJECT OWNER EXISTS
-  if( $owner->user_exists )
+  if( $owner->user_exists )	
   { 
     $object_owner = "user";
     $object_owner_id = $owner->user_info['user_id'];
+	//print_r($owner); die();
     $object_owner_class =& $owner;
   }
   elseif( $object_owner )
@@ -619,9 +623,12 @@ elseif( $task == "comment_delete" )
   {
     exit();
   }
+	
 
+	
   // RETRIEVE OBJECT
   $object = $database->database_query("SELECT * FROM `se_{$tab}` WHERE `{$iden}`='{$value}'");
+
   if( !$database->database_num_rows($object) ) exit();
   $object_info = $database->database_fetch_assoc($object);
 
@@ -635,13 +642,23 @@ elseif( $task == "comment_delete" )
   }
   else
   {
+
     $ownercol = ( $object_owner == $col ? $col."_id" : $col."_".$object_owner."_id" );
+
     if( $object_info[$ownercol] != $object_owner_id ) exit();
     $object_info['object_owner_id'] = $object_info[$owner_col];
   }
-
+	
+	$sql = 	"SELECT `{$type}comment_authoruser_id` AS comment_authoruser_id FROM `se_{$type}comments` WHERE `{$type}comment_{$iden}`='{$value}' AND `{$type}comment_id`='{$comment_id}'";
+	
+	//print_r($sql);	die(); 
+	
+	$resourse = $database->database_query($sql);
   // RETRIEVE COMMENT
-  $comment_info = $database->database_fetch_assoc($database->database_query("SELECT `{$type}comment_authoruser_id` AS comment_authoruser_id FROM `se_{$type}comments` WHERE `{$type}comment_{$iden}`='{$value}' AND `{$type}comment_id`='{$comment_id}'"));
+  $comment_info = $database->database_fetch_assoc($resourse);
+
+	//echo '4 - '.$tab; 
+	
 
   // CHECK IF USER IS ALLOWED TO DELETE COMMENT
   $functionname = $object_owner."_privacy_max";
@@ -650,6 +667,8 @@ elseif( $task == "comment_delete" )
 
   // START COMMENT OBJECT
   $comment = new se_comment($type, $iden, $value, $tab, $col);
+
+//	print_r($comment); die();
 
   // DELETE COMMENT
   $comment->comment_delete($comment_id);
