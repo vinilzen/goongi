@@ -13,3 +13,9 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^/]+)/?$ /profile.php?user=$1 [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^/]+)/([^/]+)?$ /profile.php?user=$1&v=$2 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]+)/blog/([0-9]+)/?$ /blog.php?user=$1&blogentry_id=$2 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]+)/blog/([^/]+)?$ /blog.php?user=$1$2 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]+)/blog/?$ /blog.php?user=$1 [L]
