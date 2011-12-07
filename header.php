@@ -16,7 +16,7 @@ if( @extension_loaded('mbstring') )
 if( !isset($page) ) $page = "";
 
 // DEFINE SE CONSTANTS
-define('SE_DEBUG', TRUE);
+define('SE_DEBUG', false);
 define('SE_PAGE', TRUE);
 define('SE_ROOT', realpath(dirname(__FILE__)));
 define('SE_HEADER', TRUE);
