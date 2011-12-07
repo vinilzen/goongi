@@ -1,38 +1,41 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-05 12:13:37
+<?php /* Smarty version 2.6.14, created on 2011-12-07 22:32:20
          compiled from user_event_edit.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'user_event_edit.tpl', 102, false),array('modifier', 'replace', 'user_event_edit.tpl', 183, false),array('modifier', 'count', 'user_event_edit.tpl', 185, false),array('modifier', 'in_array', 'user_event_edit.tpl', 520, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'user_event_edit.tpl', 103, false),array('modifier', 'replace', 'user_event_edit.tpl', 184, false),array('modifier', 'count', 'user_event_edit.tpl', 186, false),array('modifier', 'in_array', 'user_event_edit.tpl', 520, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(3000137,3000138,3000001,3000135,3000136,3000109,3000139,191,861,3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000219,3000286,3000287,3000288,3000289,3000290,3000094,175,39,3000252,770,771,772,3000140,3000110,3000111,3000114,3000113,3000115,3000116,3000134,173,3000169);
+SELanguage::_preload_multi(3000136,3000086,3000137,3000138,3000001,3000135,3000109,3000139,191,861,3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000219,3000286,3000287,3000288,3000289,3000290,3000094,175,39,3000252,770,771,772,3000140,3000110,3000111,3000114,3000113,3000115,3000116,173,3000169);
 SELanguage::load();
-?><?php $_smarty_tpl_vars = $this->_tpl_vars;
+?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
+<h1><?php echo SELanguage::_get(3000136); ?></h1>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<a href='user_event.php'><?php echo SELanguage::_get(3000086); ?></a>
+	<a href='event/<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
+/'><?php echo $this->_tpl_vars['event']->event_info['event_title']; ?>
+</a>
+	<span><?php echo SELanguage::_get(3000137); ?></span>
+</div>
 
-<table class='tabs' cellpadding='0' cellspacing='0'>
-  <tr>
-    <td class='tab0'>&nbsp;</td>
-    <td class='tab1' NOWRAP><a href='user_event_edit.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
-'><?php echo SELanguage::_get(3000137); ?></a></td><td class='tab'>&nbsp;</td>
-    <td class='tab2' NOWRAP><a href='user_event_edit_members.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
-'><?php echo SELanguage::_get(3000138); ?></a></td><td class='tab'>&nbsp;</td>
-    <td class='tab2' NOWRAP><a href='user_event_edit_settings.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
-'><?php echo SELanguage::_get(3000001); ?></a></td><td class='tab'>&nbsp;</td>
-    <td class="tab3">&nbsp;</td>
-  </tr>
-</table>
+
+<ul class="vk">
+	<li class="active"><a href='user_event_edit.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
+'><?php echo SELanguage::_get(3000137); ?></a></li>
+	<li><a href='user_event_edit_members.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
+'><?php echo SELanguage::_get(3000138); ?></a></li>
+	<li><a href='user_event_edit_settings.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
+'><?php echo SELanguage::_get(3000001); ?></a></li>
+</ul>
 
 <table cellpadding='0' cellspacing='0' width='100%'>
   <tr>
     <td valign='top'>
-      
-      <img src='./images/icons/event_edit48.gif' border='0' class='icon_big'>
       <div class='page_header'><?php echo sprintf(SELanguage::_get(3000135), "event.php?event_id=".($this->_tpl_vars['event']->event_info['event_id']), $this->_tpl_vars['event']->event_info['event_title']); ?></div>
-      <div style="width: 500px;"><?php echo SELanguage::_get(3000136); ?></div>
-      
+   
     </td>
     <td valign='top' align='right'>
       
@@ -529,10 +532,9 @@ $this->_sections['subcat_loop']['last']       = ($this->_sections['subcat_loop']
       
         <?php if (count($this->_tpl_vars['cats']) > 0): ?>
         <tr>
-          <td class='form1'><?php echo SELanguage::_get(3000134); ?>*</td>
+          <td class='form1'></td>
           <td class='form2' nowrap='nowrap'>
-            <select name='event_eventcat_id' id='event_eventcat_id' onChange='populateSubcats(this.options[this.selectedIndex].value);'></select>
-            <select name='event_eventsubcat_id' id='event_eventsubcat_id' style='display: none;'><option value='0'></option></select>
+           <input type="hidden" name="event_eventcat_id" value="1" />
           </td>
         </tr>
         <?php unset($this->_sections['cat_loop']);

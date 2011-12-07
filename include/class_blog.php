@@ -430,7 +430,7 @@ class se_blog
   
 	function blog_entries_delete($start, $limit, $sort_by = "blogentry_date DESC", $where = "") {
 	  global $database;
-    
+   
 	  // BEGIN QUERY
 	  $blogentry_query = "SELECT blogentry_id FROM se_blogentries";
     
@@ -669,6 +669,7 @@ class se_blog
 	  global $database;
     
     if( !is_array($blogentry_id) )
+     
       $blogentry_id = array($blogentry_id);
     
     $blogentry_id = array_unique(array_filter($blogentry_id));

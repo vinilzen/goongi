@@ -1,37 +1,40 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-05 12:14:08
+<?php /* Smarty version 2.6.14, created on 2011-12-07 22:28:46
          compiled from user_event_edit_members.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_event_edit_members.tpl', 198, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_event_edit_members.tpl', 199, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(3000137,3000138,3000001,3000141,3000142,3000109,3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000170,3000219,3000223,3000225,3000229,3000155,175,39,3000224,3000227,3000226,3000228,643,646,3000144,3000143,3000222,900,901,902,3000145,3000146,182,184,185,183,3000147,3000148,906,3000152,3000149,3000150,3000151,784,839);
+SELanguage::_preload_multi(3000142,3000086,3000138,3000137,3000001,3000141,3000109,3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000170,3000219,3000223,3000225,3000229,3000155,175,39,3000224,3000227,3000226,3000228,643,646,3000144,3000143,3000222,900,901,902,3000145,3000146,182,184,185,183,3000147,3000148,906,3000152,3000149,3000150,3000151,784,839);
 SELanguage::load();
-?><?php $_smarty_tpl_vars = $this->_tpl_vars;
+?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
-
-<table class='tabs' cellpadding='0' cellspacing='0'>
-  <tr>
-    <td class='tab0'>&nbsp;</td>
-    <td class='tab2' NOWRAP><a href='user_event_edit.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
-'><?php echo SELanguage::_get(3000137); ?></a></td><td class='tab'>&nbsp;</td>
-    <td class='tab1' NOWRAP><a href='user_event_edit_members.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
-'><?php echo SELanguage::_get(3000138); ?></a></td><td class='tab'>&nbsp;</td>
-    <td class='tab2' NOWRAP><a href='user_event_edit_settings.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
-'><?php echo SELanguage::_get(3000001); ?></a></td><td class='tab'>&nbsp;</td>
-    <td class="tab3">&nbsp;</td>
-  </tr>
-</table>
+<h1><?php echo SELanguage::_get(3000142); ?></h1>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<a href='user_event.php'><?php echo SELanguage::_get(3000086); ?></a>
+	<a href='event/<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
+/'><?php echo $this->_tpl_vars['event']->event_info['event_title']; ?>
+</a>
+	<span><?php echo SELanguage::_get(3000138); ?></span>
+</div>
+<ul class="vk">
+	<li><a href='user_event_edit.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
+'><?php echo SELanguage::_get(3000137); ?></a></li>
+	<li class="active"><a href='user_event_edit_members.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
+'><?php echo SELanguage::_get(3000138); ?></a></li>
+	<li><a href='user_event_edit_settings.php?event_id=<?php echo $this->_tpl_vars['event']->event_info['event_id']; ?>
+'><?php echo SELanguage::_get(3000001); ?></a></li>
+</ul>
 
 <table cellpadding='0' cellspacing='0' width='100%'>
   <tr>
     <td valign='top'>
-      
-      <img src='./images/icons/event_event48.gif' border='0' class='icon_big'>
+
       <div class='page_header'><?php echo sprintf(SELanguage::_get(3000141), "event.php?event_id=".($this->_tpl_vars['event']->event_info['event_id']), $this->_tpl_vars['event']->event_info['event_title']); ?></div>
-      <div style="width: 500px;"><?php echo SELanguage::_get(3000142); ?></div>
+      <div style="width: 500px;"></div>
       
     </td>
     <td valign='top' align='right'>

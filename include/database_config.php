@@ -1,6 +1,6 @@
 <?php
 $database_host = 'localhost';
-$database_username = 'goongi';
-$database_password = 'goongi';
+$database_username = 'root';
+$database_password = '';
 $database_name = 'goongi';
 ?>

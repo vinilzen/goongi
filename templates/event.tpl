@@ -1,7 +1,12 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 
 {* $Id: event.tpl 162 2009-04-30 01:43:11Z john $ *}
-
+<h1>{lang_print id=3000086}</h1>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<a href='user_event.php'>{lang_print id=3000086}</a>
+	<span>{$event->event_info.event_title}</span>
+</div>
 {* JAVASCRIPT *}
 {lang_javascript ids=861,3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000170,3000219,3000223,3000225,3000229}
 <script type="text/javascript" src="./include/js/class_event.js"></script>

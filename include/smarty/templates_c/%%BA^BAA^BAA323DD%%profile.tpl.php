@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-04 17:08:51
+<?php /* Smarty version 2.6.14, created on 2011-12-07 22:07:06
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 51, false),array('block', 'hook_foreach', 'profile.tpl', 63, false),array('function', 'math', 'profile.tpl', 166, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 70, false),array('block', 'hook_foreach', 'profile.tpl', 82, false),array('function', 'math', 'profile.tpl', 185, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(786,652,895,917,838,887,889,852,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839);
 SELanguage::load();
@@ -15,7 +15,10 @@ unset($_smarty_tpl_vars);
 <h1><?php echo $this->_tpl_vars['owner']->user_info['user_displayname']; ?>
  [<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
 ]</h1>
-<div class="crumb"><a href="/">Главная</a><span><?php echo SELanguage::_get(652); ?><!-- Профиль --></span></div>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<span><?php echo SELanguage::_get(652); ?><!-- Профиль --></span>
+</div>
 <?php if ($this->_tpl_vars['owner']->user_info['user_id'] == $this->_tpl_vars['user']->user_info['user_id']): ?>
 <div class="buttons">
 	<span class="button2">
@@ -27,7 +30,26 @@ unset($_smarty_tpl_vars);
 <?php endif; 
  if ($this->_tpl_vars['user']->user_exists != 0 && $this->_tpl_vars['owner']->user_info['user_id'] != $this->_tpl_vars['user']->user_info['user_id']): ?>
 	<?php if ($this->_tpl_vars['owner']->user_info['user_id'] != 0): ?>
-		<div class="buttons">
+		<div class="buttons" style="overflow:visible;">
+			
+			<div class="profil_mn"><a href="#" class="p_link"><span>профиль</span></a>
+				<div class="p_mn">
+					<div class="p_mn_t"></div>
+					<div class="p_mn_c">
+						<div class="p_mn_b">
+							<a href="javascript:void(0);" rel="/tree.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
+">Древо</a>
+							<a href="/friends.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
+">Друзья</a>
+							<a href="javascript:void(0);">История рода</a>
+							<a href="javascript:void(0);" rel="/blog.php?user=<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
+">Статьи</a>
+							<a href="javascript:void(0);">Медали</a>
+							<a href="javascript:void(0);">Визитки</a>
+						</div>
+					</div>
+				</div>
+			</div>
 			<?php if ($this->_tpl_vars['is_friend_pending'] == 1): ?> <span class="button2" id="preli" ><?php echo SELanguage::_get(895); ?></span><?php endif; ?>
 			<span class="button2">
 				<span class="l">&nbsp;</span><span id="add_to_fr_li" class="c">
@@ -49,7 +71,7 @@ unset($_smarty_tpl_vars);
 				
 			</span><span class="r">&nbsp;</span>
 			</span>
-			<span class="button2" id="prel">&nbsp;</span>
+			<div class="clear"></div>
 		</div>
 		
 	<?php endif; 
@@ -149,7 +171,7 @@ $this->_sections['field_loop']['last']       = ($this->_sections['field_loop']['
 </div>
       <!-- <div class='page_header'></div> -->
   
-    
+    <?php if (0): ?>
         <?php $this->_tag_stack[] = array('hook_foreach', array('name' => 'profile_side','var' => 'profile_side_args')); $_block_repeat=true;smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>
       <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => $this->_tpl_vars['profile_side_args']['file'], 'smarty_include_vars' => array()));
@@ -157,7 +179,7 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
     <?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false;echo smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat); }  array_pop($this->_tag_stack); ?>
-
+	<?php endif; ?>
   
   
 	<h2>Написать сообщение</h2>
@@ -169,7 +191,7 @@ unset($_smarty_tpl_vars);
 			<input type="submit" onclick="comment_post('<?php echo $this->_tpl_vars['owner']->user_info['user_username']; ?>
 ',<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
 , <?php echo $this->_tpl_vars['user']->user_info['user_id']; ?>
-); return false;" value="Отправить" name="creat" />
+, 'profile', 'user_id', 'users' , 'user'); return false;" value="Отправить" name="creat" />
 		</span><span class="r">&nbsp;</span></span>
 	</div>
 
@@ -195,7 +217,7 @@ unset($_smarty_tpl_vars);
  echo $this->_tpl_vars['owner']->user_info['user_id']; 
  echo ', '; 
  echo $this->_tpl_vars['user']->user_info['user_id']; 
- echo ');
+ echo ',\'profile\',\'user_id\', \'users\' , \'user\');
 	</script>
     '; ?>
 

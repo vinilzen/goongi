@@ -16,7 +16,7 @@ if( @extension_loaded('mbstring') )
 if( !isset($page) ) $page = "";
 
 // DEFINE SE CONSTANTS
-define('SE_DEBUG', false);
+define('SE_DEBUG', TRUE);
 define('SE_PAGE', TRUE);
 define('SE_ROOT', realpath(dirname(__FILE__)));
 define('SE_HEADER', TRUE);
@@ -295,8 +295,7 @@ $show_menu_user = FALSE;
 
 $global_plugins =& SECore::getPlugins();
 
-foreach( $global_plugins as $plugin_type=>$plugin_info )
-{
+foreach( $global_plugins as $plugin_type=>$plugin_info ){
   $plugin_vars = array();
   if( file_exists("header_{$plugin_info['plugin_type']}.php") )
   {
@@ -304,8 +303,7 @@ foreach( $global_plugins as $plugin_type=>$plugin_info )
   }
   
   // Set the hooks for each of the plugin templates if not using the new hooked template includes (backwards compatibility)
-  if( empty($plugin_vars['uses_tpl_hooks']) )
-  {
+  if( empty($plugin_vars['uses_tpl_hooks']) )  {
     if( file_exists(SE_ROOT."/templates/header_{$plugin_info['plugin_type']}.tpl") )
       $smarty->assign_hook('header', "header_{$plugin_info['plugin_type']}.tpl");
     
@@ -317,7 +315,7 @@ foreach( $global_plugins as $plugin_type=>$plugin_info )
     
     if( !empty($plugin_vars['menu_user']) )
       $smarty->assign_hook('menu_user_apps', $plugin_vars['menu_user']);
-    
+	
     if( $page=="profile" && !empty($plugin_vars['menu_profile_side']) )
     {
       $plugin_vars['menu_profile_side']['name'] = $plugin_info['plugin_type'];
@@ -338,11 +336,13 @@ foreach( $global_plugins as $plugin_type=>$plugin_info )
   }
   
   // If using the new template hooks, the header should also hook the styles sheets
-  
   $global_plugins[$plugin_info['plugin_type']] =& $plugin_vars;
+
   if( !empty($plugin_vars['menu_user']) ) $show_menu_user = TRUE;
   unset($plugin_vars);
 }
+
+//var_dump($global_plugins); die();
 
 $global_plugins['plugin_controls'] = array('show_menu_user' => $show_menu_user);
 
@@ -381,8 +381,7 @@ if( $user->user_exists && $owner->user_exists && $owner->user_blocked($user->use
 if( check_ip_in_banned_list($_SERVER['REMOTE_ADDR'], $setting['setting_banned_ips']) )
 {
   // LOGOUT IF LOGGED IN
-  if( $user->user_exists )
-  {
+  if( $user->user_exists ) {
     $user->user_logout();
   }
   

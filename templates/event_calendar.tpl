@@ -196,7 +196,7 @@
             <td class='event_celldesc'>
               
               {section name=event_loop loop=$day_events}
-              <a href='javascript:void(0)' id="seEventMonthShow_{$day_events[event_loop].event->event_info.event_id}" title="{$daycount}" onClick="TB_show('', '#TB_inline?height=200&width=560&inlineId=event{$day_events[event_loop].event->event_info.event_id}', '', './images/trans.gif');">{$day_events[event_loop].event->event_info.event_title}</a><br>
+              <a href='/event/{$day_events[event_loop].event->event_info.event_id}/' id="seEventMonthShow_" title="{$daycount}" >{$day_events[event_loop].event->event_info.event_title}</a><br>
               {if $day_events[event_loop].event->event_info.event_title != ""}
               <table id='event{$day_events[event_loop].event->event_info.event_id}' cellpadding='0' cellspacing='0' class='profile_event_popup'>
                 <tr>
