@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-01 16:01:57
+<?php /* Smarty version 2.6.14, created on 2011-12-07 20:56:35
          compiled from user_friends.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends.tpl', 171, false),array('function', 'cycle', 'user_friends.tpl', 207, false),array('modifier', 'truncate', 'user_friends.tpl', 198, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends.tpl', 152, false),array('function', 'cycle', 'user_friends.tpl', 188, false),array('modifier', 'truncate', 'user_friends.tpl', 179, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(894,652,895,896,899,646,900,901,902,903,905,904,182,184,185,183,509,849,906,907,839,836,889);
 SELanguage::load();
@@ -118,55 +118,36 @@ function show_user() {
 '; ?>
 
 
-<div class='friends_search'>
-  <table cellpadding='0' cellspacing='0' align='center'>
-  <tr>
-  <td align='right'><?php echo SELanguage::_get(899); ?> &nbsp;</td>
-  <td>
+<div class='friends_search' style="display:none;">
+	<?php echo SELanguage::_get(899); ?>
     <form action='user_friends.php' method='post' name='searchform'>
-    <input type='text' maxlength='100' size='30' class='text' id='search' name='search' value='<?php echo $this->_tpl_vars['search']; ?>
-'>&nbsp;
-    <div id='suggest' class='suggest'></div>
-  </td>
-  <td>
-    <input type='submit' class='button' value='<?php echo SELanguage::_get(646); ?>'>
-    <input type='hidden' name='s' value='<?php echo $this->_tpl_vars['s']; ?>
-'>
-    <input type='hidden' name='p' value='<?php echo $this->_tpl_vars['p']; ?>
-'>
-  </td>
-  </tr>
-  <tr>
-  <td class='friends_sort' align='right'><?php echo SELanguage::_get(900); ?> &nbsp;</td>
-  <td class='friends_sort'>
-    <select name='s' class='small'>
-    <option value='<?php echo $this->_tpl_vars['u']; ?>
+		<input type='text' maxlength='100' size='30' class='text' id='search' name='search' value='<?php echo $this->_tpl_vars['search']; ?>
+' />
+		<div id='suggest' class='suggest'></div>
+
+		<input type='submit' class='button' value='<?php echo SELanguage::_get(646); ?>' />
+		<input type='hidden' name='s' value='<?php echo $this->_tpl_vars['s']; ?>
+' />
+		<input type='hidden' name='p' value='<?php echo $this->_tpl_vars['p']; ?>
+' />
+	  <?php echo SELanguage::_get(900); ?>
+		<select name='s' class='small'>
+			<option value='<?php echo $this->_tpl_vars['u']; ?>
 '<?php if ($this->_tpl_vars['s'] == 'ud'): ?> SELECTED<?php endif; ?>><?php echo SELanguage::_get(901); ?></option>
-    <option value='<?php echo $this->_tpl_vars['l']; ?>
+			<option value='<?php echo $this->_tpl_vars['l']; ?>
 '<?php if ($this->_tpl_vars['s'] == 'ld'): ?> SELECTED<?php endif; ?>><?php echo SELanguage::_get(902); ?></option>
-    <option value='<?php echo $this->_tpl_vars['t']; ?>
+			<option value='<?php echo $this->_tpl_vars['t']; ?>
 '<?php if ($this->_tpl_vars['s'] == 't'): ?> SELECTED<?php endif; ?>><?php echo SELanguage::_get(903); ?></option>
-    </select>
+		</select>
     </form>
-  </td>
-  </tr>
-  </table>
 </div>
 
 <?php if ($this->_tpl_vars['total_friends'] == 0): ?>
 
     <?php if ($this->_tpl_vars['search'] != ""): ?>
-    <table cellpadding='0' cellspacing='0' align='center'>
-    <tr><td class='result'>
       <img src='./images/icons/bulb16.gif' border='0' class='icon'><?php echo SELanguage::_get(905); ?>
-    </td></tr>
-    </table>
     <?php else: ?>
-    <table cellpadding='0' cellspacing='0' align='center'>
-    <tr><td class='result'>
       <img src='./images/icons/bulb16.gif' border='0' class='icon'><?php echo SELanguage::_get(904); ?>
-    </td></tr>
-    </table>
   <?php endif; 
  else: ?>
 
@@ -259,8 +240,8 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
 			
 			<a href="#" rev="<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_id']; ?>
 " class="send_msg_to"><?php echo SELanguage::_get(839); ?></a><br />
-			<a href='profile.php?user=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']; ?>
-&v=friends'><?php echo sprintf(SELanguage::_get(836), ''); ?></a><br />
+			<a href='friends.php?user=<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']; ?>
+'><?php echo sprintf(SELanguage::_get(836), ''); ?></a><br />
 			<a class="del" rel="<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_id']; ?>
 " rev="<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']; ?>
 " href="#"><?php echo SELanguage::_get(889); ?></a>

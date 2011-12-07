@@ -1,37 +1,40 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-05 12:10:06
+<?php /* Smarty version 2.6.14, created on 2011-12-07 21:47:00
          compiled from user_event.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_event.tpl', 154, false),array('function', 'cycle', 'user_event.tpl', 175, false),array('modifier', 'truncate', 'user_event.tpl', 197, false),array('modifier', 'choptext', 'user_event.tpl', 197, false),array('modifier', 'strip_tags', 'user_event.tpl', 254, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_event.tpl', 151, false),array('function', 'cycle', 'user_event.tpl', 172, false),array('modifier', 'truncate', 'user_event.tpl', 194, false),array('modifier', 'choptext', 'user_event.tpl', 194, false),array('modifier', 'strip_tags', 'user_event.tpl', 251, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(3000086,3000087,3000088,3000089,3000218,646,3000090,3000091,3000092,861,3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000219,3000221,175,39,3000094,3000220,3000098,3000099,3000100,3000101,3000103,3000102,182,184,185,183,589,3000104,3000105,3000203,3000202,3000204,3000277,3000168,3000170,3000245,3000169);
+SELanguage::_preload_multi(3000086,3000087,3000089,3000218,646,3000090,3000091,3000092,861,3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000219,3000221,175,39,3000094,3000220,3000098,3000099,3000100,3000101,3000103,3000102,182,184,185,183,589,3000104,3000105,3000203,3000202,3000204,3000277,3000168,3000170,3000245,3000169);
 SELanguage::load();
-?><?php $_smarty_tpl_vars = $this->_tpl_vars;
+?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 
 
-<img src='./images/icons/event_event48.gif' border='0' class='icon_big' style="margin-bottom: 15px;">
-<div class='page_header'><?php echo SELanguage::_get(3000086); ?></div>
+<h1><?php echo SELanguage::_get(3000086); ?></h1>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<span><?php echo SELanguage::_get(3000086); ?></span>
+</div>
+
+<div class="buttons">
+	<?php if ($this->_tpl_vars['user']->level_info['level_event_allow'] == 7): ?>
+	<span class="button2" id="add_event___"><span class="l">&nbsp;</span><span class="c"><a href="/user_event_add.php"><input type="button" value="Создать событие" name="creat" /></a></span><span class="r">&nbsp;</span></span>
+	<?php endif; ?>
+</div>
+
 <div>
   <?php echo sprintf(SELanguage::_get(3000087), 'browse_events.php'); ?>
 </div>
 <br />
 
 
-<div style='margin-top: 25px; margin-bottom:10px;'>
-  <?php if ($this->_tpl_vars['user']->level_info['level_event_allow'] == 7): ?>
-  <div class='button' style='float: left; padding-right: 20px;'>
-    <a href='user_event_add.php'><img src='./images/icons/event_newevent16.gif' border='0' class='button' /><?php echo SELanguage::_get(3000088); ?></a>
-  </div>
-  <?php endif; ?>
-  <div class='button' style='float: left; padding-right: 20px;'>
+<!--   <div class='button' style='float: left; padding-right: 20px;'>
     <a href="javascript:void(0);" onclick="$('event_search').style.display = ( $('event_search').style.display=='block' ? 'none' : 'block');"><img src='./images/icons/search16.gif' border='0' class='button' /><?php echo SELanguage::_get(3000089); ?></a>
   </div>
   <div style='clear: both; height: 0px;'></div>
 </div>
-
 
 <div id='event_search' class="seEventSearch"<?php if (empty ( $this->_tpl_vars['search'] )): ?> style='display: none;'<?php endif; ?>>
   <div style='padding: 10px;'>
@@ -58,13 +61,12 @@ unset($_smarty_tpl_vars);
     </form>
   </div>
 </div>
-
-
-<div style='margin-top: 20px;'>
+-->
+<!-- <div style='margin-top: 20px;'>
   <?php echo SELanguage::_get(3000090); ?>
   <a href="user_event.php?view=list"><?php echo SELanguage::_get(3000091); ?></a> |
   <a href="user_event.php?view=month"><?php echo SELanguage::_get(3000092); ?></a>
-</div>
+</div> -->
 
 
 <?php 
@@ -173,27 +175,23 @@ if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_lis
 
 <?php if ($this->_tpl_vars['view'] == 'month'): ?>
 
-  <table cellpadding='0' cellspacing='0' width='100%'>
-    <tr>
-      <td align='center'>
-        
-        <div class='event_title'><a href='user_event.php?view=<?php echo $this->_tpl_vars['view']; ?>
+
+	<div class="calendar">
+		<div class="year"><a href="user_event.php?view=<?php echo $this->_tpl_vars['view']; ?>
 &date=<?php echo $this->_tpl_vars['date_last']; ?>
-'>&#171;</a> <?php echo $this->_tpl_vars['month']; ?>
-, <?php echo $this->_tpl_vars['year']; ?>
- <a href='user_event.php?view=<?php echo $this->_tpl_vars['view']; ?>
+" class="prev">&nbsp;</a><span><?php echo $this->_tpl_vars['month']; ?>
+ <?php echo $this->_tpl_vars['year']; ?>
+</span><a href="user_event.php?view=<?php echo $this->_tpl_vars['view']; ?>
 &date=<?php echo $this->_tpl_vars['date_next']; ?>
-'>&#187;</a></div>
-        
+" class="next">&nbsp;</a></div>
+    
         <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'event_calendar.tpl', 'smarty_include_vars' => array('calendar_view' => $this->_tpl_vars['view'])));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
         
-      </td>
-    </tr>
-  </table>
+	</div>
 
 
 <?php elseif ($this->_tpl_vars['view'] == 'list'): ?>
@@ -445,4 +443,4 @@ $this->_sections['event_loop']['last']       = ($this->_sections['event_loop']['
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
- ?>
+ ?>

@@ -3,7 +3,10 @@
 {* $Id: profile.tpl 255 2009-11-18 02:21:01Z steve $ *}
 <!-- <div class='page_header'>{lang_sprintf id=786 1=$owner->user_displayname}</div> -->
 <h1>{$owner->user_info.user_displayname} [{$owner->user_info.user_id}]</h1>
-<div class="crumb"><a href="/">Главная</a><span>{lang_print id=652}<!-- Профиль --></span></div>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<span>{lang_print id=652}<!-- Профиль --></span>
+</div>
 {if $owner->user_info.user_id == $user->user_info.user_id}
 <div class="buttons">
 	<span class="button2">
@@ -15,7 +18,23 @@
 {/if}
 {if $user->user_exists != 0 && $owner->user_info.user_id !=  $user->user_info.user_id}
 	{if $owner->user_info.user_id != 0}
-		<div class="buttons">
+		<div class="buttons" style="overflow:visible;">
+			
+			<div class="profil_mn"><a href="#" class="p_link"><span>профиль</span></a>
+				<div class="p_mn">
+					<div class="p_mn_t"></div>
+					<div class="p_mn_c">
+						<div class="p_mn_b">
+							<a href="javascript:void(0);" rel="/tree.php?user={$owner->user_info.user_username}">Древо</a>
+							<a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a>
+							<a href="javascript:void(0);">История рода</a>
+							<a href="javascript:void(0);" rel="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
+							<a href="javascript:void(0);">Медали</a>
+							<a href="javascript:void(0);">Визитки</a>
+						</div>
+					</div>
+				</div>
+			</div>
 			{if $is_friend_pending == 1} {* подтвердить запрос *}<span class="button2" id="preli" >{lang_print id=895}</span>{/if}
 			<span class="button2">
 				<span class="l">&nbsp;</span><span id="add_to_fr_li" class="c">
@@ -28,7 +47,7 @@
 				
 			</span><span class="r">&nbsp;</span>
 			</span>
-			<span class="button2" id="prel">&nbsp;</span>
+			<div class="clear"></div>
 		</div>
 		
 	{/if}
@@ -58,12 +77,12 @@
 </div>
       <!-- <div class='page_header'></div> -->
   
-    
+    {if 0}
     {* PLUGIN RELATED PROFILE SIDEBAR *}
     {hook_foreach name=profile_side var=profile_side_args}
       {include file=$profile_side_args.file}
     {/hook_foreach}
-
+	{/if}
   {* END LEFT COLUMN *}
 
   {* BEGIN RIGHT COLUMN *}
@@ -74,7 +93,7 @@
 			<textarea id="comment_msg" rows="3" cols="10" name="text"></textarea>
 		</div>
 		<span class="button2"><span class="l">&nbsp;</span><span class="c">
-			<input type="submit" onclick="comment_post('{$owner->user_info.user_username}',{$owner->user_info.user_id}, {$user->user_info.user_id}); return false;" value="Отправить" name="creat" />
+			<input type="submit" onclick="comment_post('{$owner->user_info.user_username}',{$owner->user_info.user_id}, {$user->user_info.user_id}, 'profile', 'user_id', 'users' , 'user'); return false;" value="Отправить" name="creat" />
 		</span><span class="r">&nbsp;</span></span>
 	</div>
 
@@ -95,7 +114,7 @@
 		</div>
     {literal}
 	<script type="text/javascript">
-		comment_get('{/literal}{$owner->user_info.user_username}{literal}',{/literal}{$owner->user_info.user_id}{literal}, {/literal}{$user->user_info.user_id}{literal});
+		comment_get('{/literal}{$owner->user_info.user_username}{literal}',{/literal}{$owner->user_info.user_id}{literal}, {/literal}{$user->user_info.user_id}{literal},'profile','user_id', 'users' , 'user');
 	</script>
     {/literal}
     

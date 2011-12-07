@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-05 12:10:10
+<?php /* Smarty version 2.6.14, created on 2011-12-07 21:55:38
          compiled from event_calendar.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'cycle', 'event_calendar.tpl', 29, false),array('function', 'math', 'event_calendar.tpl', 43, false),array('modifier', 'in_array', 'event_calendar.tpl', 38, false),array('modifier', 'count', 'event_calendar.tpl', 39, false),array('modifier', 'truncate', 'event_calendar.tpl', 85, false),array('modifier', 'choptext', 'event_calendar.tpl', 85, false),array('modifier', 'strip_tags', 'event_calendar.tpl', 130, false),)), $this);
@@ -303,10 +303,9 @@ $this->_sections['event_loop']['index_next'] = $this->_sections['event_loop']['i
 $this->_sections['event_loop']['first']      = ($this->_sections['event_loop']['iteration'] == 1);
 $this->_sections['event_loop']['last']       = ($this->_sections['event_loop']['iteration'] == $this->_sections['event_loop']['total']);
 ?>
-              <a href='javascript:void(0)' id="seEventMonthShow_<?php echo $this->_tpl_vars['day_events'][$this->_sections['event_loop']['index']]['event']->event_info['event_id']; ?>
-" title="<?php echo $this->_tpl_vars['daycount']; ?>
-" onClick="TB_show('', '#TB_inline?height=200&width=560&inlineId=event<?php echo $this->_tpl_vars['day_events'][$this->_sections['event_loop']['index']]['event']->event_info['event_id']; ?>
-', '', './images/trans.gif');"><?php echo $this->_tpl_vars['day_events'][$this->_sections['event_loop']['index']]['event']->event_info['event_title']; ?>
+              <a href='/event/<?php echo $this->_tpl_vars['day_events'][$this->_sections['event_loop']['index']]['event']->event_info['event_id']; ?>
+/' id="seEventMonthShow_" title="<?php echo $this->_tpl_vars['daycount']; ?>
+" ><?php echo $this->_tpl_vars['day_events'][$this->_sections['event_loop']['index']]['event']->event_info['event_title']; ?>
 </a><br>
               <?php if ($this->_tpl_vars['day_events'][$this->_sections['event_loop']['index']]['event']->event_info['event_title'] != ""): ?>
               <table id='event<?php echo $this->_tpl_vars['day_events'][$this->_sections['event_loop']['index']]['event']->event_info['event_id']; ?>
@@ -497,4 +496,3 @@ $this->_sections['event_loop']['last']       = ($this->_sections['event_loop']['
 
 
 
-

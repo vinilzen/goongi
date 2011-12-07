@@ -249,7 +249,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.comments li div:hover.comment_text .inf .date a	{ color:#2a86dc;}
 	.comments li div:hover.comment_text .inf .date a.del	{ display:block; color:#7f7f7f;}
 
-	.editor_block	{ border:1px solid #e5e5e5; margin-top:20px; margin-bottom:20px;}
+	.editor_block	{ /*border:1px solid #e5e5e5;*/ margin-top:20px; margin-bottom:20px;}
 	.editor_block .press_desc	{ padding:30px 20px 20px 20px; margin:0;}
 	.editor_block .buttons_editor	{ width:660px; overflow:hidden;}
 
@@ -295,6 +295,26 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.comment_list li .name	{ display:inline-block; text-decoration:none; font-weight:bold; color:#000; margin-right:10px;}
 	.comment_list li span	{ display:inline-block; font-size:11px; color:#7f7f7f;}
 	.comment_list li p		{ padding:10px 0 0 0; font-size:11px;}
+	
+	.buttons_edit_blog	{ position:relative; padding-bottom:10px; overflow:hidden; margin-top:-5px; margin-bottom:25px;}
+	.buttons_edit_blog .button2	{ float:left; margin-right:10px;}
+	.r_link	{ float:right; position:relative; z-index:2;}
+	.r_link a	{ display:inline-block; margin-left:10px; width:26px; height:26px; overflow:hidden; text-decoration:none;}
+	.r_link a.ico1	{ background:url(../images/ico1.png) no-repeat 0 0;}
+	.r_link a.ico2	{ background:url(../images/ico2.png) no-repeat 0 0;}
+	.r_link a.ico4	{ background:url(../images/ico4.png) no-repeat 0 0;}
+	a.ico3	{ background:url(../images/ico3.jpg) no-repeat 0 0;display:inline-block; height:15px; font-size:11px; line-height:15px; padding-left:23px; overflow:hidden; text-decoration:none; float:right; margin-top:10px;}
+	.buttons_edit_blog .show			{ overflow:hidden; font-size:11px;}
+	.buttons_edit_blog .show span		{ display:inline-block; padding-top:5px; padding-right:20px;}
+	.buttons_edit_blog .show a		{ display:inline-block; padding-top:5px; margin-right:20px; color:#2a86dc; text-decoration:none; border-bottom:1px dashed #2a86dc; line-height:110%;}
+	.buttons_edit_blog .show a.active		{ background:#ececec; padding:5px 10px 5px 10px; border-bottom:0;}
+	.buttons_edit_blog.b_msg 			{ padding-bottom:10px; border-bottom:0; overflow:hidden; margin-top:-10px;}
+	.buttons_edit_blog.b_msg .button2	{ float:right; margin-left:20px; margin-right:0;}
+	.buttons_edit_blog.b_msg .button3	{ float:right; margin-left:20px; margin-right:0;}
+	.buttons_edit_blog .srch_inp		{ float:left; padding:4px; border:1px solid #e5e5e5; background:#fff; width:515px; margin-right:20px; color:#7f7f7f;}
+	.buttons_edit_blog select			{ padding:4px; border:1px solid #e5e5e5; float:left; background:#fff; width:163px; margin-right:10px;}
+	
+	
 	
 	.buttons	{ position:relative; padding-bottom:10px; border-bottom:1px solid #9e9e9e; overflow:hidden; margin-top:-5px; margin-bottom:25px;}
 	.buttons .button2	{ float:left; margin-right:10px;}
@@ -363,7 +383,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.plans .plan_sm a span	{ position:absolute; display:block; width:13px; height:22px; background: url(../images/tug.jpg) no-repeat 0 0; left:-12px; top:22px; display:none; z-index:10;}
 	.plans .plan_sm a.active span	{ display:block;}
 
-	.press_desc		{ overflow:hidden; padding-top:20px; margin-bottom:10px;}
+	.press_desc		{ overflow:hidden; /*padding-top:20px;*/ margin-bottom:10px;}
 	.press_desc img	{ padding:2px; border:1px solid #d7d7d7; float:left; margin-right:20px; margin-bottom:10px;}
 	.autor 	{ overflow:hidden; padding-bottom:10px; border-bottom:1px solid #9e9e9e; margin-bottom:15px;}
 	.autor img		{ padding:2px; border:1px solid #d7d7d7; float:left; margin-right:9px;}
@@ -407,6 +427,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	
 	.button3	{ overflow:hidden; height:26px; display:inline-block; cursor:pointer;}
 	.button3 span	{display:inline-block; overflow:hidden; float:left;}
+	.button3 a	{text-decoration:none;}
 	.button3 span.l,
 	.button3 span.r	{ width:2px; height:26px; overflow:hidden;}
 	.button3 span.l	{ background:url(../images/b3l.png) no-repeat 0 0;}
@@ -436,13 +457,21 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form p.p_inf		{ font-size:11px; padding-bottom:5px; color:#7f7f7f; width:390px;}
 	.form .input label,
 	.form .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
+	.edit_blog .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.form .radio div input	{ float:left; margin-right:5px !important;}
+	.edit_blog {padding:0px 0px 14px 0px;} 
+	
+	.edit_blog .input label,
+	.edit_blog .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
+	.edit_blog .radio div input	{ float:left; margin-right:5px !important;}
+	
 	.form .radio div label	{ font-weight: normal; margin-bottom:0px; float:left; margin-right:20px;}
 	.form .input.date				{ float:left; overflow:hidden; width:212px; clear:none;}
 	.form .input.date label			{ overflow:hidden;}
 	.form .input.date input			{ float:left;}
 	.form .input.date select		{ float:left; margin-right:1px; padding:4px 4px 4px 0px;}
 	.form .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px;}
+	.edit_blog .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px;}
 	.form .input textarea	{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px; height:95px;}
 	.form .input select		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:354px;}
 	.form .input label a		{ display:inline-block; font-weight:normal;  display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
@@ -628,6 +657,16 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .my_page_inf {    border-bottom: 1px solid #9E9E9E;    margin-bottom: 15px;    overflow: hidden;}
 .my_page_inf .my_page_info {    border-bottom: 0 none;    margin-bottom: 0;}
 
-
+	.profil_mn	{ float:right; position:relative;}
+	.profil_mn a.p_link	{ color:#2a86dc; font:14px "Trebuchet MS", Arial, Helvetica, sans-serif; text-transform:uppercase; display:inline-block; margin-right:20px; position:relative; z-index:11; padding-right:9px; background: url(../images/nn.gif) no-repeat 100% -58px; padding-top:5px; text-decoration:none;}
+	.profil_mn a.p_link.active	{ background-position:100% 13px;}
+	.profil_mn a.p_link span	{ display:inline-block; border-bottom:1px dashed #2a86dc; line-height:110%;}
+	.profil_mn .p_mn			{ display:none; position:absolute; width:149px; z-index:10; left:-40px; top:-18px;}
+	.profil_mn .p_mn .p_mn_t	{ background:url(../images/u_t.png) no-repeat 0 0; height:16px; overflow:hidden; font-size:0;}
+	.profil_mn .p_mn .p_mn_c	{ background:url(../images/u_bg.png) repeat-y 0 0; overflow:hidden;}
+	.profil_mn .p_mn .p_mn_b	{ background:url(../images/u_b.jpg) no-repeat 0 100%; overflow:hidden; padding:35px 8px 19px 8px;}
+	.profil_mn .p_mn a			{ display:block; padding-left:32px; font:12px arial; color:#000; text-decoration:none; line-height:25px;}
+	.profil_mn .p_mn a.active,
+	.profil_mn .p_mn a:hover	{ background:#e2d6d5;}
 
 

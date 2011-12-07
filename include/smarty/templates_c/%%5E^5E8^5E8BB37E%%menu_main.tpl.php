@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-02 18:34:48
+<?php /* Smarty version 2.6.14, created on 2011-12-07 22:12:26
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 37, false),array('modifier', 'escape', 'menu_main.tpl', 80, false),)), $this);
@@ -38,7 +38,7 @@ SELanguage::load();
 					<li <?php if ($this->_tpl_vars['global_page'] == 'user_editprofile_photo'): ?>class="active"<?php endif; ?>><a href='user_editprofile_photo.php'><?php echo SELanguage::_get(1164); ?></a></li>
 
 										<?php if ($this->_tpl_vars['global_plugins']['plugin_controls']['show_menu_user']): ?>
-						<li><a href="javascript:showMenu('menu_dropdown_apps');" onMouseUp="this.blur()"><?php echo SELanguage::_get(1166); ?></a></li>
+						<!-- <li><a href="javascript:showMenu('menu_dropdown_apps');" onMouseUp="this.blur()"><?php echo SELanguage::_get(1166); ?></a></li> -->
 												<?php $this->_tag_stack[] = array('hook_foreach', array('name' => 'menu_user_apps','var' => 'user_apps_args')); $_block_repeat=true;smarty_block_hook_foreach($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);while ($_block_repeat) { ob_start(); ?>
 							<li><a href='<?php echo $this->_tpl_vars['user_apps_args']['file']; ?>
 '><?php echo SELanguage::_get($this->_tpl_vars['user_apps_args']['title']); ?></a></li>

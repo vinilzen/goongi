@@ -47,7 +47,7 @@ if( $task=="dosave" )
   $blogentry_blogentrycat_id  = $_POST['blogentry_blogentrycat_id'];
   $blogentry_search           = $_POST['blogentry_search'];
   $blogentry_privacy          = $_POST['blogentry_privacy'];
-  $blogentry_comments         = $_POST['blogentry_comments'];
+  $blogentry_comments         = 1;
   $blogentry_trackbacks       = $_POST['blogentry_trackbacks'];
   $new_blogentrycat_title     = $_POST['new_blogentrycat_title'];
   

@@ -6,6 +6,7 @@ $page = "blog";
 include "header.php";
 
 
+
 // DISPLAY ERROR PAGE IF USER IS NOT LOGGED IN AND ADMIN SETTING REQUIRES REGISTRATION
 if( !$user->user_exists && !$setting['setting_permission_blog'] )
 {
@@ -213,11 +214,14 @@ else
   $global_page_title = array(1500124, $owner->user_displayname);
   $global_page_description = array(1500124, $owner->user_displayname);
 }
+// GET TOTAL COMMENTS POSTED ON THIS ENTRY
+  $comments_total = $database->database_num_rows($database->database_query("SELECT blogcomment_id FROM se_blogcomments WHERE blogcomment_blogentry_id='{$blogentry_info[blogentry_id]}'"));
 
-
-
-
+//print_r ($blogentries);
+//print_r ($owner);
 // ASSIGN VARIABLES AND DISPLAY BLOG PAGE
+$smarty->assign('owner',$owner);
+$smarty->assign('comments_total',$comments_total);
 $smarty->assign('total_blogentries', $total_blogentries);
 $smarty->assign_by_ref('entries', $blogentries);
 $smarty->assign_by_ref('archive_list', $archive_list);

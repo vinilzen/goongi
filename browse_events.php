@@ -13,7 +13,7 @@ if(isset($_POST['eventcat_id'])) { $eventcat_id = $_POST['eventcat_id']; } elsei
 
 // ENSURE SORT/VIEW ARE VALID
 if($s != "event_datecreated DESC" && $s != "event_totalmembers DESC" && $s != "event_date_start DESC" && $s != "event_date_end DESC" && $s != "event_date_start ASC" && $s != "event_date_end ASC") { $s = "event_date_start ASC"; }
-if($v != "1" && $v != "2" && $v != "3") { $v = 3; }
+if($v != "1" && $v != "2" && $v != "3") { $v = 1; }
 
 
 // DISPLAY ERROR PAGE IF USER IS NOT LOGGED IN AND ADMIN SETTING REQUIRES REGISTRATION
