@@ -1,31 +1,16 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 
 {* $Id: user_event_add.tpl 22 2009-01-16 05:50:49Z john $ *}
+<h1>{lang_print id=3000086}</h1>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<a href="/user_event.php">{lang_print id=3000086}</a>
+	<span>{lang_print id=3000088}</span>
+</div>
 
-<table cellpadding='0' cellspacing='0' width='100%'>
-  <tr>
-    <td valign='top'>
-      
-      <img src='./images/icons/event_event48.gif' border='0' class='icon_big'>
-      <div class='page_header'>{lang_print id=3000088}</div>
-      <div style="width: 500px;">{lang_print id=3000108}</div>
-      
-    </td>
-    <td valign='top' align='right'>
-      
-      <table cellpadding='0' cellspacing='0'>
-        <tr>
-          <td class='button' nowrap='nowrap'>
-            <a href='user_event.php'><img src='./images/icons/back16.gif' border='0' class='button' />{lang_print id=3000109}</a>
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-</table>
-<br />
 
+<div style="width: 500px;">{lang_print id=3000108}</div>
+<a href='user_event.php'><img src='./images/icons/back16.gif' border='0' class='button' />{lang_print id=3000109}</a>
 
 
 {* JAVASCRIPT *}
@@ -183,16 +168,7 @@
 
 
 {* SHOW ERROR MESSAGE *}
-{if $is_error}
-  <table cellpadding='0' cellspacing='0'>
-    <tr>
-      <td class='result'>
-        <img src='./images/error.gif' class='icon' border='0'>{lang_print id=$is_error}
-      </td>
-    </tr>
-  </table>
-  <br />
-{/if}
+{if $is_error}{lang_print id=$is_error}{/if}
 
 
 
@@ -253,11 +229,11 @@
   
   {if $cats|@count>0}
   <tr>
-    <td class='form1'>{lang_print id=3000134}*</td>
-    <td class='form2' nowrap='nowrap'>
-      <select name='event_eventcat_id' id='event_eventcat_id' onChange='populateSubcats(this.options[this.selectedIndex].value);'></select>
-      <select name='event_eventsubcat_id' id='event_eventsubcat_id' style='display: none;'><option value='0'></option></select>
-    </td>
+    <td class='form1'><!-- {lang_print id=3000134}* --></td>
+	
+    <td class='form2' nowrap='nowrap' style="display:none;">
+		<input type="hidden" name="event_eventcat_id" value="1" />
+   </td>
   </tr>
   {section name=cat_loop loop=$cats}
     {section name=field_loop loop=$cats[cat_loop].fields}

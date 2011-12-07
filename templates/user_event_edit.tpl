@@ -1,25 +1,26 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 
 {* $Id: user_event_edit.tpl 22 2009-01-16 05:50:49Z john $ *}
+<h1>{lang_print id=3000136}</h1>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<a href='user_event.php'>{lang_print id=3000086}</a>
+	<a href='event/{$event->event_info.event_id}/'>{$event->event_info.event_title}</a>
+	<span>{lang_print id=3000137}</span>
+</div>
 
-<table class='tabs' cellpadding='0' cellspacing='0'>
-  <tr>
-    <td class='tab0'>&nbsp;</td>
-    <td class='tab1' NOWRAP><a href='user_event_edit.php?event_id={$event->event_info.event_id}'>{lang_print id=3000137}</a></td><td class='tab'>&nbsp;</td>
-    <td class='tab2' NOWRAP><a href='user_event_edit_members.php?event_id={$event->event_info.event_id}'>{lang_print id=3000138}</a></td><td class='tab'>&nbsp;</td>
-    <td class='tab2' NOWRAP><a href='user_event_edit_settings.php?event_id={$event->event_info.event_id}'>{lang_print id=3000001}</a></td><td class='tab'>&nbsp;</td>
-    <td class="tab3">&nbsp;</td>
-  </tr>
-</table>
+
+<ul class="vk">
+	<li class="active"><a href='user_event_edit.php?event_id={$event->event_info.event_id}'>{lang_print id=3000137}</a></li>
+	<li><a href='user_event_edit_members.php?event_id={$event->event_info.event_id}'>{lang_print id=3000138}</a></li>
+	<li><a href='user_event_edit_settings.php?event_id={$event->event_info.event_id}'>{lang_print id=3000001}</a></li>
+</ul>
 
 <table cellpadding='0' cellspacing='0' width='100%'>
   <tr>
     <td valign='top'>
-      
-      <img src='./images/icons/event_edit48.gif' border='0' class='icon_big'>
       <div class='page_header'>{lang_sprintf id=3000135 1="event.php?event_id=`$event->event_info.event_id`" 2=$event->event_info.event_title}</div>
-      <div style="width: 500px;">{lang_print id=3000136}</div>
-      
+   
     </td>
     <td valign='top' align='right'>
       
@@ -359,10 +360,9 @@
       
         {if $cats|@count>0}
         <tr>
-          <td class='form1'>{lang_print id=3000134}*</td>
+          <td class='form1'></td>
           <td class='form2' nowrap='nowrap'>
-            <select name='event_eventcat_id' id='event_eventcat_id' onChange='populateSubcats(this.options[this.selectedIndex].value);'></select>
-            <select name='event_eventsubcat_id' id='event_eventsubcat_id' style='display: none;'><option value='0'></option></select>
+           <input type="hidden" name="event_eventcat_id" value="1" />
           </td>
         </tr>
         {section name=cat_loop loop=$cats}

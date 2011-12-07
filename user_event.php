@@ -21,7 +21,7 @@ $date         = ( !empty($_POST['date'])          ? $_POST['date']          : ( 
 $search       = ( !empty($_POST['search'])        ? $_POST['search']        : ( !empty($_GET['search'])       ? $_GET['search']       : NULL    ) );
 $p            = ( !empty($_POST['p'])             ? $_POST['p']             : ( !empty($_GET['p'])            ? $_GET['p']            : 1       ) );
 $s            = ( !empty($_POST['s'])             ? $_POST['s']             : ( !empty($_GET['s'])            ? $_GET['s']            : NULL    ) );
-
+$view = "month";  // OR 'list'
 $show_notification = !empty($_GET['show_notification']);
 if( !empty($search) ) $view = "list";
 if( !$s ) $s = "se_events.event_date_start DESC";

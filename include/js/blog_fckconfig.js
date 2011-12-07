@@ -17,7 +17,7 @@
 //FCKConfig.Debug = false ;
 //FCKConfig.AllowQueryStringDebug = true ;
 
-//FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/default/' ;
+	FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/silver/' ;
 //FCKConfig.SkinEditorCSS = '' ;	// FCKConfig.SkinPath + "|<minified css>" ;
 //FCKConfig.SkinDialogCSS = '' ;	// FCKConfig.SkinPath + "|<minified css>" ;
 
@@ -74,11 +74,11 @@ FCKConfig.ToolbarSets["se_blog"] = [
 	['Bold','Italic','Underline','StrikeThrough'],
 	['OrderedList','UnorderedList','-','Outdent','Indent','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
 	['Link','Unlink'],
-	['TextColor','BGColor'],
-	['RemoveFormat'],
-	['Image','Flash','Smiley','SpecialChar'],
-	'/',
-	['FontName','FontSize','Source']
+//	['TextColor','BGColor'],
+	['RemoveFormat'],['Image','Source']
+//	['Image','Flash','Smiley','SpecialChar'],
+//	'/',  // new line
+//	['FontName','FontSize','Source']
 ];
 
 //FCKConfig.EnterMode = 'p' ;			// p | div | br
