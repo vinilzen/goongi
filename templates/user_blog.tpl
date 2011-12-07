@@ -58,7 +58,7 @@
                   </a></big>
                 <a href="#" onclick="delete_blog('deleteblog',{$blogentries[blogentry_loop].blogentry_id}); return false;" class="del">Удалить</a>
                 <a href='user_blog_entry.php?blogentry_id={$blogentries[blogentry_loop].blogentry_id}' class="edit">Редактировать</a>
-                <span>{$data_rus.++$i}</span>
+                <span></span>
             </div>
                  
                

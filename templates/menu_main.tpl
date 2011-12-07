@@ -22,8 +22,8 @@
 						{/if}
 						
 						{* SHOW WHATS NEW MENU ITEM *}
-						<li {if $global_page == 'user_home'}class="active"{/if}><a href='/user_home.php'>{lang_print id=1161}</a></li>
-						<li><a href='/network.php'>{lang_print id=1162}</a></li>
+						<!-- <li {if $global_page == 'user_home'}class="active"{/if}><a href='/user_home.php'>{lang_print id=1161}</a></li>
+						<li><a href='/network.php'>{lang_print id=1162}</a></li> -->
     
 					{* SHOW PROFILE MENU ITEM *}
 					<li {if $global_page == 'profile'}class="active"{/if}><a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a></li>
