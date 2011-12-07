@@ -32,7 +32,7 @@
 
 					{* SHOW APPS MENU ITEM IF ENABLED *}
 					{if $global_plugins.plugin_controls.show_menu_user}
-						<li><a href="javascript:showMenu('menu_dropdown_apps');" onMouseUp="this.blur()">{lang_print id=1166}</a></li>
+						<!-- <li><a href="javascript:showMenu('menu_dropdown_apps');" onMouseUp="this.blur()">{lang_print id=1166}</a></li> -->
 						{* SHOW ANY PLUGIN MENU ITEMS *}
 						{hook_foreach name=menu_user_apps var=user_apps_args}
 							<li><a href='{$user_apps_args.file}'>{lang_print id=$user_apps_args.title}</a></li>

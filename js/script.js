@@ -1,4 +1,14 @@
 ﻿$(document).ready(function(){
+
+	$('.profil_mn .p_link').toggle(function(e){
+		e.preventDefault();
+		$(this).addClass('active');
+		$(this).parent().find('div.p_mn').slideDown();
+	},function(e){
+		e.preventDefault();
+		$(this).removeClass('active');
+		$(this).parent().find('div.p_mn').slideUp();
+	});
 	
 	$('.head .menu li:last').addClass('last');
 	$('.head .menu li:last').prev().addClass('lang');
@@ -502,48 +512,51 @@
 		return r;
 	}
 	
-	function comment_post(user_name, owner_id, user_id) {
+	function comment_post(user_name, owner_id, user_id, type_com, iden_com, tab_com, col_com) {
 		var bat = 0
 		if (bat == 0) {
 			bat = 1;
 			var txt = $('#comment_msg').val();
-			$.post( 'misc_js.php',
-					{task:'comment_post',
-					type:'profile',
-					iden:'user_id',
+   			$.post( 'misc_js.php',
+				       {task:'comment_post',
+					type:''+type_com+'',
+					iden:''+iden_com+'',
 					value: ''+owner_id+'',
-					tab:'users',
-					col:'user',
+					tab:''+tab_com+'',
+					col:''+col_com+'',
 					user: '' + user_name + '',
 					comment_body: '' + txt + ''},
 					function(data) {
+                                            
 						if (data != null) {
 							if (data.is_error == null) {
+                                                            
 								$('#comment_msg').val('');
 								$('#comments_list').fadeOut();
 								$('#comments_list').html('');
-								comment_get('' + user_name + '', owner_id, user_id);
+								comment_get('' + user_name + '', owner_id, user_id , type_com, iden_com, tab_com, col_com);
 								$('#comments_list').fadeIn();
 							} else {
 								alert('error');
 							}
 						} else {
-							alert('Неизвестная ошибка =(');
+							alert('Неизвестная ошибка =()');
 						}
 					} ,
 					'json');
 			bat = 0
 		}
 	}
-	
-	function comment_get (user_username, owner_id, user_id) {
+
+        	
+	function comment_get (user_username, owner_id, user_id, type_com, iden_com, tab_com, col_com) {
 		$.post( 'misc_js.php',
 				{	task:'comment_get',
 					user:''+user_username+'',
 					object_owner:'',
 					object_owner_id:'',
-					type:'profile',
-					iden:'user_id', 
+					type:''+type_com+'',
+					iden:''+iden_com+'',
 					value: ''+owner_id+'', 
 					cpp:10, 
 					p:1},
@@ -567,14 +580,19 @@
 								str = str + '<p id="comment_msg_'+i+'">' + msg + '</p>';
 								str = str + '<div class="date">';
 								if ( user_id == owner_id || author_id == user_id )
-									str = str + '<a href="#" onclick="comment_del(\'' + user_username + '\', ' + i + ' , ' + author_id + ', '+ owner_id +', '+ user_id +'); return false;" class="del">Удалить</a>';
+									str = str + '<a href="#" onclick="comment_del(\'' + user_username + '\', ' + i + ' , ' + author_id + ', '+ owner_id +', '+ user_id  +', \''+ type_com +'\',\''+ iden_com +'\',\''+ tab_com +'\',\''+ col_com +'\'); return false;" class="del">Удалить</a>';
 								str = str + date;
 								//str = str + '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Комментировать</a>';
 								str = str + '</div></div></div></li>';
 								
 							});
+                                                       
 							$('#comments_list').append(str);
+                                                       
 						}
+                                               
+                                                $('#comments_count').html('');
+                                                 $('#comments_count').append(data.total_comments);
 					} else {
 						alert('Неизвестная ошибка =(');
 					}
@@ -583,7 +601,7 @@
 				);
 	}
 	
-	function comment_del(author_username, com_id, author_id, owner_id, user_id) {
+	function comment_del(author_username, com_id, author_id, owner_id, user_id, type_com, iden_com, tab_com, col_com) {
 		var r=confirm("you want delete comment \r\n" + $('#comment_msg_'+com_id).html().trim());
 		if (r==true) {
 
@@ -591,18 +609,18 @@
 					{	task:'comment_delete',
 						user:''+author_username+'',
 						comment_id: ''+com_id+'',
-						type:'profile',
-						iden:'user_id', 
+						type:type_com,
+						iden:iden_com,
 						value: ''+owner_id+'', 
-						tab:'users',
-						col:'user'},
+						tab:tab_com,
+						col:col_com},
 					function(data) {
 							if (data != null) { 
 								if (data.is_error == false) {
 									$('#comment_msg').val('');
 									$('#comments_list').fadeOut();
 									$('#comments_list').html('');
-									comment_get('' + author_username + '', owner_id, user_id);
+									comment_get('' + author_username + '', owner_id, user_id, type_com, iden_com,tab_com, col_com);
 									$('#comments_list').fadeIn();
 								} else {
 									alert('error');
@@ -615,4 +633,29 @@
 		}
 	}
 
+
+    function delete_blog(task_blog,blogentry_id_b) {
+		var r=confirm("Вы уверены, что хотите удалить эту запись ?  \r\n");
+		if (r==true) {
+			$.post( 'blog_ajax.php',
+					{task:''+task_blog+'', blogentry_id:''+blogentry_id_b+''},
+					function(data) {
+						if (data != null) {
+							if (data.result == 'success') {
+								$('#blog_msg' + blogentry_id_b).fadeOut();
+							} else {
+								alert('error');
+							}
+						} else {
+							alert('Ошибка доступа =(');
+						}
+					} ,
+					'json')
+		}
+	}
+	
+	function delete_blog_link(){
+		var r=confirm("Вы уверены, что хотите удалить эту запись ?  \r\n");
+		return r;
+	}
 	

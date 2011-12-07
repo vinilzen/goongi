@@ -1,28 +1,30 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
 
 {* $Id: user_event.tpl 270 2009-12-10 23:50:37Z steve $ *}
 
-<img src='./images/icons/event_event48.gif' border='0' class='icon_big' style="margin-bottom: 15px;">
-<div class='page_header'>{lang_print id=3000086}</div>
+<h1>{lang_print id=3000086}</h1>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<span>{lang_print id=3000086}</span>
+</div>
+
+<div class="buttons">
+	{if $user->level_info.level_event_allow == 7}
+	<span class="button2" id="add_event___"><span class="l">&nbsp;</span><span class="c"><a href="/user_event_add.php"><input type="button" value="Создать событие" name="creat" /></a></span><span class="r">&nbsp;</span></span>
+	{/if}
+</div>
+
 <div>
   {lang_sprintf id=3000087 1='browse_events.php'}
 </div>
 <br />
 
 
-{* SHOW BUTTONS *}
-<div style='margin-top: 25px; margin-bottom:10px;'>
-  {if $user->level_info.level_event_allow == 7}
-  <div class='button' style='float: left; padding-right: 20px;'>
-    <a href='user_event_add.php'><img src='./images/icons/event_newevent16.gif' border='0' class='button' />{lang_print id=3000088}</a>
-  </div>
-  {/if}
-  <div class='button' style='float: left; padding-right: 20px;'>
+<!--   <div class='button' style='float: left; padding-right: 20px;'>
     <a href="javascript:void(0);" onclick="$('event_search').style.display = ( $('event_search').style.display=='block' ? 'none' : 'block');"><img src='./images/icons/search16.gif' border='0' class='button' />{lang_print id=3000089}</a>
   </div>
   <div style='clear: both; height: 0px;'></div>
 </div>
-
 
 {* SEARCH FIELD *}
 <div id='event_search' class="seEventSearch"{if empty($search)} style='display: none;'{/if}>
@@ -41,14 +43,13 @@
     </form>
   </div>
 </div>
-
-
+-->
 {* SHOW VIEWS *}
-<div style='margin-top: 20px;'>
+<!-- <div style='margin-top: 20px;'>
   {lang_print id=3000090}
   <a href="user_event.php?view=list">{lang_print id=3000091}</a> |
   <a href="user_event.php?view=month">{lang_print id=3000092}</a>
-</div>
+</div> -->
 
 
 {* JAVASCRIPT *}
@@ -112,17 +113,13 @@
 {* VIEW - CALENDAR - MONTH *}
 {if $view=="month"}
 
-  <table cellpadding='0' cellspacing='0' width='100%'>
-    <tr>
-      <td align='center'>
-        
-        <div class='event_title'><a href='user_event.php?view={$view}&date={$date_last}'>&#171;</a> {$month}, {$year} <a href='user_event.php?view={$view}&date={$date_next}'>&#187;</a></div>
-        
+
+	<div class="calendar">
+		<div class="year"><a href="user_event.php?view={$view}&date={$date_last}" class="prev">&nbsp;</a><span>{$month} {$year}</span><a href="user_event.php?view={$view}&date={$date_next}" class="next">&nbsp;</a></div>
+    
         {include file='event_calendar.tpl' calendar_view=$view}
         
-      </td>
-    </tr>
-  </table>
+	</div>
 
 
 {* VIEW - LIST *}

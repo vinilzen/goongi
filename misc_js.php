@@ -446,6 +446,7 @@ elseif($task == "comment_get")
 // POST A COMMENT
 elseif($task == "comment_post")
 {
+   
   // GET COMMENT TYPE, ETC
   $type = ( isset($_POST['type']) ? $_POST['type'] : NULL );
   $iden = ( isset($_POST['iden']) ? $_POST['iden'] : NULL );
@@ -459,14 +460,14 @@ elseif($task == "comment_post")
   $object_owner_id = ( isset($_POST['object_owner_id']) ? $_POST['object_owner_id'] : NULL );
   
   if( !$type || !$iden || !$value || !$tab || !$col ) exit();
-  
+ 
   $type = preg_replace('/[^A-Z0-9_\.-]/i', '', $type);
   $tab  = preg_replace('/[^A-Z0-9_\.-]/i', '', $tab );
   $col  = preg_replace('/[^A-Z0-9_\.-]/i', '', $col );
   
   // CHECK TO SEE IF OBJECT OWNER EXISTS
   if( $owner->user_exists )
-  { 
+  {
     $object_owner = "user";
     $object_owner_id = $owner->user_info['user_id'];
     $object_owner_class =& $owner;
@@ -482,6 +483,7 @@ elseif($task == "comment_post")
   
   else
   {
+      
     exit();
   }
 
@@ -509,6 +511,7 @@ elseif($task == "comment_post")
   // CHECK IF USER IS ALLOWED TO COMMENT
   $functionname = $object_owner."_privacy_max";
   $privacy_max = $object_owner_class->$functionname($user);
+  
   if( !($privacy_max & $permission['object_comments']) ) exit();
 
   // SET OBJECT TITLE

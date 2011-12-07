@@ -52,6 +52,7 @@ if( !$user->user_exists )
 // DELETE
 if( $task=="deleteblog" )
 {
+
   $result = $blog->blog_entry_delete($blogentry_id);
   echo json_encode(array('result' => ( $result ? 'success' : 'failure' )));
   exit();

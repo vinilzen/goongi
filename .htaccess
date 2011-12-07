@@ -19,3 +19,8 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^/]+)/blog/([^/]+)?$ /blog.php?user=$1$2 [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^/]+)/blog/?$ /blog.php?user=$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*/)?event/([0-9]+)/([^/]*)$ /event.php?event_id=$1$2$3 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*/)?event/([0-9]+)/album/([0-9]+)/([^/]*)$ /event_album_file.php?event_id=$2&eventmedia_id=$3$4 [L]
