@@ -16,7 +16,7 @@ if( @extension_loaded('mbstring') )
 if( !isset($page) ) $page = "";
 
 // DEFINE SE CONSTANTS
-define('SE_DEBUG', false);
+define('SE_DEBUG', true);
 define('SE_PAGE', TRUE);
 define('SE_ROOT', realpath(dirname(__FILE__)));
 define('SE_HEADER', TRUE);
@@ -295,12 +295,15 @@ $show_menu_user = FALSE;
 
 $global_plugins =& SECore::getPlugins();
 
+//var_dump($global_plugins); die();
+
 foreach( $global_plugins as $plugin_type=>$plugin_info ){
   $plugin_vars = array();
-  if( file_exists("header_{$plugin_info['plugin_type']}.php") )
-  {
+  if( file_exists("header_{$plugin_info['plugin_type']}.php") ) {
     include "header_{$plugin_info['plugin_type']}.php";
   }
+  
+  //var_dump($plugin_vars); echo '<hr />';//die();
   
   // Set the hooks for each of the plugin templates if not using the new hooked template includes (backwards compatibility)
   if( empty($plugin_vars['uses_tpl_hooks']) )  {
@@ -335,15 +338,14 @@ foreach( $global_plugins as $plugin_type=>$plugin_info ){
     }
   }
   
+	
   // If using the new template hooks, the header should also hook the styles sheets
   $global_plugins[$plugin_info['plugin_type']] =& $plugin_vars;
-
   if( !empty($plugin_vars['menu_user']) ) $show_menu_user = TRUE;
   unset($plugin_vars);
 }
 
-//var_dump($global_plugins); die();
-
+//var_dump($global_plugins); 
 $global_plugins['plugin_controls'] = array('show_menu_user' => $show_menu_user);
 
 

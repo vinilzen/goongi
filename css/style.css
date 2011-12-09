@@ -296,7 +296,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.comment_list li span	{ display:inline-block; font-size:11px; color:#7f7f7f;}
 	.comment_list li p		{ padding:10px 0 0 0; font-size:11px;}
 	
-	.buttons_edit_blog	{ position:relative; padding-bottom:10px; overflow:hidden; margin-top:-5px; margin-bottom:25px;}
+	.buttons_edit_blog	{ position:relative; padding-bottom:10px; overflow:hidden; margin-top:5px; margin-bottom:25px;}
 	.buttons_edit_blog .button2	{ float:left; margin-right:10px;}
 	.r_link	{ float:right; position:relative; z-index:2;}
 	.r_link a	{ display:inline-block; margin-left:10px; width:26px; height:26px; overflow:hidden; text-decoration:none;}

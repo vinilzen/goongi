@@ -1,0 +1,279 @@
+
+/* $Id: styles_history.css 241 2009-11-14 02:48:21Z phil $ */
+
+
+/* history - GENERAL */
+.sehistoryTable
+{
+  margin: 0px;
+  padding: 0px;
+  border-spacing: 0px;
+  /* border: 1px solid #909090; */
+  width: 100%;
+}
+
+.sehistoryColumnLeft
+{
+  padding: 0px 10px 0px 0px;
+}
+
+.sehistoryColumnRight
+{
+  width: 250px;
+  background: #F2F2F2;
+  border: 1px solid #DDDDDD;
+  border-left: 1px solid #BBBBBB;
+}
+.sehistoryColumnRightPadding
+{
+  padding: 10px;
+}
+
+
+/* history - SIDE BAR */
+
+.sehistoryLinkList,
+.sehistoryArchiveList,
+.sehistoryCategoryList
+{
+  margin-top: 0px;
+  margin-left: 0px;
+  list-style: none;
+  padding-left: 15px;
+}
+
+.sehistoryLinkList li,
+.sehistoryArchiveList li,
+.sehistoryCategoryList li
+{
+  padding-left: 0px;
+}
+
+
+
+/* history - ENTRIES */
+
+.sehistoryEntry
+{
+  margin: 0px;
+  padding: 0px;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+div.sehistoryEntry1
+{
+	/* padding: 8px 10px 10px 10px; */
+}
+
+div.sehistoryEntry2
+{
+	/* padding: 8px 10px 10px 10px; */
+}
+
+.sehistoryEntryTable
+{
+	margin: 8px 10px 10px 10px;
+  width: 630px;
+}
+
+div.sehistoryEntryTitle
+{
+	font-weight: bold;
+	font-size: 16px;
+}
+
+div.sehistoryEntryDate, div.sehistoryEntryCategory
+{
+	font-size: 9px;
+	color: #777777;
+}
+
+div.sehistoryEntryBody
+{
+	padding-top: 5px;
+  line-height: normal;
+}
+
+div.sehistoryEntryBody p
+{
+	padding: 5px;
+	margin: 5px;
+}
+
+.sehistoryComments
+{
+  margin-top: 10px;
+}
+
+.sehistoryTrackbackList
+{
+  list-style: none;
+  padding-left:10px;
+}
+
+
+
+/* BROWSE historyS */
+div.historys_browse_item
+{
+	border: 1px solid #CCCCCC; 
+	/* padding: 10px; */
+  
+}
+
+div.historys_browse_item_left
+{
+	margin-right: 5px;
+}
+
+div.historys_browse_item_right
+{
+	margin-left: 5px;
+}
+
+div.historys_browse_date
+{
+	font-size: 9px; 
+	color: #777777;
+}
+
+div.historys_browse1
+{
+	background: #F2F2F2;
+}
+
+div.historys_browse2
+{
+	background: #FFFFFF;
+}
+
+
+
+/* history */
+div.history_search
+{
+	width: 475px;
+	padding: 10px;
+	background: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+table.history_table
+{
+	border: 1px solid #CCCCCC;
+}
+
+td.history_header
+{
+	font-weight: bold;
+	background-image: url(../images/header.gif);
+	background-repeat: repeat-x;
+	color: #333333;
+  padding: 5px;
+}
+
+td.history_entry {
+	background: #FFFFFF;
+	border-top: 1px solid #DDDDDD;
+	padding: 5px;
+	vertical-align: middle;
+}
+td.history_comment_author {
+	margin-bottom: 5px;
+	background: #F1F1F1;
+	padding: 5px 7px 5px 7px;
+}
+td.history_comment_body {
+	padding: 5px 7px 0px 7px;
+}
+div.history_bar {
+	border-bottom: 1px solid #DDDDDD;
+	padding: 0px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+td.history_item1 {
+	padding: 5px;
+	text-align: center;
+	vertical-align: top;
+}
+td.history_item2 {
+	padding: 5px 5px 5px 5px;
+	vertical-align: top;
+}
+td.history_options {
+	padding: 5px 5px 5px 5px; 
+	font-weight: bold; 
+
+}
+div.history_settings {
+	padding: 10px;
+	border: 1px dashed #CCCCCC;
+	background: #FFFFFF;
+}
+td.history_postcomment {
+	padding: 10px;
+	border: 1px solid #DDDDDD;
+	border-top: none;
+	background: #F5F5F5;
+}
+td.history {
+	background: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	border-top: none;
+	padding: 5px 7px 5px 7px;
+	margin-bottom: 12px;
+}
+div.history_headline {
+	padding: 4px 5px 5px 6px;
+	border: 1px solid #DDDDDD;
+	border-bottom: none;
+	font-weight: bold;
+	background-image: url(../images/header.gif);
+	background-repeat: repeat-x;
+	color: #333333;
+}
+div.history_archive {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+/* EDIT historyS */
+div.history_list {
+	border: 1px solid #DDDDDD; 
+	border-top: none;
+}
+div.history_list1 {
+	border-top: 1px solid #DDDDDD; 
+	background: #F2F2F2;
+	padding: 10px;
+}
+div.history_list2 {
+	border-top: 1px solid #DDDDDD; 
+	background: #FFFFFF;
+	padding: 10px;
+}
+div.history_subscription {
+	border: 1px solid #CCCCCC; 
+	margin-bottom: 10px; 
+	padding: 10px; 
+	background: #F2F2F2;
+}
+
+/* history ON PROFILE */
+div.profile_historyentry {
+	border-top: 1px solid #DDDDDD;
+	padding: 7px 2px 0px 2px;
+}
+div.profile_historyentry_date {
+	color: #777777;
+	font-size: 9px;
+}
+div.profile_historyentry_title {
+	font-weight: bold;
+}
+div.profile_historyentry_body {
+	margin: 5px 0px 10px 5px;
+}

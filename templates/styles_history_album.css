@@ -1,0 +1,90 @@
+
+/* $Id: styles_history_album.css 241 2009-11-14 02:48:21Z phil $ */
+
+
+.sehistoryAlbum
+{
+  font: tahoma, verdana, arial, serif;
+  font-size: 12px;
+  text-align: left;
+}
+
+.sehistoryAlbum .sehistoryAlbumHeadline
+{
+  font-size: 16px;
+}
+
+.sehistoryAlbum a
+{
+  color: #606060;
+  text-decoration: none;
+}
+
+.sehistoryAlbum input,
+.sehistoryAlbum select,
+.sehistoryAlbum option
+{
+  font: arial;
+}
+
+.sehistoryAlbum a:hover
+{
+  color: #A0A0A0;
+}
+
+.sehistoryAlbum .sehistoryAlbumUploaderDiv
+{
+  padding: 0px;
+  margin: 0px;
+}
+
+.sehistoryAlbum .sehistoryAlbumUploaderDiv input
+{
+  width: 200px;
+}
+
+.sehistoryAlbum td.form1
+{
+  padding: 10px;
+  vertical-align: middle;
+  
+  width: 35px;
+  line-height: 100%;
+}
+
+.sehistoryAlbum #div1
+{
+  padding-top: 0px;
+  margin-top: 0px;
+  width: 300px;
+}
+
+.sehistoryAlbum td.form2
+{
+  padding: 5px;
+  vertical-align: middle;
+  
+  width: 120px;
+}
+
+.sehistoryAlbum td.form2 input
+{
+  width: 100px;
+}
+
+.sehistoryAlbum #fallback_submit
+{
+  height: 25px;
+  vertical-align: middle;
+  margin: 2px;
+  margin-left: 10px;
+}
+
+
+.sehistoryAlbum #fallback_status
+{
+  height: 25px;
+  vertical-align: middle;
+  margin: 2px;
+  margin-top: 0px;
+}

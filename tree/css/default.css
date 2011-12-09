@@ -1,0 +1,136 @@
+/* z-index stack
+05	#header
+07	#user
+10	#fader
+20	.popup
+*/
+
+*	{margin:0; padding:0}
+
+body	{background:url(../img/decor/bg.gif)}
+body, input, select	{font:normal 11px arial}
+input	{padding:1px}
+label input[type=checkbox], label input[type=radio]	{vertical-align:-2px; margin:0 2px 0 0}
+select option	{padding:0 0 0 3px}
+
+.hide	{display:none}
+.float-l	{float:left}
+.float-r	{float:right}
+
+.button, .button div	{background:url(../img/decor/button-blue.png) no-repeat}
+.button.alt, .button.alt div	{background-image:url(../img/decor/button-red.png)}
+.button.sub, .button.sub div	{background-image:url(../img/decor/button-grey.png)}
+.button	{background-position:100% 100%; padding:0 10px 0 0; display:inline-block; cursor:pointer; color:#fffefe; text-shadow:-1px 0 1px #000; font-family:trebuchet ms; font-size:14px; font-weight:bold}
+.button div	{background-position:0 0; padding:0 0 0 10px; line-height:26px; text-align:center}
+
+#header	{position:fixed; left:0; top:0; margin:0 5%; padding:12px 18px 16px; width:90%; background:#fff; border-radius:0 0 10px 10px; box-shadow:0 0 8px #999; border:solid #ccc; border-width:0 1px 1px; box-sizing:border-box; -moz-box-sizing:border-box; z-index:5}
+#header .caption	{font-size:18px; font-weight:bold; text-transform:uppercase; margin:0 0 8px}
+#header .breadcrumb	{border-bottom:1px solid #ccc; line-height:24px; margin:0 0 12px}
+#header .breadcrumb, #header .breadcrumb a	{color:#666; text-decoration:none}
+#header .breadcrumb a:hover	{text-decoration:underline}
+#header .breadcrumb span	{margin:0 2px}
+#header .button	{margin:0 10px 0 0}
+#header .ico	{float:left; width:26px; height:26px; margin:0 0 0 8px; cursor:pointer}
+#header .home	{background:url(../img/icons/home.png)}
+#header .print	{background:url(../img/icons/print.png)}
+#header .settings	{background:url(../img/icons/settings-alt.png)}
+
+#user	{position:fixed; width:348px; height:660px; left:0; top:50%; margin:-300px 0 0; background:url(../img/decor/user-handler.png); z-index:7}
+#user > .toggle	{width:34px; height:216px; position:absolute; left:310px; top:155px; cursor:pointer; background:url(../img/icons/arrow-0.png) center no-repeat}
+
+#user .body	{padding:18px 52px 0 18px}
+#user .name	{font-size:14px; margin:0 0 10px}
+#user .photo	{border:1px solid #d7d7d7; border-radius:1px; padding:2px; float:left; margin:0 10px 10px 0}
+#user .photo img	{float:left; width:111px}
+#user .birth	{color:#7f7f7f; margin:0 0 40px}
+#user .status	{font-size:12px; margin:0 0 20px}
+#user .edit	{background:url(../img/icons/pen.png) left no-repeat; padding:0 0 0 20px; margin:0 0 0 126px; cursor:pointer}
+#user .edit span	{color:#2a86dc; text-decoration:underline}
+#user .relations	{clear:both}
+#user .relations td	{padding:0 10px 20px 0; vertical-align:top}
+#user .relations span	{font-weight:bold; color:#2a86dc}
+
+#user .settings	{position:absolute; right:38px; top:1px; border:1px solid #f2f2f2; padding:16px 18px 10px; background:#fff; box-shadow:0 0 10px #aaa}
+#user .settings > .toggle	{width:32px; height:16px; background:url(../img/icons/settings.png); cursor:pointer; float:right}
+#user .settings .title	{font-size:12px; border-bottom:1px solid #e5e5e5; padding:0 0 10px}
+#user .settings ul	{list-style:none; color:#2a86dc; line-height:22px; padding:10px 0 0}
+#user .settings ul li	{cursor:pointer; padding:0 20px 0 0}
+#user .settings ul :hover	{text-decoration:underline}
+
+#user .settings.closed	{box-shadow:none; border-color:transparent}
+#user .settings.closed .title,
+#user .settings.closed ul	{display:none}
+
+#user.closed	{left:-310px}
+#user.closed > .toggle	{background-image:url(../img/icons/arrow-180.png)}
+
+#viewpoint	{width:99999px; height:99999px}
+#viewpoint.drag	{cursor:move}
+
+.family	{float:left; padding:60px 0 0}
+.family canvas	{position:absolute; z-index:-1}
+#viewpoint > .family	{padding:60px 0; position:absolute; left:1000px; top:1000px; width:100%}
+.children	{overflow:hidden}
+
+/* refactoring
+.generation	{padding:30px 0}
+.marriage	{display:inline-block}
+*/
+
+.person	{display:inline-block; border:2px solid #9cd3ed; margin:0 30px; padding:8px 12px 0; width:130px; box-shadow:0 0 10px #ccc; background:#ecf9ff}
+.person .relation	{color:#666; margin:0 20px 10px 0}
+.person .info	{cursor:pointer; width:16px; height:16px; float:right; background:url(../img/icons/info.png)}
+.person .photo	{margin:0 0 10px; overflow:hidden}
+.person .photo img	{height:120px; display:block; margin:0 auto}
+.person .name	{margin:0 0 8px}
+.person .name, .person .relation	{font-weight:bold}
+.person .name, .person .actions	{color:#2a86dc}
+.person .actions ul	{list-style:none; border-width:1px 0; border-style:solid; border-color:#c9d4d9; background:#fff; margin:0 -12px; line-height:16px; padding:5px 0}
+.person .actions li	{padding:0 12px; cursor:pointer}
+.person .actions li:hover	{text-decoration:underline}
+.person .actions .toggle	{height:16px; background:url(../img/icons/arrow-90.png) center no-repeat; cursor:pointer}
+
+.person .closed ul	{display:none}
+.person .closed .toggle	{background-image:url(../img/icons/arrow-270.png); border-top:1px solid #c9d4d9}
+
+.person.alt	{border-color:#f9a6a6; background:#fff7f7}
+
+.fader	{position:fixed; left:0; top:0; width:100%; height:100%; background:#000; opacity:.7; z-index:10; filter:alpha(opacity=70)}
+
+.popup, #actions	{position:absolute; z-index:20; left:0; top:0}
+
+.popup	{background:#fff; border-radius:10px; box-shadow:0 0 10px #333; padding:0 24px; border:1px solid #ccc}
+.popup, .popup input, .popup select	{font-size:12px}
+
+.popup .close	{float:right; background:url(../img/icons/cross.png); width:16px; height:16px; margin:8px -16px 0 0; cursor:pointer}
+.popup .header	{padding:8px 0 0; font-weight:bold; font-size:14px; text-transform:uppercase; border-bottom:1px solid #ccc; line-height:32px}
+.popup .footer	{padding:0 0 16px}
+.popup .footer .button	{margin:0 16px 0 0}
+.popup .footer .cancel	{color:#2a86dc; border-bottom:1px dotted #2a86dc; font-size:14px; font-weight:bold; cursor:pointer; display:inline-block; font-family:trebuchet ms}
+
+.popup .body	{padding:16px 0}
+.popup .body table	{table-layout:fixed; border-collapse:collapse}
+.popup .body table .sep	{width:16px}
+.popup .field	{line-height:21px}
+.popup .field	{padding:4px 0}
+.popup .field label	{margin:0 8px 0 0; display:inline-block}
+.popup .field input[type=text]	{width:100%; box-sizing:border-box; -moz-box-sizing:border-box}
+.popup .field select	{width:100%}
+.popup .field .name	{font-weight:bold}
+.popup label	{display:block; line-height:24px}
+
+.popup.center	{left:50%; top:50%; position:fixed}
+
+#actions	{width:500px; margin-left:-200px}
+#actions canvas	{position:absolute; left:0; top:0; z-index:-1}
+#actions .person	{box-shadow:none; position:absolute}
+#actions .button	{width:165px; float:left}
+#actions .parents, #actions .children	{width:400px; height:45px}
+#actions .parents .alt, #actions .children .alt	{float:right}
+#actions .siblings, #actions .siblings .inner	{overflow:hidden}
+#actions .siblings .button	{float:right; clear:both; margin:8px 0 8px auto}
+#actions .children .button	{margin:19px 0 0}
+#actions.closed .parents,
+#actions.closed .siblings,
+#actions.closed .children,
+#actions.closed canvas	{visibility:hidden}
