@@ -1869,10 +1869,10 @@ class SEUser
 		}
 		//var_dump($result); die();
 		//var_dump($relatives);
-		echo json_encode($result1); //die();
+		return json_encode($result1); //die();
 		//var_dump($result);
 		//var_dump($family_ids); 
-		die();
+		//die();
 	}
 	
 	function bild_tree($user_id){
@@ -2012,11 +2012,11 @@ class SEUser
 				'members'	=> $members,
 				'family'	=> $u,
 			);
-			echo json_encode(  $result_array ); die();
+			return json_encode(  $result_array );
 
 		} else {
-			echo json_encode(array("success"=>"0","msg"=>"Произошла ошибка, попробуйте еще раз."));
-			die();
+			return json_encode(array("success"=>"0","msg"=>"Произошла ошибка, попробуйте еще раз."));
+			
 		}
 	
 	}

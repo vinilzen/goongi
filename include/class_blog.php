@@ -1940,8 +1940,7 @@ class se_blog
   
   
   
-  function blog_category_list($user_id=FALSE)
-  {
+  function blog_category_list($user_id=FALSE) {
     global $database;
     
     $sql = "SELECT * FROM se_blogentrycats ";

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-07 22:12:26
+<?php /* Smarty version 2.6.14, created on 2011-12-08 15:41:54
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 37, false),array('modifier', 'escape', 'menu_main.tpl', 80, false),)), $this);
@@ -29,8 +29,8 @@ SELanguage::load();
 							<li <?php if ($this->_tpl_vars['global_page'] == 'user_friends'): ?>class="active"<?php endif; ?>><a href='/user_friends.php'><?php echo SELanguage::_get(1170); ?></a></li>
 						<?php endif; ?>
 						
-												<li <?php if ($this->_tpl_vars['global_page'] == 'user_home'): ?>class="active"<?php endif; ?>><a href='/user_home.php'><?php echo SELanguage::_get(1161); ?></a></li>
-						<li><a href='/network.php'><?php echo SELanguage::_get(1162); ?></a></li>
+												<!-- <li <?php if ($this->_tpl_vars['global_page'] == 'user_home'): ?>class="active"<?php endif; ?>><a href='/user_home.php'><?php echo SELanguage::_get(1161); ?></a></li>
+						<li><a href='/network.php'><?php echo SELanguage::_get(1162); ?></a></li> -->
     
 										<li <?php if ($this->_tpl_vars['global_page'] == 'profile'): ?>class="active"<?php endif; ?>><a href='<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['user']->user_info['user_username']); ?>
 '><?php echo SELanguage::_get(652); ?></a></li>

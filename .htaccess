@@ -9,6 +9,10 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^.*/images/(.*)$ /images/$1 [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^.*/uploads_user/(.*)$ /uploads_user/$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^.*/tree/(.*)$ /tree/$1 [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^/]+)/?$ /profile.php?user=$1 [L]
 RewriteCond %{REQUEST_FILENAME} !-f
