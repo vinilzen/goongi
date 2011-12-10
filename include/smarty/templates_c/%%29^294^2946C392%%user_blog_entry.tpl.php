@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-09 16:21:57
+<?php /* Smarty version 2.6.14, created on 2011-12-10 14:33:28
          compiled from user_blog_entry.tpl */
 ?><?php
 SELanguage::_preload_multi(1500067,1500122,1500123,1500056,1500065,39);
@@ -13,11 +13,12 @@ unset($_smarty_tpl_vars);
 <script type="text/javascript" src="./include/js/class_blog.js"></script>
 <script type="text/javascript" src="./include/fckeditor/fckeditor.js"></script>
 
-        <h1><?php if (! empty ( $this->_tpl_vars['blogentry_info']['blogentry_id'] )): ?>Редактировать статью<?php else: ?>Написать статью<?php endif; ?></h1>
-            <div class="crumb">
-            <a href="/">Главная</a>
-            <a href="/user_blog.php">Статьи</a>
-            <span><?php if (! empty ( $this->_tpl_vars['blogentry_info']['blogentry_id'] )): ?>Редактировать статью<?php else: ?>Написать статью<?php endif; ?></span></div>
+<h1><?php if (! empty ( $this->_tpl_vars['blogentry_info']['blogentry_id'] )): ?>Редактировать статью<?php else: ?>Написать статью<?php endif; ?></h1>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<a href="/user_blog.php">Статьи</a>
+	<span><?php if (! empty ( $this->_tpl_vars['blogentry_info']['blogentry_id'] )): ?>Редактировать статью<?php else: ?>Написать статью<?php endif; ?></span>
+</div>
             <div class="clear"></div>
             <div class="editor_block">
 
@@ -97,7 +98,7 @@ if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_lis
 
   ?>
         <span class="button2"><span class="l">&nbsp;</span><span class="c">
-        <input type="submit" value="Сохранить" name="save" />
+        <input type="submit" style="padding:0px;"  value="Сохранить" name="save" />
         </span><span class="r">&nbsp;</span></span><?php 
 
   ?>
@@ -110,7 +111,7 @@ if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_lis
 
   ?>
         <span class="button2"><span class="l">&nbsp;</span><span class="c">
-        <input type="submit" value="Отмена" name="save" />
+        <input type="submit" style="padding:0px;"  value="Отмена" name="save" />
         </span><span class="r">&nbsp;</span></span>
         <?php 
 
@@ -118,14 +119,6 @@ if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_lis
         </form>
     </div>
       
-  
-
-
-
-
-
-
-
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;

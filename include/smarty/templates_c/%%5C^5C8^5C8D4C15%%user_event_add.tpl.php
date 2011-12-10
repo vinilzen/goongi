@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-07 22:17:30
+<?php /* Smarty version 2.6.14, created on 2011-12-10 14:27:51
          compiled from user_event_add.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'user_event_add.tpl', 25, false),array('modifier', 'replace', 'user_event_add.tpl', 106, false),array('modifier', 'count', 'user_event_add.tpl', 108, false),array('modifier', 'in_array', 'user_event_add.tpl', 390, false),)), $this);
@@ -365,7 +365,7 @@ $this->_sections['subcat_loop']['last']       = ($this->_sections['subcat_loop']
   
   <?php if (count($this->_tpl_vars['cats']) > 0): ?>
   <tr>
-    <td class='form1'><?php echo SELanguage::_get(3000134); ?>*</td>
+    <td class='form1'><!-- <?php echo SELanguage::_get(3000134); ?>* --></td>
 	
     <td class='form2' nowrap='nowrap' style="display:none;">
 		<input type="hidden" name="event_eventcat_id" value="1" />

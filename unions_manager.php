@@ -120,8 +120,16 @@ if ( isset($_POST['do']) && $_POST['do'] == 1 ) {
 		} else {
 			$result = array('msg'	=> 'Вы не можете создать связь между одним и тем же человеком.',
 							'success'	=> 0,	); 
+			
 		}
 		
+		if (isset($_POST['json']) && $_POST['json'] == 1) {
+			echo json_encode(array(
+									"error" => (strlen($result['msg'])==0 && $result['error'] == 0)?$result['msg']:0,
+   						 			"result" => $result['msg']
+			)); 
+			die();
+		}
 		//echo 'select_existing_user';
 	}
 	//die();

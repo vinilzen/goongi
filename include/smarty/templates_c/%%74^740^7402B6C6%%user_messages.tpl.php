@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 15:18:44
+<?php /* Smarty version 2.6.14, created on 2011-12-10 12:34:24
          compiled from user_messages.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_messages.tpl', 46, false),array('modifier', 'truncate', 'user_messages.tpl', 101, false),array('modifier', 'choptext', 'user_messages.tpl', 102, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_messages.tpl', 49, false),array('modifier', 'truncate', 'user_messages.tpl', 97, false),array('modifier', 'choptext', 'user_messages.tpl', 98, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(780,781,784,182,184,185,183,785,601,520,155,786,788);
+SELanguage::_preload_multi(652,780,781,784,182,184,185,183,785,601,520,155,786,788);
 SELanguage::load();
 ?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -12,15 +12,19 @@ unset($_smarty_tpl_vars);
  ?>
 
 <h1>мои сообщения</h1>
-<div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><span>Mои сообщения</span></div>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<a href='<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['user']->user_info['user_username']); ?>
+'	><?php echo SELanguage::_get(652); ?></a>
+	<span>Mои сообщения</span>
+</div>
 <ul class="vk">
 	<li class="active"><a href="/user_messages.php"><?php echo SELanguage::_get(780); ?><!-- Полученные --><font><?php if ($this->_tpl_vars['user_unread_pms'] > 0): ?>(<?php echo $this->_tpl_vars['user_unread_pms']; ?>
 )<?php endif; ?></font></a></li>
 	<li><a href="/user_messages_outbox.php"><?php echo SELanguage::_get(781); ?><!-- Отправленные --></a></li>
-	<li><a href="#">Спам  <font>(8)</font></a></li>
+	<!-- <li><a href="#">Спам  <font>(8)</font></a></li> -->
 	<li id="add_msg"><a href="#"><?php echo SELanguage::_get(784); ?><!-- Написать сообщение --></a></li>
 </ul>
-<div class="message">
 
 <?php if ($this->_tpl_vars['maxpage'] > 1): ?>
   <div class='center'>
@@ -41,14 +45,7 @@ unset($_smarty_tpl_vars);
 <br>
 <?php endif; 
  if ($this->_tpl_vars['total_pms'] == 0): ?>
-
-  <div class='center'>
-  <table cellpadding='0' cellspacing='0'><tr>
-  <td class='result'><img src='./images/icons/bulb16.gif' border='0' class='icon'><?php echo SELanguage::_get(785); ?><!-- 785 --></td>
-  </tr></table>
-  </div>
-
-
+  <div class='center'><?php echo SELanguage::_get(785); ?><!-- 785 --> </div>
 <?php else: ?>
 
   <form action='user_messages.php' method='post' name='messageform'>

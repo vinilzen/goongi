@@ -2,14 +2,17 @@
 
 {* $Id: user_messages.tpl 8 2009-01-11 06:02:53Z john $ *}
 <h1>мои сообщения</h1>
-<div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><span>Mои сообщения</span></div>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<a href='{$url->url_create("profile", $user->user_info.user_username)}'	>{lang_print id=652}</a>
+	<span>Mои сообщения</span>
+</div>
 <ul class="vk">
 	<li class="active"><a href="/user_messages.php">{lang_print id=780}<!-- Полученные --><font>{if $user_unread_pms>0}({$user_unread_pms}){/if}</font></a></li>
 	<li><a href="/user_messages_outbox.php">{lang_print id=781}<!-- Отправленные --></a></li>
-	<li><a href="#">Спам  <font>(8)</font></a></li>
+	<!-- <li><a href="#">Спам  <font>(8)</font></a></li> -->
 	<li id="add_msg"><a href="#">{lang_print id=784}<!-- Написать сообщение --></a></li>
 </ul>
-<div class="message">
 {* JAVASCRIPT FOR CHECK ALL MESSAGES FEATURE *}
 {*
 {literal}
@@ -60,14 +63,7 @@
 
 {* CHECK IF THERE ARE NO MESSAGES IN INBOX *}
 {if $total_pms == 0}
-
-  <div class='center'>
-  <table cellpadding='0' cellspacing='0'><tr>
-  <td class='result'><img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_print id=785}<!-- 785 --></td>
-  </tr></table>
-  </div>
-
-
+  <div class='center'>{lang_print id=785}<!-- 785 --> </div>
 {* DISPLAY MESSAGES *}
 {else}
 
