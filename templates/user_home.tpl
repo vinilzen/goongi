@@ -2,7 +2,10 @@
 
 {* $Id: user_home.tpl 226 2009-10-28 23:57:07Z steve $ *}
 <h1>Новости</h1>
- 
+<div class="crumb">
+	<a href="#">Главная</a>
+	<span>Новости</span>
+</div>
       {* ACTIVITY FEED PREFERENCES *}
       <div style='margin-bottom: 7px;'>
         <div class='page_header' style='width: 50%; float: left;'>{lang_print id=737}</div>
