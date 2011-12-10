@@ -2,14 +2,17 @@
 
 {* $Id: user_messages_outbox.tpl 8 2009-01-11 06:02:53Z john $ *}
 <h1>мои сообщения</h1>
-<div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><span>Mои сообщения</span></div>
+<div class="crumb">
+	<a href="/">Главная</a>
+	<a href='{$url->url_create("profile", $user->user_info.user_username)}'	>{lang_print id=652}</a>
+	<span>Mои сообщения</span>
+</div>
 <ul class="vk">
 	<li><a href="/user_messages.php">{lang_print id=780}<!-- Полученные --><font>{if $user_unread_pms>0}({$user_unread_pms}){/if}</font></a></li>
-	<li class="active"><a href="/user_messages_outbox.php">{lang_print id=781}<!-- Отправленные --></a></li>
-	<li><a href="#">Спам  <font>(8)</font></a></li>
-	<li id="add_msg"><a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=784}<!-- Написать сообщение --></a></li>
+	<li class="active last_b"><a href="/user_messages_outbox.php">{lang_print id=781}<!-- Отправленные --></a></li>
+	<!-- <li><a href="#">Спам  <font>(8)</font></a></li> -->
+	<li id="add_msg"><a href="user_messages_new.php">{lang_print id=784}<!-- Написать сообщение --></a></li>
 </ul>
-<div class="message">
 {* JAVASCRIPT FOR CHECK ALL MESSAGES FEATURE *}
 {literal}
   <script language='JavaScript'> 
@@ -55,14 +58,7 @@
 
 {* CHECK IF THERE ARE NO MESSAGES IN OUTBOX *}
 {if $total_pms == 0}
-
-  <div class='center'>
-    <table cellpadding='0' cellspacing='0'><tr>
-    <td class='result'><img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_print id=799}</td>
-    </tr></table>
-  </div>
-
-
+  <div class='center'>{lang_print id=799}</div>
 {* DISPLAY MESSAGES *}
 {else}
 
@@ -97,5 +93,5 @@
   </form>
 
 {/if}
-</div>
+
 {include file='footer.tpl'}

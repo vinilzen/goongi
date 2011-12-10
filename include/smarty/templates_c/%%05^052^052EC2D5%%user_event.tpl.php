@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-07 21:47:00
+<?php /* Smarty version 2.6.14, created on 2011-12-10 14:27:46
          compiled from user_event.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_event.tpl', 151, false),array('function', 'cycle', 'user_event.tpl', 172, false),array('modifier', 'truncate', 'user_event.tpl', 194, false),array('modifier', 'choptext', 'user_event.tpl', 194, false),array('modifier', 'strip_tags', 'user_event.tpl', 251, false),)), $this);
@@ -20,7 +20,7 @@ unset($_smarty_tpl_vars);
 
 <div class="buttons">
 	<?php if ($this->_tpl_vars['user']->level_info['level_event_allow'] == 7): ?>
-	<span class="button2" id="add_event___"><span class="l">&nbsp;</span><span class="c"><a href="/user_event_add.php"><input type="button" value="Создать событие" name="creat" /></a></span><span class="r">&nbsp;</span></span>
+	<span class="button2" id="add_event___"><span class="l">&nbsp;</span><span class="c"><a href="/user_event_add.php">Создать событие</a></span><span class="r">&nbsp;</span></span>
 	<?php endif; ?>
 </div>
 

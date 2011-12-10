@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 14:49:28
+<?php /* Smarty version 2.6.14, created on 2011-12-10 14:42:15
          compiled from user_home.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'user_home.tpl', 73, false),array('modifier', 'choptext', 'user_home.tpl', 73, false),array('modifier', 'count', 'user_home.tpl', 100, false),array('function', 'math', 'user_home.tpl', 194, false),array('block', 'hook_foreach', 'user_home.tpl', 236, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'user_home.tpl', 76, false),array('modifier', 'choptext', 'user_home.tpl', 76, false),array('modifier', 'count', 'user_home.tpl', 103, false),array('function', 'math', 'user_home.tpl', 197, false),array('block', 'hook_foreach', 'user_home.tpl', 239, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(737,1070,1069,173,39,1068,738,739,740,741,1064,1182,1063,773,1113,743,744,745,746,747,742,664,665,977,976,1176,1180);
 SELanguage::load();
@@ -12,7 +12,10 @@ unset($_smarty_tpl_vars);
  ?>
 
 <h1>Новости</h1>
- 
+<div class="crumb">
+	<a href="#">Главная</a>
+	<span>Новости</span>
+</div>
             <div style='margin-bottom: 7px;'>
         <div class='page_header' style='width: 50%; float: left;'><?php echo SELanguage::_get(737); ?></div>
         <div style='width: 50%; float: right; text-align: right; padding-top: 13px;'><?php if ($this->_tpl_vars['setting']['setting_actions_preference'] == 1): ?> <a href='javascript:actionprefs();'><?php echo SELanguage::_get(1070); ?></a><?php endif; ?></div>

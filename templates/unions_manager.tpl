@@ -236,6 +236,7 @@
 		</div>
 		<input type="hidden" name="do" value="1" />
 		<input type="hidden" name="rewrite" value="0" />
+		<input type="hidden" name="json" value="0" />
 		<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Сохранить изменения" name="log" /></span><span class="r">&nbsp;</span></span></div>
 	</form>
 </div>

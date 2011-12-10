@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-30 00:31:54
+<?php /* Smarty version 2.6.14, created on 2011-12-10 17:19:23
          compiled from unions_manager.tpl */
 ?><?php
 SELanguage::_preload_multi(652);
@@ -255,6 +255,7 @@ unset($_smarty_tpl_vars);
 		</div>
 		<input type="hidden" name="do" value="1" />
 		<input type="hidden" name="rewrite" value="0" />
+		<input type="hidden" name="json" value="1" />
 		<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Сохранить изменения" name="log" /></span><span class="r">&nbsp;</span></span></div>
 	</form>
 </div>

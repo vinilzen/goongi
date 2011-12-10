@@ -50,7 +50,7 @@
 <div class="buttons_edit_blog">
 	{lang_block id=1500065 var=langBlockTemp}
 	<span class="button2"><span class="l">&nbsp;</span><span class="c">
-	<input type="submit" value="Сохранить" name="save" />
+	<input type="submit" value="Сохранить" style="padding:1px 0px 0px 0px;" name="save" />
 	</span><span class="r">&nbsp;</span></span>{/lang_block}
 	<input type='hidden' name='task' value='dosave'>
 	</form>
@@ -58,7 +58,7 @@
 	<form action='user_history.php' method='post'>
 	{lang_block id=39 var=langBlockTemp}
 	<span class="button2"><span class="l">&nbsp;</span><span class="c">
-	<input type="submit" value="Отмена" name="save" />
+	<input type="submit" style="padding:1px 0px 0px 0px;"  value="Отмена" name="save" />
 	</span><span class="r">&nbsp;</span></span>
 	{/lang_block}
 	</form>

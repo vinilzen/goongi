@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-07 22:56:52
+<?php /* Smarty version 2.6.14, created on 2011-12-10 12:45:51
          compiled from user_blog.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'truncate', 'user_blog.tpl', 57, false),array('modifier', 'strip_tags', 'user_blog.tpl', 67, false),array('function', 'math', 'user_blog.tpl', 97, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'truncate', 'user_blog.tpl', 56, false),array('modifier', 'strip_tags', 'user_blog.tpl', 66, false),array('function', 'math', 'user_blog.tpl', 96, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(652,1500049,646,1500114,175,39,184,185);
 SELanguage::load();
@@ -20,9 +20,8 @@ unset($_smarty_tpl_vars);
 </div>
 <div class="buttons">
 	<span class="button2"><span class="l">&nbsp;</span><span class="c">
-        <a href='user_blog_entry.php'>
-        <input type="button" value="Написать статью" name="creat" /></a></span>
-        <span class="r">&nbsp;</span></span>
+        <a href='user_blog_entry.php'>Написать статью</a>
+		</span><span class="r">&nbsp;</span></span>
 </div>
 
 <div style='width: 550px;border: 1px solid #AAAAAA; background: #EEEEEE;margin-bottom:8px;<?php if ($this->_tpl_vars['search'] == ""): ?> display: none;<?php endif; ?>' id='blog_search'>

@@ -1601,11 +1601,12 @@ class SEUser
 		$user_id = $user->user_info['user_id'];
 		$members = array(); 
 		if ( count($members_list) > 0 ) {
-			
-			$resourse = $database->database_query("SELECT * FROM `se_users` WHERE `user_id` IN (" . implode(',', $members_list) . ") LIMIT ". count($members_list) .";");
+			$sql = "SELECT * FROM `se_users` WHERE `user_id` IN (" . implode(',', $members_list) . ") LIMIT ". count($members_list) .";";
+			$resourse = $database->database_query($sql);
 			
 			if ($json) {
-				while($u = $database->database_fetch_assoc($resourse) ) 
+				while($u = $database->database_fetch_assoc($resourse) ) {
+
 					$members[$u['user_id']] = array(
 						'id'	=>	$u['user_id'],
 			            'email' =>	$u['user_email'],
@@ -1618,8 +1619,10 @@ class SEUser
 			            'lastlogindate' => $u['user_lastlogindate'],
 			            'lastactive' => $u['user_lastactive'],
 			        );
+				}
 			} else {
-				while($u = $database->database_fetch_assoc($resourse) )
+				while($u = $database->database_fetch_assoc($resourse) ) {
+	
 					$members[$u['user_id']] = array(
 						'id'	=>	$u['user_id'],
 			            'email' =>	$u['user_email'],
@@ -1630,13 +1633,25 @@ class SEUser
 			            'photo' => $u['user_photo'],
 			            'signupdate' => $u['user_signupdate'],
 			            'lastlogindate' => $u['user_lastlogindate'],
-			            'lastactive' => $u['user_lastactive'],
+			            'lastactive' => $u['user_lastactive'],			            
 			        );
+				}
+
 			}
 		}
-
+		$sql1 = "SELECT * FROM `se_profilevalues` WHERE `profilevalue_id` IN (" . implode(',', $members_list) . ") LIMIT ". count($members_list) .";";
+	
+		$resourse1 = $database->database_query($sql1);
+		while( $m = $database->database_fetch_assoc($resourse1)) {
+			$members[$m['profilevalue_id']]['birthday']	=	$m['profilevalue_4'];
+	        $members[$m['profilevalue_id']]['sex']	= $m['profilevalue_5']=='2'?'w':(($m['profilevalue_5']=='1')?'m':'');
+	        $members[$m['profilevalue_id']]['death']	= $m['profilevalue_12'];
+			$members[$m['profilevalue_id']]['alias']	= $m['profilevalue_11'];
+		}
 		return $members;
 	}
+
+
 	//  role (father|mother|child|brother|husband|wife) 
 	function get_family_id($user_id = 0, $user_rel = 0, $role = '') {
 		global $database, $setting, $user;
@@ -1867,15 +1882,10 @@ class SEUser
 				$result1['users'][$k] = $this->add_psc($k);
 			}
 		}
-		//var_dump($result); die();
-		//var_dump($relatives);
 		return json_encode($result1); //die();
-		//var_dump($result);
-		//var_dump($family_ids); 
-		//die();
 	}
 	
-	function bild_tree($user_id){
+	function bild_tree($user_id) {
 		global $database, $setting, $user;
 		$familys = $this->get_family_list($user_id);  // list family
 		$family_ids = array();
@@ -1894,7 +1904,7 @@ class SEUser
 		
 		array_push($relatives, $user_id);
 		$result_users = $this->get_user_info($relatives, true);
-		
+		//var_dump($result_users); die();
 		$r['user'] = $this->add_psc($user_id);
 		$r['users'] = $result_users;
 		return $r;
@@ -1905,7 +1915,7 @@ class SEUser
 		$familys = $this->get_family_list($user_id);  // list family
 		$family_ids = array();
 		$result_users = $this->get_user_info(array(0=>$user_id), true);
-		
+		//var_dump($result_users); die();
 		foreach ($familys as $key => $value) {
 			if ( $value['role'] == 'mother' || $value['role'] == 'father') {
 				$child_family = $value['family_id'];
@@ -1915,7 +1925,7 @@ class SEUser
 			$family_ids[] = $value['family_id'];
 		}
 		$r = $result_users[$user_id];
-		$r['sex'] = $this->get_sex($user_id);
+		//$r['sex'] = $this->get_sex($user_id);
 		$r['father'] = $this->get_parent($parent_family, 'father');
 		$r['mother'] = $this->get_parent($parent_family, 'mother');
 		$r['spouse'] =  $this->get_parent($child_family, 'spouse', $user_id);
