@@ -9,9 +9,8 @@
 </div>
 <div class="buttons">
 	<span class="button2"><span class="l">&nbsp;</span><span class="c">
-        <a href='user_blog_entry.php'>
-        <input type="button" value="Написать статью" name="creat" /></a></span>
-        <span class="r">&nbsp;</span></span>
+        <a href='user_blog_entry.php'>Написать статью</a>
+		</span><span class="r">&nbsp;</span></span>
 </div>
 
 {* SEARCH FIELD *}
