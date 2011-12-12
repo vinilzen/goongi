@@ -1643,9 +1643,9 @@ class SEUser
 	
 		$resourse1 = $database->database_query($sql1);
 		while( $m = $database->database_fetch_assoc($resourse1)) {
-			$members[$m['profilevalue_id']]['birthday']	=	$m['profilevalue_4'];
+			$members[$m['profilevalue_id']]['birthday']	= $m['profilevalue_4']=='0000-00-00'?null:$m['profilevalue_4'];
 	        $members[$m['profilevalue_id']]['sex']	= $m['profilevalue_5']=='2'?'w':(($m['profilevalue_5']=='1')?'m':'');
-	        $members[$m['profilevalue_id']]['death']	= $m['profilevalue_12'];
+	        $members[$m['profilevalue_id']]['death']	= $m['profilevalue_12']=='0000-00-00'?null:$m['profilevalue_12'];
 			$members[$m['profilevalue_id']]['alias']	= $m['profilevalue_11'];
 		}
 		return $members;
