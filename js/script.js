@@ -110,7 +110,7 @@
 	});
 	
 	// FORMS
-	if ($('#death label input').attr('checked')==true){
+	/*if ($('#death label input').attr('checked')==true){
 		$(this).parent().parent().children('select').removeAttr('disabled');
 	}else{
 		$(this).parent().parent().children('select').attr('disabled','disabled');
@@ -122,6 +122,7 @@
 			$(this).parent().parent().children('select').attr('disabled','disabled');
 		}
 	});
+	*/
 	$('.input input, .input textarea').focus(function(){
 		$(this).css('color','#000000');
 	});

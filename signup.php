@@ -17,7 +17,7 @@ if( $user->user_exists ) {
   exit();
 }
 
-
+$signup_timezone = $setting['setting_timezone'];
 
 // CHECK IF USER SIGNUP COOKIES SET (STEPS 3, 4, 5)
 $signup_logged_in = 0;
@@ -38,7 +38,7 @@ if($task != "step1" && $task != "step1do" && $task != "step2" && $task != "step2
     }
   }
 
-  if($signup_logged_in != 1) { cheader("signup.php"); exit(); }
+  if($signup_logged_in != 1) { header("signup.php"); exit(); }
 }
 
 if($signup_logged_in != 1)
@@ -76,7 +76,7 @@ if($task == "step1do" || $task == "step2do")
   }
   
   $signup_username = $_POST['signup_username'];
-  $signup_timezone = $_POST['signup_timezone'];
+  //$signup_timezone = $_POST['signup_timezone'];
   $signup_invite = $_POST['signup_invite'];
   $signup_cat = $_POST['signup_cat'];
 
@@ -192,7 +192,9 @@ if($task == "step1" || $task == "step1do" || $task == "step2" || $task == "step2
   if($task == "step2do") { $validate = 1; } else { $validate = 0; }
   if($task != "step1") { $cat_where = "profilecat_signup='1' AND profilecat_id='$signup_cat'"; } else { $cat_where = "profilecat_signup='1'"; }
   $field = new se_field("profile");
+  
   $field->cat_list($validate, 0, 0, $cat_where, "", "profilefield_signup='1'");
+  
   $cat_array = $field->cats;
   if($task != "step1" && count($cat_array) == 0) { $task = "step1"; }
   if($validate == 1) { $is_error = $field->is_error; }
@@ -213,7 +215,8 @@ if($task == "step2do")
   // IF THERE IS NO ERROR, ADD USER AND USER PROFILE AND CONTINUE TO STEP 3
   if($is_error == 0)
   {
-    $new_user->user_create($signup_email, $signup_username, $signup_password, $signup_timezone, $signup_lang, $signup_cat, $field->field_query);
+  	
+  	$new_user->user_create($signup_email, $signup_username, $signup_password, $signup_timezone, $signup_lang, $signup_cat, $field->field_query);
     
     // INVITE CODE FEATURES
     if($setting['setting_signup_invite'] != 0)

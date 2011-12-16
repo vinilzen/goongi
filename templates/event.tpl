@@ -7,23 +7,10 @@
 	<a href='user_event.php'>{lang_print id=3000086}</a>
 	<span>{$event->event_info.event_title}</span>
 </div>
-{* JAVASCRIPT *}
-{lang_javascript ids=861,3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000170,3000219,3000223,3000225,3000229}
-<script type="text/javascript" src="./include/js/class_event.js"></script>
-<script type='text/javascript'>
-<!--
-  SocialEngine.Event = new SocialEngineAPI.Event({$event->event_generate_javascript_structure()}, {ldelim} 'defaultView' : '{$v}', 'ajaxURL' : SocialEngine.URL.url_base + 'event_ajax.php' {rdelim});
-  SocialEngine.RegisterModule(SocialEngine.Event);
-  
-  // Delete redirect function
-  function redirectOnDelete()
-  {ldelim}
-    window.location.href = SocialEngine.URL.url_base + 'user_event.php';
-  {rdelim}
-//-->
-</script>
-
-
+<div class="buttons">
+	<span class="button2"><span class="l">&nbsp;</span><span class="c"><a href="/user_event_edit.php?event_id={$event->event_info.id}">Редактировать" name="creat" /></span><span class="r">&nbsp;</span></span>
+	<span class="button3"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Удалить" name="creat" /></span><span class="r">&nbsp;</span></span>
+</div>
 {* HIDDEN DIV TO DISPLAY CANCEL REQUEST CONFIRMATION MESSAGE *}
 <div style='display: none;' id='confirmeventrequestcancel'>
   <div style='margin-top: 10px;'>

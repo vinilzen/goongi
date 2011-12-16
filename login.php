@@ -18,7 +18,7 @@ $task = ( isset($_POST['task']) ? $_POST['task'] : NULL );
 if(isset($_POST['return_url'])) { $return_url = $_POST['return_url']; } elseif(isset($_GET['return_url'])) { $return_url = $_GET['return_url']; } else { $return_url = ""; }
 $return_url = urldecode($return_url);
 $return_url = str_replace("&amp;", "&", $return_url);
-if($return_url == "") { $return_url = "user_home.php"; }
+if($return_url == "") { $return_url = "/"; }
 
 // INITIALIZE ERROR VARS
 $is_error = 0;

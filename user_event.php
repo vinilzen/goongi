@@ -69,18 +69,72 @@ if( $view=="month" )
   $event_array_raw = $event->event_list(0, $total_events, $s, $where, 1);
   
   // INDEX BY DAY
-  foreach($event_array_raw as $event_index=>$event_array_single )
-  {
+  foreach($event_array_raw as $event_index=>$event_array_single ) {
     $day = date("j", $event_array_raw[$event_index]['event']->event_info['event_date_start']);
     $events[$day][] =& $event_array_raw[$event_index];
   }
+  
+	switch ($month_text) {
+		case 'December':
+			$month_lang = 3000342;
+			break;
+		
+		case 'January':
+			$month_lang = 3000343;
+			break;
+		
+		case 'February':
+			$month_lang = 3000344;
+			break;
+		
+		case 'March':
+			$month_lang = 3000345;
+			break;
+		
+		case 'April':
+			$month_lang = 3000346;
+			break;
+		
+		case 'May':
+			$month_lang = 3000347;
+			break;
+		
+		case 'June':
+			$month_lang = 3000348;
+			break;
+		
+		case 'July':
+			$month_lang = 3000349;
+			break;
+		
+		case 'August':
+			$month_lang = 3000350;
+			break;
+		
+		case 'September':
+			$month_lang = 3000351;
+			break;
+		
+		case 'October':
+			$month_lang = 3000352;
+			break;
+		
+		case 'November':
+			$month_lang = 3000353;
+			break;
+			
+		default:
+			$month_lang = '';
+			break;
+	}
+  
   
   // ASSIGN
   $smarty->assign('days_in_month', $days_in_month);
   $smarty->assign('first_day_of_month', $first_day_of_month);
   $smarty->assign('last_day_of_month', $last_day_of_month);
   $smarty->assign('total_cells', $total_cells);
-  $smarty->assign('month', $month_text);
+  $smarty->assign('month',SE_Language::get($month_lang));
   $smarty->assign('year', $month_year);
   $smarty->assign('date_last', $date_last);
   $smarty->assign('date_current', $date);

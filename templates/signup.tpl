@@ -391,13 +391,13 @@
   <form action='signup.php' method='POST'>
   <h1>{lang_print id=681}</h1>
         <div class="input"><label>{lang_print id=37}</label><input name='signup_email' type='text' class='text' maxlength='70' size='40' value='{$signup_email}' /></div>
-        <!-- <div class='form_desc'>{lang_print id=682}</div> -->
+        <div class='form_desc'>{lang_print id=682}</div>
 
   {if $setting.setting_signup_randpass == 0}
         <div class="input"><label>{lang_print id=29}</label><input name='signup_password' type='password' class='text' maxlength='50' size='40' value='{$signup_password}' /></div>
-        <!-- <div class='form_desc'>{lang_print id=53}</div> -->
+        <div class='form_desc'>{lang_print id=53}</div>
         <div class="input"><label>{lang_print id=266}</label><input name='signup_password2' type='password' class='text' maxlength='50' size='40' value='{$signup_password2}' /></div>
-        <!-- <div class='form_desc'>{lang_print id=683}</div> -->
+        <div class='form_desc'>{lang_print id=683}</div>
   {else}
     <input type='hidden' name='signup_password' value=''>
     <input type='hidden' name='signup_password2' value=''>

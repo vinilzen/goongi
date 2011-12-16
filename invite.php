@@ -21,7 +21,7 @@ $is_error = 0;
 $result = 0;
 
 // CHECK IF INVITE CODES SET TO ADMINS ONLY
-if($setting['setting_signup_invite'] == 1) { header("Location: user_home.php"); exit(); }
+if($setting['setting_signup_invite'] == 1) { header("Location: $user->user_info['user_username']"); exit(); }
 
 
 // SEND INVITATIONS
