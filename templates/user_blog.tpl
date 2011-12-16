@@ -46,8 +46,9 @@
       {* LIST BLOG ENTRIES *}
       <ul class="article_list">
       <form action='user_blog.php' name='entryform' method='post'>
-        {$i = 0;}
+        {assign var=i value=0}
       {section name=blogentry_loop loop=$blogentries}
+        {assign var=i value=$i+1}
        <li id = "blog_msg{$blogentries[blogentry_loop].blogentry_id}">
             <a><img src="/uploads_user/1000/{$user->user_info.user_id}/{$user->user_info.user_photo}" alt="" /></a>
             <div>
@@ -57,7 +58,7 @@
                   </a></big>
                 <a href="#" onclick="delete_blog('deleteblog',{$blogentries[blogentry_loop].blogentry_id}); return false;" class="del">Удалить</a>
                 <a href='user_blog_entry.php?blogentry_id={$blogentries[blogentry_loop].blogentry_id}' class="edit">Редактировать</a>
-                <span></span>
+                <span>{$data_rus[$i]}</span>
             </div>
                  
                

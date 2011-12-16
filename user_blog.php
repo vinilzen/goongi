@@ -45,18 +45,18 @@ $page_vars = make_page($total_blogentries, $entries_per_page, $p);
 $blogentries = $blog->blog_entries_list($page_vars[0], $entries_per_page, $s, $where);
 
 $i = 0;
-/*foreach ($blogentries as $blogentry_loop) {
-	//echo  ($blogentry_loop[blogentry_author]->user_displayname);
-	$i++;
-	$date = explode('.',date('d.m.Y', $blogentry_loop[blogentry_date]));
-	$monthList = array('января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря');
-	$data_rus[$i] =  $date[0].' '.$monthList[$date[1]-1].' '.$date[2];
-}*/
-//print_r ($blogentries);
+foreach ($blogentries as $blogentry_loop) {
+    $i++;
+ //echo  ($blogentry_loop[blogentry_author]->user_displayname);
+    $date = explode('.',date('d.m.Y', $blogentry_loop[blogentry_date]));
+    $monthList = array('января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря');
+    $data_rus[$i] =  $date[0].' '.$monthList[$date[1]-1].' '.$date[2];
+
+}
 // ASSIGN VARIABLES AND SHOW VIEW ENTRIES PAGE
 $smarty->assign('total_blogentries', $total_blogentries);
 $smarty->assign_by_ref('blogentries', $blogentries);
-//$smarty->assign('data_rus', $data_rus);
+$smarty->assign('data_rus', $data_rus);
 
 $smarty->assign('s', $s);
 $smarty->assign('search', $search);

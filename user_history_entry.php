@@ -4,10 +4,12 @@
 
 $page = "user_history_entry";
 include "header.php";
-
+//echo 1;
 $task         = ( !empty($_POST['task'])          ? $_POST['task']          : ( !empty($_GET['task'])         ? $_GET['task']         : NULL ) );
 $historyentry_id = ( !empty($_POST['historyentry_id'])  ? $_POST['historyentry_id']  : ( !empty($_GET['historyentry_id']) ? $_GET['historyentry_id'] : NULL ) );
-
+$status_user        = $_POST['status_user'];
+//print_r ($_POST['status_user']);
+//echo $_GET['status_user'];
 
 // ENSURE historyS ARE ENABLED FOR THIS USER
 if( !$user->level_info['level_history_create'] )
@@ -28,36 +30,53 @@ if( $historyentry_id )
 {
   $historyentry_info = $history->history_entry_info($historyentry_id);
   
-  if( !$historyentry_info )
-  {
-    header("Location: user_history.php");
-    exit();
-  }
+//  if( !$historyentry_info )
+ // {
+//    header("Location: user_history.php");
+//    exit();
+//  }
   
   // GET TOTAL COMMENTS POSTED ON THIS ENTRY
   $comments_total = $database->database_num_rows($database->database_query("SELECT historycomment_id FROM se_historycomments WHERE historycomment_historyentry_id='{$historyentry_info[historyentry_id]}'"));
 }
-
-
 // DO SAVE
 if( $task=="dosave" )
 {
-    echo $historyentry_body;
+   if( !$historyentry_id ) $status_user = '0';
+   $sql = "SELECT tree_id FROM se_tree_users WHERE user_id='{$user->user_info['user_id']}'";
+      $resource = $database->database_query($sql);
+      $treeid=$database->database_fetch_assoc($resource);
+      $historyentry_historyentrycat_id = $treeid['tree_id'];
+
+
+      $sql = "SELECT * FROM se_historyentries WHERE historyentry_historyentrycat_id='{$historyentry_historyentrycat_id}'";
+      $resource = $database->database_query($sql);
+      $historyentries =$database->database_fetch_assoc($resource);
+      
+  // echo $historyentries['historyentry_user_id'];
+        if (($historyentries['historyentry_user_id'] != $user->user_info['user_id']) && ($status_user != '0'))
+        {
+         
+              $status_user = '1';
+              $historyentry_title            = $_POST['historyentry_title'];
+              $historyentry_body             = $_POST['historyentry_body'];
+              $historyentry_search           = $_POST['historyentry_search'];
+              $historyentry_privacy          = $_POST['historyentry_privacy'];
+              $historyentry_comments         = $_POST['historyentry_comments'];
+              $new_historyentrycat_title     = $_POST['new_historyentrycat_title'];
+              $smarty->assign('status_user',$status_user);
+        }
+       else   {
+           $status_user = '0';
+           $history->history_user_null($historyentry_historyentrycat_id);
+    
   $historyentry_title            = $_POST['historyentry_title'];
   $historyentry_body             = $_POST['historyentry_body'];
-  $historyentry_historyentrycat_id  = $_POST['historyentry_historyentrycat_id'];
   $historyentry_search           = $_POST['historyentry_search'];
   $historyentry_privacy          = $_POST['historyentry_privacy'];
   $historyentry_comments         = $_POST['historyentry_comments'];
-  $historyentry_trackbacks       = $_POST['historyentry_trackbacks'];
   $new_historyentrycat_title     = $_POST['new_historyentrycat_title'];
   
-  // CATEGORY
-  if( $historyentry_historyentrycat_id==-1 && !trim($new_historyentrycat_title) )
-    $historyentry_historyentrycat_id = 0;
-  
-  if( $user->level_info['level_history_category_create'] && $historyentry_historyentrycat_id==-1 )
-    $historyentry_historyentrycat_id = $history->history_category_create($new_historyentrycat_title);
   
   // CREATE VS EDIT
   $is_edit = !empty($historyentry_id);
@@ -67,28 +86,30 @@ if( $task=="dosave" )
     $historyentry_id,
     $historyentry_title,
     $historyentry_body,
-    $historyentry_historyentrycat_id,
     $historyentry_search,
     $historyentry_privacy,
     $historyentry_comments,
     $historyentry_trackbacks
   );
-  
+ 
   if( empty($historyentry_id) && !empty($result_array['historyentry_id']) )
     $historyentry_id = $result_array['historyentry_id'];
+}
   
   // STUFF TO DO ON SUCCESS
   if( $result_array['result'] )
   {
+   //    echo 1;
     // UPDATE LAST UPDATE DATE (SAY THAT 10 TIMES FAST)
     $user->user_lastupdate();
     
     // INSERT ACTION
     if( !$is_edit )
     {
+
       if( strlen($historyentry_title)>100 )
         $historyentry_title = substr($historyentry_title, 0, 97); $historyentry_title .= "...";
-      
+   
       $actions->actions_add(
         $user,
         "posthistory",
@@ -108,18 +129,17 @@ if( $task=="dosave" )
     }
     
     // SEND USER BACK TO VIEW ENTRIES PAGE
+    $smarty->assign('status_user',$status_user);
     header("Location: user_history.php");
     exit();
   }
-  
-  
   
   // AN ERROR OCCURED SEND THE DATA BACK
   $historyentry_info = array(
     'historyentry_id'              => $historyentry_id,
     'historyentry_title'           => $historyentry_title,
     'historyentry_body'            => $historyentry_body,
-    'historyentry_historyentrycat_id' => $historyentry_historyentrycat_id,
+  //  'historyentry_historyentrycat_id' => $historyentry_historyentrycat_id,
     'historyentry_search'          => $historyentry_search,
     'historyentry_privacy'         => $historyentry_privacy,
     'historyentry_comments'        => $historyentry_comments,
@@ -157,8 +177,10 @@ for( $c=0; $c<count($level_history_comments); $c++ )
 // CONVERT HTML CHARACTERS BACK
 $historyentry_info['historyentry_body'] = str_replace("\r\n", "", htmlspecialchars_decode($historyentry_info['historyentry_body']));
 
-
+ if ($status_user == '') (int) $status_user=0;
 // ASSIGN VARIABLES AND SHOW NEW historyENTRY PAGE
+$smarty->assign('status_user',$status_user);
+
 $smarty->assign('historyentry_info', $historyentry_info);
 $smarty->assign('historyentrycats', $historyentrycats_array);
 $smarty->assign('privacy_options', $privacy_options);

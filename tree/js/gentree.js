@@ -19,7 +19,7 @@ var TREE = {
 		},
 
 		updatePerson: function(person) {
-			console.log('POSTing: ', perosn);
+			console.log('POSTing: ', person);
 			return $.ajax({
 				type: 'POST',
 				url: '/tree_build.php',
