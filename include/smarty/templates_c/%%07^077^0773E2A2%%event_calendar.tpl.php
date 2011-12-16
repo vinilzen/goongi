@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-07 21:55:38
+<?php /* Smarty version 2.6.14, created on 2011-12-15 15:38:22
          compiled from event_calendar.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'cycle', 'event_calendar.tpl', 29, false),array('function', 'math', 'event_calendar.tpl', 43, false),array('modifier', 'in_array', 'event_calendar.tpl', 38, false),array('modifier', 'count', 'event_calendar.tpl', 39, false),array('modifier', 'truncate', 'event_calendar.tpl', 85, false),array('modifier', 'choptext', 'event_calendar.tpl', 85, false),array('modifier', 'strip_tags', 'event_calendar.tpl', 130, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(3000237,3000238,3000239,3000240,3000241,3000242,3000243,3000276,589,3000104,3000105,3000203,3000202,3000204,3000230,3000231,3000232,3000233,3000234,3000235,3000236,3000277,3000168,3000170,3000245,3000097,3000219,3000169);
+SELanguage::_preload_multi(3000237,3000238,3000239,3000240,3000241,3000242,3000243,3000276,589,3000104,3000105,3000203,3000202,3000204,3000236,3000230,3000231,3000232,3000233,3000234,3000235,3000277,3000168,3000170,3000245,3000097,3000219,3000169);
 SELanguage::load();
 ?>
 
@@ -227,13 +227,14 @@ $this->_sections['event_loop']['last']       = ($this->_sections['event_loop']['
 
   <table cellpadding='0' cellspacing='0' class='event_calendar'>
     <tr>
+	  <td class='event_cellheader'><?php echo SELanguage::_get(3000236); ?></td>
       <td class='event_cellheader'><?php echo SELanguage::_get(3000230); ?></td>
       <td class='event_cellheader'><?php echo SELanguage::_get(3000231); ?></td>
       <td class='event_cellheader'><?php echo SELanguage::_get(3000232); ?></td>
       <td class='event_cellheader'><?php echo SELanguage::_get(3000233); ?></td>
       <td class='event_cellheader'><?php echo SELanguage::_get(3000234); ?></td>
       <td class='event_cellheader'><?php echo SELanguage::_get(3000235); ?></td>
-      <td class='event_cellheader'><?php echo SELanguage::_get(3000236); ?></td>
+      
     </tr>
     
         <?php $this->assign('daycount', 1); ?>
@@ -265,11 +266,12 @@ $this->_sections['calendar']['last']       = ($this->_sections['calendar']['iter
         <?php echo smarty_function_cycle(array('name' => 'startrow','values' => "<tr>,,,,,,"), $this);?>
 
     
-        <?php if ($this->_sections['calendar']['index'] + 1 < $this->_tpl_vars['first_day_of_month'] || $this->_sections['calendar']['index'] + 1 > $this->_tpl_vars['last_day_of_month']): ?>
+        <?php if ($this->_sections['calendar']['index'] < $this->_tpl_vars['first_day_of_month'] || $this->_sections['calendar']['index'] > $this->_tpl_vars['last_day_of_month']): ?>
+		<?php if ($this->_tpl_vars['first_day_of_month'] != 7 || $this->_sections['calendar']['index'] > $this->_tpl_vars['first_day_of_month']): ?>
       <td height='80' class='event_cellblank'>
         <div class='event_cellnum'>&nbsp;</div>
       </td>
-    
+		<?php endif; ?>
         <?php else: ?>
       <?php $this->assign('day_events', $this->_tpl_vars['events'][$this->_tpl_vars['daycount']]); ?>
       <td height='80' id="event_cell<?php echo $this->_tpl_vars['daycount']; ?>

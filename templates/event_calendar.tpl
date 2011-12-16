@@ -164,13 +164,14 @@
 
   <table cellpadding='0' cellspacing='0' class='event_calendar'>
     <tr>
+	  <td class='event_cellheader'>{lang_print id=3000236}</td>
       <td class='event_cellheader'>{lang_print id=3000230}</td>
       <td class='event_cellheader'>{lang_print id=3000231}</td>
       <td class='event_cellheader'>{lang_print id=3000232}</td>
       <td class='event_cellheader'>{lang_print id=3000233}</td>
       <td class='event_cellheader'>{lang_print id=3000234}</td>
       <td class='event_cellheader'>{lang_print id=3000235}</td>
-      <td class='event_cellheader'>{lang_print id=3000236}</td>
+      
     </tr>
     
     {* SHOW DAYS OF MONTH *}
@@ -181,11 +182,12 @@
     {cycle name="startrow" values="<tr>,,,,,,"}
     
     {* SHOW EMPTY CELLS BEFORE THE MONTH STARTS *}
-    {if $smarty.section.calendar.index + 1<$first_day_of_month || $smarty.section.calendar.index + 1>$last_day_of_month}
+    {if $smarty.section.calendar.index<$first_day_of_month || $smarty.section.calendar.index>$last_day_of_month}
+		{if $first_day_of_month != 7 || $smarty.section.calendar.index>$first_day_of_month }
       <td height='80' class='event_cellblank'>
         <div class='event_cellnum'>&nbsp;</div>
       </td>
-    
+		{/if}
     {* SHOW A DAY *}
     {else}
       {assign value=$events.$daycount var=day_events}

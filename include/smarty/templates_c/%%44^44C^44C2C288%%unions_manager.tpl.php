@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-10 17:19:23
+<?php /* Smarty version 2.6.14, created on 2011-12-13 18:38:54
          compiled from unions_manager.tpl */
 ?><?php
 SELanguage::_preload_multi(652);
@@ -34,7 +34,7 @@ unset($_smarty_tpl_vars);
 		</div>
 		<div class="input">
 			<label>Добавить связь для:</label>
-			<select name="start_user">
+			<select name="start_user" id="root_user">
 								<?php $_from = $this->_tpl_vars['users']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
@@ -52,7 +52,7 @@ unset($_smarty_tpl_vars);
 		</div>
 		<div class="input">
 			<label>Добавить:</label>
-			<select name="unions_type">
+			<select name="unions_type" id="role">
 				<option value="pcf">Отца</option>
 				<option value="pcm">Мать</option>
 				<option value="pcc">Сестру/Брата</option>
@@ -63,7 +63,7 @@ unset($_smarty_tpl_vars);
 		</div>
 		
 		<div class="input">
-			<label>Cоздать нового пользователя&nbsp;<input type="checkbox" onclick="$('#bloc_create_user').toggle(); $('#select_user').toggle();" name="add_user" value="1" /></label>
+			<label>Cоздать нового пользователя&nbsp;<input type="checkbox" onclick="$('#bloc_create_user').toggle(); $('#select_user').toggle(); $('#save').toggle(); $('#add').toggle();" name="add_user" value="1" /></label>
 			
 			<div id="select_user">
 				<label>Или выбрать из списка:</label>
@@ -80,7 +80,9 @@ unset($_smarty_tpl_vars);
 			</div>
 		</div>
 		<div id="bloc_create_user" style="display:none;">
-			<div class="input"><label>Имя</label><input type="text" value="" id="fname" name="name" /></div>
+			<div class="input">
+				<label>Имя</label><input type="text" value="" id="fname" name="name" />
+			</div>
 			<div class="input" >
 				<label>Фамилия</label>
 				<input type="text" value="" id="lname" name="last_name" />
@@ -101,18 +103,24 @@ unset($_smarty_tpl_vars);
 				<label id="email_u_msg"></label>
 				<select id="fuser_email" name="sel_user" style="display:none;"></select>
 			</div>
-			<div class="radio"><label>Пол</label><div><label><input type="radio" value="m" name="pol" /><span>Мужской</span></label><label><input type="radio" value="f" name="pol" /><span>Женский</span></label></div></div>
+			<div class="radio">
+				<label>Пол</label>
+				<div>
+					<label><input type="radio" id="sex" value="m" checked="checked" name="pol" /><span>Мужской</span></label>
+					<label><input type="radio" id="sex" value="f" name="pol" /><span>Женский</span></label>
+				</div>
+			</div>
 			<div class="input date"><label>Дата рождения</label>
-				<select name="day_b" style="width:45px;">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
+				<select name="day_b" id ="day_b" style="width:45px;">
+					<option value="01">1</option>
+					<option value="02">2</option>
+					<option value="03">3</option>
+					<option value="04">4</option>
+					<option value="05">5</option>
+					<option value="06">6</option>
+					<option value="07">7</option>
+					<option value="08">8</option>
+					<option value="09">9</option>
 					<option value="10">10</option>
 					<option value="11">11</option>
 					<option value="12">12</option>
@@ -136,7 +144,7 @@ unset($_smarty_tpl_vars);
 					<option value="30">30</option>
 					<option value="31">31</option>
 				</select>
-				<select name="month_b" style="width:83px;">
+				<select name="month_b"  id ="month_b" style="width:83px;">
 					<option value="1">Январь</option>
 					<option value="2">Февраль</option>
 					<option value="3">Март</option>
@@ -150,7 +158,7 @@ unset($_smarty_tpl_vars);
 					<option value="11">Ноябрь</option>
 					<option value="12">Декабрь</option>
 				</select>
-				<select name="year_b" style="width:58px;">
+				<select name="year_b" id="year_b" style="width:58px;">
 					<option value="2011">2011</option>
 					<option value="2010">2010</option>
 					<option value="2009">2009</option>
@@ -245,22 +253,93 @@ unset($_smarty_tpl_vars);
 					<option value="1920">1920</option>
 				</select>
 			</div>
-			<!-- <div class="input date" id="death" ><label><input type="checkbox" value="" name="death" /><span>Дата смерти</span></label>
-				<select disabled="disabled" name="day_d" style="width:45px;"><option>01</option></select>
-				<select disabled="disabled" name="month_d" style="width:83px;"><option>августа</option></select>
-				<select disabled="disabled" name="year_d" style="width:58px;"><option>1975</option></select>
+			<div class="input date" id="death" >
+				<label>
+					<input type="checkbox" value="1" id="death_checkbox" name="death" />
+					<span>Дата смерти</span>
+				</label>
+				<select name="day_d" id="day_d" style="width:45px;">
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+				</select>
+				<select name="month_d" id="month_d" style="width:83px;">
+					<option value="07">июля</option>
+					<option value="08">августа</option>
+					<option value="09">сентября</option>
+				</select>
+				<select name="year_d" id="year_d" style="width:58px;">
+					<option value="1925">1925</option>
+					<option value="1926">1926</option>
+					<option value="1927">1927</option>
+					<option value="1928">1928</option>
+				</select>
 			</div>
 			<div class="clear"></div>
-			-->
+
 		</div>
 		<input type="hidden" name="do" value="1" />
 		<input type="hidden" name="rewrite" value="0" />
-		<input type="hidden" name="json" value="1" />
-		<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Сохранить изменения" name="log" /></span><span class="r">&nbsp;</span></span></div>
+		<input type="hidden" name="json" value="0" />
+		<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c">
+			<input type="submit" id="save" value="Сохранить изменения" name="log" />
+			<input type="submit" id="add" style="display:none;" value="Добавить пользователя" name="log" />
+		</span><span class="r">&nbsp;</span></span></div>
 	</form>
 </div>
 <?php echo '
 <script type="text/javascript">
+$(\'#add\').click(function(){
+	var user_id = $(\'#root_user\').val();
+	var role = $(\'#role\').val();
+	var sex =  $(\'#sex\').val();
+	var fname =  $(\'#fname\').val();
+	var alias = $(\'#lname\').val();
+	var lname =  $(\'#lname\').val();
+	var email = $(\'#email\').val();
+	var send_invite = $(\'#send_request\').val();
+	var birthday = $(\'#year_b\').val()+\'-\'+$(\'#month_b\').val()+\'-\'+$(\'#day_b\').val();
+	
+	var is_death = $(\'#death_checkbox\').attr(\'checked\');
+	
+	email = $.trim(email);
+	var filter = /^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$/;
+	if (!filter.test(email)) {
+		alert(\'Please provide a valid email address\');
+	} else {
+		$(\'#prldremail\').html(\'<img src="/images/142.gif" border="0" />\');
+		existence_mail(email);
+	}
+	
+	if (is_death == \'checked\') {
+		var death = $(\'#year_d\').val()+\'-\'+$(\'#month_d\').val()+\'-\'+$(\'#day_d\').val();
+	} else {
+		var death = \'0000-00-00\';
+	}
+	
+	//alert(death);
+	$.post(	"tree_build.php", 	
+			{	\'type\':\'add\',
+				\'json\':\'1\',
+				\'email\':email,
+				\'user_id\':user_id,
+				\'role\':role,
+				\'sex\':sex,
+				\'fname\':fname,
+				\'lname\':lname,
+				\'send_invite\':send_invite,
+				\'birthday\':birthday,
+				\'death\':death,
+				\'alias\':alias	},
+			function(data) {
+				alert(data);
+			}, \'json\'
+	)
+	return false;
+});
+
+
+
 function createGroup() {
 
 	$(\'#msg_gr\').html(\'<img src="/images/96.gif" border="0" />\');
@@ -308,6 +387,9 @@ function update_group_list() {
 		);
 	
 }
+
+
+
 function show_user() {
 	alert(\'filtr\');
 }

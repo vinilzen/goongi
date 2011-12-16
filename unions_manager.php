@@ -1,6 +1,6 @@
 <?php
 
-/* $Id: user_friends.php 42 2009-01-29 04:55:14Z john $ */
+/* $Id: unions_manager.php 42 2011-10-29 04:55:14Z vinilzen $ */
 
 $page = "unions_manager";
 include "header.php";

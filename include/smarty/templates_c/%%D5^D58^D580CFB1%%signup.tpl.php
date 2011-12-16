@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-23 12:36:23
+<?php /* Smarty version 2.6.14, created on 2011-12-13 15:06:16
          compiled from signup.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'signup.tpl', 148, false),array('modifier', 'in_array', 'signup.tpl', 308, false),array('modifier', 'escape', 'signup.tpl', 415, false),)), $this);
@@ -821,15 +821,15 @@ _option<?php echo $this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']
   <h1><?php echo SELanguage::_get(681); ?></h1>
         <div class="input"><label><?php echo SELanguage::_get(37); ?></label><input name='signup_email' type='text' class='text' maxlength='70' size='40' value='<?php echo $this->_tpl_vars['signup_email']; ?>
 ' /></div>
-        <!-- <div class='form_desc'><?php echo SELanguage::_get(682); ?></div> -->
+        <div class='form_desc'><?php echo SELanguage::_get(682); ?></div>
 
   <?php if ($this->_tpl_vars['setting']['setting_signup_randpass'] == 0): ?>
         <div class="input"><label><?php echo SELanguage::_get(29); ?></label><input name='signup_password' type='password' class='text' maxlength='50' size='40' value='<?php echo $this->_tpl_vars['signup_password']; ?>
 ' /></div>
-        <!-- <div class='form_desc'><?php echo SELanguage::_get(53); ?></div> -->
+        <div class='form_desc'><?php echo SELanguage::_get(53); ?></div>
         <div class="input"><label><?php echo SELanguage::_get(266); ?></label><input name='signup_password2' type='password' class='text' maxlength='50' size='40' value='<?php echo $this->_tpl_vars['signup_password2']; ?>
 ' /></div>
-        <!-- <div class='form_desc'><?php echo SELanguage::_get(683); ?></div> -->
+        <div class='form_desc'><?php echo SELanguage::_get(683); ?></div>
   <?php else: ?>
     <input type='hidden' name='signup_password' value=''>
     <input type='hidden' name='signup_password2' value=''>

@@ -787,11 +787,6 @@ class SEUser
 
 
 
-
-
-
-
-
 	// THIS METHOD LOGS A USER OUT
 	// INPUT:
 	// OUTPUT:
@@ -2406,6 +2401,8 @@ class SEUser
 	function user_create($signup_email, $signup_username, $signup_password, $signup_timezone, $signup_language, $signup_cat, $profile_field_query) {
 	  global $database, $setting, $url, $actions, $field;
     
+		//var_dump($profile_field_query); die();
+	
 	  // PRESET VARS
 	  $signup_subnet_id = 0;
 	  $signup_level_info = $database->database_fetch_assoc($database->database_query("SELECT level_id, level_profile_privacy, level_profile_comments FROM se_levels WHERE level_default='1' LIMIT 1"));
@@ -2505,6 +2502,7 @@ class SEUser
 	  $this->level_info = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_levels WHERE level_id='{$this->user_info['user_level_id']}' LIMIT 1"));
 	  $this->subnet_info = $database->database_fetch_assoc($database->database_query("SELECT subnet_id, subnet_name FROM se_subnets WHERE subnet_id='{$this->user_info['user_subnet_id']}' LIMIT 1"));
     
+    	
 	  // ADD USER PROFILE
 	  $database->database_query("INSERT INTO se_profilevalues (profilevalue_user_id) VALUES ('{$this->user_info['user_id']}')");
 	  if( $profile_field_query )
@@ -2619,8 +2617,211 @@ class SEUser
   // END user_create() METHOD
 
 
+	// user_create_fast() METHOD
+	function user_create_fast($fname, $lname, $rote_user_id, $role, $signup_email, $birthday = '0000-00-00', $sex, $death = '0000-00-00', $alias = '', $send_invite = 0) {
+		global $database, $setting, $url, $actions, $field;
+		
+	  // PRESET VARS
+		  $signup_subnet_id = 0;
+		  $signup_level_info = $database->database_fetch_assoc($database->database_query("SELECT level_id, level_profile_privacy, level_profile_comments FROM se_levels WHERE level_default='1' LIMIT 1"));
+		  $signup_date = time();
+		  $signup_dateupdated = $signup_date;
+		  $signup_invitesleft = $setting['setting_signup_invite_numgiven'];
+		  $signup_notify_friendrequest = 1;
+		  $signup_notify_message = 1;
+		  $signup_notify_profilecomment = 1;
+		  $signup_profile_search = 1;
+		  $signup_ip = $_SERVER['REMOTE_ADDR'];
+	    
+		  // SET SIGNUP_USERNAME TO A PLACEHOLDER IF USERNAMES ARE NOT BEING USED
+		 $signup_username = randomcode(15);
+	    
+		  // SET WHETHER USER IS ENABLED OR NOT
+		  $signup_enabled = (bool) $setting['setting_signup_enable'];
+	    
+		  // SET EMAIL VERIFICATION VARIABLE
+		  $signup_verified = !$setting['setting_signup_verify'];
+	    	$signup_verified = 1;
+			
+		  // CREATE RANDOM PASSWORD IF NECESSARY
+		 $signup_password = randomcode(10);
+	    
+		  // ENCODE PASSWORD WITH MD5
+		  $crypt_password = $this->user_password_crypt($signup_password);
+	      $signup_code = $user_salt = $this->user_salt;
+	    
+		  // SET PRIVACY DEFAULT
+		  $allowable_privacy = unserialize($signup_level_info['level_profile_privacy']);
+		  rsort($allowable_privacy);
+		  $profile_privacy = $allowable_privacy[0];
+	    
+		  // SET COMMENT DEFAULT
+		  $allowable_comments = unserialize($signup_level_info['level_profile_comments']);
+		  rsort($allowable_comments);
+		  $profile_comments = $allowable_comments[0];
+	    
+		  // ADD USER TO USER TABLE
+		  $database->database_query("
+	      INSERT INTO se_users (
+	        user_level_id,
+	        user_profilecat_id,
+	        user_email,
+	        user_newemail,
+	        user_username,
+	        user_password,
+	        user_password_method,
+	        user_code,
+	        user_enabled,
+	        user_verified,
+	        user_signupdate,
+	        user_invitesleft,
+	        user_timezone,
+	        user_language_id,
+	        user_dateupdated,
+	        user_search,
+	        user_privacy,
+	        user_comments,
+	        user_ip_signup,
+	        user_ip_lastactive
+	      ) VALUES (
+	        '{$signup_level_info['level_id']}',
+	        1,
+	        '{$signup_email}',
+	        '{$signup_email}',
+	        '{$signup_username}',
+	        '{$crypt_password}',
+	        '{$setting['setting_password_method']}',
+	        '{$signup_code}',
+	        '{$signup_enabled}',
+	        '{$signup_verified}',
+	        '{$signup_date}',
+	        '{$signup_invitesleft}',
+	        '{$signup_timezone}',
+	        '{$signup_language}',
+	        '{$signup_dateupdated}',
+	        '{$signup_profile_search}',
+	        '{$profile_privacy}',
+	        '{$profile_comments}',
+	        '{$signup_ip}',
+	        '{$signup_ip}'
+	      )
+	    ");
+    
+	  // RETRIEVE USER ID
+	  $user_id = $database->database_insert_id();
+    
+	    if( $user_id )
+	    	$this->user_exists = TRUE;
+		else
+			die('Error create user');
+			
+	    $database->database_query("UPDATE se_users SET user_username=user_id WHERE user_id='{$user_id}' LIMIT 1");
+	    
+		// GET USER INFO
+		$this->user_info = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_users WHERE user_id='{$user_id}' LIMIT 1"));
+		$this->level_info = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_levels WHERE level_id='{$this->user_info['user_level_id']}' LIMIT 1"));
+		$this->subnet_info = $database->database_fetch_assoc($database->database_query("SELECT subnet_id, subnet_name FROM se_subnets WHERE subnet_id='{$this->user_info['user_subnet_id']}' LIMIT 1"));
+	    
+	    $sex_bool = ($sex == 'm')?1:($sex == 'w')?2:-1;
+	    
+	    $profile_field_query = "profilevalue_2='$fname', profilevalue_3='$lname', profilevalue_4='$birthday', profilevalue_5='$sex_bool', profilevalue_12='$death',  profilevalue_5='$sex_bool', profilevalue_11='$alias', ";
+	    
+	    // ADD USER PROFILE
+		$database->database_query("INSERT INTO se_profilevalues (profilevalue_user_id) VALUES ('{$this->user_info['user_id']}')");
+		if( $profile_field_query )
+			$database->database_query("UPDATE se_profilevalues SET $profile_field_query WHERE profilevalue_user_id='{$this->user_info['user_id']}' LIMIT 1");
+	  
+		// GET PROFILE INFO
+		$this->profile_info = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_profilevalues WHERE profilevalue_user_id='{$this->user_info['user_id']}' LIMIT 1"));
+    
+	
+		// ADD ROW IN SETTINGS TABLE
+		$actiontypes = $database->database_query("SELECT actiontype_id FROM se_actiontypes");
+		$action_ids = Array();
+		while( $actiontype = $database->database_fetch_assoc($actiontypes) )
+			$action_ids[] = $actiontype['actiontype_id'];
+		
+		$database->database_query("
+		  INSERT INTO se_usersettings (
+		    usersetting_user_id,
+		    usersetting_notify_friendrequest,
+		    usersetting_notify_message,
+		    usersetting_notify_profilecomment,
+		    usersetting_actions_display
+		  ) VALUES (
+		    '{$this->user_info['user_id']}',
+		    '{$signup_notify_friendrequest}',
+		    '{$signup_notify_message}',
+		    '{$signup_notify_profilecomment}',
+		    '".implode(",", $action_ids)."'
+		  )
+		") or die($database->database_error());
 
+		// ADD USER DIRECTORY
+		$user_directory = $url->url_userdir($this->user_info['user_id']);
+		$user_path_array = explode("/", $user_directory);
+		array_pop($user_path_array);
+		array_pop($user_path_array);
+		$subdir = implode("/", $user_path_array)."/";
+		if( !is_dir($subdir) ) { 
+		    mkdir($subdir, 0777); 
+		    chmod($subdir, 0777); 
+		    $handle = fopen($subdir."index.php", 'x+');
+		    fclose($handle);
+		}
+		
+		if( !is_dir($user_directory) ) {
+		  mkdir($user_directory, 0777);
+		  chmod($user_directory, 0777);
+		  $handle = fopen($user_directory."/index.php", 'x+');
+		  fclose($handle);
+		}
+		
+		// SAVE FIRST/LAST NAME, IF RELEVANT
+		if( trim($fname) ) {
+		  $flquery[] = "user_fname='".$fname."'";
+		  $this->user_info['user_fname'] = $fname;
+		}
 
+		if( trim($lname) ) {
+		  $flquery[] = "user_lname='".$lname."'";
+		  $this->user_info['user_lname'] = $lname;
+		}
+		
+		if( !empty($flquery) ) {
+		  $database->database_query("UPDATE se_users SET ".implode(", ", $flquery)." WHERE user_id='{$this->user_info['user_id']}'");
+		  $this->user_displayname_update($fname, $lanme);
+		}
+
+		// SET DISPLAY NAME
+		$this->user_displayname();
+		
+		// CALL SIGNUP HOOK
+		($hook = SE_Hook::exists('se_signup_success')) ? SE_Hook::call($hook, array()) : NULL;
+		
+		// SEND RANDOM PASSWORD IF NECESSARY
+		if( $setting['setting_signup_randpass'] ) {
+		  send_systememail('newpassword', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
+		}
+		
+		// SEND VERIFICATION EMAIL IF REQUIRED
+		if( $setting['setting_signup_verify'] ) {
+		    $verify_code = md5($this->user_info['user_code']);
+		$time = time();
+		$verify_link = $url->url_base."signup_verify.php?u={$this->user_info['user_id']}&verify={$verify_code}&d={$time}";
+		send_systememail('verification', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], "<a href=\"$verify_link\">$verify_link</a>")); 
+		}
+
+		// INSERT ACTION IF VERIFICATION NOT NECESSARY
+		else {
+		  $actions->actions_add($this, "signup", Array($this->user_info['user_username'], $this->user_displayname), Array(), 0, false, "user", $this->user_info['user_id'], $this->user_info['user_privacy']);
+		}
+	
+		// SEND WELCOME EMAIL IF REQUIRED (AND IF VERIFICATION EMAIL IS NOT BEING SENT)
+		if( $setting['setting_signup_welcome'] && !$setting['setting_signup_verify'] ) {
+			send_systememail('welcome', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
+		}
+	}
 
 
 
@@ -3644,6 +3845,75 @@ class SEUser
     
     return $user_id;
   }
+
+
+
+	// THIS METHOD DELETES THE USER CURRENTLY ASSOCIATED WITH THIS OBJECT
+	// INPUT: $user_id
+	// OUTPUT:
+	function user_del($user_id)
+  {
+	  global $database, $url, $global_plugins;
+	  // CALL USER DELETE HOOK
+	  ($hook = SE_Hook::exists('se_user_delete')) ? SE_Hook::call($hook, $user_id) : NULL;
+    
+	  // DELETE USER, USERSETTING, PROFILE, STYLES TABLE ROWS
+	  $database->database_query("DELETE FROM se_users WHERE user_id='{$user_id}' LIMIT 1");
+	  $database->database_query("DELETE FROM se_usersettings WHERE usersetting_user_id='{$user_id}' LIMIT 1");
+	  $database->database_query("DELETE FROM se_profilevalues WHERE profilevalue_user_id='{$user_id}' LIMIT 1");
+	  $database->database_query("DELETE FROM se_profilestyles WHERE profilestyle_user_id='{$user_id}' LIMIT 1");
+    
+	  // DELETE USER-OWNED AND PROFILE COMMENTS
+	  $database->database_query("DELETE FROM se_profilecomments WHERE profilecomment_user_id='{$user_id}'");
+    
+    // DELETE NOTIFICATIONS SENT TO OTHER USERS FOR A PM THEY SENT
+    $database->database_query("DELETE se_notifys.* FROM se_pmconvoops LEFT JOIN se_notifys ON se_notifys.notify_object_id=se_pmconvoops.pmconvoop_pmconvo_id WHERE se_notifys.notify_notifytype_id=2 && se_pmconvoops.pmconvoop_user_id='{$user_id}'");
+    
+	  // DELETE PMCONVOS AND PMS WHERE THE DELETED USER AND THE OTHER USER ARE THE ONLY TWO INSIDE, OR WHERE THE DELETED USER WAS THE INITIAL SENDER
+    $database->database_query("UPDATE se_pmconvos LEFT JOIN se_pmconvoops ON pmconvoop_pmconvo_id=pmconvo_id SET pmconvo_recipients=pmconvo_recipients-1 WHERE pmconvoop_user_id='{$user_id}'");
+    $database->database_query("UPDATE se_pmconvos LEFT JOIN se_pmconvoops ON pmconvoop_pmconvo_id=pmconvo_id SET pmconvo_recipients=0 WHERE pmconvoop_user_id='{$user_id}' && pmconvoop_user_id=(SELECT pm_authoruser_id FROM se_pms WHERE pm_pmconvo_id=pmconvo_id ORDER BY pm_id ASC)");
+    $database->database_query("DELETE FROM se_pmconvoops WHERE pmconvoop_user_id='{$user_id}'");
+    
+    // THIS MAY ALSO DELETE OTHER CONVOS THAT WERE PARTIALLY REMOVED
+    $database->database_query("DELETE se_pms.*, se_pmconvos.*, se_pmconvoops.* FROM se_pmconvos LEFT JOIN se_pms ON pm_pmconvo_id=pmconvo_id LEFT JOIN se_pmconvoops ON pmconvoop_pmconvo_id=pmconvo_id WHERE pmconvo_recipients<2");
+    
+    // DELETE CONNECTIONS TO AND FROM USER
+	  $database->database_query("DELETE FROM se_friends, se_friendexplains USING se_friends LEFT JOIN se_friendexplains ON se_friends.friend_id=se_friendexplains.friendexplain_friend_id WHERE se_friends.friend_user_id1='{$user_id}' OR se_friends.friend_user_id2='{$user_id}'");
+	  
+    // DELETE ALL OF THIS USER'S REPORTS
+	  $database->database_query("DELETE FROM se_reports WHERE report_user_id='{$user_id}'");
+	  
+    // DELETE USER ACTIONS
+	  $database->database_query("DELETE FROM se_actions, se_actionmedia USING se_actions LEFT JOIN se_actionmedia ON se_actions.action_id=se_actionmedia.actionmedia_action_id WHERE action_user_id='{$user_id}'");
+	  
+    // DELETE USER NOTIFICATIONS
+	  $database->database_query("DELETE FROM se_notifys WHERE notify_user_id='{$user_id}'");
+    
+	  // DELETE NOTIFICATIONS BY USER
+	  $database->database_query("DELETE FROM se_notifys WHERE notify_notifytype_id=1 AND notify_object_id='{$user_id}'");
+
+	  // DELETE USER'S FILES
+	  if( is_dir($url->url_userdir($user_id)) )
+	    $dir = $url->url_userdir($user_id);
+	  else
+	    $dir = ".".$url->url_userdir($user_id);
+    
+	  if( $dh = @opendir($dir) ) {
+		while( ($file = @readdir($dh)) !== false ) {
+		  if( $file != "." && $file != ".." ) {
+	        @unlink($dir.$file);
+	      }
+	    }
+	    @closedir($dh);
+	  }
+	  
+	  @rmdir($dir);
+		
+	  return true;
+	}
+  
+  // END user_del($id) METHOD
+
 }
 
 
