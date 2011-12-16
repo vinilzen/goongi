@@ -19,6 +19,69 @@ if( empty($_POST['e_id']) && !empty($historyentry_id) )
 $history = new se_history($user->user_exists ? $user->user_info['user_id'] : NULL);
 
 
+if( $task=="update" )
+{
+    
+  if( !empty($historyentry_id))
+  {
+      $sql = "SELECT tree_id FROM se_tree_users WHERE user_id='{$user->user_info['user_id']}'";
+      $resource = $database->database_query($sql);
+      $treeid=$database->database_fetch_assoc($resource);
+      $historyentry_historyentrycat_id = $treeid['tree_id'];
+
+      $sql = "SELECT *  FROM se_historyentries WHERE historyentry_historyentrycat_id='{$historyentry_historyentrycat_id}'";
+      $resource = $database->database_query($sql);
+      $historyentries =$database->database_fetch_assoc($resource);
+      if (($historyentries['historyentry_date']+600 < time()) || ($historyentries['historyentry_user_id'] == $user->user_info['user_id']) ||($historyentries['historyentry_user_id'] == -1))
+     {
+        $history->history_udate_time($historyentry_historyentrycat_id,$user->user_info['user_username']);
+        echo json_encode(array('result' => 'success'));
+     }else{echo json_encode(array('result' => 'error',
+                          'name_user' => $historyentries['historyentry_trackbacks'])
+                        );}
+  }
+  //  echo json_encode(array('result' => FALSE));
+  // header ('Location: http://world-blog.ru');
+exit;
+
+}
+
+if( $task=="save_nulid" )
+{
+
+  if( !empty($historyentry_id))
+  {
+    
+      $sql = "SELECT tree_id FROM se_tree_users WHERE user_id='{$user->user_info['user_id']}'";
+      $resource = $database->database_query($sql);
+      $treeid=$database->database_fetch_assoc($resource);
+      $historyentry_historyentrycat_id = $treeid['tree_id'];
+
+       
+      $sql = "SELECT * FROM se_historyentries WHERE historyentry_historyentrycat_id='{$historyentry_historyentrycat_id}'";
+      $resource = $database->database_query($sql);
+      $historyentries =$database->database_fetch_assoc($resource);
+
+        if (($historyentries['historyentry_user_id'] != $user->user_info['user_id']))
+        {
+               $status_user = '1';
+               echo json_encode(array('result' => 'success',
+                               'status_user' => $status_user,
+                               'historyentry_id_b' => $historyentry_id,
+                               ));
+        }
+       else   { 
+           $status_user = '0';
+           $history->history_user_null($historyentry_historyentrycat_id);
+           echo json_encode(array('result' => 'success',
+                               'status_user' => $status_user,
+                               ));
+       }
+  }
+  
+exit;
+
+}
 
 
 // TRACKBACKS

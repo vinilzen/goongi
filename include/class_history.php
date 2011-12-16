@@ -100,7 +100,7 @@ class se_history
   //    AN ARRAY OF INFO
   //
   
-	function history_entry_info($historyentry_id)
+/*	function history_entry_info($historyentry_id)
   {
     global $database, $user;
     
@@ -168,11 +168,81 @@ class se_history
     
     return $historyentry_info;
 	}
+ *
+ */
   
   //
   // END METHOD history_entry_info()
   //
 
+function history_entry_info($historyentry_id)
+  {
+    global $database, $user;
+
+    if( !is_numeric($historyentry_id) )
+      return FALSE;
+
+    $sql = "
+      SELECT
+        se_historyentries.*
+    ";
+
+    if( !$this->user_id ) $sql .= ",
+        se_users.user_id,
+        se_users.user_username,
+        se_users.user_photo,
+        se_users.user_fname,
+        se_users.user_lname
+    ";
+
+    // IF A USER IS LOGGED IN, SEE IF THEY ARE SUBSCRIBED
+    if( $user->user_exists ) $sql .= ",
+      IF(se_historysubscriptions.historysubscription_id IS NOT NULL, 1, 0) AS is_subscribed
+    ";
+
+    $sql .= "
+      FROM
+        se_historyentries
+    ";
+
+    // IF A USER IS LOGGED IN, SEE IF THEY ARE SUBSCRIBED
+    if( $user->user_exists ) $sql .= "
+      LEFT JOIN
+        se_historysubscriptions
+        ON (se_historysubscriptions.historysubscription_user_id='{$user->user_info['user_id']}' && se_historysubscriptions.historysubscription_owner_id=se_historyentries.historyentry_user_id)
+    ";
+
+    if( !$this->user_id ) $sql .= "
+      LEFT JOIN
+        se_users
+        ON se_users.user_id=se_historyentries.historyentry_user_id
+    ";
+
+    $sql .= "
+      WHERE
+        historyentry_id='{$historyentry_id}'
+    ";
+
+    if( $this->user_id ) $sql .= " &&
+        historyentry_user_id='{$this->user_id}'
+    ";
+
+    $sql .= "
+      LIMIT
+        1
+    ";
+
+    $resource = $database->database_query($sql);
+
+    if( !$database->database_num_rows($resource) )
+      return FALSE;
+
+    // PREPARE THE DATA
+    $historyentry_info = $database->database_fetch_assoc($resource);
+    //$historyentry_info['history_Trackback_historys'] = split("\n", $historyentry_info['history_Trackback_historys']);
+
+    return $historyentry_info;
+	}
 
 
 
@@ -192,7 +262,7 @@ class se_history
   //    AN INTEGER REPRESENTING THE NUMBER OF ENTRIES
   //
   
-	function history_entries_total($where = "")
+	function history_entries_total($where = "",$tree_id)
   {
 	  global $database;
     
@@ -205,11 +275,7 @@ class se_history
     ";
     
 	  // IF NO USER ID SPECIFIED, JOIN TO USER TABLE
-	  if( !$this->user_id ) $sql .= "
-      LEFT JOIN
-        se_users
-        ON se_historyentries.historyentry_user_id=se_users.user_id
-    ";
+
     
 	  // ADD WHERE IF NECESSARY
 	  if( !empty($where) || $this->user_id ) $sql .= "
@@ -218,7 +284,7 @@ class se_history
     
 	  // ENSURE USER ID IS NOT EMPTY
 	  if( $this->user_id ) $sql .= "
-        historyentry_user_id='{$this->user_id}'
+       historyentry_historyentrycat_id 	='{$tree_id}'
     ";
     
 	  // INSERT AND IF NECESSARY
@@ -260,20 +326,25 @@ class se_history
   //    AN ARRAY OF history ENTRIES
   //
   
-	function history_entries_list($start, $limit, $sort_by = "historyentry_date DESC", $where=NULL)
+	function history_entries_list($start, $limit, $sort_by = "historyentry_date DESC", $where=NULL,$id_tree)
   {
 	  global $database, $user, $owner;
     
 	  // BEGIN QUERY
-	  $sql = "
+/*	  $sql = "
       SELECT
         se_historyentries.*,
-        se_historyentrycats.*
+       / se_historyentrycats.*
     ";
-    
+  */
+
+    $sql = "
+      SELECT
+        se_historyentries.*
+    ";
     // IF A USER IS LOGGED IN, SEE IF THEY ARE SUBSCRIBED
     if( $user->user_exists ) $sql .= ",
-        (SELECT TRUE FROM se_historysubscriptions WHERE se_historysubscriptions.historysubscription_user_id='{$user->user_info['user_id']}' && se_historysubscriptions.historysubscription_owner_id=se_historyentries.historyentry_user_id LIMIT 1) AS is_subscribed
+        (SELECT TRUE FROM se_historysubscriptions WHERE se_historyentries.historyentry_historyentrycat_id='{$id_tree}' LIMIT 1) AS is_subscribed
     ";
     
 	  // IF NO USER ID SPECIFIED, RETRIEVE USER INFORMATION
@@ -291,15 +362,15 @@ class se_history
         se_historyentries
       LEFT JOIN
         se_historyentrycats
-        ON se_historyentries.historyentry_historyentrycat_id=se_historyentrycats.historyentrycat_id
+        ON se_historyentries.historyentry_historyentrycat_id='{$id_tree}'
     ";
-    
+  
 	  // IF NO USER ID SPECIFIED, JOIN TO USER TABLE
 	  if( !$this->user_id ) $sql .= "
       LEFT JOIN
         se_users
-        ON se_historyentries.historyentry_user_id=se_users.user_id
-    ";
+        ON se_historyentries.historyentry_historyentrycat_id='{$id_tree}'";
+    
     
 	  // ADD WHERE IF NECESSARY
 	  if( !empty($where) || $this->user_id ) $sql .= "
@@ -307,9 +378,11 @@ class se_history
     ";
     
 	  // ENSURE USER ID IS NOT EMPTY
-	  if( $this->user_id ) $sql .= "
-        historyentry_user_id='{$this->user_id}'
-    ";
+	  if( $this->user_id ) {
+              
+              $sql .= "historyentry_historyentrycat_id='{$id_tree}'";
+
+              }
     
 	  // INSERT AND IF NECESSARY
 	  if( $this->user_id && !empty($where) ) $sql .= " AND";
@@ -335,6 +408,8 @@ class se_history
 	  $historyentry_array = Array();
 	  while( $historyentry_info=$database->database_fetch_assoc($resource) )
     {
+
+        
       // Check title
       if( !trim($historyentry_info['historyentry_title']) )
       {
@@ -355,6 +430,7 @@ class se_history
 	    // IF NO USER ID SPECIFIED, CREATE OBJECT FOR AUTHOR
 	    if( !$this->user_id )
       {
+               
 	      $author = new se_user();
 	      $author->user_exists = TRUE;
 	      $author->user_info['user_id']       = $historyentry_info['user_id'];
@@ -371,10 +447,12 @@ class se_history
 	    // OTHERWISE, SET AUTHOR TO OWNER/LOGGED-IN USER
       elseif( $owner->user_exists && $owner->user_info['user_id']==$historyentry_info['historyentry_user_id'] )
       {
+         
 	      $historyentry_info['historyentry_author'] =& $owner;
 	    }
-      elseif( $user->user_exists  && $user->user_info['user_id']==$historyentry_info['historyentry_user_id'] )
+      elseif( $user->user_exists  )
       {
+         
 	      $historyentry_info['historyentry_author'] =& $user;
 	    }
       
@@ -398,6 +476,7 @@ class se_history
 	  }
     
 	  // RETURN ARRAY
+         // print_r ($historyentry_array);
 	  return $historyentry_array;
 	}
   
@@ -512,7 +591,7 @@ class se_history
 	  $level_history_comments  = unserialize($user->level_info['level_history_comments']);
     
     // PREPARE VARS
-	  $historyentry_user_id    = $this->user_id;
+	//  $historyentry_user_id    = $this->user_id;
 	  $historyentry_date       = time();
     $historyentry_title      = censor(trim($historyentry_title));
     
@@ -525,25 +604,25 @@ class se_history
     
     // OLD HTML ALLOWED: strong,b,em,i,u,strike,sub,sup,p,div,pre,address,h1,h2,h3,h4,h5,h6,span,ol,li,ul,a,img,embed
     
-	  if( !$historyentry_historyentrycat_id )
-      $historyentry_historyentrycat_id = 0;
+//	  if( !$historyentry_historyentrycat_id )
+  //    $historyentry_historyentrycat_id = 0;
     
-    if( is_string($historyentry_trackbacks) )
-      $historyentry_trackbacks = preg_split('/[\s\r\n]/', $historyentry_trackbacks);
+ //   if( is_string($historyentry_trackbacks) )
+//      $historyentry_trackbacks = preg_split('/[\s\r\n]/', $historyentry_trackbacks);
     
-    if( !is_array($historyentry_trackbacks) || empty($historyentry_trackbacks) )
-      $historyentry_trackbacks = array();
+ //   if( !is_array($historyentry_trackbacks) || empty($historyentry_trackbacks) )
+ //     $historyentry_trackbacks = array();
     
 	  if( !in_array($historyentry_privacy, $level_history_privacy) )
       $historyentry_privacy = $level_history_privacy[0];
     
-	  if( !in_array($historyentry_comments, $level_history_comments) ) 
-      $historyentry_comments = $level_history_comments[0];
+//	  if( !in_array($historyentry_comments, $level_history_comments) )
+  //    $historyentry_comments = $level_history_comments[0];
     
     
     // VALIDATE
-    if( empty($historyentry_user_id) )
-      $is_error = TRUE;
+//    if( empty($historyentry_user_id) )
+  //    $is_error = TRUE;
     
     if( empty($historyentry_title) )
       $is_error = TRUE;
@@ -552,13 +631,13 @@ class se_history
     // VALIDATE ID
     if( !empty($historyentry_id) )
     {
-      $sql = "SELECT NULL FROM se_historyentries WHERE historyentry_id='{$historyentry_id}' AND historyentry_user_id='{$this->user_id}'";
+      $sql = "SELECT NULL FROM se_historyentries WHERE historyentry_id='{$historyentry_id}'";
       $resource = $database->database_query($sql);
       
       if( !$database->database_num_rows($resource) )
         $is_error = TRUE;
     }
-    
+    echo $is_error;
 	  // UPDATE
     if( !$is_error && !empty($historyentry_id) )
     {
@@ -568,7 +647,7 @@ class se_history
         SET
           historyentry_title='$historyentry_title',
           historyentry_body='$historyentry_body',
-          historyentry_historyentrycat_id='$historyentry_historyentrycat_id',
+      
           historyentry_search='$historyentry_search',
           historyentry_privacy='$historyentry_privacy',
           historyentry_comments='$historyentry_comments'
@@ -582,6 +661,15 @@ class se_history
     // INSERT
     elseif( !$is_error )
     {
+
+      $sql = "SELECT tree_id FROM se_tree_users WHERE user_id='{$user->user_info['user_id']}'";
+      $resource = $database->database_query($sql);
+      $treeid=$database->database_fetch_assoc($resource);
+      $historyentry_historyentrycat_id = $treeid['tree_id'];
+
+   //   $sql = "SELECT *  FROM se_historyentries WHERE historyentry_historyentrycat_id='{$historyentry_historyentrycat_id}'";
+    //  $resource = $database->database_query($sql);
+    //  $historyentries =$database->database_fetch_assoc($resource);
       $sql = "
         INSERT INTO se_historyentries
         (
@@ -632,7 +720,7 @@ class se_history
       $this->history_subscription_notification($historyentry_id, $historyentry_title, $historyentry_privacy);
     }
     
-    
+  
     return array(
       'result' => !$is_error,
       'error' => $is_error,
@@ -647,8 +735,48 @@ class se_history
 
 
 
+    function history_udate_time($historyentry_historyentrycat_id,$name)
+    {
+            	  // UPDATE
+           // echo$name;
+    if( !empty($historyentry_historyentrycat_id))
+    {
+        global $database, $user;
+         $time_up = time();
+         $name = (string ) $name;
+      $sql = "
+        UPDATE
+          se_historyentries
+        SET
+            historyentry_date= '$time_up',
+            historyentry_user_id='{$this->user_id}',
+            historyentry_trackbacks='$name'
+        WHERE
+           historyentry_historyentrycat_id='$historyentry_historyentrycat_id'";
 
+      $resource = $database->database_query($sql);
+	  }
 
+        }
+
+   function history_user_null($historyentry_historyentrycat_id)
+  {
+       if( !empty($historyentry_historyentrycat_id))
+        {
+     //  echo $historyentry_historyentrycat_id;
+            global $database;
+            $s = -1;
+         $sql = "
+            UPDATE
+              se_historyentries
+            SET
+                historyentry_user_id='-1'
+            WHERE
+               historyentry_historyentrycat_id='$historyentry_historyentrycat_id'";
+          $resource = $database->database_query($sql);
+         }
+
+        }
 
 
   //

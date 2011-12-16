@@ -110,7 +110,7 @@
 	});
 	
 	// FORMS
-	/*if ($('#death label input').attr('checked')==true){
+	if ($('#death label input').attr('checked')==true){
 		$(this).parent().parent().children('select').removeAttr('disabled');
 	}else{
 		$(this).parent().parent().children('select').attr('disabled','disabled');
@@ -122,7 +122,7 @@
 			$(this).parent().parent().children('select').attr('disabled','disabled');
 		}
 	});
-	*/
+	
 	$('.input input, .input textarea').focus(function(){
 		$(this).css('color','#000000');
 	});
@@ -488,16 +488,10 @@
 	function ajax_post( url, param, id) {
 		var r = false;
 		$('#prel').html('<img src="/images/142.gif" border="0" />');
-		//send with param to url
 		$.post(
 			url,
 			param,
-			function(data) {
-				// if send requet -> ability recall
-				// if frend > ability remove frend
-				// if no frend && no send request -> ability send request
-				// if you hav request -> ability confirm request or no confirm(to refuse) 
-			
+			function(data) {			
 				if (data.success == 1) {
 					$('#' + id + ' a').html(data.button);
 					$('#prel').html(data.result);
@@ -559,15 +553,13 @@
 					type:''+type_com+'',
 					iden:''+iden_com+'',
 					value: ''+owner_id+'', 
-					cpp:10, 
+					cpp:1000, 
 					p:1},
 				function(data) {
 					if (data != null) { 
 						if (data.total_comments > 0 ) {
-							//alert(data.comments);
 							var str = '';
 							$.each(data.comments, function(i, val) {
-								//alert(i);
 								var displayname = this.comment_authoruser_displayname;
 								var url = this.comment_authoruser_url;
 								var photo = this.comment_authoruser_photo;
@@ -583,7 +575,6 @@
 								if ( user_id == owner_id || author_id == user_id )
 									str = str + '<a href="#" onclick="comment_del(\'' + user_username + '\', ' + i + ' , ' + author_id + ', '+ owner_id +', '+ user_id  +', \''+ type_com +'\',\''+ iden_com +'\',\''+ tab_com +'\',\''+ col_com +'\'); return false;" class="del">Удалить</a>';
 								str = str + date;
-								//str = str + '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Комментировать</a>';
 								str = str + '</div></div></div></li>';
 								
 							});
@@ -659,4 +650,36 @@
 		var r=confirm("Вы уверены, что хотите удалить эту запись ?  \r\n");
 		return r;
 	}
-	
+
+
+    function check_history(historyentry_id_b){
+		$.post( 'history_ajax.php',
+				{task:'update', historyentry_id:''+historyentry_id_b+''},
+				function(data) {
+					if (data != null) {
+						if (data.result == 'success') {
+                           window.location.href="user_history_entry.php?historyentry_id="+historyentry_id_b;                        }else
+						   alert('Истроия рода редактируется '+ data.name_user+', попробуйте позже');
+					}
+				} ,
+				'json')
+	}
+
+	function dateupdatenull(historyentry_id_b) {
+		$.post( 'history_ajax.php',
+			{task:'save_nulid', historyentry_id:''+historyentry_id_b+''},
+			function(data) {
+				if (data != null) {
+					if (data.result == 'success') {
+						if (data.status_user == '1') {
+							url = '';
+							str = '';
+							url = "user_history_entry.php?historyentry_id="+data.historyentry_id_b;
+							str = 'История была изменена <a href="' + url + '" target="_blank">посмотреть изменения</a>'
+							$('#save_9').append(str);
+						}
+					}
+				}
+			} ,
+			'json')
+	}

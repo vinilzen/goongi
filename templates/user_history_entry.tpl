@@ -1,8 +1,6 @@
 {include file='header.tpl'}
 
 {* $Id: user_history_entry.tpl 161 2009-04-28 21:14:59Z john $ *}
-
-<script type="text/javascript" src="./include/js/class_history.js"></script>
 <script type="text/javascript" src="./include/fckeditor/fckeditor.js"></script>
 
 <h1>{if !empty($historyentry_info.historyentry_id)}Редактировать историю рода{else}Написать историю рода{/if}</h1>
@@ -16,7 +14,7 @@
 {* history ENTRY INPUT *}
 <div id="entry_main">
 
-<form action='user_history_entry.php' method='post' name='historyform' id="historyform">
+<form action='user_history_entry.php' method='post' name='historyform' >
  
 	<div class="edit_blog">
 		<div class="input">
@@ -46,23 +44,44 @@
     <input type='hidden' name='historyentry_id' value='{$historyentry_info.historyentry_id}' />
   {/if}
    </div>
-  
+{echo $status_user}
+ {if ($status_user  == 0) || ($status_user  == '')}
 <div class="buttons_edit_blog">
 	{lang_block id=1500065 var=langBlockTemp}
 	<span class="button2"><span class="l">&nbsp;</span><span class="c">
-	<input type="submit" value="Сохранить" style="padding:1px 0px 0px 0px;" name="save" />
+	<input type="submit" value="Сохранить"  style="padding:1px 0px 0px 0px;" name="save" />
 	</span><span class="r">&nbsp;</span></span>{/lang_block}
 	<input type='hidden' name='task' value='dosave'>
 	</form>
 
 	<form action='user_history.php' method='post'>
-	{lang_block id=39 var=langBlockTemp}
-	<span class="button2"><span class="l">&nbsp;</span><span class="c">
-	<input type="submit" style="padding:1px 0px 0px 0px;"  value="Отмена" name="save" />
-	</span><span class="r">&nbsp;</span></span>
-	{/lang_block}
+            {lang_block id=39 var=langBlockTemp}
+            <span class="button2"><span class="l">&nbsp;</span><span class="c">
+            <input type="submit" style="padding:1px 0px 0px 0px;"  value="Отмена" onclick="dateupdatenull({$historyentry_info.historyentry_id});" name="save" />
+            </span><span class="r">&nbsp;</span></span>
+            {/lang_block}
 	</form>
 </div>
+{else}
+{lang_block id=1500065 var=langBlockTemp}
+	История была изменена. Просмотреть измененную историю <a href="user_history.php" target="_blank"> можно на следующей странице </a>
+<div class="buttons_edit_blog">
+	{lang_block id=1500065 var=langBlockTemp}
+	<span class="button2"><span class="l">&nbsp;</span><span class="c">
+	<input type="submit" value="Перезаписать"  style="padding:1px 0px 0px 0px;" name="save" />
+	</span><span class="r">&nbsp;</span></span>{/lang_block}
+	<input type='hidden' name='task' value='dosave'>
+        <input type='hidden' name='status_user' value='0'>
+	</form>
+	<form action='user_history.php' method='post'>
+            {lang_block id=39 var=langBlockTemp}
+            <span class="button2"><span class="l">&nbsp;</span><span class="c">
+            <input type="submit" style="padding:1px 0px 0px 0px;"  value="Отмена" onclick="dateupdatenull({$historyentry_info.historyentry_id});" name="save" />
+            </span><span class="r">&nbsp;</span></span>
+            {/lang_block}
+	</form>
+</div>
+{/if}
 
 
 {include file='footer.tpl'}
