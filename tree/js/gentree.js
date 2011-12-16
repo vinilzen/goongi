@@ -9,26 +9,76 @@ $(function() {
 
 var TREE = {
 
+	api: {
+
+		getUnions: function() {
+			return $.ajax({
+				type: 'GET',
+				url: '/user_unions.php'
+			})
+		},
+
+		updatePerson: function(person) {
+			console.log('POSTing: ', perosn);
+			return $.ajax({
+				type: 'POST',
+				url: '/tree_build.php',
+				data: JSON.stringify(person)
+			})
+		}
+
+	},
+
 	tmpl: {
+		user: function(data) {
+			return $(data && _.template($('#user-tmpl').html(), data))
+		},
 		person: function(data) {
-			return $(data && _.template($('#person').html(), data))
+			return $(data && _.template($('#person-tmpl').html(), data))
+		},
+		popup: function(data) {
+			return $(data && _.template($('#popup-tmpl').html(), data))
 		}
 	},
 
 	// drawn: [],
 	url: {
-		image: 'http://goongi.il/uploads_user/1000/{0}/{1}'
+		image: 'http://' + window.location.host + '/uploads_user/1000/{0}/{1}'
+	},
+
+	utils: {
+		month: function(selected) {
+			return _.map(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(name, i) {
+				i++;
+				return '<option value="' + i + '"' + (selected === i ? 'selected="selected"' : '') + '>' + name + '</option>'
+			}).join('')
+		}
 	},
 
 	viewpoint: $('#viewpoint'),
 
 	initialize: function() {
 
+		this.tmpl.user(json.user).appendTo('#user .body');
+
 		$('#user > .toggle').click(this.toggleUserInfo);
 		$('#user .settings > .toggle').click(this.toggleSettings);
 
 		this.viewpoint.on('click', '.person .toggle', function() {
 			TREE.popups.collection.actions.render($(this).closest('.person'));
+		});
+
+		this.viewpoint.on('click', '.person .info', function() {
+			var person = $(this).closest('.person'),
+				offset = person.offset();
+			TREE.popups.collection.info.render({
+				person: json.users[person.data('id')],
+				offset: [offset.left + person.outerWidth() + 10, offset.top]
+			});
+		});
+
+		$('#header').on('click', '.settings', function() {
+			TREE.popups.collection.settings.render();
 		});
 
 		(function initDrag() {
@@ -221,7 +271,6 @@ TREE.popups = {
 		_.each(this.collection, function(inst, i) {
 			this.collection[i] = new inst;
 		}, this);
-
 	},
 
 	hideAll: function() {
@@ -264,10 +313,15 @@ TREE.popups.collection = {
 
 	settings: TREE.popups.view.extend({
 
-		el: $('#settings'),
+		el: TREE.tmpl.popup({
+			header: 'Настройки дерева'
+		}).addClass('center').appendTo('body'),
 
-		initialize: function() {
-			$('#header .settings').click($.proxy(this, 'show'));
+		tmpl: _.template($('#settings-tmpl').html()),
+
+		render: function(options) {
+			this.$('.content').html(this.tmpl({}));
+			this.show();
 		}
 
 	}),
@@ -279,13 +333,16 @@ TREE.popups.collection = {
 		initialize: function() {
 			this.el.on('click', '.toggle', $.proxy(this, 'hide'));
 			this.el.on('click', '.edit', function() {
-				TREE.popups.collection.personal.render(json.users[$(this).closest('.person').data('id')]);
+				var person = $(this).closest('.person'),
+					offset = person.offset();
+				TREE.popups.collection.personal.render({
+					person: json.users[person.data('id')],
+					offset: [offset.left + person.outerWidth() + 10, offset.top]
+				});
 			});
 		},
 
 		render: function(person) {
-
-			TREE.editingPerson = person.data('id');
 
 			var personClone = TREE.tmpl.person(json.users[person.data('id')]).css({
 				left: 91,
@@ -350,48 +407,71 @@ TREE.popups.collection = {
 
 	personal: TREE.popups.view.extend({
 
-		el: $(),
+		el: TREE.tmpl.popup({
+			header: 'Редактирова личную информацию'
+		}).appendTo('body'),
 
-		tmpl: _.template($('#personal').html()),
+		tmpl: _.template($('#personal-tmpl').html()),
 
-		render: function(person) {
-			this.el = $(this.tmpl(person));
-			this.el.appendTo('body');
-
-			this.el.on('click', '.close, .cancel', $.proxy(this, 'hide'));
+		initialize: function() {
 			this.el.on('click', '.save', $.proxy(this, 'save'));
+		},
 
+		render: function(options) {
+			this.el.css({
+				left: options.offset[0],
+				top: options.offset[1]
+			});
+			this.$('.content').html(this.tmpl(options.person));
 			this.show();
 		},
 
 		show: function() {
 			var actions = TREE.popups.collection.actions.el.addClass('closed'),
 				person = actions.children('.person');
-			this.el.css({
-				left: person.offset().left + person.outerWidth() + 10,
-				top: person.offset().top,
-				width: 400
-			}).removeClass('hide');
+			this.el.removeClass('hide');
 		},
 
 		hide: function() {
 			TREE.popups.collection.actions.el.removeClass('closed');
-			this.el.remove();
+			this.el.addClass('hide');
 		},
 
 		serialize: function() {
-			var inp = this.el.find('input');
+			var inp = this.el.find('input, select');
 			return {
+				type_request: 'edit',
+				user_id: inp.filter('[name=id]').val(),
 				sex: inp.filter('[name=sex]:checked').val(),
 				fname: Base64.encode(inp.filter('[name=fname]').val()),
 				lname: Base64.encode(inp.filter('[name=lname]').val()),
-				nick: Base64.encode(inp.filter('[name=username]').val())
+				alias: Base64.encode(inp.filter('[name=alias]').val()),
+				birthday: inp.filter('[name=birthyear]').val() + '-' + inp.filter('[name=birthmonth]').val() + '-' + inp.filter('[name=birthdate]').val()
 			}
 		},
 
 		save: function() {
-			$.extend(json.users[TREE.editingPerson], this.serialize());
+			TREE.api.updatePerson(this.serialize());
 			this.hide();
+		}
+
+	}),
+
+	info: TREE.popups.view.extend({
+
+		el: TREE.tmpl.popup({
+			header: 'Краткая информация'
+		}).appendTo('body'),
+
+		tmpl: _.template($('#info-tmpl').html()),
+
+		render: function(options) {
+			this.el.css({
+				left: options.offset[0],
+				top: options.offset[1]
+			});
+			this.$('.content').html(this.tmpl(options.person));
+			this.show();
 		}
 
 	})
