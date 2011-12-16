@@ -15,13 +15,12 @@ if ( $user->user_exists != 1) {
   header("Location: login.php");
   exit();
 }
+
+//echo 'test - 1'; die();
 //var_dump($owner->user_info);
 //var_dump($user->user_info); die();
 
-$type_request = $_POST['type'];
-
-
-
+$type_request = $_POST['type_request'];
 
 switch ($type_request) {
 	case 'add':
@@ -104,28 +103,87 @@ switch ($type_request) {
 		break;
 	
 	case 'edit':
+		
 		$user_id = (int)$_POST['user_id'];
 		if ( isset($user_id) && $user_id != 0 ) {
-			if ( $user->right_edit($user_id) ) { // is_loged && in_tree
-				
-				// edit user 
-				$update_data = array();
-				
-				
-				$sql = '';
-				
-				if ( 1  ) {
+			
+			$set = array(); // for table se_users
+			$set_fields = array(); // for table se_profilevalues
+
+			
+			if ( isset($_POST['alias']) ) {  // ADD CHECKING - PROZVISHE
+				$set_fields[] = " `profilevalue_11` = '" . mysql_real_escape_string($_POST['alias']) . "' ";
+			}
+
+			if ( isset($_POST['hobbie']) ) {  // ADD CHECKING // hobbie
+				$set_fields[] = " `profilevalue_13` = '" . mysql_real_escape_string($_POST['hobbie']) . "' ";
+			}
+
+			if ( isset($_POST['photo']) ) {  // ADD CHECKING  
+				$set[] = " `user_photo` = '" . mysql_real_escape_string($_POST['photo']) . "' ";
+			}
+			
+			if (isset($_POST['death']) && is_numeric($_POST['death']) ) {  // ADD CHECKING
+				$d_date = date('Y-m-d',$_POST['death']);
+				$set_fields[] = " `profilevalue_12` = '" . $d_date . "' ";
+			}
+			
+			if (isset($_POST['birthday']) && is_numeric($_POST['birthday']) ) {  // ADD CHECKING
+				$b_date = date('Y-m-d',$_POST['birthday']);
+				$set_fields[] = " `profilevalue_4` = '" . $b_date . "' ";
+			}
+			
+			if ( $user_id != $user->user_info['user_id'] ) { // new login
+				if (isset($_POST['email'])) {  // ADD CHECKING
+					$set[] = " `user_email` = '" . mysql_real_escape_string($_POST['email']) . "' ";
+					$set[] = " `user_newemail` = '" . mysql_real_escape_string($_POST['email']) . "' ";
 					
-					$error = 0;
-					$result = 'Сохраненно.';
-				} else {
-					$error = 'Ошибка';
-					$result = 'Не удалось отредактировать.';
+					
 				}
-				
+			}
+			
+			if (isset($_POST['displayname'])) {  // ADD CHECKING
+				$set[] = " `user_displayname` = '" . mysql_real_escape_string($_POST['displayname']) . "' ";
+			}
+			
+			if (isset($_POST['fname'])) {  // ADD CHECKING
+				$set[] = " `user_fname` = '" . mysql_real_escape_string($_POST['fname']) . "' ";
+				$set_fields[] = " `profilevalue_2` = '" . mysql_real_escape_string($_POST['fname']) . "' ";
+			}
+			
+			if ( isset($_POST['lname']) ) {
+				$set[] = " `user_lname` = '" . $_POST['lname'] . "' ";
+				$set_fields[] = " `profilevalue_3` = '" .mysql_real_escape_string($_POST['lname']) . "' ";
+			}
+
+			if ( isset($_POST['sex']) && ($_POST['sex'] == 'w' || $_POST['sex'] == 'm') ) {
+				$sex = ($_POST['sex'] == 'w')?1:($_POST['sex'] == 'm')?2:-1;
+				$set_fields[] = " `profilevalue_5` = " . $sex . " ";
+			}
+			
+			
+			
+			if (count($set) > 0) {
+				$sql = "UPDATE `se_users` SET " . implode(' , ', $set) ." WHERE `user_id` = $user_id LIMIT 1;";
+				$r = $database->database_query($sql);
 			} else {
-				$error = 'Ошибка доступа';
-				$result = 'Вы не можете редактировать этого пользователя.';
+				$r_fields = true;
+			}
+			
+			if (count($set_fields) > 0) {
+				$sql_fields = "UPDATE `se_profilevalues` SET " . implode(' , ', $set_fields) ." WHERE `profilevalue_user_id` = $user_id LIMIT 1;";
+				$r_fields = $database->database_query($sql_fields);
+			} else {
+				$r_fields = true;
+			}
+			
+			if ( $r || $r_fields  ) {
+				$user->user_lastupdate_id($user_id);
+				$error = 0;
+				$result = 'Сохраненно.';
+			} else {
+				$error = 'Ошибка DB';
+				$result = 'Не удалось отредактировать.sql-'.$sql.', sql_fieldset-'.serialize($sql_fields);
 			}
 		} else {
 			$error = 'Ошибка доступа';
@@ -159,7 +217,7 @@ switch ($type_request) {
 		$error = 'Ошибка запроса';
 		$result = 'Не верно указан тип запроса';
 		break;
-		
+}
+
 	echo json_encode(array('error' => $error, 'result' => $result));
 	die();
-} 

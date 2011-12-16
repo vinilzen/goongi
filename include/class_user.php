@@ -97,8 +97,7 @@ class SEUser
   //    void
   //
   
-	function SEUser($user_unique = Array('0', '', ''), $select_fields = Array('*', '*', '*', '*'))
-  {
+	function SEUser($user_unique = Array('0', '', ''), $select_fields = Array('*', '*', '*', '*')) {
 	  global $database;
     
 	  // SET VARS
@@ -135,8 +134,7 @@ class SEUser
 	      $sql = $sql_array[0];
       
 	    $user = $database->database_query($sql);
-	    if($database->database_num_rows($user) == 1)
-      {
+	    if($database->database_num_rows($user) == 1) {
 	      $this->user_exists = 1;
 	      $this->user_info = $database->database_fetch_assoc($user);
         
@@ -1131,6 +1129,12 @@ class SEUser
     
 	  $database->database_query("UPDATE se_users SET user_dateupdated='".time()."' WHERE user_id='{$this->user_info['user_id']}' LIMIT 1");
 	}
+	
+	function user_lastupdate_id($id) {
+	  global $database;
+    
+	  $database->database_query("UPDATE se_users SET user_dateupdated='".time()."' WHERE user_id='{$id}' LIMIT 1");
+	}
   
   // END user_lastupdate() METHOD
 
@@ -1911,6 +1915,8 @@ class SEUser
 		$family_ids = array();
 		$result_users = $this->get_user_info(array(0=>$user_id), true);
 		//var_dump($result_users); die();
+		$child_family = null;
+		$parent_family = null;
 		foreach ($familys as $key => $value) {
 			if ( $value['role'] == 'mother' || $value['role'] == 'father') {
 				$child_family = $value['family_id'];

@@ -86,7 +86,7 @@ if( SE_DEBUG ) {
   
   // Save logging info
   //echo './log/'.$_benchmark->getUid().'.html - '; die();
-  file_put_contents('./log/'.$_benchmark->getUid().'.html', $smarty->fetch('debug.tpl'));
+//  file_put_contents('./log/'.$_benchmark->getUid().'.html', $smarty->fetch('debug.tpl'));
   //file_put_contents(SE_ROOT.DIRECTORY_SEPARATOR.'log'.DIRECTORY_SEPARATOR.$_benchmark->getUid(), $smarty->fetch('debug.tpl'));
 }
 

@@ -19,7 +19,7 @@
 	<div class="breadcrumb">
 		<a href="#">Главная</a>
 		<span>&rarr;</span>
-		<a href="#">Профиль</a>
+		<a href="/{$user->user_info.user_username}">Профиль</a>
 		<span>&rarr;</span>
 		<a href="#">Моё дерево</a>
 	</div>

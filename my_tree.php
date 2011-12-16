@@ -13,8 +13,8 @@ $family = $user->get_family();
 
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('$user_exists', $user->user_exists);
-$smarty->assign('msg', $result['msg']);
-$smarty->assign('success', $result['success']);
+//$smarty->assign('msg', $result['msg']);
+//$smarty->assign('success', $result['success']);
 $smarty->assign('family', $family);
 $smarty->assign('users', $users);
 
