@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-10 14:35:37
+<?php /* Smarty version 2.6.14, created on 2011-12-19 12:02:59
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 70, false),array('block', 'hook_foreach', 'profile.tpl', 82, false),array('function', 'math', 'profile.tpl', 185, false),)), $this);
@@ -197,7 +197,7 @@ unset($_smarty_tpl_vars);
 
       	  <h2>Записи на стене</h2>
 		<ul class="comments wall" id="comments_list"></ul>
-		<div class="pager">
+		<div class="pager" style="display:none;">
 			<a href="#" class="prev">Сюда</a>
 			
 			<a href="#" class="active">1</a>

@@ -1,14 +1,14 @@
 ﻿{include file='header.tpl'}
 
 {* $Id: event.tpl 162 2009-04-30 01:43:11Z john $ *}
-<h1>{lang_print id=3000086}</h1>
+<h1>{lang_print id=3000086} - {$event->event_info.event_title}</h1>
 <div class="crumb">
 	<a href="/">Главная</a>
 	<a href='user_event.php'>{lang_print id=3000086}</a>
-	<span>{$event->event_info.event_title}</span>
+	<span>{$event->event_info.event_title} - {lang_print id=$eventcat_info.subcat_title}</span>
 </div>
 <div class="buttons">
-	<span class="button2"><span class="l">&nbsp;</span><span class="c"><a href="/user_event_edit.php?event_id={$event->event_info.id}">Редактировать" name="creat" /></span><span class="r">&nbsp;</span></span>
+	<span class="button2"><span class="l">&nbsp;</span><span class="c"><a href="/user_event_edit.php?event_id={$event->event_info.event_id}">Редактировать</span><span class="r">&nbsp;</span></span>
 	<span class="button3"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Удалить" name="creat" /></span><span class="r">&nbsp;</span></span>
 </div>
 {* HIDDEN DIV TO DISPLAY CANCEL REQUEST CONFIRMATION MESSAGE *}
@@ -74,7 +74,56 @@
 </div>
 
 
+<div class="meropriatie_item">
+	<div class="img"><a href="#"><img src="images/3.jpg" alt="" /></a></div>
+	<div class="name"><span>Автор:</span>
+		{section name=officer_loop loop=$officers}
+			{if $officers[officer_loop].eventmember_rank == 3}
+				 <a href='{$url->url_create("profile", $officers[officer_loop].member->user_info.user_username)}'>{$officers[officer_loop].member->user_displayname}</a>
+			{/if}
+		{/section} 
+	</div>
+	<div class="inf">
+		{if !empty($event->event_info.event_desc)}
+			{$event->event_info.event_desc}
+		{/if}
+	</div>
+        
+    <table cellpadding='0' cellspacing='0' width='100%'><tr>
+        <td valign='top'>
+          <div class='event_headline'>{lang_print id=3000160} ({$event->event_info.event_totalmembers})</div>
+        </td>
+        <td valign='top' align='right'>
 
+          <div id='event_members_searchbox' style='text-align: right;'>
+            
+            <form name="event_search_members_form" action='{$url->url_create("event", NULL, $event->event_info.event_id)}' method='post'>
+            {strip}
+            <table cellpadding='0' cellspacing='0' align="right">
+            <tr>
+            <td>{lang_print id=3000090}&nbsp;</td>
+            <td>
+              <select name="v_members" class="event_small" onchange="document.event_search_members_form.submit();">
+                <option value=""{if !isset($v_members)} selected{/if}>{lang_print id=3000143} ({$event->event_info.event_totalmembers|default:0})</option>
+                <option value="0"{if $v_members=="0"} selected{/if}>{lang_print id=3000081} ({$total_members_waiting|default:0})</option>
+                <option value="1"{if $v_members=="1"} selected{/if}>{lang_print id=3000082} ({$total_members_attending|default:0})</option>
+                <option value="2"{if $v_members=="2"} selected{/if}>{lang_print id=3000083} ({$total_members_maybeattending|default:0})</option>
+                <option value="3"{if $v_members=="3"} selected{/if}>{lang_print id=3000084} ({$total_members_notattending|default:0})</option>
+              </select>
+            </td>
+            </tr>
+            </table>
+            {/strip}
+            
+            <input type='hidden' name='p' value='{$p_members}' />
+            <input type='hidden' name='v' value='members' />
+            <input type='hidden' name='event_id_rem' value='{$event->event_info.event_id}' />
+            </form>
+            
+          </div>
+        </td>
+    </tr></table>
+</div>
 
 
 
@@ -226,31 +275,6 @@
   
   
   {if $allowed_to_view}
-  
-  {* SHOW OFFICERS *}
-  <table cellpadding='0' cellspacing='0' width='100%' style='margin-top: 10px;'>
-    <tr>
-      <td class='header'>{lang_print id=3000269}</td>
-    </tr>
-    <tr>
-      <td class='profile'>
-        {section name=officer_loop loop=$officers}
-        <div>
-          <a href='{$url->url_create("profile", $officers[officer_loop].member->user_info.user_username)}'>{$officers[officer_loop].member->user_displayname}</a>{if $officers[officer_loop].eventmember_rank == 3} ({lang_print id=3000270}){/if}
-          {*
-          {if $officers[officer_loop].eventmember_title != "" && $event->eventowner_level_info.level_event_titles == 1}
-          <div class='event_officer_title'>{$officers[officer_loop].eventmember_title}</div>
-          {/if}
-          *}
-          {if !$smarty.section.officer_loop.last}<div style='height: 4px;'></div>{/if}
-        </div>
-        {/section}
-      </td>
-    </tr>
-  </table>
-  {* END OFFICERS *}
-  
-  
   
   {* SHOW RSVP OPTIONS *}
   <table cellpadding='0' cellspacing='0' width='100%' id="eventProfileMenuRSVP" style='margin-top: 10px;{if (!$event->is_member && $event->event_info.event_inviteonly && empty($event->eventmember_info.eventmember_approved) || !$user->user_exists)}display:none;{/if}'>
@@ -687,110 +711,7 @@
       </div>
       {* END MEMBERS TAB *}
       
-      
-      {* PHOTOS TAB - SHOW EVENT PHOTOS *}
-      <div id='event_photos' style='display: none;'>
-        
-        {lang_javascript ids=182,183,184,185,3000165}
-        
-        <div>
-         <div class='event_headline' style='float: left;'>{lang_print id=3000164} (<span id='event_{$event->event_info.event_id}_totalfiles'>{$eventalbum_info.eventalbum_totalfiles|default:0}</span>)</div>
-          {if $allowed_to_upload}
-            <div style='float: right; padding-left: 10px;'>
-              <a href="javascript:TB_show(SocialEngine.Language.Translate(3000165), 'user_event_upload.php?event_id={$event->event_info.event_id}&TB_iframe=true&height=300&width=500', '', './images/trans.gif');">
-                <img src='./images/icons/event_addimages16.gif' border='0' class='button' style='float: left;' />
-                {lang_print id=3000165}
-              </a>
-              <div style='clear: both; height: 0px;'></div>
-            </div>
-          {/if}
-          <div style='clear: both; height: 0px;'></div>
-        </div>
-        
-        {* FILES *}
-        <div id="event_{$event->event_info.event_id}_nofiles" style='display: none;'>
-          <img src='./images/icons/bulb16.gif' border='0' class='icon' />
-          {lang_print id=3000166}
-        </div>
-        <div id="event_{$event->event_info.event_id}_files" style='margin-left: auto; margin-right: auto;'></div>
-        
-        
-        <script type="text/javascript" src="./include/js/class_event_files.js"></script>      
-        
-        <script type="text/javascript">
-          
-          SocialEngine.EventFiles = new SocialEngineAPI.EventFiles({ldelim}
-            'paginate' : true,
-            'cpp' : 18,
-
-            'event_id' : {$event->event_info.event_id},
-            'event_dir' : '{$event->event_dir($event->event_info.event_id)}',
-            
-            'ajaxURL' : SocialEngine.URL.url_base + 'event_ajax.php'
-          {rdelim});
-          
-          SocialEngine.RegisterModule(SocialEngine.EventFiles);
-          
-        </script>
-        
-      </div>
-      {* END PHOTOS TAB *}
-      
-      
-      {* COMMENTS TAB - SHOW EVENT COMMENTS *}
-      <div id='event_comments' style='display: none;'>
-        
-        <div id="event_{$event->event_info.event_id}_postcomment"></div>
-        <div id="event_{$event->event_info.event_id}_comments" style='margin-left: auto; margin-right: auto;'></div>
-        
-        {lang_javascript ids=39,155,175,182,183,184,185,187,784,787,829,830,831,832,833,834,835,854,856,891,1025,1026,1032,1034,1071}
-        
-        <script type="text/javascript">
-          
-          SocialEngine.EventComments = new SocialEngineAPI.Comments({ldelim}
-            'canComment' : {if $allowed_to_comment}true{else}false{/if},
-            'commentHTML' : '{$setting.setting_comment_html|replace:",":", "}',
-            'commentCode' : {if $setting.setting_comment_code}true{else}false{/if},
-            
-            'type' : 'event',
-            'typeIdentifier' : 'event_id',
-            'typeID' : {$event->event_info.event_id},
-            
-            'typeTab' : 'events',
-            'typeCol' : 'event',
-            
-            'initialTotal' : {$event->event_info.event_totalcomments|default:0},
-            
-            'paginate' : false,
-            'cpp' : 5,
-            
-            'object_owner' : 'event',
-            'object_owner_id' : '{$event->event_info.event_id}',
-            
-            'ajaxURL' : SocialEngine.URL.url_base + 'misc_js.php'
-            
-          {rdelim});
-          
-          SocialEngine.RegisterModule(SocialEngine.EventComments);
-          
-          // Backwards
-          function addComment(is_error, comment_body, comment_date)
-          {ldelim}
-            SocialEngine.EventComments.addComment(is_error, comment_body, comment_date);
-          {rdelim}
-          
-          function getComments(direction)
-          {ldelim}
-            SocialEngine.EventComments.getComments(direction);
-          {rdelim}
-          
-        </script>
-        
-      </div>
-      {* END COMMENTS TAB *}
-      
-      
-      {* PLUGIN TABS *}
+     {* PLUGIN TABS *}
       {foreach from=$global_plugins key=plugin_k item=plugin_v}
         {if !empty($plugin_v.menu_event_tab)}
           <div id='event_{$plugin_k}' style='display: none;'>

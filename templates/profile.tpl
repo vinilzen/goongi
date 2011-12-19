@@ -100,7 +100,7 @@
       {* SHOW COMMENTS *}
 	  <h2>Записи на стене</h2>
 		<ul class="comments wall" id="comments_list"></ul>
-		<div class="pager">
+		<div class="pager" style="display:none;">
 			<a href="#" class="prev">Сюда</a>
 			
 			<a href="#" class="active">1</a>
