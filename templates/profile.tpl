@@ -8,7 +8,6 @@
     }
     </script>
     {/literal}
-
 {* $Id: profile.tpl 255 2009-11-18 02:21:01Z steve $ *}
 <!-- <div class='page_header'>{lang_sprintf id=786 1=$owner->user_displayname}</div> -->
 <h1>{$owner->user_info.user_displayname} [{$owner->user_info.user_id}]</h1>
@@ -105,11 +104,12 @@
 			<input type="submit"  style="padding:1px 8px 0px 8px;"  onclick="comment_post('{$owner->user_info.user_username}',{$owner->user_info.user_id}, {$user->user_info.user_id}, 'profile', 'user_id', 'users' , 'user'); return false;" value="Отправить" name="creat" />
 		</span><span class="r">&nbsp;</span></span>
 	</div>
-{echo $p}
+
       {* SHOW COMMENTS *}
 	  <h2>Записи на стене</h2>
 		<ul class="comments wall" id="comments_list"></ul>
-<input type="hidden" id = "pag_com" name="pag_com" value="{$pag_com}">
+                <input type="hidden" id = "pag_com" name="pag_com" value="{$pag_com}">
+		
     {literal}
 	<script type="text/javascript">
 		comment_get('{/literal}{$owner->user_info.user_username}{literal}',{/literal}{$owner->user_info.user_id}{literal}, {/literal}{$user->user_info.user_id}{literal},'profile','user_id', 'users' , 'user',{/literal}{$pag_com}{literal});
@@ -141,8 +141,7 @@
               <form action='profile.php' method='post'>
               <input type='text' maxlength='100' size='30' class='text' name='search' value='{$search}' id='profile_friends_searchbox_input'>
               <input type='submit' class='button' value='{lang_print id=646}'>
-              <input type='hidden' id = 'p' name='p' value='{$p}'>
-              
+              <input type='hidden' name='p' value='{$p}'>
               <input type='hidden' name='v' value='friends'>
               <input type='hidden' name='user' value='{$owner->user_info.user_username}'>
               </form>

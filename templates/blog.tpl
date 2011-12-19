@@ -1,5 +1,12 @@
 {include file='header.tpl'}
-
+ {literal}
+    <script type="text/javascript">
+    function change(pad)
+    {
+       document.getElementById('pag_com').value = pad;
+    }
+    </script>
+    {/literal}
 {* BLOG ENTRIE(S) *}
 
   {section name=entries_loop loop=$entries}
@@ -63,10 +70,10 @@
       
       {* COMMENTS *}
        <h2>Комментарии (<span id = "comments_count"></span>)</h2>
-       
+         <input type="hidden" id = "pag_com" name="pag_com" value="{$pag_com}">
     {literal}
 	<script type="text/javascript">
-		comment_get('{/literal}{$owner->user_info.user_username}{literal}',{/literal}{$entries[0].blogentry_id}{literal}, {/literal}{$user->user_info.user_id}{literal},'blog','blogentry_id', 'blogentries', 'blogentry');
+		comment_get('{/literal}{$owner->user_info.user_username}{literal}',{/literal}{$entries[0].blogentry_id}{literal}, {/literal}{$user->user_info.user_id}{literal},'blog','blogentry_id', 'blogentries', 'blogentry',{/literal}{$pag_com}{literal});
 	</script>
     {/literal}
         <ul class="comments" id="comments_list"></ul>
@@ -80,6 +87,7 @@
             </span><span class="r">&nbsp;</span></span>
         </div>
 
+      
       {* TRACKBACKS *}
       {if !empty($trackback_list)}
       <h2>{lang_print id=1500025}</h2>
