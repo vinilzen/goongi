@@ -1,6 +1,6 @@
-    $(document).ready(function(){
-         
-    	$('.profil_mn .p_link').toggle(function(e){
+﻿$(document).ready(function(){
+
+	$('.profil_mn .p_link').toggle(function(e){
 		e.preventDefault();
 		$(this).addClass('active');
 		$(this).parent().find('div.p_mn').slideDown();
@@ -122,6 +122,7 @@
 			$(this).parent().parent().children('select').attr('disabled','disabled');
 		}
 	});
+	
 	$('.input input, .input textarea').focus(function(){
 		$(this).css('color','#000000');
 	});
@@ -435,12 +436,8 @@
 		}
 		return false;
 	});
-
-
-     
 });
 
-       
 	function existence_mail(email) {
 		$('#email_u_msg').html('');
 		$('#fuser_email').html('');
@@ -491,16 +488,10 @@
 	function ajax_post( url, param, id) {
 		var r = false;
 		$('#prel').html('<img src="/images/142.gif" border="0" />');
-		//send with param to url
 		$.post(
 			url,
 			param,
-			function(data) {
-				// if send requet -> ability recall
-				// if frend > ability remove frend
-				// if no frend && no send request -> ability send request
-				// if you hav request -> ability confirm request or no confirm(to refuse) 
-			
+			function(data) {			
 				if (data.success == 1) {
 					$('#' + id + ' a').html(data.button);
 					$('#prel').html(data.result);
@@ -554,9 +545,8 @@
 
         	
 	function comment_get (user_username, owner_id, user_id, type_com, iden_com, tab_com, col_com,page_show) {
-            //alert();
-           //  alert($('#pag_com')[0].value)
-        
+            var cp = 10;
+          if (  type_com == 'blog') cp = 1000;
 		$.post( 'misc_js.php',
 				{	task:'comment_get',
 					user:''+user_username+'',
@@ -565,17 +555,14 @@
 					type:''+type_com+'',
 					iden:''+iden_com+'',
 					value: ''+owner_id+'', 
-					cpp:10,
+					cpp:''+cp+'',
 					p:''+page_show+''},
 				function(data) {
 					if (data != null) { 
 						if (data.total_comments > 0 ) {
-                                                    
-							//alert(data.comments);
 							var str = '';
                                                         var paginator = '';
 							$.each(data.comments, function(i, val) {
-								//alert(i);
 								var displayname = this.comment_authoruser_displayname;
 								var url = this.comment_authoruser_url;
 								var photo = this.comment_authoruser_photo;
@@ -591,34 +578,36 @@
 								if ( user_id == owner_id || author_id == user_id )
 									str = str + '<a href="#" onclick="comment_del(\'' + user_username + '\', ' + i + ' , ' + author_id + ', '+ owner_id +', '+ user_id  +', \''+ type_com +'\',\''+ iden_com +'\',\''+ tab_com +'\',\''+ col_com +'\'); return false;" class="del">Удалить</a>';
 								str = str + date;
-								//str = str + '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Комментировать</a>';
 								str = str + '</div></div></div></li>';
 								
 							});
-                            if (data.maxpage > 1)
+                                        var  url_p  = '';
+				if (  data.type == 'profile') url_p = 'profile.php';
+                               // else url_p = 'profile.php';
+                           //         alert(data.type);
+                        if (data.maxpage > 1)
                             {
                                // alert($('#pag_com')[0].value)
                                 paginator = '<div class="pager">';
                                 var s = data.p-1;
                                 var p = data.p+1;
-                               if(data.p != 1 ) paginator = paginator+ '<a onclick = "change('+s+');" href="profile.php?user='+user_username+'&pag_com='+s+'" class="prev"> Сюда</a>';
+                               if(data.p != 1 )
+                                   paginator = paginator+ '<a onclick = "change('+s+');" href="'+url_p+'?user='+user_username+'&pag_com='+s+'" class="prev"> Сюда</a>';
                                 var cl ='';
                                for(var i=1;i<=data.maxpage; i++)
                                {
                                    if (data.p == i)   cl = 'class="active"'; else  cl = '';
-                                 paginator = paginator+ '<a onclick = "change('+i+');" href="profile.php?user='+user_username+'&pag_com='+i+'" '+cl+'>'+i+'</a>';
+                                 paginator = paginator+ '<a onclick = "change('+i+');" href="'+url_p+'?user='+user_username+'&pag_com='+i+'" '+cl+'>'+i+'</a>';
+                              
                                }
-                                if(data.p != data.maxpage ) paginator = paginator+ '<a onclick = "change('+p+');" href="profile.php?user='+user_username+'&pag_com='+p+'" class="next">Туда</a>';
+                                if(data.p != data.maxpage ) paginator = paginator+ '<a onclick = "change('+p+');" href="'+url_p+'?user='+user_username+'&pag_com='+p+'" class="next">Туда</a>';
                                  paginator = paginator+ '</div></form>';
-                              }
-                                                        
-                                                     //  paginator = '<div class="pager"><a href="#" class="prev">Сюда</a><a href="#" class="active">1</a>'+'<a href="#" class="next">Туда</a></div>';
-							$('#comments_list').append(str+paginator);
-                                                       
-						}
+                             }
+                             $('#comments_list').append(str+paginator);
+                                                                                }
                                                
-                                                 $('#comments_count').html('');
-                                                 $('#comments_count').append(data.total_comments);
+                                                $('#comments_count').html('');
+                                                $('#comments_count').append(data.total_comments);
 					} else {
 						alert('Неизвестная ошибка =(');
 					}
@@ -686,38 +675,34 @@
 	}
 
 
-        function check_history(historyentry_id_b){
-		//var r=confirm("Вы уверены, что хотите удалить эту запись ?  \r\n");
+    function check_history(historyentry_id_b){
 		$.post( 'history_ajax.php',
-					{task:'update', historyentry_id:''+historyentry_id_b+''},
-					function(data) {
-						if (data != null) {
-							if (data.result == 'success')
-                                                        {
-                                                            window.location.href="user_history_entry.php?historyentry_id="+historyentry_id_b;//+"&status_user="+data.status_user;
-							//alert('Ошибка доступа =(');
-                                                        }else alert('Истроия рода редактируется '+ data.name_user+', попробуйте позже');
-					}} ,
-					'json')
+				{task:'update', historyentry_id:''+historyentry_id_b+''},
+				function(data) {
+					if (data != null) {
+						if (data.result == 'success') {
+                           window.location.href="user_history_entry.php?historyentry_id="+historyentry_id_b;                        }else
+						   alert('Истроия рода редактируется '+ data.name_user+', попробуйте позже');
+					}
+				} ,
+				'json')
 	}
 
-         function dateupdatenull(historyentry_id_b) {
-                            $.post( 'history_ajax.php',
-					{task:'save_nulid', historyentry_id:''+historyentry_id_b+''},
-                                	function(data) {
-						if (data != null) {
-							if (data.result == 'success')
-                                                        {
-                                                            if (data.status_user == '1')
-                                                               {
-                                                                 url = '';
-                                                                   str = '';
-                                                                   url = "user_history_entry.php?historyentry_id="+data.historyentry_id_b;
-                                                                   str = 'История была изменена <a href="' + url + '" target="_blank">посмотреть изменения</a>'
-                                                                   $('#save_9').append(str);
-                                                               }
-                                                        }
-					}} ,
-					'json')
-                          }
-	
+	function dateupdatenull(historyentry_id_b) {
+		$.post( 'history_ajax.php',
+			{task:'save_nulid', historyentry_id:''+historyentry_id_b+''},
+			function(data) {
+				if (data != null) {
+					if (data.result == 'success') {
+						if (data.status_user == '1') {
+							url = '';
+							str = '';
+							url = "user_history_entry.php?historyentry_id="+data.historyentry_id_b;
+							str = 'История была изменена <a href="' + url + '" target="_blank">посмотреть изменения</a>'
+							$('#save_9').append(str);
+						}
+					}
+				}
+			} ,
+			'json')
+	}

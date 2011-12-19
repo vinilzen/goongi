@@ -1,16 +1,15 @@
 <?php
-//print_r ($_POST);
+
 /* $Id: profile.php 42 2009-01-29 04:55:14Z john $ */
 
 $page = "profile";
-//echo $_GET['pag_com'];
 include "header.php";
 
-//print_r($_POST);
 if  (!empty($_GET['pag_com']))
 {
    $pag_com = $_GET['pag_com'];
 }else $pag_com =1;
+
 // DISPLAY ERROR PAGE IF USER IS NOT LOGGED IN AND ADMIN SETTING REQUIRES REGISTRATION
 if($user->user_exists == 0 && $setting['setting_permission_profile'] == 0) {
   $page = "error";
@@ -220,7 +219,6 @@ $smarty->assign('allowed_to_comment', $allowed_to_comment);
 $smarty->assign('total_comments', $total_comments);
 $smarty->assign('total_photo_tags', $total_photo_tags);
 $smarty->assign('m', $m);
-$smarty->assign('pag_com', $pag_com);
 $smarty->assign('search', $search);
 $smarty->assign('friends', $friends);
 $smarty->assign('total_friends', $total_friends);
@@ -230,6 +228,7 @@ $smarty->assign('maxpage_friends', $page_vars_friends[2]);
 $smarty->assign('p_start_friends', $page_vars_friends[0]+1);
 $smarty->assign('p_end_friends', $page_vars_friends[0]+count($friends));
 $smarty->assign('p_friends', $page_vars_friends[1]);
+$smarty->assign('pag_com', $pag_com);
 $smarty->assign('is_friend', $is_friend);
 $smarty->assign('is_friend_pending', $is_friend_pending);
 $smarty->assign('friendship_allowed', $friendship_allowed);

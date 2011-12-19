@@ -5,7 +5,10 @@
 $page = "blog";
 include "header.php";
 
-
+if  (!empty($_GET['pag_com']))
+{
+   $pag_com = $_GET['pag_com'];
+}else $pag_com =1;
 
 // DISPLAY ERROR PAGE IF USER IS NOT LOGGED IN AND ADMIN SETTING REQUIRES REGISTRATION
 if( !$user->user_exists && !$setting['setting_permission_blog'] )
@@ -234,7 +237,7 @@ $smarty->assign('category_id', $category_id);
 $smarty->assign('date_start', $date_start);
 $smarty->assign('date_end', $date_end);
 $smarty->assign('blog_search', $blog_search);
-
+$smarty->assign('pag_com', $pag_com);
 $smarty->assign('p', $page_vars[1]);
 $smarty->assign('maxpage', $page_vars[2]);
 $smarty->assign('p_start', $page_vars[0]+1);
