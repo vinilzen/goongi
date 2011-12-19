@@ -80,7 +80,6 @@
             </span><span class="r">&nbsp;</span></span>
         </div>
 
-      
       {* TRACKBACKS *}
       {if !empty($trackback_list)}
       <h2>{lang_print id=1500025}</h2>
