@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-07 18:33:53
+<?php /* Smarty version 2.6.14, created on 2011-12-19 10:51:50
          compiled from blog.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'truncate', 'blog.tpl', 45, false),array('modifier', 'choptext', 'blog.tpl', 50, false),array('function', 'math', 'blog.tpl', 127, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'truncate', 'blog.tpl', 52, false),array('modifier', 'choptext', 'blog.tpl', 57, false),array('function', 'math', 'blog.tpl', 134, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(1500015,652,1500025,155,1500026,182,184,185,183);
 SELanguage::load();
@@ -10,6 +10,14 @@ $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
+ <?php echo '
+    <script type="text/javascript">
+    function change(pad)
+    {
+       document.getElementById(\'pag_com\').value = pad;
+    }
+    </script>
+    '; ?>
 
 
   <?php unset($this->_sections['entries_loop']);
@@ -110,7 +118,8 @@ $this->_sections['entries_loop']['last']       = ($this->_sections['entries_loop
      
       
              <h2>Комментарии (<span id = "comments_count"></span>)</h2>
-       
+         <input type="hidden" id = "pag_com" name="pag_com" value="<?php echo $this->_tpl_vars['pag_com']; ?>
+">
     <?php echo '
 	<script type="text/javascript">
 		comment_get(\''; 
@@ -119,7 +128,9 @@ $this->_sections['entries_loop']['last']       = ($this->_sections['entries_loop
  echo $this->_tpl_vars['entries'][0]['blogentry_id']; 
  echo ', '; 
  echo $this->_tpl_vars['user']->user_info['user_id']; 
- echo ',\'blog\',\'blogentry_id\', \'blogentries\', \'blogentry\');
+ echo ',\'blog\',\'blogentry_id\', \'blogentries\', \'blogentry\','; 
+ echo $this->_tpl_vars['pag_com']; 
+ echo ');
 	</script>
     '; ?>
 

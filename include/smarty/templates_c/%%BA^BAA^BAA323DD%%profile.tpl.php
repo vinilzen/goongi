@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-19 12:02:59
+<?php /* Smarty version 2.6.14, created on 2011-12-19 10:32:26
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 70, false),array('block', 'hook_foreach', 'profile.tpl', 82, false),array('function', 'math', 'profile.tpl', 185, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 78, false),array('block', 'hook_foreach', 'profile.tpl', 90, false),array('function', 'math', 'profile.tpl', 183, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(786,652,895,917,838,887,889,852,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839);
 SELanguage::load();
@@ -10,6 +10,15 @@ $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
+
+    <?php echo '
+    <script type="text/javascript">
+    function change(pad)
+    {
+       document.getElementById(\'pag_com\').value = pad;
+    }
+    </script>
+    '; ?>
 
 <!-- <div class='page_header'><?php echo sprintf(SELanguage::_get(786), $this->_tpl_vars['owner']->user_displayname); ?></div> -->
 <h1><?php echo $this->_tpl_vars['owner']->user_info['user_displayname']; ?>
@@ -197,18 +206,9 @@ unset($_smarty_tpl_vars);
 
       	  <h2>Записи на стене</h2>
 		<ul class="comments wall" id="comments_list"></ul>
-		<div class="pager" style="display:none;">
-			<a href="#" class="prev">Сюда</a>
-			
-			<a href="#" class="active">1</a>
-			<a href="#">2</a>
-			<a href="#">3</a>
-			<a href="#">4</a>
-			<a href="#">5</a>
-			<a href="#">6</a> ... <a href="#">99</a>
-			
-			<a href="#" class="next">Туда</a>
-		</div>
+                <input type="hidden" id = "pag_com" name="pag_com" value="<?php echo $this->_tpl_vars['pag_com']; ?>
+">
+		
     <?php echo '
 	<script type="text/javascript">
 		comment_get(\''; 
@@ -217,7 +217,9 @@ unset($_smarty_tpl_vars);
  echo $this->_tpl_vars['owner']->user_info['user_id']; 
  echo ', '; 
  echo $this->_tpl_vars['user']->user_info['user_id']; 
- echo ',\'profile\',\'user_id\', \'users\' , \'user\');
+ echo ',\'profile\',\'user_id\', \'users\' , \'user\','; 
+ echo $this->_tpl_vars['pag_com']; 
+ echo ');
 	</script>
     '; ?>
 

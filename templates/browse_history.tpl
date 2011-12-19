@@ -95,6 +95,7 @@
         <tr>
           <td style='vertical-align: top; padding: 10px;'>
             <div style='font-weight: bold; font-size: 13px;'>
+              <img src="./images/icons/history_history16.gif" class='button' style='float: left;'>
               <a href='{$url->url_create("history_entry", $historyentries[historyentry_loop].historyentry_author->user_info.user_username, $historyentries[historyentry_loop].historyentry_id)}'>
                 {$historyentries[historyentry_loop].historyentry_title|truncate:30:"...":true}
               </a>
