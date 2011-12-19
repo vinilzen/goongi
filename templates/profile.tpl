@@ -108,8 +108,11 @@
       {* SHOW COMMENTS *}
 	  <h2>Записи на стене</h2>
 		<ul class="comments wall" id="comments_list"></ul>
+<<<<<<< HEAD
                 <input type="hidden" id = "pag_com" name="pag_com" value="{$pag_com}">
 		
+=======
+>>>>>>> f4bd36f6c9a81e90087b7241d14c36c905b42ae1
     {literal}
 	<script type="text/javascript">
 		comment_get('{/literal}{$owner->user_info.user_username}{literal}',{/literal}{$owner->user_info.user_id}{literal}, {/literal}{$user->user_info.user_id}{literal},'profile','user_id', 'users' , 'user',{/literal}{$pag_com}{literal});
