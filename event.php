@@ -209,7 +209,7 @@ $smarty->assign_by_ref('calendar_data', $calendar_data);
 $event->event_info['event_desc'] = html_entity_decode($event->event_info['event_desc'], ENT_QUOTES);
 
 
-
+//var_dump($event->event_info); die();
 
 // ASSIGN VARIABLES AND DISPLAY EVENT PAGE
 $smarty->assign_by_ref('event', $event);
