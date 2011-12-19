@@ -13,6 +13,7 @@
         <tr>
           <td valign='top'>
             <a href='{$url->url_create("history_entry", $owner->user_info.user_username, $historyentries[historyentry_loop].historyentry_id)}'>
+              <img src='./images/icons/history_history16.gif' border='0' class='icon' />
             </a>
           </td>
           <td valign='top'>
