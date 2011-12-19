@@ -414,6 +414,7 @@ elseif($task == "comment_get")
     'p_end'           => (int) ($page_vars[0]+count($comments)),
     'p'               => (int) $page_vars[1],
     'comments'        => array()
+      
   );
  
   foreach( $comments as $comment_index=>$comment_data )
