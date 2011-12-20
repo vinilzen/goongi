@@ -155,8 +155,6 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.form_login .reg					{ display:inline-block; margin:0 0 10px 25px; font-size:11px;}
 	
 	.gifts			{ padding:30px 0 0 0; text-align:center;}
-	.gifts	a		{ text-decoration: none; color:#2a86dc; outline:none;}
-	.gifts a:hover	{ text-decoration:none;}
 	
 	.medal			{ margin-bottom:15px; overflow:hidden; border-bottom:1px solid #999999; padding-bottom:15px;}
 	.medal div		{ overflow:hidden;}
@@ -613,8 +611,6 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .window.rezina .w_t h1	{ margin:0; padding:47px 0 0 30px;}
 .window.rezina .w_b		{ background:url(../images/w5b.png) no-repeat 0 0; height:15px; overflow:hidden;}
 .window.rezina .w_c		{ padding:0px 30px 0 30px; background:#fff;}
-
-.form.picture_gif img		{ border:1px solid #d7d7d7; padding:2px; margin-right:20px; float:left; margin-bottom:20px;}
 
 #add_msg_w .form img		{ border:1px solid #d7d7d7; padding:2px; margin-right:20px; float:left; margin-bottom:20px;}
 #add_msg_w .form.add_w .input input		{ width:255px;}
