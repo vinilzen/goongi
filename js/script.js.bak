@@ -62,21 +62,6 @@
 		});
 		return false;
 	});	
- $('a.add_gif').click(function(e){
-            var id_value ='';
-            id_value = $(this).attr('id');
-                $('#ajaxframe').attr('src','mf_gifts_send_message.php');
-		$('#add_msg_b_g').html('');
-		$('#popup').height($('#content').height()).css('opacity','0.6').show();
-		var scrOfY = src();
-		$('#add_msg_w_g').css("top", scrOfY + 50 + 'px').fadeIn();
-		$('#ajaxframe').load(function() {
-			$('#add_msg_b_g').html($("#ajaxframe").contents().find("#form_div").html());
-                        $("#picture_gif").html('<img  src=\'mf_gifts/'+id_value+'_thumb.\' ><iput type = "hidden" id = "id_g" value ='+id_value+' >');
-                     	e.preventDefault();
-		});
-		return false;
-	});	
 	$('#add_event').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();
