@@ -57,6 +57,7 @@ $smarty->assign_by_ref('setting', $setting);
 $smarty->assign_by_ref('se_javascript', $se_javascript);
 $smarty->assign('lang_packlist', isset($lang_packlist)?$lang_packlist:null);
 $smarty->assign('notifys', $notify->notify_summary());
+$smarty->assign('email_admin', $setting['setting_email_fromemail']);
 $smarty->assign('global_plugins', $global_plugins);
 
 $smarty->assign('compatible_input_dateformat', $compatible_input_dateformat);
