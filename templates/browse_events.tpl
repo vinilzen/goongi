@@ -1,20 +1,17 @@
 {include file='header.tpl'}
 
 {* $Id: browse_events.tpl 243 2009-11-14 02:58:23Z phil $ *}
-
-<div class='page_header'>
-  {if $eventcat == ""}
+<h1> {if $eventcat == ""}
     {lang_print id=3000205}
   {else}
-    <a href='browse_events.php'>{lang_print id=3000205}</a> >
+    <a href='browse_events.php'>{lang_print id=3000205}</a>  - 
     {if $eventsubcat == ""}
       {lang_print id=$eventcat.eventcat_title}
     {else}
-      <a href='browse_events.php?v={$v}&s={$s}&eventcat_id={$eventcat.eventcat_id}'>{lang_print id=$eventcat.eventcat_title}</a> >
+      <a href='browse_events.php?v={$v}&s={$s}&eventcat_id={$eventcat.eventcat_id}'>{lang_print id=$eventcat.eventcat_title}</a> - 
       {lang_print id=$eventsubcat.eventcat_title}
     {/if}
-  {/if}
-</div>
+  {/if}</h1>
 
 <table cellpadding='0' cellspacing='0' width='100%' style='margin-top: 10px;'>
 <tr>
@@ -131,15 +128,15 @@
     {if $p != $maxpage}<a href='browse_events.php?s={$s}&v={$v}&eventcat_id={$eventcat_id}&p={math equation="p+1" p=$p}'>{lang_print id=183} &#187;</a>{else}{lang_print id=183} &#187;{/if}
     </div>
   {/if}
-
+	
   {section name=event_loop loop=$events}
     <div style='padding: 10px; border: 1px solid #CCCCCC; margin-bottom: 10px;'>
       <table cellpadding='0' cellspacing='0'>
       <tr>
       <td>
-        <a href='{$url->url_create("event", $smarty.const.NULL, $events[event_loop].event->event_info.event_id)}'>
+       <!-- <a href='{$url->url_create("event", $smarty.const.NULL, $events[event_loop].event->event_info.event_id)}'>
           <img class='photo' src='{$events[event_loop].event->event_photo("./images/nophoto.gif", TRUE)}' border='0' width='60' height='60' />
-        </a>
+        </a> -->
       </td>
       <td style='vertical-align: top; padding-left: 10px;'>
         <div style='font-weight: bold; font-size: 13px;'>

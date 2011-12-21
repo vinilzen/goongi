@@ -10,7 +10,13 @@
 
 <div class="buttons">
 	{if $user->level_info.level_event_allow == 7}
-	<span class="button2" id="add_event___"><span class="l">&nbsp;</span><span class="c"><a href="/user_event_add.php">Создать событие</a></span><span class="r">&nbsp;</span></span>
+		
+		<span class="button2" id="add_event"><span class="l">&nbsp;</span><span class="c">
+			<input type="button" value="Создать событие" name="creat" />
+		</span><span class="r">&nbsp;</span></span>
+		<span class="button2" id="add_action"><span class="l">&nbsp;</span><span class="c">
+			<input type="button" value="Создать мероприятие" name="creat" />
+		</span><span class="r">&nbsp;</span></span>
 	{/if}
 </div>
 
@@ -52,17 +58,6 @@
 </div> -->
 
 
-{* JAVASCRIPT *}
-{lang_javascript ids=861,3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000219}
-<script type="text/javascript" src="./include/js/class_event.js"></script>
-<script type="text/javascript">
-  
-  SocialEngine.Event = new SocialEngineAPI.Event();
-  SocialEngine.RegisterModule(SocialEngine.Event);
-  
-</script>
-
-
 {* HIDDEN DIV TO DISPLAY CANCEL REQUEST CONFIRMATION MESSAGE *}
 <div style='display: none;' id='confirmeventrequestcancel'>
   <div style='margin-top: 10px;'>
@@ -102,9 +97,9 @@
     {lang_print id=3000098}
   </div>
   <div>
-    <a href="javascript:void(0);" onclick="parent.SocialEngine.Event.rsvpConfirm(1);">{lang_print id=3000099}</a><br />
-    <a href="javascript:void(0);" onclick="parent.SocialEngine.Event.rsvpConfirm(2);">{lang_print id=3000100}</a><br />
-    <a href="javascript:void(0);" onclick="parent.SocialEngine.Event.rsvpConfirm(3);">{lang_print id=3000101}</a><br />
+    <a href="javascript:void(0);" onclick="rsvpConfirm(1);">{lang_print id=3000099}</a><br />
+    <a href="javascript:void(0);" onclick="rsvpConfirm(2);">{lang_print id=3000100}</a><br />
+    <a href="javascript:void(0);" onclick="rsvpConfirm(3);">{lang_print id=3000101}</a><br />
   </div>
 </div>
 

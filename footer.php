@@ -41,6 +41,9 @@ if( !defined('SE_PAGE_AJAX') ) {
 $global_smoothbox = false;
 if(isset($_GET['in_smoothbox'])) { if($_GET['in_smoothbox'] == true) { $global_smoothbox = true; }}
 
+$compatible_input_dateformat = $setting['setting_dateformat'];
+$compatible_input_timeformat = $setting['setting_timeformat'];
+
 // ASSIGN GLOBAL SMARTY OBJECTS/VARIABLES
 $smarty->assign_by_ref('url', $url);
 $smarty->assign_by_ref('misc', $misc);
@@ -55,6 +58,10 @@ $smarty->assign_by_ref('se_javascript', $se_javascript);
 $smarty->assign('lang_packlist', isset($lang_packlist)?$lang_packlist:null);
 $smarty->assign('notifys', $notify->notify_summary());
 $smarty->assign('global_plugins', $global_plugins);
+
+$smarty->assign('compatible_input_dateformat', $compatible_input_dateformat);
+$smarty->assign('compatible_input_timeformat', $compatible_input_timeformat);
+
 $smarty->assign('global_smoothbox', $global_smoothbox);
 $smarty->assign('global_page', $page);
 $smarty->assign('global_page_title', ( !empty($global_page_title) ? $global_page_title : NULL ));

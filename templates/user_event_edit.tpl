@@ -15,7 +15,7 @@
 	<li><a href='user_event_edit_members.php?event_id={$event->event_info.event_id}'>{lang_print id=3000138}</a></li>
 	<li><a href='user_event_edit_settings.php?event_id={$event->event_info.event_id}'>{lang_print id=3000001}</a></li>
 </ul>
-
+{*
 <table cellpadding='0' cellspacing='0' width='100%'>
   <tr>
     <td valign='top'>
@@ -35,8 +35,7 @@
     </td>
   </tr>
 </table>
-<br />
-
+*}
 
 {* IF EVENT WAS JUST CREATED, SHOW SUCCESS MESSAGE *}
 {if $justadded}
@@ -253,7 +252,7 @@
   {lang_block id=39 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.TB_remove();' />{/lang_block}
 </div>
 
-
+{*
 <table cellpadding='0' cellspacing='0' width='100%'>
   <tr>
     <td class='event_header'>{lang_print id=3000252}</td>
@@ -261,7 +260,7 @@
   <tr>
     <td class='event_box'>
       
-      {* SHOW PHOTO ON LEFT AND UPLOAD FIELD ON RIGHT *}
+      <!-- SHOW PHOTO ON LEFT AND UPLOAD FIELD ON RIGHT -->
       <table cellpadding='0' cellspacing='0'>
         <tr>
           <td class='editprofile_photoleft'>
@@ -296,79 +295,68 @@
   </tr>
 </table>
 <br />
-
+*}
 
 <form action='user_event_edit.php?event_id={$event->event_info.event_id}' method='post'>
 
-<table cellpadding='0' cellspacing='0' width='100%'>
-  <tr>
-    <td class='event_header'>{lang_print id=3000137}</td>
-  </tr>
-  <tr>
-    <td class='event_box'>
+
+    {lang_print id=3000137}
+
     
-      <table cellpadding='0' cellspacing='0'>
-        <tr>
-          <td class='form1'>{lang_print id=3000110}*</td>
-          <td class='form2'><input type='text' class='text' name='event_title' value='{$event->event_info.event_title}' maxlength='100' size='30'></td>
-        </tr>
-        <tr>
-          <td class='form1'>{lang_print id=3000111}</td>
-          <td class='form2'><textarea rows='6' cols='50' name='event_desc'>{$event->event_info.event_desc}</textarea></td>
-        </tr>
+	<div class="input">
+		<label>{lang_print id=3000110}*</label>
+		<input type='text' class='text' name='event_title' value='{$event->event_info.event_title}' maxlength='100' size='30'></td>
+	</div>
+	<div class="input">	
+		<label>{lang_print id=3000111}</label>
+		<textarea rows='6' cols='50' name='event_desc'>{$event->event_info.event_desc}</textarea></td>
+	</div>
         
-        <tr>
-          <td class='form1'>{lang_print id=3000111}</td>
-          <td class='form2'>
+    <div class="input">	
+          <label>{lang_print id=3000111}</label>
             
             <div class="se_event_calendar_container">
               <input class="se_event_calendar" type="text" name="event_date_start" id="event_date_start" value="{$datetime->cdate($compatible_input_dateformat, $event_date_start_tz)}" />
             </div>
+    </div>       
+    <div class="input">	
+	  <input style="width: 149px;margin-right: 6px;"  type="text" name="event_time_start" id="event_time_start" value="{$datetime->cdate($compatible_input_timeformat, $event_date_start_tz)}" />
+	  <label for="event_date_start">{lang_print id=3000114}</label>
+	</div>
             
-            <div>
-              <input style="width: 149px;margin-right: 6px;"  type="text" name="event_time_start" id="event_time_start" value="{$datetime->cdate($compatible_input_timeformat, $event_date_start_tz)}" />
-              <label for="event_date_start">{lang_print id=3000114}</label>
-            </div>
-            
-          </td>
-        </tr>
+    <div class="input">	
+	  <label>{lang_print id=3000113}</label>
+		
+		<div class="se_event_calendar_container">
+		  <input class="se_event_calendar" type="text" name="event_date_end" id="event_date_end" value="{$datetime->cdate($compatible_input_dateformat, $event_date_end_tz)}" />
+		</div>        
+    </div>
+	<div class="input">	
+	  <input style="width: 149px;margin-right: 6px;" type="text" name="event_time_end" id="event_time_end" value="{$datetime->cdate($compatible_input_timeformat, $event_date_end_tz)}" />
+	  <label for="event_time_end">{lang_print id=3000114}</label>
+	</div>
+
         
+	<div class="input">	
+		<label>{lang_print id=3000115}</label>
+		<input type='text' class='text' name='event_host' value='{$event->event_info.event_host}' maxlength='250' size='30'></td>
+	</div>
+        <!--
         <tr>
-          <td class='form1'>{lang_print id=3000113}</td>
-          <td class='form2'>
-            
-            <div class="se_event_calendar_container">
-              <input class="se_event_calendar" type="text" name="event_date_end" id="event_date_end" value="{$datetime->cdate($compatible_input_dateformat, $event_date_end_tz)}" />
-            </div>
-            
-            <div>
-              <input style="width: 149px;margin-right: 6px;" type="text" name="event_time_end" id="event_time_end" value="{$datetime->cdate($compatible_input_timeformat, $event_date_end_tz)}" />
-              <label for="event_time_end">{lang_print id=3000114}</label>
-            </div>
-          </td>
-        </tr>
-        
-        <tr>
-          <td class='form1'>{lang_print id=3000115}</td>
-          <td class='form2'><input type='text' class='text' name='event_host' value='{$event->event_info.event_host}' maxlength='250' size='30'></td>
-        </tr>
-        
-        <tr>
-          <td class='form1'>{lang_print id=3000116}</td>
-          <td class='form2'><textarea rows='6' cols='50' name='event_location'>{$event->event_info.event_location}</textarea></td>
-        </tr>
+          <label>{lang_print id=3000116}</label><textarea rows='6' cols='50' name='event_location'>{$event->event_info.event_location}</textarea></td>
+        </tr> -->
       
-        {if $cats|@count>0}
-        <tr>
-          <td class='form1'></td>
-          <td class='form2' nowrap='nowrap'>
+        {if $cats|@count>0 && 0}
+        
+          <label>
+          
            <input type="hidden" name="event_eventcat_id" value="1" />
-          </td>
-        </tr>
+          
+        
         {section name=cat_loop loop=$cats}
           {section name=field_loop loop=$cats[cat_loop].fields}
             <tr id='all_fields_{$cats[cat_loop].cat_id}'>
-            <td class='form1'>{lang_print id=$cats[cat_loop].fields[field_loop].field_title}{if $cats[cat_loop].fields[field_loop].field_required != 0}*{/if}</td>
+            <label>{lang_print id=$cats[cat_loop].fields[field_loop].field_title}{if $cats[cat_loop].fields[field_loop].field_required != 0}*{/if}</td>
             <td class='form2'>
 
             {* TEXT FIELD *}
@@ -553,21 +541,12 @@
             <div class='form_desc'>{lang_print id=$cats[cat_loop].fields[field_loop].field_desc}</div>
             {capture assign='field_error'}{lang_print id=$cats[cat_loop].fields[field_loop].field_error}{/capture}
             {if $field_error != ""}<div class='form_error'><img src='./images/icons/error16.gif' border='0' class='icon'> {$field_error}</div>{/if}
-            </td>
-            </tr>
+         
             
           {/section}
         {/section}
         
         {/if}
-      
-      
-      </table>
-      
-    </td>
-  </tr>
-</table>
-<br />
 
 
 {* SHOW SUBMIT BUTTONS *}
@@ -593,6 +572,5 @@
     {/if}
   </tr>
 </table>
-<br />
 
 {include file='footer.tpl'}

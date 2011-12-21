@@ -10,8 +10,7 @@ $task       = ( !empty($_POST['task'])      ? $_POST['task']      : ( !empty($_G
 
 
 // ENSURE EVENTS ARE ENABLED FOR THIS USER
-if( 7 != $user->level_info['level_event_allow'] )
-{
+if( 7 != $user->level_info['level_event_allow'] ) {
   header("Location: user_home.php");
   exit();
 }
@@ -19,8 +18,7 @@ if( 7 != $user->level_info['level_event_allow'] )
 
 // Get a date and time format that we can use
 $compatible_input_dateformat = $setting['setting_dateformat'];
-switch( $compatible_input_dateformat )
-{ 
+switch( $compatible_input_dateformat ) { 
   //US
   default: case 'n/j/Y': case 'n.j.Y': case 'n-j-Y': case 'M. j, Y': case 'F j, Y': case 'l, F j, Y':
     $compatible_input_dateformat = 'm/d/Y';
@@ -114,21 +112,24 @@ $event->event_info = array(
 
 
 // ATTEMPT TO ADD EVENT
-if( $task=="doadd" )
-{
-  $event->event_info['event_title']           = $_POST['event_title'];
-  $event->event_info['event_desc']            = $_POST['event_desc'];
-  $event->event_info['event_host']            = $_POST['event_host'];
-  $event->event_info['event_location']        = $_POST['event_location'];
-  $event->event_info['event_eventcat_id']     = $_POST['event_eventcat_id'];
-  $event->event_info['event_eventsubcat_id']  = $_POST['event_eventsubcat_id'];
-  $event->event_info['event_invite']          = $_POST['event_invite'];
-  $event->event_info['event_inviteonly']      = $_POST['event_inviteonly'];
-  $event->event_info['event_search']          = $_POST['event_search'];
-  $event->event_info['event_privacy']         = $_POST['event_privacy'];
-  $event->event_info['event_comments']        = $_POST['event_comments'];
-  $event->event_info['event_upload']          = $_POST['event_upload'];
-  $event->event_info['event_tag']             = $_POST['event_tag'];
+if( $task=="doadd" ) {
+	$ajax = false;
+	if (isset($_POST['ajax']) && $_POST['ajax'] == 1)
+		$ajax = true;
+	
+  $event->event_info['event_title']           = isset($_POST['event_title'])?$_POST['event_title']:'';
+  $event->event_info['event_desc']            = isset($_POST['event_desc'])?$_POST['event_desc']:'';
+  $event->event_info['event_host']            = isset($_POST['event_host'])?$_POST['event_host']:'';
+  $event->event_info['event_location']        = isset($_POST['event_location'])?$_POST['event_location']:'';
+  $event->event_info['event_eventcat_id']     = isset($_POST['event_eventcat_id'])?$_POST['event_eventcat_id']:'';
+  $event->event_info['event_eventsubcat_id']  = isset($_POST['event_eventsubcat_id'])?$_POST['event_eventsubcat_id']:'';
+  $event->event_info['event_invite']          = isset($_POST['event_invite'])?$_POST['event_invite']:'';
+  $event->event_info['event_inviteonly']      = isset($_POST['event_inviteonly'])?$_POST['event_inviteonly']:'';
+  $event->event_info['event_search']          = isset($_POST['event_search'])?$_POST['event_search']:'';
+  $event->event_info['event_privacy']         = isset($_POST['event_privacy'])?$_POST['event_privacy']:'';
+  $event->event_info['event_comments']        = isset($_POST['event_comments'])?$_POST['event_comments']:'';
+  $event->event_info['event_upload']          = isset($_POST['event_upload'])?$_POST['event_upload']:'';
+  $event->event_info['event_tag']             = isset($_POST['event_tag'])?$_POST['event_tag']:'';
   
   $event_date_start = $_POST['event_date_start'];
   $event_time_start = preg_replace('/[^aAmMpP0-9:]/', '', $_POST['event_time_start']);
@@ -205,13 +206,28 @@ if( $task=="doadd" )
       $event->event_info['event_tag'],
       $event->event_info['event_invite']
     );
-    
+    if ($ajax && !$event->is_error) {
+    	
+    	$result = array(
+			'error'		=> 0,
+			'result'	=> 'Событие успешно создано.'
+		);
+		
+		echo json_encode($result);
+		die();
+    }
+	
     header("Location: user_event_edit.php?event_id={$event_id}&justadded=1");
     exit();
-  }
-  
-  else
-  {
+  } elseif ($ajax && $event->is_error) {
+    	$result = array(
+			'error'		=> 1,
+			'result'	=>  SE_Language::get($event->is_error),
+		);
+		
+		echo json_encode($result);
+		die();
+   } else {
     SE_Language::_preload($is_error = $event->is_error);
     /*
     var_dump(array(
