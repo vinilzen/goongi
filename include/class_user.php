@@ -185,10 +185,94 @@ class SEUser
   
   // END SEUser() METHOD
 
+	function check_existing_spouse($id, $role) {
+				
+		$familys = $this->get_family_list($id);
+		$spous_fam = false;
+		
+		if (count($familys)>0) {
+			
+			if ($role == 'father')
+				$t_role = 'mother';
+			elseif ($role == 'mother')
+				$t_role = 'father';
+			
+			//var_dump($familys);	
+			foreach($familys AS $v){
+				if ($v['role'] == $t_role ) {
+					$spous_fam = $v['family_id'];
+				}
+			}
+			
+			if ($spous_fam != false) {
+				$database = SEDatabase::getInstance();
+				$resource = $database->database_query("SELECT * FROM se_role_in_family WHERE `role`='{$role}' && `family_id`='{$spous_fam}' LIMIT 1;");
+				//var_dump($database->database_fetch_assoc($resource)); die();
+				if ( $database->database_num_rows($resource) > 0 ) {
+					
+					$r = $database->database_fetch_assoc($resource);
+					//var_dump($r); die();
+					if ( $this->user_exist($r['user_id']) )
+						// проверим есть ли такой пользователь
+						return true;
+					else
+						return false;
+				} else {
+					return false;
+				}
+				
+			} else {
+				
+				return false;
+			}
 
+		} else {
+			return false;
+		}
+	}
 
+	function check_existing_parent($id, $role) {
+		$familys = $this->get_family_list($id);
+		$father_fam = false;
+		
+		if (count($familys)) {
+			foreach($familys AS $v){
+				if ($v['role'] == 'child') {
+					$father_fam = (int)$v['family_id'];
+				}
+			}
+			
+			if ($father_fam != false) {
+				$database = SEDatabase::getInstance();
+				$resource = $database->database_query("SELECT * FROM se_role_in_family WHERE `role`='{$role}' && `family_id`='{$father_fam}' LIMIT 1;");
+				
+				if ($database->database_num_rows($resource) > 0) {
+					$r = $database->database_fetch_assoc($resource);
+					
+					if ( $this->user_exist($r['user_id']) )
+						// проверим есть ли такой пользователь
+						return true;
+					else
+						return false;
+						
+				} else
+					return false;
 
+			} else
+				return false;
+			
+		} else 
+			return false;
+	}
 
+	function user_exist($user_id) {
+		$database = SEDatabase::getInstance();
+		$resource = $database->database_query("SELECT * FROM se_users WHERE `user_id`='{$user_id}' LIMIT 1;");
+		if ($database->database_num_rows($resource) )
+			return true;
+		else
+			return false;
+	}
 
 
   function &getLevelSettings($level_id)
