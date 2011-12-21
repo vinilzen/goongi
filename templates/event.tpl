@@ -5,11 +5,15 @@
 <div class="crumb">
 	<a href="/">Главная</a>
 	<a href='user_event.php'>{lang_print id=3000086}</a>
-	<span>{$event->event_info.event_title} - {lang_print id=$eventcat_info.subcat_title}</span>
+	<span>{$event->event_info.event_title}<!-- {lang_print id=$eventcat_info.subcat_title} --></span>
 </div>
 <div class="buttons">
-	<span class="button2"><span class="l">&nbsp;</span><span class="c"><a href="/user_event_edit.php?event_id={$event->event_info.event_id}">Редактировать</span><span class="r">&nbsp;</span></span>
-	<span class="button3"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Удалить" name="creat" /></span><span class="r">&nbsp;</span></span>
+	<span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<a href="/user_event_edit.php?event_id={$event->event_info.event_id}">Редактировать</a>
+	</span><span class="r">&nbsp;</span></span>
+	<span class="button3"><span class="l">&nbsp;</span><span class="c">
+		<input type="button" value="Удалить" name="creat" id="event_del" rel="{$event->event_info.event_id}" />
+	</span><span class="r">&nbsp;</span></span>
 </div>
 {* HIDDEN DIV TO DISPLAY CANCEL REQUEST CONFIRMATION MESSAGE *}
 <div style='display: none;' id='confirmeventrequestcancel'>
@@ -75,21 +79,45 @@
 
 
 <div class="meropriatie_item">
-	<div class="img"><a href="#"><img src="images/3.jpg" alt="" /></a></div>
-	<div class="name"><span>Автор:</span>
-		{section name=officer_loop loop=$officers}
+	{section name=officer_loop loop=$officers}
+		<div class="img">
+			<a href="{$url->url_create("profile", $officers[officer_loop].member->user_info.user_username)}">
+				<img src="./uploads_user/1000/1/0_3554_thumb.jpg" alt="">
+			</a>
+		</div>
+		<div class="name"><span>Автор:</span>
 			{if $officers[officer_loop].eventmember_rank == 3}
-				 <a href='{$url->url_create("profile", $officers[officer_loop].member->user_info.user_username)}'>{$officers[officer_loop].member->user_displayname}</a>
+				 <a href="{$url->url_create("profile", $officers[officer_loop].member->user_info.user_username)}">{$officers[officer_loop].member->user_displayname}</a>
 			{/if}
-		{/section} 
-	</div>
+		</div>
+	{/section} 
 	<div class="inf">
 		{if !empty($event->event_info.event_desc)}
 			{$event->event_info.event_desc}
 		{/if}
 	</div>
-        
-    <table cellpadding='0' cellspacing='0' width='100%'><tr>
+</div>
+	
+<h2>В мероприятии участвуют</h2>
+<ul class="friend_list h200">
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li style="margin-right: 0px; "><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li style="margin-right: 0px; "><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li style="margin-right: 0px; "><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+	<li style="margin-right: 0px; "><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
+</ul>
+    <table cellpadding='0' cellspacing='0' width='100%' style="display:none;"><tr>
         <td valign='top'>
           <div class='event_headline'>{lang_print id=3000160} ({$event->event_info.event_totalmembers})</div>
         </td>
@@ -123,25 +151,14 @@
           </div>
         </td>
     </tr></table>
-</div>
 
 
 
 
 
-<div class='page_header'>{$event->event_info.event_title}</div>
 
-<table width='100%' cellpadding='0' cellspacing='0'><tr><td class='profile_leftside' width='200'>
+<table width='100%' cellpadding='0' cellspacing='0' style="display:none;"><tr><td class='profile_leftside' width='200' >
 {* BEGIN LEFT COLUMN *}
-
-  {* SHOW PHOTO *}
-  <table cellpadding='0' cellspacing='0' width='100%' style='margin-bottom: 10px;'>
-    <tr>
-      <td class='profile_photo' width='182'>
-        <img class='photo' src='{$event->event_photo("./images/nophoto.gif")}' border='0' />
-      </td>
-    </tr>
-  </table>
 
   <table class='profile_menu' cellpadding='0' cellspacing='0' width='100%'>
     

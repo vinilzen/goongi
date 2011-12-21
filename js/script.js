@@ -30,6 +30,12 @@
 		$('.window').hide();
 		e.preventDefault();
 	});
+	$('.window #cancel').click(function(e){
+		
+		$('#popup').fadeOut(300);
+		$('.window').hide();
+		e.preventDefault();
+	});
 	$('#add_group_link').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();
@@ -65,12 +71,18 @@
 	$('#add_event').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();
-		$('#add_event_w').css("top", scrOfY + 50 + 'px').fadeIn();
+		$('.only_mer').hide();
+		$('#add_meropriatie_w h1').html($('#add_event input').val());
+		$('#event_eventcat_id').val(1);
+		$('#add_meropriatie_w').css("top", scrOfY + 50 + 'px').fadeIn();
 		e.preventDefault();
 	});
-	$('#save_tree').click(function(e){
+	$('#add_action').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();
+		$('.only_mer').show();
+		$('#event_eventcat_id').val(2);
+		$('#add_meropriatie_w h1').html($('#add_action input').val());
 		$('#add_meropriatie_w').css("top", scrOfY + 50 + 'px').fadeIn();
 		e.preventDefault();
 	});
@@ -436,6 +448,86 @@
 		}
 		return false;
 	});
+	
+	
+	
+	$('#event_del').click(function() {
+		var id = $(this).attr('rel');
+		
+		alert(id);
+		
+		$.post( 'event_ajax.php',
+				{	'task': 'eventdelete',
+					'event_id': id},
+				function  (data){
+					if (data.result == true){
+						alert('Событие успешно удалено.');
+						location.href='user_event.php';
+					} else {
+						alert(data.error);
+					}
+				},
+				'json'
+		);
+		
+	
+	})
+	
+	$('#add_event_submit').click(function() {
+		var event_title = $('#event_title').val();
+		var event_desc = $('#event_desc').val();
+		var event_host = $('#event_host').val();
+		var event_location = '';
+		
+		var event_date_start = $('#event_date_start').val();
+		var event_time_start = $('#event_time_start').val();
+		var event_date_end = $('#event_date_end').val();
+		var event_time_end = $('#event_time_end').val();
+		
+		var event_eventcat_id = $('#event_eventcat_id').val();
+		var event_eventsubcat_id = 0;
+		var event_invite = $('#event_invite').val();
+		var event_inviteonly = $('#event_inviteonly').val();
+		var event_search = $('#event_search').val();
+		var event_privacy = $('#event_privacy').val();
+		var event_comments = $('#event_comments').val();
+		var event_upload = $('#event_upload').val();
+		var event_tag = '';
+		$.post( 'user_event_add.php',
+				{	'task': 'doadd',
+					'event_title': event_title,
+					'event_desc': event_desc,
+					'event_host': event_host,  // где
+					
+					'event_date_start' : event_date_start,
+					'event_time_start' : event_time_start,
+					'event_date_end' : event_date_end,
+					'event_time_end' : event_time_end,					
+					
+					'event_eventcat_id': event_eventcat_id,  // событие или мероприятие
+					'event_eventsubcat_id': event_eventsubcat_id,
+					'event_invite': event_invite,
+					'event_inviteonly': event_inviteonly,
+					'event_search':event_search,
+					'event_privacy':event_privacy,
+					'event_comments':event_comments,
+					'event_upload':event_upload,
+					'event_tag':event_tag,
+					'ajax':1},
+				function(data) {
+					if (data.error == 0) {
+						alert(data.result);
+						$('#popup').fadeOut(300);
+						$('.window').hide();
+						location.href='user_event.php';
+					} else {
+						alert('error ' + data.result);
+					}
+				},
+				'json'
+		);
+	
+	})
 });
 
 	function existence_mail(email) {
