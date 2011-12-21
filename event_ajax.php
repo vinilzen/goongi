@@ -52,7 +52,7 @@ elseif( $task=="eventinfo" )
 // DELETE
 elseif( $task=="eventdelete" )
 {
-  if( $user->user_exists && $event->event_delete() )
+  if( $user->user_exists && $event->event_delete() )	
     echo json_encode(array('result' => TRUE));
   else
     echo json_encode(array('result' => FALSE, 'error' => SE_Language::get($event->is_error)));
