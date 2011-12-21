@@ -24,81 +24,158 @@ $type_request = $_POST['type_request'];
 
 switch ($type_request) {
 	case 'add':
-		$user_id = (int)$_POST['user_id']; // add new user for USER_ID  (child, parent, spouse)
-		$role = $_POST['role'];	// role for new user = child | parent | spouse
-		switch ($role) {
-			case 'pcf':
-				$role = 'father';
-				break;
+		if (isset($_POST['user_id']) && isset($_POST['role']) && isset($_POST['fname']) && strlen($_POST['fname']) && isset($_POST['lname'])  && strlen($_POST['lname'])  ) {
 			
-			case 'pcm':
-				$role = 'mother';
-				break;
+			$user_id = (int)$_POST['user_id']; // add new user for USER_ID  (child, parent, spouse)
+			
+			if (is_numeric($user_id) && $user_id != 0 ) {
+			
+				$role = $_POST['role'];	// role for new user = child | parent | spouse
+				
+				if ($user->user_exist($user_id)) {
+					
+					if ( $role == 'child' || $role == 'father' || $role == 'mother' ||  $role == 'wife' || $role == 'husband' || $role == 'brother' || $role == 'sister' ) {
+						
+						$role = $_POST['role'];	// role for new user = child | parent | spouse
+						switch ($role) {
+							case 'father':
+								
+								$role = 'father';
+								$new_user["sex"] = 'm';
+								//echo $role;	die();
+								
+								if ( !$user->check_existing_parent($user_id, $role) ) {
+										
+									$error = 'все чё';
+									$result = 'ok.';
+									
+								} else {
+									$error = 'Ошибка';
+									$result = 'У этого пользователя уже есть '.$role;
+								}
+								
+								break;
+							
+							case 'mother':
+								$role = 'mother';
+								$new_user["sex"] = 'w';
+								if ( !$user->check_existing_parent($user_id, $role) ) {
+										
+									$error = 'все чё';
+									$result = 'ok.';
+									
+								} else {
+									$error = 'Ошибка';
+									$result = 'У этого пользователя уже есть '.$role;
+								}
+								
+								break;
+								
+							case 'wife':
+								$role = 'mother';
+								$new_user["sex"] = 'w';
+								$s = $user->get_sex($user_id);
+								if ($s == 'm') {
+								
+									if ( !$user->check_existing_spouse($user_id, $role) ) {
+	
+										$error = 'все чё';
+										$result = 'ok.';
+										
+									} else {
+										$error = 'Ошибка';
+										$result = 'У этого пользователя уже есть wife';
+									}
+								} else {
+									$error = 'Ошибка';
+									$result = 'Однополый брак wifi';
+								}
+								break;
 
-			case 'pcc':
-				$role = 'child';
-				break;
+							case 'husband':
+								$role = 'father';
+								$new_user["sex"] = 'm';
+								$s = $user->get_sex($user_id);
+								if ($s == 'w') {
+									if ( !$user->check_existing_spouse($user_id, $role) ) {
+	
+										$error = 'все чё';
+										$result = 'ok.';
+										
+									} else {
+										$error = 'Ошибка';
+										$result = 'У этого пользователя уже есть husb';
+									}
+								} else {
+									$error = 'Ошибка';
+									$result = 'Однополый брак husb';
+								}
+								break;
+								
+							case 'child':
+								$role = 'child';
+								
+								
+								
+								break;
+							
+							default:
+								$error = 'error ROLE';
+								$result = 'default msg ';
+						}
+						
+						$new_user["email"] = $_POST['email'];
+						$new_user["fname"] = $_POST['fname'];
+						$new_user["lname"] = $_POST['lname'];
 			
-			case 'pm':
-				$role = 'mother';
-				break;
+						$new_user["send_invite"] = (isset($_POST['send_invite']) && $_POST['send_invite'] == 1)?1:0;
+						$new_user["displayname"] = $new_user["lname"]." ".$new_user["fname"];
+						$new_user["photo"] = "0_8208.jpg";
+						$new_user["signupdate"] = time();
+						$new_user["lastlogindate"] = 0;
+						$new_user["lastactive"] = 0;
+						$new_user["birthday"] = $_POST['birthday'];
+						
+						$new_user["death"] = $_POST['death'];// 0000-00-00
+						$new_user["alias"] = $_POST['lname'];
+						/*$user->user_create_fast(
+							$new_user['fname'],
+							$new_user['lname'], 
+							$user_id, 
+							$role, 
+							$new_user['email'],
+							$new_user["birthday"],
+							$new_user["sex"],
+							$new_user["death"],
+							$new_user["alias"],
+							$new_user["send_invite"] );
+						 * 
+						 */
+			
+					} else {
+						
+						$error = 'Ошибка';
+						$result = 'Укажите корректные пользовательские связи.';
+						
+					}
+					
+				} else {
+					
+					$error = 'Ошибка';
+					$result = 'Такого пользователя нет.';
+					
+				}
+			} else {
+					
+					$error = 'Ошибка';
+					$result = 'Неверный user_id.';
+					
+				}
 
-			case 'pf':
-				$role = 'father';
-				break;
-			
-			case 'pc':
-				$role = 'child';
-				break;
-			default:
-				die('error ROLE');
-				break;
+		} else {
+			$error = 'Ошибка';
+			$result = 'Указаны не все обязательные параметры.';
 		}
-		//if ( preg_match("/^[a-z0-9_-]{1,20}@(([a-z0-9-]+\.)+(com|net|org|mil|".
-  // "edu|gov|arpa|info|biz|inc|name|[a-z]{2})|[0-9]{1,3}\.[0-9]{1,3}\.[0-".
-   // "9]{1,3}\.[0-9]{1,3})$/is", $_POST['email'] ) )
-			$new_user["email"] = $_POST['email'];
-		//else
-		//	$err_msg = "Не корректное значение email '" . $_POST['email'] . "'<br />";
-		
-		//if ( preg_match('\w', $_POST['fname'] ) )
-			$new_user["fname"] = $_POST['fname'];
-		//else
-		//	$err_msg = "Не корректное значение '" . $_POST['fname'] . "'<br />";
-		
-		//if ( preg_match('\w', $_POST['lname'] ) )
-			$new_user["lname"] = $_POST['lname'];
-		//else
-		//	$err_msg = "Не корректное значение '" . $_POST['lname'] . "'<br />";
-		
-
-		//$new_user["username"] = "dHJpYnVsZXZhYWxlbmE=";
-		
-		$new_user["send_invite"] = (isset($_POST['send_invite']) && $_POST['send_invite'] == 1)?1:0;
-		$new_user["displayname"] = $new_user["lname"]." ".$new_user["fname"];
-		$new_user["photo"] = "0_8208.jpg";
-		$new_user["signupdate"] = time();
-		$new_user["lastlogindate"] = 0;
-		$new_user["lastactive"] = 0;
-		$new_user["birthday"] = $_POST['birthday'];
-		$new_user["sex"] = $_POST['sex'];
-		$new_user["death"] = $_POST['death'];// 0000-00-00
-		$new_user["alias"] = $_POST['lname'];
-		$user->user_create_fast(
-									$new_user['fname'],
-									$new_user['lname'], 
-									$user_id, 
-									$role, 
-									$new_user['email'],
-									$new_user["birthday"],
-									$new_user["sex"],
-									$new_user["death"],
-									$new_user["alias"],
-									$new_user["send_invite"] );
-		
-		
-		
-		print_r($new_user); die();
 		
 		break;
 	
