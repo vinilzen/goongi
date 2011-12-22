@@ -25,7 +25,7 @@
 	<div class="breadcrumb">
 		<a href="#">Главная</a>
 		<span>&rarr;</span>
-		<a href="/{/literal}{$user->user_info.user_username}{literal}">Профиль</a>
+		<a href="/{/literal}{$user->user_info.user_username}{literal}" target="_top">Профиль</a>
 		<span>&rarr;</span>
 		<a href="#">Моё дерево</a>
 	</div>

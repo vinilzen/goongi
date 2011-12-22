@@ -26,15 +26,30 @@ switch ($type_request) {
 	case 'add':
 		if (isset($_POST['user_id']) && isset($_POST['role']) && isset($_POST['fname']) && strlen($_POST['fname']) && isset($_POST['lname'])  && strlen($_POST['lname'])  ) {
 			
-			$user_id = (int)$_POST['user_id']; // add new user for USER_ID  (child, parent, spouse)
+			$user_id = (int)$_POST['user_id']; // add new user for ROOT USER  (child, parent, spouse)
 			
 			if (is_numeric($user_id) && $user_id != 0 ) {
 			
-				$role = $_POST['role'];	// role for new user = child | parent | spouse
+				$role = $_POST['role'];	// role for new user = child | parent | spouse ....
 				
 				if ($user->user_exist($user_id)) {
 					
 					$role = $_POST['role'];
+					$new_user["email"] = isset($_POST['email'])?$_POST['email']:0;
+					$new_user["fname"] = $_POST['fname'];
+					$new_user["lname"] = $_POST['lname'];
+		
+					$new_user["send_invite"] = (isset($_POST['send_invite']) && $_POST['send_invite'] == 1)?1:0;
+					$new_user["displayname"] = $new_user["lname"]." ".$new_user["fname"];
+					$new_user["photo"] = "";
+					$new_user['sex'] = isset($_POST['sex'])?$_POST['sex']:'m';
+					$new_user["signupdate"] = time();
+					$new_user["lastlogindate"] = 0;
+					$new_user["lastactive"] = 0;
+					$new_user["birthday"] = isset($_POST['birthday'])?$_POST['birthday']:'0000-00-00';
+					
+					$new_user["death"] = isset($_POST['death'])?$_POST['death']:'0000-00-00'; // 0000-00-00
+					$new_user["alias"] = isset($_POST['alias'])?$_POST['alias']:'';
 					
 					if (	$role == 'child' || 
 							$role == 'father' || $role == 'mother' || 
@@ -65,6 +80,7 @@ switch ($type_request) {
 							
 							case 'mother':
 								$role = 'mother';
+								$user->get_tree_id($user_id);
 								$new_user["sex"] = 'w';
 								if ( !$user->check_existing_parent($user_id, $role) ) {
 										
@@ -130,14 +146,27 @@ switch ($type_request) {
 								$role = 'child';
 								$s = $user->get_sex($user_id);
 								$family_id = $user->get_main_family_id($user_id,$s);
-																
+								
+								$user->user_create_fast(
+									$new_user['fname'],
+									$new_user['lname'], 
+									$user_id, 
+									$role, 
+									$new_user['email'],
+									$new_user["birthday"],
+									$new_user["sex"],
+									$new_user["death"],
+									$new_user["alias"],
+									$new_user["send_invite"],
+									$family_id );
+													
 								break;
 								
 							case 'brother'||'sister':
 								$role = 'child';
 								$family_id = $user->get_parent_family_id($user_id);
 								
-								echo $family_id; die();
+								
 								
 								break;
 							
@@ -146,33 +175,6 @@ switch ($type_request) {
 								$result = 'default msg ';
 						}
 						
-						$new_user["email"] = $_POST['email'];
-						$new_user["fname"] = $_POST['fname'];
-						$new_user["lname"] = $_POST['lname'];
-			
-						$new_user["send_invite"] = (isset($_POST['send_invite']) && $_POST['send_invite'] == 1)?1:0;
-						$new_user["displayname"] = $new_user["lname"]." ".$new_user["fname"];
-						$new_user["photo"] = "0_8208.jpg";
-						$new_user["signupdate"] = time();
-						$new_user["lastlogindate"] = 0;
-						$new_user["lastactive"] = 0;
-						$new_user["birthday"] = $_POST['birthday'];
-						
-						$new_user["death"] = $_POST['death'];// 0000-00-00
-						$new_user["alias"] = $_POST['lname'];
-						/*$user->user_create_fast(
-							$new_user['fname'],
-							$new_user['lname'], 
-							$user_id, 
-							$role, 
-							$new_user['email'],
-							$new_user["birthday"],
-							$new_user["sex"],
-							$new_user["death"],
-							$new_user["alias"],
-							$new_user["send_invite"] );
-						 * 
-						 */
 			
 					} else {
 						
