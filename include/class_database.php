@@ -519,8 +519,7 @@ class SEDatabase
   //    RETURNS THE ID GENERATED FROM THE PREVIOUS INSERT OPERATION
   //
   
-	function database_insert_id()
-  {
+	function database_insert_id()  {
 	  return mysql_insert_id($this->database_connection);
 	}
   
