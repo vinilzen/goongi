@@ -18,6 +18,5 @@ $smarty->assign('success', $result['success']); */
 $smarty->assign('family', $family);
 $smarty->assign('users', $users);
 
-
 include "footer.php";
 ?>
