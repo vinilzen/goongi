@@ -19,11 +19,14 @@ var TREE = {
 		},
 
 		updatePerson: function(person) {
-			console.log('POSTing: ', person);
+			console.log('tree_build.php: ', person);
 			return $.ajax({
 				type: 'POST',
 				url: '/tree_build.php',
-				data: JSON.stringify(person)
+				dataType: 'json',
+				data: person
+			}).success(function(res) {
+				console.log(res.error, ': ', res.result);
 			})
 		}
 
@@ -44,15 +47,6 @@ var TREE = {
 	// drawn: [],
 	url: {
 		image: 'http://' + window.location.host + '/uploads_user/1000/{0}/{1}'
-	},
-
-	utils: {
-		month: function(selected) {
-			return _.map(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(name, i) {
-				i++;
-				return '<option value="' + i + '"' + (selected === i ? 'selected="selected"' : '') + '>' + name + '</option>'
-			}).join('')
-		}
 	},
 
 	viewpoint: $('#viewpoint'),
@@ -393,11 +387,11 @@ TREE.popups.collection = {
 
 			y = (y / 2).toHalf() * 2;
 			ctx.moveTo(x + 90, y / 2);
-			ctx.lineTo(x + 140, y / 2);
-			ctx.moveTo(x + 140, y / 2 - 42);
-			ctx.lineTo(x + 110, y / 2 - 42);
-			ctx.lineTo(x + 110, y / 2 + 42);
-			ctx.lineTo(x + 140, y / 2 + 42);
+			ctx.lineTo(x + 110, y / 2);
+			ctx.moveTo(x + 140, y / 2 - 22);
+			ctx.lineTo(x + 110, y / 2 - 22);
+			ctx.lineTo(x + 110, y / 2 + 22);
+			ctx.lineTo(x + 140, y / 2 + 22);
 
 			ctx.stroke();
 
@@ -415,6 +409,7 @@ TREE.popups.collection = {
 
 		initialize: function() {
 			this.el.on('click', '.save', $.proxy(this, 'save'));
+			this.el.on('change', '[name=dead]', $.proxy(this, 'toggleDead'));
 		},
 
 		render: function(options) {
@@ -443,16 +438,23 @@ TREE.popups.collection = {
 				type_request: 'edit',
 				user_id: inp.filter('[name=id]').val(),
 				sex: inp.filter('[name=sex]:checked').val(),
-				fname: Base64.encode(inp.filter('[name=fname]').val()),
-				lname: Base64.encode(inp.filter('[name=lname]').val()),
-				alias: Base64.encode(inp.filter('[name=alias]').val()),
-				birthday: inp.filter('[name=birthyear]').val() + '-' + inp.filter('[name=birthmonth]').val() + '-' + inp.filter('[name=birthdate]').val()
+				fname: inp.filter('[name=fname]').val(),
+				lname: inp.filter('[name=lname]').val(),
+				alias: inp.filter('[name=alias]').val(),
+				birthday: inp.filter('[name=birthyear]').val() + '-' + inp.filter('[name=birthmonth]').val() + '-' + inp.filter('[name=birthdate]').val(),
+				death: inp.filter('[name=dead]').is(':checked') ? inp.filter('[name=deathyear]').val() + '-' + inp.filter('[name=deathmonth]').val() + '-' + inp.filter('[name=deathdate]').val() : null
 			}
 		},
 
 		save: function() {
 			TREE.api.updatePerson(this.serialize());
 			this.hide();
+		},
+
+		toggleDead: function(e) {
+			var field = $(e.target).closest('.field'),
+				inp = field.find('[type=text], select');
+			$(e.target).is(':checked') ? inp.removeAttr('disabled') : inp.attr('disabled', 'disabled');
 		}
 
 	}),
