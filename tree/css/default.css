@@ -23,14 +23,14 @@ select option	{padding:0 0 0 3px}
 .button	{background-position:100% 100%; padding:0 10px 0 0; display:inline-block; cursor:pointer; color:#fffefe; text-shadow:-1px 0 1px #000; font-family:trebuchet ms; font-size:14px; font-weight:bold}
 .button div	{background-position:0 0; padding:0 0 0 10px; line-height:26px; text-align:center}
 
-#header	{position:fixed; left:0; top:0; margin:0 5%; padding:12px 18px 16px; width:90%; background:#fff; border-radius:0 0 10px 10px; box-shadow:0 0 8px #999; border:solid #ccc; border-width:0 1px 1px; box-sizing:border-box; -moz-box-sizing:border-box; z-index:5}
-#header .caption	{font-size:18px; font-weight:bold; text-transform:uppercase; margin:0 0 8px}
-#header .breadcrumb	{border-bottom:1px solid #ccc; line-height:24px; margin:0 0 12px}
+#header	{position:fixed; left:0; top:0; margin:0 5%; padding:12px 15px; width:90%; background:#fff; border-radius:0 0 10px 10px; box-shadow:0 0 8px #999; border:solid #ccc; border-width:0 1px 1px; box-sizing:border-box; -moz-box-sizing:border-box; z-index:5}
+#header .caption	{font-size:18px; font-weight:bold; text-transform:uppercase; padding:0 0 10px}
+#header .breadcrumb	{border-top:1px solid #ccc; line-height:24px; padding:5px 0 0}
 #header .breadcrumb, #header .breadcrumb a	{color:#666; text-decoration:none}
 #header .breadcrumb a:hover	{text-decoration:underline}
 #header .breadcrumb span	{margin:0 2px}
 #header .button	{margin:0 10px 0 0}
-#header .ico	{float:left; width:26px; height:26px; margin:0 0 0 8px; cursor:pointer}
+#header .ico	{float:left; width:26px; height:26px; margin:12px 0 0 8px; cursor:pointer}
 #header .home	{background:url(../img/icons/home.png)}
 #header .print	{background:url(../img/icons/print.png)}
 #header .settings	{background:url(../img/icons/settings-alt.png)}
