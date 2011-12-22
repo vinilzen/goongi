@@ -27,8 +27,8 @@ select option	{padding:0 0 0 3px}
 #header .caption	{font-size:18px; font-weight:bold; text-transform:uppercase; padding:0 0 10px}
 #header .breadcrumb	{border-top:1px solid #ccc; line-height:24px; padding:5px 0 0}
 #header .breadcrumb, #header .breadcrumb a	{color:#666; text-decoration:none}
-#header .breadcrumb a:hover	{text-decoration:underline}
-#header .breadcrumb span	{margin:0 2px}
+#header .breadcrumb a:hover	{border-bottom:1px solid #999}
+#header .breadcrumb span	{margin:0 2px; font-size:14px}
 #header .button	{margin:0 10px 0 0}
 #header .ico	{float:left; width:26px; height:26px; margin:12px 0 0 8px; cursor:pointer}
 #header .home	{background:url(../img/icons/home.png)}

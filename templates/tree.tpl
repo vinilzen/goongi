@@ -159,7 +159,7 @@
 						<div class="name">Дата рождения</div>
 						<table>
 							<tr>
-								<td width="40"><input type="text" maxlength="2" name="birthdate" value="<%= new Date(birthday).getDate() %>" /></td>
+								<td width="40"><input type="text" maxlength="2" name="birthdate" value="<%= birthday ? new Date(birthday).getDate() : "" %>" /></td>
 								<td width="80" style="padding:0 5px">
 									<select name="birthmonth">
 										<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
@@ -167,7 +167,7 @@
 										<% }) %>
 									</select>
 								</td>
-								<td width="60"><input type="text" maxlength="4" name="birthyear" value="<%= new Date(birthday).getFullYear() %>" /></td>
+								<td width="60"><input type="text" maxlength="4" name="birthyear" value="<%= birthday ? new Date(birthday).getFullYear() : "" %>" /></td>
 							</tr>
 						</table>
 					</div>
@@ -182,7 +182,7 @@
 								<td width="80" style="padding:0 5px">
 									<select name="deathmonth" <% if (!death) { %> disabled="disabled" <% } %>>
 										<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
-											<option value="<%= i+1 %>" <% if (death && new Date(death).getMonth() === i) { %> selected="selected" <% } %>><%= month %></option>
+											<option value="<%= i+1 %>" <% if (new Date(death).getMonth() === i) { %> selected="selected" <% } %>><%= month %></option>
 										<% }) %>
 									</select>
 								</td>
@@ -233,18 +233,18 @@
 
 <div id="actions" class="hide">
 	<div class="parents">
-		<div class="button"><div>Добавить отца</div></div>
-		<div class="button alt"><div>Добавить мать</div></div>
+		<div class="add-parent button"><div>Добавить отца</div></div>
+		<div class="add-parent button alt"><div>Добавить мать</div></div>
 	</div>
 	<div class="siblings">
 		<div class="inner">
-			<div class="button"><div>Добавить брата</div></div>
-			<div class="button alt"><div>Добавить сестру</div></div>
+			<div class="add-sibling button"><div>Добавить брата</div></div>
+			<div class="add-sibling button alt"><div>Добавить сестру</div></div>
 		</div>
 	</div>
 	<div class="children">
-		<div class="button"><div>Добавить сына</div></div>
-		<div class="button alt"><div>Добавить дочь</div></div>
+		<div class="add-child button"><div>Добавить сына</div></div>
+		<div class="add-child button alt"><div>Добавить дочь</div></div>
 	</div>
 	<div class="person"></div>
 	<canvas width="500" height="333"></canvas>
