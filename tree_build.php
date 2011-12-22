@@ -34,9 +34,14 @@ switch ($type_request) {
 				
 				if ($user->user_exist($user_id)) {
 					
-					if ( $role == 'child' || $role == 'father' || $role == 'mother' ||  $role == 'wife' || $role == 'husband' || $role == 'brother' || $role == 'sister' ) {
+					$role = $_POST['role'];
+					
+					if (	$role == 'child' || 
+							$role == 'father' || $role == 'mother' || 
+							$role == 'wife' || $role == 'husband' || 
+							$role == 'brother' || $role == 'sister' ) {
 						
-						$role = $_POST['role'];	// role for new user = child | parent | spouse
+						//echo $role; die();
 						switch ($role) {
 							case 'father':
 								
@@ -46,6 +51,8 @@ switch ($type_request) {
 								
 								if ( !$user->check_existing_parent($user_id, $role) ) {
 										
+									$family_id = $user->get_parent_family_id($user_id);
+									
 									$error = 'все чё';
 									$result = 'ok.';
 									
@@ -60,6 +67,8 @@ switch ($type_request) {
 								$role = 'mother';
 								$new_user["sex"] = 'w';
 								if ( !$user->check_existing_parent($user_id, $role) ) {
+										
+									$family_id = $user->get_parent_family_id($user_id);
 										
 									$error = 'все чё';
 									$result = 'ok.';
@@ -78,7 +87,9 @@ switch ($type_request) {
 								if ($s == 'm') {
 								
 									if ( !$user->check_existing_spouse($user_id, $role) ) {
-	
+										
+										$family_id = $user->get_main_family_id($user_id,'m');
+										
 										$error = 'все чё';
 										$result = 'ok.';
 										
@@ -99,6 +110,8 @@ switch ($type_request) {
 								if ($s == 'w') {
 									if ( !$user->check_existing_spouse($user_id, $role) ) {
 	
+										$family_id = $user->get_main_family_id($user_id,'m');
+										
 										$error = 'все чё';
 										$result = 'ok.';
 										
@@ -113,9 +126,18 @@ switch ($type_request) {
 								break;
 								
 							case 'child':
+								
 								$role = 'child';
+								$s = $user->get_sex($user_id);
+								$family_id = $user->get_main_family_id($user_id,$s);
+																
+								break;
 								
+							case 'brother'||'sister':
+								$role = 'child';
+								$family_id = $user->get_parent_family_id($user_id);
 								
+								echo $family_id; die();
 								
 								break;
 							
@@ -219,7 +241,7 @@ switch ($type_request) {
 				}
 			}
 			
-			if (isset($_POST['displayname'])) {  // ADD CHECKING
+			if (isset($_POST['displayname'])) { // ADD CHECKING
 				$set[] = " `user_displayname` = '" . mysql_real_escape_string($_POST['displayname']) . "' ";
 			}
 			
@@ -233,8 +255,18 @@ switch ($type_request) {
 				$set_fields[] = " `profilevalue_3` = '" .mysql_real_escape_string($_POST['lname']) . "' ";
 			}
 
+			if ( isset($_POST['lname']) && isset($_POST['fname']) && strlen($_POST['fname']) && strlen($_POST['lname']) ) {
+				
+				$set[] = " `user_displayname` = '"	. mysql_real_escape_string($_POST['fname']) . " " 
+													. mysql_real_escape_string($_POST['lname']) . "' ";
+			
+			}
+
 			if ( isset($_POST['sex']) && ($_POST['sex'] == 'w' || $_POST['sex'] == 'm') ) {
-				$sex = ($_POST['sex'] == 'w')?1:($_POST['sex'] == 'm')?2:-1;
+				if ($_POST['sex'] == 'w')
+					$sex = 2	;
+				elseif ($_POST['sex'] == 'm')
+					$sex = 1;
 				$set_fields[] = " `profilevalue_5` = " . $sex . " ";
 			}
 			
@@ -244,7 +276,7 @@ switch ($type_request) {
 				$sql = "UPDATE `se_users` SET " . implode(' , ', $set) ." WHERE `user_id` = $user_id LIMIT 1;";
 				$r = $database->database_query($sql);
 			} else {
-				$r_fields = true;
+				$r = true;
 			}
 			
 			if (count($set_fields) > 0) {
@@ -253,7 +285,7 @@ switch ($type_request) {
 			} else {
 				$r_fields = true;
 			}
-			
+			//print_r($sql_fields); die();
 			if ( $r || $r_fields  ) {
 				$user->user_lastupdate_id($user_id);
 				$error = 0;

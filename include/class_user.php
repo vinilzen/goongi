@@ -230,8 +230,53 @@ class SEUser
 			return false;
 		}
 	}
+	
+	function get_main_family_id($user_id, $sex) {
+		$familys = $this->get_family_list($user_id);
+		$family_id = 0;
+		
+		if ($sex == 'm')
+			$role = 'father';
+		elseif($sex == 'w') 
+			$role = 'mother';
+		else 
+			return false;
+		
+		//print_r($familys); die();
+		if (count($familys)) {
+			foreach($familys AS $v)
+				if ( $v['role'] == $role)
+					$family_id = (int)$v['family_id'];
 
-	function check_existing_parent($id, $role) {
+			if ($family_id != 0)
+				return $family_id;
+			else
+				return $this->add_role_new($role, $user_id);
+		} else
+			return $this->add_role_new($role, $user_id);
+	}
+	
+	function get_parent_family_id($user_id) {
+		$familys = $this->get_family_list($user_id);
+		$family_id = 0;
+
+		$role = 'child';
+		
+		//print_r($familys); die();
+		if (count($familys)) {
+			foreach($familys AS $v)
+				if ( $v['role'] == $role)
+					$family_id = (int)$v['family_id'];
+
+			if ($family_id != 0)
+				return $family_id;
+			else
+				return $this->add_role_new($role, $user_id);
+		} else
+			return $this->add_role_new($role, $user_id);
+	}
+	
+	function check_existing_parent($id, $role) { // if exist mother|father ($role) return false
 		$familys = $this->get_family_list($id);
 		$father_fam = false;
 		
@@ -1809,6 +1854,17 @@ class SEUser
 		$sql = "INSERT INTO `se_role_in_family` (`family_id`, `user_id`, `role`) VALUES ('$family_id', '$user_id', '$role')";
 		if ( $database->database_query($sql) ) {
 			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// insert in `se_role_in_family`
+	function add_role_new( $role, $user_id) {
+		global $database, $setting, $user;
+		$sql = "INSERT INTO `se_role_in_family` (`user_id`, `role`) VALUES ('$user_id', '$role')";
+		if ( $database->database_query($sql) ) {
+			return $database->database_insert_id();;
 		} else {
 			return false;
 		}
