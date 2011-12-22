@@ -25,7 +25,7 @@
 	<div class="breadcrumb">
 		<a href="#">Главная</a>
 		<span>&rarr;</span>
-		<a href="/{$user->user_info.user_username}">Профиль</a>
+		<a href="/{/literal}{$user->user_info.user_username}{literal}">Профиль</a>
 		<span>&rarr;</span>
 		<a href="#">Моё дерево</a>
 	</div>
@@ -51,9 +51,13 @@
 
 <script id="user-tmpl" type="text/html">
 	<div class="name"><%= Base64.decode(displayname) %></div>
-	<div class="photo"><img src="<%= TREE.url.image.format(id, photo) %>" /></div>
+	<div class="photo">
+		<a href="/{/literal}{$user->user_info.user_username}{literal}" target="_top">
+			<img src="<%= TREE.url.image.format(id, photo) %>" />
+		</a>
+	</div>
 	<div class="birth"><%= sex === "m" ? "Родился" : "Родилась" + birthday %></div>
-	<div class="edit"><span>Редактировать профиль<span></div>
+	<div class="edit"><a href="/user_editprofile.php" target="_top"><span>Редактировать профиль</span></a></div>
 	<div class="relations">
 		<table>
 			<tr>
