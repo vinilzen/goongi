@@ -1776,9 +1776,10 @@ class SEUser
 		while( $m = $database->database_fetch_assoc($resourse1)) {
 				
 			$members[$m['profilevalue_user_id']]['birthday']	= $m['profilevalue_4']=='0000-00-00'?null:$m['profilevalue_4'];
-	        $members[$m['profilevalue_user_id']]['sex']	= $m['profilevalue_5']=='2'?'w':(($m['profilevalue_5']=='1')?'m':'');
+	        $members[$m['profilevalue_user_id']]['sex']	= $m['profilevalue_5']=='2'?'w':(($m['profilevalue_5']=='1')?'m':null);
 	        $members[$m['profilevalue_user_id']]['death']	= $m['profilevalue_12']=='0000-00-00'?null:$m['profilevalue_12'];
-			$members[$m['profilevalue_user_id']]['alias']	= $m['profilevalue_11'];
+			$members[$m['profilevalue_user_id']]['alias']	= $m['profilevalue_11']==''?null:$m['profilevalue_11'];
+
 		}
 		return $members;
 	}
@@ -2012,19 +2013,26 @@ class SEUser
 		if ($user_id == 0)
 			$user_id = $user->user_info['user_id'];
 		
-		//echo $user_id; die();
-		
-		
 		$result = array();
-		$result = $this->bild_tree($user_id);
+		$users = $this->bild_tree($user_id);
+		
+		foreach ($users AS $k=>$v) // add 2 lvl
+			$users = $users + $this->bild_tree($k);
+		
+	
 		
 		
-		$result1['user'] = $result['user'];
-		foreach ($result['users'] AS $k=>$v) {
+		
+		$result1['user'] = $this->get_user_info(array(1=>$user_id), true);
+		$result1['user'] = $this->add_psc($user_id);
+		unset($users[$user_id]);
+		foreach ($users AS $k=>$v) {
 			if ($k != $user_id) {
-				$result1['users'][$k] = $this->add_psc($k);
+				$users[$k] = $this->add_psc($k);
 			}
 		}
+		$result1['users'] = $users;
+		
 		return json_encode($result1); //die();
 	}
 	
@@ -2041,16 +2049,10 @@ class SEUser
 			}
 			$family_ids[] = $value['family_id'];
 		}
-		//var_dump($parent_family); die();
 		
-		$relatives = $this->get_users_relatives($family_ids);
-		
-		array_push($relatives, $user_id);
+		$relatives = $this->get_users_relatives($family_ids, $user_id);
 		$result_users = $this->get_user_info($relatives, true);
-		//var_dump($result_users); die();
-		$r['user'] = $this->add_psc($user_id);
-		$r['users'] = $result_users;
-		return $r;
+		return $result_users;
 	}
 
 	function add_psc($user_id) { // parent_spouse_child
@@ -2124,11 +2126,15 @@ class SEUser
 		}
 	}
 	
-	function get_users_relatives($family_ids) {
+	function get_users_relatives($family_ids, $user_id = 0) {
 		global $database, $setting, $user;
+		if ($user_id != 0)
+			$without_user = " && `user_id` != $user_id";
+		else 
+			$without_user = "";
 		
 		if (is_array($family_ids) && count($family_ids)) {
-			$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` IN ( " . implode(',',$family_ids) . " );";
+			$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` IN ( " . implode(',',$family_ids) . " ) $without_user ;";
 			$resourse = $database->database_query($sql);
 			$family = array();
 			while($f = $database->database_fetch_assoc($resourse) )
@@ -2970,6 +2976,8 @@ class SEUser
 				send_systememail('welcome', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
 			}
 		}
+		
+		return true; 
 	}
 
 
@@ -4009,14 +4017,15 @@ class SEUser
 	// THIS METHOD DELETES THE USER CURRENTLY ASSOCIATED WITH THIS OBJECT
 	// INPUT: $user_id
 	// OUTPUT:
-	function user_del($user_id)
-  {
+	function user_del($user_id) {
 	  global $database, $url, $global_plugins;
 	  // CALL USER DELETE HOOK
 	  ($hook = SE_Hook::exists('se_user_delete')) ? SE_Hook::call($hook, $user_id) : NULL;
     
 	  // DELETE USER, USERSETTING, PROFILE, STYLES TABLE ROWS
 	  $database->database_query("DELETE FROM se_users WHERE user_id='{$user_id}' LIMIT 1");
+	  $database->database_query("DELETE FROM se_role_in_family WHERE user_id='{$user_id}' LIMIT 1");
+	  $database->database_query("DELETE FROM se_tree_users WHERE user_id='{$user_id}' LIMIT 1");
 	  $database->database_query("DELETE FROM se_usersettings WHERE usersetting_user_id='{$user_id}' LIMIT 1");
 	  $database->database_query("DELETE FROM se_profilevalues WHERE profilevalue_user_id='{$user_id}' LIMIT 1");
 	  $database->database_query("DELETE FROM se_profilestyles WHERE profilestyle_user_id='{$user_id}' LIMIT 1");

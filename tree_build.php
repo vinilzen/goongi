@@ -147,7 +147,7 @@ switch ($type_request) {
 								$s = $user->get_sex($user_id);
 								$family_id = $user->get_main_family_id($user_id,$s);
 								
-								$user->user_create_fast(
+								if ( $user->user_create_fast(
 									$new_user['fname'],
 									$new_user['lname'], 
 									$user_id, 
@@ -158,8 +158,15 @@ switch ($type_request) {
 									$new_user["death"],
 									$new_user["alias"],
 									$new_user["send_invite"],
-									$family_id );
-													
+									$family_id ) ) {
+								
+									$error = 0;
+									$result = SE_Language::get(729);
+									
+								} else {
+									
+								}
+								
 								break;
 								
 							case 'brother'||'sister':
@@ -304,22 +311,24 @@ switch ($type_request) {
 	
 	case 'del':
 		$user_id = (int)$_POST['user_id'];
-		if ( $user->user_info['user_id'] == $user_id ) {
+		if ( $user->user_info['user_id'] != $user_id ) {
 			if ( isset($user_id) && $user_id != 0 ) {
 				
 				if ( $user->user_del($user_id) ) {
-				
 					$error = 0;
-					$result = 'Пользователь успешно удален.';
+					$result = SE_Language::get(1071);
 				} else {
-					$error = 'Ошибка доступа';
+					$error = 'Ошибка';
 					$result = 'Не удалось удалить пользователя.';
 				}
 				
 			} else {
-				$error = 'Ошибка доступа';
+				$error = 'Ошибка';
 				$result = 'Необходимо указать пользователя для удаления.';
 			}
+		} else {
+			$error = 'Ошибка';
+			$result = 'Тут Вы не можете удалить себя.';
 		}
 		break;
 	
