@@ -77,13 +77,13 @@
     <tr>
     <td class='form1'>&nbsp;</td>
     <td class='form2'>
-      <table cellpadding='0' cellspacing='0'>
+     <!-- <table cellpadding='0' cellspacing='0'>
       <tr>
       <td><input type='text' name='invite_secure' class='text' size='6' maxlength='10'>&nbsp;</td>
       <td align='center'><a href="javascript:void(0);" onClick="this.blur();javascript:$('secure_image').src = $('secure_image').src + '?' + (new Date()).getTime();"><img src='./images/secure.php' id='secure_image' border='0' height='20' width='67' class='signup_code'></a></td>
       <td>{capture assign=tip}{lang_print id=856}{/capture}<img src='./images/icons/tip.gif' border='0' class='Tips1' style='vertical-align: middle;' title='{$tip|replace:"'":"&#039;"}'></td>
       </tr>
-      </table>
+      </table> -->
     </td>
     </tr>
   {/if}

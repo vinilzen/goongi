@@ -24,67 +24,130 @@ $type_request = $_POST['type_request'];
 
 switch ($type_request) {
 	case 'add':
-		$user_id = (int)$_POST['user_id']; // add new user for USER_ID  (child, parent, spouse)
-		$role = $_POST['role'];	// role for new user = child | parent | spouse
-		switch ($role) {
-			case 'pcf':
-				$role = 'father';
-				break;
+		if (isset($_POST['user_id']) && isset($_POST['role']) && isset($_POST['fname']) && strlen($_POST['fname']) && isset($_POST['lname'])  && strlen($_POST['lname'])  ) {
 			
-			case 'pcm':
-				$role = 'mother';
-				break;
-
-			case 'pcc':
-				$role = 'child';
-				break;
+			$user_id = (int)$_POST['user_id']; // add new user for ROOT USER  (child, parent, spouse)
 			
-			case 'pm':
-				$role = 'mother';
-				break;
-
-			case 'pf':
-				$role = 'father';
-				break;
+			if (is_numeric($user_id) && $user_id != 0 ) {
 			
-			case 'pc':
-				$role = 'child';
-				break;
-			default:
-				die('error ROLE');
-				break;
-		}
-		//if ( preg_match("/^[a-z0-9_-]{1,20}@(([a-z0-9-]+\.)+(com|net|org|mil|".
-  // "edu|gov|arpa|info|biz|inc|name|[a-z]{2})|[0-9]{1,3}\.[0-9]{1,3}\.[0-".
-   // "9]{1,3}\.[0-9]{1,3})$/is", $_POST['email'] ) )
-			$new_user["email"] = $_POST['email'];
-		//else
-		//	$err_msg = "Не корректное значение email '" . $_POST['email'] . "'<br />";
+				$role = $_POST['role'];	// role for new user = child | parent | spouse ....
+				
+				if ($user->user_exist($user_id)) {
+					
+					$role = $_POST['role'];
+					$new_user["email"] = isset($_POST['email'])?$_POST['email']:0;
+					$new_user["fname"] = $_POST['fname'];
+					$new_user["lname"] = $_POST['lname'];
 		
-		//if ( preg_match('\w', $_POST['fname'] ) )
-			$new_user["fname"] = $_POST['fname'];
-		//else
-		//	$err_msg = "Не корректное значение '" . $_POST['fname'] . "'<br />";
-		
-		//if ( preg_match('\w', $_POST['lname'] ) )
-			$new_user["lname"] = $_POST['lname'];
-		//else
-		//	$err_msg = "Не корректное значение '" . $_POST['lname'] . "'<br />";
-		
+					$new_user["send_invite"] = (isset($_POST['send_invite']) && $_POST['send_invite'] == 1)?1:0;
+					$new_user["displayname"] = $new_user["lname"]." ".$new_user["fname"];
+					$new_user["photo"] = "";
+					$new_user['sex'] = isset($_POST['sex'])?$_POST['sex']:'m';
+					$new_user["signupdate"] = time();
+					$new_user["lastlogindate"] = 0;
+					$new_user["lastactive"] = 0;
+					$new_user["birthday"] = isset($_POST['birthday'])?$_POST['birthday']:'0000-00-00';
+					
+					$new_user["death"] = isset($_POST['death'])?$_POST['death']:'0000-00-00'; // 0000-00-00
+					$new_user["alias"] = isset($_POST['alias'])?$_POST['alias']:'';
+					
+					if (	$role == 'child' || 
+							$role == 'father' || $role == 'mother' || 
+							$role == 'wife' || $role == 'husband' || 
+							$role == 'brother' || $role == 'sister' ) {
+						
+						//echo $role; die();
+						switch ($role) {
+							case 'father':
+								
+								$role = 'father';
+								$new_user["sex"] = 'm';
+								//echo $role;	die();
+								
+								if ( !$user->check_existing_parent($user_id, $role) ) {
+										
+									$family_id = $user->get_parent_family_id($user_id);
+									
+									$error = 'все чё';
+									$result = 'ok.';
+									
+								} else {
+									$error = 'Ошибка';
+									$result = 'У этого пользователя уже есть '.$role;
+								}
+								
+								break;
+							
+							case 'mother':
+								$role = 'mother';
+								$user->get_tree_id($user_id);
+								$new_user["sex"] = 'w';
+								if ( !$user->check_existing_parent($user_id, $role) ) {
+										
+									$family_id = $user->get_parent_family_id($user_id);
+										
+									$error = 'все чё';
+									$result = 'ok.';
+									
+								} else {
+									$error = 'Ошибка';
+									$result = 'У этого пользователя уже есть '.$role;
+								}
+								
+								break;
+								
+							case 'wife':
+								$role = 'mother';
+								$new_user["sex"] = 'w';
+								$s = $user->get_sex($user_id);
+								if ($s == 'm') {
+								
+									if ( !$user->check_existing_spouse($user_id, $role) ) {
+										
+										$family_id = $user->get_main_family_id($user_id,'m');
+										
+										$error = 'все чё';
+										$result = 'ok.';
+										
+									} else {
+										$error = 'Ошибка';
+										$result = 'У этого пользователя уже есть wife';
+									}
+								} else {
+									$error = 'Ошибка';
+									$result = 'Однополый брак wifi';
+								}
+								break;
 
-		//$new_user["username"] = "dHJpYnVsZXZhYWxlbmE=";
-		
-		$new_user["send_invite"] = (isset($_POST['send_invite']) && $_POST['send_invite'] == 1)?1:0;
-		$new_user["displayname"] = $new_user["lname"]." ".$new_user["fname"];
-		$new_user["photo"] = "0_8208.jpg";
-		$new_user["signupdate"] = time();
-		$new_user["lastlogindate"] = 0;
-		$new_user["lastactive"] = 0;
-		$new_user["birthday"] = $_POST['birthday'];
-		$new_user["sex"] = $_POST['sex'];
-		$new_user["death"] = $_POST['death'];// 0000-00-00
-		$new_user["alias"] = $_POST['lname'];
-		$user->user_create_fast(
+							case 'husband':
+								$role = 'father';
+								$new_user["sex"] = 'm';
+								$s = $user->get_sex($user_id);
+								if ($s == 'w') {
+									if ( !$user->check_existing_spouse($user_id, $role) ) {
+	
+										$family_id = $user->get_main_family_id($user_id,'m');
+										
+										$error = 'все чё';
+										$result = 'ok.';
+										
+									} else {
+										$error = 'Ошибка';
+										$result = 'У этого пользователя уже есть husb';
+									}
+								} else {
+									$error = 'Ошибка';
+									$result = 'Однополый брак husb';
+								}
+								break;
+								
+							case 'child':
+								
+								$role = 'child';
+								$s = $user->get_sex($user_id);
+								$family_id = $user->get_main_family_id($user_id,$s);
+								
+								if ( $user->user_create_fast(
 									$new_user['fname'],
 									$new_user['lname'], 
 									$user_id, 
@@ -94,11 +157,56 @@ switch ($type_request) {
 									$new_user["sex"],
 									$new_user["death"],
 									$new_user["alias"],
-									$new_user["send_invite"] );
-		
-		
-		
-		print_r($new_user); die();
+									$new_user["send_invite"],
+									$family_id ) ) {
+								
+									$error = 0;
+									$result = SE_Language::get(729);
+									
+								} else {
+									
+								}
+								
+								break;
+								
+							case 'brother'||'sister':
+								$role = 'child';
+								$family_id = $user->get_parent_family_id($user_id);
+								
+								
+								
+								break;
+							
+							default:
+								$error = 'error ROLE';
+								$result = 'default msg ';
+						}
+						
+			
+					} else {
+						
+						$error = 'Ошибка';
+						$result = 'Укажите корректные пользовательские связи.';
+						
+					}
+					
+				} else {
+					
+					$error = 'Ошибка';
+					$result = 'Такого пользователя нет.';
+					
+				}
+			} else {
+					
+					$error = 'Ошибка';
+					$result = 'Неверный user_id.';
+					
+				}
+
+		} else {
+			$error = 'Ошибка';
+			$result = 'Указаны не все обязательные параметры.';
+		}
 		
 		break;
 	
@@ -142,7 +250,7 @@ switch ($type_request) {
 				}
 			}
 			
-			if (isset($_POST['displayname'])) {  // ADD CHECKING
+			if (isset($_POST['displayname'])) { // ADD CHECKING
 				$set[] = " `user_displayname` = '" . mysql_real_escape_string($_POST['displayname']) . "' ";
 			}
 			
@@ -156,8 +264,18 @@ switch ($type_request) {
 				$set_fields[] = " `profilevalue_3` = '" .mysql_real_escape_string($_POST['lname']) . "' ";
 			}
 
+			if ( isset($_POST['lname']) && isset($_POST['fname']) && strlen($_POST['fname']) && strlen($_POST['lname']) ) {
+				
+				$set[] = " `user_displayname` = '"	. mysql_real_escape_string($_POST['fname']) . " " 
+													. mysql_real_escape_string($_POST['lname']) . "' ";
+			
+			}
+
 			if ( isset($_POST['sex']) && ($_POST['sex'] == 'w' || $_POST['sex'] == 'm') ) {
-				$sex = ($_POST['sex'] == 'w')?1:($_POST['sex'] == 'm')?2:-1;
+				if ($_POST['sex'] == 'w')
+					$sex = 2	;
+				elseif ($_POST['sex'] == 'm')
+					$sex = 1;
 				$set_fields[] = " `profilevalue_5` = " . $sex . " ";
 			}
 			
@@ -167,7 +285,7 @@ switch ($type_request) {
 				$sql = "UPDATE `se_users` SET " . implode(' , ', $set) ." WHERE `user_id` = $user_id LIMIT 1;";
 				$r = $database->database_query($sql);
 			} else {
-				$r_fields = true;
+				$r = true;
 			}
 			
 			if (count($set_fields) > 0) {
@@ -176,7 +294,7 @@ switch ($type_request) {
 			} else {
 				$r_fields = true;
 			}
-			
+			//print_r($sql_fields); die();
 			if ( $r || $r_fields  ) {
 				$user->user_lastupdate_id($user_id);
 				$error = 0;
@@ -193,22 +311,24 @@ switch ($type_request) {
 	
 	case 'del':
 		$user_id = (int)$_POST['user_id'];
-		if ( $user->user_info['user_id'] == $user_id ) {
+		if ( $user->user_info['user_id'] != $user_id ) {
 			if ( isset($user_id) && $user_id != 0 ) {
 				
 				if ( $user->user_del($user_id) ) {
-				
 					$error = 0;
-					$result = 'Пользователь успешно удален.';
+					$result = SE_Language::get(1071);
 				} else {
-					$error = 'Ошибка доступа';
+					$error = 'Ошибка';
 					$result = 'Не удалось удалить пользователя.';
 				}
 				
 			} else {
-				$error = 'Ошибка доступа';
+				$error = 'Ошибка';
 				$result = 'Необходимо указать пользователя для удаления.';
 			}
+		} else {
+			$error = 'Ошибка';
+			$result = 'Тут Вы не можете удалить себя.';
 		}
 		break;
 	
