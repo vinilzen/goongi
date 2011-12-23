@@ -2016,16 +2016,11 @@ class SEUser
 		$result = array();
 		$users = $this->bild_tree($user_id);
 		
-		foreach ($users AS $k=>$v) // add 2 lvl
-			$users = $users + $this->bild_tree($k);
-		
-	
-		
-		
-		
+		//foreach ($users AS $k=>$v) $users = $users + $this->bild_tree($k); // add 2 lvl
+
 		$result1['user'] = $this->get_user_info(array(1=>$user_id), true);
 		$result1['user'] = $this->add_psc($user_id);
-		unset($users[$user_id]);
+		unset($users[$user_id]);  // del root user from a reletives users array
 		foreach ($users AS $k=>$v) {
 			if ($k != $user_id) {
 				$users[$k] = $this->add_psc($k);
