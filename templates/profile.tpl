@@ -1,4 +1,3 @@
-{$ads->ads_display('1')}
 {literal}
     <script type="text/javascript">
     function change(pad)
@@ -6,7 +5,8 @@
        document.getElementById('pag_com').value = pad;
     }
     </script>
-    {/literal}
+{/literal}
+
 {assign var=death value=0}
 {section name=cat_loop loop=$cats}
         {section name=subcat_loop loop=$cats[cat_loop].subcats}
@@ -20,7 +20,7 @@
 {if $death == 1}
 {include file='header_death.tpl'}
  {else}
-﻿{include file='header.tpl'}
+ {include file='header.tpl'}
 {/if}
 {* $Id: profile.tpl 255 2009-11-18 02:21:01Z steve $ *}
     
@@ -319,6 +319,6 @@
 {if $death == 1}
 {include file='footer_death.tpl'}
  {else}
-﻿{include file='footer.tpl'}
+ {include file='footer.tpl'}
 {/if}
 {* END RIGHT COLUMN *}

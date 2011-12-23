@@ -1,19 +1,18 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-23 16:14:14
+<?php /* Smarty version 2.6.14, created on 2011-12-23 17:12:38
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 96, false),array('block', 'hook_foreach', 'profile.tpl', 127, false),array('function', 'math', 'profile.tpl', 220, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(786,652,895,917,838,887,889,852,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839);
 SELanguage::load();
-?><?php echo $this->_tpl_vars['ads']->ads_display('1'); 
- echo '
+?><?php echo '
     <script type="text/javascript">
     function change(pad)
     {
        document.getElementById(\'pag_com\').value = pad;
     }
     </script>
-    '; 
+'; 
  $this->assign('death', 0); 
  unset($this->_sections['cat_loop']);
 $this->_sections['cat_loop']['name'] = 'cat_loop';
@@ -99,7 +98,7 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
  <?php else: ?>
-﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
+ <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
@@ -560,7 +559,7 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
  <?php else: ?>
-﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
+ <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
