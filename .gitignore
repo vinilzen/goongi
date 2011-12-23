@@ -2,5 +2,5 @@
 log/*
 uploads_user/*
 uploads_event/*
-include/smarty/templates_c/*
+include/smarty/templates_c/\*
 nbproject/*

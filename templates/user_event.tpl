@@ -10,7 +10,6 @@
 
 <div class="buttons">
 	{if $user->level_info.level_event_allow == 7}
-		
 		<span class="button2" id="add_event"><span class="l">&nbsp;</span><span class="c">
 			<input type="button" value="Создать событие" name="creat" />
 		</span><span class="r">&nbsp;</span></span>

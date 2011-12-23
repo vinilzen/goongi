@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-22 16:01:59
+<?php /* Smarty version 2.6.14, created on 2011-12-23 17:53:30
          compiled from user_event.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_event.tpl', 151, false),array('function', 'cycle', 'user_event.tpl', 172, false),array('modifier', 'truncate', 'user_event.tpl', 194, false),array('modifier', 'choptext', 'user_event.tpl', 194, false),array('modifier', 'strip_tags', 'user_event.tpl', 251, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_event.tpl', 145, false),array('function', 'cycle', 'user_event.tpl', 166, false),array('modifier', 'truncate', 'user_event.tpl', 188, false),array('modifier', 'choptext', 'user_event.tpl', 188, false),array('modifier', 'strip_tags', 'user_event.tpl', 245, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(3000086,3000087,3000089,3000218,646,3000090,3000091,3000092,861,3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000219,3000221,175,39,3000094,3000220,3000098,3000099,3000100,3000101,3000103,3000102,182,184,185,183,589,3000104,3000105,3000203,3000202,3000204,3000277,3000168,3000170,3000245,3000169);
+SELanguage::_preload_multi(3000086,3000087,3000089,3000218,646,3000090,3000091,3000092,3000221,175,39,3000094,3000220,3000219,3000098,3000099,3000100,3000101,3000103,3000102,182,184,185,183,589,3000104,3000105,3000203,3000202,3000204,3000277,3000168,3000170,3000245,3000097,3000169);
 SELanguage::load();
 ?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
@@ -20,7 +20,12 @@ unset($_smarty_tpl_vars);
 
 <div class="buttons">
 	<?php if ($this->_tpl_vars['user']->level_info['level_event_allow'] == 7): ?>
-	<span class="button2" id="add_event___"><span class="l">&nbsp;</span><span class="c"><a href="/user_event_add.php">Создать событие</a></span><span class="r">&nbsp;</span></span>
+		<span class="button2" id="add_event"><span class="l">&nbsp;</span><span class="c">
+			<input type="button" value="Создать событие" name="creat" />
+		</span><span class="r">&nbsp;</span></span>
+		<span class="button2" id="add_action"><span class="l">&nbsp;</span><span class="c">
+			<input type="button" value="Создать мероприятие" name="creat" />
+		</span><span class="r">&nbsp;</span></span>
 	<?php endif; ?>
 </div>
 
@@ -67,31 +72,6 @@ unset($_smarty_tpl_vars);
   <a href="user_event.php?view=list"><?php echo SELanguage::_get(3000091); ?></a> |
   <a href="user_event.php?view=month"><?php echo SELanguage::_get(3000092); ?></a>
 </div> -->
-
-
-<?php 
-$javascript_lang_import_list = SELanguage::_javascript_redundancy_filter(array(861,3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000219));
-$javascript_lang_import_first = TRUE;
-if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_list) )
-{
-  echo "\n<script type='text/javascript'>\n<!--\n";
-  echo "SocialEngine.Language.Import({\n";
-  foreach( $javascript_lang_import_list as $javascript_import_id )
-  {
-    if( !$javascript_lang_import_first ) echo ",\n";
-    echo "  ".$javascript_import_id." : '".addslashes(SE_Language::_get($javascript_import_id))."'";
-    $javascript_lang_import_first = FALSE;
-  }
-  echo "\n});\n//-->\n</script>\n";
-}
- ?>
-<script type="text/javascript" src="./include/js/class_event.js"></script>
-<script type="text/javascript">
-  
-  SocialEngine.Event = new SocialEngineAPI.Event();
-  SocialEngine.RegisterModule(SocialEngine.Event);
-  
-</script>
 
 
 <div style='display: none;' id='confirmeventrequestcancel'>
@@ -165,9 +145,9 @@ if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_lis
     <?php echo SELanguage::_get(3000098); ?>
   </div>
   <div>
-    <a href="javascript:void(0);" onclick="parent.SocialEngine.Event.rsvpConfirm(1);"><?php echo SELanguage::_get(3000099); ?></a><br />
-    <a href="javascript:void(0);" onclick="parent.SocialEngine.Event.rsvpConfirm(2);"><?php echo SELanguage::_get(3000100); ?></a><br />
-    <a href="javascript:void(0);" onclick="parent.SocialEngine.Event.rsvpConfirm(3);"><?php echo SELanguage::_get(3000101); ?></a><br />
+    <a href="javascript:void(0);" onclick="rsvpConfirm(1);"><?php echo SELanguage::_get(3000099); ?></a><br />
+    <a href="javascript:void(0);" onclick="rsvpConfirm(2);"><?php echo SELanguage::_get(3000100); ?></a><br />
+    <a href="javascript:void(0);" onclick="rsvpConfirm(3);"><?php echo SELanguage::_get(3000101); ?></a><br />
   </div>
 </div>
 
@@ -443,4 +423,4 @@ $this->_sections['event_loop']['last']       = ($this->_sections['event_loop']['
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
- ?>
+ ?>

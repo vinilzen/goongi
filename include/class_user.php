@@ -2054,7 +2054,7 @@ class SEUser
 		$familys = $this->get_family_list($user_id);  // list family
 		$family_ids = array();
 		$result_users = $this->get_user_info(array(0=>$user_id), true);
-		//var_dump($result_users); die();
+
 		$child_family = null;
 		$parent_family = null;
 		foreach ($familys as $key => $value) {

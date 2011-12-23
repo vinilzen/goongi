@@ -1,7 +1,7 @@
 ﻿{include file='header.tpl'}
 
 {* $Id: user_event_edit_members.tpl 9 2009-01-11 06:03:21Z john $ *}
-<h1>{lang_print id=3000142}</h1>
+<h1>{lang_sprintf id=3000141 1="event.php?event_id=`$event->event_info.event_id`" 2=$event->event_info.event_title}</h1>
 <div class="crumb">
 	<a href="/">Главная</a>
 	<a href='user_event.php'>{lang_print id=3000086}</a>
@@ -14,27 +14,7 @@
 	<li><a href='user_event_edit_settings.php?event_id={$event->event_info.event_id}'>{lang_print id=3000001}</a></li>
 </ul>
 
-<table cellpadding='0' cellspacing='0' width='100%'>
-  <tr>
-    <td valign='top'>
-
-      <div class='page_header'>{lang_sprintf id=3000141 1="event.php?event_id=`$event->event_info.event_id`" 2=$event->event_info.event_title}</div>
-      <div style="width: 500px;"></div>
-      
-    </td>
-    <td valign='top' align='right'>
-      
-      <table cellpadding='0' cellspacing='0'>
-        <tr>
-          <td class='button' nowrap='nowrap'>
-            <a href='user_event.php'><img src='./images/icons/back16.gif' border='0' class='button' />{lang_print id=3000109}</a>
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-</table>
+{lang_print id=3000142}
 <br />
 
 
