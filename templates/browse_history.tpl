@@ -2,7 +2,7 @@
 
 {* $Id: browse_historys.tpl 241 2009-11-14 02:48:21Z phil $ *}
 
-<div class='page_header'>{lang_print id=1500031}</div>
+<div class='page_header'>{lang_print id=1600031}</div>
 
 <form method="get" name="seBrowsehistorys" action="browse_historys.php">
 <input type="hidden" name="p" value="{$p|default:1}" />
@@ -21,17 +21,17 @@
       </td>
     
       <td style='padding-left: 10px; padding-right: 3px;'>
-        {lang_print id=1500032}
+        {lang_print id=1600032}
       </td>
       <td>
         <select class='small' name='v' onchange="document.seBrowsehistorys.submit();">
-        <option value='0'{if $v == "0"} SELECTED{/if}>{lang_print id=1500116}</option>
-        {if $user->user_exists}<option value='1'{if $v == "1"} SELECTED{/if}>{lang_print id=1500117}</option>{/if}
+        <option value='0'{if $v == "0"} SELECTED{/if}>{lang_print id=1600116}</option>
+        {if $user->user_exists}<option value='1'{if $v == "1"} SELECTED{/if}>{lang_print id=1600117}</option>{/if}
         </select>
       </td>
       
       <td style='padding-left: 10px; padding-right: 3px;'>
-        {lang_print id=1500034}
+        {lang_print id=1600034}
       </td>
       <td>
         <select class='small' name='c' onchange="document.seBrowsehistorys.submit();">
@@ -41,18 +41,18 @@
             {$historyentrycats[historyentrycat_loop].historyentrycat_title|truncate:24}
           </option>
           {/section}
-          <option value='0'{if isset($c) && $c==0} SELECTED{/if}>{lang_print id=1500035}</option>
+          <option value='0'{if isset($c) && $c==0} SELECTED{/if}>{lang_print id=1600035}</option>
         </select>
       </td>
       
       <td style='padding-left: 10px; padding-right: 3px;'>
-        {lang_print id=1500033}
+        {lang_print id=1600033}
       </td>
       <td>
         <select class='small' name='s' onchange="document.seBrowsehistorys.submit();">
-        <option value='historyentry_date DESC'{if $s == "historyentry_date DESC"} SELECTED{/if}>{lang_print id=1500036}</option>
-        <option value='historyentry_views DESC'{if $s == "historyentry_views DESC"} SELECTED{/if}>{lang_print id=1500037}</option>
-        <option value='historyentry_totalcomments DESC'{if $s == "historyentry_totalcomments DESC"} SELECTED{/if}>{lang_print id=1500038}</option>
+        <option value='historyentry_date DESC'{if $s == "historyentry_date DESC"} SELECTED{/if}>{lang_print id=1600036}</option>
+        <option value='historyentry_views DESC'{if $s == "historyentry_views DESC"} SELECTED{/if}>{lang_print id=1600037}</option>
+        <option value='historyentry_totalcomments DESC'{if $s == "historyentry_totalcomments DESC"} SELECTED{/if}>{lang_print id=1600038}</option>
         </select>
       </td>
       
@@ -102,7 +102,7 @@
             </div>
             <div class='historys_browse_date'>
               {assign var='historyentry_date' value=$datetime->time_since($historyentries[historyentry_loop].historyentry_date)}{capture assign="created"}{lang_sprintf id=$historyentry_date[0] 1=$historyentry_date[1]}{/capture}
-              {lang_sprintf id=1500039 1=$created 2=$url->url_create("profile", $historyentries[historyentry_loop].historyentry_author->user_info.user_username) 3=$historyentries[historyentry_loop].historyentry_author->user_displayname}
+              {lang_sprintf id=1600039 1=$created 2=$url->url_create("profile", $historyentries[historyentry_loop].historyentry_author->user_info.user_username) 3=$historyentries[historyentry_loop].historyentry_author->user_displayname}
             </div>
             {if !empty($historyentries[historyentry_loop].historyentrycat_languagevar_id) || !empty($historyentries[historyentry_loop].historyentrycat_title)}
             <div class='historys_browse_date'>
@@ -114,8 +114,8 @@
             </div>
             {/if}
             <div style='margin-top: 5px;'>
-              {lang_sprintf id=1500041 1=$historyentries[historyentry_loop].historyentry_views},
-              {lang_sprintf id=1500042 1=$historyentries[historyentry_loop].historyentry_totalcomments}
+              {lang_sprintf id=1600041 1=$historyentries[historyentry_loop].historyentry_views},
+              {lang_sprintf id=1600042 1=$historyentries[historyentry_loop].historyentry_totalcomments}
             </div>
             <div style='margin-top: 8px; font-size: 9px;'>
               {$historyentries[historyentry_loop].historyentry_body|strip_tags|truncate:140:"...":true}

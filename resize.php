@@ -1,7 +1,7 @@
 <?php
 function resize($img, $w, $h, $newfilename) {
 #
- 
+
 #
  //Check if GD extension is loaded
 #
@@ -103,7 +103,7 @@ function resize($img, $w, $h, $newfilename) {
 #
  }
 #
-   
+
 #
    return $newfilename;
 #

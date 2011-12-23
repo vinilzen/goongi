@@ -2,7 +2,7 @@
 
 /* $Id: admin_viewhistorys.php 5 2009-01-11 06:01:16Z john $ */
 
-$page = "admin_viewhistorys";
+$page = "admin_viewhistory";
 include "admin_header.php";
 
 if(isset($_POST['s'])) { $s = $_POST['s']; } elseif(isset($_GET['s'])) { $s = $_GET['s']; } else { $s = "id"; }

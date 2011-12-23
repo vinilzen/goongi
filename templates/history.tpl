@@ -28,7 +28,7 @@
       {if $entries[entries_loop].historyentry_title != ""}
         {assign var='historyentry_title' value=$entries[entries_loop].historyentry_title}
       {else}
-        {lang_block id=1500015 var=historyentry_title}{/lang_block}
+        {lang_block id=1600015 var=historyentry_title}{/lang_block}
       {/if}
       
       <table cellpadding='0' cellspacing='0' class="sehistoryEntryTable">
@@ -38,14 +38,14 @@
               <a href='{$url->url_create("history_entry", $owner->user_info.user_username, $entries[entries_loop].historyentry_id)}'>{$historyentry_title}</a>
             </div>
             <div class='sehistoryEntryDate'>
-              {lang_print id=1500016}
+              {lang_print id=1600016}
               {$datetime->cdate("`$setting.setting_dateformat`", $datetime->timezone("`$entries[entries_loop].historyentry_date`", $global_timezone))}
               -
-              <a href='{$url->url_create("history_entry", $owner->user_info.user_username, $entries[entries_loop].historyentry_id)}'>{lang_sprintf id=1500019 1=$entries[entries_loop].historyentry_totalcomments}</a>
-              [ <a href='{$url->url_create("history_entry", $owner->user_info.user_username, $entries[entries_loop].historyentry_id)}'>{lang_print id=1500021}</a> ]
+              <a href='{$url->url_create("history_entry", $owner->user_info.user_username, $entries[entries_loop].historyentry_id)}'>{lang_sprintf id=1600019 1=$entries[entries_loop].historyentry_totalcomments}</a>
+              [ <a href='{$url->url_create("history_entry", $owner->user_info.user_username, $entries[entries_loop].historyentry_id)}'>{lang_print id=1600021}</a> ]
               -
-              <a href='{$url->url_create("history_entry", $owner->user_info.user_username, $entries[entries_loop].historyentry_id)}'>{lang_sprintf id=1500020 1=$entries[entries_loop].historyentry_totaltrackbacks}</a>
-              [ <a href='{$url->url_create("history_trackback", $owner->user_info.user_username, $entries[entries_loop].historyentry_id)}'>{lang_print id=1500022}</a> ]
+              <a href='{$url->url_create("history_entry", $owner->user_info.user_username, $entries[entries_loop].historyentry_id)}'>{lang_sprintf id=1600020 1=$entries[entries_loop].historyentry_totaltrackbacks}</a>
+              [ <a href='{$url->url_create("history_trackback", $owner->user_info.user_username, $entries[entries_loop].historyentry_id)}'>{lang_print id=1600022}</a> ]
             </div>
             {* SHOW ENTRY CATEGORY *}
             {if !empty($entries[entries_loop].historyentry_historyentrycat_id)}
@@ -76,7 +76,7 @@
       <tr>
         <td class='result' style="text-align:left;">
           <img src='./images/icons/bulb22.gif' border='0' class='icon' />
-          {lang_sprintf id=1500023 1=$owner->user_displayname 2=$url->url_create("profile", $owner->user_info.user_username)}
+          {lang_sprintf id=1600023 1=$owner->user_displayname 2=$url->url_create("profile", $owner->user_info.user_username)}
         </td>
       </tr>
     </table>
@@ -94,7 +94,7 @@
         
         <div style='margin-bottom: 20px;'>
           <div class='button' style='float: left;'>
-            <a href='{$url->url_create("history", $owner->user_info.user_username)}'><img src='./images/icons/back16.gif' border='0' class='button'>{lang_sprintf id=1500024 1=$owner->user_displayname}</a>
+            <a href='{$url->url_create("history", $owner->user_info.user_username)}'><img src='./images/icons/back16.gif' border='0' class='button'>{lang_sprintf id=1600024 1=$owner->user_displayname}</a>
           </div>
           <div class='button' style='float: left; padding-left: 20px;'>
             <a href="javascript:TB_show(SocialEngine.Language.Translate(861), 'user_report.php?return_url={$url->url_current()|escape:url}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');"><img src='./images/icons/report16.gif' border='0' class='button'>{lang_print id=861}</a>
@@ -157,7 +157,7 @@
       
       {* TRACKBACKS *}
       {if !empty($trackback_list)}
-      <h2>{lang_print id=1500025}</h2>
+      <h2>{lang_print id=1600025}</h2>
       <ul class="sehistoryTrackbackList">
       {section name=trackback_loop loop=$trackback_list}
         
@@ -179,11 +179,11 @@
             </div>
             <div class="profile_comment_links">
               <a class="commentDeleteLink" href="javascript:void(0);">
-                {lang_print id=155}
+                {lang_print id=165}
               </a>
               &nbsp;|&nbsp;
               <a class="commentReportLink" href="javascript:void(0);" onclick="javascript:TB_show(SocialEngine.Language.Translate(861), 'user_report.php?return_url={$url->url_current()}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">
-                {lang_print id=1500026}
+                {lang_print id=1600026}
               </a>
             </div>
           </div>
@@ -215,15 +215,15 @@
     
       {* LINKS *}
       <div style='margin: 10px 0px 10px 0px;'>
-        <div><a href="{$url->url_create('history', $owner->user_info.user_username)}">{lang_print id=1500121}</a></div>
+        <div><a href="{$url->url_create('history', $owner->user_info.user_username)}">{lang_print id=1600121}</a></div>
         {if $user->user_exists && $user->user_info.user_id!=$owner->user_info.user_id}
-          <div class="sehistorySubscribe" {if $is_subscribed} style="display:none;"{/if}><a href="javascript:void(0);" onclick="SocialEngine.history.subscribehistory(SocialEngine.Owner.user_info.user_id);">{lang_print id=1500027}</a></div>
-          <div class="sehistoryUnsubscribe"{if !$is_subscribed} style="display:none;"{/if}><a href="javascript:void(0);" onclick="SocialEngine.history.unsubscribehistory(SocialEngine.Owner.user_info.user_id);">{lang_print id=1500028}</a></div>
+          <div class="sehistorySubscribe" {if $is_subscribed} style="display:none;"{/if}><a href="javascript:void(0);" onclick="SocialEngine.history.subscribehistory(SocialEngine.Owner.user_info.user_id);">{lang_print id=1600027}</a></div>
+          <div class="sehistoryUnsubscribe"{if !$is_subscribed} style="display:none;"{/if}><a href="javascript:void(0);" onclick="SocialEngine.history.unsubscribehistory(SocialEngine.Owner.user_info.user_id);">{lang_print id=1600028}</a></div>
         {/if}
         {if $user->user_info.user_id==$owner->user_info.user_id}
-          <div><a href="user_history.php">{lang_print id=1500055}</a></div>
+          <div><a href="user_history.php">{lang_print id=1600055}</a></div>
           {if $historyentry_id && $total_historyentries==1}
-            <div><a href="user_history_entry.php?historyentry_id={$historyentry_id}">{lang_print id=1500170}</a></div>
+            <div><a href="user_history_entry.php?historyentry_id={$historyentry_id}">{lang_print id=1600170}</a></div>
           {/if}
         {/if}
       </div>
@@ -241,7 +241,7 @@
     
       {* ARCHIVE *}
       {if !empty($archive_list)}
-      <div class='history_archive'>{lang_print id=1500029}</div>
+      <div class='history_archive'>{lang_print id=1600029}</div>
       <ul class="sehistoryArchiveList">
         {foreach from=$archive_list item=archive}
           <li>
@@ -256,7 +256,7 @@
       
       {* CATEGORIES *}
       {if !empty($category_list)}
-      <div class='history_archive'>{lang_print id=1500030}</div>
+      <div class='history_archive'>{lang_print id=1600030}</div>
       <ul class="sehistoryCategoryList">
         {foreach from=$category_list item=category}
           <li>

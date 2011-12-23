@@ -1,5 +1,5 @@
 <? include_once("resize.php");
-
+define('APP_ROOT', dirname(dirname(__FILE__)));
 class mf_gifts {
 
 	function user_info($username){
