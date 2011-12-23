@@ -2,8 +2,8 @@
 
 {* $Id: admin_viewhistorys.tpl 5 2009-01-11 06:01:16Z john $ *}
 
-<h2>{lang_print id=1500002}</h2>
-{lang_print id=1500131}
+<h2>{lang_print id=1600002}</h2>
+{lang_print id=1600131}
 <br />
 <br />
 
@@ -16,11 +16,11 @@
         <table cellpadding='0' cellspacing='0' align='center'>
           <tr>
             <td>
-              {lang_print id=1500111}<br />
+              {lang_print id=1600111}<br />
               <input type='text' class='text' name='f_title' value='{$f_title}' size='15' maxlength='100' />
             </td>
             <td style="padding-left: 3px;">
-              {lang_print id=1500080}<br />
+              {lang_print id=1600080}<br />
               <input type='text' class='text' name='f_owner' value='{$f_owner}' size='15' maxlength='50' />
             </td>
             <td style="padding-left: 3px;">
@@ -43,7 +43,7 @@
   <table cellpadding='0' cellspacing='0' width='400' align='center'>
     <tr>
       <td align='center'>
-        <div class='box' style='width: 300px;'><b>{lang_print id=1500112}</b></div>
+        <div class='box' style='width: 300px;'><b>{lang_print id=1600112}</b></div>
       </td>
     </tr>
   </table>
@@ -81,7 +81,7 @@
   {/literal}
 
   <div class='pages'>
-    {lang_sprintf id=1500113 1=$total_historyentries}
+    {lang_sprintf id=1600113 1=$total_historyentries}
     &nbsp;|&nbsp;
     {lang_print id=1005}
     {section name=page_loop loop=$pages}
@@ -98,11 +98,11 @@
     <tr>
       <td class='header' width='10'><input type='checkbox' name='select_all' onClick='javascript:doCheckAll()'></td>
       <td class='header' width='10' style='padding-left: 0px;'><a class='header' href='admin_viewhistorys.php?s={$i}&p={$p}&f_title={$f_title}&f_owner={$f_owner}'>{lang_print id=87}</a></td>
-      <td class='header'><a class='header' href='admin_viewhistorys.php?s={$t}&p={$p}&f_title={$f_title}&f_owner={$f_owner}'>{lang_print id=1500111}</a></td>
-      <td class='header'><a class='header' href='admin_viewhistorys.php?s={$o}&p={$p}&f_title={$f_title}&f_owner={$f_owner}'>{lang_print id=1500080}</a></td>
+      <td class='header'><a class='header' href='admin_viewhistorys.php?s={$t}&p={$p}&f_title={$f_title}&f_owner={$f_owner}'>{lang_print id=1600111}</a></td>
+      <td class='header'><a class='header' href='admin_viewhistorys.php?s={$o}&p={$p}&f_title={$f_title}&f_owner={$f_owner}'>{lang_print id=1600080}</a></td>
       <td class='header' align='center'><a class='header' href='admin_viewhistorys.php?s={$v}&p={$p}&f_title={$f_title}&f_owner={$f_owner}'>{lang_print id=396}</a></td>
       <td class='header' width='100'><a class='header' href='admin_viewhistorys.php?s={$d}&p={$p}&f_title={$f_title}&f_owner={$f_owner}'>{lang_print id=88}</a></td>
-      <td class='header' width='100'>{lang_print id=153}</td>
+      <td class='header' width='100'>{lang_print id=163}</td>
     </tr>
     
     {section name=history_loop loop=$entries}
@@ -117,8 +117,8 @@
       <td class='item' align='center'>{$entries[history_loop].historyentry_views}</td>
       <td class='item'>{$datetime->cdate($setting.setting_dateformat, $datetime->timezone($entries[history_loop].historyentry_date, $setting.setting_timezone))}</td>
       <td class='item'>
-        [ <a href='admin_loginasuser.php?user_id={$entries[history_loop].historyentry_author->user_info.user_id}&return_url={$historyentry_url}' target='_blank'>{lang_print id=1500115}</a> ]
-        [ <a href="javascript:if(confirm('{lang_print id=1500114}')) {literal}{{/literal} location.href = 'admin_viewhistorys.php?task=deleteentries&delete_historyentries[]={$entries[history_loop].historyentry_id}&s={$s}&p={$p}&f_title={$f_title}&f_owner={$f_owner}'; {literal}}{/literal}">{lang_print id=155}</a> ]
+        [ <a href='admin_loginasuser.php?user_id={$entries[history_loop].historyentry_author->user_info.user_id}&return_url={$historyentry_url}' target='_blank'>{lang_print id=1600115}</a> ]
+        [ <a href="javascript:if(confirm('{lang_print id=1600114}')) {literal}{{/literal} location.href = 'admin_viewhistorys.php?task=deleteentries&delete_historyentries[]={$entries[history_loop].historyentry_id}&s={$s}&p={$p}&f_title={$f_title}&f_owner={$f_owner}'; {literal}}{/literal}">{lang_print id=165}</a> ]
       </td>
     </tr>
     {/section}
@@ -139,7 +139,7 @@
       </td>
       <td align='right' valign='top'>
         <div class='pages2'>
-          {lang_sprintf id=1500113 1=$total_historyentries}
+          {lang_sprintf id=1600113 1=$total_historyentries}
           &nbsp;|&nbsp;
           {lang_print id=1005}
           {section name=page_loop loop=$pages}

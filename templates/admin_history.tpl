@@ -2,8 +2,8 @@
 
 {* $Id: admin_history.tpl 5 2009-01-11 06:01:16Z john $ *}
 
-<h2>{lang_print id=1500003}</h2>
-{lang_print id=1500084}
+<h2>{lang_print id=1600003}</h2>
+{lang_print id=1600084}
 <br />
 <br />
 
@@ -167,10 +167,10 @@
 
 <table cellpadding='0' cellspacing='0' width='600'>
   <tr>
-    <td class='header'>{lang_print id=1500085}</td>
+    <td class='header'>{lang_print id=1600085}</td>
   </tr>
     <td class='setting1'>
-      {lang_print id=1500086}
+      {lang_print id=1600086}
     </td>
   </tr>
   <tr>
@@ -178,11 +178,11 @@
       <table cellpadding='2' cellspacing='0'>
         <tr>
           <td><input type='radio' name='setting_permission_history' id='permission_history_1' value='1'{if  $setting.setting_permission_history} checked{/if}></td>
-          <td><label for='permission_history_1'>{lang_print id=1500087}</label></td>
+          <td><label for='permission_history_1'>{lang_print id=1600087}</label></td>
         </tr>
         <tr>
           <td><input type='radio' name='setting_permission_history' id='permission_history_0' value='0'{if !$setting.setting_permission_history} checked{/if}></td>
-          <td><label for='permission_history_0'>{lang_print id=1500088}</label></td>
+          <td><label for='permission_history_0'>{lang_print id=1600088}</label></td>
         </tr>
       </table>
     </td>
@@ -193,10 +193,10 @@
 
 <table cellpadding='0' cellspacing='0' width='600'>
   <tr>
-    <td class='header'>{lang_print id=1500089}</td>
+    <td class='header'>{lang_print id=1600089}</td>
   </tr>
   <tr>
-    <td class='setting1'>{lang_print id=1500090}</td>
+    <td class='setting1'>{lang_print id=1600090}</td>
   </tr>
   <tr>
     <td class='setting2'>
@@ -217,7 +217,7 @@
           <tr id="newCategoryRow">
             <td style="padding-top: 5px;">
               <span id="newCategoryContainer" style="display:none;"><input type='text' id='newCategoryInput' class='text' size='30' maxlength='50' onblur="editNewCategory();" /></span>
-              <span id="newCategoryLink"><a href="javascript:void(0);" onclick="createNewCategory();">{lang_print id=1500091}</a></span>
+              <span id="newCategoryLink"><a href="javascript:void(0);" onclick="createNewCategory();">{lang_print id=1600091}</a></span>
             </td>
           </tr>
         </tbody>

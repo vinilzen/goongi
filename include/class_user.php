@@ -1317,8 +1317,7 @@ class SEUser
 	function user_photo_upload($photo_name)
   {
 	  global $database, $url;
-    
-	  // ENSURE USER DIRECTORY IS ADDED
+          // ENSURE USER DIRECTORY IS ADDED
 	  $user_directory = $url->url_userdir($this->user_info['user_id']);
 	  $user_path_array = explode("/", $user_directory);
 	  array_pop($user_path_array);
@@ -4007,8 +4006,7 @@ class SEUser
     return $user_id;
   }
 
-
-
+      
 	// THIS METHOD DELETES THE USER CURRENTLY ASSOCIATED WITH THIS OBJECT
 	// INPUT: $user_id
 	// OUTPUT:

@@ -7,14 +7,14 @@
     <td valign='top'>
       
       <img src='./images/icons/history_history48.gif' border='0' class='icon_big'>
-      <div class='page_header'>{lang_print id=1500001}</div>
-      <div>{lang_print id=1500069}</div>
+      <div class='page_header'>{lang_print id=1600001}</div>
+      <div>{lang_print id=1600069}</div>
       
     </td>
     <td valign='top' align='right'>
       
       <table cellpadding='0' cellspacing='0' width='130'>
-      <tr><td class='button' nowrap='nowrap'><a href='user_history.php'><img src='./images/icons/back16.gif' border='0' class='button'>{lang_print id=1500055}</a></td></tr>
+      <tr><td class='button' nowrap='nowrap'><a href='user_history.php'><img src='./images/icons/back16.gif' border='0' class='button'>{lang_print id=1600055}</a></td></tr>
       </table>
       
     </td>
@@ -39,8 +39,8 @@
 <form action='user_history_settings.php' method='POST'>
 
 {if $user->level_info.level_history_style && $user->level_info.level_history_create}
-  <div><b>{lang_print id=1500070}</b></div>
-  <div class='form_desc'>{lang_print id=1500071}</div>
+  <div><b>{lang_print id=1600070}</b></div>
+  <div class='form_desc'>{lang_print id=1600071}</div>
   <textarea name='style_history' rows='17' cols='50' style='width: 100%; font-family: courier, serif;'>{$style_history}</textarea>
   <br />
   <br />
@@ -50,7 +50,7 @@
 
 
 {* NOTIFICATION SETTINGS *}
-<div><b>{lang_print id=1500073}</b></div>
+<div><b>{lang_print id=1600073}</b></div>
 <br />
 
 {if $user->level_info.level_history_create}
@@ -60,7 +60,7 @@
   <table cellpadding='0' cellspacing='0' class='editprofile_options'>
     <tr>
       <td><input type='checkbox' value='1' id='historycomment' name='usersetting_notify_historycomment'{if $user->usersetting_info.usersetting_notify_historycomment} CHECKED{/if}></td>
-      <td><label for='historycomment'>{lang_print id=1500074}</label></td>
+      <td><label for='historycomment'>{lang_print id=1600074}</label></td>
     </tr>
   </table>
   {/if}
@@ -68,7 +68,7 @@
   <table cellpadding='0' cellspacing='0' class='editprofile_options'>
     <tr>
       <td><input type='checkbox' value='1' id='historytrackback' name='usersetting_notify_historytrackback'{if $user->usersetting_info.usersetting_notify_historytrackback} CHECKED{/if}></td>
-      <td><label for='historytrackback'>{lang_print id=1500075}</label></td>
+      <td><label for='historytrackback'>{lang_print id=1600075}</label></td>
     </tr>
   </table>
 
@@ -78,7 +78,7 @@
   <table cellpadding='0' cellspacing='0' class='editprofile_options'>
     <tr>
       <td><input type='checkbox' value='1' id='newhistorysubscriptionentry' name='usersetting_notify_newhistorysubscriptionentry'{if $user->usersetting_info.usersetting_notify_newhistorysubscriptionentry} CHECKED{/if}></td>
-      <td><label for='newhistorysubscriptionentry'>{lang_print id=1500076}</label></td>
+      <td><label for='newhistorysubscriptionentry'>{lang_print id=1600076}</label></td>
     </tr>
   </table>
 

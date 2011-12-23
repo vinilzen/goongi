@@ -276,6 +276,50 @@ elseif( $task == "notify_get" )
 }
 
 
+// GET NOTIFICATIONS
+elseif( $task == "candle_post" )
+{
+   
+   $user_id_s = ( isset($_POST['user_id']) ? $_POST['user_id'] : NULL );
+   $user_photo_s = ( isset($_POST['user_photo']) ? $_POST['user_photo'] : NULL );
+   $user_candle_name_s = ( isset($_POST['user_name']) ? $_POST['user_name'] : NULL );
+   $owner_id_s = ( isset($_POST['owner_id']) ? $_POST['owner_id'] : NULL );
+
+   $user_thumb = substr($user_photo_s, 0, strrpos($user_photo_s, "."))."_thumb".substr($$user_photo_s, strrpos($user_photo_s, "."));
+ // echo $user_thumb;
+  // MUST BE LOGGED IN TO USE THIS TASK
+  if( !$user->user_exists )
+  {
+    $result = FALSE;
+   
+  }
+ else
+  {
+    $result ='1';
+     $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_id ='{$owner_id_s}'");
+	      $count= $database->database_num_rows($field1);
+   if ( $count < 1){
+   //  $sql = "INSERT INTO `se_groups` (`user_id`, `group_name`) VALUES ( '{$user_id}', '{$group_name}');";
+     $sql = "
+       INSERT INTO `se_user_candle`
+       (`user_candle_id`, `user_candle_name`, `user_id`, `user_candle_photo`)
+             VALUES
+                ( '$user_id_s', '{$user_candle_name_s}', '$owner_id_s', '{$user_thumb}');";
+                
+                $database->database_query($sql);
+
+               }
+               else $result = 'Вы уже зажгли свечу';
+    }
+ $field1 = $database->database_query("SELECT * FROM se_user_candle");
+	      $count= $database->database_num_rows($field1);
+  
+  // SEND AJAX CONFIRMATION
+   echo json_encode(array('is_error' => $result, 'count' => $count));
+  exit();
+}
+
+
 // DELETE NOTIFICATIONS
 elseif( $task == "notify_delete" )
 {
