@@ -1,0 +1,279 @@
+
+/* $Id: styles_vizitki.css 241 2009-11-14 02:48:21Z phil $ */
+
+
+/* vizitki - GENERAL */
+.sevizitkiTable
+{
+  margin: 0px;
+  padding: 0px;
+  border-spacing: 0px;
+  /* border: 1px solid #909090; */
+  width: 100%;
+}
+
+.sevizitkiColumnLeft
+{
+  padding: 0px 10px 0px 0px;
+}
+
+.sevizitkiColumnRight
+{
+  width: 250px;
+  background: #F2F2F2;
+  border: 1px solid #DDDDDD;
+  border-left: 1px solid #BBBBBB;
+}
+.sevizitkiColumnRightPadding
+{
+  padding: 10px;
+}
+
+
+/* vizitki - SIDE BAR */
+
+.sevizitkiLinkList,
+.sevizitkiArchiveList,
+.sevizitkiCategoryList
+{
+  margin-top: 0px;
+  margin-left: 0px;
+  list-style: none;
+  padding-left: 15px;
+}
+
+.sevizitkiLinkList li,
+.sevizitkiArchiveList li,
+.sevizitkiCategoryList li
+{
+  padding-left: 0px;
+}
+
+
+
+/* vizitki - ENTRIES */
+
+.sevizitkiEntry
+{
+  margin: 0px;
+  padding: 0px;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+div.sevizitkiEntry1
+{
+	/* padding: 8px 10px 10px 10px; */
+}
+
+div.sevizitkiEntry2
+{
+	/* padding: 8px 10px 10px 10px; */
+}
+
+.sevizitkiEntryTable
+{
+	margin: 8px 10px 10px 10px;
+  width: 630px;
+}
+
+div.sevizitkiEntryTitle
+{
+	font-weight: bold;
+	font-size: 16px;
+}
+
+div.sevizitkiEntryDate, div.sevizitkiEntryCategory
+{
+	font-size: 9px;
+	color: #777777;
+}
+
+div.sevizitkiEntryBody
+{
+	padding-top: 5px;
+  line-height: normal;
+}
+
+div.sevizitkiEntryBody p
+{
+	padding: 5px;
+	margin: 5px;
+}
+
+.sevizitkiComments
+{
+  margin-top: 10px;
+}
+
+.sevizitkiTrackbackList
+{
+  list-style: none;
+  padding-left:10px;
+}
+
+
+
+/* BROWSE vizitkiS */
+div.vizitkis_browse_item
+{
+	border: 1px solid #CCCCCC; 
+	/* padding: 10px; */
+  
+}
+
+div.vizitkis_browse_item_left
+{
+	margin-right: 5px;
+}
+
+div.vizitkis_browse_item_right
+{
+	margin-left: 5px;
+}
+
+div.vizitkis_browse_date
+{
+	font-size: 9px; 
+	color: #777777;
+}
+
+div.vizitkis_browse1
+{
+	background: #F2F2F2;
+}
+
+div.vizitkis_browse2
+{
+	background: #FFFFFF;
+}
+
+
+
+/* vizitki */
+div.vizitki_search
+{
+	width: 475px;
+	padding: 10px;
+	background: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+table.vizitki_table
+{
+	border: 1px solid #CCCCCC;
+}
+
+td.vizitki_header
+{
+	font-weight: bold;
+	background-image: url(../images/header.gif);
+	background-repeat: repeat-x;
+	color: #333333;
+  padding: 5px;
+}
+
+td.vizitki_entry {
+	background: #FFFFFF;
+	border-top: 1px solid #DDDDDD;
+	padding: 5px;
+	vertical-align: middle;
+}
+td.vizitki_comment_author {
+	margin-bottom: 5px;
+	background: #F1F1F1;
+	padding: 5px 7px 5px 7px;
+}
+td.vizitki_comment_body {
+	padding: 5px 7px 0px 7px;
+}
+div.vizitki_bar {
+	border-bottom: 1px solid #DDDDDD;
+	padding: 0px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+td.vizitki_item1 {
+	padding: 5px;
+	text-align: center;
+	vertical-align: top;
+}
+td.vizitki_item2 {
+	padding: 5px 5px 5px 5px;
+	vertical-align: top;
+}
+td.vizitki_options {
+	padding: 5px 5px 5px 5px; 
+	font-weight: bold; 
+
+}
+div.vizitki_settings {
+	padding: 10px;
+	border: 1px dashed #CCCCCC;
+	background: #FFFFFF;
+}
+td.vizitki_postcomment {
+	padding: 10px;
+	border: 1px solid #DDDDDD;
+	border-top: none;
+	background: #F5F5F5;
+}
+td.vizitki {
+	background: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	border-top: none;
+	padding: 5px 7px 5px 7px;
+	margin-bottom: 12px;
+}
+div.vizitki_headline {
+	padding: 4px 5px 5px 6px;
+	border: 1px solid #DDDDDD;
+	border-bottom: none;
+	font-weight: bold;
+	background-image: url(../images/header.gif);
+	background-repeat: repeat-x;
+	color: #333333;
+}
+div.vizitki_archive {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+/* EDIT vizitkiS */
+div.vizitki_list {
+	border: 1px solid #DDDDDD; 
+	border-top: none;
+}
+div.vizitki_list1 {
+	border-top: 1px solid #DDDDDD; 
+	background: #F2F2F2;
+	padding: 10px;
+}
+div.vizitki_list2 {
+	border-top: 1px solid #DDDDDD; 
+	background: #FFFFFF;
+	padding: 10px;
+}
+div.vizitki_subscription {
+	border: 1px solid #CCCCCC; 
+	margin-bottom: 10px; 
+	padding: 10px; 
+	background: #F2F2F2;
+}
+
+/* vizitki ON PROFILE */
+div.profile_vizitkientry {
+	border-top: 1px solid #DDDDDD;
+	padding: 7px 2px 0px 2px;
+}
+div.profile_vizitkientry_date {
+	color: #777777;
+	font-size: 9px;
+}
+div.profile_vizitkientry_title {
+	font-weight: bold;
+}
+div.profile_vizitkientry_body {
+	margin: 5px 0px 10px 5px;
+}

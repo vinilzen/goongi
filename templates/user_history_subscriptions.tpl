@@ -19,9 +19,9 @@
     <td valign='top'>
       
       <img src='./images/icons/history_history48.gif' border='0' class='icon_big' style="margin-bottom: 15px;">
-      <div class='page_header'>{lang_print id=1500077}</div>
+      <div class='page_header'>{lang_print id=1600077}</div>
       <div>
-        {lang_print id=1500078}
+        {lang_print id=1600078}
       </div>
       <br />
       
@@ -29,7 +29,7 @@
     <td valign='top' align='right'>
       
       <table cellpadding='0' cellspacing='0' width='130'>
-      <tr><td class='button' nowrap='nowrap'><a href='user_history.php'><img src='./images/icons/back16.gif' border='0' class='button'>{lang_print id=1500055}</a></td></tr>
+      <tr><td class='button' nowrap='nowrap'><a href='user_history.php'><img src='./images/icons/back16.gif' border='0' class='button'>{lang_print id=1600055}</a></td></tr>
       </table>
       
     </td>
@@ -68,7 +68,7 @@
     <tr>
       <td class='result'>
         <img src='./images/icons/bulb16.gif' border='0' class='icon'>
-        {lang_print id=1500079}
+        {lang_print id=1600079}
       </td>
     </tr>
   </table>
@@ -85,14 +85,14 @@
         <a href="{$url->url_create('profile', $history_subscriptions_list[history_subscriptions_loop].history_author->user_info.user_username)}">{$history_subscriptions_list[history_subscriptions_loop].history_author->user_displayname}</a>
       </td>
       <td align='right'>
-        <a href="{$url->url_create('history', $history_subscriptions_list[history_subscriptions_loop].history_author->user_info.user_username)}">{lang_print id=1500083}</a>
+        <a href="{$url->url_create('history', $history_subscriptions_list[history_subscriptions_loop].history_author->user_info.user_username)}">{lang_print id=1600083}</a>
         |
-        <a href="javascript:void(0);" onclick="SocialEngine.history.unsubscribehistory({$history_subscriptions_list[history_subscriptions_loop].history_author->user_info.user_id});">{lang_print id=1500129}</a>
+        <a href="javascript:void(0);" onclick="SocialEngine.history.unsubscribehistory({$history_subscriptions_list[history_subscriptions_loop].history_author->user_info.user_id});">{lang_print id=1600129}</a>
       </td>
       </tr>
       </table>
       {if !empty($history_subscriptions_list[history_subscriptions_loop].historyentry_id)}
-        <div class='sehistoryEntryDate'>{lang_print id=1500081} {$datetime->cdate("`$setting.setting_dateformat`", $datetime->timezone($history_subscriptions_list[history_subscriptions_loop].historyentry_date, $global_timezone))}</div>
+        <div class='sehistoryEntryDate'>{lang_print id=1600081} {$datetime->cdate("`$setting.setting_dateformat`", $datetime->timezone($history_subscriptions_list[history_subscriptions_loop].historyentry_date, $global_timezone))}</div>
         <div><a href="{$url->url_create('history_entry', $history_subscriptions_list[history_subscriptions_loop].history_author->user_info.user_username, $history_subscriptions_list[history_subscriptions_loop].historyentry_id)}">{$history_subscriptions_list[history_subscriptions_loop].historyentry_title}</a></div>
       {/if}
     </div>

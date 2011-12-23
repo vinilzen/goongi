@@ -4,7 +4,7 @@
 {* BEGIN history ENTRIES *}
 {if $owner->level_info.level_history_create && $total_historyentries}
 
-  <div class='profile_headline'>{lang_print id=1500043} ({$total_historyentries})</div>
+  <div class='profile_headline'>{lang_print id=1600043} ({$total_historyentries})</div>
   <div>
     {* LOOP THROUGH FIRST 5 history ENTRIES *}
     {section name=historyentry_loop loop=$historyentries max=5}
@@ -23,7 +23,7 @@
               </a>
             </div>
             <div class='profile_historyentry_date'>
-              {lang_print id=1500016}
+              {lang_print id=1600016}
               {assign var="historyentry_date" value=$datetime->time_since($historyentries[historyentry_loop].historyentry_date)}
               {lang_sprintf id=$historyentry_date[0] 1=$historyentry_date[1]}
             </div>
@@ -54,7 +54,7 @@
       <div style='float: left;'>
         <a href='{$url->url_create("history", $owner->user_info.user_username)}'>
           <img src='./images/icons/history_subscribe16.gif' border='0' class='button' style='float: left;' />
-          {lang_print id=1500121}
+          {lang_print id=1600121}
         </a>
       </div>
       <div style='clear: both; height: 0px;'></div>

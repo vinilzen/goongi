@@ -69,20 +69,32 @@
 
 {* INCLUDE ANY FOOTER TEMPLATES NECESSARY *}
 {hook_include name=footer}
+<div id="popup"></div>
+<div class="window rezina" id="add_msg_w_g">
+	<div class="close"></div>
+            <div class="w_t">
+            <h1>Отправить подарок</h1>
+             </div>
+                <div class="w_c">
+                <div class="form add_w_g" id="add_msg_b_g">
+                </div>
+                </div>
+                <div class="w_b"></div>
+        </div>
+
 
 <div id="popup"></div>
 <div class="window rezina" id="add_msg_w">
 	<div class="close"></div>
-	<div class="w_t">
-    	<h1>Написать сообщение</h1>
-    </div>
-	<div class="w_c">
-    	<div class="form add_w" id="add_msg_b">
-        	
+            <div class="w_t">
+            <h1>Написать сообщение</h1>
+             </div>
+                <div class="w_c">
+                <div class="form add_w" id="add_msg_b">
+                </div>
+                </div>
+                <div class="w_b"></div>
         </div>
-    </div>
-	<div class="w_b"></div>
-</div>
 <div class="window" id="add_group">
 	<div class="close"></div>
 	<div class="w_c">
@@ -99,5 +111,9 @@
         </div>
     </div>
 </div>
+
+
+
+
 </body>
 </html>

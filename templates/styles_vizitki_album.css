@@ -1,0 +1,90 @@
+
+/* $Id: styles_vizitki_album.css 241 2009-11-14 02:48:21Z phil $ */
+
+
+.sevizitkiAlbum
+{
+  font: tahoma, verdana, arial, serif;
+  font-size: 12px;
+  text-align: left;
+}
+
+.sevizitkiAlbum .sevizitkiAlbumHeadline
+{
+  font-size: 16px;
+}
+
+.sevizitkiAlbum a
+{
+  color: #606060;
+  text-decoration: none;
+}
+
+.sevizitkiAlbum input,
+.sevizitkiAlbum select,
+.sevizitkiAlbum option
+{
+  font: arial;
+}
+
+.sevizitkiAlbum a:hover
+{
+  color: #A0A0A0;
+}
+
+.sevizitkiAlbum .sevizitkiAlbumUploaderDiv
+{
+  padding: 0px;
+  margin: 0px;
+}
+
+.sevizitkiAlbum .sevizitkiAlbumUploaderDiv input
+{
+  width: 200px;
+}
+
+.sevizitkiAlbum td.form1
+{
+  padding: 10px;
+  vertical-align: middle;
+  
+  width: 35px;
+  line-height: 100%;
+}
+
+.sevizitkiAlbum #div1
+{
+  padding-top: 0px;
+  margin-top: 0px;
+  width: 300px;
+}
+
+.sevizitkiAlbum td.form2
+{
+  padding: 5px;
+  vertical-align: middle;
+  
+  width: 120px;
+}
+
+.sevizitkiAlbum td.form2 input
+{
+  width: 100px;
+}
+
+.sevizitkiAlbum #fallback_submit
+{
+  height: 25px;
+  vertical-align: middle;
+  margin: 2px;
+  margin-left: 10px;
+}
+
+
+.sevizitkiAlbum #fallback_status
+{
+  height: 25px;
+  vertical-align: middle;
+  margin: 2px;
+  margin-top: 0px;
+}

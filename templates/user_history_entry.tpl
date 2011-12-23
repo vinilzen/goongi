@@ -18,7 +18,7 @@
  
 	<div class="edit_blog">
 		<div class="input">
-			<label>{lang_print id=1500056}</label>
+			<label>{lang_print id=1600056}</label>
 			<input type='text' class="text" name='historyentry_title' size='50' maxlength='100' value='{$historyentry_info.historyentry_title}' />
 		</div>
     </div>
@@ -47,7 +47,7 @@
 {echo $status_user}
  {if ($status_user  == 0) || ($status_user  == '')}
 <div class="buttons_edit_blog">
-	{lang_block id=1500065 var=langBlockTemp}
+	{lang_block id=1600065 var=langBlockTemp}
 	<span class="button2"><span class="l">&nbsp;</span><span class="c">
 	<input type="submit" value="Сохранить"  style="padding:1px 0px 0px 0px;" name="save" />
 	</span><span class="r">&nbsp;</span></span>{/lang_block}
@@ -63,10 +63,10 @@
 	</form>
 </div>
 {else}
-{lang_block id=1500065 var=langBlockTemp}
+{lang_block id=1600065 var=langBlockTemp}
 	История была изменена. Просмотреть измененную историю <a href="user_history.php" target="_blank"> можно на следующей странице </a>
 <div class="buttons_edit_blog">
-	{lang_block id=1500065 var=langBlockTemp}
+	{lang_block id=1600065 var=langBlockTemp}
 	<span class="button2"><span class="l">&nbsp;</span><span class="c">
 	<input type="submit" value="Перезаписать"  style="padding:1px 0px 0px 0px;" name="save" />
 	</span><span class="r">&nbsp;</span></span>{/lang_block}

@@ -1,6 +1,5 @@
-﻿{include file='header.tpl'}
-
-    {literal}
+{$ads->ads_display('1')}
+{literal}
     <script type="text/javascript">
     function change(pad)
     {
@@ -8,14 +7,32 @@
     }
     </script>
     {/literal}
+{assign var=death value=0}
+{section name=cat_loop loop=$cats}
+        {section name=subcat_loop loop=$cats[cat_loop].subcats}
+                {section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
+                    { if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title == '500404'} {assign var=death value=1}{/if}
+                {/section}
+       {/section}
+{/section}
+
+
+{if $death == 1}
+{include file='header_death.tpl'}
+ {else}
+﻿{include file='header.tpl'}
+{/if}
 {* $Id: profile.tpl 255 2009-11-18 02:21:01Z steve $ *}
+    
 <!-- <div class='page_header'>{lang_sprintf id=786 1=$owner->user_displayname}</div> -->
 <h1>{$owner->user_info.user_displayname} [{$owner->user_info.user_id}]</h1>
 <div class="crumb">
 	<a href="/">Главная</a>
 	<span>{lang_print id=652}<!-- Профиль --></span>
 </div>
-{if $owner->user_info.user_id == $user->user_info.user_id}
+
+{if $owner->user_info.user_id == $user->user_info.user_id && $death != 1}
+
 <div class="buttons">
 	<span class="button2">
 		<span class="l">&nbsp;</span><span class="c">
@@ -24,7 +41,7 @@
 	</span>
 </div>
 {/if}
-{if $user->user_exists != 0 && $owner->user_info.user_id !=  $user->user_info.user_id}
+{if $user->user_exists != 0 && $owner->user_info.user_id !=  $user->user_info.user_id && $death != 1}
 	{if $owner->user_info.user_id != 0}
 		<div class="buttons" style="overflow:visible;">
 			
@@ -60,9 +77,10 @@
 		
 	{/if}
 {/if}
-
+{ if $death != 1}
 <div class="my_page_inf">
 	<div class="my_page_img"><img alt="" src="/uploads_user/1000/{$owner->user_info.user_id}/{$owner->user_info.user_id}.jpg"></div>
+
 	<div class="my_page_info">
 		{* SHOW PROFILE CATS AND FIELDS *}
 		{section name=cat_loop loop=$cats}
@@ -82,7 +100,26 @@
 			{/section}
 		{/section}
 	</div>
+{else}
+<div class="d_inf">
+<div class="sv"></div>
+    <div class="golosa">
+            <span class="button3"><span class="l">&nbsp;</span><span class="c">
+            <input type="submit" onclick="candle_post( '{$user->user_info.user_id}' , '{$user->user_info.user_username}', '{$owner->user_info.user_id}', '{$user->user_info.user_photo}'); return false;" value="Зажечь свечу" name="creat" />
+            </span><span class="r">&nbsp;</span></span><label>
+            <a href="#">Зажгли свечу</a>: <span id = "count_candle">{$count_candle}</span></label>
+    </div>
+    <div class="img">
+        <a href="#"><img alt="" src="/uploads_user/1000/{$owner->user_info.user_id}/{$owner->user_info.user_id}.jpg"></a>
+        <p><a href="javascript:void(0);">Показать подробную информацию</a></p>
+    </div>
+<div class="g_inf_text"><p>14 сентября 1932 — 21 октября 2009 <span>(3 Хешван 5770)</span></p></div>
+<div class="clear"><img src="images/x.gif" alt="" /></div>
+
+{/if}
+
 </div>
+
       <!-- <div class='page_header'></div> -->
   
     {if 0}
@@ -279,5 +316,9 @@
 
   {* END PRIVACY IF STATEMENT *}
 
+{if $death == 1}
+{include file='footer_death.tpl'}
+ {else}
+﻿{include file='footer.tpl'}
+{/if}
 {* END RIGHT COLUMN *}
-{include file='footer.tpl'}
