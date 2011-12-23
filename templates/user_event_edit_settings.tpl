@@ -14,31 +14,10 @@
 	<li><a href='user_event_edit_members.php?event_id={$event->event_info.event_id}'>{lang_print id=3000138}</a></li>
 	<li class="active"><a href='user_event_edit_settings.php?event_id={$event->event_info.event_id}'>{lang_print id=3000001}</a></li>
 </ul>
-
-<table cellpadding='0' cellspacing='0' width='100%'>
-  <tr>
-    <td valign='top'>
+<!--
       <div class='page_header'>{lang_sprintf id=3000156 1="event.php?event_id=`$event->event_info.event_id`" 2=$event->event_info.event_title}</div>
       <div style="width: 500px;">{lang_print id=3000157}</div>
-      
-    </td>
-    <td valign='top' align='right'>
-      
-      <table cellpadding='0' cellspacing='0'>
-        <tr>
-          <td class='button' nowrap='nowrap'>
-            <a href='user_event.php'>
-              <img src='./images/icons/back16.gif' border='0' class='button' />
-              {lang_print id=3000109}
-            </a>
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-</table>
-<br />
+-->
 
 
 {* SHOW SUCCESS MESSAGE *}
@@ -47,17 +26,10 @@
 {/if}
 
 
-
+<div class="form">
 <form action='user_event_edit_settings.php?event_id={$event->event_info.event_id}' method='POST'>
 
-{* EVENT STYLE *}
-{if $user->level_info.level_event_style && 0}
-<div><b>{lang_print id=3000158}</b></div>
-<div class="form_desc">{lang_print id=3000159}</div>
-<textarea name='style_event' rows='17' cols='50' style='width: 100%; font-family: courier, serif;'>{$style_event}</textarea>
-<br />
-<br />
-{/if}
+
 
 
 {* EVENT INVITE *}
@@ -188,20 +160,19 @@
 
 
 {* SHOW SUBMIT BUTTONS *}
-<table cellpadding='0' cellspacing='0'>
-  <tr>
-    <td>
-      {lang_block id=173 var=langBlockTemp}<input type='submit' class='button' value='{$langBlockTemp}' />&nbsp;{/lang_block}
-      <input type='hidden' name='task' value='dosave' />
+
+{lang_block id=173 var=langBlockTemp}
+	<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<input type='submit' class='button' value='{$langBlockTemp}' /><input type='hidden' name='task' value='dosave' />
+	</span><span class="r">&nbsp;</span></span></div>
+{/lang_block}
+      
       </form>
-    </td>
-    <td>
+<br />
       <form action='user_event_edit_settings.php?event_id={$event->event_info.event_id}' method='GET'>
-      {lang_block id=39 var=langBlockTemp}<input type='submit' class='button' value='{$langBlockTemp}' />{/lang_block}
+      {lang_block id=39 var=langBlockTemp}<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type='submit' class='button' value='{$langBlockTemp}' /></span><span class="r">&nbsp;</span></span></div>{/lang_block}
       </form>
-    </td>
-  </tr>
-</table>
+</div>
 <br />
 
 
