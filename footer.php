@@ -51,7 +51,6 @@ $field1 = $database->database_query("SELECT * FROM se_user_candle");
 $compatible_input_dateformat = $setting['setting_dateformat'];
 $compatible_input_timeformat = $setting['setting_timeformat'];
 
->>>>>>> 090a87080da322dc25d17106a926f1e8d957961f
 // ASSIGN GLOBAL SMARTY OBJECTS/VARIABLES
 $smarty->assign_by_ref('info_candle', $info_candle);
 
