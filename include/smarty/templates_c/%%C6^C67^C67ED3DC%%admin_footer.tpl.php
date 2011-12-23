@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-04 16:45:26
+<?php /* Smarty version 2.6.14, created on 2011-12-23 13:33:08
          compiled from admin_footer.tpl */
 ?><?php
 SELanguage::load();

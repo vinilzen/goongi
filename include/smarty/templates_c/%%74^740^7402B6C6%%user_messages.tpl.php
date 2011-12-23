@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-10 12:34:24
+<?php /* Smarty version 2.6.14, created on 2011-12-22 13:19:32
          compiled from user_messages.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_messages.tpl', 49, false),array('modifier', 'truncate', 'user_messages.tpl', 97, false),array('modifier', 'choptext', 'user_messages.tpl', 98, false),)), $this);

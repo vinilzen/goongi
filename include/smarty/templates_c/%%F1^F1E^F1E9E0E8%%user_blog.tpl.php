@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-10 12:45:51
+<?php /* Smarty version 2.6.14, created on 2011-12-21 17:33:28
          compiled from user_blog.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'truncate', 'user_blog.tpl', 56, false),array('modifier', 'strip_tags', 'user_blog.tpl', 66, false),array('function', 'math', 'user_blog.tpl', 96, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'truncate', 'user_blog.tpl', 57, false),array('modifier', 'strip_tags', 'user_blog.tpl', 67, false),array('function', 'math', 'user_blog.tpl', 97, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(652,1500049,646,1500114,175,39,184,185);
 SELanguage::load();
@@ -62,8 +62,7 @@ unset($_smarty_tpl_vars);
    
             <ul class="article_list">
       <form action='user_blog.php' name='entryform' method='post'>
-        <?php echo $this->_tpl_vars['i']; ?>
-
+        <?php $this->assign('i', 0); ?>
       <?php unset($this->_sections['blogentry_loop']);
 $this->_sections['blogentry_loop']['name'] = 'blogentry_loop';
 $this->_sections['blogentry_loop']['loop'] = is_array($_loop=$this->_tpl_vars['blogentries']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
@@ -88,6 +87,7 @@ $this->_sections['blogentry_loop']['index_next'] = $this->_sections['blogentry_l
 $this->_sections['blogentry_loop']['first']      = ($this->_sections['blogentry_loop']['iteration'] == 1);
 $this->_sections['blogentry_loop']['last']       = ($this->_sections['blogentry_loop']['iteration'] == $this->_sections['blogentry_loop']['total']);
 ?>
+        <?php $this->assign('i', $this->_tpl_vars['i']+1); ?>
        <li id = "blog_msg<?php echo $this->_tpl_vars['blogentries'][$this->_sections['blogentry_loop']['index']]['blogentry_id']; ?>
 ">
             <a><img src="/uploads_user/1000/<?php echo $this->_tpl_vars['user']->user_info['user_id']; ?>
@@ -105,7 +105,8 @@ $this->_sections['blogentry_loop']['last']       = ($this->_sections['blogentry_
 ); return false;" class="del">Удалить</a>
                 <a href='user_blog_entry.php?blogentry_id=<?php echo $this->_tpl_vars['blogentries'][$this->_sections['blogentry_loop']['index']]['blogentry_id']; ?>
 ' class="edit">Редактировать</a>
-                <span></span>
+                <span><?php echo $this->_tpl_vars['data_rus'][$this->_tpl_vars['i']]; ?>
+</span>
             </div>
                  
                

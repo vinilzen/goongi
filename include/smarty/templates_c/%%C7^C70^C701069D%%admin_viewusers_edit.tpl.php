@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-17 18:48:11
+<?php /* Smarty version 2.6.14, created on 2011-12-23 15:16:16
          compiled from admin_viewusers_edit.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'admin_viewusers_edit.tpl', 124, false),array('modifier', 'replace', 'admin_viewusers_edit.tpl', 165, false),array('modifier', 'choptext', 'admin_viewusers_edit.tpl', 165, false),)), $this);

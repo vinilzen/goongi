@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-02 09:45:26
+<?php /* Smarty version 2.6.14, created on 2011-12-23 16:07:03
          compiled from header.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'header.tpl', 59, false),)), $this);
@@ -31,8 +31,8 @@ unset($_smarty_tpl_vars);
             <div class="logo"><a href="/"><img src="/images/logo.png" alt="" /></a></div>
             <ul class="menu">
                 <li><a href="/search.php"><?php echo SELanguage::_get(200); ?><!-- Поиск --></a></li>
-                <li><a href="/invite.php"><?php echo SELanguage::_get(647); ?><!-- Пригласить --></a></li>
-                <li><a href="#"><?php echo SELanguage::_get(6000144); ?><!-- Подарки --></a></li>
+            <?php if ($this->_tpl_vars['user']->user_exists != 0): ?><li><a href="/invite.php"><?php echo SELanguage::_get(647); ?><!-- Пригласить --></a></li><?php endif; ?>
+            <?php if ($this->_tpl_vars['user']->user_exists != 0): ?><li><a href="#"><?php echo SELanguage::_get(6000144); ?><!-- Подарки --></a></li><?php endif; ?>
                 <li><a href="#"><span><?php echo SELanguage::_get(687); ?><!-- Язык --></span></a></li>
                 <li>
 				<?php if ($this->_tpl_vars['user']->user_exists != 0): ?>

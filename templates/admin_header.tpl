@@ -25,7 +25,7 @@
   <div class='menu'><a href='admin_viewreports.php' class='menu'><img src='../images/icons/admin_reports16.gif' border='0' class='icon2'>{lang_print id=6}{if $total_reports != 0} ({$total_reports}){/if}</a></div>
   <div class='menu'><a href='admin_viewplugins.php' class='menu'><img src='../images/icons/admin_plugins16.gif' border='0' class='icon2'>{lang_print id=7}</a></div>
   <div class='menu'><a href='admin_levels.php' class='menu'><img src='../images/icons/admin_levels16.gif' border='0' class='icon2'>{lang_print id=8}</a></div>
-  <div class='menu'><a href='admin_subnetworks.php' class='menu'><img src='../images/icons/admin_subnetworks16.gif' border='0' class='icon2'>{lang_print id=9}</a></div>
+  
   <div class='menu'><a href='admin_ads.php' class='menu'><img src='../images/icons/admin_ads16.gif' border='0' class='icon2'>{lang_print id=10}</a></div>
   </div>
   </div>

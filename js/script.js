@@ -18,6 +18,7 @@
 	$('.comments li div.comment_text:first').css({'padding-top':'0','border':'0'});
 	$('.buttons select:last').css({'margin-right':'0'});
 	
+$('.b_bg').height($('#content').height()).css('opacity','0.95').show();
 	//WINDOW
 	$('#reg').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
@@ -48,6 +49,12 @@
 		$('#add_user_w').css("top", scrOfY + 50 + 'px').fadeIn();
 		e.preventDefault();
 	});
+$('.d_inf .golosa label a').click(function(e){
+		$('#popup').height($('#content').height()).css('opacity','0.6').show();
+		var scrOfY = src();
+		$('#svecha_list').css("top", scrOfY + 50 + 'px').fadeIn();
+		e.preventDefault();
+	});
 	$('#add_msg, #add_msg_l').click(function(e){
 		$('#ajaxframe').attr('src','user_messages_new.php');
 		$('#add_msg_b').html('');
@@ -61,7 +68,24 @@
 			e.preventDefault();
 		});
 		return false;
+	});
+
+        $('a.add_gif').click(function(e){
+            var id_value ='';
+            id_value = $(this).attr('id');
+                $('#ajaxframe').attr('src','mf_gifts_send_message.php');
+		$('#add_msg_b_g').html('');
+		$('#popup').height($('#content').height()).css('opacity','0.6').show();
+		var scrOfY = src();
+		$('#add_msg_w_g').css("top", scrOfY + 50 + 'px').fadeIn();
+		$('#ajaxframe').load(function() {
+			$('#add_msg_b_g').html($("#ajaxframe").contents().find("#form_div").html());
+                        $("#picture_gif").html('<img  src=\'mf_gifts/'+id_value+'_thumb.\' ><iput type = "hidden" id = "id_g" value ='+id_value+' >');
+                     	e.preventDefault();
+		});
+		return false;
 	});	
+
 	$('#add_event').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();
@@ -668,7 +692,27 @@
 					'json')
 		}
 	}
-	
+
+	function delete_vizitka(task_vizitka,vizitkaentry_id_b) {
+		var r=confirm("Вы уверены, что хотите удалить эту визитку? \r\n");
+		if (r==true) {
+			$.post( 'vizitki_ajax.php',
+					{task:''+task_vizitka+'', vizitkientry_id:''+vizitkaentry_id_b+''},
+					function(data) {
+						if (data != null) {
+							if (data.result == 'success') {
+								$('#vizitka_' + vizitkaentry_id_b).fadeOut();
+							} else {
+								alert('error');
+							}
+						} else {
+							alert('Ошибка доступа =(');
+						}
+					} ,
+					'json')
+		}
+	}
+
 	function delete_blog_link(){
 		var r=confirm("Вы уверены, что хотите удалить эту запись ?  \r\n");
 		return r;
@@ -706,3 +750,28 @@
 			} ,
 			'json')
 	}
+
+
+        function candle_post(user_id,user_name, owner_id, user_photo) {
+   			$.post( 'misc_js.php',
+				       {task:'candle_post',
+                                        user_id: '' + user_id + '',
+                                        user_name:''+user_name+'',
+                                        owner_id:''+owner_id+'',
+					user_photo:''+user_photo+''},
+					function(data) {
+
+						if (data != null) {
+							if (data.is_error == 1) {
+                                                            $('#count_candle').html('');
+                                                            $('#count_candle').append(data.count);
+							} else {
+								alert(data.is_error);
+							}
+						} else {
+							alert('Неизвестная ошибка =()');
+						}
+					} ,
+					'json');
+	}
+

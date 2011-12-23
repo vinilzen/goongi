@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-10 14:33:28
+<?php /* Smarty version 2.6.14, created on 2011-12-21 17:33:32
          compiled from user_blog_entry.tpl */
 ?><?php
 SELanguage::_preload_multi(1500067,1500122,1500123,1500056,1500065,39);
@@ -98,7 +98,7 @@ if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_lis
 
   ?>
         <span class="button2"><span class="l">&nbsp;</span><span class="c">
-        <input type="submit" style="padding:0px;"  value="Сохранить" name="save" />
+        <input type="submit" style="padding:1px 0px 0px 0px;"  value="Сохранить" name="save" />
         </span><span class="r">&nbsp;</span></span><?php 
 
   ?>
@@ -111,7 +111,7 @@ if( is_array($javascript_lang_import_list) && !empty($javascript_lang_import_lis
 
   ?>
         <span class="button2"><span class="l">&nbsp;</span><span class="c">
-        <input type="submit" style="padding:0px;"  value="Отмена" name="save" />
+        <input type="submit" style="padding:1px 0px 0px 0px;"  value="Отмена" name="save" />
         </span><span class="r">&nbsp;</span></span>
         <?php 
 

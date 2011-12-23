@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-05 12:35:23
+<?php /* Smarty version 2.6.14, created on 2011-12-22 16:02:15
          compiled from browse_events.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'browse_events.tpl', 94, false),array('modifier', 'strip_tags', 'browse_events.tpl', 174, false),array('modifier', 'truncate', 'browse_events.tpl', 174, false),array('function', 'math', 'browse_events.tpl', 123, false),)), $this);
@@ -340,4 +340,4 @@ $this->_sections['event_loop']['last']       = ($this->_sections['event_loop']['
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
- ?>
+ ?>

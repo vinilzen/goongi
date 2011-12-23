@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-23 12:34:46
+<?php /* Smarty version 2.6.14, created on 2011-12-22 12:50:52
          compiled from user_editprofile_photo.tpl */
 ?><?php
 SELanguage::_preload_multi(769,652,713,772,715,770,771,714);

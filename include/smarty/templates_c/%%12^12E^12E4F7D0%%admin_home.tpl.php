@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-04 16:45:26
+<?php /* Smarty version 2.6.14, created on 2011-12-23 13:33:08
          compiled from admin_home.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'admin_home.tpl', 74, false),array('modifier', 'count', 'admin_home.tpl', 74, false),array('modifier', 'strpos', 'admin_home.tpl', 141, false),array('modifier', 'strstr', 'admin_home.tpl', 141, false),array('modifier', 'replace', 'admin_home.tpl', 141, false),)), $this);

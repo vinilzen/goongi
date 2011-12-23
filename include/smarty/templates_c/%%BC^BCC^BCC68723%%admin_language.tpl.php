@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-01 12:48:06
+<?php /* Smarty version 2.6.14, created on 2011-12-23 14:13:26
          compiled from admin_language.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'cycle', 'admin_language.tpl', 20, false),array('modifier', 'replace', 'admin_language.tpl', 21, false),)), $this);

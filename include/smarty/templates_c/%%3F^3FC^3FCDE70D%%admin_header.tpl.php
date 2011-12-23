@@ -1,9 +1,9 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-04 16:45:26
+<?php /* Smarty version 2.6.14, created on 2011-12-23 15:54:32
          compiled from admin_header.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'admin_header.tpl', 106, false),)), $this);
 ?><?php
-SELanguage::_preload_multi(2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,20,1243,1244,1211,48,15,49,19,21,935,22,23,24,25,26);
+SELanguage::_preload_multi(2,3,4,5,6,7,8,10,11,12,13,14,16,17,18,20,1243,1244,1211,48,15,49,19,21,935,22,23,24,25,26);
 SELanguage::load();
 ?><?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => 'admin_header_global.tpl', 'smarty_include_vars' => array()));
@@ -37,7 +37,7 @@ unset($_smarty_tpl_vars);
 )<?php endif; ?></a></div>
   <div class='menu'><a href='admin_viewplugins.php' class='menu'><img src='../images/icons/admin_plugins16.gif' border='0' class='icon2'><?php echo SELanguage::_get(7); ?></a></div>
   <div class='menu'><a href='admin_levels.php' class='menu'><img src='../images/icons/admin_levels16.gif' border='0' class='icon2'><?php echo SELanguage::_get(8); ?></a></div>
-  <div class='menu'><a href='admin_subnetworks.php' class='menu'><img src='../images/icons/admin_subnetworks16.gif' border='0' class='icon2'><?php echo SELanguage::_get(9); ?></a></div>
+  
   <div class='menu'><a href='admin_ads.php' class='menu'><img src='../images/icons/admin_ads16.gif' border='0' class='icon2'><?php echo SELanguage::_get(10); ?></a></div>
   </div>
   </div>

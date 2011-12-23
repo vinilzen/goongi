@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-10-04 16:44:57
+<?php /* Smarty version 2.6.14, created on 2011-12-23 13:33:05
          compiled from admin_header_global.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'admin_header_global.tpl', 89, false),)), $this);

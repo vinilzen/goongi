@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-19 10:51:50
+<?php /* Smarty version 2.6.14, created on 2011-12-23 15:17:01
          compiled from blog.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'truncate', 'blog.tpl', 52, false),array('modifier', 'choptext', 'blog.tpl', 57, false),array('function', 'math', 'blog.tpl', 134, false),)), $this);
@@ -244,4 +244,4 @@ $this->_sections['trackback_loop']['last']       = ($this->_sections['trackback_
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
- ?>
+ ?>

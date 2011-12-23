@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-05 11:45:49
+<?php /* Smarty version 2.6.14, created on 2011-12-23 13:35:53
          compiled from admin_viewblogs.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'cycle', 'admin_viewblogs.tpl', 112, false),)), $this);

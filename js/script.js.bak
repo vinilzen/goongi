@@ -61,7 +61,24 @@
 			e.preventDefault();
 		});
 		return false;
+	});
+
+        $('a.add_gif').click(function(e){
+            var id_value ='';
+            id_value = $(this).attr('id');
+                $('#ajaxframe').attr('src','mf_gifts_send_message.php');
+		$('#add_msg_b_g').html('');
+		$('#popup').height($('#content').height()).css('opacity','0.6').show();
+		var scrOfY = src();
+		$('#add_msg_w_g').css("top", scrOfY + 50 + 'px').fadeIn();
+		$('#ajaxframe').load(function() {
+			$('#add_msg_b_g').html($("#ajaxframe").contents().find("#form_div").html());
+                        $("#picture_gif").html('<img  src=\'mf_gifts/'+id_value+'_thumb.\' ><iput type = "hidden" id = "id_g" value ='+id_value+' >');
+                     	e.preventDefault();
+		});
+		return false;
 	});	
+
 	$('#add_event').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();
@@ -544,7 +561,9 @@
 	}
 
         	
-	function comment_get (user_username, owner_id, user_id, type_com, iden_com, tab_com, col_com) {
+	function comment_get (user_username, owner_id, user_id, type_com, iden_com, tab_com, col_com,page_show) {
+            var cp = 10;
+          if (  type_com == 'blog') cp = 1000;
 		$.post( 'misc_js.php',
 				{	task:'comment_get',
 					user:''+user_username+'',
@@ -553,12 +572,13 @@
 					type:''+type_com+'',
 					iden:''+iden_com+'',
 					value: ''+owner_id+'', 
-					cpp:1000, 
-					p:1},
+					cpp:''+cp+'',
+					p:''+page_show+''},
 				function(data) {
 					if (data != null) { 
 						if (data.total_comments > 0 ) {
 							var str = '';
+                                                        var paginator = '';
 							$.each(data.comments, function(i, val) {
 								var displayname = this.comment_authoruser_displayname;
 								var url = this.comment_authoruser_url;
@@ -578,13 +598,33 @@
 								str = str + '</div></div></div></li>';
 								
 							});
-                                                       
-							$('#comments_list').append(str);
-                                                       
-						}
+                                        var  url_p  = '';
+				if (  data.type == 'profile') url_p = 'profile.php';
+                               // else url_p = 'profile.php';
+                           //         alert(data.type);
+                        if (data.maxpage > 1)
+                            {
+                               // alert($('#pag_com')[0].value)
+                                paginator = '<div class="pager">';
+                                var s = data.p-1;
+                                var p = data.p+1;
+                               if(data.p != 1 )
+                                   paginator = paginator+ '<a onclick = "change('+s+');" href="'+url_p+'?user='+user_username+'&pag_com='+s+'" class="prev"> Сюда</a>';
+                                var cl ='';
+                               for(var i=1;i<=data.maxpage; i++)
+                               {
+                                   if (data.p == i)   cl = 'class="active"'; else  cl = '';
+                                 paginator = paginator+ '<a onclick = "change('+i+');" href="'+url_p+'?user='+user_username+'&pag_com='+i+'" '+cl+'>'+i+'</a>';
+                              
+                               }
+                                if(data.p != data.maxpage ) paginator = paginator+ '<a onclick = "change('+p+');" href="'+url_p+'?user='+user_username+'&pag_com='+p+'" class="next">Туда</a>';
+                                 paginator = paginator+ '</div></form>';
+                             }
+                             $('#comments_list').append(str+paginator);
+                                                                                }
                                                
                                                 $('#comments_count').html('');
-                                                 $('#comments_count').append(data.total_comments);
+                                                $('#comments_count').append(data.total_comments);
 					} else {
 						alert('Неизвестная ошибка =(');
 					}
@@ -645,7 +685,27 @@
 					'json')
 		}
 	}
-	
+
+	function delete_vizitka(task_vizitka,vizitkaentry_id_b) {
+		var r=confirm("Вы уверены, что хотите удалить эту визитку? \r\n");
+		if (r==true) {
+			$.post( 'vizitki_ajax.php',
+					{task:''+task_vizitka+'', vizitkientry_id:''+vizitkaentry_id_b+''},
+					function(data) {
+						if (data != null) {
+							if (data.result == 'success') {
+								$('#vizitka_' + vizitkaentry_id_b).fadeOut();
+							} else {
+								alert('error');
+							}
+						} else {
+							alert('Ошибка доступа =(');
+						}
+					} ,
+					'json')
+		}
+	}
+
 	function delete_blog_link(){
 		var r=confirm("Вы уверены, что хотите удалить эту запись ?  \r\n");
 		return r;

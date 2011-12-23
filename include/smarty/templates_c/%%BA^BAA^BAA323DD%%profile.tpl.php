@@ -1,25 +1,111 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-19 10:32:26
+<?php /* Smarty version 2.6.14, created on 2011-12-23 16:14:14
          compiled from profile.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 78, false),array('block', 'hook_foreach', 'profile.tpl', 90, false),array('function', 'math', 'profile.tpl', 183, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'substr', 'profile.tpl', 96, false),array('block', 'hook_foreach', 'profile.tpl', 127, false),array('function', 'math', 'profile.tpl', 220, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(786,652,895,917,838,887,889,852,1024,930,1197,646,1022,1020,934,1023,182,184,185,183,509,849,882,907,876,922,784,839);
 SELanguage::load();
-?>﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
-$this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
-$this->_tpl_vars = $_smarty_tpl_vars;
-unset($_smarty_tpl_vars);
- ?>
-
-    <?php echo '
+?><?php echo $this->_tpl_vars['ads']->ads_display('1'); 
+ echo '
     <script type="text/javascript">
     function change(pad)
     {
        document.getElementById(\'pag_com\').value = pad;
     }
     </script>
-    '; ?>
+    '; 
+ $this->assign('death', 0); 
+ unset($this->_sections['cat_loop']);
+$this->_sections['cat_loop']['name'] = 'cat_loop';
+$this->_sections['cat_loop']['loop'] = is_array($_loop=$this->_tpl_vars['cats']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['cat_loop']['show'] = true;
+$this->_sections['cat_loop']['max'] = $this->_sections['cat_loop']['loop'];
+$this->_sections['cat_loop']['step'] = 1;
+$this->_sections['cat_loop']['start'] = $this->_sections['cat_loop']['step'] > 0 ? 0 : $this->_sections['cat_loop']['loop']-1;
+if ($this->_sections['cat_loop']['show']) {
+    $this->_sections['cat_loop']['total'] = $this->_sections['cat_loop']['loop'];
+    if ($this->_sections['cat_loop']['total'] == 0)
+        $this->_sections['cat_loop']['show'] = false;
+} else
+    $this->_sections['cat_loop']['total'] = 0;
+if ($this->_sections['cat_loop']['show']):
 
+            for ($this->_sections['cat_loop']['index'] = $this->_sections['cat_loop']['start'], $this->_sections['cat_loop']['iteration'] = 1;
+                 $this->_sections['cat_loop']['iteration'] <= $this->_sections['cat_loop']['total'];
+                 $this->_sections['cat_loop']['index'] += $this->_sections['cat_loop']['step'], $this->_sections['cat_loop']['iteration']++):
+$this->_sections['cat_loop']['rownum'] = $this->_sections['cat_loop']['iteration'];
+$this->_sections['cat_loop']['index_prev'] = $this->_sections['cat_loop']['index'] - $this->_sections['cat_loop']['step'];
+$this->_sections['cat_loop']['index_next'] = $this->_sections['cat_loop']['index'] + $this->_sections['cat_loop']['step'];
+$this->_sections['cat_loop']['first']      = ($this->_sections['cat_loop']['iteration'] == 1);
+$this->_sections['cat_loop']['last']       = ($this->_sections['cat_loop']['iteration'] == $this->_sections['cat_loop']['total']);
+?>
+        <?php unset($this->_sections['subcat_loop']);
+$this->_sections['subcat_loop']['name'] = 'subcat_loop';
+$this->_sections['subcat_loop']['loop'] = is_array($_loop=$this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['subcat_loop']['show'] = true;
+$this->_sections['subcat_loop']['max'] = $this->_sections['subcat_loop']['loop'];
+$this->_sections['subcat_loop']['step'] = 1;
+$this->_sections['subcat_loop']['start'] = $this->_sections['subcat_loop']['step'] > 0 ? 0 : $this->_sections['subcat_loop']['loop']-1;
+if ($this->_sections['subcat_loop']['show']) {
+    $this->_sections['subcat_loop']['total'] = $this->_sections['subcat_loop']['loop'];
+    if ($this->_sections['subcat_loop']['total'] == 0)
+        $this->_sections['subcat_loop']['show'] = false;
+} else
+    $this->_sections['subcat_loop']['total'] = 0;
+if ($this->_sections['subcat_loop']['show']):
+
+            for ($this->_sections['subcat_loop']['index'] = $this->_sections['subcat_loop']['start'], $this->_sections['subcat_loop']['iteration'] = 1;
+                 $this->_sections['subcat_loop']['iteration'] <= $this->_sections['subcat_loop']['total'];
+                 $this->_sections['subcat_loop']['index'] += $this->_sections['subcat_loop']['step'], $this->_sections['subcat_loop']['iteration']++):
+$this->_sections['subcat_loop']['rownum'] = $this->_sections['subcat_loop']['iteration'];
+$this->_sections['subcat_loop']['index_prev'] = $this->_sections['subcat_loop']['index'] - $this->_sections['subcat_loop']['step'];
+$this->_sections['subcat_loop']['index_next'] = $this->_sections['subcat_loop']['index'] + $this->_sections['subcat_loop']['step'];
+$this->_sections['subcat_loop']['first']      = ($this->_sections['subcat_loop']['iteration'] == 1);
+$this->_sections['subcat_loop']['last']       = ($this->_sections['subcat_loop']['iteration'] == $this->_sections['subcat_loop']['total']);
+?>
+                <?php unset($this->_sections['field_loop']);
+$this->_sections['field_loop']['name'] = 'field_loop';
+$this->_sections['field_loop']['loop'] = is_array($_loop=$this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['field_loop']['show'] = true;
+$this->_sections['field_loop']['max'] = $this->_sections['field_loop']['loop'];
+$this->_sections['field_loop']['step'] = 1;
+$this->_sections['field_loop']['start'] = $this->_sections['field_loop']['step'] > 0 ? 0 : $this->_sections['field_loop']['loop']-1;
+if ($this->_sections['field_loop']['show']) {
+    $this->_sections['field_loop']['total'] = $this->_sections['field_loop']['loop'];
+    if ($this->_sections['field_loop']['total'] == 0)
+        $this->_sections['field_loop']['show'] = false;
+} else
+    $this->_sections['field_loop']['total'] = 0;
+if ($this->_sections['field_loop']['show']):
+
+            for ($this->_sections['field_loop']['index'] = $this->_sections['field_loop']['start'], $this->_sections['field_loop']['iteration'] = 1;
+                 $this->_sections['field_loop']['iteration'] <= $this->_sections['field_loop']['total'];
+                 $this->_sections['field_loop']['index'] += $this->_sections['field_loop']['step'], $this->_sections['field_loop']['iteration']++):
+$this->_sections['field_loop']['rownum'] = $this->_sections['field_loop']['iteration'];
+$this->_sections['field_loop']['index_prev'] = $this->_sections['field_loop']['index'] - $this->_sections['field_loop']['step'];
+$this->_sections['field_loop']['index_next'] = $this->_sections['field_loop']['index'] + $this->_sections['field_loop']['step'];
+$this->_sections['field_loop']['first']      = ($this->_sections['field_loop']['iteration'] == 1);
+$this->_sections['field_loop']['last']       = ($this->_sections['field_loop']['iteration'] == $this->_sections['field_loop']['total']);
+?>
+                    <?php if ($this->_tpl_vars['cats'][$this->_sections['cat_loop']['index']]['subcats'][$this->_sections['subcat_loop']['index']]['fields'][$this->_sections['field_loop']['index']]['field_title'] == '500404'): ?> <?php $this->assign('death', 1); 
+ endif; ?>
+                <?php endfor; endif; ?>
+       <?php endfor; endif; 
+ endfor; endif; 
+ if ($this->_tpl_vars['death'] == 1): 
+ $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include(array('smarty_include_tpl_file' => 'header_death.tpl', 'smarty_include_vars' => array()));
+$this->_tpl_vars = $_smarty_tpl_vars;
+unset($_smarty_tpl_vars);
+ ?>
+ <?php else: ?>
+﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include(array('smarty_include_tpl_file' => 'header.tpl', 'smarty_include_vars' => array()));
+$this->_tpl_vars = $_smarty_tpl_vars;
+unset($_smarty_tpl_vars);
+ 
+ endif; ?>
+    
 <!-- <div class='page_header'><?php echo sprintf(SELanguage::_get(786), $this->_tpl_vars['owner']->user_displayname); ?></div> -->
 <h1><?php echo $this->_tpl_vars['owner']->user_info['user_displayname']; ?>
  [<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
@@ -28,7 +114,9 @@ unset($_smarty_tpl_vars);
 	<a href="/">Главная</a>
 	<span><?php echo SELanguage::_get(652); ?><!-- Профиль --></span>
 </div>
-<?php if ($this->_tpl_vars['owner']->user_info['user_id'] == $this->_tpl_vars['user']->user_info['user_id']): ?>
+
+<?php if ($this->_tpl_vars['owner']->user_info['user_id'] == $this->_tpl_vars['user']->user_info['user_id'] && $this->_tpl_vars['death'] != 1): ?>
+
 <div class="buttons">
 	<span class="button2">
 		<span class="l">&nbsp;</span><span class="c">
@@ -37,7 +125,7 @@ unset($_smarty_tpl_vars);
 	</span>
 </div>
 <?php endif; 
- if ($this->_tpl_vars['user']->user_exists != 0 && $this->_tpl_vars['owner']->user_info['user_id'] != $this->_tpl_vars['user']->user_info['user_id']): ?>
+ if ($this->_tpl_vars['user']->user_exists != 0 && $this->_tpl_vars['owner']->user_info['user_id'] != $this->_tpl_vars['user']->user_info['user_id'] && $this->_tpl_vars['death'] != 1): ?>
 	<?php if ($this->_tpl_vars['owner']->user_info['user_id'] != 0): ?>
 		<div class="buttons" style="overflow:visible;">
 			
@@ -84,12 +172,13 @@ unset($_smarty_tpl_vars);
 		</div>
 		
 	<?php endif; 
- endif; ?>
-
+ endif; 
+ if ($this->_tpl_vars['death'] != 1): ?>
 <div class="my_page_inf">
 	<div class="my_page_img"><img alt="" src="/uploads_user/1000/<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
 /<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
 .jpg"></div>
+
 	<div class="my_page_info">
 				<?php unset($this->_sections['cat_loop']);
 $this->_sections['cat_loop']['name'] = 'cat_loop';
@@ -177,7 +266,33 @@ $this->_sections['field_loop']['last']       = ($this->_sections['field_loop']['
 			<?php endfor; endif; ?>
 		<?php endfor; endif; ?>
 	</div>
+<?php else: ?>
+<div class="d_inf">
+<div class="sv"></div>
+    <div class="golosa">
+            <span class="button3"><span class="l">&nbsp;</span><span class="c">
+            <input type="submit" onclick="candle_post( '<?php echo $this->_tpl_vars['user']->user_info['user_id']; ?>
+' , '<?php echo $this->_tpl_vars['user']->user_info['user_username']; ?>
+', '<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
+', '<?php echo $this->_tpl_vars['user']->user_info['user_photo']; ?>
+'); return false;" value="Зажечь свечу" name="creat" />
+            </span><span class="r">&nbsp;</span></span><label>
+            <a href="#">Зажгли свечу</a>: <span id = "count_candle"><?php echo $this->_tpl_vars['count_candle']; ?>
+</span></label>
+    </div>
+    <div class="img">
+        <a href="#"><img alt="" src="/uploads_user/1000/<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
+/<?php echo $this->_tpl_vars['owner']->user_info['user_id']; ?>
+.jpg"></a>
+        <p><a href="javascript:void(0);">Показать подробную информацию</a></p>
+    </div>
+<div class="g_inf_text"><p>14 сентября 1932 — 21 октября 2009 <span>(3 Хешван 5770)</span></p></div>
+<div class="clear"><img src="images/x.gif" alt="" /></div>
+
+<?php endif; ?>
+
 </div>
+
       <!-- <div class='page_header'></div> -->
   
     <?php if (0): ?>
@@ -438,8 +553,16 @@ unset($_smarty_tpl_vars);
     
 
   
-<?php $_smarty_tpl_vars = $this->_tpl_vars;
-$this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
+<?php if ($this->_tpl_vars['death'] == 1): 
+ $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include(array('smarty_include_tpl_file' => 'footer_death.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
+ <?php else: ?>
+﻿<?php $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
+$this->_tpl_vars = $_smarty_tpl_vars;
+unset($_smarty_tpl_vars);
+ 
+ endif; ?>

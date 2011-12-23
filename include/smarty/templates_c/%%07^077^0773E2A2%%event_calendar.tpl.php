@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-15 15:38:22
+<?php /* Smarty version 2.6.14, created on 2011-12-22 16:02:00
          compiled from event_calendar.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'cycle', 'event_calendar.tpl', 29, false),array('function', 'math', 'event_calendar.tpl', 43, false),array('modifier', 'in_array', 'event_calendar.tpl', 38, false),array('modifier', 'count', 'event_calendar.tpl', 39, false),array('modifier', 'truncate', 'event_calendar.tpl', 85, false),array('modifier', 'choptext', 'event_calendar.tpl', 85, false),array('modifier', 'strip_tags', 'event_calendar.tpl', 130, false),)), $this);
@@ -498,3 +498,4 @@ $this->_sections['event_loop']['last']       = ($this->_sections['event_loop']['
 
 
 
+

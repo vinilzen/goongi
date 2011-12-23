@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-11-18 14:48:12
+<?php /* Smarty version 2.6.14, created on 2011-12-22 12:45:19
          compiled from search_advanced.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'search_advanced.tpl', 36, false),array('modifier', 'date_format', 'search_advanced.tpl', 122, false),array('modifier', 'in_array', 'search_advanced.tpl', 162, false),array('modifier', 'truncate', 'search_advanced.tpl', 236, false),array('function', 'math', 'search_advanced.tpl', 122, false),array('function', 'cycle', 'search_advanced.tpl', 239, false),)), $this);
@@ -681,4 +681,4 @@ cat_selected=<?php echo $this->_tpl_vars['cat_selected']; ?>
 $this->_smarty_include(array('smarty_include_tpl_file' => 'footer.tpl', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
- ?>
+ ?>

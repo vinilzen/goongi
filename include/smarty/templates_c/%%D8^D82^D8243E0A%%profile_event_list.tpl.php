@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-05 12:28:27
+<?php /* Smarty version 2.6.14, created on 2011-12-22 12:45:35
          compiled from profile_event_list.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'truncate', 'profile_event_list.tpl', 22, false),array('modifier', 'strip_tags', 'profile_event_list.tpl', 45, false),)), $this);
