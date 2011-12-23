@@ -356,7 +356,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.meropriatie_item .name		{ float:left; width:110px;}
 	.meropriatie_item .name a	{ display:inline-block; text-decoration:none; font-weight:bold; color:#000; margin-right:10px;}
 	.meropriatie_item .name span	{ display:block; font-size:11px; color:#7f7f7f; margin-bottom:5px; padding-top:5px;}
-	.meropriatie_item .inf 		{ overflow:hidden;}
+	.meropriatie_item .inf 		{ overflow:hidden;min-height:80px;}
 	
 	.group_list			{ float: right; overflow:hidden; width:155px; padding-top:20px;}
 	.group_list ul		{ overflow:hidden; list-style:none;}
@@ -427,7 +427,6 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	
 	.button3	{ overflow:hidden; height:26px; display:inline-block; cursor:pointer;}
 	.button3 span	{display:inline-block; overflow:hidden; float:left;}
-	.button3 a	{text-decoration:none;}
 	.button3 span.l,
 	.button3 span.r	{ width:2px; height:26px; overflow:hidden;}
 	.button3 span.l	{ background:url(../images/b3l.png) no-repeat 0 0;}
@@ -512,6 +511,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.add_w					{ overflow:hidden; padding-bottom:20px; width:auto;}
 	.form.add_w .input input,
 	.form.add_w .input textarea	{ width:390px; color:#7f7f7f;}
+	.form.add_w .input table input	{ width:188px;}
 	.form.add_w .button			{ padding-top:5px; text-align:center; clear:both;}
 
 	.form.add_com					{ width: auto; padding-bottom:20px;}

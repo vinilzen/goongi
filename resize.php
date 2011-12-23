@@ -103,7 +103,7 @@ function resize($img, $w, $h, $newfilename) {
 #
  }
 #
-  
+
 #
    return $newfilename;
 #

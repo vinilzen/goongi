@@ -13,23 +13,24 @@
 	<script src="/tree/js/utils.js"></script>
 </head>
 <body>
+{literal}
 
 <div id="header">
 	<div class="caption">Моё дерево</div>
-	<div class="breadcrumb">
-		<a href="#">Главная</a>
-		<span>&rarr;</span>
-		<a href="/{$user->user_info.user_username}">Профиль</a>
-		<span>&rarr;</span>
-		<a href="#">Моё дерево</a>
-	</div>
 	<div class="float-r">
 		<div class="ico home"></div>
 		<div class="ico print"></div>
 		<div class="ico settings"></div>
 	</div>
-	<div class="button"><div>Добавить родственника</div></div>
-	<div class="button sub"><div>Сохранить дерево</div></div>
+	<div class="breadcrumb">
+		<a href="#">Главная</a>
+		<span>&rarr;</span>
+		<a href="/{/literal}{$user->user_info.user_username}{literal}" target="_top">Профиль</a>
+		<span>&rarr;</span>
+		<a href="#">Моё дерево</a>
+	</div>
+	<!--div class="button"><div>Добавить родственника</div></div>
+	<div class="button sub"><div>Сохранить дерево</div></div-->
 </div>
 
 <div id="user" class="closed">
@@ -50,9 +51,13 @@
 
 <script id="user-tmpl" type="text/html">
 	<div class="name"><%= Base64.decode(displayname) %></div>
-	<div class="photo"><img src="<%= TREE.url.image.format(id, photo) %>" /></div>
+	<div class="photo">
+		<a href="/{/literal}{$user->user_info.user_username}{literal}" target="_top">
+			<img src="<%= TREE.url.image.format(id, photo) %>" />
+		</a>
+	</div>
 	<div class="birth"><%= sex === "m" ? "Родился" : "Родилась" + birthday %></div>
-	<div class="edit"><span>Редактировать профиль<span></div>
+	<div class="edit"><a href="/user_editprofile.php" target="_top"><span>Редактировать профиль</span></a></div>
 	<div class="relations">
 		<table>
 			<tr>
@@ -145,47 +150,53 @@
 		</div>
 		<div class="field">
 			<div class="name">Прозвище</div>
-			<input type="text" name="alias" value="<%= Base64.decode(alias) %>" />
+			<input type="text" name="alias" value="<%= alias %>" />
 		</div>
 		<!--div class="field">
 			<div class="name">Мать/Отец</div>
 			<select><option></option></select>
 		</div-->
-		<div class="field">
-			<table>
-				<tr>
-					<td>
+		<table>
+			<tr>
+				<td>
+					<div class="field">
 						<div class="name">Дата рождения</div>
 						<table>
 							<tr>
-								<td width="40">
-									<input type="text" name="birthdate" value="<%= new Date(birthday).getDate() %>" />
-								</td>
+								<td width="40"><input type="text" maxlength="2" name="birthdate" value="<%= birthday ? new Date(birthday).getDate() : "" %>" /></td>
 								<td width="80" style="padding:0 5px">
 									<select name="birthmonth">
-										<%= TREE.utils.month(new Date(birthday).getMonth()) %>
+										<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
+											<option value="<%= i+1 %>" <% if (new Date(birthday).getMonth() === i) { %> selected="selected" <% } %>><%= month %></option>
+										<% }) %>
 									</select>
 								</td>
-								<td width="60">
-									<input type="text" name="birthyear" value="<%= new Date(birthday).getFullYear() %>" />
-								</td>
+								<td width="60"><input type="text" maxlength="4" name="birthyear" value="<%= birthday ? new Date(birthday).getFullYear() : "" %>" /></td>
 							</tr>
 						</table>
-					</td>
-					<td class="sep"></td>
-					<td>
-						<label class="name"><input type="checkbox" /> Дата смерти</label>
+					</div>
+				</td>
+				<td class="sep"></td>
+				<td>
+					<div class="field">
+						<label class="name"><input type="checkbox" name="dead" <% if (death) { %> checked="checked" <% } %> /> Дата смерти</label>
 						<table>
 							<tr>
-								<td width="40"><select disabled="disabled"><option>&nbsp;</option></select></td>
-								<td width="80" style="padding:0 5px"><select disabled="disabled"><option>&nbsp;</option></select></td>
-								<td width="60"><select disabled="disabled"><option>&nbsp;</option></select></td>
+								<td width="40"><input type="text" maxlength="2" name="deathdate" value="<%= death ? new Date(death).getDate() : "" %>" <% if (!death) { %> disabled="disabled" <% } %> /></td>
+								<td width="80" style="padding:0 5px">
+									<select name="deathmonth" <% if (!death) { %> disabled="disabled" <% } %>>
+										<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
+											<option value="<%= i+1 %>" <% if (new Date(death).getMonth() === i) { %> selected="selected" <% } %>><%= month %></option>
+										<% }) %>
+									</select>
+								</td>
+								<td width="60"><input type="text" maxlength="4" name="deathyear" value="<%= death ? new Date(death).getFullYear() : "" %>" <% if (!death) { %> disabled="disabled" <% } %> /></td>
 							</tr>
 						</table>
-					</td>
-				</tr>
-			</table>
-		</div>
+					</div>
+				</td>
+			</tr>
+		</table>
 	</div>
 	<div class="footer">
 		<div class="button save"><div>Сохранить изменения</div></div>
@@ -206,7 +217,7 @@
 		<table>
 			<tr>
 				<th>Пол</th>
-				<td><%= sex === "m" ? "Муж" : "Жен" %></td>
+				<td><%= sex === "m" ? "Мужской" : "Женский" %></td>
 			</tr>
 			<tr>
 				<th>Имя</th>
@@ -226,19 +237,18 @@
 
 <div id="actions" class="hide">
 	<div class="parents">
-		<div class="button"><div>Добавить отца</div></div>
-		<div class="button alt"><div>Добавить мать</div></div>
+		<div class="add-parent button"><div>Добавить отца</div></div>
+		<div class="add-parent button alt"><div>Добавить мать</div></div>
 	</div>
 	<div class="siblings">
 		<div class="inner">
-			<div class="button sub"><div>Добавить друга</div></div>
-			<div class="button"><div>Добавить брата</div></div>
-			<div class="button alt"><div>Добавить сестру</div></div>
+			<div class="add-sibling button"><div>Добавить брата</div></div>
+			<div class="add-sibling button alt"><div>Добавить сестру</div></div>
 		</div>
 	</div>
 	<div class="children">
-		<div class="button"><div>Добавить сына</div></div>
-		<div class="button alt"><div>Добавить дочь</div></div>
+		<div class="add-child button"><div>Добавить сына</div></div>
+		<div class="add-child button alt"><div>Добавить дочь</div></div>
 	</div>
 	<div class="person"></div>
 	<canvas width="500" height="333"></canvas>
@@ -259,10 +269,9 @@
 	</div>
 </script>
 
-<script type="text/javascript">
-	json = {$family}
-</script>
+{/literal}
 
+<script type="text/javascript">json = {$family}</script>
 <script src="/tree/js/gentree.js"></script>
 
 </body>

@@ -1,5 +1,9 @@
 <? include_once("resize.php");
+<<<<<<< HEAD
 define('APP_ROOT', dirname(dirname(__FILE__)));
+=======
+
+>>>>>>> 090a87080da322dc25d17106a926f1e8d957961f
 class mf_gifts {
 
 	function user_info($username){

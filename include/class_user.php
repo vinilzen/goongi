@@ -185,10 +185,139 @@ class SEUser
   
   // END SEUser() METHOD
 
+	function check_existing_spouse($id, $role) {
+				
+		$familys = $this->get_family_list($id);
+		$spous_fam = false;
+		
+		if (count($familys)>0) {
+			
+			if ($role == 'father')
+				$t_role = 'mother';
+			elseif ($role == 'mother')
+				$t_role = 'father';
+			
+			//var_dump($familys);	
+			foreach($familys AS $v){
+				if ($v['role'] == $t_role ) {
+					$spous_fam = $v['family_id'];
+				}
+			}
+			
+			if ($spous_fam != false) {
+				$database = SEDatabase::getInstance();
+				$resource = $database->database_query("SELECT * FROM se_role_in_family WHERE `role`='{$role}' && `family_id`='{$spous_fam}' LIMIT 1;");
+				//var_dump($database->database_fetch_assoc($resource)); die();
+				if ( $database->database_num_rows($resource) > 0 ) {
+					
+					$r = $database->database_fetch_assoc($resource);
+					//var_dump($r); die();
+					if ( $this->user_exist($r['user_id']) )
+						// проверим есть ли такой пользователь
+						return true;
+					else
+						return false;
+				} else {
+					return false;
+				}
+				
+			} else {
+				
+				return false;
+			}
 
+		} else {
+			return false;
+		}
+	}
+	
+	function get_main_family_id($user_id, $sex) {
+		$familys = $this->get_family_list($user_id);
+		$family_id = 0;
+		
+		if ($sex == 'm')
+			$role = 'father';
+		elseif($sex == 'w') 
+			$role = 'mother';
+		else 
+			return false;
+		
+		//print_r($familys); die();
+		if (count($familys)) {
+			foreach($familys AS $v)
+				if ( $v['role'] == $role)
+					$family_id = (int)$v['family_id'];
 
+			if ($family_id != 0)
+				return $family_id;
+			else
+				return $this->add_role_new($role, $user_id);
+		} else
+			return $this->add_role_new($role, $user_id);
+	}
+	
+	function get_parent_family_id($user_id) {
+		$familys = $this->get_family_list($user_id);
+		$family_id = 0;
 
+		$role = 'child';
+		
+		//print_r($familys); die();
+		if (count($familys)) {
+			foreach($familys AS $v)
+				if ( $v['role'] == $role)
+					$family_id = (int)$v['family_id'];
 
+			if ($family_id != 0)
+				return $family_id;
+			else
+				return $this->add_role_new($role, $user_id);
+		} else
+			return $this->add_role_new($role, $user_id);
+	}
+	
+	function check_existing_parent($id, $role) { // if exist mother|father ($role) return false
+		$familys = $this->get_family_list($id);
+		$father_fam = false;
+		
+		if (count($familys)) {
+			foreach($familys AS $v){
+				if ($v['role'] == 'child') {
+					$father_fam = (int)$v['family_id'];
+				}
+			}
+			
+			if ($father_fam != false) {
+				$database = SEDatabase::getInstance();
+				$resource = $database->database_query("SELECT * FROM se_role_in_family WHERE `role`='{$role}' && `family_id`='{$father_fam}' LIMIT 1;");
+				
+				if ($database->database_num_rows($resource) > 0) {
+					$r = $database->database_fetch_assoc($resource);
+					
+					if ( $this->user_exist($r['user_id']) )
+						// проверим есть ли такой пользователь
+						return true;
+					else
+						return false;
+						
+				} else
+					return false;
+
+			} else
+				return false;
+			
+		} else 
+			return false;
+	}
+
+	function user_exist($user_id) {
+		$database = SEDatabase::getInstance();
+		$resource = $database->database_query("SELECT * FROM se_users WHERE `user_id`='{$user_id}' LIMIT 1;");
+		if ($database->database_num_rows($resource) )
+			return true;
+		else
+			return false;
+	}
 
 
   function &getLevelSettings($level_id)
@@ -1637,14 +1766,19 @@ class SEUser
 
 			}
 		}
-		$sql1 = "SELECT * FROM `se_profilevalues` WHERE `profilevalue_id` IN (" . implode(',', $members_list) . ") LIMIT ". count($members_list) .";";
-	
+		
+		//print_r($members_list);
+
+		$sql1 = "SELECT * FROM `se_profilevalues` WHERE `profilevalue_user_id` IN (" . implode(',', $members_list) . ") LIMIT ". count($members_list) .";";
+		//echo $sql1.'<pre>';
 		$resourse1 = $database->database_query($sql1);
 		while( $m = $database->database_fetch_assoc($resourse1)) {
-			$members[$m['profilevalue_id']]['birthday']	= $m['profilevalue_4']=='0000-00-00'?null:$m['profilevalue_4'];
-	        $members[$m['profilevalue_id']]['sex']	= $m['profilevalue_5']=='2'?'w':(($m['profilevalue_5']=='1')?'m':'');
-	        $members[$m['profilevalue_id']]['death']	= $m['profilevalue_12']=='0000-00-00'?null:$m['profilevalue_12'];
-			$members[$m['profilevalue_id']]['alias']	= $m['profilevalue_11'];
+				
+			$members[$m['profilevalue_user_id']]['birthday']	= $m['profilevalue_4']=='0000-00-00'?null:$m['profilevalue_4'];
+	        $members[$m['profilevalue_user_id']]['sex']	= $m['profilevalue_5']=='2'?'w':(($m['profilevalue_5']=='1')?'m':null);
+	        $members[$m['profilevalue_user_id']]['death']	= $m['profilevalue_12']=='0000-00-00'?null:$m['profilevalue_12'];
+			$members[$m['profilevalue_user_id']]['alias']	= $m['profilevalue_11']==''?null:$m['profilevalue_11'];
+
 		}
 		return $members;
 	}
@@ -1724,6 +1858,17 @@ class SEUser
 		$sql = "INSERT INTO `se_role_in_family` (`family_id`, `user_id`, `role`) VALUES ('$family_id', '$user_id', '$role')";
 		if ( $database->database_query($sql) ) {
 			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// insert in `se_role_in_family`
+	function add_role_new( $role, $user_id) {
+		global $database, $setting, $user;
+		$sql = "INSERT INTO `se_role_in_family` (`user_id`, `role`) VALUES ('$user_id', '$role')";
+		if ( $database->database_query($sql) ) {
+			return $database->database_insert_id();;
 		} else {
 			return false;
 		}
@@ -1867,19 +2012,26 @@ class SEUser
 		if ($user_id == 0)
 			$user_id = $user->user_info['user_id'];
 		
-		//echo $user_id; die();
-		
-		
 		$result = array();
-		$result = $this->bild_tree($user_id);
+		$users = $this->bild_tree($user_id);
+		
+		foreach ($users AS $k=>$v) // add 2 lvl
+			$users = $users + $this->bild_tree($k);
+		
+	
 		
 		
-		$result1['user'] = $result['user'];
-		foreach ($result['users'] AS $k=>$v) {
+		
+		$result1['user'] = $this->get_user_info(array(1=>$user_id), true);
+		$result1['user'] = $this->add_psc($user_id);
+		unset($users[$user_id]);
+		foreach ($users AS $k=>$v) {
 			if ($k != $user_id) {
-				$result1['users'][$k] = $this->add_psc($k);
+				$users[$k] = $this->add_psc($k);
 			}
 		}
+		$result1['users'] = $users;
+		
 		return json_encode($result1); //die();
 	}
 	
@@ -1896,16 +2048,10 @@ class SEUser
 			}
 			$family_ids[] = $value['family_id'];
 		}
-		//var_dump($parent_family); die();
 		
-		$relatives = $this->get_users_relatives($family_ids);
-		
-		array_push($relatives, $user_id);
+		$relatives = $this->get_users_relatives($family_ids, $user_id);
 		$result_users = $this->get_user_info($relatives, true);
-		//var_dump($result_users); die();
-		$r['user'] = $this->add_psc($user_id);
-		$r['users'] = $result_users;
-		return $r;
+		return $result_users;
 	}
 
 	function add_psc($user_id) { // parent_spouse_child
@@ -1979,11 +2125,15 @@ class SEUser
 		}
 	}
 	
-	function get_users_relatives($family_ids) {
+	function get_users_relatives($family_ids, $user_id = 0) {
 		global $database, $setting, $user;
+		if ($user_id != 0)
+			$without_user = " && `user_id` != $user_id";
+		else 
+			$without_user = "";
 		
 		if (is_array($family_ids) && count($family_ids)) {
-			$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` IN ( " . implode(',',$family_ids) . " );";
+			$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` IN ( " . implode(',',$family_ids) . " ) $without_user ;";
 			$resourse = $database->database_query($sql);
 			$family = array();
 			while($f = $database->database_fetch_assoc($resourse) )
@@ -2623,7 +2773,8 @@ class SEUser
 
 
 	// user_create_fast() METHOD
-	function user_create_fast($fname, $lname, $rote_user_id, $role, $signup_email, $birthday = '0000-00-00', $sex, $death = '0000-00-00', $alias = '', $send_invite = 0) {
+	function user_create_fast(	$fname, $lname, $root_user_id, $role, $signup_email, $birthday = '0000-00-00',
+								$sex, $death = '0000-00-00', $alias = '', $send_invite = 0, $family_id ) {
 		global $database, $setting, $url, $actions, $field;
 		
 	  // PRESET VARS
@@ -2672,7 +2823,10 @@ class SEUser
 	        user_profilecat_id,
 	        user_email,
 	        user_newemail,
+	        user_lname,
+	        user_fname,
 	        user_username,
+	        user_displayname,
 	        user_password,
 	        user_password_method,
 	        user_code,
@@ -2689,11 +2843,14 @@ class SEUser
 	        user_ip_signup,
 	        user_ip_lastactive
 	      ) VALUES (
-	        '{$signup_level_info['level_id']}',
+	        1,
 	        1,
 	        '{$signup_email}',
 	        '{$signup_email}',
+	        '{$lname}',
+	        '{$fname}',
 	        '{$signup_username}',
+	        '{$fname}". " " . "{$lname}',
 	        '{$crypt_password}',
 	        '{$setting['setting_password_method']}',
 	        '{$signup_code}',
@@ -2704,7 +2861,7 @@ class SEUser
 	        '{$signup_timezone}',
 	        '{$signup_language}',
 	        '{$signup_dateupdated}',
-	        '{$signup_profile_search}',
+	        1,
 	        '{$profile_privacy}',
 	        '{$profile_comments}',
 	        '{$signup_ip}',
@@ -2718,34 +2875,47 @@ class SEUser
 	    if( $user_id )
 	    	$this->user_exists = TRUE;
 		else
-			die('Error create user');
+			return 'Error create user';
 			
 	    $database->database_query("UPDATE se_users SET user_username=user_id WHERE user_id='{$user_id}' LIMIT 1");
 	    
+	    if ($signup_email == 0) {
+	    			
+	    	$database->database_query("UPDATE se_users SET user_email='$user_id@goongi.il', user_newemail='$user_id@goongi.il'  WHERE user_id='{$user_id}' LIMIT 1");
+	    	
+	    }
+	    
 		// GET USER INFO
 		$this->user_info = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_users WHERE user_id='{$user_id}' LIMIT 1"));
-		$this->level_info = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_levels WHERE level_id='{$this->user_info['user_level_id']}' LIMIT 1"));
-		$this->subnet_info = $database->database_fetch_assoc($database->database_query("SELECT subnet_id, subnet_name FROM se_subnets WHERE subnet_id='{$this->user_info['user_subnet_id']}' LIMIT 1"));
+		$this->level_info = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_levels WHERE level_id=1 LIMIT 1"));
+		$this->subnet_info = $database->database_fetch_assoc($database->database_query("SELECT subnet_id, subnet_name FROM se_subnets WHERE subnet_id=0 LIMIT 1"));
 	    
-	    $sex_bool = ($sex == 'm')?1:($sex == 'w')?2:-1;
+	    if ($sex == 'm')
+			$sex_bool = 1;
+		elseif($sex == 'w')
+			$sex_bool = 2;
+	     
 	    
-	    $profile_field_query = "profilevalue_2='$fname', profilevalue_3='$lname', profilevalue_4='$birthday', profilevalue_5='$sex_bool', profilevalue_12='$death',  profilevalue_5='$sex_bool', profilevalue_11='$alias', ";
+	    $profile_field_query =	"	profilevalue_2='$fname',	profilevalue_3='$lname',	profilevalue_4='$birthday', "
+	    						."	profilevalue_5='$sex_bool',	profilevalue_11='$alias',	profilevalue_12='$death' ";
 	    
 	    // ADD USER PROFILE
-		$database->database_query("INSERT INTO se_profilevalues (profilevalue_user_id) VALUES ('{$this->user_info['user_id']}')");
-		if( $profile_field_query )
-			$database->database_query("UPDATE se_profilevalues SET $profile_field_query WHERE profilevalue_user_id='{$this->user_info['user_id']}' LIMIT 1");
-	  
-		// GET PROFILE INFO
-		$this->profile_info = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_profilevalues WHERE profilevalue_user_id='{$this->user_info['user_id']}' LIMIT 1"));
-    
-	
-		// ADD ROW IN SETTINGS TABLE
-		$actiontypes = $database->database_query("SELECT actiontype_id FROM se_actiontypes");
-		$action_ids = Array();
-		while( $actiontype = $database->database_fetch_assoc($actiontypes) )
-			$action_ids[] = $actiontype['actiontype_id'];
+		$database->database_query("INSERT INTO se_profilevalues (profilevalue_user_id) VALUES ('{$user_id}')");
 		
+		$sql = "UPDATE se_profilevalues SET $profile_field_query WHERE profilevalue_user_id=$user_id LIMIT 1";
+		
+		if (!$database->database_query($sql)){
+			die($sql);
+		}
+	  	
+	  	
+	  	// ADD in TREE
+	  	$database->database_query("INSERT INTO se_role_in_family (family_id,user_id,role) VALUES ('{$family_id}','{$user_id}','{$role}')");
+		
+		$tree_id = $this->get_tree_id($root_user_id);
+		if ($tree_id != false)
+	  		$database->database_query("INSERT INTO se_tree_users (tree_id,user_id) VALUES ('{$tree_id}','{$user_id}')");
+	  
 		$database->database_query("
 		  INSERT INTO se_usersettings (
 		    usersetting_user_id,
@@ -2754,16 +2924,16 @@ class SEUser
 		    usersetting_notify_profilecomment,
 		    usersetting_actions_display
 		  ) VALUES (
-		    '{$this->user_info['user_id']}',
+		    '{$user_id}',
 		    '{$signup_notify_friendrequest}',
 		    '{$signup_notify_message}',
 		    '{$signup_notify_profilecomment}',
-		    '".implode(",", $action_ids)."'
+		    '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17'
 		  )
 		") or die($database->database_error());
 
 		// ADD USER DIRECTORY
-		$user_directory = $url->url_userdir($this->user_info['user_id']);
+		$user_directory = $url->url_userdir($user_id);
 		$user_path_array = explode("/", $user_directory);
 		array_pop($user_path_array);
 		array_pop($user_path_array);
@@ -2782,54 +2952,44 @@ class SEUser
 		  fclose($handle);
 		}
 		
-		// SAVE FIRST/LAST NAME, IF RELEVANT
-		if( trim($fname) ) {
-		  $flquery[] = "user_fname='".$fname."'";
-		  $this->user_info['user_fname'] = $fname;
-		}
-
-		if( trim($lname) ) {
-		  $flquery[] = "user_lname='".$lname."'";
-		  $this->user_info['user_lname'] = $lname;
+		if ($signup_email != 0 && $send_invite ) {
+			// SEND RANDOM PASSWORD IF NECESSARY
+			if( $setting['setting_signup_randpass'] ) {
+			  send_systememail('newpassword', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
+			}
+			
+			// SEND VERIFICATION EMAIL IF REQUIRED
+			if( $setting['setting_signup_verify'] ) {
+				
+			    $verify_code = md5($this->user_info['user_code']);
+				
+				$time = time();
+				$verify_link = $url->url_base."signup_verify.php?u={$this->user_info['user_id']}&verify={$verify_code}&d={$time}";
+				send_systememail('verification', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], "<a href=\"$verify_link\">$verify_link</a>")); 
+			} else { // INSERT ACTION IF VERIFICATION NOT NECESSARY
+			  $actions->actions_add($this, "signup", Array($this->user_info['user_username'], $this->user_displayname), Array(), 0, false, "user", $this->user_info['user_id'], $this->user_info['user_privacy']);
+			}
+		
+			// SEND WELCOME EMAIL IF REQUIRED (AND IF VERIFICATION EMAIL IS NOT BEING SENT)
+			if( $setting['setting_signup_welcome'] && !$setting['setting_signup_verify'] ) {
+				send_systememail('welcome', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
+			}
 		}
 		
-		if( !empty($flquery) ) {
-		  $database->database_query("UPDATE se_users SET ".implode(", ", $flquery)." WHERE user_id='{$this->user_info['user_id']}'");
-		  $this->user_displayname_update($fname, $lanme);
-		}
-
-		// SET DISPLAY NAME
-		$this->user_displayname();
-		
-		// CALL SIGNUP HOOK
-		($hook = SE_Hook::exists('se_signup_success')) ? SE_Hook::call($hook, array()) : NULL;
-		
-		// SEND RANDOM PASSWORD IF NECESSARY
-		if( $setting['setting_signup_randpass'] ) {
-		  send_systememail('newpassword', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
-		}
-		
-		// SEND VERIFICATION EMAIL IF REQUIRED
-		if( $setting['setting_signup_verify'] ) {
-		    $verify_code = md5($this->user_info['user_code']);
-		$time = time();
-		$verify_link = $url->url_base."signup_verify.php?u={$this->user_info['user_id']}&verify={$verify_code}&d={$time}";
-		send_systememail('verification', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], "<a href=\"$verify_link\">$verify_link</a>")); 
-		}
-
-		// INSERT ACTION IF VERIFICATION NOT NECESSARY
-		else {
-		  $actions->actions_add($this, "signup", Array($this->user_info['user_username'], $this->user_displayname), Array(), 0, false, "user", $this->user_info['user_id'], $this->user_info['user_privacy']);
-		}
-	
-		// SEND WELCOME EMAIL IF REQUIRED (AND IF VERIFICATION EMAIL IS NOT BEING SENT)
-		if( $setting['setting_signup_welcome'] && !$setting['setting_signup_verify'] ) {
-			send_systememail('welcome', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
-		}
+		return true; 
 	}
 
 
-
+	function get_tree_id($user_id){
+		global $database, $setting, $user;
+		
+		$sql = "SELECT `tree_id` FROM `se_tree_users` WHERE `user_id` = '$user_id' LIMIT 1;";
+		$r = $database->database_fetch_assoc($database->database_query($sql));
+		if ($r != false)
+			return $r['tree_id'];
+		else
+			return false;
+	}
 
 
 	// THIS METHOD DELETES THE USER CURRENTLY ASSOCIATED WITH THIS OBJECT
@@ -3855,14 +4015,15 @@ class SEUser
 	// THIS METHOD DELETES THE USER CURRENTLY ASSOCIATED WITH THIS OBJECT
 	// INPUT: $user_id
 	// OUTPUT:
-	function user_del($user_id)
-  {
+	function user_del($user_id) {
 	  global $database, $url, $global_plugins;
 	  // CALL USER DELETE HOOK
 	  ($hook = SE_Hook::exists('se_user_delete')) ? SE_Hook::call($hook, $user_id) : NULL;
     
 	  // DELETE USER, USERSETTING, PROFILE, STYLES TABLE ROWS
 	  $database->database_query("DELETE FROM se_users WHERE user_id='{$user_id}' LIMIT 1");
+	  $database->database_query("DELETE FROM se_role_in_family WHERE user_id='{$user_id}' LIMIT 1");
+	  $database->database_query("DELETE FROM se_tree_users WHERE user_id='{$user_id}' LIMIT 1");
 	  $database->database_query("DELETE FROM se_usersettings WHERE usersetting_user_id='{$user_id}' LIMIT 1");
 	  $database->database_query("DELETE FROM se_profilevalues WHERE profilevalue_user_id='{$user_id}' LIMIT 1");
 	  $database->database_query("DELETE FROM se_profilestyles WHERE profilestyle_user_id='{$user_id}' LIMIT 1");
