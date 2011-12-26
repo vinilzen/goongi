@@ -515,8 +515,11 @@ TREE.popups.collection = {
 		},
 
 		save: function() {
-			TREE.api.updatePerson(this.serialize());
-			this.hide();
+			TREE.api.updatePerson(this.serialize()).then(function() {
+				window.location.reload()
+			});
+			// this.hide();
+			// TODO: proper tree refresh
 		},
 
 		toggleDead: function(e) {
