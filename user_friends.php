@@ -11,8 +11,7 @@ if(isset($_POST['search'])) { $search = $_POST['search']; } elseif(isset($_GET['
 if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task'])) { $task = $_GET['task']; } else { $task = ""; }
 
 // ENSURE CONECTIONS ARE ALLOWED FOR THIS USER
-if( !$setting['setting_connection_allow'] )
-{
+if( !$setting['setting_connection_allow'] ) {
   header("Location: user_home.php");
   exit();
 }
@@ -35,8 +34,7 @@ switch($s)
 // SET WHERE CLAUSE
 $is_where = 0;
 $where = "";
-if($search != "")
-{
+if($search != "") {
   $is_where = 1;
   $where = "(se_users.user_username LIKE '%$search%' OR se_users.user_fname LIKE '%$search%' OR se_users.user_lname LIKE '%$search%' OR CONCAT(se_users.user_fname, ' ', se_users.user_lname) LIKE '%$search%' OR se_users.user_email LIKE '%$search%')";
 }
@@ -52,13 +50,12 @@ $total_friends = $user->user_friend_total(0, 1, $is_where, $where);
 $friends_per_page = 10;
 $page_vars = make_page($total_friends, $friends_per_page, $p);
 
-//echo '<pre>'; print_r($user); die();
+
 
 // GET FRIEND ARRAY
 $friends = $user->user_friend_list($page_vars[0], $friends_per_page, 0, 1, $sort, $where, $show_details);
 $groups = $user->user_group_list();
-//echo '<pre>->'; print_r($groups); die();
-
+//echo '<pre>'; print_r($friends); die();
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('$user_exists', $user->user_exists);
 $smarty->assign('s', $s);
@@ -67,6 +64,7 @@ $smarty->assign('l', $l);
 $smarty->assign('t', $t);
 $smarty->assign('search', $search);
 $smarty->assign('friends', $friends);
+$smarty->assign('user_groups', $user_groups);
 if ( isset($groups) && count($groups) )
 	$smarty->assign('groups', $groups);
 $smarty->assign('total_friends', $total_friends);

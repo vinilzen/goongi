@@ -1602,34 +1602,42 @@ class SEUser
       ";
       
       //echo $friend_query; die();
-      
+      $user_groups = $this->user_groups();
+	  $groups = $this->user_group_list();
+	  //echo '<pre>'; print_r($groups); die();
 	    // LOOP OVER FRIENDS
 	    $friends = $database->database_query($friend_query);
-	    while($friend_info = $database->database_fetch_assoc($friends))
-      {
-	      // CREATE AN OBJECT FOR FRIEND
-	      $friend = new SEUser();
-	      $friend->user_info['user_id'] = $friend_info['user_id'];
-	      $friend->user_info['user_username'] = $friend_info['user_username'];
-	      $friend->user_info['user_fname'] = $friend_info['user_fname'];
-	      $friend->user_info['user_lname'] = $friend_info['user_lname'];
-	      $friend->user_info['user_photo'] = $friend_info['user_photo'];
-	      $friend->user_info['user_lastlogindate'] = $friend_info['user_lastlogindate'];
-	      $friend->user_info['user_dateupdated'] = $friend_info['user_dateupdated'];
-	      $friend->is_viewers_friend = @$friend_info['is_viewers_friend'];
-	      $friend->is_viewers_blocklist = @$friend_info['is_viewers_blocklist'];
-	      $friend->user_displayname();
-        
-	      // SET FRIEND TYPE/EXPLANATION VARS
-	      if( $friend_details )
-        {
-	        $friend->friend_type = $friend_info['friend_type'];
-	        $friend->friend_explain = $friend_info['friendexplain_body'];
-	      }
-        
+	    while($friend_info = $database->database_fetch_assoc($friends)) {
+			// CREATE AN OBJECT FOR FRIEND
+			$friend = new SEUser();
+			$friend->user_info['user_id'] = $friend_info['user_id'];
+			$friend->user_info['user_username'] = $friend_info['user_username'];
+			$friend->user_info['user_fname'] = $friend_info['user_fname'];
+			$friend->user_info['user_lname'] = $friend_info['user_lname'];
+			$friend->user_info['user_photo'] = $friend_info['user_photo'];
+			$friend->user_info['user_lastlogindate'] = $friend_info['user_lastlogindate'];
+			$friend->user_info['user_dateupdated'] = $friend_info['user_dateupdated'];
+			$friend->is_viewers_friend = @$friend_info['is_viewers_friend'];
+			$friend->is_viewers_blocklist = @$friend_info['is_viewers_blocklist'];
+			$friend->user_displayname();
+		  
+			if (isset($user_groups[$friend->user_info['user_id']])) {
+				$own_groups = explode(',',$user_groups[$friend->user_info['user_id']]);
+				
+				foreach ($own_groups AS $k=>$v) {
+					$friend->user_info['groups'][$v] = $groups[$v];
+				}
+				
+			}
+			  // SET FRIEND TYPE/EXPLANATION VARS
+			if( $friend_details ) {
+				$friend->friend_type = $friend_info['friend_type'];
+				$friend->friend_explain = $friend_info['friendexplain_body'];
+			}
 	      // SET FRIEND ARRAY
 	      $friend_array[] = $friend;
 	    }
+		//die('');
 	  }
     
 	  // RETURN FRIEND ARRAY
@@ -1674,13 +1682,34 @@ class SEUser
 	 	
 	}
 
+
+	function user_groups() {
+		
+		global $database, $setting, $user;
+		$user_id = $user->user_info['user_id'];
+
+		$sql = "SELECT * FROM `se_groups` WHERE `user_id`='$user_id'";
+		$result = $database->database_query($sql);
+		$groups = array();
+		
+		while($group = $database->database_fetch_assoc($result)) {
+			$groups[$group['group_id']]['name'] = $group['group_name'];			
+		}
+	
+		if ( count($groups) ) {	
+			$group_users = $this->get_user_groups( implode(',',array_keys($groups)) );
+			foreach ( $groups AS $k=>$v ) {
+				$groups[$k]['users'] = $group_users[$k];
+			}
+		}
+		return $group_users;
+	}
+
 	function user_group_list() {
 		
 		global $database, $setting, $user;
 		$user_id = $user->user_info['user_id'];
-		
-		
-		
+
 		$sql = "SELECT * FROM `se_groups` WHERE `user_id`='$user_id'";	
 		$result = $database->database_query($sql);
 		$groups = array();
@@ -1722,7 +1751,31 @@ class SEUser
 		//print_r($result_group); die();
 		return $result_group;
 	}
-	
+
+	function get_user_groups($group_list = 0) {
+		
+		global $database, $setting, $user;
+		if ($group_list != 0 && strlen($group_list) ) {
+			$sql = "SELECT * FROM `se_group_users` WHERE `group_id` IN ($group_list)";
+		} else {
+			$sql = "SELECT * FROM `se_group_users`";
+		}
+		
+		$users = $database->database_query($sql);
+		$groups = array();
+		while($fr = $database->database_fetch_assoc($users)) {
+			$groups[$fr['user_id']][] = $fr['group_id'];
+		}
+		//print_r($sql); die();
+		$result_group = array();
+		if ( count($groups) ) {
+			foreach ( $groups AS $k=>$v ) {
+				$result_group[$k] = implode(',', $v);
+			}
+		}
+		//print_r($result_group); die();
+		return $result_group;
+	}
 	function get_user_info($members_list, $json = false) {
 		global $database, $setting, $user;
 		$user_id = $user->user_info['user_id'];
