@@ -106,7 +106,7 @@ select option	{padding:0 0 0 3px}
 .popup .content	{padding:14px 0 18px}
 .popup .footer	{padding:16px 0 0}
 .popup .footer .button	{margin:0 16px 0 0}
-.popup .footer .cancel	{color:#2a86dc; border-bottom:1px dotted #2a86dc; font-size:14px; font-weight:bold; cursor:pointer; display:inline-block; font-family:trebuchet ms}
+.popup .footer .cancel	{color:#2a86dc; border-bottom:1px dashed #2a86dc; font-size:14px; font-weight:bold; cursor:pointer; display:inline-block; font-family:trebuchet ms}
 
 .popup .field table .sep	{width:16px}
 .popup .field table th, .popup .field table td	{padding:0}
