@@ -77,7 +77,7 @@ select option	{padding:0 0 0 3px}
 */
 
 .person	{display:inline-block; border:2px solid #9cd3ed; margin:0 30px; padding:8px 12px 0; width:130px; box-shadow:0 0 10px #ccc; background:#ecf9ff}
-.person .relation	{color:#666; margin:0 20px 10px 0}
+.person .relation	{color:#666; margin:0 20px 10px 0; visibility:hidden}
 .person .info	{cursor:pointer; width:16px; height:16px; float:right; background:url(../img/icons/info.png)}
 .person .photo	{margin:0 0 10px; overflow:hidden}
 .person .photo img	{height:120px; display:block; margin:0 auto}
