@@ -156,7 +156,7 @@ var TREE = {
 	},
 */
 	render: function(options) {
-		var father = json.users[json.user.father];
+		var father = json.users[json.user.father] || json.user;
 		while (json.users[father.father]) {
 			father = json.users[father.father];
 		}
