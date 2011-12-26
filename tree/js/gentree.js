@@ -162,6 +162,12 @@ var TREE = {
 		}
 		this.viewpoint.empty();
 		this.renderFamily(father.id).appendTo(this.viewpoint);
+		this.viewpoint.find('.children').each(function() {
+			$(this).width(_.reduce($(this).children(), function(width, x) {
+				return width + $(x).width()
+			}, 0));
+		})
+
 		this.renderPath();
 		options && options.centering && this.centerView();
 	},
@@ -207,28 +213,38 @@ var TREE = {
 			ctx.strokeStyle = '#999';
 			ctx.beginPath();
 
-			if (parents.length > 1) {
-				var x = parents.eq(1).offset().left - family.offset().left,
+			if (children.length) {
+				var x, y, parentLink;
+				switch (parents.length) {
+				case 1:
+					x = (parents.offset().left - family.offset().left + parents.outerWidth() / 2).toHalf();
+					y = parents.outerHeight();
+					ctx.moveTo(x, y);
+					ctx.lineTo(x, y + 30.5);
+					parentLink = [x, y + 30.5];
+					break;
+				case 2:
+					x = parents.eq(1).offset().left - family.offset().left;
 					y = parents.eq(0).outerHeight();
-				ctx.moveTo(x, y / 2);
-				ctx.lineTo(x - 60.5, y / 2);
-				ctx.moveTo(x - 30.5, y / 2);
-				ctx.lineTo(x - 30.5, y + 30.5);
+					ctx.moveTo(x, y / 2);
+					ctx.lineTo(x - 60.5, y / 2);
+					ctx.moveTo(x - 30.5, y / 2);
+					ctx.lineTo(x - 30.5, y + 30.5);
+					parentLink = [x - 30.5, y + 30.5];
+					break;
+				}
 
-				var parentLink = [x - 30.5, y + 30.5];
+				children.each(function() {
 
+					x = $(this).offset().left - family.closest('.family').offset().left + $(this).outerWidth() / 2 + .5;
+					y = $(this).offset().top;
+
+					ctx.moveTo(parentLink[0], parentLink[1]);
+					ctx.lineTo(x, parentLink[1]);
+					ctx.lineTo(x, parentLink[1] + 30);
+
+				});
 			}
-
-			children.each(function() {
-
-				x = $(this).offset().left - family.closest('.family').offset().left + $(this).outerWidth() / 2 + .5;
-				y = $(this).offset().top;
-
-				ctx.moveTo(parentLink[0], parentLink[1]);
-				ctx.lineTo(x, parentLink[1]);
-				ctx.lineTo(x, parentLink[1] + 30);
-
-			});
 
 			ctx.stroke();
 
