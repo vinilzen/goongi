@@ -156,14 +156,27 @@ var TREE = {
 	},
 */
 	render: function(options) {
-		var father = json.users[json.user.father];
+		var father = json.users[json.user.father] || json.user;
 		while (json.users[father.father]) {
 			father = json.users[father.father];
 		}
 		this.viewpoint.empty();
 		this.renderFamily(father.id).appendTo(this.viewpoint);
+		this.viewpoint.find('.children').each(function() {
+			$(this).width(_.reduce($(this).children(), function(width, x) {
+				return width + $(x).width()
+			}, 0));
+		})
+
 		this.renderPath();
-		options.centering && this.centerView();
+		if (window.location.hash) {
+			var scroll = window.location.hash.replace('#', '').split(',');
+			setTimeout(function() {
+				$(document).scrollLeft(scroll[0]).scrollTop(scroll[1]);
+			}, 100);
+		} else {
+			options && options.centering && this.centerView();
+		}
 	},
 
 	renderFamily: function(parentId) {
@@ -207,28 +220,38 @@ var TREE = {
 			ctx.strokeStyle = '#999';
 			ctx.beginPath();
 
-			if (parents.length > 1) {
-				var x = parents.eq(1).offset().left - family.offset().left,
+			if (children.length) {
+				var x, y, parentLink;
+				switch (parents.length) {
+				case 1:
+					x = (parents.offset().left - family.offset().left + parents.outerWidth() / 2).toHalf();
+					y = parents.outerHeight();
+					ctx.moveTo(x, y);
+					ctx.lineTo(x, y + 30.5);
+					parentLink = [x, y + 30.5];
+					break;
+				case 2:
+					x = parents.eq(1).offset().left - family.offset().left;
 					y = parents.eq(0).outerHeight();
-				ctx.moveTo(x, y / 2);
-				ctx.lineTo(x - 60.5, y / 2);
-				ctx.moveTo(x - 30.5, y / 2);
-				ctx.lineTo(x - 30.5, y + 30.5);
+					ctx.moveTo(x, y / 2);
+					ctx.lineTo(x - 60.5, y / 2);
+					ctx.moveTo(x - 30.5, y / 2);
+					ctx.lineTo(x - 30.5, y + 30.5);
+					parentLink = [x - 30.5, y + 30.5];
+					break;
+				}
 
-				var parentLink = [x - 30.5, y + 30.5];
+				children.each(function() {
 
+					x = $(this).offset().left - family.closest('.family').offset().left + $(this).outerWidth() / 2 + .5;
+					y = $(this).offset().top;
+
+					ctx.moveTo(parentLink[0], parentLink[1]);
+					ctx.lineTo(x, parentLink[1]);
+					ctx.lineTo(x, parentLink[1] + 30);
+
+				});
 			}
-
-			children.each(function() {
-
-				x = $(this).offset().left - family.closest('.family').offset().left + $(this).outerWidth() / 2 + .5;
-				y = $(this).offset().top;
-
-				ctx.moveTo(parentLink[0], parentLink[1]);
-				ctx.lineTo(x, parentLink[1]);
-				ctx.lineTo(x, parentLink[1] + 30);
-
-			});
 
 			ctx.stroke();
 
@@ -403,13 +426,32 @@ TREE.popups.collection = {
 		},
 
 		add: function(e) {
-			var tar = $(e.currentTarget);
+			var tar = $(e.currentTarget),
+				person = this.el.children('.person'),
+				offset = person.offset();
 			if (tar.hasClass('add-child')) {
-				var person = this.el.children('.person'),
-					offset = person.offset();
 				TREE.popups.collection.personal.render({
 					type: 'add',
+					role: 'child',
 					header: 'Добавить ребёнка',
+					person: {
+						id: _(json.users).chain().keys().map(function(x) {
+							return parseInt(x, 10)
+						}).max().value() + 1,
+						sex: tar.hasClass('alt') ? 'w' : 'm',
+						fname: '',
+						lname: '',
+						alias: '',
+						birthday: null,
+						death: null
+					},
+					offset: [offset.left + person.outerWidth() + 10, offset.top]
+				});
+			} else if (tar.hasClass('add-sibling')) {
+				TREE.popups.collection.personal.render({
+					type: 'add',
+					role: 'sibling',
+					header: 'Добавить сиблинга',
 					person: {
 						id: _(json.users).chain().keys().map(function(x) {
 							return parseInt(x, 10)
@@ -450,6 +492,7 @@ TREE.popups.collection = {
 			this.$('.content').html(this.tmpl(options.person));
 			this.show();
 			this.type = options.type;
+			this.role = options.role;
 		},
 
 		show: function() {
@@ -467,6 +510,7 @@ TREE.popups.collection = {
 			var inp = this.el.find('input, select');
 			return {
 				type_request: this.type,
+				role: this.role === 'sibling' ? inp.filter('[name=sex]:checked').val() === 'm' ? 'brother' : 'sister' : this.role || '',
 				user_id: inp.filter('[name=id]').val(),
 				sex: inp.filter('[name=sex]:checked').val(),
 				fname: inp.filter('[name=fname]').val(),
@@ -478,8 +522,12 @@ TREE.popups.collection = {
 		},
 
 		save: function() {
-			TREE.api.updatePerson(this.serialize());
-			this.hide();
+			TREE.api.updatePerson(this.serialize()).then(function() {
+				window.location.replace(window.location.href.split('#')[0] + '#' + $(document).scrollLeft() + ',' + $(document).scrollTop());
+				window.location.reload();
+			});
+			// this.hide();
+			// TODO: proper tree refresh
 		},
 
 		toggleDead: function(e) {

@@ -77,11 +77,11 @@ select option	{padding:0 0 0 3px}
 */
 
 .person	{display:inline-block; border:2px solid #9cd3ed; margin:0 30px; padding:8px 12px 0; width:130px; box-shadow:0 0 10px #ccc; background:#ecf9ff}
-.person .relation	{color:#666; margin:0 20px 10px 0}
+.person .relation	{color:#666; margin:0 20px 10px 0; visibility:hidden}
 .person .info	{cursor:pointer; width:16px; height:16px; float:right; background:url(../img/icons/info.png)}
 .person .photo	{margin:0 0 10px; overflow:hidden}
 .person .photo img	{height:120px; display:block; margin:0 auto}
-.person .name	{margin:0 0 8px}
+.person .name	{margin:0 0 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .person .name, .person .relation	{font-weight:bold}
 .person .name, .person .actions	{color:#2a86dc}
 .person .actions ul	{list-style:none; border-width:1px 0; border-style:solid; border-color:#c9d4d9; background:#fff; margin:0 -12px; line-height:16px; padding:5px 0}
@@ -106,17 +106,17 @@ select option	{padding:0 0 0 3px}
 .popup .content	{padding:14px 0 18px}
 .popup .footer	{padding:16px 0 0}
 .popup .footer .button	{margin:0 16px 0 0}
-.popup .footer .cancel	{color:#2a86dc; border-bottom:1px dotted #2a86dc; font-size:14px; font-weight:bold; cursor:pointer; display:inline-block; font-family:trebuchet ms}
+.popup .footer .cancel	{color:#2a86dc; border-bottom:1px dashed #2a86dc; font-size:14px; font-weight:bold; cursor:pointer; display:inline-block; font-family:trebuchet ms}
 
 .popup .field table .sep	{width:16px}
 .popup .field table th, .popup .field table td	{padding:0}
 .popup .field	{line-height:21px}
 .popup .field	{padding:4px 0}
-.popup .field label	{margin:0 8px 0 0; display:inline-block}
+.popup .field label	{margin:0 8px 0 0; display:inline-block; line-height:24px}
 .popup .field input[type=text]	{width:100%; box-sizing:border-box; -moz-box-sizing:border-box}
 .popup .field select	{width:100%}
 .popup .field .name	{font-weight:bold}
-.popup label	{display:block; line-height:24px}
+.popup label	{display:block; margin:0 0 10px}
 
 .popup table	{table-layout:fixed; border-collapse:collapse}
 .popup th, .popup td	{line-height:21px; white-space:nowrap; padding:0 20px 0 0}
