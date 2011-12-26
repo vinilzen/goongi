@@ -169,7 +169,14 @@ var TREE = {
 		})
 
 		this.renderPath();
-		options && options.centering && this.centerView();
+		if (window.location.hash) {
+			var scroll = window.location.hash.replace('#', '').split(',');
+			setTimeout(function() {
+				$(document).scrollLeft(scroll[0]).scrollTop(scroll[1]);
+			}, 100);
+		} else {
+			options && options.centering && this.centerView();
+		}
 	},
 
 	renderFamily: function(parentId) {
@@ -516,7 +523,8 @@ TREE.popups.collection = {
 
 		save: function() {
 			TREE.api.updatePerson(this.serialize()).then(function() {
-				window.location.reload()
+				window.location.replace(window.location.href.split('#')[0] + '#' + $(document).scrollLeft() + ',' + $(document).scrollTop());
+				window.location.reload();
 			});
 			// this.hide();
 			// TODO: proper tree refresh
