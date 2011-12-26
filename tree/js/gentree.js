@@ -163,7 +163,7 @@ var TREE = {
 		this.viewpoint.empty();
 		this.renderFamily(father.id).appendTo(this.viewpoint);
 		this.renderPath();
-		options.centering && this.centerView();
+		options && options.centering && this.centerView();
 	},
 
 	renderFamily: function(parentId) {
@@ -403,13 +403,32 @@ TREE.popups.collection = {
 		},
 
 		add: function(e) {
-			var tar = $(e.currentTarget);
+			var tar = $(e.currentTarget),
+				person = this.el.children('.person'),
+				offset = person.offset();
 			if (tar.hasClass('add-child')) {
-				var person = this.el.children('.person'),
-					offset = person.offset();
 				TREE.popups.collection.personal.render({
 					type: 'add',
+					role: 'child',
 					header: 'Добавить ребёнка',
+					person: {
+						id: _(json.users).chain().keys().map(function(x) {
+							return parseInt(x, 10)
+						}).max().value() + 1,
+						sex: tar.hasClass('alt') ? 'w' : 'm',
+						fname: '',
+						lname: '',
+						alias: '',
+						birthday: null,
+						death: null
+					},
+					offset: [offset.left + person.outerWidth() + 10, offset.top]
+				});
+			} else if (tar.hasClass('add-sibling')) {
+				TREE.popups.collection.personal.render({
+					type: 'add',
+					role: 'sibling',
+					header: 'Добавить сиблинга',
 					person: {
 						id: _(json.users).chain().keys().map(function(x) {
 							return parseInt(x, 10)
@@ -450,6 +469,7 @@ TREE.popups.collection = {
 			this.$('.content').html(this.tmpl(options.person));
 			this.show();
 			this.type = options.type;
+			this.role = options.role;
 		},
 
 		show: function() {
@@ -467,6 +487,7 @@ TREE.popups.collection = {
 			var inp = this.el.find('input, select');
 			return {
 				type_request: this.type,
+				role: this.role === 'sibling' ? inp.filter('[name=sex]:checked').val() === 'm' ? 'brother' : 'sister' : this.role || '',
 				user_id: inp.filter('[name=id]').val(),
 				sex: inp.filter('[name=sex]:checked').val(),
 				fname: inp.filter('[name=fname]').val(),
