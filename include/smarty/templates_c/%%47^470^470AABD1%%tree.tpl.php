@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-23 17:29:13
+<?php /* Smarty version 2.6.14, created on 2011-12-26 09:45:16
          compiled from tree.tpl */
 ?><?php
 SELanguage::load();
@@ -17,23 +17,21 @@ SELanguage::load();
 	<script src="/tree/js/utils.js"></script>
 </head>
 <body>
-<?php echo '
 
 <div id="header">
 	<div class="caption">Моё дерево</div>
 	<div class="float-r">
-		<div class="ico home"></div>
+		<!--div class="ico home"></div-->
 		<div class="ico print"></div>
 		<div class="ico settings"></div>
 	</div>
 	<div class="breadcrumb">
-		<a href="#">Главная</a>
+		<a href="/" target="_top">Главная</a>
 		<span>&rarr;</span>
-		<a href="/'; 
- echo $this->_tpl_vars['user']->user_info['user_username']; 
- echo '" target="_top">Профиль</a>
+		<a href="/<?php echo $this->_tpl_vars['user']->user_info['user_username']; ?>
+" target="_top">Профиль</a>
 		<span>&rarr;</span>
-		<a href="#">Моё дерево</a>
+		<b>Моё дерево</b>
 	</div>
 	<!--div class="button"><div>Добавить родственника</div></div>
 	<div class="button sub"><div>Сохранить дерево</div></div-->
@@ -58,9 +56,8 @@ SELanguage::load();
 <script id="user-tmpl" type="text/html">
 	<div class="name"><%= Base64.decode(displayname) %></div>
 	<div class="photo">
-		<a href="/'; 
- echo $this->_tpl_vars['user']->user_info['user_username']; 
- echo '" target="_top">
+		<a href="/<?php echo $this->_tpl_vars['user']->user_info['user_username']; ?>
+" target="_top">
 			<img src="<%= TREE.url.image.format(id, photo) %>" />
 		</a>
 	</div>
@@ -106,6 +103,8 @@ SELanguage::load();
 </script>
 
 <div id="viewpoint"></div>
+
+<?php echo '
 
 <script id="person-tmpl" type="text/html">
 	<div class="person<%= sex === "w" ? " alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">

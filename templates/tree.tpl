@@ -13,21 +13,20 @@
 	<script src="/tree/js/utils.js"></script>
 </head>
 <body>
-{literal}
 
 <div id="header">
 	<div class="caption">Моё дерево</div>
 	<div class="float-r">
-		<div class="ico home"></div>
+		<!--div class="ico home"></div-->
 		<div class="ico print"></div>
 		<div class="ico settings"></div>
 	</div>
 	<div class="breadcrumb">
-		<a href="#">Главная</a>
+		<a href="/" target="_top">Главная</a>
 		<span>&rarr;</span>
-		<a href="/{/literal}{$user->user_info.user_username}{literal}" target="_top">Профиль</a>
+		<a href="/{$user->user_info.user_username}" target="_top">Профиль</a>
 		<span>&rarr;</span>
-		<a href="#">Моё дерево</a>
+		<b>Моё дерево</b>
 	</div>
 	<!--div class="button"><div>Добавить родственника</div></div>
 	<div class="button sub"><div>Сохранить дерево</div></div-->
@@ -52,7 +51,7 @@
 <script id="user-tmpl" type="text/html">
 	<div class="name"><%= Base64.decode(displayname) %></div>
 	<div class="photo">
-		<a href="/{/literal}{$user->user_info.user_username}{literal}" target="_top">
+		<a href="/{$user->user_info.user_username}" target="_top">
 			<img src="<%= TREE.url.image.format(id, photo) %>" />
 		</a>
 	</div>
@@ -98,6 +97,8 @@
 </script>
 
 <div id="viewpoint"></div>
+
+{literal}
 
 <script id="person-tmpl" type="text/html">
 	<div class="person<%= sex === "w" ? " alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
