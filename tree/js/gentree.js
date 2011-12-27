@@ -353,15 +353,7 @@ TREE.popups.collection = {
 		initialize: function() {
 			this.el.on('click', '.button', $.proxy(this, 'add'));
 			this.el.on('click', '.toggle', $.proxy(this, 'hide'));
-			this.el.on('click', '.edit', function() {
-				var person = $(this).closest('.person'),
-					offset = person.offset();
-				TREE.popups.collection.personal.render({
-					type: 'edit',
-					person: json.users[person.data('id')],
-					offset: [offset.left + person.outerWidth() + 10, offset.top]
-				});
-			});
+			this.el.on('click', '.edit', $.proxy(this, 'edit'));
 		},
 
 		render: function(person) {
@@ -425,6 +417,16 @@ TREE.popups.collection = {
 
 		},
 
+		edit: function(e) {
+			var person = $(e.currentTarget).closest('.person'),
+				offset = person.offset();
+			TREE.popups.collection.personal.render({
+				type: 'edit',
+				person: json.users[person.data('id')],
+				offset: [offset.left + person.outerWidth() + 10, offset.top]
+			});
+		},
+
 		add: function(e) {
 			var tar = $(e.currentTarget),
 				person = this.el.children('.person'),
@@ -435,9 +437,7 @@ TREE.popups.collection = {
 					role: 'child',
 					header: 'Добавить ребёнка',
 					person: {
-						id: _(json.users).chain().keys().map(function(x) {
-							return parseInt(x, 10)
-						}).max().value() + 1,
+						id: person.data('id'),
 						sex: tar.hasClass('alt') ? 'w' : 'm',
 						fname: '',
 						lname: '',
@@ -453,9 +453,7 @@ TREE.popups.collection = {
 					role: 'sibling',
 					header: 'Добавить сиблинга',
 					person: {
-						id: _(json.users).chain().keys().map(function(x) {
-							return parseInt(x, 10)
-						}).max().value() + 1,
+						id: person.data('id'),
 						sex: tar.hasClass('alt') ? 'w' : 'm',
 						fname: '',
 						lname: '',
