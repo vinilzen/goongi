@@ -51,10 +51,10 @@ switch ($type_request) {
 					$new_user["death"] = isset($_POST['death'])?$_POST['death']:'0000-00-00'; // 0000-00-00
 					$new_user["alias"] = isset($_POST['alias'])?$_POST['alias']:'';
 					
-					if (	$role == 'child' || 
-							$role == 'father' || $role == 'mother' || 
-							$role == 'wife' || $role == 'husband' || 
-							$role == 'brother' || $role == 'sister' ) {
+					if (	$role == 'child'	|| 
+							$role == 'father'	|| $role == 'mother' || 
+							$role == 'wife'		|| $role == 'husband' || 
+							$role == 'brother'	|| $role == 'sister' ) {
 						
 						//echo $role; die();
 						switch ($role) {
@@ -68,8 +68,26 @@ switch ($type_request) {
 										
 									$family_id = $user->get_parent_family_id($user_id);
 									
-									$error = 'все чё';
-									$result = 'ok.';
+									if ( $user->user_create_fast(
+										$new_user['fname'],
+										$new_user['lname'], 
+										$user_id, 
+										$role, 
+										$new_user['email'],
+										$new_user["birthday"],
+										$new_user["sex"],
+										$new_user["death"],
+										$new_user["alias"],
+										$new_user["send_invite"],
+										$family_id ) ) {
+									
+										$error = 0;
+										$result = SE_Language::get(729);
+										
+									} else {
+										$error = 1;
+										$result = 'Ошибка при создании пользователя';
+									}
 									
 								} else {
 									$error = 'Ошибка';
@@ -86,8 +104,26 @@ switch ($type_request) {
 										
 									$family_id = $user->get_parent_family_id($user_id);
 										
-									$error = 'все чё';
-									$result = 'ok.';
+									if ( $user->user_create_fast(
+										$new_user['fname'],
+										$new_user['lname'], 
+										$user_id, 
+										$role, 
+										$new_user['email'],
+										$new_user["birthday"],
+										$new_user["sex"],
+										$new_user["death"],
+										$new_user["alias"],
+										$new_user["send_invite"],
+										$family_id ) ) {
+									
+										$error = 0;
+										$result = SE_Language::get(729);
+										
+									} else {
+										$error = 1;
+										$result = 'Ошибка при создании пользователя';
+									}
 									
 								} else {
 									$error = 'Ошибка';
@@ -106,8 +142,26 @@ switch ($type_request) {
 										
 										$family_id = $user->get_main_family_id($user_id,'m');
 										
-										$error = 'все чё';
-										$result = 'ok.';
+										if ( $user->user_create_fast(
+											$new_user['fname'],
+											$new_user['lname'], 
+											$user_id, 
+											$role, 
+											$new_user['email'],
+											$new_user["birthday"],
+											$new_user["sex"],
+											$new_user["death"],
+											$new_user["alias"],
+											$new_user["send_invite"],
+											$family_id ) ) {
+										
+											$error = 0;
+											$result = SE_Language::get(729);
+											
+										} else {
+											$error = 1;
+											$result = 'Ошибка при создании пользователя';
+										}
 										
 									} else {
 										$error = 'Ошибка';
@@ -128,8 +182,26 @@ switch ($type_request) {
 	
 										$family_id = $user->get_main_family_id($user_id,'m');
 										
-										$error = 'все чё';
-										$result = 'ok.';
+										if ( $user->user_create_fast(
+											$new_user['fname'],
+											$new_user['lname'], 
+											$user_id, 
+											$role, 
+											$new_user['email'],
+											$new_user["birthday"],
+											$new_user["sex"],
+											$new_user["death"],
+											$new_user["alias"],
+											$new_user["send_invite"],
+											$family_id ) ) {
+										
+											$error = 0;
+											$result = SE_Language::get(729);
+											
+										} else {
+											$error = 1;
+											$result = 'Ошибка при создании пользователя';
+										}
 										
 									} else {
 										$error = 'Ошибка';
@@ -164,7 +236,8 @@ switch ($type_request) {
 									$result = SE_Language::get(729);
 									
 								} else {
-									
+									$error = 1;
+									$result = 'Ошибка при создании пользователя';
 								}
 								
 								break;
@@ -172,8 +245,27 @@ switch ($type_request) {
 							case 'brother'||'sister':
 								$role = 'child';
 								$family_id = $user->get_parent_family_id($user_id);
+
+								if ( $user->user_create_fast(
+									$new_user['fname'],
+									$new_user['lname'], 
+									$user_id, 
+									$role, 
+									$new_user['email'],
+									$new_user["birthday"],
+									$new_user["sex"],
+									$new_user["death"],
+									$new_user["alias"],
+									$new_user["send_invite"],
+									$family_id ) ) {
 								
-								
+									$error = 0;
+									$result = SE_Language::get(729);
+									
+								} else {
+									$error = 1;
+									$result = 'Ошибка при создании пользователя';
+								}
 								
 								break;
 							

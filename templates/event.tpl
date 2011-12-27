@@ -15,37 +15,12 @@
 		<input type="button" value="Удалить" name="creat" id="event_del" rel="{$event->event_info.event_id}" />
 	</span><span class="r">&nbsp;</span></span>
 </div>
-{* HIDDEN DIV TO DISPLAY CANCEL REQUEST CONFIRMATION MESSAGE *}
-<div style='display: none;' id='confirmeventrequestcancel'>
-  <div style='margin-top: 10px;'>
-    {lang_print id=3000221}
-  </div>
-  <br />
-  {lang_block id=175 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.SocialEngine.Event.cancelConfirm();' />{/lang_block}
-  {lang_block id=39 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.TB_remove();' />{/lang_block}
-</div>
+{* HIDDEN DIV TO DISPLAY CANCEL REQUEST CONFIRMATION MESSAGE 3000221 *}
 
+{* HIDDEN DIV TO DISPLAY LEAVE CONFIRMATION MESSAGE 3000220 *}
 
-{* HIDDEN DIV TO DISPLAY LEAVE CONFIRMATION MESSAGE *}
-<div style='display: none;' id='confirmeventleave'>
-  <div style='margin-top: 10px;'>
-    {lang_print id=3000220}
-  </div>
-  <br />
-  {lang_block id=3000219 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.SocialEngine.Event.leaveConfirm();' />{/lang_block}
-  {lang_block id=39 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.TB_remove();' />{/lang_block}
-</div>
+{* HIDDEN DIV TO DISPLAY DELETE CONFIRMATION MESSAGE - 3000094 *}
 
-
-{* HIDDEN DIV TO DISPLAY DELETE CONFIRMATION MESSAGE *}
-<div style='display: none;' id='confirmeventdelete'>
-  <div style='margin-top: 10px;'>
-    {lang_print id=3000094}
-  </div>
-  <br />
-  {lang_block id=175 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.SocialEngine.Event.deleteConfirm();' />{/lang_block}
-  {lang_block id=39 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.TB_remove();' />{/lang_block}
-</div>
 
 
 {* HIDDEN DIV TO DISPLAY MEMBER INVITE *}

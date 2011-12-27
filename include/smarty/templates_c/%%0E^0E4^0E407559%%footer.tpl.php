@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?php /* Smarty version 2.6.14, created on 2011-12-27 17:12:39
+=======
+<?php /* Smarty version 2.6.14, created on 2011-12-23 18:04:26
+>>>>>>> 70d5b2a6461d8c9b642ab35d2b75973c964bb722
          compiled from footer.tpl */
 ?><?php
 SELanguage::_preload_multi(6000146,3000115);
@@ -101,11 +105,27 @@ unset($_smarty_tpl_vars);
 <div id="popup"></div>
 <div class="window rezina" id="add_msg_w">
 	<div class="close"></div>
-            <div class="w_t">
+        <div class="w_t">
             <h1>Написать сообщение</h1>
+        </div>
+        <div class="w_c">
+            <div class="form add_w" id="add_msg_b">
+        </div>
+        </div>
+        <div class="w_b"></div>
+        </div>
+    </div>
+	<div class="w_b"></div>
+</div>
+<div id="popup"></div>
+<div class="window rezina" id="add_msg_w_g">
+	<div class="close"></div>
+            <div class="w_t">
+            <h1>Отправить подарок</h1>
              </div>
                 <div class="w_c">
-                <div class="form add_w" id="add_msg_b">
+                <div class="form add_w_g" id="add_msg_b_g">
+
                 </div>
                 </div>
                 <div class="w_b"></div>
@@ -144,8 +164,11 @@ unset($_smarty_tpl_vars);
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 70d5b2a6461d8c9b642ab35d2b75973c964bb722
 <div class="window rezina" id="add_meropriatie_w">
 	<div class="close"></div>
 	<div class="w_t">
@@ -223,6 +246,9 @@ unset($_smarty_tpl_vars);
     </div>
 	<div class="w_b"></div>
 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 70d5b2a6461d8c9b642ab35d2b75973c964bb722
 </body>
 </html>
