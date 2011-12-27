@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-22 12:44:57
+<?php /* Smarty version 2.6.14, created on 2011-12-26 14:04:45
          compiled from user_friends.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends.tpl', 152, false),array('function', 'cycle', 'user_friends.tpl', 188, false),array('modifier', 'truncate', 'user_friends.tpl', 179, false),)), $this);
+smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'user_friends.tpl', 154, false),array('modifier', 'truncate', 'user_friends.tpl', 181, false),)), $this);
 ?><?php
 SELanguage::_preload_multi(894,652,895,896,899,646,900,901,902,903,905,904,182,184,185,183,509,849,906,907,839,836,889);
 SELanguage::load();
@@ -31,38 +31,35 @@ unset($_smarty_tpl_vars);
 <?php echo '
 <script type="text/javascript">
 function createGroup() {
-
 	$(\'#msg_gr\').html(\'<img src="/images/96.gif" border="0" />\');
 	var go = 1;
 	if (go == 1) {
 		go = 0;
-		$.post(
-			"user_add_group.php", 	
-			{ task: \'add\' , gn: $(\'#group_name\').attr(\'value\') },
-			function(data) {
-				if ( data.success == \'0\') {
-					$(\'#msg_gr\').html(data.msg);
-					go = 1;
+		$.post(	"user_add_group.php", 	
+				{ task: \'add\' , gn: $(\'#group_name\').attr(\'value\') },
+				function(data) {
+					if ( data.success == \'0\') {
+						$(\'#msg_gr\').html(data.msg);
+						go = 1;
+					}
+					if (data.success == \'1\') {
+						$(\'#msg_gr\').html(data.msg);
+						setTimeout ( function() {
+							$(\'#popup\').fadeOut(300);
+							$(\'.window\').hide();
+							e.preventDefault();
+						}, 1500);
+						
+						update_group_list();
+					}
 				}
-				if (data.success == \'1\') {
-					$(\'#msg_gr\').html(data.msg);
-					setTimeout ( function() {
-						$(\'#popup\').fadeOut(300);
-						$(\'.window\').hide();
-						e.preventDefault();
-					}, 1500);
-					
-					update_group_list();
-				}
-			}
-			, "json" 
+				, "json" 
 		);
 	}
 }
 function update_group_list() {
 
-	$.post(
-			"user_add_group.php", 
+	$.post(	"user_add_group.php", 
 			{ task: \'update\' },
 			function(data) {
 				if ( data.success == \'0\') {
@@ -75,11 +72,10 @@ function update_group_list() {
 			}
 			, "json" 
 		);
-	
 }
-function show_user() {
-	alert(\'filtr\');
-}
+
+
+
 
 </script>
 '; ?>
@@ -91,14 +87,20 @@ function show_user() {
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
 	<li><a href="#" rel="<?php echo $this->_tpl_vars['k']; ?>
-" onclick="show_user(<?php echo $this->_tpl_vars['v']['users']; ?>
-);return false;"><?php echo $this->_tpl_vars['v']['name']; ?>
+"><?php echo $this->_tpl_vars['v']['name']; ?>
 </a></li>
 	<?php endforeach; endif; unset($_from); ?></ul>
 </div>
-
-
 <?php echo '
+<script type="text/javascript">
+$(\'#user_groups a\').click(function(){
+	
+	alert($(this).attr(\'rel\'));
+	return false;
+});
+</script>
+'; 
+ echo '
 <script type="text/javascript">
 <!-- 
   window.addEvent(\'domready\', function(){
@@ -124,7 +126,6 @@ function show_user() {
 		<input type='text' maxlength='100' size='30' class='text' id='search' name='search' value='<?php echo $this->_tpl_vars['search']; ?>
 ' />
 		<div id='suggest' class='suggest'></div>
-
 		<input type='submit' class='button' value='<?php echo SELanguage::_get(646); ?>' />
 		<input type='hidden' name='s' value='<?php echo $this->_tpl_vars['s']; ?>
 ' />
@@ -144,11 +145,11 @@ function show_user() {
 
 <?php if ($this->_tpl_vars['total_friends'] == 0): ?>
 
-    <?php if ($this->_tpl_vars['search'] != ""): ?>
-      <img src='./images/icons/bulb16.gif' border='0' class='icon'><?php echo SELanguage::_get(905); ?>
-    <?php else: ?>
-      <img src='./images/icons/bulb16.gif' border='0' class='icon'><?php echo SELanguage::_get(904); ?>
-  <?php endif; 
+		<?php if ($this->_tpl_vars['search'] != ""): ?>
+		<?php echo SELanguage::_get(905); ?>
+		<?php else: ?>
+		<?php echo SELanguage::_get(904); ?>
+	<?php endif; 
  else: ?>
 
     <?php echo '
@@ -161,7 +162,7 @@ function show_user() {
 &search=<?php echo $this->_tpl_vars['search']; ?>
 &p=<?php echo $this->_tpl_vars['p']; ?>
 ';
-    <?php echo '
+    <?php echo '	
   }
   //-->
   </script>
@@ -213,7 +214,10 @@ $this->_sections['friend_loop']['first']      = ($this->_sections['friend_loop']
 $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']['iteration'] == $this->_sections['friend_loop']['total']);
 ?>
     	<li id="frend_<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_id']; ?>
-">
+" class="<?php $_from = $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['groups']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+    foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['group']):
+?>group_<?php echo $this->_tpl_vars['k']; ?>
+ <?php endforeach; endif; unset($_from); ?>">
 		<a href="<?php echo $this->_tpl_vars['url']->url_create('profile',$this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_info['user_username']); ?>
 "  class="frend_img">
 			<img src='<?php echo $this->_tpl_vars['friends'][$this->_sections['friend_loop']['index']]->user_photo('./images/nophoto.gif'); ?>
@@ -247,8 +251,6 @@ $this->_sections['friend_loop']['last']       = ($this->_sections['friend_loop']
 " href="#"><?php echo SELanguage::_get(889); ?></a>
 		</div>
 	</li>
-      <?php echo smarty_function_cycle(array('values' => ",<div style='clear: both;'></div>"), $this);?>
- 
     <?php endfor; endif; ?>
     </ul>
   </div>
