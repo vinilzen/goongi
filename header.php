@@ -275,7 +275,8 @@ if( !defined('SE_PAGE_AJAX') )
   update_stats("views");
   
   // LOAD ADS
-  $ads->load();
+ $ads->load();
+ 
 }
 
 

@@ -13,7 +13,22 @@
 
 class se_ads
 {
-	var $ad_top; 			// VARIABLE REPRESENTING PAGE TOP BANNER HTML
+      var $ad_top; 			// VARIABLE REPRESENTING PAGE TOP BANNER HTML
+      var $ad_title;
+      var $ad_name;
+      var $vizitkientry_body;
+      var $vizitkientry_category;
+      var $ad_filename;
+      var $vizitkientry_price;
+      var $vizitkientry_telephon;
+      var $vizitkientry_email;
+      var $vizitkientry_site;
+      var $vizitkientry_contry;
+      var $vizitkientry_city;
+      var $ad_html;
+
+
+
 	var $ad_belowmenu; 		// VARIABLE REPRESENTING BELOW MENU BANNER HTML
 	var $ad_left; 			// VARIABLE REPRESENTING LEFT SIDE BANNER HTML
 	var $ad_right; 			// VARIABLE REPRESENTING RIGHT SIDE BANNER HTML
@@ -29,13 +44,14 @@ class se_ads
 	//function se_ads() {
 	function load()
   {
+             
 	  global $database, $datetime, $setting, $user;
     
 	  // GET CURRENT TIME IN ADMINS TIMEZONE
 	  $nowtime = time();
     
 	  // BEGIN BUILDING AD QUERY 
-	  $ad_querystring = "SELECT ad_id, ad_position, ad_html FROM se_ads WHERE ad_date_start<'{$nowtime}' AND (ad_date_end>'{$nowtime}' OR ad_date_end='0')";
+	  $ad_querystring = "SELECT * FROM se_ads WHERE ad_date_start<'{$nowtime}' AND (ad_date_end>'{$nowtime}' OR ad_date_end='0')";
     
 	  // MAKE SURE AD IS NOT PAUSED
 	  $ad_querystring .= " AND ad_paused!='1'";
@@ -52,15 +68,15 @@ class se_ads
 	  // IF VIEWER IS NOT LOGGED-IN, ONLY SHOW PUBLIC AD CAMPAIGNS
     if( !$user->user_exists )
     {
-	    $ad_querystring .= " AND ad_public='1'";
+//	    $ad_querystring .= " AND ad_public='1'";
     }
     
 	  // IF VIEWER IS LOGGED-IN, ONLY SHOW AD IF VIEWER'S LEVEL AND SUBNETS MATCH
 	  else
     { 
-	    $level_id = $user->level_info['level_id'];
-	    $subnet_id = $user->subnet_info['subnet_id'];
-	    $ad_querystring .= " AND (ad_levels LIKE '%,{$level_id},%' AND ad_subnets LIKE '%,{$subnet_id},%')";
+	 //   $level_id = $user->level_info['level_id'];
+	 //   $subnet_id = $user->subnet_info['subnet_id'];
+	//    $ad_querystring .= " AND (ad_levels LIKE '%,{$level_id},%' AND ad_subnets LIKE '%,{$subnet_id},%')";
 	  }
     
 	  // RANDOMIZE QUERY RESULTS
@@ -80,12 +96,30 @@ class se_ads
 	    $ad_info['ad_html'] = "<div onClick=\"document.getElementById('doclickimage{$ad_info['ad_id']}').src='ad.php?ad_id={$ad_info['ad_id']}';\">{$ad_info['ad_html']}<img src='images/trans.gif' border='0' id='doclickimage{$ad_info['ad_id']}' style='display: none;'></div>";
       
 	    $this->ad_custom[$ad_info['ad_id']] = $ad_info['ad_html'];
-      
+     // echo $ad_info['ad_position'];
+     
 	    if( $ad_info['ad_position'] == "top" && !$this->ad_top )
       {
+                
+
         $this->ad_top = $ad_info['ad_html'];
         $stats_id_array[] = $ad_info['ad_id'];
+        $this->ad_title = $ad_info['ad_name'];
+    
+      
+      $this->vizitkientry_body = $ad_info['vizitkientry_body '];
+      $this->vizitkientry_category = $ad_info['vizitkientry_category'];
+      $this->ad_filename = $ad_info['ad_filename'];
+      $this->vizitkientry_price = $ad_info['vizitkientry_price'];
+      $this->vizitkientry_telephon= $ad_info['$vizitkientry_telephon'];
+      $this->vizitkientry_email= $ad_info['vizitkientry_email'];
+      $this->vizitkientry_site= $ad_info['vizitkientry_site'];
+      $this->vizitkientry_contry= $ad_info['vizitkientry_contry'];
+      $this->vizitkientry_city= $ad_info['vizitkientry_city'];
+      $this->ad_html= $ad_info['ad_html'];
 	    }
+
+          
 	    elseif( $ad_info['ad_position'] == "belowmenu" && !$this->ad_belowmenu )
       {
 	      $this->ad_belowmenu = $ad_info['ad_html'];

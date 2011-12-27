@@ -398,7 +398,7 @@
   <tr>
   <td class='form1'>{lang_print id=375}</td>
   <td class='form2'>
-    <table cellpadding='0' cellspacing='0'>
+    <table cellpadding='0' cellspacing='0' >
     <tr>
     <td><input type='text' id='ad_limit_ctr' name='ad_limit_ctr' class='text' size='7' maxlength='7'{if $ad_limit_ctr == 0} disabled='disabled' style='background: #DDDDDD;'{/if} value='{if $ad_limit_ctr != 0}{$ad_limit_ctr}{/if}'>&nbsp;&nbsp;&nbsp;</td>
     <td><input type='checkbox' id='ad_limit_ctr_unlimited' name='ad_limit_ctr_unlimited' value='1' class='checkbox'{if $ad_limit_ctr == 0} checked='checked'{/if} onClick="{literal}if(this.checked == true){ $('ad_limit_ctr').value = ''; $('ad_limit_ctr').disabled=true; $('ad_limit_ctr').style.backgroundColor='#DDDDDD'; } else { $('ad_limit_ctr').disabled=false; $('ad_limit_ctr').style.backgroundColor='#FFFFFF'; }{/literal}"> <label for='ad_limit_ctr_unlimited'>{lang_print id=373}</label></td>
@@ -413,7 +413,7 @@
 <br>
 
 
-<table cellpadding='0' cellspacing='0' width='100%'>
+<table cellpadding='0' cellspacing='0' width='100%' style='display: none;'>
 <tr><td class='header'>{lang_print id=376}</td></tr>
 <tr><td class='setting1'>
   {lang_print id=377}
@@ -461,7 +461,7 @@
   {assign var='options_to_show' value=$levels|@count}
 {/if}
 
-<table cellpadding='0' cellspacing='0' width='100%'>
+<table cellpadding='0' cellspacing='0' width='100%' style='display: none;'>
 <tr><td class='header'>{lang_print id=379}</td></tr>
 <tr><td class='setting1'>
   {lang_print id=380}

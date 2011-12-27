@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-21 17:33:28
+<?php /* Smarty version 2.6.14, created on 2011-12-27 17:15:20
          compiled from user_blog.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'truncate', 'user_blog.tpl', 57, false),array('modifier', 'strip_tags', 'user_blog.tpl', 67, false),array('function', 'math', 'user_blog.tpl', 97, false),)), $this);

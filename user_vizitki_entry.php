@@ -7,7 +7,7 @@ include "header.php";
 
 $task         = ( !empty($_POST['task'])          ? $_POST['task']          : ( !empty($_GET['task'])         ? $_GET['task']         : NULL ) );
 $vizitkientry_id = ( !empty($_POST['vizitkientry_id'])  ? $_POST['vizitkientry_id']  : ( !empty($_GET['vizitkientry_id']) ? $_GET['vizitkientry_id'] : NULL ) );
-
+//echo $vizitkientry_id;
 
 // ENSURE vizitkiS ARE ENABLED FOR THIS USER
 if( !$user->level_info['level_vizitki_create'] )
@@ -39,12 +39,39 @@ if( $vizitkientry_id )
 }
 
 
+
+
+
+ 
 // DO SAVE
 if( $task=="dosave" )
 {
-  //  print_r($_FILES);
-  $file = $_FILES["upload2"]["tmp_name"];
- // print_r ($file);
+   
+    if ($_FILES){
+  $file_maxsize = "4194304";
+  $file_exts = Array('jpg', 'jpeg', 'gif', 'png');
+  $file_types = Array('image/jpeg', 'image/jpg', 'image/jpe', 'image/pjpeg', 'image/pjpg', 'image/x-jpeg', 'x-jpg', 'image/gif', 'image/x-gif', 'image/png', 'image/x-png');
+  $file_maxwidth = "100";
+  $file_maxheight = "100";
+  $ext = str_replace(".", "", strrchr($_FILES['upload2']['name'], "."));
+  $rand = rand(100000000, 999999999);
+  $photo_newname = "banner$rand.".$ext;
+  $file_dest = "./uploads_admin/ads/$photo_newname";
+  $photo_name = "upload2";
+  $new_photo = new se_upload();
+  $new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
+  $link = "<a href='$file_dest' target='_blank'><img src='$file_dest' border='0'/></a>";
+  $link  = str_replace("'","&#039;", $link);
+ // echo $link;
+  // UPLOAD BANNER IF NO ERROR
+  if($new_photo->is_error == 0) 
+      $new_photo->upload_photo($file_dest);
+       }
+  else {
+      $photo_newname = '';
+      $link ='';
+  }
+  
   $vizitkientry_vizitkientrycat_id  = $_POST['vizitkientry_vizitkientrycat_id'];
   $vizitkientry_search           = $_POST['vizitkientry_search'];
   $vizitkientry_privacy          = $_POST['vizitkientry_privacy'];
@@ -54,7 +81,7 @@ if( $task=="dosave" )
 
   $vizitkientry_title            = $_POST['name'];
   $vizitkientry_category         = $_POST['categor'];
-  $vizitkientry_image            = 'vizitki';//$_POST['fakeupload'];
+  $vizitkientry_image            = $photo_newname;//$_POST['fakeupload'];
   $vizitkientry_body             = $_POST['desc'];
   $vizitkientry_price            = $_POST['cena'];
   $vizitkientry_telephon         = $_POST['phone'];
@@ -62,6 +89,7 @@ if( $task=="dosave" )
   $vizitkientry_site             = $_POST['link'];
   $vizitkientry_contry           = $_POST['contry'];
   $vizitkientry_city             = $_POST['city'];
+  
  
 
   // CATEGORY
@@ -77,6 +105,7 @@ if( $task=="dosave" )
   // POST ENTRY
   $result_array = $vizitki->vizitki_entry_post(
     $vizitkientry_id,
+    $user->user_info['user_id'],
     $vizitkientry_title,
     $vizitkientry_body,
     $vizitkientry_vizitkientrycat_id,
@@ -92,7 +121,7 @@ if( $task=="dosave" )
       $vizitkientry_site,
       $vizitkientry_contry,
       $vizitkientry_city,
-      $file
+      $link
   );
   
   if( empty($vizitkientry_id) && !empty($result_array['vizitkientry_id']) )

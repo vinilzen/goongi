@@ -16,15 +16,15 @@
 
  <ul class="visitka_list">
 {section name=vizitkientry_loop loop=$vizitkientries}
-    <li id = "vizitka_{$vizitkientries[vizitkientry_loop].vizitkientry_id}">
-    <strong>{$vizitkientries[vizitkientry_loop].vizitkientry_title}</strong><span>{$vizitkientries[vizitkientry_loop].vizitkientry_category}</span>
-    <p><img src="uploads_vizitki/{$vizitkientries[vizitkientry_loop].vizitkientry_id}vizitki_thumb.jpg" alt="" /></p>
+    <li id = "vizitka_{$vizitkientries[vizitkientry_loop].ad_id}">
+    <strong>{$vizitkientries[vizitkientry_loop].ad_name}</strong><span>{$vizitkientries[vizitkientry_loop].vizitkientry_category}</span>
+    <p><img src="../uploads_admin/ads/{$vizitkientries[vizitkientry_loop].ad_filename}"  alt="" /></p>
     <p>{$vizitkientries[vizitkientry_loop].vizitkientry_body}<br /><strong>от {$vizitkientries[vizitkientry_loop].vizitkientry_price} руб.</strong></p>
     <p>{$vizitkientries[vizitkientry_loop].vizitkientry_telephon}<br />
     {$vizitkientries[vizitkientry_loop].vizitkientry_email}<br />
     <a href="#">{$vizitkientries[vizitkientry_loop].vizitkientry_site}</a></p>
-    <p><a href = "user_vizitki_entry.php?vizitkientry_id={$vizitkientries[vizitkientry_loop].vizitkientry_id}">редактировать</a>
-     <a href="#" onclick="delete_vizitka('deletevizitka',{$vizitkientries[vizitkientry_loop].vizitkientry_id}); return false;" class="del">удалить</a></p>
+    <p><a href = "user_vizitki_entry.php?vizitkientry_id={$vizitkientries[vizitkientry_loop].ad_id}">редактировать</a>
+     <a href="#" onclick="delete_vizitka('deletevizitka',{$vizitkientries[vizitkientry_loop].ad_id}); return false;" class="del">удалить</a></p>
 </li>
 {/section}
 </ul>

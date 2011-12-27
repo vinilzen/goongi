@@ -113,7 +113,7 @@ if($task == "cancelbanner") {
   $ad_limit_clicks_unlimited = $_POST['ad_limit_clicks_unlimited'];
   $ad_limit_ctr = $_POST['ad_limit_ctr'];
   $ad_limit_ctr_unlimited = $_POST['ad_limit_ctr_unlimited'];
-  $ad_position = $_POST['banner_position'];
+  $ad_position = "top";//$_POST['banner_position'];
   $ad_levels = $_POST['ad_levels'];
   $ad_subnets = $_POST['ad_subnets'];
   $ad_public = $_POST['ad_public'];
