@@ -53,7 +53,9 @@ $compatible_input_timeformat = $setting['setting_timeformat'];
 
 // ASSIGN GLOBAL SMARTY OBJECTS/VARIABLES
 $smarty->assign_by_ref('info_candle', $info_candle);
-
+//$ads = new se_ads();
+//$ads->load();
+//print_r ($ads);
 $smarty->assign_by_ref('url', $url);
 $smarty->assign_by_ref('misc', $misc);
 $smarty->assign_by_ref('datetime', $datetime);

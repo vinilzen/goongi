@@ -24,7 +24,7 @@ alert(data);
             <div class="crumb">
                 <a href="#">Главная</a>
                 <a href="#">Профиль</a>
-                <span> {if !empty($vizitkientry_info.vizitkientry_id)}Редактировать визитку{else}Создать визитку{/if}</span>
+                <span> {if !empty($vizitkientry_info.ad_id)}Редактировать визитку{else}Создать визитку{/if}</span>
             </div>
             <div class="form edit">
             <div class="pred">
@@ -32,7 +32,7 @@ alert(data);
                 <h2>Предпросмотр</h2>
                 <strong id = "p_name">{if !(empty($vizitkientry_info.vizitkientry_title))}{$vizitkientry_info.vizitkientry_title}{/if}</strong>
                 <span id = "p_categor">{if !empty($vizitkientry_info.vizitkientry_category)}{$vizitkientry_info.vizitkientry_category}{/if}</span>
-                <p ><img  id = "p_img" src="{if !empty($vizitkientry_info.vizitkientry_price)}uploads_vizitki/{$vizitkientry_info.vizitkientry_id}vizitki_thumb.jpg{else}images/6.jpg{/if}" alt="" /></p>
+                <p ><img  id = "p_img" src="{if !empty($vizitkientry_info.ad_filename)}../uploads_admin/ads/{$vizitkientry_info.ad_filename}{else}images/6.jpg{/if}" alt="" /></p>
                 <p id = "p_body">{if !empty($vizitkientry_info.vizitkientry_body)}{$vizitkientry_info.vizitkientry_body}{/if}<br />
                 <strong id = "p_price">{if !empty($vizitkientry_info.vizitkientry_price)}{$vizitkientry_info.vizitkientry_price}{/if}</strong></p>
                 <p id = "p_email">{if !empty($vizitkientry_info.vizitkientry_email)}{$vizitkientry_info.vizitkientry_email}{/if}<br /></p>
@@ -43,11 +43,11 @@ alert(data);
             <h2>Создание объявления</h2>
             <form action="user_vizitki_entry.php" method="post" name="edit_profil" enctype="multipart/form-data">
 
-            {if !empty($vizitkientry_info.vizitkientry_id)}
-                <input type='hidden' name='vizitkientry_id' value='{$vizitkientry_info.vizitkientry_id}' />
+            {if !empty($vizitkientry_info.ad_id)}
+                <input type='hidden' name='vizitkientry_id' value='{$vizitkientry_info.ad_id}' />
             {/if}
                 <div class="input"><label>Название услуги</label>
-                <input type="text" OnChange = "$('#name_v').attr('value',this.value); $('#p_name').text(this.value); " value="{if !empty($vizitkientry_info.vizitkientry_title)}{$vizitkientry_info.vizitkientry_title}{/if}" id = "name_v" name="name" /></div>
+                <input type="text" OnChange = "$('#name_v').attr('value',this.value); $('#p_name').text(this.value); " value="{if !empty($vizitkientry_info.ad_name)}{$vizitkientry_info.ad_name}{/if}" id = "name_v" name="name" /></div>
                 <div class="input"><label>Категория</label>
                 <select  OnChange = "$('#p_categor').text(this.options[this.selectedIndex].value);" name="categor">
                     {section name=s loop=$sett}

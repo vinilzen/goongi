@@ -109,7 +109,7 @@ class se_vizitki
     
     $sql = "
       SELECT
-        se_vizitkientries.*
+        se_ads.*
     ";
     
     if( !$this->user_id ) $sql .= ",
@@ -121,31 +121,23 @@ class se_vizitki
     ";
     
     // IF A USER IS LOGGED IN, SEE IF THEY ARE SUBSCRIBED
-    if( $user->user_exists ) $sql .= ",
-      IF(se_vizitkisubscriptions.vizitkisubscription_id IS NOT NULL, 1, 0) AS is_subscribed
-    ";
-    
+   
     $sql .= "
       FROM
-        se_vizitkientries
+        se_ads
     ";
     
-    // IF A USER IS LOGGED IN, SEE IF THEY ARE SUBSCRIBED
-    if( $user->user_exists ) $sql .= "
-      LEFT JOIN
-        se_vizitkisubscriptions
-        ON (se_vizitkisubscriptions.vizitkisubscription_user_id='{$user->user_info['user_id']}' && se_vizitkisubscriptions.vizitkisubscription_owner_id=se_vizitkientries.vizitkientry_user_id)
-    ";
+    
     
     if( !$this->user_id ) $sql .= "
       LEFT JOIN
         se_users
-        ON se_users.user_id=se_vizitkientries.vizitkientry_user_id
+        ON se_users.user_id=se_ads.vizitkientry_user_id
     ";
     
     $sql .= "
       WHERE
-        vizitkientry_id='{$vizitkientry_id}'
+       ad_id='{$vizitkientry_id}'
     ";
     
     if( $this->user_id ) $sql .= " &&
@@ -267,15 +259,11 @@ class se_vizitki
 	  // BEGIN QUERY
 	  $sql = "
       SELECT
-        se_vizitkientries.*,
-        se_vizitkientrycats.*
-    ";
+        se_ads.*
+   ";
     
     // IF A USER IS LOGGED IN, SEE IF THEY ARE SUBSCRIBED
-    if( $user->user_exists ) $sql .= ",
-        (SELECT TRUE FROM se_vizitkisubscriptions WHERE se_vizitkisubscriptions.vizitkisubscription_user_id='{$user->user_info['user_id']}' && se_vizitkisubscriptions.vizitkisubscription_owner_id=se_vizitkientries.vizitkientry_user_id LIMIT 1) AS is_subscribed
-    ";
-    
+        
 	  // IF NO USER ID SPECIFIED, RETRIEVE USER INFORMATION
 	  if( !$this->user_id ) $sql .= ",
         se_users.user_id,
@@ -285,24 +273,11 @@ class se_vizitki
         se_users.user_lname
     ";
     
-	  // CONTINUE QUERY
-	  $sql .= "
-      FROM
-        se_vizitkientries
-      LEFT JOIN
-        se_vizitkientrycats
-        ON se_vizitkientries.vizitkientry_vizitkientrycat_id=se_vizitkientrycats.vizitkientrycat_id
-    ";
-    
-	  // IF NO USER ID SPECIFIED, JOIN TO USER TABLE
-	  if( !$this->user_id ) $sql .= "
-      LEFT JOIN
-        se_users
-        ON se_vizitkientries.vizitkientry_user_id=se_users.user_id
-    ";
-    
+	
+	
 	  // ADD WHERE IF NECESSARY
-	  if( !empty($where) || $this->user_id ) $sql .= "
+	  if( !empty($where) || $this->user_id ) $sql .= " FROM
+        se_ads
       WHERE
     ";
     
@@ -323,18 +298,22 @@ class se_vizitki
     
 	  $sql .= "
       ORDER BY
-        $sort_by
+        ad_date_start
       LIMIT
         $start, $limit
     ";
-    
+    //echo $sql;
 	  // RUN QUERY
     $resource = $database->database_query($sql);
     
 	  // GET vizitki ENTRIES INTO AN ARRAY
 	  $vizitkientry_array = Array();
+         // $vizitkientry_info=$database->database_fetch_assoc($resource);
+        //  print_r($vizitkientry_info);
 	  while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
     {
+              
+          
       // Check title
       if( !trim($vizitkientry_info['vizitkientry_title']) )
       {
@@ -380,12 +359,12 @@ class se_vizitki
       
 	    // GET ENTRY COMMENT PRIVACY
       // TODO: FIND A WAY TO MAKE THIS WORK WITH THE AUTHOR
-	    $allowed_to_comment = TRUE;
-	    if( $owner->user_exists )
-      {
-	      $comment_level = $owner->user_privacy_max($user, $owner->level_info['level_vizitki_comments']);
-	    }
-      $vizitkientry_info['allowed_to_comment'] = $allowed_to_comment;
+//	    $allowed_to_comment = TRUE;
+//	    if( $owner->user_exists )
+  //    {
+//	      $comment_level = $owner->user_privacy_max($user, $owner->level_info['level_vizitki_comments']);
+//	    }
+     // $vizitkientry_info['allowed_to_comment'] = $allowed_to_comment;
       
       
       // GET CATEGORY TITLE
@@ -501,127 +480,66 @@ class se_vizitki
   //    returns FALSE or the vizitki entry id
   //
   
-	function vizitki_entry_post($vizitkientry_id=NULL, $vizitkientry_title, $vizitkientry_body, $vizitkientry_vizitkientrycat_id=NULL, $vizitkientry_search=NULL, $vizitkientry_privacy=NULL, $vizitkientry_comments=NULL, $vizitkientry_trackbacks=NULL,$vizitkientry_category=NULL, $vizitkientry_image=NULL,$vizitkientry_price=NULL,$vizitkientry_telephon=NULL,$vizitkientry_email=NULL,$vizitkientry_site=NULL,$vizitkientry_contry=NULL,$vizitkientry_city=NULL,$file)
+	function vizitki_entry_post($vizitkientry_id=NULL, $vizitkientry_user_id,$vizitkientry_title, $vizitkientry_body, $vizitkientry_vizitkientrycat_id=NULL, $vizitkientry_search=NULL, $vizitkientry_privacy=NULL, $vizitkientry_comments=NULL, $vizitkientry_trackbacks=NULL,$vizitkientry_category=NULL, $vizitkientry_image=NULL,$vizitkientry_price=NULL,$vizitkientry_telephon=NULL,$vizitkientry_email=NULL,$vizitkientry_site=NULL,$vizitkientry_contry=NULL,$vizitkientry_city=NULL,$link)
   {
 	  global $database, $user;
-       $is_error = FALSE;
-        
-	  // GET SETTINGS
-	  $level_vizitki_privacy   = unserialize($user->level_info['level_vizitki_privacy']);
-	  $level_vizitki_comments  = unserialize($user->level_info['level_vizitki_comments']);
-    
-    // PREPARE VARS
-	  $vizitkientry_user_id    = $this->user_id;
-         // echo $vizitkientry_user_id;
-	  $vizitkientry_date       = time();
-    $vizitkientry_title      = censor(trim($vizitkientry_title));
-    
-    // Input filter class seems to be doing the decoding, don't decode it twice (not good for posting a vizitki about HTML)
-    //$vizitkientry_body         = censor(htmlspecialchars_decode($vizitkientry_body, ENT_QUOTES));
-    
-    $vizitkientry_body         = cleanHTML($vizitkientry_body, $user->level_info['level_vizitki_html']);
-    $vizitkientry_body         = censor($vizitkientry_body);
-    $vizitkientry_body         = htmlspecialchars($vizitkientry_body, ENT_QUOTES, 'UTF-8');
-    
-    // OLD HTML ALLOWED: strong,b,em,i,u,strike,sub,sup,p,div,pre,address,h1,h2,h3,h4,h5,h6,span,ol,li,ul,a,img,embed
-    
-	  if( !$vizitkientry_vizitkientrycat_id )
-      $vizitkientry_vizitkientrycat_id = 0;
-    
-    if( is_string($vizitkientry_trackbacks) )
-      $vizitkientry_trackbacks = preg_split('/[\s\r\n]/', $vizitkientry_trackbacks);
-    
-    if( !is_array($vizitkientry_trackbacks) || empty($vizitkientry_trackbacks) )
-      $vizitkientry_trackbacks = array();
-    
-	  if( !in_array($vizitkientry_privacy, $level_vizitki_privacy) )
-      $vizitkientry_privacy = $level_vizitki_privacy[0];
-    
-	  if( !in_array($vizitkientry_comments, $level_vizitki_comments) ) 
-      $vizitkientry_comments = $level_vizitki_comments[0];
-    
-    
-    // VALIDATE
-    if( empty($vizitkientry_user_id) )
-      $is_error = TRUE;
-
-    
-    // VALIDATE ID
     if( !empty($vizitkientry_id) )
     {
-      
-      $sql = "SELECT NULL FROM se_vizitkientries WHERE vizitkientry_id='{$vizitkientry_id}' AND vizitkientry_user_id='{$this->user_id}'";
-      $resource = $database->database_query($sql);
-      
-      if( !$database->database_num_rows($resource) )
-        $is_error = TRUE;
-    }
-
-	  // UPDATE
-    if( !$is_error && !empty($vizitkientry_id) )
-    {
-       
-      $sql = "
+$sql = "
         UPDATE
-          se_vizitkientries
-        SET
-          vizitkientry_title='$vizitkientry_title',
+          se_ads
+        SET";
+
+if ($vizitkientry_image != ''){
+     $sql .= " ad_filename ='$vizitkientry_image',
+              ad_html='$link',
+        ";
+   
+}
+    $sql .= "
+          ad_name='$vizitkientry_title',
           vizitkientry_body='$vizitkientry_body',
-         
-          vizitkientry_search='$vizitkientry_search',
-          vizitkientry_privacy='$vizitkientry_privacy',
-          vizitkientry_comments='$vizitkientry_comments',
           vizitkientry_category='$vizitkientry_category',
-          vizitkientry_image='$vizitkientry_image',
           vizitkientry_price='$vizitkientry_price',
           vizitkientry_telephon='$vizitkientry_telephon',
           vizitkientry_email='$vizitkientry_email',
           vizitkientry_site='$vizitkientry_site',
           vizitkientry_contry='$vizitkientry_contry',
           vizitkientry_city='$vizitkientry_city'
+         
         WHERE
-          vizitkientry_id='$vizitkientry_id'
+          ad_id='$vizitkientry_id'
       ";
-      
+    //   echo $sql;
       $resource = $database->database_query($sql);
-      $this->vizitka_photo_upload($vizitkientry_id,$file);
+      
 	  }
     
     // INSERT
     elseif( !$is_error )
     {
-       
-      $sql = "
-        INSERT INTO se_vizitkientries
+         
+       $sql = "
+        INSERT INTO se_ads
         (
           vizitkientry_user_id,
-          vizitkientry_vizitkientrycat_id,
-          vizitkientry_date,
-          vizitkientry_title,
+          ad_name,
           vizitkientry_body,
-          vizitkientry_search,
-          vizitkientry_privacy,
-          vizitkientry_comments,
           vizitkientry_category,
-          vizitkientry_image,
+          ad_filename,
           vizitkientry_price,
           vizitkientry_telephon,
           vizitkientry_email,
           vizitkientry_site,
           vizitkientry_contry,
           vizitkientry_city,
-          vizitkientry_trackbacks
+           ad_html
         )
         VALUES
         (
           '$vizitkientry_user_id',
-          '$vizitkientry_vizitkientrycat_id',
-          '$vizitkientry_date',
           '$vizitkientry_title',
           '$vizitkientry_body',
-          '$vizitkientry_search',
-          '$vizitkientry_privacy',
-          '$vizitkientry_comments',
           '$vizitkientry_category',
           '$vizitkientry_image',
           '$vizitkientry_price',
@@ -630,12 +548,13 @@ class se_vizitki
           '$vizitkientry_site',
           '$vizitkientry_contry',
           '$vizitkientry_city',
-          '".join("\n", $vizitkientry_trackbacks)."'
-        )
-      ";
+          '$link'
+
+        )";
+
       
       $resource = $database->database_query($sql);
-      
+   // print_r($database->database_affected_rows($resource));
       if( $database->database_affected_rows($resource) )
       {
         $vizitkientry_id = $database->database_insert_id();
@@ -677,22 +596,15 @@ class se_vizitki
 
         function vizitka_photo_upload($last_id,$file, $width, $height){
 		global $database;
-		//$gift_title = substr($gift_title,0,255);
-		//$gift_title = htmlspecialchars(stripslashes($gift_title));
-               
+		
 		$extension = strtolower(substr(strrchr($file_name, "."), 1));
-		//$add_date = time ();
-		//$database->database_query("INSERT INTO `mf_gifts_data` (`filetype`, `type`, `status`, `date`) VALUES ('$extension', '$category', '1', '$add_date')");
-		//$last_id = $database->database_insert_id();
-		//$gift_lang_id = 80000500 + $last_id;
-		//$database->database_query("INSERT INTO `se_languagevars` (`languagevar_id`, `languagevar_language_id`, `languagevar_value`, `languagevar_default`) VALUES ('$gift_lang_id', '$language_id', '$gift_title', '')");
-		//$database->database_query("UPDATE mf_gifts_data SET lang ='$gift_lang_id' WHERE id='$last_id'");
-		$newname = $last_id."vizitki.jpg";
-		$newname_thumb = $last_id."vizitki_thumb.jpg";
-		$uploaddir = APP_ROOT."/uploads_vizitki/";
+		$rand = rand(100000000, 999999999);
+                $photo_newname = "banner$rand.jpg";
+		$uploaddir =  "../uploads_admin/ads/$photo_newname";
 
-		move_uploaded_file($file, $uploaddir.$newname);
-		resize($uploaddir.$newname, 100, 50, $uploaddir.$newname_thumb);
+		move_uploaded_file($file, $uploaddir.$photo_newname);
+		resize($uploaddir.$photo_newname, 100, 50, $uploaddir.$photo_newname);
+                return $photo_newname;
 		//header("Location: admin_gifts.php");
 	}
 
@@ -746,33 +658,21 @@ class se_vizitki
 	function vizitki_entry_delete($vizitkientry_id)
   {
 	  global $database;
-    
+    $ad_id = $vizitkientry_id;
     if( !is_array($vizitkientry_id) )
       $vizitkientry_id = array($vizitkientry_id);
     
     $vizitkientry_id = array_unique(array_filter($vizitkientry_id));
-    
+  
 	  // CREATE DELETE QUERY
-	  $sql = "
-      DELETE FROM
-        se_vizitkientries,
-        se_vizitkicomments
-      USING
-        se_vizitkientries
-      LEFT JOIN
-        se_vizitkicomments
-        ON se_vizitkientries.vizitkientry_id=se_vizitkicomments.vizitkicomment_vizitkientry_id
-      WHERE
-        se_vizitkientries.vizitkientry_id IN('".join("','", $vizitkientry_id)."')
-    ";
+	  $sql = "DELETE FROM se_ads WHERE ad_id='$ad_id' LIMIT 1";
     
 	  // IF USER ID IS NOT EMPTY, ADD USER ID CLAUSE
-	  if( $this->user_id ) 
-      $sql .= " AND se_vizitkientries.vizitkientry_user_id='{$this->user_id}'";
+	
     
 	  // RUN QUERY
     $resource = $database->database_query($sql);
-    
+ 
     return (bool) ($database->database_affected_rows($resource)==count($vizitkientry_id) );
 	}
   

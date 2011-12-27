@@ -7,6 +7,7 @@
 		</div>
 	</div>
 </div>
+
   {* SHOW PAGE BOTTOM ADVERTISEMENT BANNER *}
   {if $ads->ad_bottom != "" && 0}
     <div class='ad_bottom' style='display: block; visibility: visible;'>
@@ -31,14 +32,14 @@
                     	<div class="bg">
                         	<div class="c">
                             	<div class="rec">
-                                	<p><strong>Разработка сайтов</strong><br /><span>веб-дизайн</span></p>
-                                    <div><img src="images/2.jpg" alt="" /></div>
-                                    <p><font>Отличные сайты любой сложности<br /><strong>от 20.000 руб.</strong></font></p>
-									<p><font>+375 (29) 571-33-72<br /><a href="http://nineseven.ru" target="_blank">http://nineseven.ru</a></font></p>
+                                	<p><strong>{$ads->ad_title}</strong><br /><span>{$ads->vizitkientry_category}</span></p>
+                                    <div>{$ads->ad_html}</div>
+                                    <p><font>{$ads->vizitkientry_body}<br /><strong>{$ads->vizitkientry_price} </strong></font></p>
+									<p><font>{$ads->vizitkientry_telephon}<br /><a href="{$ads->vizitkientry_site}" target="_blank">{$ads->vizitkientry_site}</a></font></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="b1"><a href="#">Создать себе визитку</a></div>
+                        <div class="b1"><a href="/user_vizitki.php">Создать себе визитку</a></div>
                     </div>
                 </div>
             </div>
@@ -95,8 +96,7 @@
                 </div>
                 <div class="w_b"></div>
         </div>
-<<<<<<< HEAD
-=======
+
     </div>
 	<div class="w_b"></div>
 </div>
@@ -113,7 +113,7 @@
                 </div>
                 <div class="w_b"></div>
         </div>
->>>>>>> 090a87080da322dc25d17106a926f1e8d957961f
+
 <div class="window" id="add_group">
 	<div class="close"></div>
 	<div class="w_c">
@@ -130,12 +130,8 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD
 
 
-
-
-=======
 <div class="window rezina" id="add_meropriatie_w">
 	<div class="close"></div>
 	<div class="w_t">
@@ -209,6 +205,6 @@
     </div>
 	<div class="w_b"></div>
 </div>
->>>>>>> 090a87080da322dc25d17106a926f1e8d957961f
+
 </body>
 </html>
