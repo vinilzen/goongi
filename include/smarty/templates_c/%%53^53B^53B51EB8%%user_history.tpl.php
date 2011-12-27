@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-23 18:46:13
+<?php /* Smarty version 2.6.14, created on 2011-12-27 17:36:30
          compiled from user_history.tpl */
 ?><?php
 SELanguage::_preload_multi(652);

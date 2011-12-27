@@ -296,7 +296,7 @@ elseif( $task == "candle_post" )
  else
   {
     $result ='1';
-     $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_id ='{$owner_id_s}'");
+     $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_candle_id ='{$owner_id_s}'");
 	      $count= $database->database_num_rows($field1);
    if ( $count < 1){
    //  $sql = "INSERT INTO `se_groups` (`user_id`, `group_name`) VALUES ( '{$user_id}', '{$group_name}');";

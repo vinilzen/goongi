@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-23 17:24:15
+<?php /* Smarty version 2.6.14, created on 2011-12-27 17:36:24
          compiled from profile_gifts_tab.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'cycle', 'profile_gifts_tab.tpl', 7, false),)), $this);

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-23 17:29:09
+<?php /* Smarty version 2.6.14, created on 2011-12-27 17:36:44
          compiled from user_vizitki.tpl */
 ?><?php
 SELanguage::load();
@@ -47,13 +47,13 @@ $this->_sections['vizitkientry_loop']['index_next'] = $this->_sections['vizitkie
 $this->_sections['vizitkientry_loop']['first']      = ($this->_sections['vizitkientry_loop']['iteration'] == 1);
 $this->_sections['vizitkientry_loop']['last']       = ($this->_sections['vizitkientry_loop']['iteration'] == $this->_sections['vizitkientry_loop']['total']);
 ?>
-    <li id = "vizitka_<?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['vizitkientry_id']; ?>
+    <li id = "vizitka_<?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['ad_id']; ?>
 ">
-    <strong><?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['vizitkientry_title']; ?>
+    <strong><?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['ad_name']; ?>
 </strong><span><?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['vizitkientry_category']; ?>
 </span>
-    <p><img src="uploads_vizitki/<?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['vizitkientry_id']; ?>
-vizitki_thumb.jpg" alt="" /></p>
+    <p><img src="../uploads_admin/ads/<?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['ad_filename']; ?>
+"  alt="" /></p>
     <p><?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['vizitkientry_body']; ?>
 <br /><strong>от <?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['vizitkientry_price']; ?>
  руб.</strong></p>
@@ -63,9 +63,9 @@ vizitki_thumb.jpg" alt="" /></p>
 <br />
     <a href="#"><?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['vizitkientry_site']; ?>
 </a></p>
-    <p><a href = "user_vizitki_entry.php?vizitkientry_id=<?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['vizitkientry_id']; ?>
+    <p><a href = "user_vizitki_entry.php?vizitkientry_id=<?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['ad_id']; ?>
 ">редактировать</a>
-     <a href="#" onclick="delete_vizitka('deletevizitka',<?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['vizitkientry_id']; ?>
+     <a href="#" onclick="delete_vizitka('deletevizitka',<?php echo $this->_tpl_vars['vizitkientries'][$this->_sections['vizitkientry_loop']['index']]['ad_id']; ?>
 ); return false;" class="del">удалить</a></p>
 </li>
 <?php endfor; endif; ?>
