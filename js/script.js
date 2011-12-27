@@ -492,23 +492,25 @@ $('.d_inf .golosa label a').click(function(e){
 	
 	$('#event_del').click(function() {
 		var id = $(this).attr('rel');
-		
-		alert(id);
-		
-		$.post( 'event_ajax.php',
-				{	'task': 'eventdelete',
-					'event_id': id},
-				function  (data){
-					if (data.result == true){
-						alert('Событие успешно удалено.');
-						location.href='user_event.php';
-					} else {
-						alert(data.error);
-					}
-				},
-				'json'
-		);
-		
+		var r=confirm("you want delete ");
+		if (r==true) {
+			
+			$.post( 'event_ajax.php',
+					{	'task': 'eventdelete',
+						'event_id': id},
+					function  (data){
+						if (data.result == true){
+							alert('Событие успешно удалено.');
+							location.href='user_event.php';
+						} else {
+							alert(data.error);
+						}
+					},
+					'json'
+			);
+		} else {
+			return false;
+		}
 	
 	})
 	

@@ -20,38 +20,35 @@
 {literal}
 <script type="text/javascript">
 function createGroup() {
-
 	$('#msg_gr').html('<img src="/images/96.gif" border="0" />');
 	var go = 1;
 	if (go == 1) {
 		go = 0;
-		$.post(
-			"user_add_group.php", 	
-			{ task: 'add' , gn: $('#group_name').attr('value') },
-			function(data) {
-				if ( data.success == '0') {
-					$('#msg_gr').html(data.msg);
-					go = 1;
+		$.post(	"user_add_group.php", 	
+				{ task: 'add' , gn: $('#group_name').attr('value') },
+				function(data) {
+					if ( data.success == '0') {
+						$('#msg_gr').html(data.msg);
+						go = 1;
+					}
+					if (data.success == '1') {
+						$('#msg_gr').html(data.msg);
+						setTimeout ( function() {
+							$('#popup').fadeOut(300);
+							$('.window').hide();
+							e.preventDefault();
+						}, 1500);
+						
+						update_group_list();
+					}
 				}
-				if (data.success == '1') {
-					$('#msg_gr').html(data.msg);
-					setTimeout ( function() {
-						$('#popup').fadeOut(300);
-						$('.window').hide();
-						e.preventDefault();
-					}, 1500);
-					
-					update_group_list();
-				}
-			}
-			, "json" 
+				, "json" 
 		);
 	}
 }
 function update_group_list() {
 
-	$.post(
-			"user_add_group.php", 
+	$.post(	"user_add_group.php", 
 			{ task: 'update' },
 			function(data) {
 				if ( data.success == '0') {
@@ -64,11 +61,10 @@ function update_group_list() {
 			}
 			, "json" 
 		);
-	
 }
-function show_user() {
-	alert('filtr');
-}
+
+
+
 
 </script>
 {/literal}
@@ -76,11 +72,18 @@ function show_user() {
 	<h2>Список групп</h2>
 	<ul id="user_groups">
 	{foreach from=$groups key=k item=v}
-	<li><a href="#" rel="{$k}" onclick="show_user({$v.users});return false;">{$v.name}</a></li>
+	<li><a href="#" rel="{$k}">{$v.name}</a></li>
 	{/foreach}</ul>
 </div>
-
-
+{literal}
+<script type="text/javascript">
+$('#user_groups a').click(function(){
+	
+	alert($(this).attr('rel'));
+	return false;
+});
+</script>
+{/literal}
 {* JAVASCRIPT FOR CREATING SUGGESTION BOX *}
 {literal}
 <script type="text/javascript">
@@ -106,7 +109,6 @@ function show_user() {
     <form action='user_friends.php' method='post' name='searchform'>
 		<input type='text' maxlength='100' size='30' class='text' id='search' name='search' value='{$search}' />
 		<div id='suggest' class='suggest'></div>
-
 		<input type='submit' class='button' value='{lang_print id=646}' />
 		<input type='hidden' name='s' value='{$s}' />
 		<input type='hidden' name='p' value='{$p}' />
@@ -122,13 +124,13 @@ function show_user() {
 {* DISPLAY MESSAGE IF NO FRIENDS *}
 {if $total_friends == 0}
 
-  {* DISPLAY MESSAGE IF NO SEARCHED FRIENDS *}
-  {if $search != ""}
-      <img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_print id=905}
-  {* DISPLAY MESSAGE IF NO FRIENDS ON LIST *}
-  {else}
-      <img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_print id=904}
-  {/if}
+	{* DISPLAY MESSAGE IF NO SEARCHED FRIENDS *}
+	{if $search != ""}
+		{lang_print id=905}
+	{* DISPLAY MESSAGE IF NO FRIENDS ON LIST *}
+	{else}
+		{lang_print id=904}
+	{/if}
 
 {* DISPLAY FRIENDS *}
 {else}
@@ -140,7 +142,7 @@ function show_user() {
   function friend_update(status) {
     {/literal}
     window.location = 'user_friends.php?s={$s}&search={$search}&p={$p}';
-    {literal}
+    {literal}	
   }
   //-->
   </script>
@@ -163,7 +165,7 @@ function show_user() {
   <ul class="friends_list">
     {section name=friend_loop loop=$friends}
     {* LOOP THROUGH FRIENDS *}
-	<li id="frend_{$friends[friend_loop]->user_info.user_id}">
+	<li id="frend_{$friends[friend_loop]->user_info.user_id}" class="{foreach from=$friends[friend_loop]->user_info.groups item=group key=k}group_{$k} {/foreach}">
 		<a href="{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}"  class="frend_img">
 			<img src='{$friends[friend_loop]->user_photo('./images/nophoto.gif')}' class='photo' width='{$misc->photo_size($friends[friend_loop]->user_photo('./images/nophoto.gif'),'90','90','w')}' border='0' alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}">
 		</a>
@@ -185,7 +187,6 @@ function show_user() {
 			<a class="del" rel="{$friends[friend_loop]->user_info.user_id}" rev="{$friends[friend_loop]->user_info.user_username}" href="#">{lang_print id=889}</a>
 		</div>
 	</li>
-      {cycle values=",<div style='clear: both;'></div>"} 
     {/section}
     </ul>
   </div>
