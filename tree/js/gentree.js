@@ -453,11 +453,43 @@ TREE.popups.collection = {
 			var tar = $(e.currentTarget),
 				person = this.el.children('.person'),
 				offset = person.offset();
-			if (tar.hasClass('add-child')) {
+			if (tar.hasClass('add-parent')) {
+				TREE.popups.collection.personal.render({
+					type: 'add',
+					role: 'parent',
+					header: 'Добавить родителя',
+					person: {
+						id: person.data('id'),
+						sex: tar.hasClass('alt') ? 'w' : 'm',
+						fname: '',
+						lname: '',
+						alias: '',
+						birthday: null,
+						death: null
+					},
+					offset: [offset.left + person.outerWidth() + 10, offset.top]
+				});
+			} else if (tar.hasClass('add-child')) {
 				TREE.popups.collection.personal.render({
 					type: 'add',
 					role: 'child',
 					header: 'Добавить ребёнка',
+					person: {
+						id: person.data('id'),
+						sex: tar.hasClass('alt') ? 'w' : 'm',
+						fname: '',
+						lname: '',
+						alias: '',
+						birthday: null,
+						death: null
+					},
+					offset: [offset.left + person.outerWidth() + 10, offset.top]
+				});
+			} else if (tar.hasClass('add-spouse')) {
+				TREE.popups.collection.personal.render({
+					type: 'add',
+					role: 'spouse',
+					header: 'Добавить супруга(у)',
 					person: {
 						id: person.data('id'),
 						sex: tar.hasClass('alt') ? 'w' : 'm',
@@ -538,9 +570,12 @@ TREE.popups.collection = {
 
 		serialize: function() {
 			var inp = this.el.find('input, select');
+			if (this.role === 'parent') this.role = inp.filter('[name=sex]:checked').val() === 'm' ? 'father' : 'mother';
+			if (this.role === 'spouse') this.role = inp.filter('[name=sex]:checked').val() === 'm' ? 'husband' : 'wife';
+			if (this.role === 'sibling') this.role = inp.filter('[name=sex]:checked').val() === 'm' ? 'brother' : 'sister';
 			return {
 				type_request: this.type,
-				role: this.role === 'sibling' ? inp.filter('[name=sex]:checked').val() === 'm' ? 'brother' : 'sister' : this.role || '',
+				role: this.role || '',
 				user_id: inp.filter('[name=id]').val(),
 				sex: inp.filter('[name=sex]:checked').val(),
 				fname: inp.filter('[name=fname]').val(),
