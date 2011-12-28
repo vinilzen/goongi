@@ -24,7 +24,7 @@
 	</div>
     <!--END HEAD-->
 
-<iframe id="tree" src="/tree.php" frameborder="0" scrolling="no" width="100%"></iframe>
+<iframe id="tree" src="/tree.php{$owner_link}" frameborder="0" scrolling="no" width="100%"></iframe>
 {literal}
 <script type="text/javascript">
 $(function() {

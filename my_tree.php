@@ -5,16 +5,19 @@
 $page = "my_tree";
 include "header.php";
 
+
 $users = $user->get_users();
 $family_array = $user->get_relatives_displayname(); // array ( user_id => displayname )
-$family = $user->get_family();
-//$unions = $user->get_user_union();
-//echo '<pre>->'; print_r($user); echo '</pre>';  die();
 
+if ( isset($owner) && $owner->user_exists == 1 ) {
+	
+	$smarty->assign('owner_link', '?user='.$owner->user_info['user_username']);
+	$family = $user->get_family($owner->user_info['user_id']);
+} else {
+	$family = $user->get_family();
+}
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('$user_exists', $user->user_exists);
-//$smarty->assign('msg', $result['msg']);
-//$smarty->assign('success', $result['success']);
 $smarty->assign('family', $family);
 $smarty->assign('users', $users);
 

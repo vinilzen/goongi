@@ -2062,16 +2062,21 @@ class SEUser
 	
 	function get_family($user_id = 0, $level = 1) {
 		global $database, $setting, $user;
+		
 		if ($user_id == 0)
 			$user_id = $user->user_info['user_id'];
 		
+		
+		//echo $user_id; die();
+		
 		$result = array();
 		$users = $this->bild_tree($user_id);
-		
+
 		foreach ($users AS $k=>$v) $users = $users + $this->bild_tree($k); // add 2 lvl
 
 		$result1['user'] = $this->get_user_info(array(1=>$user_id), true);
 		$result1['user'] = $this->add_psc($user_id);
+
 		unset($users[$user_id]);  // del root user from a reletives users array
 		foreach ($users AS $k=>$v) {
 			if ($k != $user_id) {
@@ -2079,13 +2084,15 @@ class SEUser
 			}
 		}
 		$result1['users'] = $users;
-		
+		// echo '<pre>'; print_r($result1); die();
 		return json_encode($result1); //die();
 	}
 	
 	function bild_tree($user_id) {
 		global $database, $setting, $user;
+		
 		$familys = $this->get_family_list($user_id);  // list family
+		
 		$family_ids = array();
 		
 		foreach ($familys as $key => $value) {
@@ -2096,7 +2103,6 @@ class SEUser
 			}
 			$family_ids[] = $value['family_id'];
 		}
-		
 		$relatives = $this->get_users_relatives($family_ids, $user_id);
 		$result_users = $this->get_user_info($relatives, true);
 		return $result_users;

@@ -21,18 +21,11 @@
 							<li {if $global_page == 'user_friends'}class="active"{/if}><a href='/user_friends.php'>{lang_print id=1170}</a></li>
 						{/if}
 						
-						{* SHOW WHATS NEW MENU ITEM *}
-						<!-- <li {if $global_page == 'user_home'}class="active"{/if}><a href='/user_home.php'>{lang_print id=1161}</a></li>
-						<li><a href='/network.php'>{lang_print id=1162}</a></li> -->
-    
 					{* SHOW PROFILE MENU ITEM *}
 					<li {if $global_page == 'profile'}class="active"{/if}><a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a></li>
-					<li {if $global_page == 'user_editprofile'}class="active"{/if}><a href='user_editprofile.php'>{lang_print id=1163}</a></li>
-					<li {if $global_page == 'user_editprofile_photo'}class="active"{/if}><a href='user_editprofile_photo.php'>{lang_print id=1164}</a></li>
 
 					{* SHOW APPS MENU ITEM IF ENABLED *}
 					{if $global_plugins.plugin_controls.show_menu_user}
-						<!-- <li><a href="javascript:showMenu('menu_dropdown_apps');" onMouseUp="this.blur()">{lang_print id=1166}</a></li> -->
 						{* SHOW ANY PLUGIN MENU ITEMS *}
 						{hook_foreach name=menu_user_apps var=user_apps_args}
 							<li><a href='{$user_apps_args.file}'>{lang_print id=$user_apps_args.title}</a></li>
@@ -41,17 +34,14 @@
 
 					{* SHOW MESSAGES MENU ITEM IF ENABLED *}
 					{if $user->level_info.level_message_allow != 0}
-						<!--<li><a href='user_messages.php'>{lang_print id=654}{if $user_unread_pms != 0} ({$user_unread_pms}){/if}</a></li> -->
-						<!-- <li><a rel="{lang_print id=784}" href="/user_messages_new.php">{lang_print id=1167}</a></li> -->
-						<!-- <li  id="add_msg_l"><a href="#" >->{lang_print id=1167}</a></li> -->
-						<li {if $global_page == 'user_messages'}class="active"{/if}><a href='user_messages.php'>{lang_print id=654}<!-- сообщения --></a></li>
-						<!-- <li><a href='user_messages_outbox.php'>{lang_print id=1169}</a></li> -->
+						<li {if $global_page == 'user_messages'}class="active"{/if}><a href='user_messages.php'>							{lang_print id=654}<!-- сообщения --></a>
+						</li>
 					{/if}
 					
 					{* SHOW SETTINGS MENU ITEM *}
-					<li {if $global_page == 'user_account'}class="active"{/if}><a href='user_account.php'>{lang_print id=1173}<!-- настройки аккаунта --></a></li>
-					<!-- <li><a href='user_account.php'>{lang_print id=1173}</a></li>
-					<li><a href='user_account_privacy.php'>{lang_print id=1174}</a></li> -->
+					<li {if $global_page == 'user_account'}class="active"{/if}><a href='user_account.php'>
+						{lang_print id=1173}<!-- настройки аккаунта -->
+					</a></li>
 				<ul>
 			</div>
 		</div>
