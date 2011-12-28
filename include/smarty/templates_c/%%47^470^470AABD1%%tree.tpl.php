@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-28 08:33:44
+<?php /* Smarty version 2.6.14, created on 2011-12-28 09:30:15
          compiled from tree.tpl */
 ?><?php
 SELanguage::load();
@@ -109,7 +109,7 @@ SELanguage::load();
 <script id="person-tmpl" type="text/html">
 	<div class="person<%= sex === "w" ? " alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
 		<div class="info"></div>
-		<div class="relation"><%= id %></div>
+		<div class="relation"><%= id === json.user.id ? "Вы" : ""  %></div>
 		<div class="photo"><img src="<%= TREE.url.image.format(id, photo) %>" /></div>
 		<div class="name"><%= Base64.decode(displayname) %></div>
 		<div class="actions closed">
@@ -243,6 +243,12 @@ SELanguage::load();
 	<div class="parents">
 		<div class="add-parent button"><div>Добавить отца</div></div>
 		<div class="add-parent button alt"><div>Добавить мать</div></div>
+	</div>
+	<div class="spouse">
+		<div class="inner">
+			<div class="add-spouse button"><div>Добавить мужа</div></div>
+			<div class="add-spouse button alt"><div>Добавить жену</div></div>
+		</div>
 	</div>
 	<div class="siblings">
 		<div class="inner">
