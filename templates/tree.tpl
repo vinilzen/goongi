@@ -103,7 +103,7 @@
 <script id="person-tmpl" type="text/html">
 	<div class="person<%= sex === "w" ? " alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
 		<div class="info"></div>
-		<div class="relation"><%= id === json.user.id ? "Вы" : ""  %></div>
+		<div class="relation"><%= id === json.user.id ? "Вы" : "" %></div>
 		<div class="photo"><img src="<%= TREE.url.image.format(id, photo) %>" /></div>
 		<div class="name"><%= Base64.decode(displayname) %></div>
 		<div class="actions closed">
