@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-26 09:45:16
+<?php /* Smarty version 2.6.14, created on 2011-12-28 08:33:44
          compiled from tree.tpl */
 ?><?php
 SELanguage::load();
@@ -61,9 +61,9 @@ SELanguage::load();
 			<img src="<%= TREE.url.image.format(id, photo) %>" />
 		</a>
 	</div>
-	<div class="birth"><%= sex === "m" ? "Родился" : "Родилась" + birthday %></div>
+	<div class="birth"><%= (sex === "m" ? "Родился" : "Родилась") + birthday %></div>
 	<div class="edit"><a href="/user_editprofile.php" target="_top"><span>Редактировать профиль</span></a></div>
-	<div class="relations">
+	<!--div class="relations">
 		<table>
 			<tr>
 				<td>Жена</td>
@@ -99,7 +99,7 @@ SELanguage::load();
 				</td>
 			</tr>
 		</table>
-	</div>
+	</div-->
 </script>
 
 <div id="viewpoint"></div>
@@ -115,11 +115,8 @@ SELanguage::load();
 		<div class="actions closed">
 			<ul>
 				<li class="edit">Редактировать</li>
-				<li class="view">Посмотреть ветвь</li>
-				<li class="join">Присоединить</li>
-				<li class="remove">Удалить связь</li>
 				<li class="change">Изменить тип связи</li>
-				<li class="wipe">Удалить человека</li>
+				<li class="remove">Удалить человека</li>
 			</ul>
 			<div class="toggle"></div>
 		</div>

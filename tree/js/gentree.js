@@ -27,6 +27,8 @@ var TREE = {
 				data: person
 			}).success(function(res) {
 				console.log(res.error, ': ', res.result);
+				window.location.replace(window.location.href.split('#')[0] + '#' + $(document).scrollLeft() + ',' + $(document).scrollTop());
+				window.location.reload();
 			})
 		}
 
@@ -354,6 +356,7 @@ TREE.popups.collection = {
 			this.el.on('click', '.button', $.proxy(this, 'add'));
 			this.el.on('click', '.toggle', $.proxy(this, 'hide'));
 			this.el.on('click', '.edit', $.proxy(this, 'edit'));
+			this.el.on('click', '.remove', $.proxy(this, 'remove'));
 		},
 
 		render: function(person) {
@@ -464,6 +467,16 @@ TREE.popups.collection = {
 					offset: [offset.left + person.outerWidth() + 10, offset.top]
 				});
 			}
+		},
+
+		remove: function(e) {
+			var person = $(e.currentTarget).closest('.person');
+			if (confirm('Вы уверены, что хотите удалить человека из дерева?')) {
+				TREE.api.updatePerson({
+					'type_request': 'del',
+					'user_id': person.data('id')
+				});
+			}
 		}
 
 	}),
@@ -520,12 +533,7 @@ TREE.popups.collection = {
 		},
 
 		save: function() {
-			TREE.api.updatePerson(this.serialize()).then(function() {
-				window.location.replace(window.location.href.split('#')[0] + '#' + $(document).scrollLeft() + ',' + $(document).scrollTop());
-				window.location.reload();
-			});
-			// this.hide();
-			// TODO: proper tree refresh
+			TREE.api.updatePerson(this.serialize());
 		},
 
 		toggleDead: function(e) {
