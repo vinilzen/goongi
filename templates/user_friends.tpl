@@ -13,97 +13,29 @@
 	<li><a href="user_friends_requests_outgoing.php">{lang_print id=896}</a></li>
 </ul>
 <div class="buttons">
-	<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c">
-		<input type="button" value="Создать группу" id="create_group" name="creat" />
-	</span><span class="r">&nbsp;</span></span>
+	<div class="create_group">
+		<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c">
+			<input type="button" value="Создать группу" id="create_group" name="creat" />
+		</span><span class="r">&nbsp;</span></span>
+	</div>	
+	<div class="edit_group">
+		<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c">
+			<input type="button" value="Редактировать группу" id="edit_group_b" rel="0" name="creat" />
+		</span><span class="r">&nbsp;</span></span>
+		<span class="button2" id="add_group_link"><span class="l">&nbsp;</span><span class="c">
+			<input type="button" value="Удалить группу" id="del_group" name="creat" />
+		</span><span class="r">&nbsp;</span></span>
+	</div>
 </div>
-{literal}
-<script type="text/javascript">
-function createGroup() {
-	$('#msg_gr').html('<img src="/images/96.gif" border="0" />');
-	var go = 1;
-	if (go == 1) {
-		go = 0;
-		$.post(	"user_add_group.php", 	
-				{ task: 'add' , gn: $('#group_name').attr('value') },
-				function(data) {
-					if ( data.success == '0') {
-						$('#msg_gr').html(data.msg);
-						go = 1;
-					}
-					if (data.success == '1') {
-						$('#msg_gr').html(data.msg);
-						setTimeout ( function() {
-							$('#popup').fadeOut(300);
-							$('.window').hide();
-							e.preventDefault();
-						}, 1500);
-						
-						update_group_list();
-					}
-				}
-				, "json" 
-		);
-	}
-}
-function update_group_list() {
-
-	$.post(	"user_add_group.php", 
-			{ task: 'update' },
-			function(data) {
-				if ( data.success == '0') {
-					alert(data.msg);
-					go = 1;
-				}
-				if (data.success == '1') {
-					$('#user_groups').html(data.msg);
-				}
-			}
-			, "json" 
-		);
-}
-
-
-
-
-</script>
-{/literal}
 <div class="group_list">
 	<h2>Список групп</h2>
 	<ul id="user_groups">
-	{foreach from=$groups key=k item=v}
-	<li><a href="#" rel="{$k}">{$v.name}</a></li>
-	{/foreach}</ul>
+		{foreach from=$groups key=k item=v}
+		<li><a href="#" class="gr_name" rel="{$k}">{$v.name}</a></li>
+		{/foreach}
+		<li class="last"><a href="#" class="gr_name" rel="0">Показать всех</a></li>
+	</ul>
 </div>
-{literal}
-<script type="text/javascript">
-$('#user_groups a').click(function(){
-	
-	alert($(this).attr('rel'));
-	return false;
-});
-</script>
-{/literal}
-{* JAVASCRIPT FOR CREATING SUGGESTION BOX *}
-{literal}
-<script type="text/javascript">
-<!-- 
-  window.addEvent('domready', function(){
-	var options = {
-		script:"misc_js.php?task=suggest_friend&limit=5&",
-		varname:"input",
-		json:true,
-		shownoresults:false,
-		maxresults:5,
-		multisuggest:false,
-		callback: function (obj) { }
-	};
-	var as_json = new bsn.AutoSuggest('search', options);
-  });
-//-->
-</script>
-{/literal}
-
 <div class='friends_search' style="display:none;">
 	{lang_print id=899}
     <form action='user_friends.php' method='post' name='searchform'>
@@ -121,32 +53,16 @@ $('#user_groups a').click(function(){
     </form>
 </div>
 
-{* DISPLAY MESSAGE IF NO FRIENDS *}
-{if $total_friends == 0}
 
-	{* DISPLAY MESSAGE IF NO SEARCHED FRIENDS *}
-	{if $search != ""}
+{if $total_friends == 0}		{* DISPLAY MESSAGE IF NO FRIENDS *}
+
+	{if $search != ""}		{* DISPLAY MESSAGE IF NO SEARCHED FRIENDS *}
 		{lang_print id=905}
-	{* DISPLAY MESSAGE IF NO FRIENDS ON LIST *}
-	{else}
+	{else}		{* DISPLAY MESSAGE IF NO FRIENDS ON LIST *}
 		{lang_print id=904}
 	{/if}
 
-{* DISPLAY FRIENDS *}
-{else}
-
-  {* JAVASCRIPT FOR CHANGING FRIEND MENU OPTION *}
-  {literal}
-  <script type="text/javascript">
-  <!-- 
-  function friend_update(status) {
-    {/literal}
-    window.location = 'user_friends.php?s={$s}&search={$search}&p={$p}';
-    {literal}	
-  }
-  //-->
-  </script>
-  {/literal}
+{else}		{* DISPLAY FRIENDS *}
 
   {* DISPLAY PAGINATION MENU IF APPLICABLE *}
   {if $maxpage > 1}
@@ -170,7 +86,9 @@ $('#user_groups a').click(function(){
 			<img src='{$friends[friend_loop]->user_photo('./images/nophoto.gif')}' class='photo' width='{$misc->photo_size($friends[friend_loop]->user_photo('./images/nophoto.gif'),'90','90','w')}' border='0' alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}">
 		</a>
 		<div>
-			<p><a href="#">vip</a><a href="#">название группы</a></p>
+			<p>{foreach from=$friends[friend_loop]->user_info.groups item=group key=k}
+				<a href="#" class="gr_name" rel="{$k}">{$group.name}</a>
+			{/foreach}</p>
 			<h2><a href='{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}'>
 				{$friends[friend_loop]->user_displayname}
 			</a></h2>
@@ -189,7 +107,7 @@ $('#user_groups a').click(function(){
 	</li>
     {/section}
     </ul>
-  </div>
+</div>
 
   {* DISPLAY PAGINATION MENU IF APPLICABLE *}
   {if $maxpage > 1}

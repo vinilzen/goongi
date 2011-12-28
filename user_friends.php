@@ -23,8 +23,7 @@ $l = "ld";    // LAST LOGIN DATE
 $t = "t";     // FRIEND TYPE
 
 // SET SORT VARIABLE FOR DATABASE QUERY
-switch($s)
-{
+switch($s) {
   case "ud": $sort = "se_users.user_dateupdated DESC"; $u = "ud"; break;
   case "ld": $sort = "se_users.user_lastlogindate DESC"; $l = "ld"; break;
   case "t": $sort = "se_friends.friend_type"; $t = "td"; break;
@@ -46,6 +45,23 @@ $show_details = ( !empty($connection_types) || $setting['setting_connection_othe
 // GET TOTAL FRIENDS
 $total_friends = $user->user_friend_total(0, 1, $is_where, $where);
 
+if (isset($_POST['json']) && $_POST['json'] == 1 )  {
+	if ($total_friends > 0) {
+		$friends = $user->user_friend_list(0, $total_friends, 0, 1, $sort, $where, $show_details);
+		
+		foreach ($friends AS $k=>$v){
+			$result[ $v->user_info['user_id'] ] = $v->user_info;
+		}
+		//echo '<pre>';
+		//print_r($result);
+		echo json_encode(array('error'=>0,'result'=>$result)); 
+		die();
+	} else {
+		echo json_encode(array('error'=>1,'result'=>SE_Language::get(904)));  // Your friend list is empty.
+		die();
+	}
+}
+
 // MAKE FRIEND PAGES
 $friends_per_page = 10;
 $page_vars = make_page($total_friends, $friends_per_page, $p);
@@ -54,9 +70,8 @@ $page_vars = make_page($total_friends, $friends_per_page, $p);
 
 // GET FRIEND ARRAY
 $friends = $user->user_friend_list($page_vars[0], $friends_per_page, 0, 1, $sort, $where, $show_details);
+
 $groups = $user->user_group_list();
-//echo '<pre>'; print_r($friends); die();
-// ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('$user_exists', $user->user_exists);
 $smarty->assign('s', $s);
 $smarty->assign('u', $u);

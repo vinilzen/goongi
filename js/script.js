@@ -26,13 +26,12 @@ $('.b_bg').height($('#content').height()).css('opacity','0.95').show();
 		$('#no_reg_w').css("top", scrOfY + 50 + 'px').fadeIn();
 		e.preventDefault();
 	});
-	$('.window .close').click(function(e){
+	$(".window .close").live("click", function (e) {
 		$('#popup').fadeOut(300);
 		$('.window').hide();
 		e.preventDefault();
 	});
-	$('.window #cancel').click(function(e){
-		
+	$(".window #cancel").live("click", function (e) {
 		$('#popup').fadeOut(300);
 		$('.window').hide();
 		e.preventDefault();
@@ -569,7 +568,95 @@ $('.d_inf .golosa label a').click(function(e){
 		);
 	
 	})
+	
+	$("#edit_group_b").live("click", function () {
+		$('#edit_group').remove();
+		$('#popup').height($('#content').height()).css('opacity','0.6').show();
+		var scrOfY = src();
+		$('body').append(	'<div class="window" id="edit_group"><div class="close"></div><div class="w_c">'+
+							'<h1>редактировать группу vip</h1><p><strong>Выберите друзей</strong></p>'+
+							'<ul class="friend_list_w"></ul>'+
+							'<div class="buttons_w"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Сохранить" name="creat" /></span><span class="r">&nbsp;</span></span>'+
+							'<span class="button3"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Отменить" name="creat" /></span><span class="r">&nbsp;</span></span></div></div></div>');
+		$('.friend_list_w').html('');	
+		$.post(	"user_friends.php",
+				{ 'json': 1 },
+				function(data) {
+					if ( data.error == '0') {
+						$.each(data.result, function(key, value) {			
+							var photo = value['user_photo'].replace(/(\w+)\.jpg/, "$1"+"_thumb.jpg");
+							$('.friend_list_w').append('<li><a href="/'+value['user_username']+'"><img width="51" height="52"  src="/uploads_user/1000/'+key+'/'+photo+'" alt="'+value['user_displayname']+'" /></a><a href="/'+value['user_username']+'">'+value['user_displayname']+'</a></li>'); 
+							//$('.friend_list_w').append('<li><a href="/">'+key+'</li>'); 
+						});
+						$('#edit_group').fadeIn();
+					}
+					if (data.error == '1') {
+						alert( data.result);
+					}
+				},
+				'json');
+		
+
+	})
+
+	$(".gr_name").live("click", function () {
+		var group_id = $(this).attr('rel');
+		if (group_id > 0 ) {
+			$('.friends_list li').hide();
+			$('.group_' + group_id).show();
+			$('.edit_group').show();
+			$('#edit_group_b').attr('rel',group_id);
+			
+		} else {
+			$('.friends_list li').show();
+			$('.edit_group').hide();
+		}
+		return false;
+	});
 });
+
+function createGroup() {
+	$('#msg_gr').html('<img src="/images/96.gif" border="0" />');
+	var go = 1;
+	if (go == 1) {
+		go = 0;
+		$.post(	"user_add_group.php", 	
+				{ task: 'add' , gn: $('#group_name').attr('value') },
+				function(data) {
+					if ( data.success == '0') {
+						$('#msg_gr').html(data.msg);
+						go = 1;
+					}
+					if (data.success == '1') {
+						$('#msg_gr').html(data.msg);
+						setTimeout ( function() {
+							$('#popup').fadeOut(300);
+							$('.window').hide();
+						}, 1500);
+						update_group_list();
+					}
+				}
+				, "json" 
+		);
+	}
+}
+function update_group_list() {
+
+	$.post(	"user_add_group.php", 
+			{ task: 'update' },
+			function(data) {
+				if ( data.success == '0') {
+					alert(data.msg);
+					go = 1;
+				}
+				if (data.success == '1') {
+					$('#user_groups').html(data.msg);
+					$('#user_groups').append('<li class="last"><a href="#" class="gr_name" rel="0">Показать всех</a></li>');
+				}
+			}
+			, "json" 
+		);
+}
 
 	function existence_mail(email) {
 		$('#email_u_msg').html('');
@@ -861,26 +948,26 @@ $('.d_inf .golosa label a').click(function(e){
 	}
 
 
-        function candle_post(user_id,user_name, owner_id, user_photo) {
-   			$.post( 'misc_js.php',
-				       {task:'candle_post',
-                                        user_id: '' + user_id + '',
-                                        user_name:''+user_name+'',
-                                        owner_id:''+owner_id+'',
-					user_photo:''+user_photo+''},
-					function(data) {
+	function candle_post(user_id,user_name, owner_id, user_photo) {
+		$.post( 'misc_js.php',
+				   {task:'candle_post',
+									user_id: '' + user_id + '',
+									user_name:''+user_name+'',
+									owner_id:''+owner_id+'',
+				user_photo:''+user_photo+''},
+				function(data) {
 
-						if (data != null) {
-							if (data.is_error == 1) {
-                                                            $('#count_candle').html('');
-                                                            $('#count_candle').append(data.count);
-							} else {
-								alert(data.is_error);
-							}
+					if (data != null) {
+						if (data.is_error == 1) {
+														$('#count_candle').html('');
+														$('#count_candle').append(data.count);
 						} else {
-							alert('Неизвестная ошибка =()');
+							alert(data.is_error);
 						}
-					} ,
-					'json');
+					} else {
+						alert('Неизвестная ошибка =()');
+					}
+				} ,
+				'json');
 	}
 
