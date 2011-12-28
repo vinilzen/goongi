@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-27 17:36:24
+<?php /* Smarty version 2.6.14, created on 2011-12-28 15:05:45
          compiled from menu_main.tpl */
 ?><?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('block', 'hook_foreach', 'menu_main.tpl', 37, false),array('modifier', 'escape', 'menu_main.tpl', 80, false),)), $this);

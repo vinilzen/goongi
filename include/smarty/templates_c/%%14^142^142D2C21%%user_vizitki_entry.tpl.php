@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2011-12-23 18:17:57
+<?php /* Smarty version 2.6.14, created on 2011-12-28 15:09:59
          compiled from user_vizitki_entry.tpl */
 ?><?php
 SELanguage::load();
@@ -30,7 +30,7 @@ unset($_smarty_tpl_vars);
             <div class="crumb">
                 <a href="#">Главная</a>
                 <a href="#">Профиль</a>
-                <span> <?php if (! empty ( $this->_tpl_vars['vizitkientry_info']['vizitkientry_id'] )): ?>Редактировать визитку<?php else: ?>Создать визитку<?php endif; ?></span>
+                <span> <?php if (! empty ( $this->_tpl_vars['vizitkientry_info']['ad_id'] )): ?>Редактировать визитку<?php else: ?>Создать визитку<?php endif; ?></span>
             </div>
             <div class="form edit">
             <div class="pred">
@@ -42,8 +42,8 @@ unset($_smarty_tpl_vars);
                 <span id = "p_categor"><?php if (! empty ( $this->_tpl_vars['vizitkientry_info']['vizitkientry_category'] )): 
  echo $this->_tpl_vars['vizitkientry_info']['vizitkientry_category']; 
  endif; ?></span>
-                <p ><img  id = "p_img" src="<?php if (! empty ( $this->_tpl_vars['vizitkientry_info']['vizitkientry_price'] )): ?>uploads_vizitki/<?php echo $this->_tpl_vars['vizitkientry_info']['vizitkientry_id']; ?>
-vizitki_thumb.jpg<?php else: ?>images/6.jpg<?php endif; ?>" alt="" /></p>
+                <p ><img  id = "p_img" src="<?php if (! empty ( $this->_tpl_vars['vizitkientry_info']['ad_filename'] )): ?>../uploads_admin/ads/<?php echo $this->_tpl_vars['vizitkientry_info']['ad_filename']; 
+ else: ?>images/6.jpg<?php endif; ?>" alt="" /></p>
                 <p id = "p_body"><?php if (! empty ( $this->_tpl_vars['vizitkientry_info']['vizitkientry_body'] )): 
  echo $this->_tpl_vars['vizitkientry_info']['vizitkientry_body']; 
  endif; ?><br />
@@ -64,13 +64,13 @@ vizitki_thumb.jpg<?php else: ?>images/6.jpg<?php endif; ?>" alt="" /></p>
             <h2>Создание объявления</h2>
             <form action="user_vizitki_entry.php" method="post" name="edit_profil" enctype="multipart/form-data">
 
-            <?php if (! empty ( $this->_tpl_vars['vizitkientry_info']['vizitkientry_id'] )): ?>
-                <input type='hidden' name='vizitkientry_id' value='<?php echo $this->_tpl_vars['vizitkientry_info']['vizitkientry_id']; ?>
+            <?php if (! empty ( $this->_tpl_vars['vizitkientry_info']['ad_id'] )): ?>
+                <input type='hidden' name='vizitkientry_id' value='<?php echo $this->_tpl_vars['vizitkientry_info']['ad_id']; ?>
 ' />
             <?php endif; ?>
                 <div class="input"><label>Название услуги</label>
-                <input type="text" OnChange = "$('#name_v').attr('value',this.value); $('#p_name').text(this.value); " value="<?php if (! empty ( $this->_tpl_vars['vizitkientry_info']['vizitkientry_title'] )): 
- echo $this->_tpl_vars['vizitkientry_info']['vizitkientry_title']; 
+                <input type="text" OnChange = "$('#name_v').attr('value',this.value); $('#p_name').text(this.value); " value="<?php if (! empty ( $this->_tpl_vars['vizitkientry_info']['ad_name'] )): 
+ echo $this->_tpl_vars['vizitkientry_info']['ad_name']; 
  endif; ?>" id = "name_v" name="name" /></div>
                 <div class="input"><label>Категория</label>
                 <select  OnChange = "$('#p_categor').text(this.options[this.selectedIndex].value);" name="categor">
