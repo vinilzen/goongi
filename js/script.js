@@ -76,6 +76,19 @@ $('.d_inf .golosa label a').click(function(e){
 		return false;
 	});
 
+           $('#invite').live("click", function () {
+                  //  $('#invite_show').remove();
+                   $('#ajaxframe').attr('src','invite.php');
+                        //$('#invite_show_b').html('');
+                        $('#popup').height($('#content').height()).css('opacity','0.6').show();
+                        var scrOfY = src();
+                         $('body').append('ghbdtn'
+
+                       );
+
+                        return false;
+                });
+        
         $('a.add_gif').click(function(e){
             var id_value ='';
             id_value = $(this).attr('id');

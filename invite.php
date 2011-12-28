@@ -30,17 +30,6 @@ if($task == "doinvite")
   $invite_emails = $_POST['invite_emails'];
   $invite_message = $_POST['invite_message'];
 
-  // CHECK FOR SECURITY CODE
-  if( $setting['setting_invite_code'] )
-  {
-    // NOW IN HEADER
-    //session_start();
-    $code = $_SESSION['code'];
-    if($code == "") { $code = randomcode(); }
-    $invite_secure = $_POST['invite_secure'];
-    if($invite_secure != $code) { $is_error = 708; }
-  }
-
   // CHECK FOR NO INVITE EMAILS
   if(trim($invite_emails) == "") { $is_error = 1073; }
 
@@ -83,13 +72,17 @@ if($task == "doinvite")
     $invite_message = "";
     $result = 341;
   }
+ if  ($is_error) echo $is_error;
+ else echo 'all ok'; die();
+exit();
 }
 
 // SET GLOBAL PAGE TITLE
 $global_page_title[0] = 1074;
 $global_page_description[0] = 1075;
 
-
+echo json_encode(array('friends'=>array()));
+    exit();
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('invite', 1);
 $smarty->assign('result', $result);
