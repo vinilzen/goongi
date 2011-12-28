@@ -361,10 +361,14 @@ TREE.popups.collection = {
 
 		render: function(person) {
 
-			var personClone = TREE.tmpl.person(json.users[person.data('id')]).css({
-				left: 91,
-				top: 45
-			});
+			var id = person.data('id'),
+				hasFather = json.users[id].father ? true : false,
+				hasMother = json.users[id].mother ? true : false,
+				spouse = json.users[json.users[id].spouse],
+				personClone = TREE.tmpl.person(json.users[id]).css({
+					left: 91,
+					top: 45
+				});
 			personClone.find('.actions').removeClass('closed');
 
 			this.show();
@@ -375,14 +379,22 @@ TREE.popups.collection = {
 			personHeight = personClone.outerHeight();
 			personWidth = personClone.outerWidth();
 
-			this.el.find('.siblings').css({
+			this.el.children('.parents').children().eq(0).toggleClass('hide', hasFather).next().toggleClass('hide', hasMother);
+
+			this.el.find('.add-spouse').eq(0).toggleClass('hide', json.users[id].sex === 'm' || spouse ? true : false);
+			this.el.find('.add-spouse').eq(1).toggleClass('hide', json.users[id].sex === 'w' || spouse ? true : false);
+
+			this.el.find('.siblings, .spouse').css({
 				height: personHeight
-			}).children('.inner').css({
-				'margin-top': (personHeight - this.el.find('.inner').height()) / 2
+			}).children('.inner').each(function() {
+				$(this).css({
+					'margin-top': (personHeight - $(this).height()) / 2
+				})
 			});
 
 			x = (this.el.find('.parents').width() / 2).toHalf();
 			y = this.el.height();
+			y = (y / 2).toHalf() * 2;
 
 			this.el.css({
 				left: personOffset.left + personWidth / 2,
@@ -398,17 +410,24 @@ TREE.popups.collection = {
 			ctx.strokeStyle = 'white';
 			ctx.beginPath();
 
-			ctx.moveTo(x - 40, 13.5);
-			ctx.lineTo(x + 40, 13.5);
-			ctx.moveTo(x, 13);
-			ctx.lineTo(x, 36);
+			if (!hasFather || !hasMother) {
+				ctx.moveTo(x, 36);
+				ctx.lineTo(x, 13.5);
+				!hasFather && ctx.lineTo(x - 40, 13.5);
+				ctx.moveTo(x, 13.5);
+				!hasMother && ctx.lineTo(x + 40, 13.5);
+			}
+
+			if (!spouse) {
+				ctx.moveTo(x - 90, y / 2);
+				ctx.lineTo(x - 140, y / 2);
+			}
 
 			ctx.moveTo(x - 40, y - 13.5);
 			ctx.lineTo(x + 40, y - 13.5);
 			ctx.moveTo(x, y - 13);
 			ctx.lineTo(x, y - 36);
 
-			y = (y / 2).toHalf() * 2;
 			ctx.moveTo(x + 90, y / 2);
 			ctx.lineTo(x + 110, y / 2);
 			ctx.moveTo(x + 140, y / 2 - 22);
