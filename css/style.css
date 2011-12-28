@@ -726,3 +726,5 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .death_page #footer .dis a,
 .death_page #footer .copy,
 .death_page #footer .copy a		{ color:#777777; text-shadow: none;}
+.last {border-top:1px solid #1c1d1d; margin-top:5px; padding-top:5px;}
+.edit_group {display:none;}
