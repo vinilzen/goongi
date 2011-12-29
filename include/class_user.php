@@ -1666,9 +1666,9 @@ class SEUser
 		$user_id = $user->user_info['user_id'];
 		if ($user_id != 0 && $group_id!=0) {
 			
-			if ( $this->clear_group($group_id,$user_id) ) {
+			if ( $this->clear_group($group_id) ) {
 				if ( count($users) > 0 ) {
-					$sql = "INSERT INTO `_goongi`.`se_group_users` (`group_id`, `user_id`) VALUES ";
+					$sql = "INSERT INTO `se_group_users` (`group_id`, `user_id`) VALUES ";
 					foreach ($users AS $v ) {
 						$values[] = " ( $group_id, $v) ";
 					}
@@ -1678,10 +1678,22 @@ class SEUser
 					
 					if ($database->database_query($sql)) {
 						return true;
-					} else return false;					
-				} else return true;
-			} else return false;
-		} else	return false;
+					} else {
+						//die($sql);
+						return false;					
+					}
+				} else {
+					//die('count');
+					return true;
+				}
+			} else {
+				//die('clear');
+				return false;
+			}
+		} else	{
+			//die('u g ');
+			return false;
+		}
 	}
 	
 	function del_group($group_id) {
