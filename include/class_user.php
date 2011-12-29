@@ -1644,9 +1644,6 @@ class SEUser
 	  return $friend_array;
 	}
   
-
-
-
 	// THIS METHOD GET A GROUP OF THE CURRENT USER
 	// INPUT:	$user_id REPRESENTING THE USER ID OF THE GROUP TO BE ADDED
 	// 			$group_name GROUP NAME
@@ -1664,7 +1661,55 @@ class SEUser
 	}
   // END user_check_group_name() METHOD
 
-
+	function update_user_group($group_id, $users){
+		global $database, $setting, $user;
+		$user_id = $user->user_info['user_id'];
+		if ($user_id != 0 && $group_id!=0) {
+			
+			if ( $this->clear_group($group_id,$user_id) ) {
+				if ( count($users) > 0 ) {
+					$sql = "INSERT INTO `_goongi`.`se_group_users` (`group_id`, `user_id`) VALUES ";
+					foreach ($users AS $v ) {
+						$values[] = " ( $group_id, $v) ";
+					}
+					if (count($values)>0) {
+						$sql .= ' '.implode(',', $values).';';
+					}
+					
+					if ($database->database_query($sql)) {
+						return true;
+					} else return false;					
+				} else return true;
+			} else return false;
+		} else	return false;
+	}
+	
+	function del_group($group_id) {
+		global $database, $setting, $user;
+		
+		$sql = "DELETE FROM `se_group_users` WHERE `group_id` = $group_id LIMIT 1;";
+		if ($database->database_query($sql)) {
+			$sql = "DELETE FROM `se_groups` WHERE `group_id` = $group_id LIMIT 1;";
+			if ($database->database_query($sql)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	
+	function clear_group($group_id){
+		global $database, $setting, $user;
+		$sql = "DELETE FROM `se_group_users` WHERE `group_id` = $group_id;";
+		if ($database->database_query($sql))
+			return true;
+		else {
+			return false;
+		} 
+	}
+	
 
 	function user_add_group ( $group_name ) {
 		global $database, $setting, $user;

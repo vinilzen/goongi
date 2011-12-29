@@ -45,20 +45,48 @@ $show_details = ( !empty($connection_types) || $setting['setting_connection_othe
 // GET TOTAL FRIENDS
 $total_friends = $user->user_friend_total(0, 1, $is_where, $where);
 
-if (isset($_POST['json']) && $_POST['json'] == 1 )  {
-	if ($total_friends > 0) {
-		$friends = $user->user_friend_list(0, $total_friends, 0, 1, $sort, $where, $show_details);
-		
-		foreach ($friends AS $k=>$v){
-			$result[ $v->user_info['user_id'] ] = $v->user_info;
+if ( isset($_POST['json']) && $_POST['json'] == 1 ){
+	 if ( isset($_POST['task']) && $_POST['task'] == 'get_friends' )  {
+		if ($total_friends > 0) {
+			$friends = $user->user_friend_list(0, $total_friends, 0, 1, $sort, $where, $show_details);
+			
+			foreach ($friends AS $k=>$v){
+				$result[ $v->user_info['user_id'] ] = $v->user_info;
+			}
+			//echo '<pre>';
+			//print_r($result);
+			echo json_encode(array('error'=>0,'result'=>$result)); 
+			die();
+		} else {
+			echo json_encode(array('error'=>1,'result'=>SE_Language::get(904)));  // Your friend list is empty.
+			die();
 		}
-		//echo '<pre>';
-		//print_r($result);
-		echo json_encode(array('error'=>0,'result'=>$result)); 
-		die();
-	} else {
-		echo json_encode(array('error'=>1,'result'=>SE_Language::get(904)));  // Your friend list is empty.
-		die();
+	} elseif( isset($_POST['task']) && $_POST['task'] == 'save_group' ){
+		
+		if ( $user->update_user_group( $_POST['group'],$_POST['users'] ) ) {
+			
+			echo json_encode(array('error'=>0,'result'=>'Группа обновленна.')); 
+			die();
+			
+		} else {
+			
+			echo json_encode(array('error'=>1,'result'=>'Ошибкак обновления группы друзей.'));  // Your friend list is empty.
+			die();
+			
+		}
+	} elseif( isset($_POST['task']) && $_POST['task'] == 'del_group' ){
+		
+		if ( $user->del_group( $_POST['group'] ) ) {
+			
+			echo json_encode(array('error'=>0,'result'=>'Группа обновленна.')); 
+			die();
+			
+		} else {
+			
+			echo json_encode(array('error'=>1,'result'=>'Ошибкак обновления группы друзей.'));  // Your friend list is empty.
+			die();
+			
+		}
 	}
 }
 

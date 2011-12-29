@@ -31,7 +31,7 @@
 	<h2>Список групп</h2>
 	<ul id="user_groups">
 		{foreach from=$groups key=k item=v}
-		<li><a href="#" class="gr_name" rel="{$k}">{$v.name}</a></li>
+		<li><a href="#" class="gr_name" id="group_{$k}" rel="{$k}">{$v.name}</a></li>
 		{/foreach}
 		<li class="last"><a href="#" class="gr_name" rel="0">Показать всех</a></li>
 	</ul>

@@ -50,7 +50,7 @@
 					<div class="p_mn_t"></div>
 					<div class="p_mn_c">
 						<div class="p_mn_b">
-							<a href="javascript:void(0);" rel="/tree.php?user={$owner->user_info.user_username}">Древо</a>
+							<a href="/tree.php?user={$owner->user_info.user_username}">Древо</a>
 							<a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a>
 							<a href="javascript:void(0);">История рода</a>
 							<a href="javascript:void(0);" rel="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
