@@ -211,7 +211,7 @@ $global_page_description[2] = strip_tags(implode(" - ", $field->field_values));
 //echo '<pre>'; var_dump($actions->actions_display(0, $setting['setting_actions_actionsonprofile'], "se_actions.action_user_id='{$owner->user_info['user_id']}'")); die();
 //print_r ($field->cats[0]);
 //// ASSIGN VARIABLES AND INCLUDE FOOTER
-
+//print_r ($field->cats);
 $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_id ='{$owner->user_info['user_id']}'");
 $count_candle= $database->database_num_rows($field1);
 

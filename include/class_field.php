@@ -234,7 +234,7 @@ class se_field {
 		    $exploded_field_values = Array();
 		    foreach($br_exploded_field_values as $key => $value) {
 		      $comma_exploded_field_values = explode(",", trim($value));
-		      array_walk($comma_exploded_field_values, 'link_field_values', Array($field_info[field_id], "", $field_info[field_link], $field_info[field_display]));
+		   //   array_walk($comma_exploded_field_values, 'link_field_values', Array($field_info[field_id], "", $field_info[field_link], $field_info[field_display]));
 		      $exploded_field_values[$key] = implode(", ", $comma_exploded_field_values);
 		    }
 		    $field_value_formatted = implode("<br>", $exploded_field_values);
@@ -416,7 +416,7 @@ class se_field {
 
 		    // LINK FIELD VALUES IF NECESSARY
 		    if($field_info[field_display] == 2) { 
-		      link_field_values($field_value_formatted, "", Array($field_info[field_id], $options[$i][value], "", $field_info[field_display])); 
+		   //   link_field_values($field_value_formatted, "", Array($field_info[field_id], $options[$i][value], "", $field_info[field_display]));
 		    }
 
 		    // ADD DEPENDENT VALUE TO FIELD VALUE
@@ -602,7 +602,9 @@ class se_field {
 	              case "ymd": $field_value_formatted = "$year $month $day"; break;
 	              case "dmy": $field_value_formatted = "$day $month $year"; break;
 	            }
-		    if($field_info[field_display] == 2) { link_field_values($field_value_formatted, "", Array($field_info[field_id], $field_value, "", $field_info[field_display])); }
+		    if($field_info[field_display] == 2) { 
+                        //link_field_values($field_value_formatted, "", Array($field_info[field_id], $field_value, "", $field_info[field_display]));
+                        }
 		  }
 
 
@@ -790,13 +792,13 @@ class se_field {
 
 		    // LINK FIELD VALUES IF NECESSARY
 		    if($field_info[field_display] == 2) { 
-		      link_field_values($formatted_prelim, "", Array($field_info[field_id], $options[$i][value], "", $field_info[field_display])); 
+		      link_field_values($formatted_prelim, "", Array($field_info[field_id], $options[$i][value], "", $field_info[field_display]));
 		    }
 
 		    // ADD DEPENDENT VALUE TO FIELD VALUE
 		    if($dep_field_value != "" && $dep_field_info[field_display] != 0) { 
 		      if($dep_field_info[field_type] == 3) { $dep_field_value_formatted = SE_Language::_get($dep_field_value_formatted); } else { $dep_field_value_formatted = $dep_field_value; }
-		      link_field_values($dep_field_value_formatted, "", Array($dep_field_info[field_id], $dep_field_value, $dep_field_info[field_link], $dep_field_info[field_display]));
+		     // link_field_values($dep_field_value_formatted, "", Array($dep_field_info[field_id], $dep_field_value, $dep_field_info[field_link], $dep_field_info[field_display]));
 		      $field_value_formatted .= " ".SE_Language::_get($dep_field_info[field_title])." ".$dep_field_value_formatted;
 		    }
 
