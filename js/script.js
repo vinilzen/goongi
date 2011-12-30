@@ -573,6 +573,51 @@ $('.d_inf .golosa label a').click(function(e){
 		$('.window').hide();
 		e.preventDefault();
 	})
+         $('#invite').live("click", function () {
+            $('#popup').height($('#content').height()).show();
+              var scrOfY = src();
+               $('body').append( '<div class="window rezina" id="invite_show">'+
+                      '<div class="close"></div>'+
+                      '<div class="w_t">'+
+                      '<h1>Пригласите ваших друзей</h1>'+
+                      '</div>'+
+                      '<div class="w_c">'+
+                      '<div class="form invite_show" id="invite_show_b">'+
+                      '</div>'+
+                      '</div>'+
+                      '<div class="w_b"></div>'+
+                '</div>');
+                $('#invite_show_b').html('');
+        $.post( 'invite.php',
+                            { 'json': 1 },
+                            function(data) {
+                    if ( data.error == '0') {
+                         $('#invite_show').show();
+                          $('#invite_show_b').append('<div id="form_auth">'+
+                                                     '<div class="input">'+
+                                                     '<label>Получатель</label>'+
+                                                     '<input type = "text" name="invite_emails" id="invite_emails" rows=\'2\' cols=\'45\'  onfocus="if (this.value == \'Введите электронную почту\') this.value =\'\';this.style.color=\'#7f7f7f\';" onblur="if (this.value == \'\') this.value=\'Введите электронную почту\';this.style.color=\'#7f7f7f\';"  value = "Введите электронную почту" color=\'#7f7f7f\';>'+
+                                                     '</div>'+
+                                                    '<div class="input">'+
+                                                    '<textarea rows="3" cols="10" name="invite_message" id="invite_message" onfocus="if (this.value == \'Введите ваше сообщение\') this.value =\'\';this.style.color=\'#7f7f7f\';" onblur="if (this.value == \'\') this.value=\'Введите ваше сообщение\';this.style.color=\'#7f7f7f\';" >Введите ваше сообщение</textarea>'+
+                                                     '</div>'+
+                                                    '<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c">'+
+                                                     '<input type="submit" onClick = "my_invite(); return false;" value="Пригласить" name="send"  />'+
+                                                      '</span><span class="r">&nbsp;</span></span>'+
+                                                    '</div>'+
+                                                      '<input type="hidden" name="task" value="doinvite">'
+                                                );
+                      }
+                   if (data.error == '1') {
+                           alert( data.result);
+                    }
+
+            },
+            'json');
+             return false;
+  })
+
+
 
 	$("#edit_group_b").live("click", function () {
 		$('#edit_group').remove();
@@ -1025,3 +1070,55 @@ function update_group_list() {
 				'json');
 	}
 
+function my_invite() {
+  $.post(
+    "invite.php",
+    { invite_emails: $('#invite_emails').attr('value') , invite_message: $('#invite_message').attr('value'),task:'doinvite' },
+    function(data) {
+    $('#invite_show_b').html('<h1>' + data + '</h1>');
+      setTimeout ( function() {
+        $('#popup').fadeOut(300);
+        $('.window').hide();
+        //e.preventDefault();
+      }, 1500);
+    }
+  );
+}
+
+
+
+function Show_piple(owner_id){
+     //    $('.set_golos').click(function() {
+             $('#svecha_list').remove();
+    $('#popup').height($('#content').height()).css('opacity','0.6').show();
+    //var scrOfY = src();
+                $('body').append(
+                                 '<div class="window" id="svecha_list">'+
+                                 '<div class="close"></div>'+
+                                 '<h1>Свечу памяти зажгло <span class="count_g"></span> человек</h1>'+
+                                 '<div class="w_c">'+
+                                 '<input type="hidden" name="user" id="user" value="{$owner->user_info.user_username}">'+
+                                 '<ul class="friend_list h200">'+
+                                 '</ul>'+
+                                 '</div>'+
+                                 '</div>');
+                    $('.friend_list h200').html('');
+                    $.post("misc_js.php",
+        { 'task':'candle_golosa', owner_id: '' + owner_id + ''},
+        function(data) {
+          if ( data.error == '0') {
+                                            $('#svecha_list').show();
+                                             $('.count_g').append(data.result.length);
+                                          //    alert($('#user').value);
+                                               $.each(data.result, function(key, value) {
+             $('.friend_list').append('<li><a href="#"><img src="/uploads_user/1000/'+value['user_candle_id']+'/'+value['user_candle_photo']+'.jpg" alt="" /></a><a href="#">'+ value['user_candle_name']+'</a></li>');
+                                             });
+                                    $('#svecha_list').fadeIn();
+          }
+          if (data.error == '1') {
+            alert( data.result);
+          }
+        },
+        'json');
+                                return false;
+  }
