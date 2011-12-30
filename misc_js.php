@@ -275,7 +275,6 @@ elseif( $task == "notify_get" )
   exit();
 }
 
-
 // GET NOTIFICATIONS
 elseif( $task == "candle_post" )
 {
@@ -296,10 +295,10 @@ elseif( $task == "candle_post" )
  else
   {
     $result ='1';
-     $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_candle_id ='{$owner_id_s}'");
+     $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_candle_id ='{$user_id_s}' AND user_id ='{$owner_id_s}'");
 	      $count= $database->database_num_rows($field1);
    if ( $count < 1){
-   //  $sql = "INSERT INTO `se_groups` (`user_id`, `group_name`) VALUES ( '{$user_id}', '{$group_name}');";
+     $sql = "INSERT INTO `se_groups` (`user_id`, `group_name`) VALUES ( '{$user_id}', '{$group_name}');";
      $sql = "
        INSERT INTO `se_user_candle`
        (`user_candle_id`, `user_candle_name`, `user_id`, `user_candle_photo`)
@@ -319,6 +318,17 @@ elseif( $task == "candle_post" )
   exit();
 }
 
+elseif( $task == "candle_golosa" )
+{
+ //   print_r ($user);
+$owner_id =( isset($_POST['owner_id']) ? $_POST['owner_id'] : NULL );
+ $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_id ='{$owner_id}'");
+ while($info=$database->database_fetch_assoc($field1))
+	      $info_candle[]= $info;
+header("Content-Type: application/json");
+ echo json_encode(array('error' => 0, 'result' => $info_candle));
+ exit();
+}
 
 // DELETE NOTIFICATIONS
 elseif( $task == "notify_delete" )

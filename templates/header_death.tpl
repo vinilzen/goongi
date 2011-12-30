@@ -121,7 +121,7 @@
 
 {* $Id: header.tpl 287 2010-01-07 23:46:33Z steve $ *}
 {* INCLUDE HEADER CODE *}
-{include file="header_global.tpl"}
+
 
 {if $smarty.const.SE_DEBUG && $admin->admin_exists && 0}{include file="header_debug.tpl"}{/if}
 
@@ -139,7 +139,7 @@
             <div class="logo"><a href="/"><img src="/images/logo.png" alt="" /></a></div>
             <ul class="menu">
                 <li><a href="/search.php">{lang_print id=200}<!-- Поиск --></a></li>
-                <li><a href="/invite.php">{lang_print id=647}<!-- Пригласить --></a></li>
+                <li id = "invite"><a href="/invite.php">{lang_print id=647}<!-- Пригласить --></a></li>
                 <li><a href="#">{lang_print id=6000144}<!-- Подарки --></a></li>
                 <li><a href="#"><span>{lang_print id=687}<!-- Язык --></span></a></li>
                 <li>

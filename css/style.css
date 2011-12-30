@@ -164,7 +164,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	
 	.friend_list	{ overflow:hidden; list-style:none;}
 	.friend_list.h200	{ overflow: auto; list-style:none; height:195px; margin-bottom:20px;}
-	.friend_list li	{ overflow:hidden; list-style:none; float:left; width:140px; margin-right:27px; height:71px;}
+	.friend_list li	{ overflow:hidden; list-style:none; float:left; width:160px; margin-right:27px; height:71px;}
 	.friend_list li img		{ border:1px solid #d7d7d7; padding:2px; float:left; margin-right:9px;}
 	.friend_list li a		{ font-weight:bold; color:#000; text-decoration:none;}
 	
@@ -728,3 +728,4 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .death_page #footer .copy a		{ color:#777777; text-shadow: none;}
 .last {border-top:1px solid #1c1d1d; margin-top:5px; padding-top:5px;}
 .edit_group {display:none;}
+

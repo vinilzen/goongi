@@ -41,18 +41,11 @@ if( !defined('SE_PAGE_AJAX') ) {
 $global_smoothbox = false;
 if(isset($_GET['in_smoothbox'])) { if($_GET['in_smoothbox'] == true) { $global_smoothbox = true; }}
 
-
-$field1 = $database->database_query("SELECT * FROM se_user_candle");
- while($info=$database->database_fetch_assoc($field1))
-	      $info_candle[]= $info;
-
-             
-
 $compatible_input_dateformat = $setting['setting_dateformat'];
 $compatible_input_timeformat = $setting['setting_timeformat'];
 
 // ASSIGN GLOBAL SMARTY OBJECTS/VARIABLES
-$smarty->assign_by_ref('info_candle', $info_candle);
+//$smarty->assign_by_ref('info_candle', $info_candle);
 //$ads = new se_ads();
 //$ads->load();
 //print_r ($ads);
