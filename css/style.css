@@ -47,7 +47,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.head .fix		{ width:942px; height:58px;}
 	.head .logo	{ position: absolute; top:21px; left:0px;}
 	.head .menu	{ position:absolute; list-style:none; top:0; right:0; height:58px; padding-left:2px; background:url(../images/bg4.png) no-repeat 0 0;}
-	.head .menu li	{ float:left; background:url(../images/bg4.png) no-repeat 100% 0; height:58px; padding-right:2px;}
+	.head .menu li	{ float:left; background:url(../images/bg4.png) no-repeat 100% 0; height:58px; padding:0px 2px 0px 0px; margin:0px;}
 	.head .menu li a	{ font:14px Trebuchet MS; color:#aa4944; text-decoration:none; text-transform:uppercase; height:58px; overflow:hidden; line-height:70px; display:inline-block; padding:0 34px; background:url(../images/bg3.png) repeat-x 50% -58px;}
 	.head .menu li a:hover	{ color:#fff; background-position:50% 0;}
 	.head .menu li.last a	{ color:#da9e9c;}
