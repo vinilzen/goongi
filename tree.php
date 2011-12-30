@@ -7,7 +7,10 @@ include "header.php";
 
 $users = $user->get_users();
 //$family_array = $user->get_relatives_displayname(); // array ( user_id => displayname )
-$family = $user->get_family();
+if ( isset($owner) && $owner->user_exists == 1 )
+	$family = $user->get_family($owner->user_info['user_id']);
+else
+	$family = $user->get_family();
 //$unions = $user->get_user_union();
 //echo '<pre>->'; print_r($user); echo '</pre>';  die();
 

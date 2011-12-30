@@ -149,13 +149,12 @@ $('.b_bg').height($('#content').height()).css('opacity','0.95').show();
        }
 	   return scrOfY;
 	}
-	
-	$('.friend_list_w li').toggle(function(){
-		$(this).addClass('check');
-	},function(){
-		$(this).removeClass('check');
+	$('.friend_list_w li').live('click', function() {
+		if ($(this).attr('class') == 'check')
+			$(this).removeClass('check');
+		else
+			$(this).addClass('check');
 	});
-	
 	// FORMS
 	if ($('#death label input').attr('checked')==true){
 		$(this).parent().parent().children('select').removeAttr('disabled');
@@ -616,26 +615,73 @@ $('.b_bg').height($('#content').height()).css('opacity','0.95').show();
         
 
 	
+	$(".cancel_edit_group").live("click", function (e) {
+		$('#popup').fadeOut(300);
+		$('.window').hide();
+		e.preventDefault();
+	})
+
 	$("#edit_group_b").live("click", function () {
 		$('#edit_group').remove();
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();
+
                  $('body').append('<div class="window" id="edit_group"><div class="close"></div><div class="w_c">'+
                                     '<h1>редактировать группу vip</h1><p><strong>Выберите друзей</strong></p>'+
                                     '<ul class="friend_list_w"></ul>'+
                                     '<div class="buttons_w"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Сохранить" name="creat" /></span><span class="r">&nbsp;</span></span>'+
                                     '<span class="button3"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Отменить" name="creat" /></span><span class="r">&nbsp;</span></span></div></div></div>');
+
+		$('body').append(	'<div class="window" id="edit_group"><div class="close"></div><div class="w_c">'+
+							'<h1 id="title_edit_gr">редактировать группу </h1><p><strong>Выберите друзей</strong></p>'+
+							'<ul class="friend_list_w"></ul>'+
+							'<div class="buttons_w"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Сохранить" name="creat" id="save_group" /></span><span class="r">&nbsp;</span></span>'+
+							'<span class="button3"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Отменить" name="cancel_edit_group" class="cancel_edit_group" /></span><span class="r">&nbsp;</span></span></div></div></div>');
+
 		$('.friend_list_w').html('');	
 		$.post(	"user_friends.php",
-				{ 'json': 1 },
+				{ 'json': 1,'task':'get_friends' },
 				function(data) {
 					if ( data.error == '0') {
-						$.each(data.result, function(key, value) {			
+						var group_id_curent = $('#edit_group_b').attr('rel');
+									
+						$('#title_edit_gr').append( $('#group_'+group_id_curent).html() );
+						$.each(data.result, function(key, value) {		
 							var photo = value['user_photo'].replace(/(\w+)\.jpg/, "$1"+"_thumb.jpg");
-							$('.friend_list_w').append('<li><a href="/'+value['user_username']+'"><img width="51" height="52"  src="/uploads_user/1000/'+key+'/'+photo+'" alt="'+value['user_displayname']+'" /></a><a href="/'+value['user_username']+'">'+value['user_displayname']+'</a></li>'); 
-							//$('.friend_list_w').append('<li><a href="/">'+key+'</li>'); 
+							if ($('#frend_'+key).attr('class') != '') {
+								var str = $('#frend_'+key).attr('class');
+								regexp = "group_"+group_id_curent;
+								idx = str.search(regexp)
+								if (idx != -1) 
+									var check = 'class="check"';
+								else 
+									var check = '';
+							} else {
+								var check = '';
+							}
+							$('.friend_list_w').append('<li '+check+' rel="'+key+'"><a href="#"><img width="51" height="52" src="/uploads_user/1000/'+key+'/'+photo+'" alt="'+value['user_displayname']+'" /></a><a href="/'+value['user_username']+'">'+value['user_displayname']+'</a></li>');
 						});
 						$('#edit_group').fadeIn();
+						
+						$('#save_group').click(function() {
+							var users = [];
+							$(".friend_list_w li").each(function(){
+								
+								if ($(this).attr('class') == 'check') {
+									users[users.length] = $(this).attr('rel');
+								}
+							 });
+							 $.post(	"user_friends.php",
+										{ 'json': 1,'task': 'save_group','group': group_id_curent, 'users':users },
+										function(data_save) {
+											if ( data_save.error == '0') {
+												location.href='user_friends.php';
+											}
+											if ( data_save.error == '1') {
+												alert('error');
+											}
+										},'json')
+						});
 					}
 					if (data.error == '1') {
 						alert( data.result);
@@ -644,7 +690,22 @@ $('.b_bg').height($('#content').height()).css('opacity','0.95').show();
 				'json');
 
 	})
-
+	
+	$('#del_group').click(function() {
+		var group_id_curent = $('#edit_group_b').attr('rel');
+		$.post(	"user_friends.php",
+					{ 'json': 1,'task': 'del_group','group': group_id_curent},
+					function(data_save) {
+						if ( data_save.error == '0') {
+							location.href='user_friends.php';
+						}
+						if ( data_save.error == '1') {
+							alert('error');
+						}
+					},'json')
+	});
+	
+	
 	$(".gr_name").live("click", function () {
 		var group_id = $(this).attr('rel');
 		if (group_id > 0 ) {
@@ -678,8 +739,9 @@ function createGroup() {
 						setTimeout ( function() {
 							$('#popup').fadeOut(300);
 							$('.window').hide();
-						}, 1500);
-						update_group_list();
+						}, 1000);
+						location.href='user_friends.php';
+						//update_group_list();
 					}
 				}
 				, "json" 

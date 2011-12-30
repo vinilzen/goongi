@@ -1644,9 +1644,6 @@ class SEUser
 	  return $friend_array;
 	}
   
-
-
-
 	// THIS METHOD GET A GROUP OF THE CURRENT USER
 	// INPUT:	$user_id REPRESENTING THE USER ID OF THE GROUP TO BE ADDED
 	// 			$group_name GROUP NAME
@@ -1664,7 +1661,67 @@ class SEUser
 	}
   // END user_check_group_name() METHOD
 
-
+	function update_user_group($group_id, $users){
+		global $database, $setting, $user;
+		$user_id = $user->user_info['user_id'];
+		if ($user_id != 0 && $group_id!=0) {
+			
+			if ( $this->clear_group($group_id) ) {
+				if ( count($users) > 0 ) {
+					$sql = "INSERT INTO `se_group_users` (`group_id`, `user_id`) VALUES ";
+					foreach ($users AS $v ) {
+						$values[] = " ( $group_id, $v) ";
+					}
+					if (count($values)>0) {
+						$sql .= ' '.implode(',', $values).';';
+					}
+					
+					if ($database->database_query($sql)) {
+						return true;
+					} else {
+						//die($sql);
+						return false;					
+					}
+				} else {
+					//die('count');
+					return true;
+				}
+			} else {
+				//die('clear');
+				return false;
+			}
+		} else	{
+			//die('u g ');
+			return false;
+		}
+	}
+	
+	function del_group($group_id) {
+		global $database, $setting, $user;
+		
+		$sql = "DELETE FROM `se_group_users` WHERE `group_id` = $group_id LIMIT 1;";
+		if ($database->database_query($sql)) {
+			$sql = "DELETE FROM `se_groups` WHERE `group_id` = $group_id LIMIT 1;";
+			if ($database->database_query($sql)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	
+	function clear_group($group_id){
+		global $database, $setting, $user;
+		$sql = "DELETE FROM `se_group_users` WHERE `group_id` = $group_id;";
+		if ($database->database_query($sql))
+			return true;
+		else {
+			return false;
+		} 
+	}
+	
 
 	function user_add_group ( $group_name ) {
 		global $database, $setting, $user;
@@ -2062,16 +2119,21 @@ class SEUser
 	
 	function get_family($user_id = 0, $level = 1) {
 		global $database, $setting, $user;
+		
 		if ($user_id == 0)
 			$user_id = $user->user_info['user_id'];
 		
+		
+		//echo $user_id; die();
+		
 		$result = array();
 		$users = $this->bild_tree($user_id);
-		
+
 		foreach ($users AS $k=>$v) $users = $users + $this->bild_tree($k); // add 2 lvl
 
 		$result1['user'] = $this->get_user_info(array(1=>$user_id), true);
 		$result1['user'] = $this->add_psc($user_id);
+
 		unset($users[$user_id]);  // del root user from a reletives users array
 		foreach ($users AS $k=>$v) {
 			if ($k != $user_id) {
@@ -2079,13 +2141,15 @@ class SEUser
 			}
 		}
 		$result1['users'] = $users;
-		
+		// echo '<pre>'; print_r($result1); die();
 		return json_encode($result1); //die();
 	}
 	
 	function bild_tree($user_id) {
 		global $database, $setting, $user;
+		
 		$familys = $this->get_family_list($user_id);  // list family
+		
 		$family_ids = array();
 		
 		foreach ($familys as $key => $value) {
@@ -2096,7 +2160,6 @@ class SEUser
 			}
 			$family_ids[] = $value['family_id'];
 		}
-		
 		$relatives = $this->get_users_relatives($family_ids, $user_id);
 		$result_users = $this->get_user_info($relatives, true);
 		return $result_users;
