@@ -73,16 +73,37 @@ if($task == "doinvite")
     $result = 341;
   }
  if  ($is_error) echo $is_error;
- else echo 'all ok'; die();
+ else echo 'Приглашение отправленно'; die();
 exit();
 }
 
 // SET GLOBAL PAGE TITLE
 $global_page_title[0] = 1074;
 $global_page_description[0] = 1075;
+/* return json_encode(array(
+      'event_exists'          => (bool) $this->event_exists,
+      'is_member'             => (bool) $this->is_member,
+      'is_member_waiting'     => (bool) $this->is_member_waiting,
+      'user_rank'             => (int)  $this->user_rank,
 
-echo json_encode(array('friends'=>array()));
-    exit();
+      'event_id'              => (int)  $this->event_info['event_id'],
+      'event_user_id'         => (int)  $this->event_info['event_user_id'],
+      'event_inviteonly'      => (bool) $this->event_info['event_inviteonly'],
+      'event_invite'          => (int)  $this->event_info['event_invite'],
+
+      'eventmember_approved'  => (bool) $this->eventmember_info['eventmember_approved'],
+      'eventmember_status'    => (bool) $this->eventmember_info['eventmember_status'],
+      'eventmember_rank'      => (int)  $this->eventmember_info['eventmember_rank'],
+      'eventmember_rsvp'      => (int)  $this->eventmember_info['eventmember_rsvp']
+    ));
+    exit();*/
+
+if (isset($_POST['json']) && $_POST['json'] == 1 )  {
+
+		echo json_encode(array('error'=>0,'result'=>'1'));
+		die();
+	
+}
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('invite', 1);
 $smarty->assign('result', $result);

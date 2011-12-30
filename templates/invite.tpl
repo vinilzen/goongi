@@ -1,12 +1,13 @@
 {include file='header.tpl'}
 {* $Id: invite.tpl 8 2009-01-11 06:02:53Z john $ *}
-  <div id="form_auth">
+
+
+  <div id="form_auth" {*style='display: none'*}>
     <form action='' method='POST' onSubmit='my_invite(); return false;' target='ajaxframe'>
 
             <div class="input">
                  <label>Получатель</label>
-                 <form action='invite.php' method='POST'>
-                       <input type = "text" name="invite_emails" id="invite_emails" rows='2' cols='45'  onfocus="if (this.value == 'Введите электронную почту') this.value ='';this.style.color='#7f7f7f';" onblur="if (this.value == '') this.value='Введите электронную почту';this.style.color='#7f7f7f';"  value = "Введите электронную почту" color='#7f7f7f';>
+                        <input type = "text" name="invite_emails" id="invite_emails" rows='2' cols='45'  onfocus="if (this.value == 'Введите электронную почту') this.value ='';this.style.color='#7f7f7f';" onblur="if (this.value == '') this.value='Введите электронную почту';this.style.color='#7f7f7f';"  value = "Введите электронную почту" color='#7f7f7f';>
               </div>
 
             <div class="input">

@@ -7,6 +7,7 @@
     </script>
 {/literal}
 
+
 {assign var=death value=0}
 {section name=cat_loop loop=$cats}
         {section name=subcat_loop loop=$cats[cat_loop].subcats}
@@ -16,7 +17,7 @@
        {/section}
 {/section}
 
-
+ 
 {if $death == 1}
 {include file='header_death.tpl'}
  {else}
@@ -100,26 +101,30 @@
 			{/section}
 		{/section}
 	</div>
+</div>
+
 {else}
 <div class="d_inf">
 <div class="sv"></div>
     <div class="golosa">
             <span class="button3"><span class="l">&nbsp;</span><span class="c">
             <input type="submit" onclick="candle_post( '{$user->user_info.user_id}' , '{$user->user_info.user_username}', '{$owner->user_info.user_id}', '{$user->user_info.user_photo}'); return false;" value="Зажечь свечу" name="creat" />
-            </span><span class="r">&nbsp;</span></span><label>
-            <a href="#">Зажгли свечу</a>: <span id = "count_candle">{$count_candle}</span></label>
+            </span><span class="r">&nbsp;</span></span>
+            <label><a  onClick="Show_piple({$owner->user_info.user_id})" href="javascript:void(0);">Зажгли свечу</a> : <span id = "count_candle">{$count_candle}</span></label>
     </div>
     <div class="img">
         <a href="#"><img alt="" src="/uploads_user/1000/{$owner->user_info.user_id}/{$owner->user_info.user_id}.jpg"></a>
         <p><a href="javascript:void(0);">Показать подробную информацию</a></p>
     </div>
 <div class="g_inf_text"><p>14 сентября 1932 — 21 октября 2009 <span>(3 Хешван 5770)</span></p></div>
+
 <div class="clear"><img src="images/x.gif" alt="" /></div>
+</div>
+            <div class="clear"><img src="images/x.gif" alt="" /></div>
 
 {/if}
 
-</div>
-
+ 
       <!-- <div class='page_header'></div> -->
   
     {if 0}
@@ -180,7 +185,7 @@
               <input type='submit' class='button' value='{lang_print id=646}'>
               <input type='hidden' name='p' value='{$p}'>
               <input type='hidden' name='v' value='friends'>
-              <input type='hidden' name='user' value='{$owner->user_info.user_username}'>
+              <input type='hidden' name='user' id='user' value='{$owner->user_info.user_username}'>
               </form>
             </div>
           </div>
