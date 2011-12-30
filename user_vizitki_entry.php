@@ -51,22 +51,33 @@ if( $task=="dosave" )
   $file_maxsize = "4194304";
   $file_exts = Array('jpg', 'jpeg', 'gif', 'png');
   $file_types = Array('image/jpeg', 'image/jpg', 'image/jpe', 'image/pjpeg', 'image/pjpg', 'image/x-jpeg', 'x-jpg', 'image/gif', 'image/x-gif', 'image/png', 'image/x-png');
-  $file_maxwidth = "100";
-  $file_maxheight = "100";
+  $file_maxwidth = 100;
+  $file_maxheight = 100;
   $ext = str_replace(".", "", strrchr($_FILES['upload2']['name'], "."));
   $rand = rand(100000000, 999999999);
   $photo_newname = "banner$rand.".$ext;
+  $photo_newname2 = "banner1$rand".$ext;
   $file_dest = "./uploads_admin/ads/$photo_newname";
+  $file_dest2 = "./uploads_admin/ads/$photo_newname";
   $photo_name = "upload2";
   $new_photo = new se_upload();
-  $new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
+  //$new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
+  
   $link = "<a href='$file_dest' target='_blank'><img src='$file_dest' border='0'/></a>";
   $link  = str_replace("'","&#039;", $link);
- // echo $link;
-  // UPLOAD BANNER IF NO ERROR
-  if($new_photo->is_error == 0) 
-      $new_photo->upload_photo($file_dest);
-       }
+   
+ 
+     $new_photo->crop($_FILES['upload2']['tmp_name'],$file_dest);
+     $new_photo->resize($file_dest,$file_dest2, $file_maxwidth, $file_maxheight);
+   //else
+  //{
+     // $new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
+      //    if($new_photo->is_error == 0)
+ //     move_uploaded_file($_FILES['upload2']['tmp_name'], $file_dest);
+      //$new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
+            //    $new_photo->upload_photo($file_dest);
+  //        }
+    }
   else {
       $photo_newname = '';
       $link ='';
