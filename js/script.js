@@ -1,4 +1,4 @@
-﻿$(document).ready(function(){
+ $(document).ready(function(){
 
 	$('.profil_mn .p_link').toggle(function(e){
 		e.preventDefault();
@@ -18,7 +18,7 @@
 	$('.comments li div.comment_text:first').css({'padding-top':'0','border':'0'});
 	$('.buttons select:last').css({'margin-right':'0'});
 	
-$('.b_bg').height($('#content').height()).css('opacity','0.95').show();
+        $('.b_bg').height($('#content').height()).css('opacity','0.95').show();
 	//WINDOW
 	$('#reg').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
@@ -54,26 +54,28 @@ $('.b_bg').height($('#content').height()).css('opacity','0.95').show();
 		$('#add_user_w').css("top", scrOfY + 50 + 'px').fadeIn();
 		e.preventDefault();
 	});
-$('.d_inf .golosa label a').click(function(e){
+
+        $('.d_inf .golosa label a').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();
 		$('#svecha_list').css("top", scrOfY + 50 + 'px').fadeIn();
 		e.preventDefault();
 	});
-	$('#add_msg, #add_msg_l').click(function(e){
-		$('#ajaxframe').attr('src','user_messages_new.php');
-		$('#add_msg_b').html('');
+        
+	//$('#add_msg, #add_msg_l').click(function(e){
+	//	$('#ajaxframe').attr('src','user_messages_new.php');
+	//	$('#add_msg_b').html('');
 		//v = $('').html();
-		$('#popup').height($('#content').height()).css('opacity','0.6').show();
-		var scrOfY = src();
-		$('#add_msg_w').css("top", scrOfY + 50 + 'px').fadeIn();
-		$('#ajaxframe').load(function() {
-			$('#add_msg_b').html($("#ajaxframe").contents().find("#form_div").html());
+///		$('#popup').height($('#content').height()).css('opacity','0.6').show();
+//		var scrOfY = src();
+	//	$('#add_msg_w').css("top", scrOfY + 50 + 'px').fadeIn();
+	//	$('#ajaxframe').load(function() {
+	//		$('#add_msg_b').html($("#ajaxframe").contents().find("#form_div").html());
 			//$('#add_msg_w').css("top", scrOfY + 50 + 'px').fadeIn();
-			e.preventDefault();
-		});
-		return false;
-	});
+//			e.preventDefault();
+//		});
+//		return false;
+//	});
 
         $('a.add_gif').click(function(e){
             var id_value ='';
@@ -90,21 +92,7 @@ $('.d_inf .golosa label a').click(function(e){
 		});
 		return false;
 	});	
- $('a.add_gif').click(function(e){
-            var id_value ='';
-            id_value = $(this).attr('id');
-                $('#ajaxframe').attr('src','mf_gifts_send_message.php');
-		$('#add_msg_b_g').html('');
-		$('#popup').height($('#content').height()).css('opacity','0.6').show();
-		var scrOfY = src();
-		$('#add_msg_w_g').css("top", scrOfY + 50 + 'px').fadeIn();
-		$('#ajaxframe').load(function() {
-			$('#add_msg_b_g').html($("#ajaxframe").contents().find("#form_div").html());
-                        $("#picture_gif").html('<img  src=\'mf_gifts/'+id_value+'_thumb.\' ><iput type = "hidden" id = "id_g" value ='+id_value+' >');
-                     	e.preventDefault();
-		});
-		return false;
-	});	
+	
 
 	$('#add_event').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
@@ -573,6 +561,66 @@ $('.d_inf .golosa label a').click(function(e){
 		$('.window').hide();
 		e.preventDefault();
 	})
+
+        $('#add_msg, #add_msg_l').live("click", function () {
+            var options;
+             $('#popup').height($('#content').height()).show();
+              var scrOfY = src();
+            $('body').append( '<div class="window rezina" id="add_msg_w">'+
+                      '<div class="close"></div>'+
+                      '<div class="w_t">'+
+                      '<h1>Написать сообщение</h1>'+
+                      '</div>'+
+                      '<div class="w_c">'+
+                      '<div class="form add_w" id="add_msg_b">'+
+                      '</div>'+
+                      '</div>'+
+                      '<div class="w_b"></div>'+
+                '</div>');
+                $('#add_msg_b').html('');
+                $.post( 'user_messages_new.php',
+                           { 'task': 'show_f'},
+                            function(data) {
+                    if ( data.is_error == '0') {
+                         $('#add_msg_w').show();
+                          $('#add_msg_b').append('<div style="float:left;width:118px; margin-right:17px; overflow:hidden;">'+
+                                                        '<img src="'+data.photo+'" alt="" />'+
+                                                '</div>'+
+                                           '<div class="input"><label>Получатель<!-- {lang_print id=790} кому --></label>'+
+                                           '<input onfocus="if (this.value == \'Введите имя\') this.value =\'\'; if (this.value == \'Введите имя\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя" type="text" name="to_display" id="to_display" />'+
+                                           ' </div>'+
+                                       '<div class="input"><label>Тема<!-- Тема --></label>'+
+                                        '<input type="text" class="text" name="subject" id="subject" value="" /></div>'+
+                                       '<div class="clear"></div>'+
+                                    '<div class="input">'+
+'                                   <textarea onblur="if (this.value == \'\') this.value=\'Пожалуйста,напишите сообщение\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"  onfocus="if (this.value == \'Пожалуйста,напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста,напишите сообщение\') this.style.color=\'#000\';" rows=\'3\' cols=\'10\' id="message" name="message"></textarea></div>'+
+                                    '<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input onClick = "my_sender(); return false;"  type="submit" class="button" value="Отправить" /></span><span class="r">&nbsp;</span></span></div>'
+	                                                );
+                          options = { serviceUrl:'users.php' };
+                          $('#to_display').autocomplete(options);
+                      }
+                   if (data.error == '1') {
+                           alert( data.result);
+                    }
+
+            },
+            'json');
+             return false;
+  })
+		/*$('#ajaxframe').attr('src','user_messages_new.php');
+		$('#add_msg_b').html('');
+		//v = $('').html();
+		$('#popup').height($('#content').height()).css('opacity','0.6').show();
+		var scrOfY = src();
+		$('#add_msg_w').css("top", scrOfY + 50 + 'px').fadeIn();
+		$('#ajaxframe').load(function() {
+			$('#add_msg_b').html($("#ajaxframe").contents().find("#form_div").html());
+			//$('#add_msg_w').css("top", scrOfY + 50 + 'px').fadeIn();
+			e.preventDefault();
+		});
+		return false;*/
+	
+        
          $('#invite').live("click", function () {
             $('#popup').height($('#content').height()).show();
               var scrOfY = src();
@@ -1085,7 +1133,21 @@ function my_invite() {
   );
 }
 
-
+function my_sender() {
+	$.post(
+		"user_messages_new.php",
+		{ task: 'send' , to: $('#to_display').attr('value'), subject: $('#subject').attr('value') , message: $('#message').attr('value') },
+		function(data) {
+			//$('.w_t').hide();
+			$('#add_msg_b').html('<h1>' + data + '</h1>');
+			setTimeout ( function() {
+				$('#popup').fadeOut(300);
+				$('.window').hide();
+				e.preventDefault();
+			}, 1500);
+		}
+	);
+}
 
 function Show_piple(owner_id){
      //    $('.set_golos').click(function() {

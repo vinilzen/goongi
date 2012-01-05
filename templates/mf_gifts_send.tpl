@@ -19,7 +19,7 @@
  <div class="gifts">
         {foreach key=cid item=con from=$gift_vars}
             <a id = "{$con.id}" class = "add_gif">
-                <img src="mf_gifts/{$con.id}_thumb.{$con.filetype}" alt="" />
+                <img src="mf_gifts/{$con.id}.{$con.filetype}" alt="" />
              </a>
         {/foreach}
     </div>

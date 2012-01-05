@@ -57,7 +57,19 @@ if($task == "send") {
 	*/
 	exit();
 }
-
+if($task == "show_f") {
+    $is_error=0;
+$total_friends = $user->user_friend_total(0);
+$friends = $user->user_friend_list(0, $total_friends, 0);
+  echo json_encode(array(
+    'is_error' => $is_error,
+    'total_friends' => $total_friends,
+    'photo'=>$user->user_photo("./images/nophoto.gif"),
+    'name'=>$user->user_friend_list(0, $total_friends, 0),
+    'friends' => $friends
+  ));
+ exit();
+}
 
 
 // GET LIST OF FRIENDS FOR SUGGEST BOX

@@ -68,14 +68,6 @@
 {else}
 
   <form action='user_messages.php' method='post' name='messageform'>
-
-
-	<a href='javascript:void(0);' onClick='doCheckAll();this.blur();'>
-		<img src='./images/icons/checkall16.gif' border='0' style='margin-left: 3px;'>
-	</a>
-{lang_print id=601}<!-- От -->
-
-  {lang_print id=520}<!-- Тема -->
 	<ul class="comment_list">
   {* LIST INBOX MESSAGES *}
   {section name=pm_loop loop=$pms}
@@ -104,11 +96,7 @@
   <br>
 
   {* SHOW DELETE MESSAGES BUTTON *}
-  {if $total_pms != 0}
-    <input type='submit' class='button' value='{lang_print id=788}'>
-    <input type='hidden' name='task' value='deleteselected'>
-    <input type='hidden' name='p' value='{$p}'>
-  {/if}
+ 
 
   </form>
 

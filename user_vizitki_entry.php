@@ -47,7 +47,7 @@ if( $vizitkientry_id )
 if( $task=="dosave" )
 {
    
-    if ($_FILES){
+    if ($_FILES['upload2']['name']){
   $file_maxsize = "4194304";
   $file_exts = Array('jpg', 'jpeg', 'gif', 'png');
   $file_types = Array('image/jpeg', 'image/jpg', 'image/jpe', 'image/pjpeg', 'image/pjpg', 'image/x-jpeg', 'x-jpg', 'image/gif', 'image/x-gif', 'image/png', 'image/x-png');
