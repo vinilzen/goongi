@@ -570,7 +570,7 @@
 	                                                );
                           options = { serviceUrl:'users.php' };
                           $('#to_display').autocomplete(options);
-                          $("#picture_gif").html('<img  src=\'mf_gifts/'+id_value+'\' ><iput type = "hidden" id = "id_g" value ='+id_value+' >');
+                          $("#picture_gif").html('<img  src=\'mf_gifts/'+id_value+'.\' ><iput type = "hidden" id = "id_g" value ='+id_value+' >');
                       }
                    if (data.error == '1') {
                            alert( data.result);

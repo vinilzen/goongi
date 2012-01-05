@@ -18,7 +18,7 @@
 							
 						{* SHOW FRIENDS MENU ITEM IF ENABLED *}
 						{if $setting.setting_connection_allow != 0}
-							<li {if $global_page == 'user_friends'}class="active"{/if}><a href='/user_friends.php'>{lang_print id=1170}</a></li>
+							<li {if $global_page == 'user_friends'}class="active"{/if}><a href='/user_friends.php'>{lang_print id=1170} {if $user->user_friend_total(1, 0) > 0}<span> ({$user->user_friend_total(1, 0)})</span> {/if}</a></li>
 						{/if}
 						
 					{* SHOW PROFILE MENU ITEM *}

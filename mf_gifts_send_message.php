@@ -72,7 +72,7 @@ if($task == "send") {
 	}
 	if($_POST['to'] == 0){$is_error = 80000032;}
 	if($is_error != 0) { SE_Language::_preload($is_error); SE_Language::load(); $error_message = SE_Language::_get($is_error); }
-        echo 'all ok'; die();
+        echo 'Подарок отправлен'; die();
 	// SEND AJAX CONFIRMATION
 	/*echo "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><script type='text/javascript'>";
 	echo "window.parent.messageSent('$is_error', '".str_replace("'", "\'", $error_message)."');";

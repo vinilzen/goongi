@@ -125,6 +125,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.pro ul			{ list-style:none; overflow:hidden;}
 	.pro ul li		{ list-style:none; overflow:hidden; height:25px; padding-left:12px;}
 	.pro ul li a	{ color:#000; text-decoration:none; display:inline-block; line-height:25px;}
+	.pro ul li a span	{ font: bold 12px arial; }
 	.pro ul li a:hover	{ text-decoration:underline;}
 	.pro ul li.active	{ background:#e2d6d5;}
 	.pro ul li.active a	{ text-decoration:none;}
