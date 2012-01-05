@@ -62,38 +62,7 @@
 		e.preventDefault();
 	});
         
-	//$('#add_msg, #add_msg_l').click(function(e){
-	//	$('#ajaxframe').attr('src','user_messages_new.php');
-	//	$('#add_msg_b').html('');
-		//v = $('').html();
-///		$('#popup').height($('#content').height()).css('opacity','0.6').show();
-//		var scrOfY = src();
-	//	$('#add_msg_w').css("top", scrOfY + 50 + 'px').fadeIn();
-	//	$('#ajaxframe').load(function() {
-	//		$('#add_msg_b').html($("#ajaxframe").contents().find("#form_div").html());
-			//$('#add_msg_w').css("top", scrOfY + 50 + 'px').fadeIn();
-//			e.preventDefault();
-//		});
-//		return false;
-//	});
-
-        $('a.add_gif').click(function(e){
-            var id_value ='';
-            id_value = $(this).attr('id');
-                $('#ajaxframe').attr('src','mf_gifts_send_message.php');
-		$('#add_msg_b_g').html('');
-		$('#popup').height($('#content').height()).css('opacity','0.6').show();
-		var scrOfY = src();
-		$('#add_msg_w_g').css("top", scrOfY + 50 + 'px').fadeIn();
-		$('#ajaxframe').load(function() {
-			$('#add_msg_b_g').html($("#ajaxframe").contents().find("#form_div").html());
-                        $("#picture_gif").html('<img  src=\'mf_gifts/'+id_value+'_thumb.\' ><iput type = "hidden" id = "id_g" value ='+id_value+' >');
-                     	e.preventDefault();
-		});
-		return false;
-	});	
 	
-
 	$('#add_event').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();
@@ -562,6 +531,68 @@
 		e.preventDefault();
 	})
 
+
+ $('a.add_gif').live("click", function () {
+            var id_value ='';
+            id_value = $(this).attr('id');
+             var options;
+             $('#popup').height($('#content').height()).show();
+              var scrOfY = src();
+            $('body').append( '<div class="window rezina" id="add_msg_w_g">'+
+                      '<div class="close"></div>'+
+                      '<div class="w_t">'+
+                      '<h1>Отправить подарок</h1>'+
+                      '</div>'+
+                      '<div class="w_c">'+
+                      '<div class="form add_w_g" id="add_msg_b_g">'+
+                      '</div>'+
+                      '</div>'+
+                      '<div class="w_b"></div>'+
+                '</div>');
+                $('#add_msg_b_g').html('');
+                $.post( 'mf_gifts_send_message.php',
+                           { 'task': 'show_gif'},
+                            function(data) {
+                    if ( data.is_error == '0') {
+                         $('#add_msg_w_g').show();
+                          $('#add_msg_b_g').append(
+                                          '<div style="float:left;width:144px; margin-right:6px; overflow:hidden;">'+
+                                          '<div id= "picture_gif"></div>'+
+                                          '</div>'+
+                                          '<div class="input"><label>Получатель<!-- {lang_print id=790} кому --></label>'+
+                                           '<input onfocus="if (this.value == \'Введите имя\') this.value =\'\'; if (this.value == \'Введите имя\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя" type="text" name="to_display" id="to_display" />'+
+                                           ' </div>'+
+                                       
+                                       '<div class="clear"></div>'+
+                                    '<div class="input">'+
+                                    '<textarea onblur="if (this.value == \'\') this.value=\'Пожалуйста,напишите сообщение\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"  onfocus="if (this.value == \'Пожалуйста,напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста,напишите сообщение\') this.style.color=\'#000\';" rows=\'3\' cols=\'10\' id="message" name="message"></textarea></div>'+
+                                    '<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input onClick = "my_sender_gif(); return false;"  type="submit" class="button" value="Отправить" /></span><span class="r">&nbsp;</span></span></div>'
+	                                                );
+                          options = { serviceUrl:'users.php' };
+                          $('#to_display').autocomplete(options);
+                          $("#picture_gif").html('<img  src=\'mf_gifts/'+id_value+'\' ><iput type = "hidden" id = "id_g" value ='+id_value+' >');
+                      }
+                   if (data.error == '1') {
+                           alert( data.result);
+                    }
+
+            },
+            'json');
+             return false;
+  })
+          //      $('#ajaxframe').attr('src','mf_gifts_send_message.php');
+	//	$('#add_msg_b_g').html('');
+//		$('#popup').height($('#content').height()).css('opacity','0.6').show();
+		//var scrOfY = src();
+		//$('#add_msg_w_g').css("top", scrOfY + 50 + 'px').fadeIn();
+		//$('#ajaxframe').load(function() {
+	//		$('#add_msg_b_g').html($("#ajaxframe").contents().find("#form_div").html());
+         //               $("#picture_gif").html('<img  src=\'mf_gifts/'+id_value+'_thumb.\' ><iput type = "hidden" id = "id_g" value ='+id_value+' >');
+          //           	e.preventDefault();
+//		});
+//		return false;
+	//});
+
         $('#add_msg, #add_msg_l').live("click", function () {
             var options;
              $('#popup').height($('#content').height()).show();
@@ -607,18 +638,6 @@
             'json');
              return false;
   })
-		/*$('#ajaxframe').attr('src','user_messages_new.php');
-		$('#add_msg_b').html('');
-		//v = $('').html();
-		$('#popup').height($('#content').height()).css('opacity','0.6').show();
-		var scrOfY = src();
-		$('#add_msg_w').css("top", scrOfY + 50 + 'px').fadeIn();
-		$('#ajaxframe').load(function() {
-			$('#add_msg_b').html($("#ajaxframe").contents().find("#form_div").html());
-			//$('#add_msg_w').css("top", scrOfY + 50 + 'px').fadeIn();
-			e.preventDefault();
-		});
-		return false;*/
 	
         
          $('#invite').live("click", function () {
@@ -665,8 +684,7 @@
              return false;
   })
 
-
-
+   
 	$("#edit_group_b").live("click", function () {
 		$('#edit_group').remove();
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
@@ -1132,7 +1150,20 @@ function my_invite() {
     }
   );
 }
-
+function my_sender_gif() {
+	$.post(
+		"mf_gifts_send_message.php",
+		{ gift_id: $('#id_g').attr('value'), to: $('#to_display').attr('value'), subject: $('#subject').attr('value') , message: $('#message').attr('value'),task:'send',private:'0' },
+		function(data) {
+		$('#add_msg_b_g').html('<h1>' + data + '</h1>');
+			setTimeout ( function() {
+				$('#popup').fadeOut(300);
+				$('.window').hide();
+				e.preventDefault();
+			}, 1500);
+		}
+	);
+}
 function my_sender() {
 	$.post(
 		"user_messages_new.php",

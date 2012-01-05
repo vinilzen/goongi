@@ -16,7 +16,8 @@ class mf_gifts {
 
 	function save_data($data){
 		global $database, $url, $actions, $user, $notify;
-		$user_data = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_users WHERE user_id = '$data[to_user]'"));
+                
+		$user_data = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_users WHERE user_username = '$data[to_user]'"));
 		$gift_data = $database->database_fetch_assoc($database->database_query("SELECT * FROM mf_gifts_data WHERE id = '$data[gift_id]'"));
 		$user_data_dn = $user_data[user_fname]." ".$user_data[user_lname];
 		$date = time();

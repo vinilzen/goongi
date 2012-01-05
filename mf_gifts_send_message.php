@@ -54,11 +54,13 @@ if($task == "send") {
 	$message = ereg_replace("(^| |\n)(www([.]?[a-zA-Z0-9_/-])*)", "\\1<a href=\"http://\\2\">\\2</a>", $message);
 	$message = cleanHTML($message, "a");
 	$message = str_replace("\n", "<br>", $message);
-	if($_POST['gift_id'] != '' AND $_POST['to'] != 0){
+      $to_user =  $_POST['to'];
+      $gift_id = $_POST['gift_id'];
+	if($gift_id != '' AND $to_user != ''){
            
 		$data = array(
-		'to_user' => $_POST['to'],
-		'gift_id' => $_POST['gift_id'],
+		'to_user' => $to_user,
+		'gift_id' => $gift_id,
 		'from_id' => $user->user_info[user_id],
 		'from_un' => $user->user_info[user_username],
 		'from_dn' => $user->user_displayname,
@@ -78,7 +80,19 @@ if($task == "send") {
 	exit();
 
 }
-
+if($task == "show_gif") {
+    $is_error=0;
+$total_friends = $user->user_friend_total(0);
+$friends = $user->user_friend_list(0, $total_friends, 0);
+  echo json_encode(array(
+    'is_error' => $is_error,
+    'total_friends' => $total_friends,
+    'photo'=>$user->user_photo("./images/nophoto.gif"),
+    'name'=>$user->user_friend_list(0, $total_friends, 0),
+    'friends' => $friends
+  ));
+ exit();
+}
 
 // GET LIST OF FRIENDS FOR SUGGEST BOX
 $total_friends = $user->user_friend_total(0);
