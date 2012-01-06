@@ -3135,7 +3135,7 @@ class SEUser
 		  fclose($handle);
 		}
 		
-		if ($signup_email != 0 && $send_invite ) {
+		if ($signup_email != '0' && $send_invite ) {
 			// SEND RANDOM PASSWORD IF NECESSARY
 			if( $setting['setting_signup_randpass'] ) {
 			  send_systememail('newpassword', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
