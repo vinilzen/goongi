@@ -122,7 +122,7 @@
 		<input type="hidden" name="id" value="<%= id %>" />
 		<table>
 			<tr>
-				<td>
+			<td>
 					<div class="field">
 						<div class="name">Пол</div>
 						<label><input type="radio" name="sex" value="m" <% if (sex === "m") { %> checked="checked" <% } %> /> Мужской</label>
@@ -138,6 +138,12 @@
 				</td>
 			</tr>
 		</table>
+
+                <div class="field">
+			<div class="name">Пригласить </div>
+			<input type="text" name="inv_email" value="Введите email" />
+		</div>
+
 		<div class="field">
 			<div class="name">Имя</div>
 			<input type="text" name="fname" value="<%= Base64.decode(fname) %>" />
@@ -213,7 +219,8 @@
 <script id="info-tmpl" type="text/html">
 	<div class="body">
 		<table>
-			<tr>
+			
+                        <tr>
 				<th>Пол</th>
 				<td><%= sex === "m" ? "Мужской" : "Женский" %></td>
 			</tr>

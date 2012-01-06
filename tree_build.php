@@ -66,7 +66,7 @@ switch ($type_request) {
 								
 								if ( !$user->check_existing_parent($user_id, $role) ) {
 										
-									$family_id = $user->get_parent_family_id($user_id);
+									$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
 									
 									if ( $user->user_create_fast(
 										$new_user['fname'],
@@ -102,7 +102,7 @@ switch ($type_request) {
 								$new_user["sex"] = 'w';
 								if ( !$user->check_existing_parent($user_id, $role) ) {
 										
-									$family_id = $user->get_parent_family_id($user_id);
+									$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
 										
 									if ( $user->user_create_fast(
 										$new_user['fname'],
@@ -140,7 +140,7 @@ switch ($type_request) {
 								
 									if ( !$user->check_existing_spouse($user_id, $role) ) {
 										
-										$family_id = $user->get_main_family_id($user_id,'m');
+										$family_id = $user->get_main_family_id($user_id,'m',$new_user['lname']);
 										
 										if ( $user->user_create_fast(
 											$new_user['fname'],
@@ -177,10 +177,11 @@ switch ($type_request) {
 								$role = 'father';
 								$new_user["sex"] = 'm';
 								$s = $user->get_sex($user_id);
+                                                               // echo $s;
 								if ($s == 'w') {
 									if ( !$user->check_existing_spouse($user_id, $role) ) {
 	
-										$family_id = $user->get_main_family_id($user_id,'m');
+										$family_id = $user->get_main_family_id($user_id,'m',$new_user['lname']);
 										
 										if ( $user->user_create_fast(
 											$new_user['fname'],
@@ -217,7 +218,7 @@ switch ($type_request) {
 								
 								$role = 'child';
 								$s = $user->get_sex($user_id);
-								$family_id = $user->get_main_family_id($user_id,$s);
+								$family_id = $user->get_main_family_id($user_id,$s,$new_user['lname']);
 								
 								if ( $user->user_create_fast(
 									$new_user['fname'],
@@ -244,7 +245,7 @@ switch ($type_request) {
 								
 							case 'brother'||'sister':
 								$role = 'child';
-								$family_id = $user->get_parent_family_id($user_id);
+								$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
 
 								if ( $user->user_create_fast(
 									$new_user['fname'],

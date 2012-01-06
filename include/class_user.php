@@ -231,16 +231,16 @@ class SEUser
 		}
 	}
 	
-	function get_main_family_id($user_id, $sex) {
+	function get_main_family_id($user_id, $sex,$new_user ) {
 		$familys = $this->get_family_list($user_id);
-		$family_id = 0;
-		
+		 
+		//$family_id= create_family($user_id);
 		if ($sex == 'm')
 			$role = 'father';
 		elseif($sex == 'w') 
 			$role = 'mother';
-		else 
-			return false;
+		else
+		$role = 'mother';
 		
 		//print_r($familys); die();
 		if (count($familys)) {
@@ -248,32 +248,77 @@ class SEUser
 				if ( $v['role'] == $role)
 					$family_id = (int)$v['family_id'];
 
+                    if ($family_id == 0) 
+                    {
+                        $family_id = $this->create_family($user_id,$new_user);
+                          $this->add_role($family_id,$role, $user_id);
+                    }
+                  
 			if ($family_id != 0)
 				return $family_id;
 			else
 				return $this->add_role_new($role, $user_id);
 		} else
+                {
+                     
+                     if ($family_id == 0)
+                    {
+                         $family_id = $this->create_family($user_id,$new_user);
+                         $this->add_role($family_id,$role, $user_id);
+                    }
+              
+                     if ($family_id != 0)
+				return $family_id;
+			else
 			return $this->add_role_new($role, $user_id);
+                }
 	}
 	
-	function get_parent_family_id($user_id) {
+	function get_parent_family_id($user_id,$new_user) {
+             global $database;
+             $resource = $database->database_query("SELECT `role` FROM `se_role_in_family` WHERE `user_id` = '$user_id'");
+             $role_p = $database->database_fetch_assoc($resource);
+             $pr=0;
+	foreach ($role_p as $p)
+                 if ($p == 'child') $pr=1;
+           //echo $role_p['role'];
+           //  echo $user_id;
+             if ( (($role_p['role'] == 'father') || ($role_p['role'] == 'mother')) && ($pr!=1)){
+                
+                    $family_id = $this->create_family($user_id,$new_user);
+                          $this->add_role($family_id,'child', $user_id);
+                          return $family_id;
+             }else
+                 {
+
 		$familys = $this->get_family_list($user_id);
 		$family_id = 0;
-
+                
 		$role = 'child';
-		
 		//print_r($familys); die();
 		if (count($familys)) {
 			foreach($familys AS $v)
 				if ( $v['role'] == $role)
 					$family_id = (int)$v['family_id'];
-
+                     if ($family_id == 0)  $family_id = $database->database_query("SELECT `family_id` FROM `se_family` WHERE `user_create_id` = '$user_id'  LIMIT 1;");
+                    //echo $family_id;
 			if ($family_id != 0)
 				return $family_id;
 			else
 				return $this->add_role_new($role, $user_id);
 		} else
+                {
+                     if ($family_id == 0) 
+                     {$family_id = $database->database_query("SELECT `family_id` FROM `se_family` WHERE `user_create_id` = '$user_id'  LIMIT 1;");
+
+                     }
+                     if ($family_id != 0)
+				return $family_id;
+                    else
 			return $this->add_role_new($role, $user_id);
+                        
+                        }
+             }
 	}
 	
 	function check_existing_parent($id, $role) { // if exist mother|father ($role) return false
@@ -1935,18 +1980,39 @@ class SEUser
 	
 	function create_family($user_id = 0, $family_name = '') {
 		global $database, $setting, $user;
+               
 		if ($user_id == 0)
 			$user_id = $user->user_info['user_id'];
-		
 		
 		if ($family_name == '') {
 			$user_info = $this->get_user_info(array(0=>$user_id));
 			$family_name = $user_info[$user_id]['lname'];
 		}
 		//var_dump($family_name);  die();
-		$sql = "INSERT INTO `se_family` (`family_id`, `family_name`, `family_createdate`) VALUES (NULL, '$family_name', UNIX_TIMESTAMP())";
+		$sql = "INSERT INTO `se_family` (`family_id`, `family_name`, `family_createdate`, `user_create_id`) VALUES (NULL, '$family_name', UNIX_TIMESTAMP(), '$user_id')";
+              //  echo $sql;
 		$database->database_query($sql);
 		$id = $database->database_insert_id();
+                
+		return $id;
+	}
+
+        function create_tree($user_id = 0, $tree_name = '') {
+		global $database, $setting, $user;
+		if ($user_id == 0)
+			$user_id = $user->user_info['user_id'];
+
+		if ($tree_name == '') {
+			$user_info = $this->get_user_info(array(0=>$user_id));
+			$tree_name = $user_info[$user_id]['lname'];
+		}
+		//var_dump($family_name);  die();
+		$sql = "INSERT INTO `se_trees` (`tree_name`, `tree_create`, `tree_update`, `creator`) VALUES ('$tree_name', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), $user_id)";
+		$database->database_query($sql);
+		$id = $database->database_insert_id();
+
+                if ($id != false)
+	  		$database->database_query("INSERT INTO se_tree_users (tree_id,user_id) VALUES ('{$id}','{$user_id}')");
 		return $id;
 	}
 
@@ -2103,9 +2169,10 @@ class SEUser
 
 	function get_sex ($user_id) {
 		global $database, $setting, $user;
-		$val = $database->database_query("SELECT `profilevalue_5` FROM `se_profilevalues` WHERE `profilevalue_id` = '$user_id' LIMIT 1;");
+		$val = $database->database_query("SELECT `profilevalue_5` FROM `se_profilevalues` WHERE `profilevalue_user_id` = '$user_id' LIMIT 1;");
 		
 		$sex = $database->database_fetch_assoc($val);
+                //print_r ($user_id);
 		//print_r($sex); die();
 		if ( $sex === false) {
 			return null;
@@ -2670,7 +2737,7 @@ class SEUser
 		//var_dump($profile_field_query); die();
 	
 	  // PRESET VARS
-	  $signup_subnet_id = 0;
+	  $signup_subnect_id = 0;
 	  $signup_level_info = $database->database_fetch_assoc($database->database_query("SELECT level_id, level_profile_privacy, level_profile_comments FROM se_levels WHERE level_default='1' LIMIT 1"));
 	  $signup_date = time();
 	  $signup_dateupdated = $signup_date;
@@ -2756,7 +2823,10 @@ class SEUser
     
 	  // RETRIEVE USER ID
 	  $user_id = $database->database_insert_id();
-    
+          $family_id = $this->create_family($user_id,$signup_username);
+          $this->create_tree($user_id,$signup_username);
+          $role = 'child';
+          $database->database_query("INSERT INTO se_role_in_family (family_id,user_id,role) VALUES ('{$family_id}','{$user_id}','{$role}')");
     if( $user_id ) $this->user_exists = TRUE;
     
 	  // UPDATE USERNAME IF NECESSARY
@@ -2982,7 +3052,7 @@ class SEUser
     
 	  // RETRIEVE USER ID
 	  $user_id = $database->database_insert_id();
-    
+       
 	    if( $user_id )
 	    	$this->user_exists = TRUE;
 		else
@@ -3019,7 +3089,7 @@ class SEUser
 			die($sql);
 		}
 	  	
-	  	
+	  	//echo $family_id;
 	  	// ADD in TREE
 	  	$database->database_query("INSERT INTO se_role_in_family (family_id,user_id,role) VALUES ('{$family_id}','{$user_id}','{$role}')");
 		

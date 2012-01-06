@@ -407,7 +407,8 @@
 	
 	$('.friends_list .add').click(function() {
 		var username = $(this).attr('rev');
-		var r=confirm("you want to add a user " + username);
+		//var r=confirm("you want to add a user " + username);
+                var r=confirm("Вы хотите добавить пользователя " + username + "?");
 		if (r==true) {
 			
 			var id = $(this).attr('rel');
