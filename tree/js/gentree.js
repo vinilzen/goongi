@@ -465,7 +465,9 @@ TREE.popups.collection = {
 						lname: '',
 						alias: '',
 						birthday: null,
-						death: null
+						death: null,
+                                                send_invite:null,
+                                                email:''
 					},
 					offset: [offset.left + person.outerWidth() + 10, offset.top]
 				});
@@ -481,7 +483,9 @@ TREE.popups.collection = {
 						lname: '',
 						alias: '',
 						birthday: null,
-						death: null
+						death: null,
+                                                send_invite:null,
+                                                email:''
 					},
 					offset: [offset.left + person.outerWidth() + 10, offset.top]
 				});
@@ -497,7 +501,9 @@ TREE.popups.collection = {
 						lname: '',
 						alias: '',
 						birthday: null,
-						death: null
+						death: null,
+                                                send_invite:null,
+                                                email:''
 					},
 					offset: [offset.left + person.outerWidth() + 10, offset.top]
 				});
@@ -513,7 +519,9 @@ TREE.popups.collection = {
 						lname: '',
 						alias: '',
 						birthday: null,
-						death: null
+						death: null,
+                                                send_invite:null,
+                                                email:''
 					},
 					offset: [offset.left + person.outerWidth() + 10, offset.top]
 				});
@@ -582,7 +590,9 @@ TREE.popups.collection = {
 				lname: inp.filter('[name=lname]').val(),
 				alias: inp.filter('[name=alias]').val(),
 				birthday: inp.filter('[name=birthyear]').val() + '-' + inp.filter('[name=birthmonth]').val() + '-' + inp.filter('[name=birthdate]').val(),
-				death: inp.filter('[name=dead]').is(':checked') ? inp.filter('[name=deathyear]').val() + '-' + inp.filter('[name=deathmonth]').val() + '-' + inp.filter('[name=deathdate]').val() : null
+				death: inp.filter('[name=dead]').is(':checked') ? inp.filter('[name=deathyear]').val() + '-' + inp.filter('[name=deathmonth]').val() + '-' + inp.filter('[name=deathdate]').val() : null,
+                                send_invite:inp.filter('[name=send_invite]').is(':checked') ? '1' : null,
+                                email:inp.filter('[name=email]').val()
 			}
 		},
 

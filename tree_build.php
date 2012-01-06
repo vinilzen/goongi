@@ -32,6 +32,7 @@ switch ($type_request) {
 			
 				$role = $_POST['role'];	// role for new user = child | parent | spouse ....
 				
+
 				if ($user->user_exist($user_id)) {
 					
 					$role = $_POST['role'];

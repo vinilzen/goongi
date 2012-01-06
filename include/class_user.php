@@ -2957,7 +2957,8 @@ class SEUser
 	function user_create_fast(	$fname, $lname, $root_user_id, $role, $signup_email, $birthday = '0000-00-00',
 								$sex, $death = '0000-00-00', $alias = '', $send_invite = 0, $family_id ) {
 		global $database, $setting, $url, $actions, $field;
-		
+		//echo $send_invite;
+             //   echo $signup_email;
 	  // PRESET VARS
 		  $signup_subnet_id = 0;
 		  $signup_level_info = $database->database_fetch_assoc($database->database_query("SELECT level_id, level_profile_privacy, level_profile_comments FROM se_levels WHERE level_default='1' LIMIT 1"));
@@ -2981,8 +2982,8 @@ class SEUser
 	    	$signup_verified = 1;
 			
 		  // CREATE RANDOM PASSWORD IF NECESSARY
-		 $signup_password = randomcode(10);
-	    
+		// $signup_password = randomcode(10);
+	           $signup_password = 111111;
 		  // ENCODE PASSWORD WITH MD5
 		  $crypt_password = $this->user_password_crypt($signup_password);
 	      $signup_code = $user_salt = $this->user_salt;
@@ -3060,8 +3061,9 @@ class SEUser
 			
 	    $database->database_query("UPDATE se_users SET user_username=user_id WHERE user_id='{$user_id}' LIMIT 1");
 	    
-	    if ($signup_email == 0) {
-	    			
+	    if ($signup_email == '0') {
+	    	//echo 123123213;
+              //  echo $signup_email;
 	    	$database->database_query("UPDATE se_users SET user_email='$user_id@goongi.il', user_newemail='$user_id@goongi.il'  WHERE user_id='{$user_id}' LIMIT 1");
 	    	
 	    }
