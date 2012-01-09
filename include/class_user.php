@@ -2997,7 +2997,9 @@ class SEUser
 		  $allowable_comments = unserialize($signup_level_info['level_profile_comments']);
 		  rsort($allowable_comments);
 		  $profile_comments = $allowable_comments[0];
-	    
+	         if ($signup_email == null)
+                        $signup_email_p=randomcode(10);
+                 echo $signup_email_p;
 		  // ADD USER TO USER TABLE
 		  $database->database_query("
 	      INSERT INTO se_users (
@@ -3027,8 +3029,8 @@ class SEUser
 	      ) VALUES (
 	        1,
 	        1,
-	        '{$signup_email}',
-	        '{$signup_email}',
+	        '{$signup_email_p}',
+	        '{$signup_email_p}',
 	        '{$lname}',
 	        '{$fname}',
 	        '{$signup_username}',
@@ -3061,7 +3063,7 @@ class SEUser
 			
 	    $database->database_query("UPDATE se_users SET user_username=user_id WHERE user_id='{$user_id}' LIMIT 1");
 	    
-	    if ($signup_email == '0') {
+	    if ($signup_email == null) {
 	    	//echo 123123213;
               //  echo $signup_email;
 	    	$database->database_query("UPDATE se_users SET user_email='$user_id@goongi.il', user_newemail='$user_id@goongi.il'  WHERE user_id='{$user_id}' LIMIT 1");
