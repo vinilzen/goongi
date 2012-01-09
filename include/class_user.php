@@ -2999,7 +2999,7 @@ class SEUser
 		  $profile_comments = $allowable_comments[0];
 	         if ($signup_email == null)
                         $signup_email_p=randomcode(10);
-                 echo $signup_email_p;
+               
 		  // ADD USER TO USER TABLE
 		  $database->database_query("
 	      INSERT INTO se_users (
@@ -3064,11 +3064,9 @@ class SEUser
 	    $database->database_query("UPDATE se_users SET user_username=user_id WHERE user_id='{$user_id}' LIMIT 1");
 	    
 	    if ($signup_email == null) {
-	    	//echo 123123213;
-              //  echo $signup_email;
-	    	$database->database_query("UPDATE se_users SET user_email='$user_id@goongi.il', user_newemail='$user_id@goongi.il'  WHERE user_id='{$user_id}' LIMIT 1");
-	    	
-	    }
+	        	$database->database_query("UPDATE se_users SET user_email='$user_id@goongi.il', user_newemail='$user_id@goongi.il'  WHERE user_id='{$user_id}' LIMIT 1");
+	    	   }
+            else $database->database_query("UPDATE se_users SET user_email='$signup_email', user_newemail='$signup_email'  WHERE user_id='{$user_id}' LIMIT 1");
 	    
 		// GET USER INFO
 		$this->user_info = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_users WHERE user_id='{$user_id}' LIMIT 1"));
@@ -3137,7 +3135,7 @@ class SEUser
 		  fclose($handle);
 		}
 		
-		if ($signup_email != '0' && $send_invite ) {
+		if ($signup_email != null && $send_invite ) {
 			// SEND RANDOM PASSWORD IF NECESSARY
 			if( $setting['setting_signup_randpass'] ) {
 			  send_systememail('newpassword', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
