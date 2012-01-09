@@ -158,12 +158,12 @@ var TREE = {
 	},
 */
 	render: function(options) {
-		var father = json.users[json.user.father] || json.user;
-		while (json.users[father.father]) {
-			father = json.users[father.father];
+		var parent = json.users[json.user.father] || json.users[json.user.mother] || json.user;
+		while (json.users[parent.father] || json.users[parent.mother]) {
+			parent = json.users[parent.father] || json.users[parent.mother];
 		}
 		this.viewpoint.empty();
-		this.renderFamily(father.id).appendTo(this.viewpoint);
+		this.renderFamily(parent.id).appendTo(this.viewpoint);
 		this.viewpoint.find('.children').each(function() {
 			$(this).width(_.reduce($(this).children(), function(width, x) {
 				return width + $(x).width()
@@ -466,8 +466,8 @@ TREE.popups.collection = {
 						alias: '',
 						birthday: null,
 						death: null,
-                                                send_invite:null,
-                                                email:''
+						send_invite: null,
+						email: ''
 					},
 					offset: [offset.left + person.outerWidth() + 10, offset.top]
 				});
@@ -484,8 +484,8 @@ TREE.popups.collection = {
 						alias: '',
 						birthday: null,
 						death: null,
-                                                send_invite:null,
-                                                email:''
+						send_invite: null,
+						email: ''
 					},
 					offset: [offset.left + person.outerWidth() + 10, offset.top]
 				});
@@ -502,8 +502,8 @@ TREE.popups.collection = {
 						alias: '',
 						birthday: null,
 						death: null,
-                                                send_invite:null,
-                                                email:''
+						send_invite: null,
+						email: ''
 					},
 					offset: [offset.left + person.outerWidth() + 10, offset.top]
 				});
@@ -520,8 +520,8 @@ TREE.popups.collection = {
 						alias: '',
 						birthday: null,
 						death: null,
-                                                send_invite:null,
-                                                email:''
+						send_invite: null,
+						email: ''
 					},
 					offset: [offset.left + person.outerWidth() + 10, offset.top]
 				});
@@ -591,8 +591,8 @@ TREE.popups.collection = {
 				alias: inp.filter('[name=alias]').val(),
 				birthday: inp.filter('[name=birthyear]').val() + '-' + inp.filter('[name=birthmonth]').val() + '-' + inp.filter('[name=birthdate]').val(),
 				death: inp.filter('[name=dead]').is(':checked') ? inp.filter('[name=deathyear]').val() + '-' + inp.filter('[name=deathmonth]').val() + '-' + inp.filter('[name=deathdate]').val() : null,
-                                send_invite:inp.filter('[name=send_invite]').is(':checked') ? '1' : null,
-                                email:inp.filter('[name=email]').val()
+				send_invite: inp.filter('[name=invite]').is(':checked') ? '1' : null,
+				email: inp.filter('[name=email]').val()
 			}
 		},
 
