@@ -2254,7 +2254,7 @@ class SEUser
 		$r['mother'] = $this->get_parent($parent_family, 'mother');
 		$r['spouse'] =  $this->get_parent($child_family, 'spouse', $user_id);
 		$r['children'] = $this->get_parent($child_family, 'child');
-          //      $r['sibling'] = $this->get_parent($child_family, 'child');
+                $r['sibling'] = $this->get_parent($parent_family, 'sibling', $user_id);
 		
 		return $r;
 		
@@ -2281,10 +2281,11 @@ class SEUser
 			$where = " (`role` = 'mother' OR `role` = 'father' ) AND `user_id` != $user_id ";
 		} elseif ($role == 'father' || $role == 'mother' || $role == 'child') {
 			$where = " `role` = '$role' ";
-		}
+		} elseif ($role == 'sibling') {
+			$where = " `role` = 'child' AND `user_id` != $user_id";}
 		
 		$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE $where AND `family_id` = $family_id;";
-		
+		//echo $sql;
 		$resourse = $database->database_query($sql);
 		
 		if ( $resourse === false) {
@@ -2299,6 +2300,7 @@ class SEUser
 				return $family_users;
 			} else {
 				$fam = $database->database_fetch_assoc($resourse);
+                              
 				return $fam['user_id'];
 			}
 		}
