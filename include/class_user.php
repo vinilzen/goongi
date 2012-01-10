@@ -4243,10 +4243,9 @@ class SEUser
         {
            $resource = $database->database_query("SELECT * FROM se_role_in_family LEFT JOIN se_tree_users ON se_role_in_family.user_id=se_tree_users.user_id WHERE se_tree_users.tree_id='{$tree_id}'");
             while ($info = $database->database_fetch_assoc($resource))
-            {
-                    $all_user[] = $info;
-               //     $user_ids[] += $info['user_id'];
-            }
+                   $all_user[] = $info;
+              
+            
        //  $user_ids=array_unique($user_ids);
          
                 $u_p[1] = $user_id;
@@ -4268,14 +4267,10 @@ class SEUser
                                 }
                           }
                  }
-                         
-              //  print_r ($famdel);
-                for ($i = 0; $i<=count($famdel); $i++)
-                {
-                     //$database->database_query("DELETE FROM se_tree_users, se_role_in_family USING se_tree_users JOIN se_role_in_family WHERE  se_role_in_family.family_id='{$famdel[$i]}'");
-                     $database->database_query("DELETE FROM  se_role_in_family  WHERE  family_id='{$famdel[$i]}'");
-                     $database->database_query("DELETE FROM se_family WHERE family_id='{$famdel[$i]}'  AND family_id!='{$family_id}'");
-                }
+
+                     $database->database_query("DELETE FROM  se_role_in_family  WHERE  family_id IN ( " . implode(',',$famdel) . " ) AND user_id!='{$user_id}'");
+                     $database->database_query("DELETE FROM se_family WHERE family_id IN ( " . implode(',',$famdel) . " )  AND family_id!='{$family_id}'");
+            
                      $database->database_query("DELETE FROM se_role_in_family WHERE family_id='{$family_id}' AND user_id='{$user_id}'");
 
                          $resource = $database->database_query("SELECT * FROM se_role_in_family");
@@ -4286,7 +4281,7 @@ class SEUser
                           $user_ids_del=array_unique($user_ids);
                   //    print_r($user_ids_del);
                      $database->database_query("DELETE FROM `se_tree_users` WHERE `user_id` NOT IN ( " . implode(',',$user_ids_del) . " ) AND tree_id='{$tree_id}';");
-                    // $database->database_query("DELETE FROM se_tree_users WHERE se_tree_users.user_id family_id='{$family_id}' AND user_id='{$user_id}'");
+                 
         }
         else
         {
