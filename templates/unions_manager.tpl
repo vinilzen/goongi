@@ -278,7 +278,7 @@ $('#add').click(function(){
 	var alias = $('#lname').val();
 	var lname =  $('#lname').val();
 	var email = $('#email').val();
-	var send_invite = $('#send_request').val();
+	яvar send_invite = $('#send_request').val();
 	var birthday = $('#year_b').val()+'-'+$('#month_b').val()+'-'+$('#day_b').val();
 	
 	var is_death = $('#death_checkbox').attr('checked');

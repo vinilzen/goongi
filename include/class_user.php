@@ -2253,7 +2253,8 @@ class SEUser
 		$r['father'] = $this->get_parent($parent_family, 'father');
 		$r['mother'] = $this->get_parent($parent_family, 'mother');
 		$r['spouse'] =  $this->get_parent($child_family, 'spouse', $user_id);
-		$r['children'] = $this->get_parent($child_family, 'child');	
+		$r['children'] = $this->get_parent($child_family, 'child');
+          //      $r['sibling'] = $this->get_parent($child_family, 'child');
 		
 		return $r;
 		
@@ -4205,7 +4206,66 @@ class SEUser
     
 	  // DELETE USER, USERSETTING, PROFILE, STYLES TABLE ROWS
 	  $database->database_query("DELETE FROM se_users WHERE user_id='{$user_id}' LIMIT 1");
-	  $database->database_query("DELETE FROM se_role_in_family WHERE user_id='{$user_id}' LIMIT 1");
+          ////////////*********Удаление связей пользователя*****/////////////
+          
+           $resource = $database->database_query("SELECT * FROM se_tree_users LEFT JOIN se_role_in_family ON se_role_in_family.user_id=se_tree_users.user_id WHERE se_tree_users.user_id='{$user_id}' AND se_role_in_family.role!='child'");
+           $info = $database->database_fetch_assoc($resource);
+           $tree_id =$info['tree_id'];
+           $family_id =$info['family_id'];
+        if ($family_id != '')
+        {
+           $resource = $database->database_query("SELECT * FROM se_role_in_family LEFT JOIN se_tree_users ON se_role_in_family.user_id=se_tree_users.user_id WHERE se_tree_users.tree_id='{$tree_id}'");
+            while ($info = $database->database_fetch_assoc($resource))
+                    $all_user[] = $info;
+                $u_p[1] = $user_id;
+
+                  for ($i = 1; $i<=count($u_p); $i++)
+                  {
+                      $user_p = $u_p[$i];
+                          foreach($all_user as $us)
+                          {
+                            
+                                if ($us['user_id'] == $user_p && $us['role'] == 'child')
+                                {
+                                     $famdel[] = $us['family_id'];
+                                     $resource = $database->database_query("SELECT user_id FROM se_role_in_family WHERE family_id='{$us['family_id']}' AND role!='child'");
+                                      while ($info = $database->database_fetch_assoc($resource))
+                                          $u_p[] = $info['user_id'];
+                                    
+                                    break;
+                                }
+                          }
+                 }
+                         
+              //  print_r ($famdel);
+                for ($i = 1; $i<=count($famdel); $i++)
+                {
+                     $database->database_query("DELETE FROM se_role_in_family WHERE family_id='{$famdel[$i]}'");
+                     $database->database_query("DELETE FROM se_family WHERE family_id='{$famdel[$i]}'");
+                }
+                     $database->database_query("DELETE FROM se_role_in_family WHERE family_id='{$family_id}' AND user_id='{$user_id}'");
+        }
+        else
+        {
+           
+            $database->database_query("DELETE FROM se_role_in_family WHERE se_role_in_family.user_id='{$user_id}'");
+        }
+
+          // print_r ($all_user);
+
+
+/*
+           $resource = $database->database_query("SELECT * FROM se_tree_users LEFT JOIN se_role_in_family ON se_role_in_family.user_id=se_tree_users.user_id WHERE se_tree_users.user_id='{$user_id}'");
+           $info = $database->database_fetch_assoc($resource);
+       //    print_r ($info);
+           $tree_id =$info['tree_id'];
+           $family_id =$info['family_id'];
+
+                    
+           $database->database_query("DELETE FROM se_role_in_family USING se_role_in_family LEFT JOIN se_tree_users ON se_role_in_family.user_id=se_tree_users.user_id WHERE (se_role_in_family.user_id>='{$user_id}' AND se_tree_users.tree_id='{$tree_id}')");
+*/
+          ////////////////////*********-----------------*****/////////////
+
 	  $database->database_query("DELETE FROM se_tree_users WHERE user_id='{$user_id}' LIMIT 1");
 	  $database->database_query("DELETE FROM se_usersettings WHERE usersetting_user_id='{$user_id}' LIMIT 1");
 	  $database->database_query("DELETE FROM se_profilevalues WHERE profilevalue_user_id='{$user_id}' LIMIT 1");
