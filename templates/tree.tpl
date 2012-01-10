@@ -139,10 +139,8 @@
 			</tr>
 		</table>
 
-                <div class="field">
-			<label class="name">
-                             <input type="checkbox" name="send_invite" <% if (send_invite) { %> checked="checked" <% } %> /> Пригласить
-                        </label>
+		<div class="field">
+			<label class="name"><input type="checkbox" name="invite" /> Пригласить</label>
 			<input type="text" name="email" value="" />
 		</div>
 
