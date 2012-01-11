@@ -163,7 +163,7 @@ var TREE = {
 			parent = json.users[parent.father] || json.users[parent.mother];
 		}
 		this.viewpoint.empty();
-		this.renderFamily(parent.id).appendTo(this.viewpoint);
+		this.renderFamily(parent.id, this.viewpoint);
 		this.viewpoint.find('.children').each(function() {
 			$(this).width(_.reduce($(this).children(), function(width, x) {
 				return width + $(x).width()
@@ -181,24 +181,18 @@ var TREE = {
 		}
 	},
 
-	renderFamily: function(parentId) {
-		var family = $('<div class="family" />'),
-			parents = $('<div class="parents" />'),
-			children = $('<div class="children" />');
+	renderFamily: function(parentId, node) {
+		var family = $('<div class="family" />').appendTo(node),
+			parents = $('<div class="parents" />').appendTo(family),
+			children = $('<div class="children" />').appendTo(family);
 		this.tmpl.person(json.users[parentId]).appendTo(parents);
 		this.tmpl.person(json.users[json.users[parentId].spouse]).appendTo(parents);
 
 		_(json.users).chain().filter(function(user) {
 			return user.father === parentId || user.mother === parentId
 		}).each(function(child) {
-			this.renderFamily(child.id).appendTo(children);
+			this.renderFamily(child.id, children);
 		}, this);
-
-		parents.appendTo(family);
-		children.appendTo(family);
-
-		return family;
-
 	},
 
 	renderPath: function() {
@@ -222,8 +216,18 @@ var TREE = {
 			ctx.strokeStyle = '#999';
 			ctx.beginPath();
 
-			if (children.length) {
-				var x, y, parentLink;
+			var x, y, parentLink;
+
+			if (!children.length) {
+				switch (parents.length) {
+				case 2:
+					x = parents.eq(1).offset().left - family.offset().left;
+					y = parents.eq(0).outerHeight();
+					ctx.moveTo(x, y / 2);
+					ctx.lineTo(x - 60.5, y / 2);
+					break;
+				}
+			} else {
 				switch (parents.length) {
 				case 1:
 					x = (parents.offset().left - family.offset().left + parents.outerWidth() / 2).toHalf();
