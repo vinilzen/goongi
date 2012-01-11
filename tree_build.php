@@ -324,6 +324,7 @@ switch ($type_request) {
 	case 'edit':
 		
 		$user_id = (int)$_POST['user_id'];
+          
 		if ( isset($user_id) && $user_id != 0 ) {
 			
 			$set = array(); // for table se_users
@@ -353,7 +354,7 @@ switch ($type_request) {
 			}
 			
 			if ( $user_id != $user->user_info['user_id'] ) { // new login
-				if (isset($_POST['email'])) {  // ADD CHECKING
+				if (isset($_POST['email'])&& ($_POST['email']!='')) {  // ADD CHECKING
 					$set[] = " `user_email` = '" . mysql_real_escape_string($_POST['email']) . "' ";
 					$set[] = " `user_newemail` = '" . mysql_real_escape_string($_POST['email']) . "' ";
 					
@@ -366,11 +367,12 @@ switch ($type_request) {
 			}
 			
 			if (isset($_POST['fname'])) {  // ADD CHECKING
+                            
 				$set[] = " `user_fname` = '" . mysql_real_escape_string($_POST['fname']) . "' ";
 				$set_fields[] = " `profilevalue_2` = '" . mysql_real_escape_string($_POST['fname']) . "' ";
 			}
 
-                        if (isset($_POST['fakeupload'])) {  // ADD CHECKING
+                     /*   if (isset($_POST['fakeupload'])) {  // ADD CHECKING
                            
 				 $user->user_photo_upload("photo");
                               $is_error = $user->is_error;
@@ -387,7 +389,7 @@ switch ($type_request) {
                                // $action_media = Array(Array('media_link'=>$url->url_create('profile', $user->user_info['user_username']), 'media_path'=>$user->user_photo(), 'media_width'=>$photo_width, 'media_height'=>$photo_height));
                                // $actions->actions_add($user, "editphoto", Array($user->user_info['user_username'], $user->user_displayname), $action_media, 999999999, TRUE, "user", $user->user_info['user_id'], $user->user_info['user_privacy']);
                               }
-			}
+			}*/
 			
 			if ( isset($_POST['lname']) ) {
 				$set[] = " `user_lname` = '" . $_POST['lname'] . "' ";
@@ -413,6 +415,7 @@ switch ($type_request) {
 			
 			if (count($set) > 0) {
 				$sql = "UPDATE `se_users` SET " . implode(' , ', $set) ." WHERE `user_id` = $user_id LIMIT 1;";
+                               // echo $sql;
 				$r = $database->database_query($sql);
 			} else {
 				$r = true;
