@@ -2319,7 +2319,7 @@ class SEUser
 		if ( $resourse === false) {
 			return null;
 		} else {			
-			if ($role == 'child') {
+			if ($role == 'child' || $role == 'sibling') {
 				$family_users = array();
 				while($f = $database->database_fetch_assoc($resourse) ) {
 					$family_users[] = $f['user_id'];
