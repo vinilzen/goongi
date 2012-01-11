@@ -63,20 +63,19 @@ select option	{padding:0 0 0 3px}
 #user.closed	{left:-310px}
 #user.closed > .toggle	{background-image:url(../img/icons/arrow-180.png)}
 
-#viewpoint	{width:99999px; height:99999px}
+#viewpoint	{width:99999px; padding:200px 600px; overflow:hidden}
 #viewpoint.drag	{cursor:move}
 
 .family	{float:left; padding:60px 0 0}
 .family canvas	{position:absolute; z-index:-1}
-#viewpoint > .family	{padding:60px 0; position:absolute; left:1000px; top:1000px; width:100%}
-/*.children	{overflow:hidden}*/
+.family .children	{clear:both}
 
 /* refactoring
 .generation	{padding:30px 0}
 .marriage	{display:inline-block}
 */
 
-.person	{display:inline-block; border:2px solid #9cd3ed; margin:0 30px; padding:8px 12px 0; width:130px; box-shadow:0 0 10px #ccc; background:#ecf9ff}
+.person	{float:left; border:2px solid #9cd3ed; margin:0 30px; padding:8px 12px 0; width:130px; box-shadow:0 0 10px #ccc; background:#ecf9ff}
 .person .relation	{color:#666; margin:0 20px 10px 0; height:14px}
 .person .info	{cursor:pointer; width:16px; height:16px; float:right; background:url(../img/icons/info.png)}
 .person .photo	{margin:0 0 10px; overflow:hidden}

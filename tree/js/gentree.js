@@ -164,11 +164,7 @@ var TREE = {
 		}
 		this.viewpoint.empty();
 		this.renderFamily(parent.id, this.viewpoint);
-		this.viewpoint.find('.children').each(function() {
-			$(this).width(_.reduce($(this).children(), function(width, x) {
-				return width + $(x).width()
-			}, 0));
-		})
+		this.viewpoint.width(this.viewpoint.children().width());
 
 		this.renderPath();
 		if (window.location.hash) {
@@ -597,7 +593,7 @@ TREE.popups.collection = {
 				death: inp.filter('[name=dead]').is(':checked') ? inp.filter('[name=deathyear]').val() + '-' + inp.filter('[name=deathmonth]').val() + '-' + inp.filter('[name=deathdate]').val() : null,
 				send_invite: inp.filter('[name=invite]').is(':checked') ? '1' : null,
 				email: inp.filter('[name=email]').val(),
-                                fakeupload: inp.filter('[name=realupload2]').val
+				fakeupload: inp.filter('[name=realupload2]').val
 			}
 		},
 
