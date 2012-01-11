@@ -2032,7 +2032,9 @@ class SEUser
 	// insert in `se_role_in_family`
 	function add_role($family_id, $role, $user_id) {
 		global $database, $setting, $user;
-		$sql = "INSERT INTO `se_role_in_family` (`family_id`, `user_id`, `role`) VALUES ('$family_id', '$user_id', '$role')";
+             //   echo $user_id;
+                 $level = $this->getlevel($user_id);
+		$sql = "INSERT INTO `se_role_in_family` (`family_id`, `user_id`, `role`, `level`) VALUES ('$family_id', '$user_id', '$role', '$level')";
 		if ( $database->database_query($sql) ) {
 			return true;
 		} else {
@@ -2043,7 +2045,8 @@ class SEUser
 	// insert in `se_role_in_family`
 	function add_role_new( $role, $user_id) {
 		global $database, $setting, $user;
-		$sql = "INSERT INTO `se_role_in_family` (`user_id`, `role`) VALUES ('$user_id', '$role')";
+                $level = $this->getlevel($user_id);
+		$sql = "INSERT INTO `se_role_in_family` (`user_id`, `role`, `level`) VALUES ('$user_id', '$role', '$level')";
 		if ( $database->database_query($sql) ) {
 			return $database->database_insert_id();;
 		} else {
@@ -2053,8 +2056,8 @@ class SEUser
 	
 	function update_role($family_id, $role, $user_id) {
 		global $database, $setting, $user;
-		$sql = "UPDATE `se_role_in_family` SET `user_id` = $user_id WHERE `family_id` = $family_id AND `role` = '$role'  LIMIT 1;";
-		
+               // $level = $this->getlevel($user_id);
+		$sql = "UPDATE `se_role_in_family` SET `user_id` = $user_id  WHERE `family_id` = $family_id AND `role` = '$role'  LIMIT 1;";
 		if ( $database->database_query($sql) ) {
 			return true;
 		} else {
@@ -2854,7 +2857,7 @@ class SEUser
           $family_id = $this->create_family($user_id,$signup_username);
           $this->create_tree($user_id,$signup_username);
           $role = 'child';
-          $database->database_query("INSERT INTO se_role_in_family (family_id,user_id,role) VALUES ('{$family_id}','{$user_id}','{$role}')");
+          $database->database_query("INSERT INTO se_role_in_family (family_id,user_id,role, level) VALUES ('{$family_id}','{$user_id}','{$role}' , 0)");
     if( $user_id ) $this->user_exists = TRUE;
     
 	  // UPDATE USERNAME IF NECESSARY
@@ -2983,7 +2986,7 @@ class SEUser
 
 	// user_create_fast() METHOD
 	function user_create_fast(	$fname, $lname, $root_user_id, $role, $signup_email, $birthday = '0000-00-00',
-								$sex, $death = '0000-00-00', $alias = '', $send_invite = 0, $family_id ) {
+								$sex, $death = '0000-00-00', $alias = '', $send_invite = 0, $family_id ,$level) {
 		global $database, $setting, $url, $actions, $field;
 		//echo $send_invite;
              //   echo $signup_email;
@@ -3121,7 +3124,7 @@ class SEUser
 	  	
 	  	//echo $family_id;
 	  	// ADD in TREE
-	  	$database->database_query("INSERT INTO se_role_in_family (family_id,user_id,role) VALUES ('{$family_id}','{$user_id}','{$role}')");
+	  	$database->database_query("INSERT INTO se_role_in_family (family_id,user_id,role, level) VALUES ('{$family_id}','{$user_id}','{$role}','{$level}')");
 		
 		$tree_id = $this->get_tree_id($root_user_id);
 		if ($tree_id != false)
@@ -4226,84 +4229,119 @@ class SEUser
 	// THIS METHOD DELETES THE USER CURRENTLY ASSOCIATED WITH THIS OBJECT
 	// INPUT: $user_id
 	// OUTPUT:
+
+         function getlevel($user_id) {
+           global $database;
+         
+           $resource = $database->database_query("SELECT level FROM se_role_in_family WHERE user_id='{$user_id}' LIMIT 1");
+           $info = $database->database_fetch_assoc($resource);
+          $level = $info['level'];
+
+            return (int) $level;
+         }
+         
 	function user_del($user_id) {
 	  global $database, $url, $global_plugins;
 	  // CALL USER DELETE HOOK
 	  ($hook = SE_Hook::exists('se_user_delete')) ? SE_Hook::call($hook, $user_id) : NULL;
     
 	  // DELETE USER, USERSETTING, PROFILE, STYLES TABLE ROWS
-	  $database->database_query("DELETE FROM se_users WHERE user_id='{$user_id}' LIMIT 1");
+	  // $database->database_query("DELETE FROM se_users WHERE user_id='{$user_id}' LIMIT 1");
           ////////////*********Удаление связей пользователя*****/////////////
-          
+       
+            $level = $this->getlevel($user_id);
+          if ($level > 0)
+          {
+              //****************************del up///////////////////
            $resource = $database->database_query("SELECT * FROM se_tree_users LEFT JOIN se_role_in_family ON se_role_in_family.user_id=se_tree_users.user_id WHERE se_tree_users.user_id='{$user_id}' AND se_role_in_family.role!='child'");
            $info = $database->database_fetch_assoc($resource);
            $tree_id =$info['tree_id'];
            $family_id =$info['family_id'];
-        if ($family_id != '')
-        {
-           $resource = $database->database_query("SELECT * FROM se_role_in_family LEFT JOIN se_tree_users ON se_role_in_family.user_id=se_tree_users.user_id WHERE se_tree_users.tree_id='{$tree_id}'");
-            while ($info = $database->database_fetch_assoc($resource))
-                   $all_user[] = $info;
-              
-            
-       //  $user_ids=array_unique($user_ids);
-         
+
+            if ($family_id != '')
+            {
+               $resource = $database->database_query("SELECT * FROM se_role_in_family LEFT JOIN se_tree_users ON se_role_in_family.user_id=se_tree_users.user_id WHERE se_tree_users.tree_id='{$tree_id}'");
+                while ($info = $database->database_fetch_assoc($resource))
+                       $all_user[] = $info;
                 $u_p[1] = $user_id;
-
-                  for ($i = 1; $i<=count($u_p); $i++)
-                  {
-                      $user_p = $u_p[$i];
-                          foreach($all_user as $us)
-                          {
-                            
-                                if ($us['user_id'] == $user_p && $us['role'] == 'child')
-                                {
-                                     $famdel[] = $us['family_id'];
-                                     $resource = $database->database_query("SELECT user_id FROM se_role_in_family WHERE family_id='{$us['family_id']}' AND role!='child'");
-                                      while ($info = $database->database_fetch_assoc($resource))
-                                          $u_p[] = $info['user_id'];
-                                    
-                                    break;
-                                }
-                          }
-                 }
-
-                     $database->database_query("DELETE FROM  se_role_in_family  WHERE  family_id IN ( " . implode(',',$famdel) . " ) AND user_id!='{$user_id}'");
-                     $database->database_query("DELETE FROM se_family WHERE family_id IN ( " . implode(',',$famdel) . " )  AND family_id!='{$family_id}'");
-            
-                     $database->database_query("DELETE FROM se_role_in_family WHERE family_id='{$family_id}' AND user_id='{$user_id}'");
-
+                      for ($i = 1; $i<=count($u_p); $i++)
+                      {
+                          $user_p = $u_p[$i];
+                              foreach($all_user as $us)
+                              {
+                                 if ($us['user_id'] == $user_p && $us['role'] == 'child')
+                                 {
+                                         $famdel[] = $us['family_id'];
+                                         $resource = $database->database_query("SELECT user_id FROM se_role_in_family WHERE family_id='{$us['family_id']}' AND role !='child'");
+                                         while ($info = $database->database_fetch_assoc($resource))
+                                              $u_p[] = $info['user_id'];
+                                        break;
+                                    }
+                              }
+                     }
+                         $database->database_query("DELETE FROM  se_role_in_family  WHERE  family_id IN ( " . implode(',',$famdel) . " )");
+                         $database->database_query("DELETE FROM se_family WHERE family_id IN ( " . implode(',',$famdel) . " )  AND family_id!='{$family_id}'");
+                       //  $database->database_query("DELETE FROM se_role_in_family WHERE family_id='{$family_id}' AND user_id='{$user_id}'");
+                         $database->database_query("DELETE FROM se_role_in_family WHERE user_id='{$user_id}'");
                          $resource = $database->database_query("SELECT * FROM se_role_in_family");
-                        while ($info = $database->database_fetch_assoc($resource))
-                        {
-                                $user_ids[] += $info['user_id'];
-                        }
-                          $user_ids_del=array_unique($user_ids);
-                  //    print_r($user_ids_del);
-                     $database->database_query("DELETE FROM `se_tree_users` WHERE `user_id` NOT IN ( " . implode(',',$user_ids_del) . " ) AND tree_id='{$tree_id}';");
-                 
+                            while ($info = $database->database_fetch_assoc($resource))
+                            {
+                                    $user_ids[] += $info['user_id'];
+                            }
+                              $user_ids_del=array_unique($user_ids);
+                              $database->database_query("DELETE FROM `se_tree_users` WHERE `user_id` NOT IN ( " . implode(',',$user_ids_del) . " ) AND tree_id='{$tree_id}';");
+            }
+        else
+        {
+            $database->database_query("DELETE FROM se_tree_users WHERE user_id='{$user_id}' LIMIT 1");
+            $database->database_query("DELETE FROM se_role_in_family WHERE se_role_in_family.user_id='{$user_id}'");
+        } }
+        else
+        {
+            //*********************************del_down
+           $resource = $database->database_query("SELECT * FROM se_tree_users LEFT JOIN se_role_in_family ON se_role_in_family.user_id=se_tree_users.user_id WHERE se_tree_users.user_id='{$user_id}' AND se_role_in_family.role='child'");
+           $info = $database->database_fetch_assoc($resource);
+           $tree_id =$info['tree_id'];
+           $family_id =$info['family_id'];
+            if ($family_id != '')
+            {
+               $resource = $database->database_query("SELECT * FROM se_role_in_family LEFT JOIN se_tree_users ON se_role_in_family.user_id=se_tree_users.user_id WHERE se_tree_users.tree_id='{$tree_id}'");
+                while ($info = $database->database_fetch_assoc($resource))
+                    $all_user[] = $info;
+                $u_p[1] = $user_id;
+                      for ($i = 1; $i<=count($u_p); $i++)
+                      {
+                          $user_p = $u_p[$i];
+                              foreach($all_user as $us)
+                              {
+                                  if ($us['user_id'] == $user_p && $us['role'] != 'child')
+                                    {
+                                         $famdel[] = $us['family_id'];
+                                         $resource = $database->database_query("SELECT user_id FROM se_role_in_family WHERE family_id='{$us['family_id']}' AND role ='child'");
+                                          while ($info = $database->database_fetch_assoc($resource))
+                                              $u_p[] = $info['user_id'];
+                                        break;
+                                    }
+                              }
+                     }
+                         $database->database_query("DELETE FROM  se_role_in_family  WHERE  family_id IN ( " . implode(',',$famdel) . " )");
+                         $database->database_query("DELETE FROM se_family WHERE family_id IN ( " . implode(',',$famdel) . " )  AND family_id!='{$family_id}'");
+                       //  $database->database_query("DELETE FROM se_role_in_family WHERE family_id='{$family_id}' AND user_id='{$user_id}'");
+                          $database->database_query("DELETE FROM se_role_in_family WHERE user_id='{$user_id}'");
+                          $resource = $database->database_query("SELECT * FROM se_role_in_family");
+                           while ($info = $database->database_fetch_assoc($resource))
+                            {
+                                    $user_ids[] += $info['user_id'];
+                            }
+                              $user_ids_del=array_unique($user_ids);
+                           $database->database_query("DELETE FROM `se_tree_users` WHERE `user_id` NOT IN ( " . implode(',',$user_ids_del) . " ) AND tree_id='{$tree_id}';");
         }
         else
         {
             $database->database_query("DELETE FROM se_tree_users WHERE user_id='{$user_id}' LIMIT 1");
             $database->database_query("DELETE FROM se_role_in_family WHERE se_role_in_family.user_id='{$user_id}'");
-        }
-
-          // print_r ($all_user);
-
-
-/*
-           $resource = $database->database_query("SELECT * FROM se_tree_users LEFT JOIN se_role_in_family ON se_role_in_family.user_id=se_tree_users.user_id WHERE se_tree_users.user_id='{$user_id}'");
-           $info = $database->database_fetch_assoc($resource);
-       //    print_r ($info);
-           $tree_id =$info['tree_id'];
-           $family_id =$info['family_id'];
-
-                    
-           $database->database_query("DELETE FROM se_role_in_family USING se_role_in_family LEFT JOIN se_tree_users ON se_role_in_family.user_id=se_tree_users.user_id WHERE (se_role_in_family.user_id>='{$user_id}' AND se_tree_users.tree_id='{$tree_id}')");
-*/
+        }}
           ////////////////////*********-----------------*****/////////////
-
 	  
 	  $database->database_query("DELETE FROM se_usersettings WHERE usersetting_user_id='{$user_id}' LIMIT 1");
 	  $database->database_query("DELETE FROM se_profilevalues WHERE profilevalue_user_id='{$user_id}' LIMIT 1");

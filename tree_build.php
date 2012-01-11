@@ -68,7 +68,10 @@ switch ($type_request) {
 								if ( !$user->check_existing_parent($user_id, $role) ) {
 										
 									$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
-									
+									$level = $user->getlevel($user_id);
+                                                                        if ($level == 0) $level = 1;
+                                                                           elseif ($level > 0) $level = $level + 1;
+                                                                               elseif ($level < 0) $level = $level - 1;
 									if ( $user->user_create_fast(
 										$new_user['fname'],
 										$new_user['lname'], 
@@ -80,7 +83,8 @@ switch ($type_request) {
 										$new_user["death"],
 										$new_user["alias"],
 										$new_user["send_invite"],
-										$family_id ) ) {
+										$family_id,
+                                                                                $level) ) {
 									
 										$error = 0;
 										$result = SE_Language::get(729);
@@ -104,7 +108,10 @@ switch ($type_request) {
 								if ( !$user->check_existing_parent($user_id, $role) ) {
 										
 									$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
-										
+									$level = $user->getlevel($user_id);
+                                                                        if ($level == 0) $level = 1;
+                                                                           elseif ($level > 0) $level = $level+ 1;
+                                                                               elseif ($level < 0) $level = $level - 1;
 									if ( $user->user_create_fast(
 										$new_user['fname'],
 										$new_user['lname'], 
@@ -116,7 +123,8 @@ switch ($type_request) {
 										$new_user["death"],
 										$new_user["alias"],
 										$new_user["send_invite"],
-										$family_id ) ) {
+										$family_id,
+                                                                                $level) ) {
 									
 										$error = 0;
 										$result = SE_Language::get(729);
@@ -142,8 +150,8 @@ switch ($type_request) {
 									if ( !$user->check_existing_spouse($user_id, $role) ) {
 										
 										$family_id = $user->get_main_family_id($user_id,'m',$new_user['lname']);
-										
-										if ( $user->user_create_fast(
+										$level = $user->getlevel($user_id);
+                                                                          	if ( $user->user_create_fast(
 											$new_user['fname'],
 											$new_user['lname'], 
 											$user_id, 
@@ -154,7 +162,8 @@ switch ($type_request) {
 											$new_user["death"],
 											$new_user["alias"],
 											$new_user["send_invite"],
-											$family_id ) ) {
+											$family_id,
+                                                                                        $level) ) {
 										
 											$error = 0;
 											$result = SE_Language::get(729);
@@ -183,7 +192,8 @@ switch ($type_request) {
 									if ( !$user->check_existing_spouse($user_id, $role) ) {
 	
 										$family_id = $user->get_main_family_id($user_id,'m',$new_user['lname']);
-										
+										$level = $user->getlevel($user_id);
+                                                                 
 										if ( $user->user_create_fast(
 											$new_user['fname'],
 											$new_user['lname'], 
@@ -195,7 +205,8 @@ switch ($type_request) {
 											$new_user["death"],
 											$new_user["alias"],
 											$new_user["send_invite"],
-											$family_id ) ) {
+											$family_id,
+                                                                                        $level) ) {
 										
 											$error = 0;
 											$result = SE_Language::get(729);
@@ -220,7 +231,10 @@ switch ($type_request) {
 								$role = 'child';
 								$s = $user->get_sex($user_id);
 								$family_id = $user->get_main_family_id($user_id,$s,$new_user['lname']);
-								
+								$level = $user->getlevel($user_id);
+                                                                        if ($level == 0) $level = -1;
+                                                                           elseif ($level > 0) $level = $level+ 1;
+                                                                               elseif ($level < 0) $level = $level - 1;
 								if ( $user->user_create_fast(
 									$new_user['fname'],
 									$new_user['lname'], 
@@ -232,7 +246,8 @@ switch ($type_request) {
 									$new_user["death"],
 									$new_user["alias"],
 									$new_user["send_invite"],
-									$family_id ) ) {
+									$family_id,
+                                                                        $level) ) {
 								
 									$error = 0;
 									$result = SE_Language::get(729);
@@ -247,7 +262,8 @@ switch ($type_request) {
 							case 'brother'||'sister':
 								$role = 'child';
 								$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
-
+                                                                $level = $user->getlevel($user_id);
+                                                                        
 								if ( $user->user_create_fast(
 									$new_user['fname'],
 									$new_user['lname'], 
@@ -259,7 +275,8 @@ switch ($type_request) {
 									$new_user["death"],
 									$new_user["alias"],
 									$new_user["send_invite"],
-									$family_id ) ) {
+									$family_id,
+                                                                        $level ) ) {
 								
 									$error = 0;
 									$result = SE_Language::get(729);
