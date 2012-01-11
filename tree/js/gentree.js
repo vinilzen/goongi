@@ -592,7 +592,8 @@ TREE.popups.collection = {
 				birthday: inp.filter('[name=birthyear]').val() + '-' + inp.filter('[name=birthmonth]').val() + '-' + inp.filter('[name=birthdate]').val(),
 				death: inp.filter('[name=dead]').is(':checked') ? inp.filter('[name=deathyear]').val() + '-' + inp.filter('[name=deathmonth]').val() + '-' + inp.filter('[name=deathdate]').val() : null,
 				send_invite: inp.filter('[name=invite]').is(':checked') ? '1' : null,
-				email: inp.filter('[name=email]').val()
+				email: inp.filter('[name=email]').val(),
+                                fakeupload: inp.filter('[name=realupload2]').val
 			}
 		},
 

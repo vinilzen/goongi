@@ -191,7 +191,7 @@ switch ($type_request) {
 								if ($s == 'w') {
 									if ( !$user->check_existing_spouse($user_id, $role) ) {
 	
-										$family_id = $user->get_main_family_id($user_id,'m',$new_user['lname']);
+										$family_id = $user->get_main_family_id($user_id,'w',$new_user['lname']);
 										$level = $user->getlevel($user_id);
                                                                  
 										if ( $user->user_create_fast(
@@ -368,6 +368,25 @@ switch ($type_request) {
 			if (isset($_POST['fname'])) {  // ADD CHECKING
 				$set[] = " `user_fname` = '" . mysql_real_escape_string($_POST['fname']) . "' ";
 				$set_fields[] = " `profilevalue_2` = '" . mysql_real_escape_string($_POST['fname']) . "' ";
+			}
+
+                        if (isset($_POST['fakeupload'])) {  // ADD CHECKING
+                           
+				 $user->user_photo_upload("photo");
+                              $is_error = $user->is_error;
+                              if( !$is_error ) {
+                                
+                                // SAVE LAST UPDATE DATE
+                                $user->user_lastupdate();
+
+                                // DETERMINE SIZE OF THUMBNAIL TO SHOW IN ACTION
+                                $photo_width = $misc->photo_size($user->user_photo(), "111", "111", "w");
+                                $photo_height = $misc->photo_size($user->user_photo(), "111", "111", "h");
+
+                                // INSERT ACTION
+                               // $action_media = Array(Array('media_link'=>$url->url_create('profile', $user->user_info['user_username']), 'media_path'=>$user->user_photo(), 'media_width'=>$photo_width, 'media_height'=>$photo_height));
+                               // $actions->actions_add($user, "editphoto", Array($user->user_info['user_username'], $user->user_displayname), $action_media, 999999999, TRUE, "user", $user->user_info['user_id'], $user->user_info['user_privacy']);
+                              }
 			}
 			
 			if ( isset($_POST['lname']) ) {

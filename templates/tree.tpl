@@ -133,7 +133,8 @@
 				<td>
 					<div class="field">
 						<div class="name">Загрузи новый аватар</div>
-						<input type="file" />
+						<input type="file" onchange="document.getElementById('fakeupload_p').value = this.value;" class="realupload2" id="realupload2"  name='photo'/>
+                                                <input type="hidden" value="" name="fakeupload" id="fakeupload_p" />
 					</div>
 				</td>
 			</tr>
@@ -150,7 +151,7 @@
 		</div>
 		<div class="field">
 			<div class="name">Фамилия</div>
-			<input type="text" name="lname" value="<%= Base64.decode(lname) %>" />
+			<input type="text" name="lname"   <% if (Base64.decode(lname) === '') { %> value="<%= Base64.decode(json.users[id].lname) %>" <% } %> value="<%= Base64.decode(lname) %>"  />
 		</div>
 		<div class="field">
 			<div class="name">Прозвище</div>

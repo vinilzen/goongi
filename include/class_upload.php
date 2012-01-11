@@ -49,6 +49,7 @@ class se_upload
   
 	function new_upload($file, $file_maxsize, $file_exts, $file_types, $file_maxwidth = "", $file_maxheight = "")
   {
+         
 	  // GET FILE VARS
 	  $this->file_name = $_FILES[$file]['name'];
 	  $this->file_type = strtolower($_FILES[$file]['type']);
