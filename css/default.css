@@ -17,6 +17,7 @@ body	{font:normal 11px arial; background:url(../img/decor/bg.gif)}
 .user	{position:fixed; width:348px; height:660px; left:0; top:50%; margin:-330px 0 0; background:url(../img/decor/user-handler.png)}
 .user > .toggle	{width:34px; height:216px; position:absolute; left:310px; top:155px; cursor:pointer; background:url(../img/icons/arrow-0.png) center no-repeat}
 
+
 .user .body	{padding:18px 52px 0 18px}
 .user .name	{font-size:14px; margin:0 0 10px}
 .user .photo	{border:1px solid #d7d7d7; border-radius:1px; padding:2px; float:left; margin:0 10px 10px 0}
@@ -31,6 +32,7 @@ body	{font:normal 11px arial; background:url(../img/decor/bg.gif)}
 
 .user .settings	{position:absolute; right:38px; top:1px; border:1px solid #f2f2f2; padding:16px 18px 10px; background:#fff; box-shadow:0 0 10px #aaa}
 .user .settings > .toggle	{width:32px; height:16px; background:url(../img/icons/settings.png); cursor:pointer; float:right}
+
 .user .settings .title	{font-size:12px; border-bottom:1px solid #e5e5e5; padding:0 0 10px}
 .user .settings ul	{list-style:none; color:#2a86dc; line-height:22px; padding:10px 0 0}
 .user .settings ul li	{cursor:pointer; padding:0 20px 0 0}
@@ -42,6 +44,8 @@ body	{font:normal 11px arial; background:url(../img/decor/bg.gif)}
 
 .user.closed	{left:-310px}
 .user.closed > .toggle	{background-image:url(../img/icons/arrow-180.png)}
+
+
 
 #viewpoint	{width:99999px; height:99999px}
 #viewpoint.drag	{cursor:move}

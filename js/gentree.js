@@ -54,6 +54,7 @@ var TREE = {
 
 		$('.user > .toggle').click(this.toggleUserInfo);
 		$('.settings > .toggle').click(this.toggleSettings);
+               
 
 		$(document).on('click', '.person .toggle', function () {
 			TREE.Dialogs.Actions.show(this);

@@ -4281,7 +4281,6 @@ class SEUser
                      }
                          $database->database_query("DELETE FROM  se_role_in_family  WHERE  family_id IN ( " . implode(',',$famdel) . " )");
                          $database->database_query("DELETE FROM se_family WHERE family_id IN ( " . implode(',',$famdel) . " )  AND family_id!='{$family_id}'");
-                       //  $database->database_query("DELETE FROM se_role_in_family WHERE family_id='{$family_id}' AND user_id='{$user_id}'");
                          $database->database_query("DELETE FROM se_role_in_family WHERE user_id='{$user_id}'");
                          $resource = $database->database_query("SELECT * FROM se_role_in_family");
                             while ($info = $database->database_fetch_assoc($resource))
@@ -4324,10 +4323,10 @@ class SEUser
                                     }
                               }
                      }
+                    
                          $database->database_query("DELETE FROM  se_role_in_family  WHERE  family_id IN ( " . implode(',',$famdel) . " )");
                          $database->database_query("DELETE FROM se_family WHERE family_id IN ( " . implode(',',$famdel) . " )  AND family_id!='{$family_id}'");
-                       //  $database->database_query("DELETE FROM se_role_in_family WHERE family_id='{$family_id}' AND user_id='{$user_id}'");
-                          $database->database_query("DELETE FROM se_role_in_family WHERE user_id='{$user_id}'");
+                         $database->database_query("DELETE FROM se_role_in_family WHERE user_id='{$user_id}'");
                           $resource = $database->database_query("SELECT * FROM se_role_in_family");
                            while ($info = $database->database_fetch_assoc($resource))
                             {

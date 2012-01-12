@@ -14,35 +14,36 @@
 </head>
 <body>
 
-<div id="header">
-	<div class="caption">Моё дерево</div>
-	<div class="float-r">
+<!--<div id="header">-->
+	<!--<div class="caption">Моё дерево</div>-->
+	<!--<div class="float-r">-->
 		<!--div class="ico home"></div-->
-		<div class="ico print"></div>
-		<div class="ico settings"></div>
-	</div>
-	<div class="breadcrumb">
-		<a href="/" target="_top">Главная</a>
-		<span>&rarr;</span>
-		<a href="/{$user->user_info.user_username}" target="_top">Профиль</a>
-		<span>&rarr;</span>
-		<b>Моё дерево</b>
-	</div>
+	<!--	<div class="ico print"></div>-->
+	<!--	<div class="ico settings"></div>-->
+	<!--</div>-->
+	<!--<div class="breadcrumb">-->
+	<!--	<a href="/" target="_top">Главная</a>-->
+	<!--	<span>&rarr;</span>-->
+	<!--	<a href="/{$user->user_info.user_username}" target="_top">Профиль</a>-->
+	<!--	<span>&rarr;</span>-->
+	<!--	<b>Моё дерево</b>-->
+	<!--</div>-->
 	<!--div class="button"><div>Добавить родственника</div></div>
 	<div class="button sub"><div>Сохранить дерево</div></div-->
-</div>
+<!--</div>-->
 
 <div id="user" class="closed">
 	<div class="settings closed">
-		<div class="toggle"></div>
-		<div class="title">Параметры</div>
+		<!--<div class="toggle"></div>-->
+                <div class="print"></div>
+		<!--<div class="title">Параметры</div>
 		<ul>
 			<li>Добавить родственников</li>
 			<li>Посмотреть ветвь</li>
 			<li>Присоединить</li>
 			<li>Удалить связь</li>
 			<li>Удалить этого человека</li>
-		</ul>
+		</ul>-->
 	</div>
 	<div class="body"></div>
 	<div class="toggle"></div>

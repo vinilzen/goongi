@@ -51,6 +51,7 @@ select option	{padding:0 0 0 3px}
 
 #user .settings	{position:absolute; right:38px; top:1px; border:1px solid #f2f2f2; padding:16px 18px 10px; background:#fff; box-shadow:0 0 10px #aaa}
 #user .settings > .toggle	{width:32px; height:16px; background:url(../img/icons/settings.png); cursor:pointer; float:right}
+#user .settings > .print	{height: 26px; margin: 0px 0 0 8px; width: 26px; background:url(../img/icons/print.png); cursor:pointer; float:right}
 #user .settings .title	{font-size:12px; border-bottom:1px solid #e5e5e5; padding:0 0 10px}
 #user .settings ul	{list-style:none; color:#2a86dc; line-height:22px; padding:10px 0 0}
 #user .settings ul li	{cursor:pointer; padding:0 20px 0 0}
