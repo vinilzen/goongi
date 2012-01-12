@@ -14,7 +14,7 @@ body	{font:normal 11px arial; background:url(../img/decor/bg.gif)}
 .button	{background-position:100% 100%; padding:0 10px 0 0; display:inline-block; cursor:pointer; color:#fffefe; text-shadow:-1px 0 1px #000; font-size:14px; font-weight:bold}
 .button div	{background-position:0 0; padding:0 0 0 10px; line-height:26px; text-align:center}
 
-.user	{position:fixed; width:348px; height:660px; left:0; top:50%; margin:-330px 0 0; background:url(../img/decor/user-handler.png)}
+.user	{position:fixed; width:348px; height:360px; left:0; top:50%; margin:-330px 0 0; background:url(../img/decor/user-handler.png)}
 .user > .toggle	{width:34px; height:216px; position:absolute; left:310px; top:155px; cursor:pointer; background:url(../img/icons/arrow-0.png) center no-repeat}
 
 

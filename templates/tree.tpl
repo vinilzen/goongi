@@ -1,4 +1,53 @@
-﻿<!doctype html>
+{literal}
+<script type='text/javascript'> 
+function file_send() {
+  sendForm("my_form", "/ajax_upload.php", callback);
+  return false;
+}
+function sendForm(form, url, callfunc) {
+  if (!document.createElement) return;
+  if (typeof(form)=="string") form=document.getElementById(form);
+  var frame=createIFrame();
+  var act = form.getAttribute('action');
+  frame.onSendComplete = function() {callfunc(form,act,getIFrameXML(frame));};
+  form.setAttribute('target', frame.id);
+  form.setAttribute('action', url);
+  form.submit();
+}
+
+function createIFrame() {
+  var id = 'f' + Math.floor(Math.random() * 99999);
+  var div = document.createElement('div');
+  div.innerHTML = "<iframe style=\"display:none\" src=\"about:blank\" id=\""+id+"\" name=\""+id+"\" onload=\"sendComplete('"+id+"')\"></iframe>";
+  document.body.appendChild(div);
+  return document.getElementById(id);
+}
+
+function sendComplete(id) {
+  var iframe=document.getElementById(id);
+  if (iframe.onSendComplete &&
+  typeof(iframe.onSendComplete) == 'function')  iframe.onSendComplete();
+}
+
+function getIFrameXML(iframe) {
+  var doc=iframe.contentDocument;
+  if (!doc && iframe.contentWindow) doc=iframe.contentWindow.document;
+  if (!doc) doc=window.frames[iframe.id].document;
+  if (!doc) return null;
+  if (doc.location=="about:blank") return null;
+  if (doc.XMLDocument) doc=doc.XMLDocument;
+  return doc;
+}
+
+function callback(form,act,doc) {
+  form.setAttribute('action', act);
+  form.removeAttribute('target');
+  alert(doc.body.innerHTML);
+}
+</script>
+{/literal}
+
+<!doctype html>
 <head>
 	<meta charset="utf-8">
 	<title></title>
@@ -132,11 +181,17 @@
 				</td>
 				<td class="sep"></td>
 				<td>
+                             <% if (Base64.decode(fname) !== ''){ %>
 					<div class="field">
 						<div class="name">Загрузи новый аватар</div>
-						<input type="file" onchange="document.getElementById('fakeupload_p').value = this.value;" class="realupload2" id="realupload2"  name='photo'/>
-                                                <input type="hidden" value="" name="fakeupload" id="fakeupload_p" />
-					</div>
+						<form id="my_form" method="post" action="" enctype="multipart/form-data" onsubmit="file_send()">
+                                                <input type="file" name="photo" />
+                                                <input type = "hidden" name = "u_id" value = "<%= id %>">
+                                                <input type="submit" value="отправить">
+                                                </form>
+                                         </div>
+                               <%} %>
+                              
 				</td>
 			</tr>
 		</table>

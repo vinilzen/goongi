@@ -49,10 +49,11 @@ class se_upload
   
 	function new_upload($file, $file_maxsize, $file_exts, $file_types, $file_maxwidth = "", $file_maxheight = "")
   {
-         
-	  // GET FILE VARS
+     
+ 	  // GET FILE VARS
 	  $this->file_name = $_FILES[$file]['name'];
 	  $this->file_type = strtolower($_FILES[$file]['type']);
+        
 	  $this->file_size = $_FILES[$file]['size'];
 	  $this->file_tempname = $_FILES[$file]['tmp_name'];
 	  $this->file_error = $_FILES[$file]['error'];
@@ -104,6 +105,7 @@ class se_upload
     {
 	    $this->is_image = 0;
 	  }
+       //   echo $this->is_error;
 	}
   
   // END new_upload() METHOD

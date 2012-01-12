@@ -1430,7 +1430,86 @@ class SEUser
   
   // END user_photo_upload() METHOD
 
+function user_ajax_photo_upload($photo_name,$id_user)
+  {
+	  global $database, $url;
+          // ENSURE USER DIRECTORY IS ADDED
+	  $user_directory = $url->url_userdir($id_user);
+	  $user_path_array = explode("/", $user_directory);
+	  array_pop($user_path_array);
+	  array_pop($user_path_array);
+	  $subdir = implode("/", $user_path_array)."/";
+	  if( !is_dir($subdir) )
+    {
+	    mkdir($subdir, 0777);
+	    chmod($subdir, 0777);
+	    $handle = fopen($subdir."index.php", 'x+');
+	    fclose($handle);
+	  }
+    if( !is_dir($user_directory) )
+    {
+      mkdir($user_directory, 0777);
+      chmod($user_directory, 0777);
+      $handle = fopen($user_directory."/index.php", 'x+');
+      fclose($handle);
+    }
 
+	  // SET KEY VARIABLES
+	  $file_maxsize = "4194304";
+	  $file_exts = explode(",", str_replace(" ", "", strtolower($this->level_info['level_photo_exts'])));
+	  $file_types = explode(",", str_replace(" ", "", strtolower("image/jpeg, image/jpg, image/jpe, image/pjpeg, image/pjpg, image/x-jpeg, x-jpg, image/gif, image/x-gif, image/png, image/x-png")));
+	  $file_maxwidth = $this->level_info['level_photo_width'];
+	  $file_maxheight = $this->level_info['level_photo_height'];
+	  $photo_newname = "0_".rand(1000, 9999).".jpg";
+	  $file_dest = $url->url_userdir($id_user).$photo_newname;
+	  $thumb_dest = substr($file_dest, 0, strrpos($file_dest, "."))."_thumb".substr($file_dest, strrpos($file_dest, "."));
+      $file_big_dest = $url->url_userdir($id_user).$id_user.substr($file_dest, strrpos($file_dest, "."));
+
+		// var_dump($file_dest); var_dump($thumb_dest); die();
+
+
+	  $new_photo = new se_upload();
+	  $new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
+
+	  // UPLOAD AND RESIZE PHOTO IF NO ERROR
+	  if( !$new_photo->is_error ) {
+	    // DELETE OLD AVATAR IF EXISTS
+               $sql="SELECT user_photo  FROM se_users WHERE user_id='{$id_user}' LIMIT 1";
+             $resource = $database->database_query($sql);
+             $res  = $database->database_fetch_assoc($resource);
+             $name_photo  = $res['user_photo'];
+          
+         //     echo $name_photo;
+	      $user_photo = $url->url_userdir($id_user).$name_photo;
+        //       echo $name_photo;
+	  if( $user_photo )
+         {
+	    @unlink($user_photo);
+	    @unlink(substr($user_photo, 0, strrpos($user_photo, "."))."_thumb".substr($user_photo, strrpos($user_photo, ".")));
+	    $database->database_query("UPDATE se_users SET user_photo='' WHERE user_id='{$id_user}' LIMIT 1");
+	  }
+
+	    // UPLOAD THUMB
+	    $new_photo->upload_thumb($thumb_dest);
+
+	    // CHECK IF IMAGE RESIZING IS AVAILABLE, OTHERWISE MOVE UPLOADED IMAGE
+	    if( $new_photo->is_image ) {
+	      $new_photo->upload_photo($file_dest);
+	    } else {
+	      $new_photo->upload_file($file_dest);
+	    }
+
+		$new_photo->upload_photo_my($file_big_dest, 277,275);
+
+	    // UPDATE USER INFO WITH IMAGE IF STILL NO ERROR
+	    if( !$new_photo->is_error ) {
+	      $database->database_query("UPDATE se_users SET user_photo='{$photo_newname}' WHERE user_id='{$id_user}' LIMIT 1");
+	    //  $this->user_info['user_photo'] = $photo_newname;
+	    }
+	  }
+
+	  $this->is_error = $new_photo->is_error;
+	}
 
 
 
@@ -1445,6 +1524,7 @@ class SEUser
   {
 	  global $database;
 	  $user_photo = $this->user_photo();
+          print_r ($user_photo);
 	  if( $user_photo )
     {
 	    @unlink($user_photo);

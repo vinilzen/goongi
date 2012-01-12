@@ -21,7 +21,7 @@ if ( $user->user_exists != 1) {
 //var_dump($user->user_info); die();
 
 $type_request = $_POST['type_request'];
-
+    
 switch ($type_request) {
 	case 'add':
 		if (isset($_POST['user_id']) && isset($_POST['role']) && isset($_POST['fname']) && strlen($_POST['fname']) && isset($_POST['lname'])  && strlen($_POST['lname'])  ) {
@@ -372,9 +372,9 @@ switch ($type_request) {
 				$set_fields[] = " `profilevalue_2` = '" . mysql_real_escape_string($_POST['fname']) . "' ";
 			}
 
-                     /*   if (isset($_POST['fakeupload'])) {  // ADD CHECKING
+                    /*   if (isset($_POST['file'])) {  // ADD CHECKING
                            
-				 $user->user_photo_upload("photo");
+			      $user->user_photo_upload("photo");
                               $is_error = $user->is_error;
                               if( !$is_error ) {
                                 

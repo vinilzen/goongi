@@ -35,7 +35,7 @@ select option	{padding:0 0 0 3px}
 #header .print	{background:url(../img/icons/print.png)}
 #header .settings	{background:url(../img/icons/settings-alt.png)}
 
-#user	{position:fixed; width:348px; height:660px; left:0; top:50%; margin:-330px 0 0; background:url(../img/decor/user-handler.png); z-index:7}
+#user	{position:fixed; width:348px; height:360px; left:0; top:50%; margin:-330px 0 0; background:url(../img/decor/user-handler.png); z-index:7}
 #user > .toggle	{width:34px; height:216px; position:absolute; left:310px; top:155px; cursor:pointer; background:url(../img/icons/arrow-0.png) center no-repeat}
 
 #user .body	{padding:18px 52px 0 18px}
