@@ -1162,6 +1162,29 @@ class SEUser
     
     return $user_password_crypt;
   }
+
+  function new_user_password_crypt($user_password)
+  {
+    global $setting;
+
+ 
+      $method = $this->user_info['user_password_method'];
+     // For new methods
+    if( $method>0 )
+    {
+      if( !empty($this->user_salt) )
+      {
+        list($salt1, $salt2) = str_split($this->user_salt, ceil(strlen($this->user_salt) / 2));
+        $salty_password = $salt1.$user_password.$salt2;
+      }
+      else
+      {
+        $salty_password = $user_password;
+      }
+    }
+      $user_password_crypt = md5($salty_password);
+     return $user_password_crypt;
+  }
   
   // END user_password_crypt() METHOD
 
@@ -3094,7 +3117,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 			
 		  // CREATE RANDOM PASSWORD IF NECESSARY
 		// $signup_password = randomcode(10);
-	           $signup_password = 111111;
+	           $signup_password = randomcode(6);
 		  // ENCODE PASSWORD WITH MD5
 		  $crypt_password = $this->user_password_crypt($signup_password);
 	      $signup_code = $user_salt = $this->user_salt;
@@ -3249,7 +3272,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		if ($signup_email != null && $send_invite ) {
 			// SEND RANDOM PASSWORD IF NECESSARY
 			if( $setting['setting_signup_randpass'] ) {
-			  send_systememail('newpassword', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
+			  send_systememail('newpassword', $this->user_info['user_email'], Array($this->user_displayname,$this->user_info['user_email'], $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
 			}
 			
 			// SEND VERIFICATION EMAIL IF REQUIRED

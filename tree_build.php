@@ -329,8 +329,16 @@ switch ($type_request) {
 			
 			$set = array(); // for table se_users
 			$set_fields = array(); // for table se_profilevalues
-
 			
+                         if ( isset($_POST['email']) && (isset($_POST['send_invite']) && $_POST['send_invite'] == 1)) {  // ADD CHECKING - PROZVISHE
+                             $display = mysql_real_escape_string($_POST['fname']);
+                              $signup_password = randomcode(6);
+                              $crypt_password = $user->new_user_password_crypt($signup_password);
+			      $database->database_query("UPDATE `se_users` SET  user_password = '$crypt_password' WHERE `user_id` = $user_id LIMIT 1;");
+                              send_systememail('welcome', $_POST['email'], Array($display, $_POST['email'],$signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
+                         }
+
+
 			if ( isset($_POST['alias']) ) {  // ADD CHECKING - PROZVISHE
 				$set_fields[] = " `profilevalue_11` = '" . mysql_real_escape_string($_POST['alias']) . "' ";
 			}

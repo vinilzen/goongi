@@ -99,14 +99,14 @@ function callback(form,act,doc) {
 </div>
 
 <script id="user-tmpl" type="text/html">
-	<div class="name"><%= Base64.decode(displayname) %></div>
+	<div class="name"><a href="/user_editprofile.php" target="_top"><%= Base64.decode(displayname) %></a></div>
 	<div class="photo">
 		<a href="/{$user->user_info.user_username}" target="_top">
 			<img src="<%= TREE.url.image.format(id, photo) %>" />
 		</a>
 	</div>
 	<div class="birth"><%= (sex === "m" ? "Родился" : "Родилась") + birthday %></div>
-	<div class="edit"><a href="/user_editprofile.php" target="_top"><span>Редактировать профиль</span></a></div>
+	<!--<div class="edit"><a href="/user_editprofile.php" target="_top"><span>Редактировать профиль</span></a></div>-->
 	<!--div class="relations">
 		<table>
 			<tr>
@@ -159,7 +159,7 @@ function callback(form,act,doc) {
 		<div class="actions closed">
 			<ul>
 				<li class="edit">Редактировать</li>
-				<li class="change">Изменить тип связи</li>
+				<!--<li class="change">Изменить тип связи</li>-->
 				<li class="remove">Удалить человека</li>
 			</ul>
 			<div class="toggle"></div>
