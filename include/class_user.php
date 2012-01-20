@@ -2301,15 +2301,16 @@ function user_ajax_photo_upload($photo_name,$id_user)
         function get_kinsman($fam_id,$role,$rolep=0) {
 		global $database, $setting, $user;
                 
-		$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` = '$fam_id' AND `role` = '$role' OR `role` = '$rolep';";
+		$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` = '$fam_id' AND (`role` = '$role' OR `role` = '$rolep');";
               //  $sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` = '$fam_id' AND `role`= 'child';";
-            //   echo $sql;
+             //  echo $sql;
 		$resourse = $database->database_query($sql);
 		$kinsman = array();
 		while($f = $database->database_fetch_assoc($resourse) )
                 {//print_r ($f);
 			$kinsman[] = $f['user_id'];}
 		//print_r (count($kinsman));
+             //           print_r ($kinsman);
                 if (count($kinsman) > 1 ) return true;
                 else return false;
 		
@@ -4577,15 +4578,15 @@ function user_ajax_photo_upload($photo_name,$id_user)
                
                 if ($role == 'father' || $role == 'mother')
                 {
-                      if ($this->get_kinsman($fam[0]['family_id'],'child')== true) $error = 0;
-                      else  {
-                          if (($this->get_kinsman($fam[0]['family_id'],'father','mother')== true)) $error = 0;
+                      if ($this->get_kinsman($fam[0]['family_id'],'child') == true) 
+                      {
+                          if (($this->get_kinsman($fam[0]['family_id'],'father','mother')== true)) $error = 0; 
                            else $error = 1;
-                      }
+                      } else $error = 0;
                 }
                 elseif ($role == 'child')
                 { 
-                      if (($this->get_kinsman($fam[0]['family_id'],'child') == true) && ($this->get_kinsman($fam[0]['family_id'],'father','mother')== true)) $error = 0;
+                      if ($this->get_kinsman($fam[0]['family_id'],'child') == true) $error = 0;
                       else  $error = 1;
                        
                 }
