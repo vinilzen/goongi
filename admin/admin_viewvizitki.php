@@ -1,117 +1,135 @@
 <?php
 
-/* $Id: admin_viewvizitkis.php 5 2009-01-11 06:01:16Z john $ */
+/* $Id: admin_ads.php 8 2009-01-11 06:02:53Z john $ */
 
-$page = "admin_viewvizitki";
+$page = "admin_ads";
 include "admin_header.php";
 
-if(isset($_POST['s'])) { $s = $_POST['s']; } elseif(isset($_GET['s'])) { $s = $_GET['s']; } else { $s = "id"; }
-if(isset($_POST['p'])) { $p = $_POST['p']; } elseif(isset($_GET['p'])) { $p = $_GET['p']; } else { $p = 1; }
-if(isset($_POST['f_title'])) { $f_title = $_POST['f_title']; } elseif(isset($_GET['f_title'])) { $f_title = $_GET['f_title']; } else { $f_title = ""; }
-if(isset($_POST['f_owner'])) { $f_owner = $_POST['f_owner']; } elseif(isset($_GET['f_owner'])) { $f_owner = $_GET['f_owner']; } else { $f_owner = ""; }
 if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task'])) { $task = $_GET['task']; } else { $task = "main"; }
-if(isset($_POST['vizitkientry_id'])) { $vizitkientry_id = $_POST['vizitkientry_id']; } elseif(isset($_GET['vizitkientry_id'])) { $vizitkientry_id = $_GET['vizitkientry_id']; } else { $vizitkientry_id = 0; }
-if(isset($_POST['delete_vizitkientries'])) { $delete_vizitkientries = $_POST['delete_vizitkientries']; } elseif(isset($_GET['delete_vizitkientries'])) { $delete_vizitkientries = $_GET['delete_vizitkientries']; } else { $delete_vizitkientries = NULL; }
-
-
-// CREATE vizitki OBJECT
-$entries_per_page = 100;
-$vizitki = new se_vizitki();
+if(isset($_POST['ad_id'])) { $ad_id = $_POST['ad_id']; } elseif(isset($_GET['ad_id'])) { $ad_id = $_GET['ad_id']; } else { $ad_id = 0; }
+if(isset($_POST['s'])) { $s = $_POST['s']; } elseif(isset($_GET['s'])) { $s = $_GET['s']; } else { $s = "id"; }
 
 
 
-// DELETE ENTRIES
-if( $task=="deleteentries" && !empty($delete_vizitkientries) )
-{
-  $vizitki->vizitki_entry_delete($delete_vizitkientries);
-  header('Location: admin_viewvizitkis.php');
-  exit();
+
+// PAUSE AN AD CAMPAIGN
+if($task == "pause") {
+
+  // CHECK IF AD CAMPAIGN EXISTS AND PAUSE
+  $ad_query = $database->database_query("SELECT ad_id FROM se_ads WHERE ad_id='$ad_id' LIMIT 1");
+  if($database->database_num_rows($ad_query) == 1) {
+    $database->database_query("UPDATE se_ads SET ad_paused='1' WHERE ad_id='$ad_id' LIMIT 1");
+  }
+
+
+
+// UNPAUSE AN AD CAMPAIGN
+} elseif($task == "unpause") {
+
+  // CHECK IF AD CAMPAIGN EXISTS AND UNPAUSE
+  $ad_query = $database->database_query("SELECT ad_id FROM se_ads WHERE ad_id='$ad_id' LIMIT 1");
+  if($database->database_num_rows($ad_query) == 1) {
+    $database->database_query("UPDATE se_ads SET ad_paused='0' WHERE ad_id='$ad_id' LIMIT 1");
+  }
+
+
+// DELETE A SINGLE AD CAMPAIGN
+} elseif($task == "delete") {
+
+  $ad_query = $database->database_query("SELECT ad_id, ad_filename FROM se_ads WHERE ad_id='$ad_id' LIMIT 1");
+  if($database->database_num_rows($ad_query) == 1) {
+    $database->database_query("DELETE FROM se_ads WHERE ad_id='$ad_id' LIMIT 1");
+    $ad_info = $database->database_fetch_assoc($ad_query);
+    $bannerfile = "../uploads_admin/ads/$ad_info[ad_filename]";
+    if(@file_exists($bannerfile)) {
+      @unlink($bannerfile);
+    }
+  }
+
 }
 
 
 
-// SET vizitki ENTRY SORT-BY VARIABLES FOR HEADING LINKS
-$i = "id";   // vizitkiENTRY_ID
-$t = "t";    // vizitkiENTRY_TITLE
-$o = "o";    // OWNER OF ENTRY
-$v = "v";    // VIEWS OF ENTRY
-$d = "d";    // DATE OF ENTRY
+
+
+
+
+
+
+// SET AD CAMPIGN SORT-BY VARIABLES FOR HEADING LINKS
+$i = "id";   // AD_ID
+$n = "n";    // AD_NAME
+$v = "vd";    // NUMBER OF VIEWS
+$c = "cd";    // NUMBER OF CLICKS
 
 // SET SORT VARIABLE FOR DATABASE QUERY
 if($s == "i") {
-  $sort = "se_vizitkientries.vizitkientry_id";
+  $sort = "ad_id";
   $i = "id";
 } elseif($s == "id") {
-  $sort = "se_vizitkientries.vizitkientry_id DESC";
+  $sort = "ad_id DESC";
   $i = "i";
-} elseif($s == "t") {
-  $sort = "se_vizitkientries.vizitkientry_title";
-  $t = "td";
-} elseif($s == "td") {
-  $sort = "se_vizitkientries.vizitkientry_title DESC";
-  $t = "t";
-} elseif($s == "o") {
-  $sort = "se_users.user_username";
-  $o = "od";
-} elseif($s == "od") {
-  $sort = "se_users.user_username DESC";
-  $o = "o";
+} elseif($s == "n") {
+  $sort = "ad_name";
+  $n = "nd";
+} elseif($s == "nd") {
+  $sort = "ad_name DESC";
+  $n = "n";
 } elseif($s == "v") {
-  $sort = "se_vizitkientries.vizitkientry_views";
+  $sort = "ad_total_views";
   $v = "vd";
 } elseif($s == "vd") {
-  $sort = "se_vizitkientries.vizitkientry_views DESC";
+  $sort = "ad_total_views DESC";
   $v = "v";
-} elseif($s == "d") {
-  $sort = "se_vizitkientries.vizitkientry_date";
-  $d = "dd";
-} elseif($s == "dd") {
-  $sort = "se_vizitkientries.vizitkientry_date DESC";
-  $d = "d";
+} elseif($s == "c") {
+  $sort = "ad_total_clicks";
+  $c = "cd";
+} elseif($s == "cd") {
+  $sort = "ad_total_clicks DESC";
+  $c = "c";
 } else {
-  $sort = "se_vizitkientries.vizitkientry_id DESC";
+  $sort = "ad_id DESC";
   $i = "i";
 }
 
 
 
 
-// ADD CRITERIA FOR FILTER
-$where = "";
-if($f_owner != "") { $where .= "se_users.user_username LIKE '%$f_owner%'"; }
-if($f_owner != "" & $f_title != "") { $where .= " AND"; }
-if($f_title != "") { $where .= " se_vizitkientries.vizitkientry_title LIKE '%$f_title%'"; }
-if($where != "") { $where = "(".$where.")"; }
+// GET ADS FOR MAIN LIST
+$ads = $database->database_query("SELECT * FROM se_ads ORDER BY $sort");
+$ad_array = Array();
+while($ad_info = $database->database_fetch_assoc($ads)) {
 
+  // DETERMINE CTR
+  if($ad_info[ad_total_clicks] == 0) {
+    $ad_info[ad_ctr] = "0.00%";
+  } elseif($ad_info[ad_total_clicks] > 0) {
+    $ad_info[ad_ctr] = round($ad_info[ad_total_clicks] / $ad_info[ad_total_views], 4) * 100;
+    if(strlen($ad_info[ad_ctr]) == 1 || strlen($ad_info[ad_ctr]) == 2) {
+      $ad_info[ad_ctr] .= ".00";
+    }
+    $ad_info[ad_ctr] .= "%";
+  }
 
-// GET TOTAL ENTRIES
-$total_vizitkientries = $vizitki->vizitki_entries_total($where);
-
-// MAKE ENTRY PAGES
-$page_vars = make_page($total_vizitkientries, $entries_per_page, $p);
-$page_array = Array();
-for($x=0;$x<=$page_vars[2]-1;$x++) {
-  if($x+1 == $page_vars[1]) { $link = "1"; } else { $link = "0"; }
-  $page_array[$x] = Array('page' => $x+1,
-			  'link' => $link);
+  $ad_array[] = Array('ad_id' => $ad_info[ad_id],
+			'ad_name' => $ad_info[ad_name],
+			'ad_status' => $ad_status,
+			'ad_paused' => $ad_info[ad_paused],
+			'ad_total_views' => $ad_info[ad_total_views],
+			'ad_total_clicks' => $ad_info[ad_total_clicks],
+			'ad_ctr' => $ad_info[ad_ctr],
+			'ad_date_start' => $ad_info[ad_date_start],
+			'ad_date_end' => $ad_info[ad_date_end]);
 }
 
-// GET ENTRY ARRAY
-$vizitkientries = $vizitki->vizitki_entries_list($page_vars[0], $entries_per_page, $sort, $where);
 
-
-// ASSIGN VARIABLES AND SHOW VIEW ENTRIES PAGE
-$smarty->assign('total_vizitkientries', $total_vizitkientries);
-$smarty->assign('pages', $page_array);
-$smarty->assign('entries', $vizitkientries);
-$smarty->assign('f_title', $f_title);
-$smarty->assign('f_owner', $f_owner);
-$smarty->assign('i', $i);
-$smarty->assign('t', $t);
-$smarty->assign('o', $o);
-$smarty->assign('v', $v);
-$smarty->assign('d', $d);
-$smarty->assign('p', $page_vars[1]);
+// ASSIGN VARIABLES AND SHOW ADMIN ADS PAGE
 $smarty->assign('s', $s);
+$smarty->assign('i', $i);
+$smarty->assign('n', $n);
+$smarty->assign('v', $v);
+$smarty->assign('c', $c);
+$smarty->assign('ads', $ad_array);
+$smarty->assign('nowdate', time());
 include "admin_footer.php";
 ?>

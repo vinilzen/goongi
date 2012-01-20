@@ -202,9 +202,11 @@
     <td class='setting2'>
       <table cellpadding='2' cellspacing='0'>
         <tbody>
+
           <tr>
             <td><b>{$admin_vizitki15}</b></td>
           </tr>
+            <label>Категории </label>
           {section name=vizitkientrycats_loop loop=$vizitkientrycats}
           <tr id="vizitkiEntryCatRow_{$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_id}">
             <td>
@@ -220,6 +222,27 @@
               <span id="newCategoryLink"><a href="javascript:void(0);" onclick="createNewCategory();">{lang_print id=1700091}</a></span>
             </td>
           </tr>
+
+<tr>
+            <td><b>{$admin_vizitki15}</b></td>
+          </tr>
+          <td><label>Регионы трансляции </label></td>
+          {section name=vizitkientrycats_loop loop=$vizitkientrycats}
+          <tr id="vizitkiEntryCatRow_{$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_id}">
+            <td>
+              <span class="oldCategoryContainer"><a href="javascript:void(0);" onclick="switchOldCategory({$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_id});">{$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_title}</a></span>
+              <span class="oldCategoryInput" style="display:none;"><input type='text' class='text' size='30' maxlength='50' onblur="editOldCategory({$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_id});" value="{$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_title}" /></span>
+              <span class="oldCategoryLangVar">&nbsp;(Language Variable #<a href="admin_language_edit.php?language_id=1&phrase_id={$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_languagevar_id}">{$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_languagevar_id}</a>)</span>
+            </td>
+          </tr>
+          {/section}
+          <tr id="newCategoryRow">
+            <td style="padding-top: 5px;">
+              <span id="newCategoryContainer" style="display:none;"><input type='text' id='newCategoryInput' class='text' size='30' maxlength='50' onblur="editNewCategory();" /></span>
+              <span id="newCategoryLink"><a href="javascript:void(0);" onclick="createNewCategory();">{lang_print id=1700091}</a></span>
+            </td>
+          </tr>
+
         </tbody>
       </table>
       <input type='hidden' name='num_vizitkicategories' value='{$num_cats}' />

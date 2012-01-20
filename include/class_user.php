@@ -321,6 +321,222 @@ class SEUser
                         }
              }
 	}
+        
+     function creat_mother($id, $lname)
+        {
+            $role = 'mother';
+            $this->get_tree_id($id);
+            $new_user["sex"] = 'w';
+             $new_user['fname']='мама';
+             $new_user['lname'] = $lname;
+             $new_user['email']='';
+             $new_user["birthday"]='';
+             $new_user["death"]='';
+             $new_user["alias"]='';
+             $new_user["send_invite"]='';
+
+        if ( !$this->check_existing_parent($id, $role) ) {
+
+        $family_id = $this->get_parent_family_id($id,$lname);
+        $level = $this->getlevel($id);
+        if ($level == 0) $level = 1;
+           elseif ($level > 0) $level = $level+ 1;
+               elseif ($level < 0) $level = $level - 1;
+        if ( $this->user_create_fast(
+                $new_user['fname'],
+                $new_user['lname'],
+                $id,
+                $role,
+                $new_user['email'],
+                $new_user["birthday"],
+                $new_user["sex"],
+                $new_user["death"],
+                $new_user["alias"],
+                $new_user["send_invite"],
+                $family_id,
+                $level) ) {
+
+                $error = 0;
+                $result = SE_Language::get(729);
+
+        } else {
+                $error = 1;
+                $result = 'Ошибка при создании пользователя';
+        }
+        }
+        return $result;
+        }
+
+
+        function creat_wife($id, $lname)
+        {
+            $role = 'mother';
+            $new_user["sex"] = 'w';
+           
+            $new_user['fname']='жена';
+             $new_user['lname'] = $lname;
+             $new_user['email']='';
+             $new_user["birthday"]='';
+             $new_user["death"]='';
+             $new_user["alias"]='';
+             $new_user["send_invite"]='';
+            $s = $this->get_sex($id);
+            if ($s == 'm') {
+
+                    if ( !$this->check_existing_spouse($id, $role) ) {
+
+                            $family_id = $this->get_main_family_id($id,'m',$lname);
+                            $level = $this->getlevel($id);
+                            if ( $this->user_create_fast(
+                                    $new_user['fname'],
+                                    $new_user['lname'],
+                                    $id,
+                                    $role,
+                                    $new_user['email'],
+                                    $new_user["birthday"],
+                                    $new_user["sex"],
+                                    $new_user["death"],
+                                    $new_user["alias"],
+                                    $new_user["send_invite"],
+                                    $family_id,
+                                    $level) ) {
+
+                                    $error = 0;
+                                    $result = SE_Language::get(729);
+
+                            } else {
+                                    $error = 1;
+                                    $result = 'Ошибка при создании пользователя';
+                            }
+
+                    } else {
+                            $error = 'Ошибка';
+                            $result = 'У этого пользователя уже есть wife';
+                    }
+            } else {
+                    $error = 'Ошибка';
+                    $result = 'Однополый брак wifi';
+            }
+
+           
+        return $result;
+        }
+
+          function creat_father($id, $lname)
+        {
+             $role = 'father';
+             $new_user["sex"] = 'm';
+             $new_user['fname']='папа';
+             $new_user['lname'] = $lname;
+             $new_user['email']='';
+             $new_user["birthday"]='';
+             $new_user["death"]='';
+             $new_user["alias"]='';
+             $new_user["send_invite"]='';
+
+            if ( !$this->check_existing_parent($id, $role) ) {
+
+                    $family_id = $this->get_parent_family_id($id,$new_user['lname']);
+                    $level = $this->getlevel($id);
+                    if ($level == 0) $level = 1;
+                       elseif ($level > 0) $level = $level + 1;
+                           elseif ($level < 0) $level = $level - 1;
+                    if ( $this->user_create_fast(
+                            $new_user['fname'],
+                            $new_user['lname'],
+                            $id,
+                            $role,
+                            $new_user['email'],
+                            $new_user["birthday"],
+                            $new_user["sex"],
+                            $new_user["death"],
+                            $new_user["alias"],
+                            $new_user["send_invite"],
+                            $family_id,
+                            $level) ) {
+
+                            $error = 0;
+                            $result = SE_Language::get(729);
+
+                    } else {
+                            $error = 1;
+                            $result = 'Ошибка при создании пользователя';
+                    }
+
+            } else {
+                    $error = 'Ошибка';
+                    $result = 'У этого пользователя уже есть '.$role;
+            }
+
+        return $result;
+        }
+
+         function creat_husband($id, $lname)
+        {
+             $role = 'father';
+             $new_user["sex"] = 'm';
+             $s = $this->get_sex($id);
+             $new_user['fname']='муж';
+             $new_user['lname'] = $lname;
+             $new_user['email']='';
+             $new_user["birthday"]='';
+             $new_user["death"]='';
+             $new_user["alias"]='';
+             $new_user["send_invite"]='';
+
+           if ($s == 'w') {
+                    if ( !$this->check_existing_spouse($id, $role) ) {
+
+                            $family_id = $this->get_main_family_id($id,'w',$lname);
+                            $level = $this->getlevel($id);
+
+                            if ( $this->user_create_fast(
+                                    $new_user['fname'],
+                                    $new_user['lname'],
+                                    $id,
+                                    $role,
+                                    $new_user['email'],
+                                    $new_user["birthday"],
+                                    $new_user["sex"],
+                                    $new_user["death"],
+                                    $new_user["alias"],
+                                    $new_user["send_invite"],
+                                    $family_id,
+                                    $level) ) {
+
+                                    $error = 0;
+                                    $result = SE_Language::get(729);
+
+                            } else {
+                                    $error = 1;
+                                    $result = 'Ошибка при создании пользователя';
+                            }
+
+                    } else {
+                            $error = 'Ошибка';
+                            $result = 'У этого пользователя уже есть husb';
+                    }
+            } else {
+                    $error = 'Ошибка';
+                    $result = 'Однополый брак husb';
+            }
+
+        return $result;
+        }
+
+        function check_life_parent($id, $fam_id)
+        {
+         $database = SEDatabase::getInstance();
+            $resource = $database->database_query("SELECT * FROM se_role_in_family WHERE `role`!='child' && `family_id`='{$fam_id}';");
+            $p='';
+              while($parent_info = $database->database_fetch_assoc($resource)) {
+                  //print_r($parent_info);
+                  $p[] = $parent_info['role'];
+           }
+            if (count($p) == 0) return false;
+            elseif (count($p) == 2) return true;
+            else return $p;
+        }
 	
 	function check_existing_parent($id, $role) { // if exist mother|father ($role) return false
 		$familys = $this->get_family_list($id);
@@ -2081,6 +2297,23 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		//print_r ($family);
 		return $family;
 	}
+
+        function get_kinsman($fam_id,$role,$rolep=0) {
+		global $database, $setting, $user;
+                
+		$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` = '$fam_id' AND `role` = '$role' OR `role` = '$rolep';";
+              //  $sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` = '$fam_id' AND `role`= 'child';";
+            //   echo $sql;
+		$resourse = $database->database_query($sql);
+		$kinsman = array();
+		while($f = $database->database_fetch_assoc($resourse) )
+                {//print_r ($f);
+			$kinsman[] = $f['user_id'];}
+		//print_r (count($kinsman));
+                if (count($kinsman) > 1 ) return true;
+                else return false;
+		
+	}
 	
 	function create_family($user_id = 0, $family_name = '') {
 		global $database, $setting, $user;
@@ -2120,17 +2353,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		return $id;
 	}
 
-	function get_role($family_id , $role ) {
-		global $database, $setting, $user;
-		$family = $database->database_query("SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` = '$family_id' AND `role` = '$role' LIMIT 1;");
-		$user_id = $database->database_fetch_assoc($family);
-		if ( $user_id === false)
-			return 0;
-		else
-			return $user_id['user_id'];
 		
-	}
-	
 	
 	// insert in `se_role_in_family`
 	function add_role($family_id, $role, $user_id) {
@@ -4341,6 +4564,78 @@ function user_ajax_photo_upload($photo_name,$id_user)
           $level = $info['level'];
 
             return (int) $level;
+         }
+
+         function user_del_derevo($user_id) {
+            global $database, $url, $global_plugins;
+            ($hook = SE_Hook::exists('se_user_delete')) ? SE_Hook::call($hook, $user_id) : NULL;
+            $fam = $this->get_family_list($user_id);
+        
+            if (count($fam) == 1)
+            {
+                $role = $fam[0]['role'];
+               
+                if ($role == 'father' || $role == 'mother')
+                {
+                      if ($this->get_kinsman($fam[0]['family_id'],'child')== true) $error = 0;
+                      else  {
+                          if (($this->get_kinsman($fam[0]['family_id'],'father','mother')== true)) $error = 0;
+                           else $error = 1;
+                      }
+                }
+                elseif ($role == 'child')
+                { 
+                      if (($this->get_kinsman($fam[0]['family_id'],'child') == true) && ($this->get_kinsman($fam[0]['family_id'],'father','mother')== true)) $error = 0;
+                      else  $error = 1;
+                       
+                }
+                if ($error != 1) {
+                  $database->database_query("DELETE FROM  se_role_in_family  WHERE  user_id = '$user_id';");
+                  $database->database_query("DELETE FROM se_tree_users WHERE user_id='{$user_id}'");
+                 return true;
+                }
+                  else return false;
+
+            }
+            else
+            {
+               
+                $role = $fam[0]['role'];
+                if ($role == 'father' || $role == 'mother')
+                {
+                      if ($this->get_kinsman($fam[0]['family_id'],'child')== true) $error1 = 0;
+                      else $error1 = 1;
+                }
+                elseif ($role == 'child')
+                {
+                      if (($this->get_kinsman($fam[0]['family_id'],'child')== true) && ($this->get_kinsman($fam[0]['family_id'],'father','mother')== true)) $error1 = 0;
+                      else $error1 = 1;
+
+                 
+                }
+                ////////2 ветвь/////////////////////////////
+                $role = $fam[1]['role'];
+                if ($role == 'father' || $role == 'mother')
+                {
+                      if ($this->get_kinsman($fam[1]['family_id'],'child')== true) $error2 = 0;
+                      else $error2 = 1;
+                }
+                elseif ($role == 'child')
+                {
+                      if (($this->get_kinsman($fam[1]['family_id'],'child')== true) && ($this->get_kinsman($fam[0]['family_id'],'father','mother')== true)) $error2 = 0;
+                      else $error2 = 1;
+
+                }
+                if (($error1 != 1)&&($error1 != 1)) {
+                  $database->database_query("DELETE FROM  se_role_in_family  WHERE  user_id = '$user_id';");
+                  $database->database_query("DELETE FROM se_tree_users WHERE user_id='{$user_id}'");
+                 
+                 return true;
+                }
+                  else return false ;
+
+            }
+      
          }
          
 	function user_del($user_id) {

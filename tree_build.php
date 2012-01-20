@@ -235,6 +235,18 @@ switch ($type_request) {
                                                                         if ($level == 0) $level = -1;
                                                                            elseif ($level > 0) $level = $level+ 1;
                                                                                elseif ($level < 0) $level = $level - 1;
+                                                               
+                                                                $parent = $user->check_life_parent($user_id,$family_id);
+                                                              
+                                                                if ($parent == false)
+                                                                {
+                                                                     if ($s == 'w') $user->creat_husband($user_id,$new_user['lname']);
+                                                                     if ($s == 'm') $user->creat_wife($user_id,$new_user['lname']);
+                                                                        
+                                                                }
+                                                                elseif (($parent[0] == 'father') && ($s=='m') ) $user->creat_wife($user_id,$new_user['lname']);
+                                                                elseif (($parent[0] == 'mother') && ($s=='w') ) $user->creat_husband($user_id,$new_user['lname']);
+
 								if ( $user->user_create_fast(
 									$new_user['fname'],
 									$new_user['lname'], 
@@ -263,7 +275,17 @@ switch ($type_request) {
 								$role = 'child';
 								$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
                                                                 $level = $user->getlevel($user_id);
-                                                                        
+                                                                $parent = $user->check_life_parent($user_id,$family_id);
+
+                                                                if ($parent == false)
+                                                                {
+                                                                        $user->creat_mother($user_id,$new_user['lname']);
+                                                                        $user->creat_father($user_id,$new_user['lname']);
+                                                                }
+                                                                elseif ($parent[0] == 'father') $user->creat_mother($user_id,$new_user['lname']);
+                                                                elseif ($parent[0] == 'mother') $user->creat_father($user_id,$new_user['lname']);
+                                                                   
+                                                               // else echo 'no';
 								if ( $user->user_create_fast(
 									$new_user['fname'],
 									$new_user['lname'], 
@@ -455,12 +477,13 @@ switch ($type_request) {
 		if ( $user->user_info['user_id'] != $user_id ) {
 			if ( isset($user_id) && $user_id != 0 ) {
 				
-				if ( $user->user_del($user_id) ) {
+			//	if ( $user->user_del($user_id) ) {
+                            if ( $user->user_del_derevo($user_id) == true ) {
 					$error = 0;
 					$result = SE_Language::get(1071);
 				} else {
 					$error = 'Ошибка';
-					$result = 'Не удалось удалить пользователя.';
+					$result = 'Данного человека удалить невозможно, пожалуйста,удалите сначала связанных с ним родственников';
 				}
 				
 			} else {
@@ -479,6 +502,11 @@ switch ($type_request) {
 		$result = 'Не верно указан тип запроса';
 		break;
 }
+
+
+       
+
+
 
 	echo json_encode(array('error' => $error, 'result' => $result));
 	die();

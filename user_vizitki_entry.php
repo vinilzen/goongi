@@ -218,6 +218,9 @@ $vizitkientry_info['vizitkientry_body'] = str_replace("\r\n", "", htmlspecialcha
 //print_r ($vizitkientry_info);
 $sett=$vizitki->vizitki_settings();
 $smarty->assign('sett', $sett);
+$settcat=$vizitki->vizitki_category_list();
+$smarty->assign('settcat', $settcat);
+
 // ASSIGN VARIABLES AND SHOW NEW vizitkiENTRY PAGE
 
 $smarty->assign('vizitkientry_info', $vizitkientry_info);

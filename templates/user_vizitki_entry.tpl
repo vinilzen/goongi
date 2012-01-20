@@ -50,8 +50,8 @@ alert(data);
                 <input type="text" OnChange = "$('#name_v').attr('value',this.value); $('#p_name').text(this.value); " value="{if !empty($vizitkientry_info.ad_name)}{$vizitkientry_info.ad_name}{/if}" id = "name_v" name="name" /></div>
                 <div class="input"><label>Категория</label>
                 <select  OnChange = "$('#p_categor').text(this.options[this.selectedIndex].value);" name="categor">
-                    {section name=s loop=$sett}
-                             <option value = "{$sett[s].vizitkisetting_category}" {if $vizitkientry_info.vizitkientry_category == $sett[s].vizitkisetting_category} SELECTED{/if}>{$sett[s].vizitkisetting_category}</option>
+                    {section name=s loop=$settcat}
+                             <option value = "{$settcat[s].vizitkientrycat_title}" {if $vizitkientry_info.vizitkientry_category == $settcat[s].vizitkientrycat_title} SELECTED{/if}>{$settcat[s].vizitkientrycat_title}</option>
                     {/section}
                 </select>
                 </div>
