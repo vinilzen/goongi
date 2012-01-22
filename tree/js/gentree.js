@@ -23,7 +23,7 @@ var TREE = {
 			return $.ajax({
 				type: 'POST',
 				url: '/tree_build.php',
-                               	dataType: 'json',
+				dataType: 'json',
 				data: person
 			}).success(function(res) {
 				console.log(res.error, ': ', res.result);
@@ -361,7 +361,8 @@ TREE.popups.collection = {
 
 		render: function(person) {
 
-			var id = person.data('id'),
+			var personHeight, personWidth, x, y, personOffset = person.offset(),
+				id = person.data('id'),
 				hasFather = json.users[id].father ? true : false,
 				hasMother = json.users[id].mother ? true : false,
 				spouse = json.users[json.users[id].spouse],
@@ -373,11 +374,9 @@ TREE.popups.collection = {
 
 			this.show();
 
-			var personHeight, personWidth, x, y, personOffset = person.offset();
-
 			this.el.find('.person').replaceWith(personClone);
-			personHeight = personClone.outerHeight();
 			personWidth = personClone.outerWidth();
+			personHeight = personClone.outerHeight();
 
 			this.el.children('.parents').children().eq(0).toggleClass('hide', hasFather).next().toggleClass('hide', hasMother);
 
@@ -436,6 +435,12 @@ TREE.popups.collection = {
 			ctx.lineTo(x + 140, y / 2 + 22);
 
 			ctx.stroke();
+
+			$('body').animate({
+				scrollLeft: personOffset.left + personWidth / 2 - $(window).width() / 2,
+				scrollTop: personOffset.top + personHeight / 2 - $(window).height() / 2
+			});
+			console.log(personOffset.top, personHeight)
 
 		},
 
@@ -528,6 +533,11 @@ TREE.popups.collection = {
 			}
 		},
 
+		hide: function(e) {
+			TREE.popups.collection.personal.hide();
+			TREE.popups.view.prototype.hide.call(this, e);
+		},
+
 		remove: function(e) {
 			var person = $(e.currentTarget).closest('.person');
 			if (confirm('Вы уверены, что хотите удалить человека из дерева?')) {
@@ -536,7 +546,7 @@ TREE.popups.collection = {
 					'user_id': person.data('id')
 				});
 			}
-                      
+
 		}
 
 	}),
