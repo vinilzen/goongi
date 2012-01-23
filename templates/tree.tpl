@@ -54,6 +54,7 @@ function callback(form,act,doc) {
 	<meta name="description" content="Genealogy Tree">
 	<meta name="author" content="Alexander Orlov">
 	<link rel="stylesheet" href="/tree/css/default.css">
+        <script src="/js/script.js"></script>
 	<script src="/tree/js/jquery.js"></script>
 	<script src="/tree/js/underscore.js"></script>
 	<script src="/tree/js/backbone.js"></script>
@@ -84,7 +85,7 @@ function callback(form,act,doc) {
 <div id="user" class="closed">
 	<div class="settings closed">
 		<!--<div class="toggle"></div>-->
-                <div class="print"></div>
+                <div class="print" ></div>
 		<!--<div class="title">Параметры</div>
 		<ul>
 			<li>Добавить родственников</li>
@@ -94,8 +95,10 @@ function callback(form,act,doc) {
 			<li>Удалить этого человека</li>
 		</ul>-->
 	</div>
+
 	<div class="body"></div>
 	<div class="toggle"></div>
+
 </div>
 
 <script id="user-tmpl" type="text/html">
@@ -107,57 +110,26 @@ function callback(form,act,doc) {
 	</div>
 	<div class="birth"><%= (sex === "m" ? "Родился" : "Родилась") + birthday %></div>
 	<!--<div class="edit"><a href="/user_editprofile.php" target="_top"><span>Редактировать профиль</span></a></div>-->
-	<!--div class="relations">
+	<div class="relations">
 		<table>
-			<tr>
-				<td>Жена</td>
-				<td><span>Дарья Марчук</span></td>
-			</tr>
-			<tr>
-				<td>Дети</td>
-				<td>
-					<span>Олег Марчук</span>,
-					<span>Юлия Марчук</span>,
-					<span>Андрей Марчук</span>
-				</td>
-			</tr>
-			<tr>
-				<td>Внуки</td>
-				<td>
-					<span>Олег Марчук</span>,
-					<span>Юлия Марчук</span>
-				</td>
-			</tr>
-			<tr>
-				<td>Друзья</td>
-				<td>
-					<span>Олег Марчук</span>,
-					<span>Юлия Марчук</span>,
-					<span>Андрей Марчук</span>,
-					<span>Олег Марчук</span>,
-					<span>Юлия Марчук</span>,
-					<span>Андрей Марчук</span>,
-					<span>Олег Марчук</span>,
-					<span>Юлия Марчук</span>,
-					<span>Андрей Марчук</span>
-				</td>
-			</tr>
+		
 		</table>
-	</div-->
+	</div>
 </script>
 
 <div id="viewpoint"></div>
-
+{/literal}
 {literal}
 
 <script id="person-tmpl" type="text/html">
 	<div class="person<%= sex === "w" ? " alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
 		<div class="info"></div>
-		<div class="relation"><%= id === json.user.id ? "Вы" : "" %></div>
+		<div class="relation"><%= id === json.user.id ? "Ты" : "" %></div>
 		<div class="photo"><img src="<%= TREE.url.image.format(id, photo) %>" /></div>
 		<div class="name"><%= Base64.decode(displayname) %></div>
 		<div class="actions closed">
 			<ul>
+ 
 				<li class="edit">Редактировать</li>
 				<!--<li class="change">Изменить тип связи</li>-->
 				<li class="remove">Удалить человека</li>
@@ -198,7 +170,7 @@ function callback(form,act,doc) {
 
 		<div class="field">
 			<label class="name"><input type="checkbox" name="invite" /> Пригласить</label>
-			<input type="text" name="email" value="" />
+			<input type="text" name="email"  value="<%= invite %>" />
 		</div>
 
 		<div class="field">
@@ -269,7 +241,7 @@ function callback(form,act,doc) {
 	<div class="popup hide">
 		<div class="close"></div>
 		<div class="header"><%= header %></div>
-		<div class="content"></div>
+		<div class="content">sdfsdgsdfgsdfgsdfgdsdfg</div>
 	</div>
 </script>
 

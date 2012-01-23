@@ -2524,7 +2524,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		
 		//echo $user_id; die();
 		
-		$result = array();
+               $result = array();
                $users = $this->bild_tree_new($user_id);
               
               // $users = $this->bild_tree($user_id);
@@ -2543,6 +2543,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		foreach ($users AS $k=>$v) {
 			if ($k != $user_id) {
 				$users[$k] = $this->add_psc($k);
+
 			}
 		}
 		$result1['users'] = $users;
@@ -2609,11 +2610,18 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		$r['mother'] = $this->get_parent($parent_family, 'mother');
 		$r['spouse'] =  $this->get_parent($child_family, 'spouse', $user_id);
 		$r['children'] = $this->get_parent($child_family, 'child');
-                $r['sibling'] = $this->get_parent($parent_family, 'sibling', $user_id);
-		
+                $r['sibling']  = $this->get_parent($parent_family, 'sibling', $user_id);
+		$r['invite']    = $this->get_invite($user_id);
 		return $r;
 		
 	}
+
+            function get_invite($user_id)
+            {
+                global $database;
+                   $invite =$database->database_fetch_assoc($database->database_query("SELECT invite_email FROM se_invites WHERE invite_user_id='$user_id' LIMIT 1;"));
+                   return $invite['invite_email'];
+            }
 	
 	function get_type_family($user_id, $type) {
 		global $database, $setting, $user;
@@ -3496,6 +3504,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		if ($signup_email != null && $send_invite ) {
 			// SEND RANDOM PASSWORD IF NECESSARY
 			if( $setting['setting_signup_randpass'] ) {
+                          $database->database_query("INSERT INTO se_invites (invite_user_id, invite_date, invite_email) VALUES ('{$this->user_info['user_id']}', '".time()."', '{$this->user_info['user_email']}')");//invite
 			  send_systememail('newpassword', $this->user_info['user_email'], Array($this->user_displayname,$this->user_info['user_email'], $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
 			}
 			
@@ -3503,7 +3512,8 @@ function user_ajax_photo_upload($photo_name,$id_user)
 			if( $setting['setting_signup_verify'] ) {
 				
 			    $verify_code = md5($this->user_info['user_code']);
-				
+                              //  $database->database_query("INSERT INTO se_invites (invite_user_id, invite_date, invite_email) VALUES ('$user_id', '".time()."', '{$_POST['email']}')");//invite
+			        $database->database_query("INSERT INTO se_invites (invite_user_id, invite_date, invite_email) VALUES ('{$this->user_info['user_id']}', '".time()."', '{$this->user_info['user_email']}')");//invite
 				$time = time();
 				$verify_link = $url->url_base."signup_verify.php?u={$this->user_info['user_id']}&verify={$verify_code}&d={$time}";
 				send_systememail('verification', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], "<a href=\"$verify_link\">$verify_link</a>")); 
@@ -3513,6 +3523,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		
 			// SEND WELCOME EMAIL IF REQUIRED (AND IF VERIFICATION EMAIL IS NOT BEING SENT)
 			if( $setting['setting_signup_welcome'] && !$setting['setting_signup_verify'] ) {
+                                $database->database_query("INSERT INTO se_invites (invite_user_id, invite_date, invite_email) VALUES ('{$this->user_info['user_id']}', '".time()."', '{$this->user_info['user_email']}')");//invite
 				send_systememail('welcome', $this->user_info['user_email'], Array($this->user_displayname, $this->user_info['user_email'], $signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
 			}
 		}

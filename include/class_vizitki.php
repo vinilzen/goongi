@@ -76,6 +76,62 @@ class se_vizitki
   {
 	  $this->user_id = $user_id;
 	}
+
+//add transation country
+        function add_country_translate($country)
+        {
+             global $database, $user;
+	   $sql = "
+        INSERT INTO se_vizitki_country
+        (
+        vizitkisetting_country
+        )
+        VALUES
+        (
+          '$country'
+        )";
+      $resource = $database->database_query($sql);
+ 
+	}
+
+
+        function get_all_country()
+        {
+             global $database, $user;
+	   $sql = "SELECT * FROM se_vizitki_country;";
+           $resource = $database->database_query($sql);
+            while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
+            $country[] = $vizitkientry_info;
+            return $country;
+	}
+
+         function add_city_translate($id=NULL,$city)
+        {
+             global $database, $user;
+	$sql = "
+        INSERT INTO se_vizitki_city
+        (
+            vizitki_country_id,
+            vizitki_city
+        )
+        VALUES
+        (
+          '$id',
+            '$city'
+        )";
+      $resource = $database->database_query($sql);
+
+	}
+
+        function get_all_city()
+        {
+             global $database, $user;
+	   $sql = "SELECT * FROM se_vizitki_city;";
+           $resource = $database->database_query($sql);
+            while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
+            $city[] = $vizitkientry_info;
+            return $city;
+	}
   
   //
   // END METHOD se_vizitki()

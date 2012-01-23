@@ -685,7 +685,8 @@
              return false;
   })
 
-   
+
+    
 	$("#edit_group_b").live("click", function () {
 		$('#edit_group').remove();
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();

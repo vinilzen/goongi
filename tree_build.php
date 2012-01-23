@@ -353,6 +353,16 @@ switch ($type_request) {
 			$set_fields = array(); // for table se_profilevalues
 			
                          if ( isset($_POST['email']) && (isset($_POST['send_invite']) && $_POST['send_invite'] == 1)) {  // ADD CHECKING - PROZVISHE
+
+                             $time = time();
+                             $invite =$database->database_fetch_assoc($database->database_query("SELECT invite_id FROM se_invites WHERE invite_user_id='$user_id' LIMIT 1;"));
+                             if ($invite != '')
+                             {
+                                  $database->database_query("UPDATE `se_invites` SET invite_date='$time', invite_email='{$_POST['email']}' WHERE invite_user_id='$user_id' LIMIT 1;");
+                             }
+                             else
+                                  $database->database_query("INSERT INTO se_invites (invite_user_id, invite_date, invite_email) VALUES ('$user_id', '".time()."', '{$_POST['email']}')");//invite
+
                              $display = mysql_real_escape_string($_POST['fname']);
                               $signup_password = randomcode(6);
                               $crypt_password = $user->new_user_password_crypt($signup_password);

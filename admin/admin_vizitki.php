@@ -9,6 +9,7 @@ $task                         = ( !empty($_POST['task'])                ? $_POST
 $vizitkientrycat_id              = ( !empty($_POST['vizitkientrycat_id'])     ? $_POST['vizitkientrycat_id']     : NULL );
 $vizitkientrycat_title           = ( !empty($_POST['vizitkientrycat_title'])  ? $_POST['vizitkientrycat_title']  : NULL );
 $vizitkientrycat_showusercreated = !empty($_POST['vizitkientrycat_showusercreated']);
+$country = !empty($_POST['newСountryInput']);
 
 // SET RESULT VARIABLE
 $result = 0;
@@ -42,6 +43,28 @@ else if( $task=="createvizitkientrycat" )
   else
     echo '{"result" : "failure"}';
   
+  exit();
+}
+else if( $task=="createСountry" )
+{
+ // $lvar_id = SE_Language::edit(0, $vizitkientrycat_title, NULL, LANGUAGE_INDEX_SUBNETS);
+    $sql = "
+        INSERT INTO se_vizitki_country
+        (
+        vizitkisetting_country
+        )
+        VALUES
+        (
+          '$country'
+        )";
+      //$resource = $database->database_query($sql);
+  $resource = $database->database_query($sql) or die($database->database_error()." <b>SQL was: </b>$sql");
+
+  if( $database->database_affected_rows($resource) )
+    echo '{"result" : "success", "vizitkientrycat_id" : '.$database->database_insert_id().', "vizitkientrycat_languagevar_id" : '.$lvar_id.'}';
+  else
+    echo '{"result" : "failure"}';
+
   exit();
 }
 
@@ -92,9 +115,14 @@ elseif($task == "dosave")
 
 // GET vizitki ENTRY CATEGORIES
 $categories_array = se_vizitki::vizitki_category_list($vizitkientrycat_showusercreated);
-
+$city= se_vizitki::get_all_city();
+$country= se_vizitki::get_all_country();
 // ASSIGN VARIABLES AND SHOW GENERAL SETTINGS PAGE
 $smarty->assign('result', $result);
 $smarty->assign('vizitkientrycats', $categories_array);
+
+$smarty->assign('city', $city);
+$smarty->assign('country', $country);
+
 include "admin_footer.php";
 ?>
