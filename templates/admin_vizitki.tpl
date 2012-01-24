@@ -15,30 +15,30 @@
   {literal}
   <script type="text/javascript">
   <!--
-  function createNewСountry()
+  function createNewcountry()
   {
     // Display
-    $('newСountryInput').value = '';
-    $('newСountryContainer').style.display = '';
-    $('newСountryLink').style.display = 'none';
+    $('newcountryInput').value = '';
+    $('newcountryContainer').style.display = '';
+    $('newcountryLink').style.display = 'none';
   }
 
-  function editNewСountry()
+  function editNewcountry()
   {
-    var newСountryTitle = $('newСountryInput').value;
+    var newcountryTitle = $('newcountryInput').value;
 
     // Display
-    $('newСountryInput').value = '';
-    $('newСountryContainer').style.display = 'none';
-    $('newСountryLink').style.display = '';
+    $('newcountryInput').value = '';
+    $('newcountryContainer').style.display = 'none';
+    $('newcountryLink').style.display = '';
 
     // Ajax
     var request = new Request.JSON({
       'method' : 'post',
       'url' : 'admin_vizitki.php',
       'data' : {
-        'task' : 'createСountry',
-        'vizitkientrycat_title' : newСountryTitle
+        'task' : 'createcountry',
+        'vizitkientrycat_title' : newcountryTitle
       },
       'onComplete':function(responseObject)
       {
@@ -50,32 +50,32 @@
         else
         {
           var vizitkientrycat_id = responseObject.vizitkientrycat_id;
-          var vizitkientrycat_languagevar_id = responseObject.vizitkientrycat_languagevar_id;
+
           var innerHTML = '';
 
           //innerHTML += '<td>';
-          innerHTML += '<span class="oldСountryContainer">';
-          innerHTML += '<a href="javascript:void(0);" onclick="switchOldСountry(' + vizitkientrycat_id + ');">';
-          innerHTML += newСountryTitle;
+          innerHTML += '<span class="oldcountryContainer">';
+          innerHTML += '<a href="javascript:void(0);" onclick="switchOldcountry(' + vizitkientrycat_id + ');">';
+          innerHTML += newcountryTitle;
           innerHTML += '</a>';
           innerHTML += '</span>';
-          innerHTML += '<span class="oldСountryInput" style="display:none;">';
-          innerHTML += "<input type='text' class='text' size='30' maxlength='50' onblur='editOldСountry(" + vizitkientrycat_id + ");' value='" + newСountryTitle + "' />";
+          innerHTML += '<span class="oldcountryInput" style="display:none;">';
+          innerHTML += "<input type='text' class='text' size='30' maxlength='50' onblur='editOldcountry(" + vizitkientrycat_id + ");' value='" + newcountryTitle + "' />";
           innerHTML += '</span>';
-          innerHTML += '<span class="oldСountryLangVar">';
-          innerHTML += '&nbsp;(Language Variable #<a href="admin_language_edit.php?language_id=1&phrase_id=' + vizitkientrycat_languagevar_id + '">';
-          innerHTML += vizitkientrycat_languagevar_id;
+          innerHTML += '<span class="oldcountryLangVar">';
+       //   innerHTML += '&nbsp;(Language Variable #<a href="admin_language_edit.php?language_id=1&phrase_id=' + vizitkientrycat_languagevar_id + '">';
+         // innerHTML += vizitkientrycat_languagevar_id;
           innerHTML += '</a>)';
           innerHTML += '</span>';
           //innerHTML += '</td>';
 
           //alert(innerHTML);
 
-          var newСountryRow = new Element('tr', {'id' : 'vizitkiEntryCatRow_' + vizitkientrycat_id});
-          var newСountryData = new Element('td', {'html' : innerHTML});
+          var newcountryRow = new Element('tr', {'id' : 'vizitkiEntrycountryRow_' + vizitkientrycat_id});
+          var newcountryData = new Element('td', {'html' : innerHTML});
 
-          newСountryRow.inject($('newСountryRow'), 'before');
-          newСountryData.inject(newСountryRow);
+          newcountryRow.inject($('newcountryRow'), 'before');
+          newcountryData.inject(newcountryRow);
         }
       }
     });
@@ -83,44 +83,44 @@
     request.send();
   }
 
-  function switchOldСountry(vizitkientrycat_id)
+  function switchOldcountry(vizitkientrycat_id)
   {
-    var СountryRow = $('vizitkiEntryCatRow_' + vizitkientrycat_id);
-    СountryRow.getElement('.oldСountryContainer').style.display = 'none';
-    СountryRow.getElement('.oldСountryInput').style.display = '';
-    СountryRow.getElement('input').focus();
+    var countryRow = $('vizitkiEntrycountryRow_' + vizitkientrycat_id);
+    countryRow.getElement('.oldcountryContainer').style.display = 'none';
+    countryRow.getElement('.oldcountryInput').style.display = '';
+    countryRow.getElement('input').focus();
   }
 
-  function unswitchOldСountry(vizitkientrycat_id)
+  function unswitchOldcountry(vizitkientrycat_id)
   {
-    var СountryRow = $('vizitkiEntryCatRow_' + vizitkientrycat_id);
-    СountryRow.getElement('.oldСountryContainer').style.display = '';
-    СountryRow.getElement('.oldСountryInput').style.display = 'none';
+    var countryRow = $('vizitkiEntrycountryRow_' + vizitkientrycat_id);
+    countryRow.getElement('.oldcountryContainer').style.display = '';
+    countryRow.getElement('.oldcountryInput').style.display = 'none';
   }
 
-  function editOldСountry(vizitkientrycat_id)
+  function editOldcountry(vizitkientrycat_id)
   {
-    var СountryRow = $('vizitkiEntryCatRow_' + vizitkientrycat_id);
-    var newСountryTitle = СountryRow.getElement('input').value;
+    var countryRow = $('vizitkiEntrycountryRow_' + vizitkientrycat_id);
+    var newcountryTitle = countryRow.getElement('input').value;
 
     // DELETE
-    if( newСountryTitle.trim()=='' )
+    if( newcountryTitle.trim()=='' )
     {
-      deleteСountry(vizitkientrycat_id);
+      deletecountry(vizitkientrycat_id);
       return;
     }
 
-    СountryRow.getElement('.oldСountryContainer').getElement('a').innerHTML = newСountryTitle;
-    unswitchOldСountry(vizitkientrycat_id);
+    countryRow.getElement('.oldcountryContainer').getElement('a').innerHTML = newcountryTitle;
+    unswitchOldcountry(vizitkientrycat_id);
 
     // Ajax
     var request = new Request.JSON({
       'method' : 'post',
       'url' : 'admin_vizitki.php',
       'data' : {
-        'task' : 'editСountry',
+        'task' : 'editcountry',
         'vizitkientrycat_id' : vizitkientrycat_id,
-        'vizitkientrycat_title' : newСountryTitle
+        'vizitkientrycat_title' : newcountryTitle
       },
       'onComplete':function(responseObject)
       {
@@ -134,18 +134,170 @@
     request.send();
   }
 
-  function deleteСountry(vizitkientrycat_id)
+  function deletecountry(vizitkientrycat_id)
   {
-    var СountryRow = $('vizitkiEntryCatRow_' + vizitkientrycat_id);
+    var countryRow = $('vizitkiEntrycountryRow_' + vizitkientrycat_id);
 
-    СountryRow.destroy();
+    countryRow.destroy();
 
     // Ajax
     var request = new Request.JSON({
       'method' : 'post',
       'url' : 'admin_vizitki.php',
       'data' : {
-        'task' : 'deleteСountry',
+        'task' : 'deletcountry',
+        'vizitkientrycat_id' : vizitkientrycat_id
+      },
+      'onComplete':function(responseObject)
+      {
+        if( $type(responseObject)!="object" || !responseObject.result || responseObject.result=="failure" )
+        {
+          alert('ERR');
+        }
+      }
+    });
+
+    request.send();
+  }
+
+//==cyti==================================================
+function createNewcity()
+  {
+    // Display
+    $('newcityInput').value = '';
+    $('newcityContainer').style.display = '';
+    $('newcityLink').style.display = 'none';
+  }
+
+  function editNewcity()
+  {
+    var newcityTitle = $('newcityInput').value;
+
+    // Display
+    $('newcityInput').value = '';
+    $('newcityContainer').style.display = 'none';
+    $('newcityLink').style.display = '';
+
+    // Ajax
+    var request = new Request.JSON({
+      'method' : 'post',
+      'url' : 'admin_vizitki.php',
+      'data' : {
+        'task' : 'createcity',
+        'vizitkientrycat_title' : newcityTitle
+      },
+      'onComplete':function(responseObject)
+      {
+        if( $type(responseObject)!="object" || !responseObject.result || responseObject.result=="failure" )
+        {
+          alert('ERR');
+        }
+
+        else
+        {
+          var vizitkientrycat_id = responseObject.vizitkientrycat_id;
+
+          var innerHTML = '';
+
+          //innerHTML += '<td>';
+          innerHTML += '<span class="oldcityContainer">';
+          innerHTML += '<a href="javascript:void(0);" onclick="switchOldcity(' + vizitkientrycat_id + ');">';
+          innerHTML += newcityTitle;
+          innerHTML += '</a>';
+          innerHTML += '</span>';
+          innerHTML += '<span class="oldcityInput" style="display:none;">';
+          innerHTML += "<input type='text' class='text' size='30' maxlength='50' onblur='editOldcity(" + vizitkientrycat_id + ");' value='" + newcityTitle + "' />";
+          innerHTML += '</span>';
+          innerHTML += '<span class="oldcitySelect" style="display:none;">';
+          innerHTML += "<select name='contry'> </select>";
+          innerHTML += '</span>';
+
+          innerHTML += '<span class="oldcityLangVar">';
+       //   innerHTML += '&nbsp;(Language Variable #<a href="admin_language_edit.php?language_id=1&phrase_id=' + vizitkientrycat_languagevar_id + '">';
+         // innerHTML += vizitkientrycat_languagevar_id;
+          innerHTML += '</a>)';
+          innerHTML += '</span>';
+          //innerHTML += '</td>';
+
+          //alert(innerHTML);
+
+          var newcityRow = new Element('tr', {'id' : 'vizitkiEntrycityRow_' + vizitkientrycat_id});
+          var newcityData = new Element('td', {'html' : innerHTML});
+
+          newcityRow.inject($('newcityRow'), 'before');
+          newcityData.inject(newcityRow);
+        }
+      }
+    });
+
+    request.send();
+  }
+
+  function switchOldcity(vizitkientrycat_id)
+  {
+    var cityRow = $('vizitkiEntrycityRow_' + vizitkientrycat_id);
+    cityRow.getElement('.oldcityContainer').style.display = 'none';
+    cityRow.getElement('.oldcityInput').style.display = '';
+    cityRow.getElement('.oldcitySelect').style.display = '';
+    cityRow.getElement('input').focus();
+  }
+
+  function unswitchOldcity(vizitkientrycat_id)
+  {
+    var cityRow = $('vizitkiEntrycityRow_' + vizitkientrycat_id);
+    cityRow.getElement('.oldcityContainer').style.display = '';
+    cityRow.getElement('.oldcityInput').style.display = 'none';
+    cityRow.getElement('.oldcitySelect').style.display = 'none';
+  }
+
+  function editOldcity(vizitkientrycat_id)
+  {
+    var cityRow = $('vizitkiEntrycityRow_' + vizitkientrycat_id);
+    var newcityTitle = cityRow.getElement('input').value;
+
+    // DELETE
+    if( newcityTitle.trim()=='' )
+    {
+      deletecity(vizitkientrycat_id);
+      return;
+    }
+
+    cityRow.getElement('.oldcityContainer').getElement('a').innerHTML = newcityTitle;
+    unswitchOldcity(vizitkientrycat_id);
+
+    // Ajax
+    var request = new Request.JSON({
+      'method' : 'post',
+      'url' : 'admin_vizitki.php',
+      'data' : {
+        'task' : 'editcity',
+        'vizitkientrycat_id' : vizitkientrycat_id,
+        'vizitkientrycat_title' : newcityTitle
+      },
+      'onComplete':function(responseObject)
+      {
+        if( $type(responseObject)!="object" || !responseObject.result || responseObject.result=="failure" )
+        {
+          alert('ERR');
+        }
+      }
+    });
+
+    request.send();
+  }
+
+  function deletecity(vizitkientrycat_id)
+  {
+    var cityRow = $('vizitkiEntrycityRow_' + vizitkientrycat_id);
+
+    cityRow.destroy();
+
+    // Ajax
+    var request = new Request.JSON({
+      'method' : 'post',
+      'url' : 'admin_vizitki.php',
+      'data' : {
+        'task' : 'deletcity',
         'vizitkientrycat_id' : vizitkientrycat_id
       },
       'onComplete':function(responseObject)
@@ -162,6 +314,7 @@
 
 //====================================================
 
+
   function createNewCategory()
   {
     // Display
@@ -175,21 +328,21 @@
  function switchOldCategory(vizitkientrycat_id)
   {
     var categoryRow = $('vizitkiEntryCatRow_' + vizitkientrycat_id);
-    СountryRow.getElement('.oldСountryContainer').style.display = 'none';
-    СountryRow.getElement('.oldСountryInput').style.display = '';
-    СountryRow.getElement('input').focus();
+    categoryRow.getElement('.oldcountryContainer').style.display = 'none';
+    categoryRow.getElement('.oldcountryInput').style.display = '';
+    categoryRow.getElement('input').focus();
   }
 
-  
+
   function editNewCategory()
   {
     var newCategoryTitle = $('newCategoryInput').value;
-    
+
     // Display
     $('newCategoryInput').value = '';
     $('newCategoryContainer').style.display = 'none';
     $('newCategoryLink').style.display = '';
-    
+
     // Ajax
     var request = new Request.JSON({
       'method' : 'post',
@@ -204,13 +357,13 @@
         {
           alert('ERR');
         }
-        
+
         else
         {
           var vizitkientrycat_id = responseObject.vizitkientrycat_id;
           var vizitkientrycat_languagevar_id = responseObject.vizitkientrycat_languagevar_id;
           var innerHTML = '';
-          
+
           //innerHTML += '<td>';
           innerHTML += '<span class="oldCategoryContainer">';
           innerHTML += '<a href="javascript:void(0);" onclick="switchOldCategory(' + vizitkientrycat_id + ');">';
@@ -226,21 +379,21 @@
           innerHTML += '</a>)';
           innerHTML += '</span>';
           //innerHTML += '</td>';
-          
+
           //alert(innerHTML);
-          
+
           var newCategoryRow = new Element('tr', {'id' : 'vizitkiEntryCatRow_' + vizitkientrycat_id});
           var newCategoryData = new Element('td', {'html' : innerHTML});
-          
+
           newCategoryRow.inject($('newCategoryRow'), 'before');
           newCategoryData.inject(newCategoryRow);
         }
       }
     });
-    
+
     request.send();
   }
-  
+
   function switchOldCategory(vizitkientrycat_id)
   {
     var categoryRow = $('vizitkiEntryCatRow_' + vizitkientrycat_id);
@@ -248,29 +401,29 @@
     categoryRow.getElement('.oldCategoryInput').style.display = '';
     categoryRow.getElement('input').focus();
   }
-  
+
   function unswitchOldCategory(vizitkientrycat_id)
   {
     var categoryRow = $('vizitkiEntryCatRow_' + vizitkientrycat_id);
     categoryRow.getElement('.oldCategoryContainer').style.display = '';
     categoryRow.getElement('.oldCategoryInput').style.display = 'none';
   }
-  
+
   function editOldCategory(vizitkientrycat_id)
   {
     var categoryRow = $('vizitkiEntryCatRow_' + vizitkientrycat_id);
     var newCategoryTitle = categoryRow.getElement('input').value;
-    
+
     // DELETE
     if( newCategoryTitle.trim()=='' )
     {
       deleteCategory(vizitkientrycat_id);
       return;
     }
-    
+
     categoryRow.getElement('.oldCategoryContainer').getElement('a').innerHTML = newCategoryTitle;
     unswitchOldCategory(vizitkientrycat_id);
-    
+
     // Ajax
     var request = new Request.JSON({
       'method' : 'post',
@@ -288,16 +441,16 @@
         }
       }
     });
-    
+
     request.send();
   }
-  
+
   function deleteCategory(vizitkientrycat_id)
   {
     var categoryRow = $('vizitkiEntryCatRow_' + vizitkientrycat_id);
-    
+
     categoryRow.destroy();
-    
+
     // Ajax
     var request = new Request.JSON({
       'method' : 'post',
@@ -314,7 +467,7 @@
         }
       }
     });
-    
+
     request.send();
   }
   // -->
@@ -385,38 +538,44 @@
           </tr>
           <td><label>Регионы трансляции (Страна) </label></td>
           {section name=nation loop=$country}
-          <tr id="countryRow_{$country[nation].vizitkisetting_id}">
+          <tr id="vizitkiEntrycountryRow_{$country[nation].vizitkisetting_id}">
             <td>
-              <span class="oldСountryContainer"><a href="javascript:void(0);" onclick="switchOldСountry({$country[nation].vizitkisetting_id});">{$country[nation].vizitkisetting_country}</a></span>
-              <span class="oldСountryInput" style="display:none;">
-                <input type='text' class='text' size='30' maxlength='50' onblur="editOldСountry({$country[nation].vizitkisetting_id});" value="{$country[nation].vizitkisetting_country}" /></span>
+              <span class="oldcountryContainer"><a href="javascript:void(0);" onclick="switchOldcountry({$country[nation].vizitkisetting_id});">{$country[nation].vizitkisetting_country}</a></span>
+              <span class="oldcountryInput" style="display:none;"><input type='text' class='text' size='30' maxlength='50' onblur="editOldcountry({$country[nation].vizitkisetting_id});" value="{$country[nation].vizitkisetting_country}" /></span>
+
             </td>
           </tr>
           {/section}
-          <tr id="newСountryRow">
+          <tr id="newcountryRow">
             <td style="padding-top: 5px;">
-              <span id="newСountryContainer" style="display:none;"><input type='text' id='newСountryInput' class='text' size='30' maxlength='50' onblur="editNewСountry();" /></span>
-              <span id="newСountryLink"><a href="javascript:void(0);" onclick="createNewСountry();">{lang_print id=1700091}</a></span>
+              <span id="newcountryContainer" style="display:none;"><input type='text' id='newcountryInput' class='text' size='30' maxlength='50' onblur="editNewcountry();" /></span>
+              <span id="newcountryLink"><a href="javascript:void(0);" onclick="createNewcountry();">{lang_print id=1700091}</a></span>
             </td>
           </tr>
+
+<tr>
 
             <tr>
             <td><b>{$admin_vizitki15}</b></td>
           </tr>
         <td><label>Регионы трансляции (Города) </label></td>
           {section name=nation loop=$city}
-          <tr id="vizitkiEntryCatRow_{$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_id}">
+          <tr id="vizitkiEntrycityRow_{$city[nation].vizitkisetting_id}">
             <td>
-              <span class="oldCategoryContainer"><a href="javascript:void(0);" onclick="switchOldCategory({$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_id});">{$country[nation].vizitkisetting_country}</a></span>
-              <span class="oldCategoryInput" style="display:none;"><input type='text' class='text' size='30' maxlength='50' onblur="editOldCategory({$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_id});" value="{$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_title}" /></span>
-              <span class="oldCategoryLangVar">&nbsp;(Language Variable #<a href="admin_language_edit.php?language_id=1&phrase_id={$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_languagevar_id}">{$vizitkientrycats[vizitkientrycats_loop].vizitkientrycat_languagevar_id}</a>)</span>
+              <span class="oldcityContainer"><a href="javascript:void(0);" onclick="switchOldcity({$city[nation].vizitkisetting_id});">{$city[nation].vizitki_city}</a></span>
+              <span class="oldcityInput" style="display:none;"><input type='text' class='text' size='30' maxlength='50' onblur="editOldcity({$city[nation].vizitkisetting_id});" value="{$city[nation].vizitki_city}" /></span>
+              <span class="oldcitySelect" style="display:none;">
+                        <select name="contry">
+                         {section name=loop loop=$country}
+                            <option>{$country[loop].vizitkisetting_country}</option>
+                         {/section}</select></span>
             </td>
           </tr>
           {/section}
-          <tr id="newCategoryRow">
+          <tr id="newcityRow">
             <td style="padding-top: 5px;">
-              <span id="newCategoryContainer" style="display:none;"><input type='text' id='newCategoryInput' class='text' size='30' maxlength='50' onblur="editNewCategory();" /></span>
-              <span id="newCategoryLink"><a href="javascript:void(0);" onclick="createNewCategory();">{lang_print id=1700091}</a></span>
+              <span id="newcityContainer" style="display:none;"><input type='text' id='newcityInput' class='text' size='30' maxlength='50' onblur="editNewCategory();" /></span>
+              <span id="newcityLink"><a href="javascript:void(0);" onclick="createNewcity();">{lang_print id=1700091}</a></span>
             </td>
           </tr>
 

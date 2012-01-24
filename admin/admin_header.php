@@ -4,7 +4,7 @@
 
 // SET ERROR REPORTING
 error_reporting(E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_USER_ERROR);
-ini_set('display_errors', TRUE);
+ini_set('display_errors', FALSE);
 
 // CHECK FOR PAGE VARIABLE
 if(!isset($page)) { $page = ""; }

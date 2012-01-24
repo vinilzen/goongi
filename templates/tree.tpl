@@ -54,7 +54,6 @@ function callback(form,act,doc) {
 	<meta name="description" content="Genealogy Tree">
 	<meta name="author" content="Alexander Orlov">
 	<link rel="stylesheet" href="/tree/css/default.css">
-        <script src="/js/script.js"></script>
 	<script src="/tree/js/jquery.js"></script>
 	<script src="/tree/js/underscore.js"></script>
 	<script src="/tree/js/backbone.js"></script>
@@ -118,7 +117,7 @@ function callback(form,act,doc) {
 </script>
 
 <div id="viewpoint"></div>
-{/literal}
+
 {literal}
 
 <script id="person-tmpl" type="text/html">

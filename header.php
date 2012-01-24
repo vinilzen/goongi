@@ -28,7 +28,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . realpath("./"));
 // SET ERROR REPORTING
 if( SE_DEBUG )
 {
-  ini_set('display_errors', TRUE);
+  ini_set('display_errors', FALSE);
   error_reporting(E_ALL);
 
   if( file_exists('./include/class_firephp.php') )

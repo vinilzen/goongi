@@ -273,10 +273,16 @@ switch ($type_request) {
 								
 							case 'brother'||'sister':
 								$role = 'child';
-								$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
+								
                                                                 $level = $user->getlevel($user_id);
+                                                                //$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
+                                                                $family_id = $user->get_fam_brother($user_id);
+                                                                if ($level > 0){
+                                                                    $family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
+                                                                    $parent = $user->check_life_parentup($user_id,$family_id);}
+                                                                else
                                                                 $parent = $user->check_life_parent($user_id,$family_id);
-
+                                                             
                                                                 if ($parent == false)
                                                                 {
                                                                         $user->creat_mother($user_id,$new_user['lname']);
@@ -284,8 +290,7 @@ switch ($type_request) {
                                                                 }
                                                                 elseif ($parent[0] == 'father') $user->creat_mother($user_id,$new_user['lname']);
                                                                 elseif ($parent[0] == 'mother') $user->creat_father($user_id,$new_user['lname']);
-                                                                   
-                                                               // else echo 'no';
+                                                                
 								if ( $user->user_create_fast(
 									$new_user['fname'],
 									$new_user['lname'], 

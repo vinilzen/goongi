@@ -274,6 +274,14 @@ class SEUser
 			return $this->add_role_new($role, $user_id);
                 }
 	}
+
+        function get_fam_brother($user_id)
+        {
+            global $database;
+            $resource = $database->database_query("SELECT `family_id` FROM `se_role_in_family` WHERE `user_id` = '$user_id' AND role = 'child'");
+            $role_p = $database->database_fetch_assoc($resource);
+            return $role_p['family_id'];
+        }
 	
 	function get_parent_family_id($user_id,$new_user) {
              global $database;
@@ -336,8 +344,8 @@ class SEUser
              $new_user["send_invite"]='';
 
         if ( !$this->check_existing_parent($id, $role) ) {
-
-        $family_id = $this->get_parent_family_id($id,$lname);
+        $family_id = $this->get_fam_brother($id);
+      //  $family_id = $this->get_parent_family_id($id,$lname);
         $level = $this->getlevel($id);
         if ($level == 0) $level = 1;
            elseif ($level > 0) $level = $level+ 1;
@@ -435,8 +443,8 @@ class SEUser
              $new_user["send_invite"]='';
 
             if ( !$this->check_existing_parent($id, $role) ) {
-
-                    $family_id = $this->get_parent_family_id($id,$new_user['lname']);
+                    $family_id = $this->get_fam_brother($id);
+                   // $family_id = $this->get_parent_family_id($id,$new_user['lname']);
                     $level = $this->getlevel($id);
                     if ($level == 0) $level = 1;
                        elseif ($level > 0) $level = $level + 1;
@@ -536,6 +544,30 @@ class SEUser
             if (count($p) == 0) return false;
             elseif (count($p) == 2) return true;
             else return $p;
+        }
+
+        function check_life_parentup($id)
+        {
+         $database = SEDatabase::getInstance();
+           $resource = $database->database_query("SELECT * FROM se_role_in_family WHERE `role`='child' && `user_id`='{$id}' LIMIT 1;");
+           if ($database->database_num_rows($resource) > 0)
+           {
+               $r = $database->database_fetch_assoc($resource);
+               $fam = $r['family_id'];
+          
+           
+            $resource = $database->database_query("SELECT * FROM se_role_in_family WHERE `role`!='child' && `family_id`='{$fam}';");
+            $p='';
+              while($parent_info = $database->database_fetch_assoc($resource)) {
+                  //print_r($parent_info);
+                  $p[] = $parent_info['role'];
+           }
+            if (count($p) == 2) return true;
+            else return $p;
+           }
+           else return false;
+           
+           
         }
 	
 	function check_existing_parent($id, $role) { // if exist mother|father ($role) return false
@@ -2302,17 +2334,14 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		global $database, $setting, $user;
                 
 		$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` = '$fam_id' AND (`role` = '$role' OR `role` = '$rolep');";
-              //  $sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` = '$fam_id' AND `role`= 'child';";
-             //  echo $sql;
+            // echo $sql;
 		$resourse = $database->database_query($sql);
 		$kinsman = array();
 		while($f = $database->database_fetch_assoc($resourse) )
-                {//print_r ($f);
-			$kinsman[] = $f['user_id'];}
-		//print_r (count($kinsman));
-             //           print_r ($kinsman);
+                $kinsman[] = $f['user_id'];
+
                 if (count($kinsman) > 1 ) return true;
-                else return false;
+                else  return false;
 		
 	}
 	
@@ -4585,6 +4614,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
         
             if (count($fam) == 1)
             {
+               
                 $role = $fam[0]['role'];
                
                 if ($role == 'father' || $role == 'mother')
@@ -4596,9 +4626,10 @@ function user_ajax_photo_upload($photo_name,$id_user)
                       } else $error = 0;
                 }
                 elseif ($role == 'child')
-                { 
-                      if ($this->get_kinsman($fam[0]['family_id'],'child') == true) $error = 0;
-                      else  $error = 1;
+                {
+                    $error = 0;
+                     // if ($this->get_kinsman($fam[0]['family_id'],'child') == true) $error = 0;
+                    //  else  $error = 1;
                        
                 }
                 if ($error != 1) {
@@ -4615,13 +4646,21 @@ function user_ajax_photo_upload($photo_name,$id_user)
                 $role = $fam[0]['role'];
                 if ($role == 'father' || $role == 'mother')
                 {
-                      if ($this->get_kinsman($fam[0]['family_id'],'child')== true) $error1 = 0;
-                      else $error1 = 1;
+                        if (($this->get_kinsman($fam[0]['family_id'],'child') == true))
+                      {
+                          if (($this->get_kinsman($fam[0]['family_id'],'father','mother')== true)) $error1 = 0;
+                           else $error1 = 1;
+                      } else $error1 = 0;
                 }
                 elseif ($role == 'child')
                 {
-                      if (($this->get_kinsman($fam[0]['family_id'],'child')== true) && ($this->get_kinsman($fam[0]['family_id'],'father','mother')== true)) $error1 = 0;
+                     
+                     //$error = 0;
+                      if (($this->get_kinsman($fam[0]['family_id'],'father','mother')== false)) $error1 = 0;
                       else $error1 = 1;
+                              //&& ($this->get_kinsman($fam[1]['family_id'],'father','mother')== false)) $error2 = 0;
+                    
+                      //else $error1 = 1;
 
                  
                 }
@@ -4629,16 +4668,27 @@ function user_ajax_photo_upload($photo_name,$id_user)
                 $role = $fam[1]['role'];
                 if ($role == 'father' || $role == 'mother')
                 {
-                      if ($this->get_kinsman($fam[1]['family_id'],'child')== true) $error2 = 0;
-                      else $error2 = 1;
+                       if ($this->get_kinsman($fam[1]['family_id'],'child') == true)
+                      {
+                          if (($this->get_kinsman($fam[1]['family_id'],'father','mother')== true)) $error2 = 0;
+                           else $error2 = 1;
+                      } else $error2 = 0;
                 }
                 elseif ($role == 'child')
                 {
-                      if (($this->get_kinsman($fam[1]['family_id'],'child')== true) && ($this->get_kinsman($fam[0]['family_id'],'father','mother')== true)) $error2 = 0;
-                      else $error2 = 1;
+                   
+                    if ($this->get_kinsman($fam[1]['family_id'],'father','mother') == false) $error2 = 0;
+                    else   $error2 = 1;
+                   //  $error = 0;
+                    
+                 //     if (($this->get_kinsman($fam[1]['family_id'],'child')== true)) $error2 = 0;
+                              //&& ($this->get_kinsman($fam[1]['family_id'],'father','mother')== false)) $error2 = 0;
+                 //     else $error2 = 1;
 
                 }
-                if (($error1 != 1)&&($error1 != 1)) {
+            //    echo $error1;
+              //   echo $error2;
+                if (($error1 != 1)&&($error2 != 1)) {
                   $database->database_query("DELETE FROM  se_role_in_family  WHERE  user_id = '$user_id';");
                   $database->database_query("DELETE FROM se_tree_users WHERE user_id='{$user_id}'");
                  
