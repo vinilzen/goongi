@@ -286,7 +286,11 @@ class SEUser
 	function get_parent_family_id($user_id,$new_user) {
              global $database;
              $resource = $database->database_query("SELECT `role` FROM `se_role_in_family` WHERE `user_id` = '$user_id'");
-             $role_p = $database->database_fetch_assoc($resource);
+             
+            while($p = $database->database_fetch_assoc($resource)) {
+                  //print_r($parent_info);
+                  $role_p[] = $p['role'];
+           }
              $pr=0;
 	foreach ($role_p as $p)
                  if ($p == 'child') $pr=1;

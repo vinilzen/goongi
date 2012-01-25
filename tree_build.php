@@ -108,6 +108,7 @@ switch ($type_request) {
 								if ( !$user->check_existing_parent($user_id, $role) ) {
 										
 									$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
+                                                                       
 									$level = $user->getlevel($user_id);
                                                                         if ($level == 0) $level = 1;
                                                                            elseif ($level > 0) $level = $level+ 1;
