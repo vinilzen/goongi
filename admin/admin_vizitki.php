@@ -40,8 +40,8 @@ else if( $task=="createvizitkientrycat" )
   
   if( $database->database_affected_rows($resource) )
     echo '{"result" : "success", "vizitkientrycat_id" : '.$database->database_insert_id().', "vizitkientrycat_languagevar_id" : '.$lvar_id.'}';
-  else
-    echo '{"result" : "failure"}';
+  //else
+   // echo '{"result" : "failure"}';
   
   exit();
 }
@@ -53,8 +53,8 @@ else if ( $task=="deletcountry" )
 
   if( $database->database_affected_rows($resource) )
     echo '{"result" : "success"}';
-  else
-    echo '{"result" : "failure"}';
+ // else
+ //   echo '{"result" : "failure"}';
 
   exit();
 }
@@ -76,8 +76,8 @@ else if( $task=="createcountry" )
 
   if( $database->database_affected_rows($resource) )
     echo '{"result" : "success", "vizitkientrycat_id" : '.$database->database_insert_id().'}';
-  else
-    echo '{"result" : "failure"}';
+ // else
+ //   echo '{"result" : "failure"}';
 
   exit();
 }
@@ -89,21 +89,21 @@ else if( $task=="editcountry" )
   $sql = "UPDATE se_vizitki_country SET vizitkisetting_country='{$vizitkientrycat_title}' WHERE vizitkisetting_id='{$vizitkientrycat_id}' LIMIT 1";
   $resource = $database->database_query($sql) or die($database->database_error()." <b>SQL was: </b>$sql");
 
-  if( !$database->database_num_rows($resource) )
-  {
-    echo '{"result" : "failure"}';
-    exit();
-  }
+ // if( !$database->database_num_rows($resource) )
+ // {
+////    echo '{"result" : "failure"}';
+//    exit();
+////  }
 $result = $database->database_fetch_assoc($resource);
  // $lvar_id = $result['vizitkientrycat_languagevar_id'];
  // SE_Language::edit($lvar_id, $vizitkientrycat_title);
 //  $sql = "UPDATE se_vizitkientrycats SET vizitkientrycat_title='{$vizitkientrycat_title}' WHERE vizitkientrycat_id='{$vizitkientrycat_id}' LIMIT 1";
 //  $resource = $database->database_query($sql) or die($database->database_error()." <b>SQL was: </b>$sql");
 
-  if( $database->database_affected_rows($resource) || $resource )
+//  if( $database->database_affected_rows($resource) || $resource )
     echo '{"result" : "success"}';
-  else
-    echo '{"result" : "failure"}';
+ // else
+ //   echo '{"result" : "failure"}';
 
   exit();
 }
@@ -116,8 +116,8 @@ else if ( $task=="deletcity" )
 
   if( $database->database_affected_rows($resource) )
     echo '{"result" : "success"}';
-  else
-    echo '{"result" : "failure"}';
+//  else
+ //   echo '{"result" : "failure"}';
 
   exit();
 }
@@ -141,8 +141,8 @@ else if( $task=="createcity" )
 
   if( $database->database_affected_rows($resource) )
     echo '{"result" : "success", "vizitkientrycat_id" : '.$database->database_insert_id().'}';
-  else
-    echo '{"result" : "failure"}';
+//  else
+//    echo '{"result" : "failure"}';
 
   exit();
 }

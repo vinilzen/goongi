@@ -110,8 +110,13 @@ while($ad_info = $database->database_fetch_assoc($ads)) {
     }
     $ad_info[ad_ctr] .= "%";
   }
-
+  $user_visitka='';
+  $user = array();
+$user = $database->database_fetch_assoc($database->database_query("SELECT user_displayname FROM se_users WHERE user_id =$ad_info[vizitkientry_user_id] LIMIT 1"));
+//print_r ($user);
+$user_visitka = $user['user_displayname'];
   $ad_array[] = Array('ad_id' => $ad_info[ad_id],
+                        'vizitkientry_user_id'=>$user_visitka,
 			'ad_name' => $ad_info[ad_name],
 			'ad_status' => $ad_status,
 			'ad_paused' => $ad_info[ad_paused],

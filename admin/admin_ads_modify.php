@@ -7,6 +7,7 @@ include "admin_header.php";
 
 if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task'])) { $task = $_GET['task']; } else { $task = "main"; }
 if(isset($_POST['ad_id'])) { $ad_id = $_POST['ad_id']; } elseif(isset($_GET['ad_id'])) { $ad_id = $_GET['ad_id']; } else { $ad_id = 0; }
+$country_id = ( !empty($_POST['countryid'])          ? $_POST['countryid']          : ( !empty($_GET['countryid'])         ? $_GET['countryid']         : NULL ) );
 
 
 // VALIDATE AD ID
@@ -28,6 +29,23 @@ if($database->database_num_rows($adQuery) == 1) {
   $ad_subnets_array = $ad_info['ad_subnets'];
   $ad_public = $ad_info['ad_public'];
   $ad_filename = $ad_info['ad_filename'];
+
+  
+   $sql = "SELECT * FROM se_vizitki_country;";
+           $resource = $database->database_query($sql);
+            while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
+            $country[] = $vizitkientry_info;
+            
+  $ad_country=$country;
+      if ($ad_info['vizitkientry_city'] != '')
+    {
+        $sql = "SELECT * FROM se_vizitki_city WHERE vizitki_country_id = '{$ad_info['vizitkientry_contry']}';";
+               $resource = $database->database_query($sql);
+                while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
+                $city[] = $vizitkientry_info['vizitki_city'];
+    }
+    else $city[] = 'нет городов';
+  $ad_city = $city;
 
 // GET NEXT AD ID
 } else {
@@ -90,8 +108,22 @@ if($task == "cancelbanner") {
 
 
 // SAVE CAMPAIGN
-} elseif($task == "dosave") {
+}
+elseif( $task=="get_city" )
+{
+    $sql = "SELECT * FROM se_vizitki_city WHERE vizitki_country_id = '{$country_id}';";
+           $resource = $database->database_query($sql);
+            while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
+            $city[] = $vizitkientry_info['vizitki_city'];
+//$city=$vizitki->get_country_city($country_id);
+if (count($city) == 0) $error = 1;
+else $error = 0;
+  header("Content-Type: application/json");
+  echo json_encode(array('result' => &$city,'error' => $error));
+  exit();
+}
 
+elseif($task == "dosave") {
   $ad_html = $_POST['ad_html'];
   $ad_name = $_POST['ad_name'];
   $ad_date_start_month = $_POST['ad_date_start_month'];
@@ -118,6 +150,8 @@ if($task == "cancelbanner") {
   $ad_subnets = $_POST['ad_subnets'];
   $ad_public = $_POST['ad_public'];
   $ad_filename = $_POST['banner_filename'];
+  $vizitkientry_contry           = $_POST['contry'];
+  $vizitkientry_city             = $_POST['city'];
 
   // CONVERT TO 24HR FORMAT
   $ad_date_start_hour_absolute = (($ad_date_start_hour == 12) ? 0 : $ad_date_start_hour) + $ad_date_start_ampm*12;
@@ -194,6 +228,8 @@ if($task == "cancelbanner") {
 						 ad_levels='$ad_levels_array',
 						 ad_subnets='$ad_subnets_array',
 						 ad_html='$ad_html',
+                                                 vizitkientry_contry='$vizitkientry_contry',
+                                                 vizitkientry_city='$vizitkientry_city',
 						 ad_filename='$ad_filename' WHERE ad_id='$ad_id' LIMIT 1");
 
     // IF CREATING NEW ADD
@@ -209,6 +245,8 @@ if($task == "cancelbanner") {
 							ad_levels,
 							ad_subnets,
 							ad_html,
+                                                        vizitkientry_contry,
+                                                        vizitkientry_city,
 							ad_filename
 							) VALUES (
 							'$ad_name',
@@ -222,6 +260,8 @@ if($task == "cancelbanner") {
 							'$ad_levels_array',
 							'$ad_subnets_array',
 							'$ad_html',
+                                                        '$vizitkientry_contry',
+                                                        '$vizitkientry_city',
 							'$ad_filename')");
     }
 
@@ -251,6 +291,23 @@ while($subnet_info = $database->database_fetch_assoc($subnets)) {
 // ADD PERCENT SIGN TO MIN CTR VALUE
 if($ad_limit_ctr != "") { $ad_limit_ctr .= "%"; }
 
+if ($ad_info['vizitkientry_contry'] == '' && $ad_info['vizitkientry_city'] == '')
+    {
+ $sql = "SELECT * FROM se_vizitki_country;";
+           $resource = $database->database_query($sql);
+            while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
+            $country[] = $vizitkientry_info;
+
+  $ad_country=$country;
+        
+    
+        $sql = "SELECT * FROM se_vizitki_city WHERE vizitki_country_id = '{$country[0]['vizitkisetting_id']}';";
+               $resource = $database->database_query($sql);
+                while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
+                $city[] = $vizitkientry_info['vizitki_city'];
+    }
+   
+  $ad_city = $city;
 
 
 // ASSIGN VARIABLES AND SHOW ADMIN ADS PAGE
@@ -274,5 +331,9 @@ $smarty->assign("subnets", $subnet_array);
 $smarty->assign("ad_levels_array", $ad_levels_array);
 $smarty->assign("ad_subnets_array", $ad_subnets_array);
 $smarty->assign("ad_public", $ad_public);
+$smarty->assign("ad_country", $ad_country);
+$smarty->assign("ad_city", $ad_city);
+$smarty->assign("ad_info_country",$ad_info['vizitkientry_contry']);
+$smarty->assign("ad_info_city",$ad_info['vizitkientry_city']);
 include "admin_footer.php";
 ?>

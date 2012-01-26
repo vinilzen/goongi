@@ -87,9 +87,10 @@ function handleFiles(file){
                 </select></div>
 
                 <div class="input"><label>Город</label>
+                <div id="countydiv"></div>
                 <select name="city" id = "city_show">
                     {section name=s loop=$city}
-                        <option {if $vizitkientry_info.vizitkientry_city == $city[s].vizitkisetting_id} SELECTED{/if}>{$city[s].vizitki_city}</option>
+                        <option {if $vizitkientry_info.vizitkientry_city == $city[s]} SELECTED{/if}>{$city[s]}</option>
                     {/section}
                 </select>
                 </div>

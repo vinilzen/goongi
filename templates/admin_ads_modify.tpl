@@ -1,4 +1,39 @@
 {include file='admin_header.tpl'}
+{literal}
+<script type="text/javascript">
+ function Show_city(country_id){
+var request = new Request.JSON({
+      'url' : 'admin_ads_modify.php',
+      'method' : 'post',
+      'data' : {
+        'task':'get_city',
+         countryid: '' + country_id + ''
+      },
+      onComplete: function(responseObject)
+      {
+        if ( responseObject.error == '0') {
+         document.getElementById('city_show').style.display = 'none';
+         var  sel;
+         var  city;
+         sel = 'город-<select name="city" id = "city_show">';
+         responseObject.result.forEach(function(value) {
+           city = city+'<option>'+value+'</option>';
+         });
+          city = city+ '</select>';
+            document.getElementById('countydiv').innerHTML= sel+city;
+
+          }
+          if (responseObject.error == '1') {
+            document.getElementById('city_show').style.display = 'none';
+            alert( 'нет городов');
+          }}
+      //  window.location = 'user_album.php';
+     
+    }).send();
+                                return false;
+  }
+</script>
+{/literal}
 
 {* $Id: admin_ads_modify.tpl 8 2009-01-11 06:02:53Z john $ *}
 
@@ -406,7 +441,36 @@
     </table>
   </td>
   </tr>
+
+               
+
+               
+    <tr >
+        <td class='form1'>Регион трансляции:</td>
+    
+    <td class='form2'>
+    <table cellpadding='0' cellspacing='0' >
+    <tr>
+        <td>cтрана- <select name="contry" onChange = "Show_city(this.value)">
+                        {section name=s loop=$ad_country}
+                          <option value = "{$ad_country[s].vizitkisetting_id}" {if $ad_info_country == $ad_country[s].vizitkisetting_id} SELECTED{/if}>{$ad_country[s].vizitkisetting_country}</option>
+                         {/section}
+                </select>
+        &nbsp;&nbsp;&nbsp;</td>
+ 
+        <td><div id="countydiv">город-
+            <select name="city" id = "city_show">
+                    {section name=s loop=$ad_city}
+                        <option {if $ad_info_city == $ad_city[s]} SELECTED{/if}>{$ad_city[s]}</option>
+                    {/section}
+                </select>
+</div>
+    </td>
+    </tr>
+    </table>
+    </td></tr>
   </table>
+
 </td></tr>
 </table>
 
@@ -415,6 +479,7 @@
 
 <table cellpadding='0' cellspacing='0' width='100%' style='display: none;'>
 <tr><td class='header'>{lang_print id=376}</td></tr>
+
 <tr><td class='setting1'>
   {lang_print id=377}
 </td></tr>
@@ -466,6 +531,7 @@
 <tr><td class='setting1'>
   {lang_print id=380}
 </td></tr>
+
 <tr><td class='setting2'>
   <table cellpadding='0' cellspacing='0' align='center'>
   <tr>
@@ -488,12 +554,14 @@
     {/section}
     </select>
   </td>
+
   </tr>
   </table>
 </td></tr>
 <tr><td class='setting2'>
   <table cellpadding='0' cellspacing='0'>
   <tr>
+
   <td><input type='checkbox' name='ad_public' id='ad_public' value='1'{if $ad_public == 1} checked='checked'{/if}></td>
   <td><label for='ad_public'>{lang_print id=384}</label></td>
   </tr>

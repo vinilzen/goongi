@@ -29,6 +29,7 @@
 <table cellpadding='0' cellspacing='0' class='list' width='100%'>
 <tr>
 <td class='header' width='10'><a class='header' href='admin_ads.php?s={$i}'>{lang_print id=87}</a>&nbsp;</td>
+<td class='header' nowrap='nowrap' width='10'>Пользователь</td>
 <td class='header' width='100%'><a class='header' href='admin_ads.php?s={$n}'>{lang_print id=258}</a>&nbsp;</td>
 <td class='header' align='center'>{lang_print id=259}&nbsp;</td>
 <td class='header' align='center' align='center'><a class='header' href='admin_ads.php?s={$v}'>{lang_print id=396}</a>&nbsp;</td>
@@ -49,6 +50,7 @@
     {/if}
     <tr class='{cycle values="background1,background2"}'>
     <td class='item'>{$ads[ad_loop].ad_id}&nbsp;</td>
+    <td class='item'>{$ads[ad_loop].vizitkientry_user_id}&nbsp;</td>
     <td class='item'>{$ads[ad_loop].ad_name}&nbsp;</td>
     <td class='item' nowrap='nowrap' align='center'>{if $ads[ad_loop].ad_paused == 1}{lang_print id=402}{elseif $ads[ad_loop].ad_date_start > $nowdate}{lang_print id=404}{elseif $ads[ad_loop].ad_date_end < $nowdate && $ads[ad_loop].ad_date_end != 0}{lang_print id=405}{else}{lang_print id=403}{/if}&nbsp;</td>
     <td class='item' align='center'>{$ad_views}&nbsp;</td>

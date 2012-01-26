@@ -191,8 +191,10 @@ if( $task=="dosave" )
 if( $task=="get_city" )
 {
 $city=$vizitki->get_country_city($country_id);
+if (count($city) == 0) $error = 1;
+else $error = 0;
   header("Content-Type: application/json");
-  echo json_encode(array('result' => &$city,'error' => 0));
+  echo json_encode(array('result' => &$city,'error' => $error));
   exit();
 }
 
@@ -225,7 +227,13 @@ for( $c=0; $c<count($level_vizitki_comments); $c++ )
 // CONVERT HTML CHARACTERS BACK
 $vizitkientry_info['vizitkientry_body'] = str_replace("\r\n", "", htmlspecialchars_decode($vizitkientry_info['vizitkientry_body']));
 //print_r ($vizitkientry_info);
-$city=$vizitki->get_all_city();
+
+if ($vizitkientry_info['vizitkientry_contry'] != '')
+{
+    $city = $vizitki->get_country_city($vizitkientry_info['vizitkientry_contry']);
+}
+else $city[] = 'нет городов';
+//print_r($city);
 $country=$vizitki->get_all_country();
 $smarty->assign('city', $city);
 $smarty->assign('country', $country);
