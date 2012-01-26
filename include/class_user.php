@@ -289,16 +289,21 @@ class SEUser
              
             while($p = $database->database_fetch_assoc($resource)) {
                   //print_r($parent_info);
-                  $role_p[] = $p['role'];
+                  if (($p['role'] == 'father') || ($p['role'] == 'mother')) $role_p['role'] = $p['role'];
+                  if ($p['role'] == 'child') $pr=1;
+                  $mas[] = $p;
            }
-             $pr=0;
-	foreach ($role_p as $p)
-                 if ($p == 'child') $pr=1;
+          // print_r ($mas);
+           //  echo $user_id;
+           //  $pr=0;
+	//foreach ($role_p as $p)
+        //         if ($p == 'child') $pr=1;
            //echo $role_p['role'];
            //  echo $user_id;
              if ( (($role_p['role'] == 'father') || ($role_p['role'] == 'mother')) && ($pr!=1)){
                 
                     $family_id = $this->create_family($user_id,$new_user);
+                  //  echo 123;
                           $this->add_role($family_id,'child', $user_id);
                           return $family_id;
              }else

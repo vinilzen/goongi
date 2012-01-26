@@ -9,7 +9,7 @@
 
 {if $result}<div class='success'><img src='../images/success.gif' class='icon' border='0'> {lang_print id=191}</div>{/if}
 
-<form action='admin_vizitki.php' method='POST' name='info'>
+<form action='admin_vizitki.php' method='POST' name='info' >
 
   {* JAVASCRIPT FOR ADDING vizitki CATEGORIES *}
   {literal}
@@ -65,7 +65,7 @@
           innerHTML += '<span class="oldcountryLangVar">';
        //   innerHTML += '&nbsp;(Language Variable #<a href="admin_language_edit.php?language_id=1&phrase_id=' + vizitkientrycat_languagevar_id + '">';
          // innerHTML += vizitkientrycat_languagevar_id;
-          innerHTML += '</a>)';
+          innerHTML += '</a>';
           innerHTML += '</span>';
           //innerHTML += '</td>';
 
@@ -165,17 +165,23 @@ function createNewcity()
   {
     // Display
     $('newcityInput').value = '';
+    $('newcitySelect').value = '';
     $('newcityContainer').style.display = '';
+    $('newcityContainerSel').style.display = '';
+
     $('newcityLink').style.display = 'none';
   }
 
   function editNewcity()
   {
     var newcityTitle = $('newcityInput').value;
+    var country = $('newcitySelect').value;
 
     // Display
     $('newcityInput').value = '';
+    $('newcitySelect').value = '';
     $('newcityContainer').style.display = 'none';
+    $('newcityContainerSel').style.display = 'none';
     $('newcityLink').style.display = '';
 
     // Ajax
@@ -184,7 +190,8 @@ function createNewcity()
       'url' : 'admin_vizitki.php',
       'data' : {
         'task' : 'createcity',
-        'vizitkientrycat_title' : newcityTitle
+        'vizitkientrycat_title' : newcityTitle,
+        'countr' : country
       },
       'onComplete':function(responseObject)
       {
@@ -196,30 +203,6 @@ function createNewcity()
         else
         {
           var vizitkientrycat_id = responseObject.vizitkientrycat_id;
-
-          var innerHTML = '';
-
-          //innerHTML += '<td>';
-          innerHTML += '<span class="oldcityContainer">';
-          innerHTML += '<a href="javascript:void(0);" onclick="switchOldcity(' + vizitkientrycat_id + ');">';
-          innerHTML += newcityTitle;
-          innerHTML += '</a>';
-          innerHTML += '</span>';
-          innerHTML += '<span class="oldcityInput" style="display:none;">';
-          innerHTML += "<input type='text' class='text' size='30' maxlength='50' onblur='editOldcity(" + vizitkientrycat_id + ");' value='" + newcityTitle + "' />";
-          innerHTML += '</span>';
-          innerHTML += '<span class="oldcitySelect" style="display:none;">';
-          innerHTML += "<select name='contry'> </select>";
-          innerHTML += '</span>';
-
-          innerHTML += '<span class="oldcityLangVar">';
-       //   innerHTML += '&nbsp;(Language Variable #<a href="admin_language_edit.php?language_id=1&phrase_id=' + vizitkientrycat_languagevar_id + '">';
-         // innerHTML += vizitkientrycat_languagevar_id;
-          innerHTML += '</a>)';
-          innerHTML += '</span>';
-          //innerHTML += '</td>';
-
-          //alert(innerHTML);
 
           var newcityRow = new Element('tr', {'id' : 'vizitkiEntrycityRow_' + vizitkientrycat_id});
           var newcityData = new Element('td', {'html' : innerHTML});
@@ -254,6 +237,7 @@ function createNewcity()
   {
     var cityRow = $('vizitkiEntrycityRow_' + vizitkientrycat_id);
     var newcityTitle = cityRow.getElement('input').value;
+    var country = cityRow.getElement('select').value;
 
     // DELETE
     if( newcityTitle.trim()=='' )
@@ -272,11 +256,12 @@ function createNewcity()
       'data' : {
         'task' : 'editcity',
         'vizitkientrycat_id' : vizitkientrycat_id,
-        'vizitkientrycat_title' : newcityTitle
+        'vizitkientrycat_title' : newcityTitle,
+        'countr' : country
       },
       'onComplete':function(responseObject)
       {
-        if( $type(responseObject)!="object" || !responseObject.result || responseObject.result=="failure" )
+        if(responseObject.result=="failure" )
         {
           alert('ERR');
         }
@@ -549,7 +534,7 @@ function createNewcity()
           <tr id="newcountryRow">
             <td style="padding-top: 5px;">
               <span id="newcountryContainer" style="display:none;"><input type='text' id='newcountryInput' class='text' size='30' maxlength='50' onblur="editNewcountry();" /></span>
-              <span id="newcountryLink"><a href="javascript:void(0);" onclick="createNewcountry();">{lang_print id=1700091}</a></span>
+              <span id="newcountryLink"><a href="javascript:void(0);" onclick="createNewcountry();">Добавить страну</a></span>
             </td>
           </tr>
 
@@ -562,20 +547,33 @@ function createNewcity()
           {section name=nation loop=$city}
           <tr id="vizitkiEntrycityRow_{$city[nation].vizitkisetting_id}">
             <td>
-              <span class="oldcityContainer"><a href="javascript:void(0);" onclick="switchOldcity({$city[nation].vizitkisetting_id});">{$city[nation].vizitki_city}</a></span>
-              <span class="oldcityInput" style="display:none;"><input type='text' class='text' size='30' maxlength='50' onblur="editOldcity({$city[nation].vizitkisetting_id});" value="{$city[nation].vizitki_city}" /></span>
+             {section name=loop loop=$country}
+                {if $city[nation].vizitki_country_id  == $country[loop].vizitkisetting_id}
+                    {assign var=art value=$country[loop].vizitkisetting_country}
+                {/if}
+             {/section}
+             <span class="oldcityContainer"><a href="javascript:void(0);" onclick="switchOldcity({$city[nation].vizitkisetting_id});">{$city[nation].vizitki_city} {$art}</a></span>
+              <span class="oldcityInput" style="display:none;"><input type='text' class='text' size='30' maxlength='50' OnChange="editOldcity({$city[nation].vizitkisetting_id}); document.info.submit();" value="{$city[nation].vizitki_city}" /></span>
               <span class="oldcitySelect" style="display:none;">
-                        <select name="contry">
+                        <select name="contry" id = "oldcountry">
                          {section name=loop loop=$country}
-                            <option>{$country[loop].vizitkisetting_country}</option>
-                         {/section}</select></span>
+                           <option value = "{$country[loop].vizitkisetting_id}" {if $city[nation].vizitki_country_id  == $country[loop].vizitkisetting_id} SELECTED{/if}>{$country[loop].vizitkisetting_country}</option>
+                         {/section}
+                        </select></span>
             </td>
           </tr>
           {/section}
           <tr id="newcityRow">
             <td style="padding-top: 5px;">
-              <span id="newcityContainer" style="display:none;"><input type='text' id='newcityInput' class='text' size='30' maxlength='50' onblur="editNewCategory();" /></span>
-              <span id="newcityLink"><a href="javascript:void(0);" onclick="createNewcity();">{lang_print id=1700091}</a></span>
+              <span id="newcityContainer" style="display:none;"><input type='text' id='newcityInput' class='text' size='30' maxlength='50' OnChange="editNewcity(); document.info.submit();" /></span>
+              <span id="newcityContainerSel" style="display:none;">
+                        <select name="contry" id='newcitySelect' >
+                         {section name=loop loop=$country}
+                           <option value = "{$country[loop].vizitkisetting_id}" {if $city[nation].vizitkisetting_id == $country[loop].vizitkisetting_id} SELECTED{/if}>{$country[loop].vizitkisetting_country}</option>
+                         {/section}
+                        </select></span>
+
+              <span id="newcityLink"><a href="javascript:void(0);" onclick="createNewcity(); ">Добавить город</a></span>
             </td>
           </tr>
 

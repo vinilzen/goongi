@@ -132,6 +132,16 @@ class se_vizitki
             $city[] = $vizitkientry_info;
             return $city;
 	}
+
+         function get_country_city($country)
+        {
+             global $database, $user;
+	   $sql = "SELECT * FROM se_vizitki_city WHERE vizitki_country_id = '{$country}';";
+           $resource = $database->database_query($sql);
+            while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
+            $city[] = $vizitkientry_info['vizitki_city'];
+            return $city;
+	}
   
   //
   // END METHOD se_vizitki()
@@ -689,7 +699,7 @@ if ($vizitkientry_image != ''){
 	// OUTPUT:
   //    Return whether or not the entrie(s) was(were) deleted
   //
-  function vizitki_settings()
+  function vizitki_settings_()
   {
         global $database;
 

@@ -7,6 +7,7 @@ include "header.php";
 
 $task         = ( !empty($_POST['task'])          ? $_POST['task']          : ( !empty($_GET['task'])         ? $_GET['task']         : NULL ) );
 $vizitkientry_id = ( !empty($_POST['vizitkientry_id'])  ? $_POST['vizitkientry_id']  : ( !empty($_GET['vizitkientry_id']) ? $_GET['vizitkientry_id'] : NULL ) );
+$country_id = ( !empty($_POST['countryid'])          ? $_POST['countryid']          : ( !empty($_GET['countryid'])         ? $_GET['countryid']         : NULL ) );
 //echo $vizitkientry_id;
 
 // ENSURE vizitkiS ARE ENABLED FOR THIS USER
@@ -187,6 +188,14 @@ if( $task=="dosave" )
     'vizitkientry_trackbacks'      => $vizitkientry_trackbacks
   );
 }
+if( $task=="get_city" )
+{
+$city=$vizitki->get_country_city($country_id);
+  header("Content-Type: application/json");
+  echo json_encode(array('result' => &$city,'error' => 0));
+  exit();
+}
+
 
 // GET vizitki ENTRY CATEGORIES
 $vizitkientrycats_array = $vizitki->vizitki_category_list($user->user_info['user_id']);
@@ -216,8 +225,10 @@ for( $c=0; $c<count($level_vizitki_comments); $c++ )
 // CONVERT HTML CHARACTERS BACK
 $vizitkientry_info['vizitkientry_body'] = str_replace("\r\n", "", htmlspecialchars_decode($vizitkientry_info['vizitkientry_body']));
 //print_r ($vizitkientry_info);
-$sett=$vizitki->vizitki_settings();
-$smarty->assign('sett', $sett);
+$city=$vizitki->get_all_city();
+$country=$vizitki->get_all_country();
+$smarty->assign('city', $city);
+$smarty->assign('country', $country);
 $settcat=$vizitki->vizitki_category_list();
 $smarty->assign('settcat', $settcat);
 

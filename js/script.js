@@ -1217,3 +1217,33 @@ function Show_piple(owner_id){
         'json');
                                 return false;
   }
+
+ function Show_city(country_id){
+    // alert(country_id);
+      $.post("user_vizitki_entry.php",
+        { 'task':'get_city', countryid: '' + country_id + ''},
+        function(data) {
+          if ( data.error == '0') {
+                                           
+                                           //  $('.count_g').append(data.result.length);
+                                          //    alert($('#user').value);
+                                               $.each(data.result, function(key, value) {
+    //                '<select name="city" id = "city_show">'
+    //                '{section name=s loop=$city}'
+    //                  '  <option {if $vizitkientry_info.vizitkientry_city == $city[s].vizitkisetting_id} SELECTED{/if}>{$city[s].vizitki_city}</option>'
+    //            '    {/section}'
+   //          '   </select>'
+                     
+          //   $('.city_show').append('<li><a href="#"><img src="/uploads_user/1000/'+value['user_candle_id']+'/'+value['user_candle_photo']+'.jpg" alt="" /></a><a href="#">'+ value['user_candle_name']+'</a></li>');
+                      $('.city_show').append('<li></li>');
+                                             });
+                                  //  $('#svecha_list').fadeIn();
+          }
+          if (data.error == '1') {
+            alert( data.result);
+          }
+        },
+        'json');
+                                return false;
+ }
+ 

@@ -3,7 +3,7 @@
 function handleFiles(file){
          document.getElementById('p_img').innerHTML='';
  var data = file.get(0).files.item(0).getAsDataURL(); // Получаем содержимое файла
-alert(data);
+//alert(data);
         // for(var i=0;i<files.length;i++){
        //          var f = files[i];
 
@@ -80,16 +80,16 @@ alert(data);
 
                 <h2>Выбор региона трансляции</h2>
                 <div class="input"><label>Страна</label>
-                <select name="contry">
-                        {section name=s loop=$sett}
-                          <option {if $vizitkientry_info.vizitkientry_contry == $sett[s].vizitkisetting_country} SELECTED{/if}>{$sett[s].vizitkisetting_country}</option>
+                <select name="contry" onChange = "Show_city(this.value)">
+                        {section name=s loop=$country}
+                          <option value = "{$country[s].vizitkisetting_id}" {if $vizitkientry_info.vizitkientry_contry == $country[s].vizitkisetting_id} SELECTED{/if}>{$country[s].vizitkisetting_country}</option>
                          {/section}
                 </select></div>
 
                 <div class="input"><label>Город</label>
-                <select name="city">
-                    {section name=s loop=$sett}
-                        <option {if $vizitkientry_info.vizitkientry_city == $sett[s].vizitkisetting_city} SELECTED{/if}>{$sett[s].vizitkisetting_city}</option>
+                <select name="city" id = "city_show">
+                    {section name=s loop=$city}
+                        <option {if $vizitkientry_info.vizitkientry_city == $city[s].vizitkisetting_id} SELECTED{/if}>{$city[s].vizitki_city}</option>
                     {/section}
                 </select>
                 </div>
