@@ -105,7 +105,7 @@ function callback(form,act,doc) {
 	<div class="person <%= sex === "w" ? "alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
 		<div class="info"></div>
 		<div class="relation"><%= id === json.user.id ? "Ты" : "" %></div>
-		<div class="photo">
+		<div class="photo loading">
 			<img src="<%= TREE.url.image.format(id, photo) %>" />
 			<% if (death) { %> <div class="ribbon"></div> <% } %>
 		</div>

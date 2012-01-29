@@ -117,6 +117,10 @@ var TREE = {
 			centering: true
 		});
 
+		$('img').load(function(e) {
+			$(this).closest('.photo').removeClass('loading');
+		});
+
 	},
 /*
 	render: function() {

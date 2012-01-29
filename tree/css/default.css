@@ -65,6 +65,7 @@ select option	{padding:0 0 0 3px}
 .person .info	{cursor:pointer; width:16px; height:16px; float:right; background:url(../img/icons/info.png)}
 .person .photo	{margin:0 0 10px; overflow:hidden; position:relative; display:inline-block}
 .person .photo img	{height:120px; display:block; margin:0 auto}
+.person .photo.loading img	{visibility:hidden}
 .person .photo .ribbon	{background:url(../img/decor/ribbon.png); width:58px; height:58px; position:absolute; right:-2px; bottom:-2px}
 .person .name	{margin:0 0 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:left}
 .person .name, .person .relation	{font-weight:bold}
