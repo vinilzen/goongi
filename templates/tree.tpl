@@ -82,20 +82,9 @@ function callback(form,act,doc) {
 </div-->
 
 <div id="user" class="closed">
-	<div class="settings closed">
-		<!--div class="toggle"></div-->
-		<div class="print" ></div>
-		<!--div class="title">Параметры</div>
-		<ul>
-			<li>Добавить родственников</li>
-			<li>Посмотреть ветвь</li>
-			<li>Присоединить</li>
-			<li>Удалить связь</li>
-			<li>Удалить этого человека</li>
-		</ul-->
-	</div>
+	<div class="print"></div>
 	<div class="body"></div>
-	<div class="toggle"></div>
+	<div class="toggle"><div></div></div>
 </div>
 
 <script id="user-tmpl" type="text/html">
@@ -106,11 +95,6 @@ function callback(form,act,doc) {
 		</a>
 	</div>
 	<div class="birth"><%= birthday ? (sex === "m" ? "Родился " : "Родилась ") + birthday : "" %></div>
-	<!--div class="edit"><a href="/user_editprofile.php" target="_top"><span>Редактировать профиль</span></a></div-->
-	<div class="relations">
-		<table>
-		</table>
-	</div>
 </script>
 
 <div id="viewpoint"></div>
