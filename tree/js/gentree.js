@@ -471,7 +471,7 @@ TREE.popups.collection = {
 						fname: '',
 						lname: '',
 						alias: '',
-                                                invite:'',
+						invite: '',
 						birthday: null,
 						death: null,
 						send_invite: null,
@@ -490,7 +490,7 @@ TREE.popups.collection = {
 						fname: '',
 						lname: '',
 						alias: '',
-                                                invite:'',
+						invite: '',
 						birthday: null,
 						death: null,
 						send_invite: null,
@@ -509,7 +509,7 @@ TREE.popups.collection = {
 						fname: '',
 						lname: '',
 						alias: '',
-                                                invite:'',
+						invite: '',
 						birthday: null,
 						death: null,
 						send_invite: null,
@@ -528,7 +528,7 @@ TREE.popups.collection = {
 						fname: '',
 						lname: '',
 						alias: '',
-                                                invite:'',
+						invite: '',
 						birthday: null,
 						death: null,
 						send_invite: null,
@@ -615,7 +615,8 @@ TREE.popups.collection = {
 		},
 
 		save: function() {
-			TREE.api.updatePerson(this.serialize());
+			!this.$('.save').hasClass('sub') && TREE.api.updatePerson(this.serialize());
+			this.$('.save').addClass('sub');
 		},
 
 		toggleDead: function(e) {
