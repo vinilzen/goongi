@@ -615,8 +615,13 @@ TREE.popups.collection = {
 		},
 
 		save: function() {
-			!this.$('.save').hasClass('sub') && TREE.api.updatePerson(this.serialize());
-			this.$('.save').addClass('sub');
+			var invite = this.$('[name=email]').val();
+			if (!invite || /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(invite)) {
+				!this.$('.save').hasClass('sub') && TREE.api.updatePerson(this.serialize());
+				this.$('.save').addClass('sub');
+			} else {
+				alert('Неверный e-mail');
+			}
 		},
 
 		toggleDead: function(e) {
