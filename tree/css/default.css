@@ -76,15 +76,16 @@ select option	{padding:0 0 0 3px}
 .marriage	{display:inline-block}
 */
 
-.person	{float:left; border:2px solid #9cd3ed; margin:0 30px; padding:8px 12px 0; width:130px; box-shadow:0 0 10px #ccc; background:#ecf9ff}
-.person .relation	{color:#666; margin:0 20px 10px 0; height:14px}
+.person	{float:left; border:2px solid #9cd3ed; margin:0 30px; padding:8px 12px 0; width:130px; box-shadow:0 0 10px #ccc; background:#ecf9ff; text-align:center}
+.person .relation	{color:#666; margin:0 20px 10px 0; height:14px; text-align:left}
 .person .info	{cursor:pointer; width:16px; height:16px; float:right; background:url(../img/icons/info.png)}
-.person .photo	{margin:0 0 10px; overflow:hidden}
+.person .photo	{margin:0 0 10px; overflow:hidden; position:relative; display:inline-block}
 .person .photo img	{height:120px; display:block; margin:0 auto}
-.person .name	{margin:0 0 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.person .photo .ribbon	{background:url(../img/decor/ribbon.png); width:58px; height:58px; position:absolute; right:-2px; bottom:-2px}
+.person .name	{margin:0 0 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:left}
 .person .name, .person .relation	{font-weight:bold}
 .person .name, .person .actions	{color:#2a86dc}
-.person .actions ul	{list-style:none; border-width:1px 0; border-style:solid; border-color:#c9d4d9; background:#fff; margin:0 -12px; line-height:16px; padding:5px 0}
+.person .actions ul	{list-style:none; border-width:1px 0; border-style:solid; border-color:#c9d4d9; background:#fff; margin:0 -12px; line-height:16px; padding:5px 0; text-align:left}
 .person .actions li	{padding:0 12px; cursor:pointer}
 .person .actions li:hover	{text-decoration:underline}
 .person .actions .toggle	{height:16px; background:url(../img/icons/arrow-90.png) center no-repeat; cursor:pointer}

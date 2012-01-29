@@ -1,5 +1,5 @@
 {literal}
-<script type='text/javascript'> 
+<script type='text/javascript'>
 function file_send() {
   sendForm("my_form", "/ajax_upload.php", callback);
   return false;
@@ -63,41 +63,39 @@ function callback(form,act,doc) {
 </head>
 <body>
 
-<!--<div id="header">-->
-	<!--<div class="caption">Моё дерево</div>-->
-	<!--<div class="float-r">-->
-		<!--div class="ico home"></div-->
-	<!--	<div class="ico print"></div>-->
-	<!--	<div class="ico settings"></div>-->
-	<!--</div>-->
-	<!--<div class="breadcrumb">-->
-	<!--	<a href="/" target="_top">Главная</a>-->
-	<!--	<span>&rarr;</span>-->
-	<!--	<a href="/{$user->user_info.user_username}" target="_top">Профиль</a>-->
-	<!--	<span>&rarr;</span>-->
-	<!--	<b>Моё дерево</b>-->
-	<!--</div>-->
-	<!--div class="button"><div>Добавить родственника</div></div>
-	<div class="button sub"><div>Сохранить дерево</div></div-->
-<!--</div>-->
+<!--div id="header">
+	<div class="caption">Моё дерево</div>
+	<div class="float-r">
+		<div class="ico home"></div>
+		<div class="ico print"></div>
+		<div class="ico settings"></div>
+	</div>
+	<div class="breadcrumb">
+		<a href="/" target="_top">Главная</a>
+		<span>&rarr;</span>
+		<a href="/{$user->user_info.user_username}" target="_top">Профиль</a>
+		<span>&rarr;</span>
+		<b>Моё дерево</b>
+	</div>
+	div class="button"><div>Добавить родственника</div></div>
+	<div class="button sub"><div>Сохранить дерево</div></div>
+</div-->
 
 <div id="user" class="closed">
 	<div class="settings closed">
-		<!--<div class="toggle"></div>-->
-                <div class="print" ></div>
-		<!--<div class="title">Параметры</div>
+		<!--div class="toggle"></div-->
+		<div class="print" ></div>
+		<!--div class="title">Параметры</div>
 		<ul>
 			<li>Добавить родственников</li>
 			<li>Посмотреть ветвь</li>
 			<li>Присоединить</li>
 			<li>Удалить связь</li>
 			<li>Удалить этого человека</li>
-		</ul>-->
+		</ul-->
 	</div>
-
 	<div class="body"></div>
 	<div class="toggle"></div>
-
 </div>
 
 <script id="user-tmpl" type="text/html">
@@ -107,11 +105,10 @@ function callback(form,act,doc) {
 			<img src="<%= TREE.url.image.format(id, photo) %>" />
 		</a>
 	</div>
-	<div class="birth"><%= (sex === "m" ? "Родился" : "Родилась") + birthday %></div>
-	<!--<div class="edit"><a href="/user_editprofile.php" target="_top"><span>Редактировать профиль</span></a></div>-->
+	<div class="birth"><%= birthday ? (sex === "m" ? "Родился " : "Родилась ") + birthday : "" %></div>
+	<!--div class="edit"><a href="/user_editprofile.php" target="_top"><span>Редактировать профиль</span></a></div-->
 	<div class="relations">
 		<table>
-		
 		</table>
 	</div>
 </script>
@@ -121,16 +118,17 @@ function callback(form,act,doc) {
 {literal}
 
 <script id="person-tmpl" type="text/html">
-	<div class="person<%= sex === "w" ? " alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
+	<div class="person <%= sex === "w" ? "alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
 		<div class="info"></div>
 		<div class="relation"><%= id === json.user.id ? "Ты" : "" %></div>
-		<div class="photo"><img src="<%= TREE.url.image.format(id, photo) %>" /></div>
+		<div class="photo">
+			<img src="<%= TREE.url.image.format(id, photo) %>" />
+			<% if (death) { %> <div class="ribbon"></div> <% } %>
+		</div>
 		<div class="name"><%= Base64.decode(displayname) %></div>
 		<div class="actions closed">
 			<ul>
- 
 				<li class="edit">Редактировать</li>
-				<!--<li class="change">Изменить тип связи</li>-->
 				<li class="remove">Удалить человека</li>
 			</ul>
 			<div class="toggle"></div>
@@ -143,7 +141,7 @@ function callback(form,act,doc) {
 		<input type="hidden" name="id" value="<%= id %>" />
 		<table>
 			<tr>
-			<td>
+				<td>
 					<div class="field">
 						<div class="name">Пол</div>
 						<label><input type="radio" name="sex" value="m" <% if (sex === "m") { %> checked="checked" <% } %> /> Мужской</label>
@@ -152,24 +150,23 @@ function callback(form,act,doc) {
 				</td>
 				<td class="sep"></td>
 				<td>
-                             <% if (Base64.decode(fname) !== ''){ %>
-					<div class="field">
-						<div class="name">Загрузи новый аватар</div>
-						<form id="my_form" method="post" action="" enctype="multipart/form-data" onsubmit="file_send()">
-                                                <input type="file" name="photo" />
-                                                <input type = "hidden" name = "u_id" value = "<%= id %>">
-                                                <input type="submit" value="отправить">
-                                                </form>
-                                         </div>
-                               <%} %>
-                              
+					<% if (Base64.decode(fname) !== "") { %>
+						<div class="field">
+							<div class="name">Загрузи новый аватар</div>
+							<form id="my_form" method="post" action="" enctype="multipart/form-data" onsubmit="file_send()">
+								<input type="file" name="photo" />
+								<input type = "hidden" name = "u_id" value = "<%= id %>">
+								<input type="submit" value="отправить">
+							</form>
+						</div>
+					<% } %>
 				</td>
 			</tr>
 		</table>
 
 		<div class="field">
 			<label class="name"><input type="checkbox" name="invite" /> Пригласить</label>
-			<input type="text" name="email"  value="<%= invite %>" />
+			<input type="text" name="email" value="<%= invite %>" />
 		</div>
 
 		<div class="field">
@@ -178,16 +175,12 @@ function callback(form,act,doc) {
 		</div>
 		<div class="field">
 			<div class="name">Фамилия</div>
-			<input type="text" name="lname"   <% if (Base64.decode(lname) === '') { %> value="<%= Base64.decode(json.users[id].lname) %>" <% } %> value="<%= Base64.decode(lname) %>"  />
+			<input type="text" name="lname" <% if (Base64.decode(lname) === "") { %> value="<%= Base64.decode(json.users[id].lname) %>" <% } %> value="<%= Base64.decode(lname) %>" />
 		</div>
 		<div class="field">
 			<div class="name">Прозвище</div>
 			<input type="text" name="alias" value="<%= alias %>" />
 		</div>
-		<!--div class="field">
-			<div class="name">Мать/Отец</div>
-			<select><option></option></select>
-		</div-->
 		<table>
 			<tr>
 				<td>
@@ -240,15 +233,14 @@ function callback(form,act,doc) {
 	<div class="popup hide">
 		<div class="close"></div>
 		<div class="header"><%= header %></div>
-		<div class="content">sdfsdgsdfgsdfgsdfgdsdfg</div>
+		<div class="content"></div>
 	</div>
 </script>
 
 <script id="info-tmpl" type="text/html">
 	<div class="body">
 		<table>
-			
-                        <tr>
+			<tr>
 				<th>Пол</th>
 				<td><%= sex === "m" ? "Мужской" : "Женский" %></td>
 			</tr>

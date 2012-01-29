@@ -9,6 +9,8 @@ $(function() {
 
 var TREE = {
 
+	debug: true,
+
 	api: {
 
 		getUnions: function() {
@@ -19,14 +21,14 @@ var TREE = {
 		},
 
 		updatePerson: function(person) {
-			console.log('tree_build.php: ', person);
+			TREE.debug && console.log('tree_build.php: ', person);
 			return $.ajax({
 				type: 'POST',
 				url: '/tree_build.php',
 				dataType: 'json',
 				data: person
 			}).success(function(res) {
-				console.log(res.error, ': ', res.result);
+				TREE.debug && console.log(res.error, ': ', res.result);
 				window.location.replace(window.location.href.split('#')[0] + '#' + $(document).scrollLeft() + ',' + $(document).scrollTop());
 				window.location.reload();
 			})
@@ -440,7 +442,7 @@ TREE.popups.collection = {
 				scrollLeft: personOffset.left + personWidth / 2 - $(window).width() / 2,
 				scrollTop: personOffset.top + personHeight / 2 - $(window).height() / 2
 			});
-			console.log(personOffset.top, personHeight)
+			TREE.debug && console.log(personOffset.top, personHeight);
 
 		},
 
