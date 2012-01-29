@@ -29,8 +29,12 @@ var TREE = {
 				data: person
 			}).success(function(res) {
 				TREE.debug && console.log(res.error, ': ', res.result);
-				window.location.replace(window.location.href.split('#')[0] + '#' + $(document).scrollLeft() + ',' + $(document).scrollTop());
-				window.location.reload();
+				if (res.error === "Ошибка" ) {
+					alert(res.result);
+				} else {
+					window.location.replace(window.location.href.split('#')[0] + '#' + $(document).scrollLeft() + ',' + $(document).scrollTop());
+					window.location.reload();
+				}
 			})
 		}
 
