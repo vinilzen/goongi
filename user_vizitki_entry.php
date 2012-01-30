@@ -47,8 +47,7 @@ if( $vizitkientry_id )
 // DO SAVE
 if( $task=="dosave" )
 {
-  
-
+   
     if ($_FILES['upload2']['name']){
   $file_maxsize = "4194304";
   $file_exts = Array('jpg', 'jpeg', 'gif', 'png');
@@ -188,9 +187,7 @@ if( $task=="dosave" )
     'vizitkientry_comments'        => $vizitkientry_comments,
     'vizitkientry_trackbacks'      => $vizitkientry_trackbacks
   );
-
 }
-
 if( $task=="get_city" )
 {
 $city=$vizitki->get_country_city($country_id);
@@ -250,6 +247,5 @@ $smarty->assign('vizitkientrycats', $vizitkientrycats_array);
 $smarty->assign('privacy_options', $privacy_options);
 $smarty->assign('comment_options', $comment_options);
 $smarty->assign('comments_total', $comments_total);
-$smarty->assign('is_error', 0);
 include "footer.php";
 ?>

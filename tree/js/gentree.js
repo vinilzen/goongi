@@ -54,7 +54,7 @@ var TREE = {
 
 	// drawn: [],
 	url: {
-		image: 'http://' + window.location.host + '/uploads_user/1000/{0}/{1}'
+		image: 'http://' + window.location.host + '/uploads_user/2000/{0}/{1}'
 	},
 
 	viewpoint: $('#viewpoint'),

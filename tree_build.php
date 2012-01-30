@@ -108,7 +108,6 @@ switch ($type_request) {
 								if ( !$user->check_existing_parent($user_id, $role) ) {
 										
 									$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
-                                                                       
 									$level = $user->getlevel($user_id);
                                                                         if ($level == 0) $level = 1;
                                                                            elseif ($level > 0) $level = $level+ 1;
@@ -388,15 +387,34 @@ switch ($type_request) {
 			if ( isset($_POST['photo']) ) {  // ADD CHECKING  
 				$set[] = " `user_photo` = '" . mysql_real_escape_string($_POST['photo']) . "' ";
 			}
-			
-			if (isset($_POST['death']) && is_numeric($_POST['death']) ) {  // ADD CHECKING
-				$d_date = date('Y-m-d',$_POST['death']);
+                        
+			if (isset($_POST['death']))
+                        {
+
+                        $dateb=$_POST['death'];
+                        $dateb =preg_replace('/[-]+?/','',$dateb);
+                     //   echo $dateb;
+                        }
+			if (isset($_POST['death']) && is_numeric($dateb) ) {  // ADD CHECKING
+			//	$d_date = date('Y-m-d',$_POST['death']);
+                            	$d_date = $_POST['death'];
 				$set_fields[] = " `profilevalue_12` = '" . $d_date . "' ";
 			}
-			
-			if (isset($_POST['birthday']) && is_numeric($_POST['birthday']) ) {  // ADD CHECKING
-				$b_date = date('Y-m-d',$_POST['birthday']);
+			//echo 123;
+                        if (isset($_POST['birthday']))
+                        {
+
+                        $dateb=$_POST['birthday'];
+                        $dateb =preg_replace('/[-]+?/','',$dateb);
+                     //   echo $dateb;
+                        }
+			if (isset($_POST['birthday']) && is_numeric($dateb) ) {
+                           // ADD CHECKING
+				//$b_date = date('Y-m-d',$_POST['birthday']);
+                             //   echo $b_date;
+                                $b_date=$_POST['birthday'];
 				$set_fields[] = " `profilevalue_4` = '" . $b_date . "' ";
+                               // print_r ($set_fields);
 			}
 			
 			if ( $user_id != $user->user_info['user_id'] ) { // new login
@@ -469,6 +487,7 @@ switch ($type_request) {
 			
 			if (count($set_fields) > 0) {
 				$sql_fields = "UPDATE `se_profilevalues` SET " . implode(' , ', $set_fields) ." WHERE `profilevalue_user_id` = $user_id LIMIT 1;";
+                             //   echo $sql_fields;
 				$r_fields = $database->database_query($sql_fields);
 			} else {
 				$r_fields = true;

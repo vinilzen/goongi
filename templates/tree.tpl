@@ -148,15 +148,8 @@ function callback(form,act,doc) {
 			</tr>
 		</table>
 
-<<<<<<< HEAD
-		
-=======
-		<div class="field">
-			<label class="name"><input type="checkbox" name="invite" /> Пригласить</label>
-			<input type="text" name="email" value="<%= invite %>" />
-		</div>
 
->>>>>>> 49e0e5b43584cd895e30821a06057573cdef33e9
+		
 		<div class="field">
 			<div class="name">Имя</div>
 			<input type="text" name="fname" value="<%= Base64.decode(fname) %>" />
@@ -169,7 +162,7 @@ function callback(form,act,doc) {
 			<div class="name">Прозвище</div>
 			<input type="text" name="alias" value="<%= alias %>" />
 		</div>
-<<<<<<< HEAD
+
                 <div class="field">
 			<label class="name"><input type="checkbox" name="invite" /> Пригласить</label>
 			<input type="text" name="email"  value="<%= invite %>" />
@@ -178,8 +171,7 @@ function callback(form,act,doc) {
 			<div class="name">Мать/Отец</div>
 			<select><option></option></select>
 		</div-->
-=======
->>>>>>> 49e0e5b43584cd895e30821a06057573cdef33e9
+
 		<table>
 			<tr>
 				<td>

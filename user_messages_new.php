@@ -42,7 +42,7 @@ if($task == "send") {
 		$error_message = SE_Language::_get($is_error);
 	}
  if ($is_error != 0)
-      {echo $is_error; die();}
+      {echo $error_message; die();}
  else {echo 'Отправленно'; die();}
  
 	/*
