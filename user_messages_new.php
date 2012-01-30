@@ -41,8 +41,9 @@ if($task == "send") {
 		SE_Language::load();
 		$error_message = SE_Language::_get($is_error);
 	}
- 
- 	echo 'all ok'; die();
+ if ($is_error != 0)
+      {echo $is_error; die();}
+ else {echo 'Отправленно'; die();}
  
 	/*
  	// SEND AJAX CONFIRMATION

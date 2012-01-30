@@ -17,7 +17,10 @@ class mf_gifts {
 	function save_data($data){
 		global $database, $url, $actions, $user, $notify;
                 
-		$user_data = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_users WHERE user_username = '$data[to_user]'"));
+		$user_data = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_users WHERE user_displayname = '$data[to_user]'"));
+               $error = 0;
+                if ($user_data[user_id] == null) $error = 795;
+                
 		$gift_data = $database->database_fetch_assoc($database->database_query("SELECT * FROM mf_gifts_data WHERE id = '$data[gift_id]'"));
 		$user_data_dn = $user_data[user_fname]." ".$user_data[user_lname];
 		$date = time();
@@ -29,7 +32,9 @@ class mf_gifts {
 		if($data['private'] != 1) {
 			$actions->actions_add($user, "sendgift", Array($data[from_un], $data[from_dn], $user_data[user_username], $user_data_dn));
 		}
-		return true;
+                if ($error == 0)
+                     return 0;
+                else return $error;
 	}
 
 	function create_category($new_category){

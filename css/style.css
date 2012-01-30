@@ -255,6 +255,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 
 	.vk		{ overflow:hidden; list-style:none; margin-bottom:20px; position:relative; z-index:1; margin-top:-16px; background:#fff;}
 	.vk li	{ overflow:hidden; list-style:none; float:left; border-left:1px solid #cccccc; border-bottom:1px solid #cccccc; border-top:0;}
+	.vk li span{font: bold 12px arial;}
 	.vk li a	{ display:inline-block; background:#d7d7d7; border:1px solid #fff; padding:0 45px; font:14px Trebuchet MS; color:#000; text-decoration:none; line-height:28px;}
 	.vk li.active	{ border-bottom:0px; border-left:0;}
 	.vk li.active a	{ border:1px solid #fff; border-top:1px solid #ccc; border-left:1px solid #ccc; background:#fff;}
@@ -453,7 +454,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .input.photoedit { padding-right:80px;}
 	.form .input,
 	.form .radio		{ margin-bottom:17px; overflow:hidden;}
-	.form .error		{ font-size:11px; position:relative; margin-bottom:30px; color:#dc2a2a; margin-top:-25px;}
+	.form .error		{ font-size:11px; position:relative; margin-bottom:30px; color:#dc2a2a; }
 	.form p.p_inf		{ font-size:11px; padding-bottom:5px; color:#7f7f7f; width:390px;}
 	.form .input label,
 	.form .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
@@ -470,7 +471,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .input.date label			{ overflow:hidden;}
 	.form .input.date input			{ float:left;}
 	.form .input.date select		{ float:left; margin-right:1px; padding:4px 4px 4px 0px;}
-	.form .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px;}
+	.form .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:194px;}
 	.edit_blog .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px;}
 	.form .input textarea	{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px; height:95px;}
 	.form .input select		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:354px;}
@@ -618,7 +619,7 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .form.picture_gif img		{ border:1px solid #d7d7d7; padding:2px; margin-right:20px; float:left; margin-bottom:20px;}
 
 #add_msg_w .form img		{ border:1px solid #d7d7d7; padding:2px; margin-right:20px; float:left; margin-bottom:20px;}
-#add_msg_w .form.add_w .input input		{ width:255px;}
+
 #add_msg_w .form.add_w			{ padding-bottom:5px;}
 #add_msg_w .form .button		{ text-align:right; padding-right:8px; padding-top:3px;}
 

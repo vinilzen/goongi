@@ -47,13 +47,14 @@ if( $vizitkientry_id )
 // DO SAVE
 if( $task=="dosave" )
 {
-   
+  
+
     if ($_FILES['upload2']['name']){
   $file_maxsize = "4194304";
   $file_exts = Array('jpg', 'jpeg', 'gif', 'png');
   $file_types = Array('image/jpeg', 'image/jpg', 'image/jpe', 'image/pjpeg', 'image/pjpg', 'image/x-jpeg', 'x-jpg', 'image/gif', 'image/x-gif', 'image/png', 'image/x-png');
-  $file_maxwidth = 100;
-  $file_maxheight = 100;
+  $file_maxwidth = 105;
+  $file_maxheight = 105;
   $ext = str_replace(".", "", strrchr($_FILES['upload2']['name'], "."));
   $rand = rand(100000000, 999999999);
   $photo_newname = "banner$rand.".$ext;
@@ -64,7 +65,7 @@ if( $task=="dosave" )
   $new_photo = new se_upload();
   //$new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
   
-  $link = "<a href='$file_dest' target='_blank'><img src='$file_dest' border='0'/></a>";
+  $link = "<a href='$file_dest' target='_blank'><img src='$file_dest' border='0' width = '105' height = '105'/></a>";
   $link  = str_replace("'","&#039;", $link);
    
  
@@ -187,7 +188,9 @@ if( $task=="dosave" )
     'vizitkientry_comments'        => $vizitkientry_comments,
     'vizitkientry_trackbacks'      => $vizitkientry_trackbacks
   );
+
 }
+
 if( $task=="get_city" )
 {
 $city=$vizitki->get_country_city($country_id);
@@ -247,5 +250,6 @@ $smarty->assign('vizitkientrycats', $vizitkientrycats_array);
 $smarty->assign('privacy_options', $privacy_options);
 $smarty->assign('comment_options', $comment_options);
 $smarty->assign('comments_total', $comments_total);
+$smarty->assign('is_error', 0);
 include "footer.php";
 ?>

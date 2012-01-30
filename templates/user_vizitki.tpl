@@ -18,7 +18,7 @@
 {section name=vizitkientry_loop loop=$vizitkientries}
     <li id = "vizitka_{$vizitkientries[vizitkientry_loop].ad_id}">
     <strong>{$vizitkientries[vizitkientry_loop].ad_name}</strong><span>{$vizitkientries[vizitkientry_loop].vizitkientry_category}</span>
-    <p><img src="../uploads_admin/ads/{$vizitkientries[vizitkientry_loop].ad_filename}"  alt="" /></p>
+    <p><img src="../uploads_admin/ads/{$vizitkientries[vizitkientry_loop].ad_filename}"  alt="" width="105" height ="105"/></p>
     <p>{$vizitkientries[vizitkientry_loop].vizitkientry_body}<br /><strong>от {$vizitkientries[vizitkientry_loop].vizitkientry_price} руб.</strong></p>
     <p>{$vizitkientries[vizitkientry_loop].vizitkientry_telephon}<br />
     {$vizitkientries[vizitkientry_loop].vizitkientry_email}<br />

@@ -66,18 +66,27 @@ if($task == "send") {
 		'from_dn' => $user->user_displayname,
 		'message' => $message,
 		'private' => $_POST['private']);
-		$gift->save_data($data);
+		$result =$gift->save_data($data);
 	}else{
 		$is_error = 80000028;
 	}
-	if($_POST['to'] == 0){$is_error = 80000032;}
-	if($is_error != 0) { SE_Language::_preload($is_error); SE_Language::load(); $error_message = SE_Language::_get($is_error); }
-        echo 'Подарок отправлен'; die();
+        if ($result != 0) $is_error =$result;
+	//if($_POST['to'] == 0){$is_error = 80000032;}
+	if($is_error != 0) { 
+            SE_Language::_preload($is_error);
+		SE_Language::load();
+		$error_message = SE_Language::_get($is_error);
+        }
+       // echo $is_error;die();
+        if ($is_error != 0)
+            {echo $error_message; die();}
+        else {echo 'Подарок отправлен'; die();}
+        
 	// SEND AJAX CONFIRMATION
 	/*echo "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><script type='text/javascript'>";
 	echo "window.parent.messageSent('$is_error', '".str_replace("'", "\'", $error_message)."');";
 	echo "</script></head><body></body></html>";*/
-	exit();
+	//exit();
 
 }
 if($task == "show_gif") {

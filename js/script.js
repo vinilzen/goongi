@@ -561,12 +561,13 @@
                                           '<div id= "picture_gif"></div>'+
                                           '</div>'+
                                           '<div class="input"><label>Получатель<!-- {lang_print id=790} кому --></label>'+
-                                           '<input onfocus="if (this.value == \'Введите имя\') this.value =\'\'; if (this.value == \'Введите имя\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя" type="text" name="to_display" id="to_display" />'+
+                                           '<input onfocus="if (this.value == \'Введите имя и фамилию\') this.value =\'\'; if (this.value == \'Введите имя и фамилию\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя и фамилию\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя и фамилию" type="text" name="to_display" id="to_display" />'+
                                            ' </div>'+
                                        
                                        '<div class="clear"></div>'+
                                     '<div class="input">'+
-                                    '<textarea onblur="if (this.value == \'\') this.value=\'Пожалуйста,напишите сообщение\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"  onfocus="if (this.value == \'Пожалуйста,напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста,напишите сообщение\') this.style.color=\'#000\';" rows=\'3\' cols=\'10\' id="message" name="message"></textarea></div>'+
+                                //    '<textarea onblur="if (this.value == \'Пожалуйста,напишите сообщение\') this.value=\'\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"  onfocus="if (this.value == \'Пожалуйста,напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста,напишите сообщение\') this.style.color=\'#000\';" rows=\'3\' cols=\'10\' id="message" name="message"></textarea></div>'+
+                                    '<textarea onfocus="if (this.value == \'Пожалуйста,напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста,напишите сообщение\') this.style.color=\'#000\';" onblur="if (this.value == \'\') this.value=\'Пожалуйста,напишите сообщение\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"   rows=\'3\' cols=\'10\' id="message" name="message">Пожалуйста,напишите сообщение</textarea></div>'+
                                     '<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input onClick = "my_sender_gif(); return false;"  type="submit" class="button" value="Отправить" /></span><span class="r">&nbsp;</span></span></div>'
 	                                                );
                           options = { serviceUrl:'users.php' };
@@ -614,18 +615,20 @@
                            { 'task': 'show_f'},
                             function(data) {
                     if ( data.is_error == '0') {
+                        //'<div style="float:left;width:118px; margin-right:17px; overflow:hidden;">'+
+                         //                               '<img src="'+data.photo+'" alt="" />'+
+                         //                       '</div>'+
                          $('#add_msg_w').show();
-                          $('#add_msg_b').append('<div style="float:left;width:118px; margin-right:17px; overflow:hidden;">'+
-                                                        '<img src="'+data.photo+'" alt="" />'+
-                                                '</div>'+
-                                           '<div class="input"><label>Получатель<!-- {lang_print id=790} кому --></label>'+
-                                           '<input onfocus="if (this.value == \'Введите имя\') this.value =\'\'; if (this.value == \'Введите имя\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя" type="text" name="to_display" id="to_display" />'+
+                          $('#add_msg_b').append(
+                                           '<div class="input"><label>Имя и фамилия<!-- {lang_print id=790} кому --></label>'+
+                                        //   '<input onfocus="if (this.value == \'Введите имя\') this.value =\'\'; if (this.value == \'Введите имя\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя" type="text" name="to_display" id="to_display" />'+
+                                            '<input onfocus="if (this.value == \'Введите имя и фамилию\') this.value =\'\'; if (this.value == \'Введите имя и фамилию\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя и фамилию\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя и фамилию" type="text" name="to_display" id="to_display" />'+
                                            ' </div>'+
                                        '<div class="input"><label>Тема<!-- Тема --></label>'+
                                         '<input type="text" class="text" name="subject" id="subject" value="" /></div>'+
                                        '<div class="clear"></div>'+
                                     '<div class="input">'+
-'                                   <textarea onblur="if (this.value == \'\') this.value=\'Пожалуйста,напишите сообщение\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"  onfocus="if (this.value == \'Пожалуйста,напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста,напишите сообщение\') this.style.color=\'#000\';" rows=\'3\' cols=\'10\' id="message" name="message"></textarea></div>'+
+'                                   <textarea onfocus="if (this.value == \'Пожалуйста,напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста,напишите сообщение\') this.style.color=\'#000\';" onblur="if (this.value == \'\') this.value=\'Пожалуйста,напишите сообщение\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"   rows=\'3\' cols=\'10\' id="message" name="message">Пожалуйста,напишите сообщение</textarea></div>'+
                                     '<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input onClick = "my_sender(); return false;"  type="submit" class="button" value="Отправить" /></span><span class="r">&nbsp;</span></span></div>'
 	                                                );
                           options = { serviceUrl:'users.php' };

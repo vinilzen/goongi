@@ -11,8 +11,8 @@
 
 <ul class="vk">
 	<li><a href="user_friends.php">{lang_print id=894}</a></li>
-	<li><a href="user_friends_requests.php" >{lang_print id=895}</a></li>
-	<li class="active"><a href="user_friends_requests_outgoing.php">{lang_print id=896}</a></li>
+	<li><a href="user_friends_requests.php" >{lang_print id=895} <span>({$user->user_friend_total(1, 0)})</span></a></li>
+	<li class="active"><a href="user_friends_requests_outgoing.php">{lang_print id=896} </a></li>
 </ul>
 
 <div class='page_header'>{lang_print id=896}</div>

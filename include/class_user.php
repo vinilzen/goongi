@@ -97,7 +97,7 @@ class SEUser
   //    void
   //
   
-	function SEUser($user_unique = Array('0', '', ''), $select_fields = Array('*', '*', '*', '*')) {
+	/*function SEUser($user_unique = Array('0', '', ''), $select_fields = Array('*', '*', '*', '*')) {
 	  global $database;
     
 	  // SET VARS
@@ -181,8 +181,94 @@ class SEUser
 	  }
 
 		//var_dump($this->level_info); die();
+	}*/
+
+
+        function SEUser($user_unique = Array('0', '', ''), $select_fields = Array('*', '*', '*', '*')) {
+	  global $database;
+
+	  // SET VARS
+	  $this->is_error = 0;
+	  $this->user_exists = 0;
+	  $this->user_info['user_id'] = 0;
+	  $this->user_info['user_subnet_id'] = 0;
+	  $this->moderation_privacy = 1;
+
+    $user_unique_id = ( !empty($user_unique[0]) ? $user_unique[0] : NULL );
+    $user_unique_username = ( !empty($user_unique[1]) ? $user_unique[1] : NULL );
+    $user_unique_email = ( !empty($user_unique[2]) ? $user_unique[2] : NULL );
+
+	  // VERIFY USER_ID/USER_USERNAME/USER_EMAIL IS VALID AND SET APPROPRIATE OBJECT VARIABLES
+	  if( $user_unique_id || $user_unique_username || $user_unique_email ) {
+	    // SET USERNAME AND EMAIL TO LOWERCASE
+	    $user_username = strtolower($user_unique_username);
+	    $user_email = strtolower($user_unique_email);
+
+	    // SELECT USER USING SPECIFIED SELECTION PARAMETER
+	    $sql_array = array();
+	    if( !empty($user_unique[0]) )
+	      $sql_array[] = "SELECT {$select_fields[0]} FROM se_users WHERE user_id='{$user_unique_id}' LIMIT 1";
+
+	    if( !empty($user_unique[1]) )
+	      $sql_array[] = "SELECT {$select_fields[0]} FROM se_users WHERE user_username='{$user_username}' OR user_displayname='{$user_username}' LIMIT 1";
+
+	    if( !empty($user_unique[2]) )
+	      $sql_array[] = "SELECT {$select_fields[0]} FROM se_users WHERE user_email='{$user_email}' LIMIT 1";
+
+	    if( count($sql_array)>1 )
+	      $sql = '('.join(') UNION (', $sql_array).')';
+	    else
+	      $sql = $sql_array[0];
+
+	    $user = $database->database_query($sql);
+	    if($database->database_num_rows($user) == 1) {
+	      $this->user_exists = 1;
+	      $this->user_info = $database->database_fetch_assoc($user);
+
+	      // SET USER SALT
+	      $this->user_salt = $this->user_info['user_code'];
+
+	      // SET DISPLAY NAME (BACKWARDS COMPAT)
+        //$this->user_displayname = $this->user_info['user_displayname'];
+	      $this->user_displayname();
+
+	      // SELECT PROFILE CATEGORY INFO
+	      if( !empty($this->user_info['user_profilecat_id']) )
+          $this->profilecat_info =& SEUser::getProfileCategoryInfo($this->user_info['user_profilecat_id']);
+	      //if(isset($this->user_info[user_profilecat_id])) { $this->profilecat_info = $database->database_fetch_assoc($database->database_query("SELECT profilecat_id, profilecat_title FROM se_profilecats WHERE profilecat_id=".$this->user_info[user_profilecat_id]." LIMIT 1")); }
+
+	      // SELECT PROFILE INFO
+	      if( !empty($select_fields[1]) )
+          $this->profile_info =& SEUser::getProfileValues($this->user_info['user_id']);
+	      //if($select_fields[1] != "") { $this->profile_info = $database->database_fetch_assoc($database->database_query("SELECT $select_fields[1] FROM se_profilevalues WHERE profilevalue_user_id='".$this->user_info[user_id]."'")); }
+
+	      // SELECT LEVEL INFO
+	      if( !empty($select_fields[2]) )
+          $this->level_info =& SEUser::getLevelSettings($this->user_info['user_level_id']);
+	      //if($select_fields[2] != "") { $this->level_info = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_levels WHERE level_id='".$this->user_info[user_level_id]."'")); }
+
+        // GET USER SETTINGS
+        $this->usersetting_info =& SEUser::getUserSettings($this->user_info['user_id']);
+
+
+	      // SELECT SUBNET INFO
+	      if( $this->user_info['user_subnet_id'] )
+        {
+	        if( !empty($select_fields[3]) )
+            $this->subnet_info =& SECore::getSubnetworkInfo($this->user_info['user_subnet_id']);
+	        //if($select_fields[3] != "") { $this->subnet_info = $database->database_fetch_assoc($database->database_query("SELECT subnet_id, subnet_name FROM se_subnets WHERE subnet_id='".$this->user_info[user_subnet_id]."'")); }
+	      }
+        else
+        {
+	        $this->subnet_info['subnet_id'] = 0;
+          $this->subnet_info['subnet_name'] = 152;
+	      }
+	      SE_Language::_preload($this->subnet_info['subnet_name']);
+	    }
+	  }
+
+		//var_dump($this->level_info); die();
 	}
-  
   // END SEUser() METHOD
 
 	function check_existing_spouse($id, $role) {
@@ -2350,7 +2436,9 @@ function user_ajax_photo_upload($photo_name,$id_user)
                 $kinsman[] = $f['user_id'];
 
                 if (count($kinsman) > 1 ) return true;
-                else  return false;
+                if (count($kinsman) == 1 ) return 1;
+                if (count($kinsman) < 1 ) return false;
+               
 		
 	}
 	
@@ -3955,14 +4043,16 @@ function user_ajax_photo_upload($photo_name,$id_user)
 	  if( !$convo_id )
     {
 	    // ORGANIZE RECIPIENTS
-	    $tos = array_filter(preg_split('/[\s,;]+?/', $to));
-	    array_splice($tos, $this->level_info['level_message_recipients']);
-      
+	   $tos = array_filter(preg_split('/[,;]+?/', $to));
+	   array_splice($tos, $this->level_info['level_message_recipients']);
+          //    print_r ($tos);
 	    // LOOP OVER RECIPIENTS
       foreach( $tos as $to_username )
       {
+      //    echo ' ';
+       //    print_r ($to_username);
         // CANT SEND TO SELF
-        if( strtolower($to_username)==strtolower($this->user_info['user_username']) ) continue;
+        if( strtolower($to_username)==strtolower($this->user_info['user_displayname']) ) continue;
         
         // GET TO USER OBJECT
 	      $to_user = new SEUser(array(NULL, $to_username));
@@ -3971,7 +4061,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
         if( !$to_user->user_exists ) continue;
         if( $to_user->user_blocked($this->user_info['user_id']) ) continue;
         if( !$this->level_info['level_message_allow'] ) continue;
-        
+      
         // CHECK MESSAGE TYPES AND ADD RECIPIENT
         if( $this->level_info['level_message_allow']==2 || ($this->level_info['level_message_allow']==1 && $this->user_friended($to_user->user_info['user_id'])) )
         {
@@ -4651,53 +4741,38 @@ function user_ajax_photo_upload($photo_name,$id_user)
             }
             else
             {
-               
-                $role = $fam[0]['role'];
-                if ($role == 'father' || $role == 'mother')
-                {
-                        if (($this->get_kinsman($fam[0]['family_id'],'child') == true))
+               ////////1 ветвь/////////////////////////////
+               $role = $fam[0]['role'];
+               if ($role == 'child')
+                  {
+                      if (($this->get_kinsman($fam[0]['family_id'],'father','mother')== false))
                       {
-                          if (($this->get_kinsman($fam[0]['family_id'],'father','mother')== true)) $error1 = 0;
-                           else $error1 = 1;
-                      } else $error1 = 0;
+                          if ($this->get_kinsman($fam[1]['family_id'],'child') == false)  $error1 = 0;
+                          else $error1 = 1;
+                      }else
+                      {
+                          if (($this->get_kinsman($fam[1]['family_id'],'child') == false))  $error1 = 0;
+                          else $error1 = 1;
+                      }
                 }
-                elseif ($role == 'child')
-                {
-                     
-                     //$error = 0;
-                      if (($this->get_kinsman($fam[0]['family_id'],'father','mother')== false)) $error1 = 0;
-                      else $error1 = 1;
-                              //&& ($this->get_kinsman($fam[1]['family_id'],'father','mother')== false)) $error2 = 0;
-                    
-                      //else $error1 = 1;
-
-                 
-                }
-                ////////2 ветвь/////////////////////////////
                 $role = $fam[1]['role'];
-                if ($role == 'father' || $role == 'mother')
-                {
-                       if ($this->get_kinsman($fam[1]['family_id'],'child') == true)
+                 if ($role == 'child')
+                  {
+                      //$error = 0;
+                      if (($this->get_kinsman($fam[1]['family_id'],'father','mother')== false))
                       {
-                          if (($this->get_kinsman($fam[1]['family_id'],'father','mother')== true)) $error2 = 0;
-                           else $error2 = 1;
-                      } else $error2 = 0;
-                }
-                elseif ($role == 'child')
-                {
-                   
-                    if ($this->get_kinsman($fam[1]['family_id'],'father','mother') == false) $error2 = 0;
-                    else   $error2 = 1;
-                   //  $error = 0;
-                    
-                 //     if (($this->get_kinsman($fam[1]['family_id'],'child')== true)) $error2 = 0;
-                              //&& ($this->get_kinsman($fam[1]['family_id'],'father','mother')== false)) $error2 = 0;
-                 //     else $error2 = 1;
+                          if ($this->get_kinsman($fam[0]['family_id'],'child') == false)  $error1 = 0;
+                          else $error1 = 1;
+                      }else
+                      {
+                          if (($this->get_kinsman($fam[0]['family_id'],'child') == false))  $error1 = 0;
+                          else $error1 = 1;
+                      }
 
+                      
                 }
-            //    echo $error1;
-              //   echo $error2;
-                if (($error1 != 1)&&($error2 != 1)) {
+         
+                if ($error1 != 1){
                   $database->database_query("DELETE FROM  se_role_in_family  WHERE  user_id = '$user_id';");
                   $database->database_query("DELETE FROM se_tree_users WHERE user_id='{$user_id}'");
                  

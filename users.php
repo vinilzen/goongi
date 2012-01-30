@@ -10,7 +10,7 @@ if(isset($_GET['query'])) {
 	
 	//if ( preg_match( "/^(\w+)", $str)) {
 	if (preg_match ("/^(\w+)/i", $str)) {
-		$where = " `user_username` LIKE '$str%' ";
+		$where = " `user_displayname` LIKE '$str%' ";
 		$total_friends = $user->user_friend_total(0);
 		$friends = $user->user_friend_list(0, $total_friends, 0, 1, "se_users.user_dateupdated DESC", $where);
 		$result = "{ query:'$str',";
@@ -20,7 +20,7 @@ if(isset($_GET['query'])) {
 		$data = array();
 		
  		foreach ($friends as $key => $value) {
-			$suggestions[] = "'".$value->user_info['user_username']."'";
+			$suggestions[] = "'".$value->user_info['user_displayname']."'";
 			$data[] = "'".$value->user_info['user_id']."'";
 		 }
 		$result .= "suggestions:[" . implode(',', $suggestions) . "],

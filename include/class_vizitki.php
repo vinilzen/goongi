@@ -669,7 +669,7 @@ if ($vizitkientry_image != ''){
 		$uploaddir =  "../uploads_admin/ads/$photo_newname";
 
 		move_uploaded_file($file, $uploaddir.$photo_newname);
-		resize($uploaddir.$photo_newname, 100, 50, $uploaddir.$photo_newname);
+		resize($uploaddir.$photo_newname, 100, 100, $uploaddir.$photo_newname);
                 return $photo_newname;
 		//header("Location: admin_gifts.php");
 	}
