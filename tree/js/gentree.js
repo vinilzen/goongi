@@ -9,6 +9,8 @@ $(function() {
 
 var TREE = {
 
+	debug: true,
+
 	api: {
 
 		getUnions: function() {
@@ -19,16 +21,20 @@ var TREE = {
 		},
 
 		updatePerson: function(person) {
-			console.log('tree_build.php: ', person);
+			TREE.debug && console.log('tree_build.php: ', person);
 			return $.ajax({
 				type: 'POST',
 				url: '/tree_build.php',
 				dataType: 'json',
 				data: person
 			}).success(function(res) {
-				console.log(res.error, ': ', res.result);
-				window.location.replace(window.location.href.split('#')[0] + '#' + $(document).scrollLeft() + ',' + $(document).scrollTop());
-				window.location.reload();
+				TREE.debug && console.log(res.error, ': ', res.result);
+				if (res.error === "Ошибка" ) {
+					alert(res.result);
+				} else {
+					window.location.replace(window.location.href.split('#')[0] + '#' + $(document).scrollLeft() + ',' + $(document).scrollTop());
+					window.location.reload();
+				}
 			})
 		}
 
@@ -109,6 +115,10 @@ var TREE = {
 
 		this.render({
 			centering: true
+		});
+
+		$('img').load(function(e) {
+			$(this).closest('.photo').removeClass('loading');
 		});
 
 	},
@@ -440,7 +450,7 @@ TREE.popups.collection = {
 				scrollLeft: personOffset.left + personWidth / 2 - $(window).width() / 2,
 				scrollTop: personOffset.top + personHeight / 2 - $(window).height() / 2
 			});
-			console.log(personOffset.top, personHeight)
+			TREE.debug && console.log(personOffset.top, personHeight);
 
 		},
 
@@ -469,7 +479,7 @@ TREE.popups.collection = {
 						fname: '',
 						lname: '',
 						alias: '',
-                                                invite:'',
+						invite: '',
 						birthday: null,
 						death: null,
 						send_invite: null,
@@ -488,7 +498,7 @@ TREE.popups.collection = {
 						fname: '',
 						lname: '',
 						alias: '',
-                                                invite:'',
+						invite: '',
 						birthday: null,
 						death: null,
 						send_invite: null,
@@ -507,7 +517,7 @@ TREE.popups.collection = {
 						fname: '',
 						lname: '',
 						alias: '',
-                                                invite:'',
+						invite: '',
 						birthday: null,
 						death: null,
 						send_invite: null,
@@ -526,7 +536,7 @@ TREE.popups.collection = {
 						fname: '',
 						lname: '',
 						alias: '',
-                                                invite:'',
+						invite: '',
 						birthday: null,
 						death: null,
 						send_invite: null,
@@ -613,7 +623,13 @@ TREE.popups.collection = {
 		},
 
 		save: function() {
-			TREE.api.updatePerson(this.serialize());
+			var invite = this.$('[name=email]').val();
+			if (!invite || /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(invite)) {
+				!this.$('.save').hasClass('sub') && TREE.api.updatePerson(this.serialize());
+				this.$('.save').addClass('sub');
+			} else {
+				alert('Неверный e-mail');
+			}
 		},
 
 		toggleDead: function(e) {
