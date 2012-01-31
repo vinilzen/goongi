@@ -473,13 +473,13 @@
         <input type='checkbox' name='signup_agree' id='tos' value='1'{if $signup_agree == 1} CHECKED{/if}>
         <label for='tos'> {lang_print id=692}</label>
     {/if}
+
     <span class="button1">
     <span class="l">&nbsp;</span>
     <span class="c">
     <input class="button" type="submit" value="{lang_print id=693}">
     </span>
     <span class="r">&nbsp;</span>
-    </span>
 
   
   <input type='hidden' name='task' value='{$next_task}'>

@@ -23,34 +23,22 @@
 {else}
 
   {if $is_error != 0}{lang_print id=$is_error}{/if}
- 
+<br></br>
   <form action='lostpass.php' method='post'>
-  <table cellpadding='0' cellspacing='0' class='form'>
-    <tr>
-      <td class='form1'>{lang_print id=37}</td>
-      <td class='form2'><input type='text' class='text' name='user_email' maxlength='70' size='40' /></td>
-    </tr>
-    <tr>
-      <td class='form1'>&nbsp;</td>
-      <td class='form2'>
-        <table cellpadding='0' cellspacing='0'>
-          <tr>
-            <td>
-              <input type='submit' class='button' value='{lang_print id=749}' />&nbsp;
-              <input type='hidden' name='task' value='send_email' />
-              </form>
-            </td>
-            <td>
+ <div class="input">
+      <label>{lang_print id=37}</label>
+      <input type='text' class='text' name='user_email' maxlength='100' size='40' />
+</div>
+      <span class="button1"><span class="l">&nbsp;</span><span class="c"><input type='submit' class='button' value='{lang_print id=749}' /></span><span class="r">&nbsp;</span></span>
+      <input type='hidden' name='task' value='send_email' />
+      </form>
+           
               <form action='login.php' method='POST'>
-              <input type='submit' class='button' value='{lang_print id=39}' />
+              
+      <!--  <span class="button1"><span class="l">&nbsp;</span><span class="c"><input type='submit' class='button' value='{lang_print id=39}' /></span><span class="r">&nbsp;</span></span>-->
+        </div>
               </form>
-            </td>
-          </tr>
-        </table>
-        </form>
-      </td>
-    </tr>
-  </table>
+          
 
 {/if}
 
