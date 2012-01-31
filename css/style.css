@@ -452,7 +452,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.sn	a.vk	{ background:url(../images/vk.png) no-repeat 0 0;}	
 	
 	.form		{ overflow:hidden; width:354px;}
-	.form h1	{ margin-bottom:30px; }
+	
 	.form .input.imggg {/*width:300px;*/ padding-left:170px;}
 	.form .input.photoedit { padding-right:80px;}
 	.form .input,

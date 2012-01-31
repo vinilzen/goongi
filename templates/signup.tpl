@@ -382,15 +382,6 @@
   <input type='hidden' name='signup_cat' value='{$signup_cat}'>
   </form>
 
-
-
-
-
-
-
-
-
-
 {* SHOW STEP ONE *}
 {else}
  <h1>{lang_print id=679}</h1>
