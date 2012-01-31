@@ -14,7 +14,14 @@
   
   {if $setting.setting_signup_verify == 0 && $setting.setting_signup_enable != 0 && $setting.setting_signup_randpass == 0}
     <form action='login.php' method='GET'>
-    <input type='submit' class='button' value='{lang_print id=693}'>
+<br></br>
+    <span class="button1">
+    <span class="l">&nbsp;</span>
+    <span class="c">
+    <input class="button" type="submit" value="{lang_print id=693}">
+    </span>
+    <span class="r">&nbsp;</span>
+    </span>
     <input type='hidden' name='email' value='{$new_user->user_info.user_email}'>
     </form>
   {else}
@@ -104,7 +111,7 @@
 {elseif $step == 2}
  <h1>{lang_print id=710}</h1>
   <div>{lang_print id=711}</div><br>
-  <br><br>
+
 
   {* SHOW ERROR MESSAGE *}
   {if $is_error != 0}
@@ -140,26 +147,23 @@
   //-->
   </script>
   {/literal}
-
+{*страница*}
   <form action='signup.php' method='POST'>
   {* LOOP THROUGH TABS *}
   {section name=cat_loop loop=$cats}
   {section name=subcat_loop loop=$cats[cat_loop].subcats}
     {if $cats[cat_loop].subcats[subcat_loop].fields|@count != 0}
-    <div class='signup_header'>{lang_print id=$cats[cat_loop].subcats[subcat_loop].subcat_title}</div>
-    <table cellpadding='0' cellspacing='0'>
 
     {* LOOP THROUGH FIELDS IN TAB *}
     {section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
-      <tr>
-      <td class='form1' width='150'>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_required != 0}*{/if}</td>
-      <td class='form2'>
-
-
-
+      
+     
       {* TEXT FIELD *}
       {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 1}
-        <div><input type='text' class='text' name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' id='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value}' style='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_style}' maxlength='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_maxlength}'></div>
+       <div class="input">
+        <label>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_required != 0}<strong style="color:#FF0000"> * </strong>{/if}</label>
+        <input type='text' class='text' name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' id='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value}' style='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_style}' maxlength='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_maxlength}'>
+        </div>
 
         {* JAVASCRIPT FOR CREATING SUGGESTION BOX *}
         {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options != "" && $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options|@count != 0}
@@ -192,8 +196,9 @@
 
       {* SELECT BOX *}
       {elseif $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 3}
-        <div><select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' id='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' onchange="ShowHideDeps('{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}', this.value);" style='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_style}'>
-        <option value='-1'></option>
+        <div class="input">
+        <label>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_required != 0}*{/if}</label>
+        <select style="width:100px;" name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' id='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' onchange="ShowHideDeps('{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}', this.value);" '>
         {* LOOP THROUGH FIELD OPTIONS *}
         {section name=option_loop loop=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options}
           <option id='op' value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options[option_loop].value}'{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options[option_loop].value == $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value} SELECTED{/if}>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options[option_loop].label}</option>
@@ -276,26 +281,27 @@
 
       {* DATE FIELD *}
       {elseif $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 5}
-        <div>
-        <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_1' style='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_style}'>
+        <div class ="input dates">
+         <label>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_required != 0}*{/if}</label>
+        <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_1' style="width:80px; margin-right:10px;"'>
         {section name=date1 loop=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1}
-          <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].value}'{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].selected}>{if $smarty.section.date1.first}[ {lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].name} ]{else}{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].name}{/if}</option>
+          <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].value}'{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].selected}>{if $smarty.section.date1.first}{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].name} {else}{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].name}{/if}</option>
         {/section}
         </select>
-
-        <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_2' style='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_style}'>
+        
+        <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_2' style="width:70px; margin-right:10px;">
         {section name=date2 loop=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array2}
-          <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array2[date2].value}'{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array2[date2].selected}>{if $smarty.section.date2.first}[ {lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array2[date2].name} ]{else}{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array2[date2].name}{/if}</option>
+          <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array2[date2].value}'{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array2[date2].selected}>{if $smarty.section.date2.first} {lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array2[date2].name} {else}{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array2[date2].name}{/if}</option>
         {/section}
         </select>
 
-        <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_3' style='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_style}'>
+        <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_3' style="width:58px;"'>
         {section name=date3 loop=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3}
-          <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].value}'{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].selected}>{if $smarty.section.date3.first}[ {lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].name} ]{else}{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].name}{/if}</option>
+          <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].value}'{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].selected}>{if $smarty.section.date3.first} {lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].name} {else}{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].name}{/if}</option>
         {/section}
         </select>
         </div>
-
+        <div class="clear"></div>
 
 
       {* CHECKBOXES *}
@@ -338,13 +344,12 @@
 
       {/if}
 
-      <div class='form_desc'>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_desc}</div>
+   <!--   <div class='form_desc'>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_desc}</div>-->
       {capture assign='field_error'}{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_error}{/capture}
       {if $field_error != ""}<div class='form_error'><img src='./images/icons/error16.gif' border='0' class='icon'> {$field_error}</div>{/if}
-    </td>
-    </tr>
+
     {/section}
-  </table>
+
   <br>
   {/if}
   {/section}
@@ -353,9 +358,16 @@
   <table cellpadding='0' cellspacing='0'>
   <tr>
   <td class='form1' width='100'>&nbsp;</td>
-  <td class='form2'><input type='submit' class='button' value='{lang_print id=693}'></td>
+ <span class="button1">
+        <span class="l">&nbsp;</span>
+        <span class="c">
+        <input type="submit" class='button' value="{lang_print id=693}">
+        </span>
+        <span class="r">&nbsp;</span>
+        </span>
   </tr>
   </table>
+
   <input type='hidden' name='task' value='{$next_task}'>
   <input type='hidden' name='step' value='{$step}'>
   <input type='hidden' name='signup_email' value='{$signup_email}'>
@@ -405,16 +417,16 @@
   <br />
   
   
-  <div class='signup_header'>{lang_print id=684}</div>
+ 
  
   {if $setting.setting_username}
-{lang_print id=28}:
-
+<div class="input">
+<label>{lang_print id=28}</label>
         <input name='signup_username' type='text' class='text' maxlength='50' size='40' value='{$signup_username}'>
         {capture assign=tip}{lang_print id=685}{/capture}
         <img src='./images/icons/tip.gif' border='0' class='Tips1' title="{$tip|escape:quotes}">
-        <div class='form_desc'>{lang_print id=686}</div>
-
+        <div class='form_desc'><br />{lang_print id=686}</div>
+</div>
   {/if}
   {if $cats|@count > 1}
 {lang_print id=709}:
@@ -439,8 +451,6 @@
   
   {if $setting.setting_signup_code || $setting.setting_signup_tos || $setting.setting_signup_invite}
   <br />
-  
-  <div class='signup_header'>{lang_print id=688}</div>
 
   {/if}
   
@@ -450,20 +460,27 @@
     {/if}
     
     {if $setting.setting_signup_code}
-{lang_print id=690}
+<div class="input">
+<label>{lang_print id=690}</label>
 <input type='text' name='signup_secure' class='text' size='6' maxlength='10'>&nbsp;
-    <img src='./images/secure.php' id='secure_image' border='0' height='20' width='67' class='signup_code'><br />
-    <a href="#" onClick="$('secure_image').src = './images/secure.php?' + (new Date()).getTime();">{lang_print id=975}</a>
-          {capture assign=tip}{lang_print id=691}{/capture}<img src='./images/icons/tip.gif' border='0' class='Tips1' title='{$tip|escape:quotes}'></td>
-
+    <img src='./images/secure.php' id='secure_image' border='0' height='20' width='67' class='signup_code'>
+<a href="#" onClick="$('secure_image').src = './images/secure.php?' + (new Date()).getTime();">{lang_print id=975}</a>
+          {capture assign=tip}{lang_print id=691}{/capture}</td>
+</div>
     {/if}
     
     {if $setting.setting_signup_tos}
         <input type='checkbox' name='signup_agree' id='tos' value='1'{if $signup_agree == 1} CHECKED{/if}>
         <label for='tos'> {lang_print id=692}</label>
     {/if}
-    
-      <input type='submit' class='button' value='{lang_print id=693}'>
+    <span class="button1">
+    <span class="l">&nbsp;</span>
+    <span class="c">
+    <input class="button" type="submit" value="{lang_print id=693}">
+    </span>
+    <span class="r">&nbsp;</span>
+    </span>
+
   
   <input type='hidden' name='task' value='{$next_task}'>
   <input type='hidden' name='step' value='{$step}'>

@@ -99,7 +99,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	
 	.search					{ overflow:hidden; margin-bottom:40px;}
 	.search input.srch		{ color:#999999; background:#fff; border:1px solid #e5e5e5; padding:4px 10px; width:280px; float:left; margin-right:20px;}
-	.search .button2 span.c input	{ padding:2px 30px 0px 30px;}
+	.search .button2 span.c input	{ }
 	
 	.rez		{ position:relative; font-size:18px; color:#222222; margin-bottom:50px; margin-top:-10px;}
 	.rez span	{ color:#6f322d;}
@@ -140,6 +140,9 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	
 	
 	.right	{ margin: 0 0 0 -228px; float:left; width:209px;}
+	
+	
+	.form_desc {overflow:hidden;font:11px arial;color:#7f7f7f;margin-top:-13px; margin-bottom:10px; }
 	
 	.form_login		{ overflow:hidden;}
 	.form_login h1	{ font:bold 18px arial; text-transform:uppercase; margin-bottom:15px; color:#000; }
@@ -468,6 +471,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	
 	.form .radio div label	{ font-weight: normal; margin-bottom:0px; float:left; margin-right:20px;}
 	.form .input.date				{ float:left; overflow:hidden; width:212px; clear:none;}
+	.form .input.dates				{ float:left; overflow:hidden; width:300px; clear:none;}
 	.form .input.date label			{ overflow:hidden;}
 	.form .input.date input			{ float:left;}
 	.form .input.date select		{ float:left; margin-right:1px; padding:4px 4px 4px 0px;}
@@ -475,9 +479,10 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.edit_blog .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px;}
 	.form .input textarea	{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px; height:95px;}
 	.form .input select		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:354px;}
+	.form .inputlog input		{ padding:4px;margin-bottom:20px; border:1px solid #e5e5e5; background:#fff; width:194px;}
 	.form .input label a		{ display:inline-block; font-weight:normal;  display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.form .check		{ clear:both; margin-bottom:25px;}
-	.form .check.rem	{ clear:both; margin-bottom:7px; margin-left:70px;}
+	.form .check.rem	{ clear:both; margin-bottom:25px;margin-top:-5px; }
 	.form .check label	{ display:block; font-size:11px; width:162px; color:#7f7f7f; overflow:hidden;}
 	.form .check input	{ float:left;}
 	.form .check span	{ display:inline-block;}
@@ -521,9 +526,13 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 
 	
 	.form.auth		{ padding-left:60px; padding-top:30px; padding-bottom:20px;}
-	.form.auth .button1				{ margin-bottom:18px; margin-left:45px; float:left; margin-right:20px;}
-	.form.auth .button1 span.c input{ padding:10px 56px 0px 56px;}
-	.form.auth .reg					{ display:inline-block; margin:11px 0 10px 0px; font-size:11px;}
+	
+	.form.auth .login		{ padding-left:70px;  padding-bottom:20px;padding-right:80px;}
+	.form.auth .login.button1				{ margin-bottom:18px; margin-left:45px; float:left; margin-right:20px;}
+	.form.auth .login .button1 span.c input{ padding:10px 56px 0px 56px;}
+	.form .inputlog label  {  font-size:12px; font-weight:bold; margin-bottom:4px;}
+	.form .inputlog a  {  font-size:11px; font-weight:bold; margin-bottom:4px;float:right;}
+	.form.auth .reg					{ display:inline-block; }
 	
 	.crumb			{ margin-bottom:15px; overflow:hidden; position:relative; margin-top:-11px; border-bottom:1px solid #999999; padding-bottom:10px;}
 	.crumb span,

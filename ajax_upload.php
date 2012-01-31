@@ -16,7 +16,7 @@ if( !$user->level_info['level_photo_allow'] ) {
  
   $tip = strtolower($tip);
    if( !in_array($tip, $file_types) )
-        $is_error = 'Допускается загрузка фотографий: GIF,PNG,JPG';
+        $is_error = 'Допускается загрузка фотографий: GIF, PNG, JPG';
 
   if ($tip == '') $is_error ='Выберите фотографию для загрузки';
 

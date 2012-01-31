@@ -108,9 +108,9 @@
 					  {* SHOW JOIN US TODAY BUTTON IF USER IS NOT LOGGED-IN *}
 					  {if !$user->user_exists}
 						<div class='portal_signup_container1'>
-						  <div class='portal_signup'>
+					<!--	  <div class='portal_signup'>
 							<a href='signup.php' class='portal_signup'><span style='font-size: 15px;'><img src='./images/portal_join.gif' border='0' style='margin-right: 3px; vertical-align: middle;' alt='' /></span>{lang_print id=1115}</a>
-						  </div>
+						  </div> -->
 						</div>
 						<div class='portal_spacer'></div>
 					  {/if}
@@ -251,6 +251,6 @@
 			<div class="clear"></div>
         </div>
     </div>
-	<div id="clearfooter"></div>	
+
 </div>
 {include file='footer_without_left_menu.tpl'}
