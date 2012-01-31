@@ -54,7 +54,9 @@ var TREE = {
 
 	// drawn: [],
 	url: {
-		image: 'http://' + window.location.host + '/uploads_user/2000/{0}/{1}'
+		image: function(id, photo) {
+			return 'http://' + window.location.host + '/uploads_user/{0}/{1}/{2}'.format(Math.floor(id / 1000) * 1000 + 1000, id, photo)
+		}
 	},
 
 	viewpoint: $('#viewpoint'),
