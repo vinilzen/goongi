@@ -70,7 +70,6 @@
   <table cellpadding='0' cellspacing='0'>
     <tr>
       <td class='result'>
-        <img src='./images/error.gif' class='icon' border='0' />
         {lang_print id=$is_error}
       </td>
     </tr>

@@ -29,7 +29,7 @@
   </td></tr></table>
 {elseif $is_error != 0}
   <table cellpadding='0' cellspacing='0'>
-  <tr><td class='error'><img src='./images/error.gif' border='0' class='icon'>{lang_print id=$is_error}</td></tr>
+  <tr><td class='error'>{lang_print id=$is_error}</td></tr>
   </table>
 {/if}
 

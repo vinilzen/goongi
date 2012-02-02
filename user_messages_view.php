@@ -52,7 +52,7 @@ if($task == "reply")
   {
     if( !$collaborator->user_blocked($user->user_info['user_id']) )
     {
-      $user->user_message_send('', '', $reply, $pmconvo_info['pmconvo_id']);
+      $user->user_message_send('','', '', $reply, $pmconvo_info['pmconvo_id']);
       header("Location: user_messages_view.php?pmconvo_id=".$pmconvo_info['pmconvo_id']."#bottom");
       exit();
     }
@@ -70,7 +70,7 @@ elseif($task == "delete")
   if($b == 0) { header("Location: user_messages.php"); exit(); } else { header("Location: user_messages_outbox.php"); exit(); }
 }
 
-
+//print_r ($pm_info['pms']);
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('b', $b);
 $smarty->assign('blockerror', $blockerror);

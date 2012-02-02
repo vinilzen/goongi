@@ -82,7 +82,7 @@
 <div class="my_page_inf">
 
 	<div class="my_page_img">
-         <img alt=""  {if $user->user_info.user_photo == ''} src="./images/nophoto.gif" {else} src="/uploads_user/1000/{$owner->user_info.user_id}/{$owner->user_info.user_id}.jpg{/if}">
+         <img alt=""  {if $user->user_info.user_photo == ''} src="./images/nophoto.gif" {else} src="{$user->user_photomain('./images/nophoto.gif')}{/if}">
         </div>
 
 	<div class="my_page_info">

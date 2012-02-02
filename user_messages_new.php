@@ -24,39 +24,51 @@ $submitted = 0;
 
 // TRY TO SEND MESSAGE
 if($task == "send") {
+    $is_error = '1';
 	if ( isset($_POST['to']) && $_POST['to'] != '' ) {
 		$to = $_POST['to'];
 	} elseif ( isset($_POST['to_display']) && $_POST['to_display'] != '' )  {
 		$to = $_POST['to_display'];
 	}
-	
+
+$total_friends = $user->user_friend_total(0);
+if ($total_friends>0)
+{
+$friends = $user->user_friend_list(0, $total_friends, 0);
+       foreach ($friends as $key => $value) {
+		if ($to == $value->user_info['user_displayname'])
+                        {
+                    $is_error = '0';
+                    $id_user = $value->user_info['user_id'];
+                }
+		 }
+}
+
+if ($is_error == '0')
+{
 	$subject = $_POST['subject'];
 	$message = $_POST['message'];
 	
-	$user->user_message_send($to, $subject, $message);
+	$id = $user->user_message_send($id_user,$to, $subject, $message);
 	$is_error = $user->is_error;
 
 	if($is_error != 0) {
 		SE_Language::_preload($is_error);
 		SE_Language::load();
 		$error_message = SE_Language::_get($is_error);
-	}
- if ($is_error != 0)
-      {echo $error_message; die();}
- else {echo 'Отправленно'; die();}
- 
-	/*
- 	// SEND AJAX CONFIRMATION
-	echo "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><body><script type='text/javascript'>";
-	echo "$('#add_msg_b').html('<h2>lilio</h2>');
-		$('.window .close').click(function(e) {
-		$('#popup').fadeOut(300);
-		$('.window').hide();
-		e.preventDefault(); });";
-	echo "</script></body></html>";
-	
-	*/
-	exit();
+	} else $error_message = 'Ваше сообщение отправленно';
+// if ($is_error != 0)
+///      {echo $error_message; die();}
+// else {echo 'Отправленно'; die();}
+}
+else $error_message = 'Выберите пользователя из списка';
+ echo json_encode(array(
+    'is_error' => $is_error,
+     'result' =>$error_message,
+     'id'=>$id
+  ));
+ exit();
+
 }
 if($task == "show_f") {
     $is_error=0;

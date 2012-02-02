@@ -21,9 +21,9 @@
   </table>
 
 {else}
-
-  {if $is_error != 0}{lang_print id=$is_error}{/if}
 <br></br>
+  {if $is_error != 0}<div class="error">{lang_print id=$is_error}</div>{/if}
+
   <form action='lostpass.php' method='post'>
  <div class="input">
       <label>{lang_print id=37}</label>
@@ -42,5 +42,6 @@
 
 {/if}
 
-
+ </div>
+                                
 {include file='footer_without_left_menu.tpl'}

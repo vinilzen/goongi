@@ -475,7 +475,7 @@ SocialEngineAPI.Comments = new Class({
       if( commentObject.comment_authoruser_id && commentObject.comment_authoruser_exists )
         newCommentInnerHTML += "<div style='float: left; text-align: center; width: 90px;'><a href='" + commentObject.comment_authoruser_url + "'><img src='" + commentObject.comment_authoruser_photo + "' class='photo' width='" + commentObject.comment_authoruser_photo_width + "' border='0'></a></div>";
       else
-        newCommentInnerHTML += "<div style='float: left; text-align: center; width: 90px;'><img src='./images/nophoto.gif' class='photo' width='75' border='0'></div>";
+        newCommentInnerHTML += "<div style='float: left; text-align: center; width: 90px;'><img src='./images/no_photo.gif' class='photo' width='75' border='0'></div>";
       
       newCommentInnerHTML += "<div style='overflow: hidden;'>";
       

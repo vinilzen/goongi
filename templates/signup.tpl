@@ -115,7 +115,7 @@
 
   {* SHOW ERROR MESSAGE *}
   {if $is_error != 0}
-      <div class='error'><img src='./images/error.gif' border='0' class='icon'> {lang_print id=$is_error}</div>
+      <div class='error'>{lang_print id=$is_error}</div>
   {/if}
 
   {* JAVASCRIPT FOR SHOWING DEP FIELDS *}
@@ -415,8 +415,8 @@
 <label>{lang_print id=28}</label>
         <input name='signup_username' type='text' class='text' maxlength='50' size='40' value='{$signup_username}'>
         {capture assign=tip}{lang_print id=685}{/capture}
-        <img src='./images/icons/tip.gif' border='0' class='Tips1' title="{$tip|escape:quotes}">
-        <div class='form_desc'><br />{lang_print id=686}</div>
+        
+        <div class='form_desc'><br /><img src='./images/icons/tip.gif' border='0' class='Tips1' title="{$tip|escape:quotes}">{lang_print id=686}</div>
 </div>
   {/if}
   {if $cats|@count > 1}
@@ -478,4 +478,6 @@
   </form>
 
 {/if}
+ </div>
+                                </div>
 {include file='footer_without_left_menu.tpl'}

@@ -207,7 +207,7 @@
     <div>
       {* USER PHOTO AND DISPLAY NAME *}
       <div style="display:block;width:100%;text-align:center;">
-        <a href="{$url->url_create('profile', $owner->user_info.user_username)}"><img class='photo' src='{$owner->user_photo("./images/nophoto.gif")}' border='0' width="{$misc->photo_size($owner->user_photo('./images/nophoto.gif'),'240','240','w')}" /></a>
+        <a href="{$url->url_create('profile', $owner->user_info.user_username)}"><img class='photo' src='{$owner->user_photo("./images/no_photo.gif")}' border='0' width="{$misc->photo_size($owner->user_photo('./images/no_photo.gif'),'240','240','w')}" /></a>
       </div>
       <div style="display:block;text-align:center;width:100%;font-weight: bold;margin-top:3px;">
         <a href="{$url->url_create('profile', $owner->user_info.user_username)}">{$owner->user_displayname}</a>

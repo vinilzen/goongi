@@ -23,7 +23,7 @@
 {if $result != 0}
   <div class='success'><img src='./images/success.gif' border='0' class='icon'> {lang_print id=191}</div><br>
 {elseif $is_error != 0}
-  <div class='error'><img src='./images/error.gif' border='0' class='icon'> {lang_print id=$is_error}</div><br>
+  <div class='error'> {lang_print id=$is_error}</div><br>
 {/if}
 
 <form action='user_account_pass.php' method='POST'>

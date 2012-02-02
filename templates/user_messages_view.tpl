@@ -1,21 +1,30 @@
-﻿{include file='header.tpl'}
+ {include file='header_history.tpl'}
 
 {* $Id: user_messages_view.tpl 194 2009-07-15 21:44:24Z john $ *}
 <h1>мои сообщения</h1>
 <div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><span>Mои сообщения</span></div>
-<ul class="vk">
-	<li class="active"><a href="/user_messages.php">{lang_print id=780}<!-- Полученные --><font>{if $user_unread_pms>0}({$user_unread_pms}){/if}</font></a></li>
-	<li><a href="/user_messages_outbox.php">{lang_print id=781}<!-- Отправленные --></a></li>
-	<li><a href="#">Спам  <font>(8)</font></a></li>
-	<li id="add_msg"><a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=784}<!-- Написать сообщение --></a></li>
-</ul>
 
-<img src='./images/icons/messages48.gif' border='0' class='icon_big' />
 <div class='page_header'>{$pmconvo_info.pmconvo_subject}</div>
 {capture assign='collaborators'}{section name=coll_loop loop=$collaborators}<a href='{$url->url_create("profile", $collaborators[coll_loop]->user_info.user_username)}'>{$collaborators[coll_loop]->user_displayname}</a>{if $smarty.section.coll_loop.last != TRUE}, {/if}{/section}{/capture}
 <div>{lang_sprintf id=801 1=$collaborators}</div>
 <br />
-<br />
+
+
+{* LOOP THROUGH MESSAGES IN THREAD *}
+<ul class="comment_list">
+{section name=pm_loop loop=$pms}
+<li>
+	
+      <!--  <a href='user_messages_view.php?pmconvo_id={$pms[pm_loop].pm_pmconvo_id }&task=delete' class="del">{lang_print id=1181}</a>-->
+	<a href="{$url->url_create("profile",$pms[pm_loop].author->user_info.user_username)}">
+		<img src="{$pms[pm_loop].author->user_photo("./images/no_photo_thumb.gif", TRUE)}" alt="" />
+	</a>
+	<a href="{$url->url_create("profile",$pms[pm_loop].author->user_info.user_username)}" class="name">{$pms[pm_loop].author->user_displayname}</a>
+	<span>{$datetime->cdate("`$setting.setting_timeformat` `$setting.setting_dateformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</span>
+	<p>{$pms[pm_loop].pm_body|choptext:75:"<br>"}</p>
+	{if $smarty.section.pm_loop.last}<a name='bottom'></a>{/if}
+</li>
+{/section}
 
 
 {* JAVASCRIPT FOR AUTOGROWING TEXTAREA *}
@@ -30,44 +39,48 @@
   <a name='reply'></a>
   <div id='reply_error' style='display: none;'>{lang_print id=796}</div>
   {if $blockerror}<div id='reply_error2' style='display: {$blockerror};'>{lang_print id=1321}</div>{/if}
-  <form action='user_messages_view.php#bottom' method='POST' onSubmit="{literal}if(this.reply.value.replace(/ /g, '') == '') { $('reply_error').style.display='block'; return false; } else { return true; }{/literal}">
-  {if $collaborators|@count == 1}{lang_print id=802}{else}{lang_print id=803}{/if}<br>
-  <textarea name='reply' id='reply_body' rows='3' cols='60' style='margin-bottom: 5px; width: 100%;'></textarea>
-  <br>
-  <input type='submit' class='button' value='{lang_print id=791}'>
 
-  {* SHOW BACK TO INBOX *}
-  {if $b == 0}
-    <input type='button' class='button' value='{lang_print id=805}' onClick="window.location.href='user_messages.php';">
-  {* SHOW BACK TO OUTBOX *}
-  {else}
-    <input type='button' class='button' value='{lang_print id=806}' onClick="window.location.href='user_messages_outbox.php';">
-  {/if}
+  <div class = "form add_com comments wall">
+      <form action='user_messages_view.php#bottom' method='POST' onSubmit="{literal}if(this.reply.value.replace(/ /g, '') == '') { $('reply_error').style.display='block'; return false; } else { return true; }{/literal}">
+    <div class = "input">
+      {if $collaborators|@count == 1}<label>{lang_print id=802}</label>{else}<label>{lang_print id=803}</label>{/if}
+      <textarea name='reply' id='reply_body' rows='3' cols='60'></textarea>
+    </div>
+        <span class="button2">
+        <span class="l">&nbsp;</span>
+        <span class="c">
+        <input type="submit" class='button' value='{lang_print id=38}'>
+        </span>
+        <span class="r">&nbsp;</span>
+        </span>
+          {* SHOW BACK TO INBOX *}
+          {if $b == 0}
+            <span class="button2">
+            <span class="l">&nbsp;</span>
+            <span class="c">
+            <input type="button" class='button' value='{lang_print id=805}' onClick="window.location.href='user_messages.php';">
+            </span>
+            <span class="r">&nbsp;</span>
+            </span>
+   
+          {* SHOW BACK TO OUTBOX *}
+          {else}
+        <span class="button2">
+            <span class="l">&nbsp;</span>
+            <span class="c">
+            <input type="button" class='button' value='{lang_print id=806}' onClick="window.location.href='user_messages_outbox.php';">
+            </span>
+            <span class="r">&nbsp;</span>
+            </span>
+          {/if}
 
   <input type='hidden' name='task' value='reply'>
   <input type='hidden' name='pmconvo_id' value='{$pmconvo_info.pmconvo_id}'>
   </form>
-
-
-{* LOOP THROUGH MESSAGES IN THREAD *}
-<ul class="comment_list">
-{section name=pm_loop loop=$pms}
-<li>
-	<!-- <a href="#" class="del">Удалить</a> -->
-	<a href="{$url->url_create("profile",$pms[pm_loop].author->user_info.user_username)}">
-		<img src="{$pms[pm_loop].author->user_photo("./images/nophoto.gif", TRUE)}" alt="" />
-	</a>
-	<a href="{$url->url_create("profile",$pms[pm_loop].author->user_info.user_username)}" class="name">{$pms[pm_loop].author->user_displayname|truncate:20:"...":true}</a>
-	<span>{$datetime->cdate("`$setting.setting_timeformat` `$setting.setting_dateformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</span>
-	<p>{$pms[pm_loop].pm_body|choptext:75:"<br>"}</p>
-	{if $smarty.section.pm_loop.last}<a name='bottom'></a>{/if}
-</li>
-{/section}
+</div>
 
 {* DISPLAY REPLY TO ALL BOX *}
-<div>
 
-  <div style='padding-top: 15px;'><a href='user_messages_view.php?pmconvo_id={$pmconvo_info.pmconvo_id}&task=delete'>{lang_print id=1181}</a></div>
-</div>
 </ul>
+
 {include file='footer.tpl'}

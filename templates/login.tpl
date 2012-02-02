@@ -8,7 +8,7 @@
 <br><br>
 {if $setting.setting_signup_verify == 1}{lang_print id=674}{/if}
 {* SHOW ERROR MESSAGE *}
-{if $is_error != 0}<div class="error"> <img src='./images/error.gif' border='0' class='icon'>{lang_print id=$is_error} </div>{/if}
+{if $is_error != 0}<div class="error"> {lang_print id=$is_error} </div>{/if}
 <form class = 'login' action='login.php' method='POST' name='login'>
 	<div class="inputlog"><label>{lang_print id=89}</label><a href='/signup.php' class="reg">{lang_print id=6000143}</a></br>
             <input type='text' class='text' name='email' id='email' value='{$email}' size='30' maxlength='70' />
@@ -42,4 +42,5 @@ window.addEvent('domready', function() {
 // -->
 </script>
 {/literal}
+</div></div>
 {include file='footer_without_left_menu.tpl'}

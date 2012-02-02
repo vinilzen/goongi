@@ -9,8 +9,8 @@ if(isset($_GET['query'])) {
 	$str = $_GET['query'];
 	
 	//if ( preg_match( "/^(\w+)", $str)) {
-	if (preg_match ("/^(\w+)/i", $str)) {
-		$where = " `user_displayname` LIKE '$str%' ";
+	//if (preg_match ("/^([a-zA-Zа-яА-Я]+)/i", $str)) {
+		$where = " `user_displayname` LIKE '%$str%' ";
 		$total_friends = $user->user_friend_total(0);
 		$friends = $user->user_friend_list(0, $total_friends, 0, 1, "se_users.user_dateupdated DESC", $where);
 		$result = "{ query:'$str',";
@@ -29,9 +29,9 @@ if(isset($_GET['query'])) {
 		echo $result;
 		die('');
 		
-	} else {
-		die('');
-	}
+	//} else {
+	//	die('');
+	//}
 } else {
 	die('');
 }

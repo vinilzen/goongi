@@ -10,6 +10,7 @@ body		{margin:0; padding:0; color:#000;}
 html>body #minHeight	{float:left;width:0px;height:100%;}
 
 #clearfooter	{ clear:both; /*position:relative;*/ height:266px;}
+#clearfootermain	{ clear:both; /*position:relative;*/ height:auto; margin:0 auto;position:relative;}
 #footer			{ margin:0 auto; clear:both; position:relative; height:266px;}
 
 .width		{width:100%;}
@@ -23,6 +24,7 @@ LI, UL, OL, form, H1, H2	{margin:0; padding:0;}
 
 h1		{ padding:0; margin:0 0 15px 0; font:bold 18px arial; text-transform:uppercase; color:#000;}
 h2		{ padding:0; margin:0 0 15px 0; font: normal 18px arial; color:#000;}
+h3		{ text-align:center; color:#000;padding-top:50px;}
 
 p{ 	font: 12px "Arial", Helvetica, sans-serif; color:#000;
 	text-align: left;
@@ -92,7 +94,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.block4 .c	{ background:#fff;}
 	.block4 .bg_l	{ background:url(../images/b2_l.jpg) repeat-y 0 0;}
 	.block4 .bg_r	{ overflow:hidden; background:url(../images/b2_r.jpg) repeat-y 100% 0; padding:20px 35px 10px 34px;min-height:700px;}
-	
+	.block4 .bg_rmessage{ overflow:hidden; background:url(../images/b2_r.jpg) repeat-y 100% 0; padding:20px 35px 10px 34px;}
 	.center	{ margin:0 248px 0 252px;}
 	.center_one	{ width:538px; margin-left:223px;}
 	.center_all	{ width:732px; margin-left:239px;}
@@ -298,6 +300,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.comment_list li img	{ border:1px solid #d7d7d7; padding:2px; float:left; margin-right:9px;}
 	.comment_list li .del	{ display:inline-block; float:right; font-size:11px;}
 	.comment_list li .name	{ display:inline-block; text-decoration:none; font-weight:bold; color:#000; margin-right:10px;}
+	.comment_list li .link	{ display:inline-block;  margin-right:10px;padding:10px 0 0 0;}
 	.comment_list li span	{ display:inline-block; font-size:11px; color:#7f7f7f;}
 	.comment_list li p		{ padding:10px 0 0 0; font-size:11px;}
 	
@@ -459,6 +462,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .radio		{ margin-bottom:17px; overflow:hidden;}
 	.form .error		{ font-size:11px; position:relative; margin-bottom:30px; color:#dc2a2a; }
 	.form p.p_inf		{ font-size:11px; padding-bottom:5px; color:#7f7f7f; width:390px;}
+	
 	.form .input label,
 	.form .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.edit_blog .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
@@ -475,7 +479,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .input.date label			{ overflow:hidden;}
 	.form .input.date input			{ float:left;}
 	.form .input.date select		{ float:left; margin-right:1px; padding:4px 4px 4px 0px;}
-	.form .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:194px;}
+	.form .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px;}
 	.edit_blog .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px;}
 	.form .input textarea	{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px; height:95px;}
 	.form .input select		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:354px;}
@@ -561,7 +565,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.pager_c a.prev	{ background: url(../images/pl.png) no-repeat 0 6px;}
 	.pager_c a.next	{ background: url(../images/pr.png) no-repeat 0 6px;}
 	
-#footer	{ overflow:hidden; background:url(../images/fbg.jpg) repeat-x 0 100%;}
+#footer	{ overflow:hidden; background:url(../images/fbg.jpg) repeat-x 0 100%;height:266px;}
 #footer .foot_l	{ height:266px; background:url(../images/fl.jpg) no-repeat 0 0;}
 #footer .foot_r	{ height:266px; background:url(../images/fr.jpg) no-repeat 100% 0;}
 	#footer .dis		{ float:right; padding:207px 43px 0 0; font:11px arial; color:#c3ffc9; text-shadow:-1px -1px #277e34;}

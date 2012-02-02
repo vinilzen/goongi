@@ -46,19 +46,7 @@
 {/literal}
 
 
-{* DISPLAY PAGINATION MENU IF APPLICABLE *}
-{if $maxpage > 1}
-  <div class='center'>
-  {if $p != 1}<a href='user_messages_outbox.php?p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a>{else}<font class='disabled'>&#171; {lang_print id=182}</font>{/if}
-  {if $p_start == $p_end}
-    &nbsp;|&nbsp; {lang_sprintf id=184 1=$p_start 2=$total_pms} &nbsp;|&nbsp; 
-  {else}
-    &nbsp;|&nbsp; {lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_pms} &nbsp;|&nbsp; 
-  {/if}
-  {if $p != $maxpage}<a href='user_messages_outbox.php?p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{else}<font class='disabled'>{lang_print id=183} &#187;</font>{/if}
-  </div>
-<br>
-{/if}
+
 
 
 {* CHECK IF THERE ARE NO MESSAGES IN OUTBOX *}
@@ -74,17 +62,20 @@
 	<!-- <input type='checkbox' name='delete_convos[]' value='{$pms[pm_loop].pmconvo_id}'> -->
 	<a href='user_messages_view.php?b=1&pmconvo_id={$pms[pm_loop].pmconvo_id}&task=delete' class="del">{lang_print id=155}</a>
 	<a href="{$url->url_create('profile', $pms[pm_loop].pm_user->user_info.user_username)}">
-		<img src="{$pms[pm_loop].pm_user->user_photo('./images/nophoto.gif', TRUE)}" alt="{lang_sprintf id=786 1=$pms[pm_loop].pm_user->user_displayname_short}" />
+		<img src="{$pms[pm_loop].pm_user->user_photo('./images/no_photo_thumb.gif', TRUE)}" alt="{lang_sprintf id=786 1=$pms[pm_loop].pm_user->user_displayname_short}" />
 	</a>
-	<a href="{$url->url_create('profile', $pms[pm_loop].pm_user->user_info.user_username)}" class="name">{$pms[pm_loop].author->user_displayname|truncate:20:"...":true}</a>
+
+        <a href="{$url->url_create('profile', $pms[pm_loop].pm_user->user_info.user_username)}" class="name">
+		{$pms[pm_loop].pm_user->user_displayname|truncate:50}
+	</a>
+
 	<span>{$datetime->cdate("`$setting.setting_timeformat` `$setting.setting_dateformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</span>
 	
 	
-	<a href='user_messages_view.php?pmconvo_id={$pms[pm_loop].pmconvo_id}#bottom'>
-		{$pms[pm_loop].pmconvo_subject|truncate:50}
-	</a>
-		
-	<p>{$pms[pm_loop].pm_body|truncate:150|choptext:75:"<br>"}</p>
+	</br>
+	<a href='user_messages_view.php?pmconvo_id={$pms[pm_loop].pmconvo_id}#bottom' class="link">
+            {$pms[pm_loop].pm_body|truncate:150|choptext:75:"<br>"}
+        </a>
 	{if $smarty.section.pm_loop.last}<a name='bottom'></a>{/if}
 	</li>
  {/section}
@@ -97,6 +88,20 @@
   <input type='hidden' name='p' value='{$p}'>
   </form>
 
+{/if}
+
+{* DISPLAY PAGINATION MENU IF APPLICABLE *}
+{if $maxpage > 1}
+
+  {if $p != 1}<a href='user_messages_outbox.php?p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a>{else}<font class='disabled'>&#171; {lang_print id=182}</font>{/if}
+  {if $p_start == $p_end}
+    &nbsp;|&nbsp; {lang_sprintf id=184 1=$p_start 2=$total_pms} &nbsp;|&nbsp;
+  {else}
+    &nbsp;|&nbsp; {lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_pms} &nbsp;|&nbsp;
+  {/if}
+  {if $p != $maxpage}<a href='user_messages_outbox.php?p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{else}<font class='disabled'>{lang_print id=183} &#187;</font>{/if}
+
+<br>
 {/if}
 
 {include file='footer.tpl'}

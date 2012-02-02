@@ -483,7 +483,7 @@ elseif($task == "comment_get")
       'comment_authoruser_exists'       => (bool)   $comment_data['comment_author']->user_exists,
       'comment_authoruser_private'      => (bool)   $comment_data['comment_author_private'],
       'comment_authoruser_url'          => (string) $url->url_create('profile', $comment_data['comment_author']->user_info['user_username']),
-      'comment_authoruser_photo'        => (string) $comment_data['comment_author']->user_photo('./images/nophoto.gif', true),
+      'comment_authoruser_photo'        => (string) $comment_data['comment_author']->user_photo('./images/no_photo.gif', true),
       'comment_authoruser_photo_width'  => (int)    $misc->photo_size($comment_data['comment_author']->user_photo('./images/nophoto.gif'),'75','75','w'),
       'comment_authoruser_username'     => (string) $comment_data['comment_author']->user_info['user_username'],
       'comment_authoruser_displayname'  => (string) $comment_data['comment_author']->user_displayname,

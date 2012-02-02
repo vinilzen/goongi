@@ -1,7 +1,7 @@
 {include file='header.tpl'}
 
 {* $Id: search_advanced.tpl 217 2009-08-11 23:20:02Z phil $ *}
-<h1>{lang_print id=1087}<!-- Поиск по сайту --></h1>
+<h1>{lang_print id=1087}<!-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ --></h1>
 ({lang_print id=1088})
 {* SHOW PAGE TITLE *}
 {if $showfields == 1}
@@ -233,7 +233,7 @@
   {* DISPLAY BROWSE RESULTS IN THUMBNAIL FORM *}
   {section name=user_loop loop=$users}
     <div class='browse_result' style='float: left; padding: 5px; width: 100px; height: 100px; text-align: center;'>
-      <a href='{$url->url_create('profile',$users[user_loop]->user_info.user_username)}'><img src='{$users[user_loop]->user_photo('./images/nophoto.gif', TRUE)}' class='photo' style='display: block; margin-left: auto; margin-right: auto;' width='60' height='60' border='0' alt="{lang_sprintf id=509 1=$users[user_loop]->user_displayname_short}">{$users[user_loop]->user_displayname|truncate:20:"...":true}</a>
+      <a href='{$url->url_create('profile',$users[user_loop]->user_info.user_username)}'><img src='{$users[user_loop]->user_photo('./images/no_photo_thumb.gif', TRUE)}' class='photo' style='display: block; margin-left: auto; margin-right: auto;' width='60' height='60' border='0' alt="{lang_sprintf id=509 1=$users[user_loop]->user_displayname_short}">{$users[user_loop]->user_displayname|truncate:20:"...":true}</a>
       {if $users[user_loop]->is_online == 1}<div style='margin-top: 3px;'><img src='./images/icons/online16.gif' border='0' class='icon2'>{lang_print id=1086}</div>{/if}
     </div>
     {cycle name="newrow" values=",,,,,<div style='clear: both; margin-top: 10px;'>&nbsp;</div>"}

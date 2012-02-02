@@ -10,7 +10,7 @@
   <div style='overflow: hidden; margin-top: 10px; margin-bottom: 20px;'>
     <div style='float: left; text-align: center; width: 90px;'>
     <a href='{$url->url_create('profile', $comments[comment_loop].comment_author->user_info.user_username)}'>
-    <img src='{$comments[comment_loop].comment_author->user_photo('./images/nophoto.gif')}' class='photo' width='{$misc->photo_size($comments[comment_loop].comment_author->user_photo('./images/nophoto.gif'),'75','75','w')}' border='0'>
+    <img src='{$comments[comment_loop].comment_author->user_photo('./images/no_photo.gif')}' class='photo' width='{$misc->photo_size($comments[comment_loop].comment_author->user_photo('./images/no_photo.gif'),'75','75','w')}' border='0'>
     </a>
     </div>
     <div style='overflow: hidden;'>

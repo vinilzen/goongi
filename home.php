@@ -5,6 +5,13 @@
 $page = "home";
 include "header.php";
 
+    if( $user->user_exists)
+    {
+    header("Location: login.php");
+    exit();
+    }
+
+
 
 // DISPLAY ERROR PAGE IF USER IS NOT LOGGED IN AND ADMIN SETTING REQUIRES REGISTRATION
 if( !$user->user_exists && !$setting['setting_permission_portal'] )

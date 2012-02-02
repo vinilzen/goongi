@@ -82,7 +82,7 @@
         </div>
 
 <div id="popup"></div>
-
+<div id="popup2"></div>
 <div class="window" id="add_group">
 	<div class="close"></div>
 	<div class="w_c">

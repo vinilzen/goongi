@@ -637,7 +637,7 @@
           <div class='event_members_result' style='overflow: hidden;'>
             <div class='event_members_photo'>
               <a href='{$url->url_create("profile",$members[member_loop].member->user_info.user_username)}'>
-                <img src='{$members[member_loop].member->user_photo("./images/nophoto.gif")}' width='{$misc->photo_size($members[member_loop].member->user_photo("./images/nophoto.gif"),"90","90","w")}' border='0' alt="{lang_sprintf id=509 1=$members[member_loop].member->user_displayname_short}" class='photo' />
+                <img src='{$members[member_loop].member->user_photo("./images/no_photo.gif")}' width='{$misc->photo_size($members[member_loop].member->user_photo("./images/no_photo.gif"),"90","90","w")}' border='0' alt="{lang_sprintf id=509 1=$members[member_loop].member->user_displayname_short}" class='photo' />
               </a>
             </div>
             <div class='profile_friend_info'>

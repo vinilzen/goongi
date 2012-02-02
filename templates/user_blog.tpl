@@ -50,7 +50,7 @@
       {section name=blogentry_loop loop=$blogentries}
         {assign var=i value=$i+1}
        <li id = "blog_msg{$blogentries[blogentry_loop].blogentry_id}">
-            <a><img src="/uploads_user/1000/{$user->user_info.user_id}/{$user->user_info.user_photo}" alt="" /></a>
+            <a><img src="{$user->user_photo('./images/no_photo.gif')}" alt="" /></a>
             <div>
                 <a class="name">{$blogentries[blogentry_loop].blogentry_author->user_displayname}</a>
                   <big><a href='{$url->url_create("blog_entry", $user->user_info.user_username, $blogentries[blogentry_loop].blogentry_id)}'>

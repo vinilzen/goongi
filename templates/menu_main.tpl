@@ -11,7 +11,7 @@
 	<div class="bg">
 		<div class="c">
 			<div class="pro">
-				<div id="main_photo"><img src="{$user->user_photo('./images/no_photo.jpg')}" alt="" /></div>
+				<div id="main_photo"><img src="{$user->user_photo('./images/no_photo.gif')}" alt="" /></div>
 					<ul>
 						<li>вы - id[{$user->user_info.user_id}]</li>
 						<li {if $global_page == 'my_tree'}class="active"{/if}><a href='/my_tree.php'>Мое дерево</a></li>

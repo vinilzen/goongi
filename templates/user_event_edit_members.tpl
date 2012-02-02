@@ -203,7 +203,7 @@
       <tr>
         <td>
           <a href="{$url->url_create('profile', $members[member_loop].member->user_info.user_username)}">
-            <img src="{$members[member_loop].member->user_photo('./images/nophoto.gif')}" class="photo" border="0" width="60" height="60" />
+            <img src="{$members[member_loop].member->user_photo('./images/no_photo.gif')}" class="photo" border="0" width="60" height="60" />
           </a>
         </td>
         <td style="padding-left: 7px; vertical-align: top;" width="100%">

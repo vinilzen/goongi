@@ -6,7 +6,7 @@
 
 {* DISPLAY ERROR *}
 {if $is_error != 0}
-  <div class='error'><img src='./images/error.gif' border='0' class='icon'>{lang_print id=$is_error}</div>
+  <div class='error'>{lang_print id=$is_error}</div>
 
 
 {* DISPLAY RESEND *}

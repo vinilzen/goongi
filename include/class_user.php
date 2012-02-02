@@ -329,7 +329,7 @@ class SEUser
 		else
 		$role = 'mother';
 		
-		//print_r($familys); die();
+		
 		if (count($familys)) {
 			foreach($familys AS $v)
 				if ( $v['role'] == $role)
@@ -374,22 +374,16 @@ class SEUser
              $resource = $database->database_query("SELECT `role` FROM `se_role_in_family` WHERE `user_id` = '$user_id'");
              
             while($p = $database->database_fetch_assoc($resource)) {
-                  //print_r($parent_info);
+                  
                   if (($p['role'] == 'father') || ($p['role'] == 'mother')) $role_p['role'] = $p['role'];
                   if ($p['role'] == 'child') $pr=1;
                   $mas[] = $p;
            }
-          // print_r ($mas);
-           //  echo $user_id;
-           //  $pr=0;
-	//foreach ($role_p as $p)
-        //         if ($p == 'child') $pr=1;
-           //echo $role_p['role'];
-           //  echo $user_id;
+          
              if ( (($role_p['role'] == 'father') || ($role_p['role'] == 'mother')) && ($pr!=1)){
                 
                     $family_id = $this->create_family($user_id,$new_user);
-                  //  echo 123;
+                  
                           $this->add_role($family_id,'child', $user_id);
                           return $family_id;
              }else
@@ -399,13 +393,13 @@ class SEUser
 		$family_id = 0;
                 
 		$role = 'child';
-		//print_r($familys); die();
+		
 		if (count($familys)) {
 			foreach($familys AS $v)
 				if ( $v['role'] == $role)
 					$family_id = (int)$v['family_id'];
                      if ($family_id == 0)  $family_id = $database->database_query("SELECT `family_id` FROM `se_family` WHERE `user_create_id` = '$user_id'  LIMIT 1;");
-                    //echo $family_id;
+                    
 			if ($family_id != 0)
 				return $family_id;
 			else
@@ -633,7 +627,7 @@ class SEUser
             $resource = $database->database_query("SELECT * FROM se_role_in_family WHERE `role`!='child' && `family_id`='{$fam_id}';");
             $p='';
               while($parent_info = $database->database_fetch_assoc($resource)) {
-                  //print_r($parent_info);
+                  
                   $p[] = $parent_info['role'];
            }
             if (count($p) == 0) return false;
@@ -654,7 +648,7 @@ class SEUser
             $resource = $database->database_query("SELECT * FROM se_role_in_family WHERE `role`!='child' && `family_id`='{$fam}';");
             $p='';
               while($parent_info = $database->database_fetch_assoc($resource)) {
-                  //print_r($parent_info);
+                  
                   $p[] = $parent_info['role'];
            }
             if (count($p) == 2) return true;
@@ -1690,28 +1684,51 @@ class SEUser
 	// INPUT: $nophoto_image (OPTIONAL) REPRESENTING THE PATH TO AN IMAGE TO OUTPUT IF NO PHOTO EXISTS
 	//	  $thumb (OPTIONAL) REPRESENTING WHETHER TO RETRIEVE THE SQUARE THUMBNAIL OR NOT
 	// OUTPUT: A STRING CONTAINING THE PATH TO THE USER'S PHOTO
-  
-	function user_photo($nophoto_image = "", $thumb = FALSE)
+        
+  function user_photomain($nophoto_image = "", $thumb = FALSE)
   {
-	  global $url;
-    
+ global $url;
+
     //if( !$user->user_exists || !$this->user_info['user_photo'] )
     if( !$this->user_info['user_photo'] )
       return $nophoto_image;
     
+     $user_photo = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_photo'];
+            if( file_exists($user_photo) )
+            {
+               $userid = $this->user_info['user_id'];
+               $subdir = $userid+999-(($userid-1)%1000);
+	       $userdir = "./uploads_user/$subdir/$userid/$userid.jpg";
+               return $userdir;
+            }
+            else  return $nophoto_image;
+
+
+  }
+
+
+	function user_photo($nophoto_image = "", $thumb = FALSE)
+  {
+	  global $url;
+
+    //if( !$user->user_exists || !$this->user_info['user_photo'] )
+    if( !$this->user_info['user_photo'] )
+      return $nophoto_image;
+
 	  $user_photo = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_photo'];
 	  if( $thumb )
-    { 
-	    $user_thumb = substr($user_photo, 0, strrpos($user_photo, "."))."_thumb".substr($user_photo, strrpos($user_photo, ".")); 
+    {
+	    $user_thumb = substr($user_photo, 0, strrpos($user_photo, "."))."_thumb".substr($user_photo, strrpos($user_photo, "."));
 	    if( file_exists($user_thumb) )
         return $user_thumb;
 	  }
-    
+
 	  if( file_exists($user_photo) )
       return $user_photo;
-    
+
 	  return $nophoto_image;
 	}
+
   
   // END user_photo() METHOD
 
@@ -1759,7 +1776,7 @@ class SEUser
 	  $photo_newname = "0_".rand(1000, 9999).".jpg";
 	  $file_dest = $url->url_userdir($this->user_info['user_id']).$photo_newname;
 	  $thumb_dest = substr($file_dest, 0, strrpos($file_dest, "."))."_thumb".substr($file_dest, strrpos($file_dest, "."));
-      $file_big_dest = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_id'].substr($file_dest, strrpos($file_dest, "."));
+          $file_big_dest = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_id'].substr($file_dest, strrpos($file_dest, "."));
 	
 		// var_dump($file_dest); var_dump($thumb_dest); die();
 		
@@ -1844,10 +1861,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
              $resource = $database->database_query($sql);
              $res  = $database->database_fetch_assoc($resource);
              $name_photo  = $res['user_photo'];
-          
-         //     echo $name_photo;
-	      $user_photo = $url->url_userdir($id_user).$name_photo;
-        //       echo $name_photo;
+             $user_photo = $url->url_userdir($id_user).$name_photo;
 	  if( $user_photo )
          {
 	    @unlink($user_photo);
@@ -1890,7 +1904,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
   {
 	  global $database;
 	  $user_photo = $this->user_photo();
-          print_r ($user_photo);
+          
 	  if( $user_photo )
     {
 	    @unlink($user_photo);
@@ -2093,10 +2107,8 @@ function user_ajax_photo_upload($photo_name,$id_user)
           {$start}, {$limit}
       ";
       
-      //echo $friend_query; die();
       $user_groups = $this->user_groups();
 	  $groups = $this->user_group_list();
-	  //echo '<pre>'; print_r($groups); die();
 	    // LOOP OVER FRIENDS
 	    $friends = $database->database_query($friend_query);
 	    while($friend_info = $database->database_fetch_assoc($friends)) {
@@ -2221,7 +2233,6 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		
 		if ( !$this->user_check_group_name($group_name) )  {
 			$sql = "INSERT INTO `se_groups` (`user_id`, `group_name`) VALUES ( '{$user_id}', '{$group_name}');";
-			//echo $sql; die();	
 			$database->database_query($sql);
 			$group_id = $database->database_insert_id();
 			return $group_id;
@@ -2372,7 +2383,6 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		//print_r($members_list);
 
 		$sql1 = "SELECT * FROM `se_profilevalues` WHERE `profilevalue_user_id` IN (" . implode(',', $members_list) . ") LIMIT ". count($members_list) .";";
-		//echo $sql1.'<pre>';
 		$resourse1 = $database->database_query($sql1);
 		while( $m = $database->database_fetch_assoc($resourse1)) {
 				
@@ -2407,7 +2417,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		
 		$family = $database->database_query($sql);
 		$family_id = $database->database_fetch_assoc($family);
-		//var_dump($family_id);  echo  $sql. ' - ' . $sql; die();
+		
 		if ( $family_id === false || !isset($family_id) )
 			return 0;
 		else
@@ -2429,8 +2439,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		global $database, $setting, $user;
                 
 		$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE `family_id` = '$fam_id' AND (`role` = '$role' OR `role` = '$rolep');";
-            // echo $sql;
-		$resourse = $database->database_query($sql);
+            	$resourse = $database->database_query($sql);
 		$kinsman = array();
 		while($f = $database->database_fetch_assoc($resourse) )
                 $kinsman[] = $f['user_id'];
@@ -2454,8 +2463,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		}
 		//var_dump($family_name);  die();
 		$sql = "INSERT INTO `se_family` (`family_id`, `family_name`, `family_createdate`, `user_create_id`) VALUES (NULL, '$family_name', UNIX_TIMESTAMP(), '$user_id')";
-              //  echo $sql;
-		$database->database_query($sql);
+              	$database->database_query($sql);
 		$id = $database->database_insert_id();
                 
 		return $id;
@@ -2485,8 +2493,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 	// insert in `se_role_in_family`
 	function add_role($family_id, $role, $user_id) {
 		global $database, $setting, $user;
-             //   echo $user_id;
-                 $level = $this->getlevel($user_id);
+                $level = $this->getlevel($user_id);
 		$sql = "INSERT INTO `se_role_in_family` (`family_id`, `user_id`, `role`, `level`) VALUES ('$family_id', '$user_id', '$role', '$level')";
 		if ( $database->database_query($sql) ) {
 			return true;
@@ -2554,7 +2561,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		
 		$father_id = $this->get_role($family_id, $real_role);
 		
-		//var_dump($father_id); echo $father_id . '-' . $user_rel . '-' . $start_user; die(); 
+		
 		
 		if ( $father_id == 0 || $real_role == 'child' || $father_id == $user_rel) {
 			if ($father_id == $user_rel)  { // parent exist, add only child
@@ -2629,8 +2636,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		$val = $database->database_query("SELECT `profilevalue_5` FROM `se_profilevalues` WHERE `profilevalue_user_id` = '$user_id' LIMIT 1;");
 		
 		$sex = $database->database_fetch_assoc($val);
-                //print_r ($user_id);
-		//print_r($sex); die();
+
 		if ( $sex === false) {
 			return null;
 		} elseif ( $sex['profilevalue_5'] == '2') {
@@ -2648,8 +2654,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 			$user_id = $user->user_info['user_id'];
 		
 		
-		//echo $user_id; die();
-		
+				
                $result = array();
                $users = $this->bild_tree_new($user_id);
               
@@ -2673,7 +2678,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 			}
 		}
 		$result1['users'] = $users;
-		// echo '<pre>'; print_r($result1); die();
+		
 		return json_encode($result1); //die();
 	}
 
@@ -2774,7 +2779,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 			$where = " `role` = 'child' AND `user_id` != $user_id";}
 		
 		$sql = "SELECT `user_id` FROM `se_role_in_family` WHERE $where AND `family_id` = $family_id;";
-		//echo $sql;
+		
 		$resourse = $database->database_query($sql);
 		
 		if ( $resourse === false) {
@@ -2784,8 +2789,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 				$family_users = array();
 				while($f = $database->database_fetch_assoc($resourse) ) {
 					$family_users[] = $f['user_id'];
-					//print_r($f);
-				}
+									}
 				return $family_users;
 			} else {
 				$fam = $database->database_fetch_assoc($resourse);
@@ -2825,7 +2829,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 			// get info about members in this tree
 
 			$members = $this->get_user_info($tree_members, true);
-			//print_r($members); die();
+			
 			$u = array( 1 	=> array(	'father'	=>	1,
 										'mather'	=>	2,
 										'child1'	=>	3,
@@ -2856,7 +2860,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 		
 		if ($user_id == 0)
 			$user_id = $user->user_info['user_id'];
-		//print_r($user_id); die();
+		
 		if ( $tree_members = $this->get_relatives($user_id) ) {
 			
 			if ( $members = $this->get_user_info($tree_members) ) {
@@ -2864,7 +2868,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 				foreach ($members AS $k=>$v) {
 					$result_members[$v['id']] = $v['displayname'];
 				}
-				//print_r($result_members); die();
+				
 				return $result_members;
 				
 			} else {
@@ -2874,7 +2878,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 			}
 			
 		} else {
-			//print_r('false'); die();
+			
 			return false;
 			
 		}
@@ -3449,8 +3453,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 	function user_create_fast(	$fname, $lname, $root_user_id, $role, $signup_email, $birthday = '0000-00-00',
 								$sex, $death = '0000-00-00', $alias = '', $send_invite = 0, $family_id ,$level) {
 		global $database, $setting, $url, $actions, $field;
-		//echo $send_invite;
-             //   echo $signup_email;
+		
 	  // PRESET VARS
 		  $signup_subnet_id = 0;
 		  $signup_level_info = $database->database_fetch_assoc($database->database_query("SELECT level_id, level_profile_privacy, level_profile_comments FROM se_levels WHERE level_default='1' LIMIT 1"));
@@ -3583,7 +3586,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 			die($sql);
 		}
 	  	
-	  	//echo $family_id;
+	  	
 	  	// ADD in TREE
 	  	$database->database_query("INSERT INTO se_role_in_family (family_id,user_id,role, level) VALUES ('{$family_id}','{$user_id}','{$role}','{$level}')");
 		
@@ -4024,7 +4027,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
   //    void
   //
   
-  function user_message_send($to, $subject, $message, $convo_id=NULL)
+  function user_message_send($id_mes=NULL, $to, $subject, $message, $convo_id=NULL)
   {
     global $database, $notify, $url;
     
@@ -4045,18 +4048,15 @@ function user_ajax_photo_upload($photo_name,$id_user)
 	    // ORGANIZE RECIPIENTS
 	   $tos = array_filter(preg_split('/[,;]+?/', $to));
 	   array_splice($tos, $this->level_info['level_message_recipients']);
-          //    print_r ($tos);
+    
 	    // LOOP OVER RECIPIENTS
       foreach( $tos as $to_username )
       {
-      //    echo ' ';
-       //    print_r ($to_username);
         // CANT SEND TO SELF
-        if( strtolower($to_username)==strtolower($this->user_info['user_displayname']) ) continue;
+        if( strtolower($to_username)==strtolower($this->user_info['user_displayname']) && ($this->user_info['user_id']==$id_mes)) continue;
         
         // GET TO USER OBJECT
-	      $to_user = new SEUser(array(NULL, $to_username));
-        
+	      $to_user = new SEUser(array($id_mes, $to_username));
         // CANT SEND TO NON EXISTENT USER. BLOCKED USER, OR USERS NOT ALLOWED TO USE MESSAGES
         if( !$to_user->user_exists ) continue;
         if( $to_user->user_blocked($this->user_info['user_id']) ) continue;
@@ -4097,6 +4097,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
         
         // EXECUTE QUERY
         $resource = $database->database_query($sql);
+        $id_del = $database->database_insert_id();
 	    }
     }
     
@@ -4137,13 +4138,19 @@ function user_ajax_photo_upload($photo_name,$id_user)
 	    // INSERT MESSAGE
 	    $pm_date = time();
       
+     /* $sql = "
+        INSERT INTO se_pms
+          (pm_authoruser_id, pm_pmconvo_id, pm_date, pm_body,id_del)
+        VALUES
+          ('{$this->user_info['user_id']}', '{$convo_id}', '{$pm_date}', '{$message}','{$id_del}')
+      ";*/
       $sql = "
         INSERT INTO se_pms
           (pm_authoruser_id, pm_pmconvo_id, pm_date, pm_body)
         VALUES
           ('{$this->user_info['user_id']}', '{$convo_id}', '{$pm_date}', '{$message}')
       ";
-      
+          
       $resource = $database->database_query($sql);
       
       

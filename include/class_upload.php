@@ -66,7 +66,7 @@ class se_upload
 	  if($file_maxheight == "") { $file_maxheight = $this->file_height; }
 	  $this->file_maxwidth = $file_maxwidth;
 	  $this->file_maxheight = $file_maxheight;
-  // echo $this->file_tempname.'     ';
+
 	  // ENSURE THE FILE IS AN UPLOADED FILE
 	  if( !is_uploaded_file($this->file_tempname) )
       $this->is_error = 718;
@@ -105,7 +105,7 @@ class se_upload
     {
 	    $this->is_image = 0;
 	  }
-       //   echo $this->is_error;
+      
 	}
   
   // END new_upload() METHOD
@@ -123,8 +123,7 @@ class se_upload
 	// OUTPUT: BOOLEAN INDICATING WHETHER UPLOAD SUCCEEDED OR FAILED
   
 	function upload_file($file_dest)
-  { //echo $this->file_tempname;
-      // echo     $file_dest;
+  { 
         
 	  // TRY MOVING UPLOADED FILE, RETURN ERROR UPON FAILURE
     if( !move_uploaded_file($this->file_tempname, $file_dest) )

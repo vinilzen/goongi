@@ -112,7 +112,7 @@
 <form action='' method='POST' target='ajaxframe' onSubmit='my_sender(); return false;'><!-- user_messages_new.php -->
 	<div style="float:left;width:118px; margin-right:17px; overflow:hidden;">
 		<a target='_blank' href="{$url->url_create('profile',$user->user_info.user_username)}" title="{$user->user_displayname}">
-			<img src="{$user->user_photo("./images/nophoto.gif")}" alt="" />
+			<img src="{$user->user_photo("./images/no_photo.gif")}" alt="" />
 		</a>
 	</div>
             <!--

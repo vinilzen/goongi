@@ -1,4 +1,4 @@
-﻿{include file='header.tpl'}
+{include file='header.tpl'}
 
 {* $Id: home.tpl 288 2010-01-11 20:17:09Z steve $ *}
 
@@ -10,7 +10,7 @@
 							<p>{lang_print id=850009}</p>
 						</div><br>
 						
-						<h1>{lang_print id=643}<!-- Поиск: -->Поиск людей на сайте</h1>
+						<h1><!-- Поиск: -->Поиск людей на сайте</h1>
 						<div class="search">
 							<form action='search.php' method='post'>
 								<span class="button2">
@@ -76,14 +76,14 @@
 							  {/section}
 							</div>
 						  {/if}
-					</div>
-				</div>
-			</div>
-			<div class="b"></div>
-		</div>
-	</div>
-</div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="b"></div>
+                    </div>
 
+                </div>
+            </div>
 {* BEGIN LEFT COLUMN *}
 <div class="left">
 	<div class="left_c">
@@ -107,12 +107,12 @@
 
 					  {* SHOW JOIN US TODAY BUTTON IF USER IS NOT LOGGED-IN *}
 					  {if !$user->user_exists}
-						<div class='portal_signup_container1'>
-					<!--	  <div class='portal_signup'>
+					<!--	<div class='portal_signup_container1'>
+						  <div class='portal_signup'>
 							<a href='signup.php' class='portal_signup'><span style='font-size: 15px;'><img src='./images/portal_join.gif' border='0' style='margin-right: 3px; vertical-align: middle;' alt='' /></span>{lang_print id=1115}</a>
-						  </div> -->
+						  </div> 
 						</div>
-						<div class='portal_spacer'></div>
+						<div class='portal_spacer'></div>-->
 					  {/if}
 
 					  {* SHOW NETWORK STATISTICS *}
@@ -164,14 +164,13 @@
 					</div>
 					<div class='portal_spacer'></div>
 					{/if}
+                            </div>
+                        </div>
+                        <div class="b"></div>
+                    </div>
+                </div>
 
-				</div>
-			</div>
-			<div class="b"></div>
-		</div>
-	</div>
-</div>
-
+            </div>
 {* BEGIN RIGHT COLUMN CONTENT *}{if !$user->user_exists}
 <div class="right">
 	<div class="block1">
@@ -190,13 +189,7 @@
 						<input type="hidden" name="task" value="dologin">
 					</form>
 					<a href="/signup.php" class="reg">{lang_print id=6000143}<!-- Зарегистрироваться --></a>
-				</div>
-			</div>
-		</div>
-		<div class="b"></div>
-	</div>
-</div>
-	
+
 {if 0}{* skroem poka "poslednih dobavlenih" i "samih drugnih" *}
   {* SHOW LAST SIGNUPS *}
 
@@ -248,9 +241,5 @@
 {/if}
 </div>
 {/if}
-			<div class="clear"></div>
-        </div>
-    </div>
 
-</div>
 {include file='footer_without_left_menu.tpl'}
