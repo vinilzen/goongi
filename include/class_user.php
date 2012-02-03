@@ -2389,6 +2389,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 			$members[$m['profilevalue_user_id']]['birthday']	= $m['profilevalue_4']=='0000-00-00'?null:$m['profilevalue_4'];
 	        $members[$m['profilevalue_user_id']]['sex']	= $m['profilevalue_5']=='2'?'w':(($m['profilevalue_5']=='1')?'m':null);
 	        $members[$m['profilevalue_user_id']]['death']	= $m['profilevalue_12']=='0000-00-00'?null:$m['profilevalue_12'];
+                $members[$m['profilevalue_user_id']]['death_bool']	= $m['profilevalue_16']=='0'?null:1;
 			$members[$m['profilevalue_user_id']]['alias']	= $m['profilevalue_11']==''?null:$m['profilevalue_11'];
 
 		}
@@ -3572,10 +3573,11 @@ function user_ajax_photo_upload($photo_name,$id_user)
 			$sex_bool = 1;
 		elseif($sex == 'w')
 			$sex_bool = 2;
-	     
+	     if ($death) $death_bool = 1;
+             else $death_bool = '0';
 	    
 	    $profile_field_query =	"	profilevalue_2='$fname',	profilevalue_3='$lname',	profilevalue_4='$birthday', "
-	    						."	profilevalue_5='$sex_bool',	profilevalue_11='$alias',	profilevalue_12='$death' ";
+	    						."	profilevalue_5='$sex_bool',	profilevalue_11='$alias',	profilevalue_12='$death' ,	profilevalue_16='$death_bool'";
 	    
 	    // ADD USER PROFILE
 		$database->database_query("INSERT INTO se_profilevalues (profilevalue_user_id) VALUES ('{$user_id}')");
@@ -4052,11 +4054,14 @@ function user_ajax_photo_upload($photo_name,$id_user)
 	    // LOOP OVER RECIPIENTS
       foreach( $tos as $to_username )
       {
+          
         // CANT SEND TO SELF
         if( strtolower($to_username)==strtolower($this->user_info['user_displayname']) && ($this->user_info['user_id']==$id_mes)) continue;
-        
+     //   print_r ($to_username);
         // GET TO USER OBJECT
-	      $to_user = new SEUser(array($id_mes, $to_username));
+	      $to_user = new SEUser(array($id_mes));
+          //   print_r ($to_username);
+
         // CANT SEND TO NON EXISTENT USER. BLOCKED USER, OR USERS NOT ALLOWED TO USE MESSAGES
         if( !$to_user->user_exists ) continue;
         if( $to_user->user_blocked($this->user_info['user_id']) ) continue;
@@ -4545,7 +4550,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
       WHERE
         pm_pmconvo_id='{$convo_id}'
       ORDER BY
-        pm_date DESC
+        pm_date ASC
     ";
     
     $resource = $database->database_query($sql);

@@ -55,7 +55,7 @@
 {* DISPLAY MESSAGES *}
 {else}
 
-<ul class="comment_list">
+<ul class="message_list">
   {* LIST SENT MESSAGES *}
   {section name=pm_loop loop=$pms}
 	<li>
@@ -69,7 +69,7 @@
 		{$pms[pm_loop].pm_user->user_displayname|truncate:50}
 	</a>
 
-	<span>{$datetime->cdate("`$setting.setting_timeformat` `$setting.setting_dateformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</span>
+	<span>{$datetime->cdate("`$setting.setting_dateformat` в `$setting.setting_timeformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</span>
 	
 	
 	</br>

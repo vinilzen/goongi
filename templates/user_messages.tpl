@@ -73,7 +73,7 @@
 {else}
 
   <form action='user_messages.php' method='post' name='messageform'>
-	<ul class="comment_list">
+	<ul class="message_list">
   {* LIST INBOX MESSAGES *}
   {section name=pm_loop loop=$pms}
 
@@ -83,18 +83,18 @@
     {else}
       {assign var='row_class' value='messages_read'}
     {/if}
-
-    <li>
+    <li >
 		<a href="user_messages_view.php?pmconvo_id={$pms[pm_loop].pmconvo_id}&task=delete" class="del">{lang_print id=155}<!-- удалить --></a>
 		<a href="{$url->url_create('profile', $pms[pm_loop].pm_user->user_info.user_username)}">
 			<img src="{$pms[pm_loop].pm_user->user_photo('./images/no_photo_thumb.gif', TRUE)}" alt="{lang_sprintf id=786 1=$pms[pm_loop].pm_user->user_displayname_short}" />
 		</a>
 		<a href="{$url->url_create('profile', $pms[pm_loop].pm_user->user_info.user_username)}" class="name">{$pms[pm_loop].pm_user->user_displayname}</a>
-		<span>{$datetime->cdate("`$setting.setting_timeformat` `$setting.setting_dateformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</span>
+		<span>{$datetime->cdate("`$setting.setting_dateformat` в `$setting.setting_timeformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</span>
 		<a href='user_messages_view.php?pmconvo_id={$pms[pm_loop].pmconvo_id}#bottom'>{$pms[pm_loop].pmconvo_subject|truncate:50}</a>
 </br>
-	<a href='user_messages_view.php?pmconvo_id={$pms[pm_loop].pmconvo_id}#bottom' class="link" >
+	<a href='user_messages_view.php?pmconvo_id={$pms[pm_loop].pmconvo_id}#bottom' {if $row_class == 'messages_unread'}class="active link" {else} class="link"{/if}>
 		{$pms[pm_loop].pm_body|truncate:100|choptext:75:"<br>"}
+                {$pms[pm_loop].pmconvoop_read}
         </a>
 		<!-- <input type='checkbox' name='delete_convos[]' value='{$pms[pm_loop].pmconvo_id}' />{if $pms[pm_loop].pm_replied}<div style='padding-left: 5px; padding-top: 3px;'><img src='./images/icons/message_replied16.gif' class='icon' border='0'></div>{/if}</td> -->
     </li>

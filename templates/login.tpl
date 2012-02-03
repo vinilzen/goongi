@@ -10,10 +10,16 @@
 {* SHOW ERROR MESSAGE *}
 {if $is_error != 0}<div class="error"> {lang_print id=$is_error} </div>{/if}
 <form class = 'login' action='login.php' method='POST' name='login'>
-	<div class="inputlog"><label>{lang_print id=89}</label><a href='/signup.php' class="reg">{lang_print id=6000143}</a></br>
+
+	<div class="inputlog">
+<label>{lang_print id=89}</label><a href='/signup.php' class="reg">{lang_print id=6000143}</a>
             <input type='text' class='text' name='email' id='email' value='{$email}' size='30' maxlength='70' />
         </div>
-	<div class="inputlog"><label><a href="lostpass.php">{lang_print id=675}<!-- Забыли пароль?--></a>{lang_print id=29}</label><input type='password' class='text' name='password' id='password' size='30' maxlength='50' /></div>
+
+	<div class="inputlog">
+            <label><a href="lostpass.php">{lang_print id=675}</a>{lang_print id=29}</label><!-- Забыли пароль?-->
+            <input type='password' class='text' name='password' id='password' size='30' maxlength='50' />
+        </div>
 
 {if !empty($setting.setting_login_code) || (!empty($setting.setting_login_code_failedcount) && $failed_login_count>=$setting.setting_login_code_failedcount)}
       <input type='text' name='login_secure' class='text' size='6' maxlength='10' />&nbsp;

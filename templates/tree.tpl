@@ -107,7 +107,7 @@ function callback(form,act,doc) {
 		<div class="relation"><%= id === json.user.id ? "Ты" : "" %></div>
 		<div class="photo loading">
 			<img src="<%= TREE.url.image(id, photo) %>" />
-			<% if (death) { %> <div class="ribbon"></div> <% } %>
+			<% if (death || death_bool) { %> <div class="ribbon"></div> <% } %>
 		</div>
 		<div class="name"><%= Base64.decode(displayname) %></div>
 		<div class="actions closed">
@@ -195,7 +195,7 @@ function callback(form,act,doc) {
 				<td class="sep"></td>
 				<td>
 					<div class="field">
-						<label class="name"><input type="checkbox" name="dead" <% if (death) { %> checked="checked" <% } %> /> Дата смерти</label>
+						<label class="name"><input type="checkbox" name="dead" <% if (death || death_bool) { %> checked="checked" <% } %> /> Дата смерти</label>
 						<table>
 							<tr>
 								<td width="40"><input type="text" maxlength="2" name="deathdate" value="<%= death ? new Date(death).getDate() : "" %>" <% if (!death) { %> disabled="disabled" <% } %> /></td>

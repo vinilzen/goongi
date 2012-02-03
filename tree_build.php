@@ -397,9 +397,11 @@ switch ($type_request) {
                         }
 			if (isset($_POST['death']) && is_numeric($dateb) ) {  // ADD CHECKING
 			//	$d_date = date('Y-m-d',$_POST['death']);
+                           
                             	$d_date = $_POST['death'];
 				$set_fields[] = " `profilevalue_12` = '" . $d_date . "' ";
-			}
+                                $set_fields[] = " `profilevalue_16` = '" . 1 . "' ";
+			}else $set_fields[] = " `profilevalue_16` = '" . null . "' ";
 			//echo 123;
                         if (isset($_POST['birthday']))
                         {

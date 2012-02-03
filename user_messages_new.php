@@ -43,20 +43,32 @@ $friends = $user->user_friend_list(0, $total_friends, 0);
                 }
 		 }
 }
-
+//echo $user->user_info['user_id'];
+$id_my = $user->user_info['user_id'];
+//conv_id
+$resource =$database->database_query("SELECT pmconvoop_pmconvo_id FROM se_pmconvoops WHERE pmconvoop_user_id ='{$id_my}' AND pmconvoop_deleted_outbox != 1");
+ while( $pmconvoop_info=$database->database_fetch_assoc($resource) )
+ {
+     $convo_idp = $pmconvoop_info['pmconvoop_pmconvo_id'];
+     $resource2 =$database->database_query("SELECT pmconvoop_pmconvo_id FROM se_pmconvoops WHERE pmconvoop_user_id ='{$id_user}' AND pmconvoop_pmconvo_id = '{$convo_idp}'");
+         if ($database->database_num_rows($resource2)) {$convo_id = $pmconvoop_info['pmconvoop_pmconvo_id']; continue;}
+         else $convo_id = '';
+ }
+//$convo_id = $resource['pmconvoop_pmconvo_id'];
+///
 if ($is_error == '0')
 {
 	$subject = $_POST['subject'];
 	$message = $_POST['message'];
 	
-	$id = $user->user_message_send($id_user,$to, $subject, $message);
+	$id = $user->user_message_send($id_user,$to, $subject, $message,$convo_id);
 	$is_error = $user->is_error;
 
 	if($is_error != 0) {
 		SE_Language::_preload($is_error);
 		SE_Language::load();
 		$error_message = SE_Language::_get($is_error);
-	} else $error_message = 'Ваше сообщение отправленно';
+	} else $error_message = 'Ваше сообщение отправлено';
 // if ($is_error != 0)
 ///      {echo $error_message; die();}
 // else {echo 'Отправленно'; die();}

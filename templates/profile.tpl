@@ -116,7 +116,7 @@
             <label><a  onClick="Show_piple({$owner->user_info.user_id})" href="javascript:void(0);">Зажгли свечу</a> : <span id = "count_candle">{$count_candle}</span></label>
     </div>
     <div class="img">
-        <a href="#"><img alt="" src="/uploads_user/1000/{$owner->user_info.user_id}/{$owner->user_info.user_id}.jpg"></a>
+        <img alt=""  {if $owner->user_info.user_photo == ''} src="./images/nophoto.gif" {else} src="{$owner->user_photomain('./images/nophoto.gif')}{/if}">
         <p><a href="javascript:void(0);">Показать подробную информацию</a></p>
     </div>
 <div class="g_inf_text"><p>14 сентября 1932 — 21 октября 2009 <span>(3 Хешван 5770)</span></p></div>

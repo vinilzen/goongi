@@ -34,7 +34,8 @@
 
 					{* SHOW MESSAGES MENU ITEM IF ENABLED *}
 					{if $user->level_info.level_message_allow != 0}
-						<li {if $global_page == 'user_messages'}class="active"{/if}><a href='user_messages.php'>							{lang_print id=654}<!-- сообщения --></a>
+						<li {if $global_page == 'user_messages'}class="active"{/if}><a href='user_messages.php'>							
+                                                {lang_print id=654} <span>{if $user_unread_pms>0}({$user_unread_pms}){/if}</span><!-- сообщения --></a>
 						</li>
 					{/if}
 					

@@ -2,16 +2,11 @@
 
 {* $Id: user_messages_view.tpl 194 2009-07-15 21:44:24Z john $ *}
 <h1>мои сообщения</h1>
-<div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><span>Mои сообщения</span></div>
-
-<div class='page_header'>{$pmconvo_info.pmconvo_subject}</div>
-{capture assign='collaborators'}{section name=coll_loop loop=$collaborators}<a href='{$url->url_create("profile", $collaborators[coll_loop]->user_info.user_username)}'>{$collaborators[coll_loop]->user_displayname}</a>{if $smarty.section.coll_loop.last != TRUE}, {/if}{/section}{/capture}
-<div>{lang_sprintf id=801 1=$collaborators}</div>
-<br />
+<div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><a href="user_messages.php">Mои сообщения</a><span>Переписка</span></div>
 
 
 {* LOOP THROUGH MESSAGES IN THREAD *}
-<ul class="comment_list">
+<ul class="message_list">
 {section name=pm_loop loop=$pms}
 <li>
 	
@@ -20,12 +15,12 @@
 		<img src="{$pms[pm_loop].author->user_photo("./images/no_photo_thumb.gif", TRUE)}" alt="" />
 	</a>
 	<a href="{$url->url_create("profile",$pms[pm_loop].author->user_info.user_username)}" class="name">{$pms[pm_loop].author->user_displayname}</a>
-	<span>{$datetime->cdate("`$setting.setting_timeformat` `$setting.setting_dateformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</span>
+	<span>{$datetime->cdate("`$setting.setting_dateformat` в `$setting.setting_timeformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</span>
 	<p>{$pms[pm_loop].pm_body|choptext:75:"<br>"}</p>
 	{if $smarty.section.pm_loop.last}<a name='bottom'></a>{/if}
 </li>
 {/section}
-
+<br></br>
 
 {* JAVASCRIPT FOR AUTOGROWING TEXTAREA *}
 {literal}
