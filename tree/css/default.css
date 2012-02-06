@@ -44,16 +44,18 @@ select option	{padding:0 0 0 3px}
 #user .photo	{float:left; border:1px solid #d7d7d7; border-radius:1px; padding:2px; float:left; margin:0 10px 10px 0}
 #user .photo img	{float:left; width:111px}
 #user .birth	{float:left; color:#7f7f7f; margin:0 0 10px}
+#user .family	{clear:both; font-size:11px}
+#user .family th, #user .family td	{font-weight:normal; text-align:left; line-height:16px; padding:4px 12px 4px 0}
+#user .family td b	{color:#2a86dc}
 
 #user.closed	{left:-300px}
 #user.closed > .toggle	{background-image:url(../img/icons/arrow-180.png)}
 
 #viewpoint	{width:99999px; padding:200px 600px; overflow:hidden}
 #viewpoint.drag	{cursor:move}
-
-.family	{float:left; padding:60px 0 0}
-.family canvas	{position:absolute; z-index:-1}
-.family .children	{clear:both}
+#viewpoint .family	{float:left; padding:60px 0 0}
+#viewpoint .family canvas	{position:absolute; z-index:-1}
+#viewpoint .family .children	{clear:both}
 
 /* refactoring
 .generation	{padding:30px 0}
@@ -77,6 +79,9 @@ select option	{padding:0 0 0 3px}
 
 .person .closed ul	{display:none}
 .person .closed .toggle	{background-image:url(../img/icons/arrow-270.png); border-top:1px solid #c9d4d9}
+
+.person .loading	{background:url(../img/decor/man.png) center no-repeat}
+.person.alt .loading	{background-image:url(../img/decor/woman.png)}
 
 .person.alt	{border-color:#f9a6a6; background:#fff7f7}
 

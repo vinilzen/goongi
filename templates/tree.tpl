@@ -81,6 +81,8 @@ function callback(form,act,doc) {
 	<div class="button sub"><div>Сохранить дерево</div></div>
 </div-->
 
+{literal}
+
 <div id="user" class="closed">
 	<div class="print"></div>
 	<div class="body"></div>
@@ -95,11 +97,30 @@ function callback(form,act,doc) {
 		</a>
 	</div>
 	<div class="birth"><%= birthday ? (sex === "m" ? "Родился " : "Родилась ") + birthday : "" %></div>
+	<% if (spouse || children.length) { %>
+		<table class="family">
+			<% if (spouse) { %>
+				<tr>
+					<th><%= json.users[spouse].sex === "m" ? "Муж" : "Жена" %></th>
+					<td><b><%= Base64.decode(json.users[spouse].displayname) %></b></td>
+				</tr>
+			<% } %>
+			<% if (children.length) { %>
+				<tr>
+					<th>Дети</th>
+					<td>
+						<% _.each(children, function(id, i) { %>
+							<b><%= Base64.decode(json.users[id].displayname) %></b>
+							<% if (children.length !== i + 1) { %>, <% } %>
+						<% }) %>
+					</td>
+				</tr>
+			<% } %>
+		</table>
+	<% } %>
 </script>
 
 <div id="viewpoint"></div>
-
-{literal}
 
 <script id="person-tmpl" type="text/html">
 	<div class="person <%= sex === "w" ? "alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
@@ -148,8 +169,6 @@ function callback(form,act,doc) {
 			</tr>
 		</table>
 
-
-		
 		<div class="field">
 			<div class="name">Имя</div>
 			<input type="text" name="fname" value="<%= Base64.decode(fname) %>" />
@@ -162,8 +181,7 @@ function callback(form,act,doc) {
 			<div class="name">Прозвище</div>
 			<input type="text" name="alias" value="<%= alias %>" />
 		</div>
-
-                <div class="field">
+		<div class="field">
 			<label class="name"><input type="checkbox" name="invite" /> Пригласить</label>
 			<input type="text" name="email"  value="<%= invite %>" />
 		</div>

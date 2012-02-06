@@ -65,8 +65,8 @@ var TREE = {
 
 		this.tmpl.user(json.user).appendTo('#user .body');
 
-		$('#user > .toggle').click(this.toggleUserInfo);
-		$('#user .settings > .toggle').click(this.toggleSettings);
+		$('#user .toggle').click(this.toggleUserInfo);
+		$('#user .print').click(this.print);
 
 		this.viewpoint.on('click', '.person .toggle', function() {
 			TREE.popups.collection.actions.render($(this).closest('.person'));
@@ -204,7 +204,7 @@ var TREE = {
 	},
 
 	renderPath: function() {
-		$('.family').each(function() {
+		this.viewpoint.find('.family').each(function() {
 
 			var family = $(this),
 				ctx = $('<canvas />').attr({
@@ -288,8 +288,10 @@ var TREE = {
 		$(this).closest('#user').toggleClass('closed');
 	},
 
-	toggleSettings: function() {
-		$(this).closest('.settings').toggleClass('closed');
+	print: function() {
+		var print = $('#print_tree_w', top.document);
+		$('#popup', top.document).height(print.height() + top.src() + 100).css('opacity','0.6').show();
+		print.css("top", top.src() + 50 + 'px').fadeIn();
 	}
 
 };
