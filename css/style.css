@@ -145,6 +145,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	
 	
 	.form_desc {overflow:hidden;font:11px arial;color:#7f7f7f;margin-top:-13px; margin-bottom:10px; }
+	.form_desc_accaunt {overflow:hidden;font:11px arial;color:#7f7f7f; margin-bottom:10px; }
 	
 	.form_login		{ overflow:hidden;}
 	.form_login h1	{ font:bold 18px arial; text-transform:uppercase; margin-bottom:15px; color:#000; }
@@ -491,6 +492,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .input.date input			{ float:left;}
 	.form .input.date select		{ float:left; margin-right:1px; padding:4px 4px 4px 0px;}
 	.form .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px;}
+	.form .input .gif input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:190px;}
 	.edit_blog .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px;}
 	.form .input textarea	{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px; height:95px;}
 	.form .input select		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:354px;}
@@ -529,6 +531,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.edit .input select	{ width:390px;}
 	.form.edit .input p			{ font-size:11px; color:#7f7f7f; padding-top:4px; padding-bottom:0;}
 	.form.edit .button			{ padding-top:24px; text-align:center; clear:both;}
+	.form.edit span		             { float:right;display:block; font-size:12px; font-weight:bold; margin-bottom:4px;width:auto;}
 	
 	.form.add_w					{ overflow:hidden; padding-bottom:20px; width:auto;}
 	.form.add_w .input input,
@@ -538,6 +541,14 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 
 	.form.add_com					{ width: auto; padding-bottom:20px;}
 	.form.add_com .input textarea	{ width:490px; margin-bottom:5px;}
+	
+	.form.seach					{ overflow:hidden; padding-bottom:20px; width:auto; border-right:1px solid #9E9E9E;}
+	.form.seach .input input,
+	.form.seach .input textarea	{ width:170px; color:#7f7f7f; margin-bottom:10px;}
+	.form.seach .input select		{ width:180px;margin-bottom:10px;}
+	.form.seach .input .date select	{ width:85px;margin-bottom:10px;}
+	.form.seach .input table input	{ width:180px;}
+	.form.seach .button			{ padding-top:5px; text-align:center; clear:both;}
 
 	
 	

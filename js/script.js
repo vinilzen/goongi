@@ -541,7 +541,7 @@
               var scrOfY = src();
             $('body').append( '<div class="window rezina" id="add_msg_w_g">'+
                       '<div class="close"></div>'+
-                      '<div class="w_t">'+
+                      '<div class="w_t" id = "w_t">'+
                       '<h1>Отправить подарок</h1>'+
                       '</div>'+
                       '<div class="w_c">'+
@@ -560,13 +560,11 @@
                                           '<div style="float:left;width:144px; margin-right:6px; overflow:hidden;">'+
                                           '<div id= "picture_gif"></div>'+
                                           '</div>'+
-                                          '<div class="input"><label>Получатель<!-- {lang_print id=790} кому --></label>'+
-                                           '<input onfocus="if (this.value == \'Введите имя и фамилию\') this.value =\'\'; if (this.value == \'Введите имя и фамилию\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя и фамилию\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя и фамилию" type="text" name="to_display" id="to_display" />'+
-                                           ' </div>'+
-                                       
-                                       '<div class="clear"></div>'+
+                                          '<div class="input gif"><label>Получатель<!-- {lang_print id=790} кому --></label>'+
+                                           '<div class="gif"><input onfocus="if (this.value == \'Введите имя и фамилию\') this.value =\'\'; if (this.value == \'Введите имя и фамилию\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя и фамилию\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя и фамилию" type="text" name="to_display" id="to_display" />'+
+                                           ' </div></div>'+
+                                    '<div class="clear"></div>'+
                                     '<div class="input">'+
-                                //    '<textarea onblur="if (this.value == \'Пожалуйста,напишите сообщение\') this.value=\'\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"  onfocus="if (this.value == \'Пожалуйста,напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста,напишите сообщение\') this.style.color=\'#000\';" rows=\'3\' cols=\'10\' id="message" name="message"></textarea></div>'+
                                     '<textarea onfocus="if (this.value == \'Пожалуйста, напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста, напишите сообщение\') this.style.color=\'#000\';" onblur="if (this.value == \'\') this.value=\'Пожалуйста, напишите сообщение\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"   rows=\'3\' cols=\'10\' id="message" name="message">Пожалуйста, напишите сообщение</textarea></div>'+
                                     '<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input onClick = "my_sender_gif(); return false;"  type="submit" class="button" value="Отправить" /></span><span class="r">&nbsp;</span></span></div>'
 	                                                );
@@ -582,19 +580,7 @@
             'json');
              return false;
   })
-          //      $('#ajaxframe').attr('src','mf_gifts_send_message.php');
-	//	$('#add_msg_b_g').html('');
-//		$('#popup').height($('#content').height()).css('opacity','0.6').show();
-		//var scrOfY = src();
-		//$('#add_msg_w_g').css("top", scrOfY + 50 + 'px').fadeIn();
-		//$('#ajaxframe').load(function() {
-	//		$('#add_msg_b_g').html($("#ajaxframe").contents().find("#form_div").html());
-         //               $("#picture_gif").html('<img  src=\'mf_gifts/'+id_value+'_thumb.\' ><iput type = "hidden" id = "id_g" value ='+id_value+' >');
-          //           	e.preventDefault();
-//		});
-//		return false;
-	//});
-
+     
         $('#add_msg, #add_msg_l').live("click", function () {
             var options;
              $('#popup').height($('#content').height()).show();
@@ -615,17 +601,12 @@
                            { 'task': 'show_f'},
                             function(data) {
                     if ( data.is_error == '0') {
-                        //'<div style="float:left;width:118px; margin-right:17px; overflow:hidden;">'+
-                         //                               '<img src="'+data.photo+'" alt="" />'+
-                         //                       '</div>'+
-                         $('#add_msg_w').show();
+                          $('#add_msg_w').show();
                           $('#add_msg_b').append(
                                            '<div class="input"><label>Имя и фамилия<!-- {lang_print id=790} кому --></label>'+
-                                        //   '<input onfocus="if (this.value == \'Введите имя\') this.value =\'\'; if (this.value == \'Введите имя\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя" type="text" name="to_display" id="to_display" />'+
-                                            '<input onfocus="if (this.value == \'Введите имя и фамилию\') this.value =\'\'; if (this.value == \'Введите имя и фамилию\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя и фамилию\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя и фамилию" type="text" name="to_display" id="to_display" />'+
+                                               '<input onfocus="if (this.value == \'Введите имя и фамилию\') this.value =\'\'; if (this.value == \'Введите имя и фамилию\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя и фамилию\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя и фамилию" type="text" name="to_display" id="to_display" />'+
                                            ' </div>'+
-                                    //   '<div class="input"><label>Тема</label>'+
-                                     //   '<input type="text" class="text" name="subject" id="subject" value="" /></div>'+
+                                   
                                        '<div class="clear"></div>'+
                                     '<div class="input">'+
 '                                   <textarea onfocus="if (this.value == \'Пожалуйста, напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста, напишите сообщение\') this.style.color=\'#000\';" onblur="if (this.value == \'\') this.value=\'Пожалуйста, напишите сообщение\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"   rows=\'3\' cols=\'10\' id="message" name="message">Пожалуйста, напишите сообщение</textarea></div>'+
@@ -1158,17 +1139,28 @@ function my_invite() {
 function my_sender_gif() {
 	$.post(
 		"mf_gifts_send_message.php",
-		{ gift_id: $('#id_g').attr('value'), to: $('#to_display').attr('value'), subject: $('#subject').attr('value') , message: $('#message').attr('value'),task:'send',private:'0' },
+		{ gift_id: $('#id_g').attr('value'), to: $('#to_display').attr('value'), subject: $('#subject').attr('value') , message: $('#message').attr('value'),task:'send', privateе:'0' },
 		function(data) {
-		$('#add_msg_b_g').html('<h1>' + data + '</h1>');
+                     if ( data.is_error == '0') {
+                        $('.w_t').html('<h3>' + data.result + '</h3>');
+			$('#add_msg_b_g').html('');
 			setTimeout ( function() {
 				$('#popup').fadeOut(300);
 				$('.window').hide();
-				e.preventDefault();
+                                 $('.w_t').html('<h1>Отправить подарок</h1>');
+				//e.preventDefault();
 			}, 1500);
+
 		}
-	);
-}
+                   else {
+                      $('#to_display').val("");
+                      alert( data.result);
+                  }
+	 },
+        'json');
+                          //      return false;
+  }
+  
 function my_sender() {
 	$.post(
 		"user_messages_new.php",
@@ -1218,9 +1210,19 @@ function Show_piple(owner_id){
           if ( data.error == '0') {
                                             $('#svecha_list').show();
                                              $('.count_g').append(data.result.length);
+                                             var userid;
+                                             var subdir;
+                                             var userdir;
                                           //    alert($('#user').value);
                                                $.each(data.result, function(key, value) {
-             $('.friend_list').append('<li><a href="#"><img src="/uploads_user/1000/'+value['user_candle_id']+'/'+value['user_candle_photo']+'.jpg" alt="" /></a><a href="#">'+ value['user_candle_name']+'</a></li>');
+                                                userid = value['user_candle_id'];
+                                                subdir = Math.floor(Math.floor(userid / 1000) * 1000 + 1000);
+                                                if (value['user_candle_photo'] != '_thumb')
+                                                userdir = './uploads_user/'+subdir+ '/' + userid+ '/' + value['user_candle_photo']+'.jpg';
+                                                else userdir ='./images/no_photo_thumb.gif'
+
+                                            //    $('.friend_list').append('<li><a href="#"><img src="/uploads_user/1000/'+value['user_candle_id']+'/'+value['user_candle_photo']+'.jpg" alt="" /></a><a href="#">'+ value['user_candle_name']+'</a></li>');
+                                                $('.friend_list').append('<li><a href="#"><img src='+userdir+' alt="" /></a><a href="#">'+ value['user_candle_name']+'</a></li>');
                                              });
                                     $('#svecha_list').fadeIn();
           }

@@ -457,7 +457,7 @@ function user_privacy_levels($privacy_level)
 
 function search_profile()
 {
-	global $database, $url, $results_per_page, $p, $search_text, $t, $search_objects, $results, $total_results;
+	global $database, $url, $results_per_page, $p, $search_text, $t, $search_objects, $results, $total_results,$user;
 
 	// GET FIELDS
 	$fields = $database->database_query("
@@ -520,7 +520,7 @@ function search_profile()
 	    }
 	  }
 	}
-
+$s_id = $user->user_info['user_id'];
 	// CONSTRUCT QUERY
 	$profile_query = "
     SELECT
@@ -540,6 +540,7 @@ function search_profile()
     WHERE
       se_users.user_verified='1' AND
       se_users.user_enabled='1' AND
+      se_users.user_id != '$s_id' AND
       (se_users.user_search='1' OR se_levels.level_profile_search='0') AND
       ($profile_query)
   ";
@@ -573,7 +574,7 @@ function search_profile()
       
 	    $results[] = Array(
         'result_url' => $url->url_create('profile', $profile_info['user_username']),
-        'result_icon' => $profile->user_photo('./images/nophoto.gif', TRUE),
+        'result_icon' => $profile->user_photo('./images/no_photo.gif', TRUE),
         'result_name' => 509,
         'result_name_1' => $profile->user_displayname,
         'result_desc' => '',

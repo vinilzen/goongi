@@ -1,24 +1,27 @@
 {include file='header.tpl'}
+<h1>настройки учетной записи</h1>
+
+<div class="crumb">
+	<a href="/">Главная</a>
+	<span>{lang_print id=655}</span>
+</div>
 
 {* $Id: user_account.tpl 8 2009-01-11 06:02:53Z john $ *}
-<table class='tabs' cellpadding='0' cellspacing='0'>
-<tr>
-<td class='tab0'>&nbsp;</td>
-<td class='tab1' NOWRAP><a href='user_account.php'>{lang_print id=655}</a></td>
-<td class='tab'>&nbsp;</td>
-<td class='tab2' NOWRAP><a href='user_account_privacy.php'>{lang_print id=1055}</a></td>
-<td class='tab'>&nbsp;</td>
-<td class='tab2' NOWRAP><a href='user_account_pass.php'>{lang_print id=756}</a></td>
-{if $user->level_info.level_profile_delete != 0}<td class='tab'>&nbsp;</td><td class='tab2' NOWRAP><a href='user_account_delete.php'>{lang_print id=757}</a></td>{/if}
-<td class='tab3'>&nbsp;</td>
-</tr>
-</table>
 
-<img src='./images/icons/settings48.gif' border='0' class='icon_big'>
-<div class='page_header'>{lang_print id=755}</div>
-<div>{lang_print id=808}</div>
-<br />
-<br />
+<div class="buttons" >
+	<span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<a href='user_account.php'>{lang_print id=655}</a>
+	</span><span class="r">&nbsp;</span></span>
+
+        <span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<a href='user_account_privacy.php'>{lang_print id=1055}</a>
+	</span><span class="r">&nbsp;</span></span>
+
+        <span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<a href='user_account_pass.php'>{lang_print id=756}</a>
+	</span><span class="r">&nbsp;</span></span>
+</div>
+
 
 {* SHOW ERROR OR SUCCESS MESSAGES *}
 {if $result != 0}
@@ -33,46 +36,41 @@
   </table>
 {/if}
 
+
+<div class="form edit">
 <form action='user_account.php' method='post' name='info'>
-<table cellpadding='0' cellspacing='0'>
-<tr>
-<td class='form1'>{lang_print id=616}:</td>
-<td class='form2'>
+<div class = "input">
+<label>{lang_print id=616}:</label>
+
   <input name='user_email' type='text' class='text' size='40' maxlength='70' value='{$user->user_info.user_email}'>
   {if $user->user_info.user_email != $user->user_info.user_newemail && $user->user_info.user_newemail != "" && $setting.setting_signup_verify != 0}<div class='form_desc'>{lang_sprintf id=818 1=$user->user_info.user_newemail}</div>{/if}
   {if $setting.setting_subnet_field1_id == 0 || $setting.setting_subnet_field2_id == 0}{capture assign='current_subnet'}{lang_print id=$user->subnet_info.subnet_name}{/capture}<div class='form_desc'>{lang_sprintf id=766 1=$current_subnet}</div>{/if}
-</td>
-</tr>
+</div>
 
 {if $user->level_info.level_profile_change != 0 && $setting.setting_username}
-  <tr>
-  <td class='form1'>{lang_print id=28}:</td>
-  <td class='form2'>
+ <div class = "input">
+  <label>{lang_print id=28}:</label>
     <input name='user_username' type='text' class='text' size='40' maxlength='50' value='{$user->user_info.user_username}'>
     {capture assign=tip}{lang_print id=809}{/capture}
     <img src='./images/icons/tip.gif' border='0' class='Tips1' title='{$tip|replace:"'":"&#039;"}'>
-    <div class='form_desc'>{lang_print id=810}</div>
-  </td>
-  </tr>
+    <div class='form_desc_accaunt'>{lang_print id=810}</div>
+</div>
 {/if}
 
 {if $cats|@count > 1}
-  <tr>
-  <td class='form1'>{lang_print id=709}:</td>
-  <td class='form2'>
-    <select name='user_profilecat_id'>
+ <div class = "input">
+ <label> {lang_print id=709}</label>
+     <select name='user_profilecat_id'>
     {section name=cat_loop loop=$cats}
       <option value='{$cats[cat_loop].cat_id}'{if $user->user_info.user_profilecat_id == $cats[cat_loop].cat_id} selected='selected'{/if}>{lang_print id=$cats[cat_loop].cat_title}</option>
     {/section}
     </select>
-    <div class='form_desc'>{lang_print id=1014}</div>
-  </td>
-  </tr>
+    <div class='form_desc_accaunt'>{lang_print id=1014}</div>
+</div>
 {/if}
 
-<tr>
-<td class='form1'>{lang_print id=206}:</td>
-<td class='form2'>
+ <div class = "input">
+ <label>{lang_print id=206}:</label>
   <select name='user_timezone'>
   <option value='-8'{if $user->user_info.user_timezone == "-8"} SELECTED{/if}>Pacific Time (US & Canada)</option>
   <option value='-7'{if $user->user_info.user_timezone == "-7"} SELECTED{/if}>Mountain Time (US & Canada)</option>
@@ -105,33 +103,26 @@
   <option value='11'{if $user->user_info.user_timezone == "11"} SELECTED{/if}>Magadan, Soloman Is., New Caledonia</option>
   <option value='12'{if $user->user_info.user_timezone == "12"} SELECTED{/if}>Fiji, Kamchatka, Marshall Is., Wellington</option>
   </select>
-</td>
-</tr>
+</div>
 
 {* SHOW NOTIFICATION SETTINGS *}
 {if $notifytypes|@count != 0}
-  <tr>
-  <td class='form1'>{lang_print id=959}:</td>
-  <td class='form2'>
-    <div style='padding: 3px 0px 5px 0px;'>{lang_print id=960}</div>
-    <table cellpadding='0' cellspacing='0'>
-    {section name=notifytype_loop loop=$notifytypes}
+ <div class = "input">
+  <label>{lang_print id=959}:</label>
+   {lang_print id=960}
+       {section name=notifytype_loop loop=$notifytypes}
       {capture assign="usersetting_col"}usersetting_notify_{$notifytypes[notifytype_loop].notifytype_name}{/capture}
-      <tr>
-      <td><input type='checkbox' name='notifications[{$notifytypes[notifytype_loop].notifytype_name}]' id='{$usersetting_col}' value='1'{if $user->usersetting_info.$usersetting_col == 1} checked='checked'{/if}></td>
-      <td><label for='{$usersetting_col}'>{lang_print id=$notifytypes[notifytype_loop].notifytype_title}</label></td>
-      </tr>
+     <input type='checkbox' name='notifications[{$notifytypes[notifytype_loop].notifytype_name}]' id='{$usersetting_col}' value='1'{if $user->usersetting_info.$usersetting_col == 1} checked='checked'{/if}>
+      <label for='{$usersetting_col}'>{lang_print id=$notifytypes[notifytype_loop].notifytype_title}</label>
     {/section}
-    </table>
-  </td>
-  </tr>
+    </div>
 {/if}
 
-<tr>
-<td class='form1'>&nbsp;</td>
-<td class='form2'><input type='submit' class='button' value='{lang_print id=173}'></td>
-</tr>
+<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<input type="submit" value="{lang_print id=173}" />
+	</span><span class="r">&nbsp;</span></span></div>
 </table>
 <input type='hidden' name='task' value='dosave'>
 </form>
+</div>
 {include file='footer.tpl'}

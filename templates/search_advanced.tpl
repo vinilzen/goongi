@@ -1,11 +1,11 @@
 {include file='header.tpl'}
 
 {* $Id: search_advanced.tpl 217 2009-08-11 23:20:02Z phil $ *}
-<h1>{lang_print id=1087}<!-- ����� �� ����� --></h1>
-({lang_print id=1088})
+<h1>{lang_print id=1087}</h1><!--Расширенный поиск пользователей-->
+<!--({lang_print id=1088})--><!--Поиск пользователей по ключевым словам и критериям.-->
 {* SHOW PAGE TITLE *}
 {if $showfields == 1}
-  <div class='page_header'>{lang_print id=1087}</div>
+  <!--<div class='page_header'>{lang_print id=1087}</div>-->
   <div></div>
 {elseif $showfields == 0}
   <div class='page_header'>{lang_sprintf id=1083 1="`$linked_field_title`: `$linked_field_value`"}</div>
@@ -28,13 +28,14 @@
 
   {else}
 
-    <form action='search_advanced.php' method='post'>
-    <div class='header'>{lang_print id=1089}</div>
-    <div class='browse_fields'>
+    <form action='search_advanced.php' method='post' id = "seach_f">
+<div class="form seach">
+    <h2>{lang_print id=1089}</h2>
+
 
       {* START BY SHOWING PROFILE CATEGORIES *}
       {if $cats_menu|@count > 0}
-	<div style='padding-top: 5px;'>
+	 <div class="input">
           <select name='categories' class='text' onChange="location.href='search_advanced.php?cat_selected='+this.options[this.selectedIndex].value;">
           {section name=cat_menu_loop loop=$cats_menu}
             <option value='{$cats_menu[cat_menu_loop].cat_id}'{if $cats_menu[cat_menu_loop].cat_id == $cat_selected} selected='selected'{/if}>{lang_print id=$cats_menu[cat_menu_loop].cat_title}</option>
@@ -44,23 +45,21 @@
       {/if}
 
       {* LOOP THROUGH FIELDS *}
+ <div class="input">
       {section name=cat_loop loop=$cats}
       {section name=subcat_loop loop=$cats[cat_loop].subcats}
       {section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
-
-        <div>
-
-          <div style='font-weight: bold; margin-top: 5px;'>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1} {lang_print id=736}{/if}</div>
+      {lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1} {lang_print id=736}{/if}
 
           {* TEXT FIELD/TEXTAREA *}
           {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 1 || $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 2}
-
 	    {* RANGED SEARCH *}
 	    {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_search == 2}
+ <div class="date">
 	      <input type='text' class='text' size='5' name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_min' value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_min}' maxlength='100'>
 	      - 
 	      <input type='text' class='text' size='5' name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_max' value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_max}' maxlength='100'>	  
-
+</div>
 	    {* EXACT VALUE SEARCH *}
 	    {else}
               <input type='text' class='text' size='15' name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value}' maxlength='100'>
@@ -86,6 +85,7 @@
 
 	    {* RANGED SEARCH *}
 	    {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_search == 2}
+<div class = "date">
               <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_min'>
               <option value='-1'></option>
               {section name=option_loop loop=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options}
@@ -99,7 +99,7 @@
                 <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options[option_loop].value}'{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options[option_loop].value == $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_max} SELECTED{/if}>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options[option_loop].label}</option>
               {/section}
               </select>
-
+</div>
 	    {* EXACT VALUE SEARCH *}
 	    {else}
               <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}'>
@@ -114,9 +114,9 @@
           {* DATE FIELD *}
           {elseif $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 5}
 
-
 	    {* BIRTHDAYS *}
 	    {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1}
+<div class = "date">
               <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_3_min'>
               {section name=date3_min loop=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3}
                 <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_min].value}'{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_min == $cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_min].value} SELECTED{/if}>{if $smarty.section.date3_min.first}[ {lang_print id=1116} ]{else}{math equation='x-y' x=$smarty.now|date_format:"%Y" y=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_min].name}{/if}</option>
@@ -128,10 +128,10 @@
                 <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_max].value}'{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_max == $cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_max].value} SELECTED{/if}>{if $smarty.section.date3_max.first}[ {lang_print id=1117} ]{else}{math equation='x-y' x=$smarty.now|date_format:"%Y" y=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_max].name}{/if}</option>
               {/section}
               </select>
-
-
+</div>
 	    {* NORMAL DATES *}
 	    {else}
+
               <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_1'>
               {section name=date1 loop=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1}
                 <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].value}'{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].selected}>{if $smarty.section.date1.first}{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].name}{else}{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array1[date1].name}{/if}</option>
@@ -149,6 +149,7 @@
                 <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].value}'{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].selected}>{if $smarty.section.date3.first}{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].name}{else}{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3].name}{/if}</option>
               {/section}
               </select>
+
 	    {/if}
 
 
@@ -167,13 +168,12 @@
 
           {/if}
 
-      </div>
       {/section}
       {/section}
       {/section}
-
+</div>
       {* SHOW SUBMIT BUTTON *}
-      <div>
+      <div class = "input">
 	<div style='padding-top: 5px;'>
 	  <b>{lang_print id=1091}</b><br>
           <select name='sort' class='small'>
@@ -190,7 +190,16 @@
 	  </table>
 	</div>
         <div style='padding-top: 10px; padding-bottom: 5px;'>
-          <input type='submit' class='button' value='{lang_print id=1090}'>&nbsp;&nbsp;
+       
+        <span class="button2">
+        <span class="l">&nbsp;</span>
+        <span class="c">
+        <a onclick = "document.getElementById('seach_f').submit()">{lang_print id=1090}</a>
+        </span>
+        <span class="r">&nbsp;</span>
+        </span>
+        
+        
           <input type='hidden' name='task' value='dosearch'>
           <input type='hidden' name='cat_selected' value='{$cat_selected}'>
 	</div>

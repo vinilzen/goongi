@@ -20,7 +20,7 @@ class mf_gifts {
 		$user_data = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_users WHERE user_displayname = '$data[to_user]'"));
                $error = 0;
                 if ($user_data[user_id] == null) $error = 795;
-                
+                else {
 		$gift_data = $database->database_fetch_assoc($database->database_query("SELECT * FROM mf_gifts_data WHERE id = '$data[gift_id]'"));
 		$user_data_dn = $user_data[user_fname]." ".$user_data[user_lname];
 		$date = time();
@@ -31,7 +31,7 @@ class mf_gifts {
 		$notify->notify_add($data[to_user], 'newgift', 0, Array($user_data[user_username]));
 		if($data['private'] != 1) {
 			$actions->actions_add($user, "sendgift", Array($data[from_un], $data[from_dn], $user_data[user_username], $user_data_dn));
-		}
+		}}
                 if ($error == 0)
                      return 0;
                 else return $error;

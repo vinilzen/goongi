@@ -18,14 +18,14 @@ if(isset($_GET['type']) && $_GET['type'] != ''){
 	$tl = "&type=$_GET[type]";
 	$smarty->assign('tl', $tl);
 }
-// Категории подарков
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 $type = $database->database_query("SELECT * FROM mf_gifts_type WHERE status = 1");
 while($type_info = $database->database_fetch_assoc($type)) {
 	$type_vars[$type_info[id]] .= $type_info[lang];
 	SE_Language::_preload_multi($type_info[lang]);
 }
 
-// Выбор подарков из категорий по GET запросу
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ GET пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 if(!isset($_GET['type']) OR $_GET['type'] == 0) {
 	$query = "SELECT * FROM mf_gifts_data";
 }else{
@@ -33,7 +33,7 @@ if(!isset($_GET['type']) OR $_GET['type'] == 0) {
 }
 
 $total_vars = $database->database_num_rows($database->database_query($query));
-$vars_per_page = 20;
+$vars_per_page = 50;
 $page_vars = make_page($total_vars, $vars_per_page, $p);
 $query .= " LIMIT $page_vars[0], $vars_per_page";
 

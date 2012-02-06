@@ -44,12 +44,10 @@ while($gift_info = $database->database_fetch_assoc($gifts)) {
 }
 
 // SET ERROR VARIABLES AND EMPTY VARS
-$is_error = 0;
-
 
 // TRY TO SEND MESSAGE
 if($task == "send") {
-
+$is_error = '';
 	$message = ereg_replace("http://([.]?[a-zA-Z0-9_/-])*", "<a href=\"\\0\">\\0</a>", $_POST['message']);
 	$message = ereg_replace("(^| |\n)(www([.]?[a-zA-Z0-9_/-])*)", "\\1<a href=\"http://\\2\">\\2</a>", $message);
 	$message = cleanHTML($message, "a");
@@ -65,23 +63,29 @@ if($task == "send") {
 		'from_un' => $user->user_info[user_username],
 		'from_dn' => $user->user_displayname,
 		'message' => $message,
-		'private' => $_POST['private']);
+		'private' => $_POST['privateе']);
 		$result =$gift->save_data($data);
 	}else{
-		$is_error = 80000028;
+		$is_error = 'Выберите пользователя из списка';//80000028;
 	}
-        if ($result != 0) $is_error =$result;
-	//if($_POST['to'] == 0){$is_error = 80000032;}
-	if($is_error != 0) { 
-            SE_Language::_preload($is_error);
-		SE_Language::load();
-		$error_message = SE_Language::_get($is_error);
+        if ($result != 0) $is_error ='Выберите пользователя из списка';
+
+	if($is_error != '')
+        {
+               $error_message = $is_error;
+               $er = 1;
         }
-       // echo $is_error;die();
-        if ($is_error != 0)
-            {echo $error_message; die();}
-        else {echo 'Подарок отправлен'; die();}
-        
+         else
+         {$error_message = 'Ваш подарок отправлен';
+          $er = 0;
+         }
+               
+        echo json_encode(array(
+        'is_error' => $er,
+         'result' =>$error_message,
+         'id'=>$id
+      ));
+     exit();
 	// SEND AJAX CONFIRMATION
 	/*echo "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><script type='text/javascript'>";
 	echo "window.parent.messageSent('$is_error', '".str_replace("'", "\'", $error_message)."');";
