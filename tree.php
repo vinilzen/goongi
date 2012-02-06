@@ -11,6 +11,7 @@ if ( isset($owner) && $owner->user_exists == 1 )
 	$family = $user->get_family($owner->user_info['user_id']);
 else
 	$family = $user->get_family();
+
 //$unions = $user->get_user_union();
 //echo '<pre>->'; print_r($user); echo '</pre>';  die();
 

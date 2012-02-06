@@ -93,11 +93,32 @@ function callback(form,act,doc) {
 	<div class="name"><a href="/user_editprofile.php" target="_top"><%= Base64.decode(displayname) %></a></div>
 	<div class="photo">
 		<a href="/{$user->user_info.user_username}" target="_top">
-			<img src="<%= TREE.url.image(id, photo) %>" />
+                    <% if ( photo)  { %>
+                        <img src="<%= TREE.url.image(id, photo) %>" />
+                    <% } %>
+                    <% if ( !photo)  { %>
+                         <img src="images/no_photo.gif" />
+                   <% } %>
+
+			
 		</a>
 	</div>
-	<div class="birth"><%= birthday ? (sex === "m" ? "Родился " : "Родилась ") + birthday : "" %></div>
+	<div class="birth">
+         <%= birthday ? (sex === "m" ? "Родился " : "Родилась ") + birthday: "" %>
+         <% if ( !birthday ) { %>
+                Дата рождения не известна 
+         <% } %>
+        </div>
 		<table class="family">
+                    <% if (mother || father) { %>
+				<tr>
+					<th>Родители:</th>
+                                        <td><b>
+					<% if (mother){ %> <%= Base64.decode(json.users[mother].displayname) %><% } %>
+                                        <% if ( father && mother) { %>,<% } %> <% if (father){ %><%= Base64.decode(json.users[father].displayname) %><% } %>
+                                 </b></td>
+				</tr>
+			<% } %>
 			<% if (spouse) { %>
 				<tr>
 					<th><%= json.users[spouse].sex === "m" ? "Муж" : "Жена" %></th>
