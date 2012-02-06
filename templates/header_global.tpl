@@ -16,6 +16,7 @@
 *}
 <link rel="stylesheet" href="/css/style.css" title="stylesheet" type="text/css" />  
 <link rel="stylesheet" href="/css/autocomplete.css" title="stylesheet" type="text/css" />  
+<link rel="stylesheet" href="/css/igal.css" title="stylesheet" type="text/css" />  
 <!--[if IE]>
 	<link rel="stylesheet" href="/css/ie.css" type="text/css" media="screen" />
 <![endif]-->
@@ -29,6 +30,7 @@
    	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/js/jquery.autocomplete-min.js"></script>
+	<script type="text/javascript" src="/js/jQuery.Carousel.js"></script>
 	<script type="text/javascript" src="/js/script.js"></script>
 
 
