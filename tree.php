@@ -14,7 +14,6 @@ else
 
 //$unions = $user->get_user_union();
 //echo '<pre>->'; print_r($user); echo '</pre>';  die();
-
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('$user_exists', $user->user_exists);
 /*$smarty->assign('msg', $result['msg']);

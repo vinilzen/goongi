@@ -2677,8 +2677,13 @@ function user_ajax_photo_upload($photo_name,$id_user)
                 }
                  print_r ($users);*/
 		$result1['user'] = $this->get_user_info(array(1=>$user_id), true);
+                              
 		$result1['user'] = $this->add_psc($user_id);
-              
+             //   if ($this->profile_info['profilevalue_4'] != '0000-00-00')
+             //   {
+             //   $vars = explode("-", $this->profile_info['profilevalue_4']);
+             //   $result1['user']['birthday'] = $vars[2].'.'.$vars[1].'.'.$vars[0];
+             //   }
 		unset($users[$user_id]);  // del root user from a reletives users array
 		foreach ($users AS $k=>$v) {
 			if ($k != $user_id) {

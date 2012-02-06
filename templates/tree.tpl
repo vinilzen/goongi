@@ -104,7 +104,12 @@ function callback(form,act,doc) {
 		</a>
 	</div>
 	<div class="birth">
-         <%= birthday ? (sex === "m" ? "Родился " : "Родилась ") + birthday: "" %>
+<% d = new Date(birthday).getDate()%>
+<% y = new Date(birthday).getFullYear()%>
+<% m = new Date(birthday).getMonth()+1 %>
+<% data =d+'.'+m+'.'+y %>
+
+       <%= birthday ? (sex === "m" ? "Родился " : "Родилась ") + data: "" %>
          <% if ( !birthday ) { %>
                 Дата рождения не известна 
          <% } %>
@@ -282,7 +287,14 @@ function callback(form,act,doc) {
 			</tr>
 			<tr>
 				<th>День рождения</th>
-				<td><%= birthday %></td>
+                           <% if (birthday) { %>
+                                <% d = new Date(birthday).getDate()%>
+                                <% y = new Date(birthday).getFullYear()%>
+                                <% m = new Date(birthday).getMonth()+1 %>
+                                <% data =d+'.'+m+'.'+y %>
+				<td><%= data %></td>
+                            <% } %>
+
 			</tr>
 		</table>
 	</div>
