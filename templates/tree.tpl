@@ -115,22 +115,22 @@ function callback(form,act,doc) {
          <% } %>
         </div>
 		<table class="family">
-                    <% if (mother || father) { %>
+                    <% if (json.users[mother] || json.users[father]) { %>
 				<tr>
 					<th>Родители:</th>
                                         <td><b>
-					<% if (mother){ %> <%= Base64.decode(json.users[mother].displayname) %><% } %>
-                                        <% if ( father && mother) { %>,<% } %> <% if (father){ %><%= Base64.decode(json.users[father].displayname) %><% } %>
+					<% if (json.users[mother]){ %> <%= Base64.decode(json.users[mother].displayname) %><% } %>
+                                        <% if ( json.users[father] && json.users[mother]) { %>,<% } %> <% if (json.users[father]){ %><%= Base64.decode(json.users[father].displayname) %><% } %>
                                  </b></td>
 				</tr>
 			<% } %>
-			<% if (spouse) { %>
+			<% if (json.users[spouse]) { %>
 				<tr>
 					<th><%= json.users[spouse].sex === "m" ? "Муж" : "Жена" %></th>
 					<td><b><%= Base64.decode(json.users[spouse].displayname) %></b></td>
 				</tr>
 			<% } %>
-			<% if (children) { %>
+			<% if (json.users[children]) { %>
 				<tr>
 					<th>Дети</th>
 					<td>

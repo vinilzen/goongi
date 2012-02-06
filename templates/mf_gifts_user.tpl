@@ -24,10 +24,10 @@
   {foreach key=cid item=con from=$gifts}
     <li>
     <div class="inf">
-         
+        
            <a class="name" href='{$url->url_create('profile', $con.from->user_info.user_username)}'>
            {$con.from->user_displayname}</a> 
-          <a href="mf_gifts_send.php" class="del">Отправить подарок в ответ</a>
+          <a href="mf_gifts_send.php?displayname={$con.from->user_displayname}" class="del">Отправить подарок в ответ</a>
           <a id="add_msg" href="#" class="edit">Написать сообщение</a>
           <span>{$datetime->cdate("`$setting.setting_dateformat`", $datetime->timezone("`$con.date`", $global_timezone))}</span>
           

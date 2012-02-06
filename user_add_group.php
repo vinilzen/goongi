@@ -26,10 +26,10 @@ if ( $_POST['task'] == 'add' && isset($_POST['gn']) ) {
 		echo json_encode(array("success"=>"0","msg"=>"Название группы должно быть длиннее 2 символов."));
 		die();
 		
-	} elseif (  !preg_match("/^[a-zA-Z0-9]+$/",$group_name)  ) {
-		
-		echo json_encode(array("success"=>"0","msg"=>"Название группы должно содержать только буквы и цифры."));
-		die();
+	//} elseif (  !preg_match("/^[a-zA-Z0-9]+$/",$group_name)  ) {
+	//
+	//	echo json_encode(array("success"=>"0","msg"=>"Название группы должно содержать только буквы и цифры."));
+	//	die();
 		
 	}  elseif ( $user->user_check_group_name($group_name) ) {
 		

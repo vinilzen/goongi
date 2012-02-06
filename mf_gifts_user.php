@@ -82,7 +82,7 @@ if($task == "gift_delete") {
   echo "</script></head><body></body></html>";
   exit();
 }
-
+//print_r ($type);
 $smarty->assign('p', $p);
 $smarty->assign('maxpage', $page_vars[2]);
 $smarty->assign('p_start', $page_vars[0]+1);

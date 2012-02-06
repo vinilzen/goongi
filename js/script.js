@@ -538,6 +538,19 @@ function src(){
             var id_value ='';
             id_value = $(this).attr('id');
              var options;
+             var vars = {}, hash;
+            var hashes = decodeURIComponent(window.location.href).slice(window.location.href.indexOf('?') + 1).split('&');
+
+            for(var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                vars[hash[0]] = hash[1];
+            }
+         
+           if ((vars['displayname'] == '') || (!vars['displayname']))
+           vars['displayname'] ='Введите имя и фамилию';
+           
+         
              $('#popup').height($('#content').height()).show();
               var scrOfY = src();
             $('body').append( '<div class="window rezina" id="add_msg_w_g">'+
@@ -556,13 +569,14 @@ function src(){
                            { 'task': 'show_gif'},
                             function(data) {
                     if ( data.is_error == '0') {
+
                          $('#add_msg_w_g').show();
                           $('#add_msg_b_g').append(
                                           '<div style="float:left;width:144px; margin-right:6px; overflow:hidden;">'+
                                           '<div id= "picture_gif"></div>'+
                                           '</div>'+
                                           '<div class="input gif"><label>Получатель<!-- {lang_print id=790} кому --></label>'+
-                                           '<div class="gif"><input onfocus="if (this.value == \'Введите имя и фамилию\') this.value =\'\'; if (this.value == \'Введите имя и фамилию\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя и фамилию\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя и фамилию" type="text" name="to_display" id="to_display" />'+
+                                           '<div class="gif"><input onfocus="if (this.value == \'Введите имя и фамилию\') this.value =\'\'; if (this.value == \'Введите имя и фамилию\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя и фамилию\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="'+vars['displayname']+'"  type="text" name="to_display" id="to_display" />'+
                                            ' </div></div>'+
                                     '<div class="clear"></div>'+
                                     '<div class="input">'+
@@ -690,7 +704,12 @@ function src(){
 									
 						$('#title_edit_gr').append( $('#group_'+group_id_curent).html() );
 						$.each(data.result, function(key, value) {		
-							var photo = value['user_photo'].replace(/(\w+)\.jpg/, "$1"+"_thumb.jpg");
+							//var photo = value['user_photo'].replace(/(\w+)\.jpg/, "$1"+"_thumb.jpg");
+                                                        userid = key;
+                                                        subdir = Math.floor(Math.floor(userid / 1000) * 1000 + 1000);
+                                                        if (value['user_photo'] != '')
+                                                        userdir = './uploads_user/'+subdir+ '/' + userid+ '/' + value['user_photo'];
+                                                        else userdir ='./images/no_photo_thumb.gif'
 							if ($('#frend_'+key).attr('class') != '') {
 								var str = $('#frend_'+key).attr('class');
 								regexp = "group_"+group_id_curent;
@@ -702,7 +721,7 @@ function src(){
 							} else {
 								var check = '';
 							}
-							$('.friend_list_w').append('<li '+check+' rel="'+key+'"><a href="#"><img width="51" height="52" src="/uploads_user/1000/'+key+'/'+photo+'" alt="'+value['user_displayname']+'" /></a><a href="/'+value['user_username']+'">'+value['user_displayname']+'</a></li>');
+							$('.friend_list_w').append('<li '+check+' rel="'+key+'"><a href="#"><img width="51" height="52" src="'+userdir+'" /></a><a href="/'+value['user_username']+'">'+value['user_displayname']+'</a></li>');
 						});
 						$('#edit_group').fadeIn();
 						
