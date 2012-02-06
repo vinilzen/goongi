@@ -204,7 +204,7 @@ var TREE = {
 	},
 
 	renderPath: function() {
-		$('.family').each(function() {
+		this.viewpoint.find('.family').each(function() {
 
 			var family = $(this),
 				ctx = $('<canvas />').attr({
