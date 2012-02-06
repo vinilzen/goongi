@@ -80,6 +80,9 @@ select option	{padding:0 0 0 3px}
 .person .closed ul	{display:none}
 .person .closed .toggle	{background-image:url(../img/icons/arrow-270.png); border-top:1px solid #c9d4d9}
 
+.person .loading	{background:url(../img/decor/man.png) center no-repeat}
+.person.alt .loading	{background-image:url(../img/decor/woman.png)}
+
 .person.alt	{border-color:#f9a6a6; background:#fff7f7}
 
 .fader	{position:fixed; left:0; top:0; width:100%; height:100%; background:#000; opacity:.7; z-index:10; filter:alpha(opacity=70)}
