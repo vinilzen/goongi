@@ -384,6 +384,7 @@ TREE.popups.collection = {
 					left: 91,
 					top: 45
 				});
+			personClone.find('.photo').toggleClass('loading', person.find('.photo').hasClass('loading'));
 			personClone.find('.actions').removeClass('closed');
 
 			this.show();
@@ -486,7 +487,7 @@ TREE.popups.collection = {
 						invite: '',
 						birthday: null,
 						death: null,
-                                                death_bool: null,
+						death_bool: null,
 						send_invite: null,
 						email: ''
 					},
@@ -506,7 +507,7 @@ TREE.popups.collection = {
 						invite: '',
 						birthday: null,
 						death: null,
-                                                death_bool: null,
+						death_bool: null,
 						send_invite: null,
 						email: ''
 					},
@@ -526,7 +527,7 @@ TREE.popups.collection = {
 						invite: '',
 						birthday: null,
 						death: null,
-                                                death_bool: null,
+						death_bool: null,
 						send_invite: null,
 						email: ''
 					},
@@ -546,7 +547,7 @@ TREE.popups.collection = {
 						invite: '',
 						birthday: null,
 						death: null,
-                                                death_bool: null,
+						death_bool: null,
 						send_invite: null,
 						email: ''
 					},
