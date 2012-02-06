@@ -97,7 +97,6 @@ function callback(form,act,doc) {
 		</a>
 	</div>
 	<div class="birth"><%= birthday ? (sex === "m" ? "Родился " : "Родилась ") + birthday : "" %></div>
-	<% if (spouse || children.length) { %>
 		<table class="family">
 			<% if (spouse) { %>
 				<tr>
@@ -105,7 +104,7 @@ function callback(form,act,doc) {
 					<td><b><%= Base64.decode(json.users[spouse].displayname) %></b></td>
 				</tr>
 			<% } %>
-			<% if (children.length) { %>
+			<% if (children) { %>
 				<tr>
 					<th>Дети</th>
 					<td>
@@ -117,7 +116,6 @@ function callback(form,act,doc) {
 				</tr>
 			<% } %>
 		</table>
-	<% } %>
 </script>
 
 <div id="viewpoint"></div>
@@ -128,7 +126,7 @@ function callback(form,act,doc) {
 		<div class="relation"><%= id === json.user.id ? "Ты" : "" %></div>
 		<div class="photo loading">
 			<img src="<%= TREE.url.image(id, photo) %>" />
-			<% if (death || death_bool) { %> <div class="ribbon"></div> <% } %>
+			<% if (death || death_bool==1) { %> <div class="ribbon"></div> <% } %>
 		</div>
 		<div class="name"><%= Base64.decode(displayname) %></div>
 		<div class="actions closed">
@@ -213,7 +211,7 @@ function callback(form,act,doc) {
 				<td class="sep"></td>
 				<td>
 					<div class="field">
-						<label class="name"><input type="checkbox" name="dead" <% if (death || death_bool) { %> checked="checked" <% } %> /> Дата смерти</label>
+						<label class="name"><input type="checkbox" name="dead" <% if (death || death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label>
 						<table>
 							<tr>
 								<td width="40"><input type="text" maxlength="2" name="deathdate" value="<%= death ? new Date(death).getDate() : "" %>" <% if (!death) { %> disabled="disabled" <% } %> /></td>

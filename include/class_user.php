@@ -429,6 +429,7 @@ class SEUser
              $new_user['email']='';
              $new_user["birthday"]='';
              $new_user["death"]='';
+             $new_user["death_b"]='';
              $new_user["alias"]='';
              $new_user["send_invite"]='';
 
@@ -448,6 +449,7 @@ class SEUser
                 $new_user["birthday"],
                 $new_user["sex"],
                 $new_user["death"],
+                $new_user["death_b"],
                 $new_user["alias"],
                 $new_user["send_invite"],
                 $family_id,
@@ -475,6 +477,7 @@ class SEUser
              $new_user['email']='';
              $new_user["birthday"]='';
              $new_user["death"]='';
+             $new_user["death_b"]='';
              $new_user["alias"]='';
              $new_user["send_invite"]='';
             $s = $this->get_sex($id);
@@ -493,6 +496,7 @@ class SEUser
                                     $new_user["birthday"],
                                     $new_user["sex"],
                                     $new_user["death"],
+                                    $new_user["death_b"],
                                     $new_user["alias"],
                                     $new_user["send_invite"],
                                     $family_id,
@@ -528,6 +532,7 @@ class SEUser
              $new_user['email']='';
              $new_user["birthday"]='';
              $new_user["death"]='';
+             $new_user["death_b"]='';
              $new_user["alias"]='';
              $new_user["send_invite"]='';
 
@@ -547,6 +552,7 @@ class SEUser
                             $new_user["birthday"],
                             $new_user["sex"],
                             $new_user["death"],
+                            $new_user["death_b"],
                             $new_user["alias"],
                             $new_user["send_invite"],
                             $family_id,
@@ -578,6 +584,7 @@ class SEUser
              $new_user['email']='';
              $new_user["birthday"]='';
              $new_user["death"]='';
+             $new_user["death_b"]='';
              $new_user["alias"]='';
              $new_user["send_invite"]='';
 
@@ -596,6 +603,7 @@ class SEUser
                                     $new_user["birthday"],
                                     $new_user["sex"],
                                     $new_user["death"],
+                                    $new_user["death_b"],
                                     $new_user["alias"],
                                     $new_user["send_invite"],
                                     $family_id,
@@ -2390,7 +2398,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 	        $members[$m['profilevalue_user_id']]['sex']	= $m['profilevalue_5']=='2'?'w':(($m['profilevalue_5']=='1')?'m':null);
 	        $members[$m['profilevalue_user_id']]['death']	= $m['profilevalue_12']=='0000-00-00'?null:$m['profilevalue_12'];
                 $members[$m['profilevalue_user_id']]['death_bool']	= $m['profilevalue_16']=='0'?null:1;
-			$members[$m['profilevalue_user_id']]['alias']	= $m['profilevalue_11']==''?null:$m['profilevalue_11'];
+		$members[$m['profilevalue_user_id']]['alias']	= $m['profilevalue_11']==''?null:$m['profilevalue_11'];
 
 		}
 		return $members;
@@ -3452,7 +3460,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 
 	// user_create_fast() METHOD
 	function user_create_fast(	$fname, $lname, $root_user_id, $role, $signup_email, $birthday = '0000-00-00',
-								$sex, $death = '0000-00-00', $alias = '', $send_invite = 0, $family_id ,$level) {
+								$sex, $death = '0000-00-00',$death_b, $alias = '', $send_invite = 0, $family_id ,$level) {
 		global $database, $setting, $url, $actions, $field;
 		
 	  // PRESET VARS
@@ -3573,11 +3581,13 @@ function user_ajax_photo_upload($photo_name,$id_user)
 			$sex_bool = 1;
 		elseif($sex == 'w')
 			$sex_bool = 2;
-	     if ($death) $death_bool = 1;
+            if ($death_b == 1 ) $death_bool = 1;
              else $death_bool = '0';
+
 	    
 	    $profile_field_query =	"	profilevalue_2='$fname',	profilevalue_3='$lname',	profilevalue_4='$birthday', "
 	    						."	profilevalue_5='$sex_bool',	profilevalue_11='$alias',	profilevalue_12='$death' ,	profilevalue_16='$death_bool'";
+
 	    
 	    // ADD USER PROFILE
 		$database->database_query("INSERT INTO se_profilevalues (profilevalue_user_id) VALUES ('{$user_id}')");

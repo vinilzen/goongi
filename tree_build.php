@@ -50,6 +50,7 @@ switch ($type_request) {
 					$new_user["birthday"] = isset($_POST['birthday'])?$_POST['birthday']:'0000-00-00';
 					
 					$new_user["death"] = isset($_POST['death'])?$_POST['death']:'0000-00-00'; // 0000-00-00
+                                        $new_user["death_b"] = isset($_POST['death_b'])?$_POST['death_b']:'0000-00-00';
 					$new_user["alias"] = isset($_POST['alias'])?$_POST['alias']:'';
 					
 					if (	$role == 'child'	|| 
@@ -81,6 +82,7 @@ switch ($type_request) {
 										$new_user["birthday"],
 										$new_user["sex"],
 										$new_user["death"],
+                                                                                $new_user["death_b"],
 										$new_user["alias"],
 										$new_user["send_invite"],
 										$family_id,
@@ -121,6 +123,7 @@ switch ($type_request) {
 										$new_user["birthday"],
 										$new_user["sex"],
 										$new_user["death"],
+                                                                                $new_user["death_b"],
 										$new_user["alias"],
 										$new_user["send_invite"],
 										$family_id,
@@ -160,6 +163,7 @@ switch ($type_request) {
 											$new_user["birthday"],
 											$new_user["sex"],
 											$new_user["death"],
+                                                                                        $new_user["death_b"],
 											$new_user["alias"],
 											$new_user["send_invite"],
 											$family_id,
@@ -203,6 +207,7 @@ switch ($type_request) {
 											$new_user["birthday"],
 											$new_user["sex"],
 											$new_user["death"],
+                                                                                        $new_user["death_b"],
 											$new_user["alias"],
 											$new_user["send_invite"],
 											$family_id,
@@ -256,6 +261,7 @@ switch ($type_request) {
 									$new_user["birthday"],
 									$new_user["sex"],
 									$new_user["death"],
+                                                                        $new_user["death_b"],
 									$new_user["alias"],
 									$new_user["send_invite"],
 									$family_id,
@@ -300,6 +306,7 @@ switch ($type_request) {
 									$new_user["birthday"],
 									$new_user["sex"],
 									$new_user["death"],
+                                                                        $new_user["death_b"],
 									$new_user["alias"],
 									$new_user["send_invite"],
 									$family_id,
@@ -397,12 +404,12 @@ switch ($type_request) {
                         }
 			if (isset($_POST['death']) && is_numeric($dateb) ) {  // ADD CHECKING
 			//	$d_date = date('Y-m-d',$_POST['death']);
-                           
+
                             	$d_date = $_POST['death'];
 				$set_fields[] = " `profilevalue_12` = '" . $d_date . "' ";
                                 $set_fields[] = " `profilevalue_16` = '" . 1 . "' ";
-			}else $set_fields[] = " `profilevalue_16` = '" . null . "' ";
-			//echo 123;
+			}
+                        else $set_fields[] = " `profilevalue_16` = '" . 0 . "' ";
                         if (isset($_POST['birthday']))
                         {
 

@@ -214,7 +214,8 @@ $global_page_description[2] = strip_tags(implode(" - ", $field->field_values));
 //print_r ($field->cats);
 $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_id ='{$owner->user_info['user_id']}'");
 $count_candle= $database->database_num_rows($field1);
-
+//print_r ($field->value_info['profilevalue_16']);
+$smarty->assign('death',$field->value_info['profilevalue_16']);
 $smarty->assign('count_candle', $count_candle);
 $smarty->assign('v', $v);
 $smarty->assign('profile_views', $profile_views);

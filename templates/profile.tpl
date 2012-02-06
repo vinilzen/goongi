@@ -7,18 +7,7 @@
     </script>
 {/literal}
 
-
-{assign var=death value=0}
-{section name=cat_loop loop=$cats}
-        {section name=subcat_loop loop=$cats[cat_loop].subcats}
-                {section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
-                    { if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title == '500404'} {assign var=death value=1}{/if}
-                {/section}
-       {/section}
-{/section}
-
- 
-{if $death == 1}
+{if $death == '1'}
 {include file='header_death.tpl'}
  {else}
  {include file='header.tpl'}
