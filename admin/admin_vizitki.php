@@ -107,6 +107,44 @@ $result = $database->database_fetch_assoc($resource);
 
   exit();
 }
+//////////////==========valuta
+else if ( $task=="deletmoney" )
+{
+  $sql = "DELETE FROM se_vizitki_many WHERE vizitkisetting_id='{$vizitkientrycat_id}' LIMIT 1";
+  $resource = $database->database_query($sql) or die($database->database_error()." <b>SQL was: </b>$sql");
+  if( $database->database_affected_rows($resource) )
+    echo '{"result" : "success"}';
+
+  exit();
+}
+
+else if( $task=="createmoney" )
+{
+    $sql = "
+        INSERT INTO se_vizitki_many
+        (
+        	vizitki_many
+        )
+        VALUES
+        (
+          '$vizitkientrycat_title'
+        )";
+  $resource = $database->database_query($sql) or die($database->database_error()." <b>SQL was: </b>$sql");
+
+  if( $database->database_affected_rows($resource) )
+    echo '{"result" : "success", "vizitkientrycat_id" : '.$database->database_insert_id().'}';
+  exit();
+}
+
+else if( $task=="editmoney" )
+{
+  // Get langvar id
+  $sql = "UPDATE se_vizitki_many SET 	vizitki_many='{$vizitkientrycat_title}' WHERE vizitkisetting_id='{$vizitkientrycat_id}' LIMIT 1";
+  $resource = $database->database_query($sql) or die($database->database_error()." <b>SQL was: </b>$sql");
+  $result = $database->database_fetch_assoc($resource);
+  echo '{"result" : "success"}';
+  exit();
+}
 //////////////==========city
 else if ( $task=="deletcity" )
 {
@@ -219,12 +257,16 @@ elseif($task == "dosave")
 $categories_array = se_vizitki::vizitki_category_list($vizitkientrycat_showusercreated);
 $city= se_vizitki::get_all_city();
 $country= se_vizitki::get_all_country();
+$money= se_vizitki::get_all_money();
+
+
 // ASSIGN VARIABLES AND SHOW GENERAL SETTINGS PAGE
 $smarty->assign('result', $result);
 $smarty->assign('vizitkientrycats', $categories_array);
 
 $smarty->assign('city', $city);
 $smarty->assign('country', $country);
+$smarty->assign('money', $money);
 
 include "admin_footer.php";
 ?>

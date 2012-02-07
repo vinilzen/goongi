@@ -159,6 +159,151 @@
 
     request.send();
   }
+  //============================money==========================================
+  function createNewmoney()
+  {
+    // Display
+    $('newmoneyInput').value = '';
+    $('newmoneyContainer').style.display = '';
+    $('newmoneyLink').style.display = 'none';
+  }
+
+  function editNewmoney()
+  {
+    var newmoneyTitle = $('newmoneyInput').value;
+
+    // Display
+    $('newmoneyInput').value = '';
+    $('newmoneyContainer').style.display = 'none';
+    $('newmoneyLink').style.display = '';
+
+    // Ajax
+    var request = new Request.JSON({
+      'method' : 'post',
+      'url' : 'admin_vizitki.php',
+      'data' : {
+        'task' : 'createmoney',
+        'vizitkientrycat_title' : newmoneyTitle
+      },
+      'onComplete':function(responseObject)
+      {
+        if( responseObject.result=="failure" )
+        {
+          alert('ERR');
+        }
+
+        else
+        {
+          var vizitkientrycat_id = responseObject.vizitkientrycat_id;
+
+          var innerHTML = '';
+
+          //innerHTML += '<td>';
+          innerHTML += '<span class="oldmoneyContainer">';
+          innerHTML += '<a href="javascript:void(0);" onclick="switchOldmoney(' + vizitkientrycat_id + ');">';
+          innerHTML += newmoneyTitle;
+          innerHTML += '</a>';
+          innerHTML += '</span>';
+          innerHTML += '<span class="oldmoneyInput" style="display:none;">';
+          innerHTML += "<input type='text' class='text' size='30' maxlength='50' onblur='editOldmoney(" + vizitkientrycat_id + ");' value='" + newmoneyTitle + "' />";
+          innerHTML += '</span>';
+          innerHTML += '<span class="oldmoneyLangVar">';
+       //   innerHTML += '&nbsp;(Language Variable #<a href="admin_language_edit.php?language_id=1&phrase_id=' + vizitkientrycat_languagevar_id + '">';
+         // innerHTML += vizitkientrycat_languagevar_id;
+          innerHTML += '</a>';
+          innerHTML += '</span>';
+          //innerHTML += '</td>';
+
+          //alert(innerHTML);
+
+          var newmoneyRow = new Element('tr', {'id' : 'vizitkiEntrymoneyRow_' + vizitkientrycat_id});
+          var newmoneyData = new Element('td', {'html' : innerHTML});
+
+          newmoneyRow.inject($('newmoneyRow'), 'before');
+          newmoneyData.inject(newmoneyRow);
+        }
+      }
+    });
+
+    request.send();
+  }
+
+  function switchOldmoney(vizitkientrycat_id)
+  {
+    var moneyRow = $('vizitkiEntrymoneyRow_' + vizitkientrycat_id);
+    moneyRow.getElement('.oldmoneyContainer').style.display = 'none';
+    moneyRow.getElement('.oldmoneyInput').style.display = '';
+    moneyRow.getElement('input').focus();
+  }
+
+  function unswitchOldmoney(vizitkientrycat_id)
+  {
+    var moneyRow = $('vizitkiEntrymoneyRow_' + vizitkientrycat_id);
+    moneyRow.getElement('.oldmoneyContainer').style.display = '';
+    moneyRow.getElement('.oldmoneyInput').style.display = 'none';
+  }
+
+  function editOldmoney(vizitkientrycat_id)
+  {
+    var moneyRow = $('vizitkiEntrymoneyRow_' + vizitkientrycat_id);
+    var newmoneyTitle = moneyRow.getElement('input').value;
+
+    // DELETE
+    if( newmoneyTitle.trim()=='' )
+    {
+      deletemoney(vizitkientrycat_id);
+      return;
+    }
+
+    moneyRow.getElement('.oldmoneyContainer').getElement('a').innerHTML = newmoneyTitle;
+    unswitchOldmoney(vizitkientrycat_id);
+
+    // Ajax
+    var request = new Request.JSON({
+      'method' : 'post',
+      'url' : 'admin_vizitki.php',
+      'data' : {
+        'task' : 'editmoney',
+        'vizitkientrycat_id' : vizitkientrycat_id,
+        'vizitkientrycat_title' : newmoneyTitle
+      },
+      'onComplete':function(responseObject)
+      {
+        if( responseObject.result=="failure" )
+        {
+          alert('ERR');
+        }
+      }
+    });
+
+    request.send();
+  }
+
+  function deletemoney(vizitkientrycat_id)
+  {
+    var moneyRow = $('vizitkiEntrymoneyRow_' + vizitkientrycat_id);
+
+    moneyRow.destroy();
+
+    // Ajax
+    var request = new Request.JSON({
+      'method' : 'post',
+      'url' : 'admin_vizitki.php',
+      'data' : {
+        'task' : 'deletmoney',
+        'vizitkientrycat_id' : vizitkientrycat_id
+      },
+      'onComplete':function(responseObject)
+      {
+        if(  responseObject.result=="failure" )
+        {
+          alert('ERR');
+        }
+      }
+    });
+
+    request.send();
+  }
 
 //==cyti==================================================
 function createNewcity()
@@ -577,6 +722,28 @@ function createNewcity()
               <span id="newcityLink"><a href="javascript:void(0);" onclick="createNewcity(); ">Добавить город</a></span>
             </td>
           </tr>
+
+<tr>
+            <td><b>{$admin_vizitki15}</b></td>
+          </tr>
+          <td><label>Наименование валюты: </label></td>
+          {section name=nation loop=$money}
+          <tr id="vizitkiEntrymoneyRow_{$money[nation].vizitkisetting_id}">
+            <td>
+              <span class="oldmoneyContainer"><a href="javascript:void(0);" onclick="switchOldmoney({$money[nation].vizitkisetting_id});">{$money[nation].vizitki_many}</a></span>
+              <span class="oldmoneyInput" style="display:none;"><input type='text' class='text' size='30' maxlength='50' onblur="editOldmoney({$money[nation].vizitkisetting_id});" value="{$money[nation].vizitki_many}" /></span>
+
+            </td>
+          </tr>
+          {/section}
+          <tr id="newmoneyRow">
+            <td style="padding-top: 5px;">
+              <span id="newmoneyContainer" style="display:none;"><input type='text' id='newmoneyInput' class='text' size='30' maxlength='50' onblur="editNewmoney();" /></span>
+              <span id="newmoneyLink"><a href="javascript:void(0);" onclick="createNewmoney();">Добавить валюту</a></span>
+            </td>
+          </tr>
+
+<tr>
 
         </tbody>
       </table>

@@ -79,8 +79,16 @@ if (($('#name_v').val() == '') || ($('#categor').val() == '') || ($('#desc').val
                 <textarea OnChange = "$('#p_body').text(this.value);" rows="3" cols="10" id ="desc"  name="desc">{if !empty($vizitkientry_info.vizitkientry_body)}{$vizitkientry_info.vizitkientry_body}{/if}</textarea>
                 <p>Осталось символов: 5</p></div>
 
-                <div class="input"><label>Цена</label>
-                <input type="text" OnChange = "$('#p_price').text(this.value);" value="{if !empty($vizitkientry_info.vizitkientry_price)}{$vizitkientry_info.vizitkientry_price}{/if}" name="cena" /></div>
+                <div class="input">
+                <label>Цена</label>
+                <div class="input_price">
+                    <input type="text" OnChange = "$('#p_price').text(this.value);" value="{if !empty($vizitkientry_info.vizitkientry_price)}{$vizitkientry_info.vizitkientry_price}{/if}" name="cena" />
+                <select name="money">
+                        {section name=s loop=$money}
+                          <option value = "{$money[s].vizitki_many}" {if $vizitkientry_info.vizitkientry_contry == $money[s].vizitkisetting_id} SELECTED{/if}>{$money[s].vizitki_many}</option>
+                         {/section}
+                </select>
+                </div> </div>
 
                 <div class="input"><label>Телефон</label>
                 <input type="text"  OnChange = "$('#p_telephon').text(this.value);" value="{if !empty($vizitkientry_info.vizitkientry_telephon)}{$vizitkientry_info.vizitkientry_telephon}{/if}" name="phone" /></div>
@@ -107,7 +115,7 @@ if (($('#name_v').val() == '') || ($('#categor').val() == '') || ($('#desc').val
                     {/section}
                 </select>
                 </div>
-                <div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Сохранить" onClick = "checkparam()" name="save" /></span><span class="r">&nbsp;</span></span></div>
+                <span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Сохранить" onClick = "checkparam()" name="save" /></span><span class="r">&nbsp;</span></span>
                 <input type='hidden' name='task' value='dosave'>
             </form>
 </div>

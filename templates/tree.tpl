@@ -130,8 +130,8 @@ function callback(form,act,doc) {
 					<td><b><%= Base64.decode(json.users[spouse].displayname) %></b></td>
 				</tr>
 			<% } %>
-			<% if (json.users[children]) { %>
-				<tr>
+			<% if (children) { %>
+			<tr>
 					<th>Дети</th>
 					<td>
 						<% _.each(children, function(id, i) { %>
