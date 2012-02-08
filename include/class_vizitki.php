@@ -105,6 +105,16 @@ class se_vizitki
             return $country;
 	}
 
+       function get_all_money()
+       {
+            global $database, $user;
+	   $sql = "SELECT * FROM se_vizitki_many;";
+           $resource = $database->database_query($sql);
+            while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
+            $money[] = $vizitkientry_info;
+            return $money;
+       }
+
          function add_city_translate($id=NULL,$city)
         {
              global $database, $user;

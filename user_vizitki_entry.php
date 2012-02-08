@@ -95,7 +95,7 @@ if( $task=="dosave" )
   $vizitkientry_category         = $_POST['categor'];
   $vizitkientry_image            = $photo_newname;//$_POST['fakeupload'];
   $vizitkientry_body             = $_POST['desc'];
-  $vizitkientry_price            = $_POST['cena'];
+  $vizitkientry_price            = $_POST['cena'].'-'.$_POST['money'];
   $vizitkientry_telephon         = $_POST['phone'];
   $vizitkientry_email            = $_POST['mail'];
   $vizitkientry_site             = $_POST['link'];
@@ -235,6 +235,9 @@ if ($vizitkientry_info['vizitkientry_contry'] != '')
 else $city[] = 'нет городов';
 //print_r($city);
 $country=$vizitki->get_all_country();
+
+$money=$vizitki->get_all_money();
+$smarty->assign('money', $money);
 $smarty->assign('city', $city);
 $smarty->assign('country', $country);
 $settcat=$vizitki->vizitki_category_list();

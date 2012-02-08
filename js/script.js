@@ -1207,6 +1207,32 @@ function my_sender() {
         'json');
                           //      return false;
   }
+
+   function print_tree(id){
+   $.post(
+		"my_tree.php",
+		{ task: 'print' ,id: id, tipe: $(":radio[name=type]").filter(":checked").val(), stil:$('#stil').val(), name: $('#name').val(),
+                 title: $('#title').val(), inf: $('#inf').val(), level:$(":radio[name=po]").filter(":checked").val(),level_print:$(":radio[name=print]").filter(":checked").val()},
+		function(data) {
+                      if ( data.is_error == '0') {
+                      $('#w_m').html('<h3>Заказ отправлен</h3>');
+                      $('#w_c').hide();
+			setTimeout ( function() {
+				$('#popup').fadeOut(300);
+				$('.window').hide();
+                                 $('#w_c').show();
+                               $('#w_m').html('');
+                             }, 1500);
+
+		}
+                   else {
+                      $('#to_display').val("");
+                      alert( data.result);
+                  }
+	 },
+        'json');
+                          //      return false;
+  }
   
 function Show_piple(owner_id){
      //    $('.set_golos').click(function() {
@@ -1278,3 +1304,6 @@ function Show_piple(owner_id){
         'json');
                                 return false;
   }
+
+  
+   

@@ -130,8 +130,8 @@ function callback(form,act,doc) {
 					<td><b><%= Base64.decode(json.users[spouse].displayname) %></b></td>
 				</tr>
 			<% } %>
-			<% if (json.users[children]) { %>
-				<tr>
+			<% if (children) { %>
+			<tr>
 					<th>Дети</th>
 					<td>
 						<% _.each(children, function(id, i) { %>
@@ -149,7 +149,11 @@ function callback(form,act,doc) {
 <script id="person-tmpl" type="text/html">
 	<div class="person <%= sex === "w" ? "alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
 		<div class="info"></div>
-		<div class="relation"><%= id === json.user.id ? "Ты" : "" %></div>
+            
+		<div class="relation">
+                
+               <%= id == {/literal}{$user->user_info.user_id}{literal} ? "Ты" : "" %>
+                </div>
 		<div class="photo loading">
 			<img src="<%= TREE.url.image(id, photo) %>" />
 			<% if (death || death_bool==1) { %> <div class="ribbon"></div> <% } %>
@@ -342,8 +346,7 @@ function callback(form,act,doc) {
 </script>
 
 {/literal}
-
-<script type="text/javascript">json = {$family}</script>
+<script type="text/javascript">json = {$family};</script>
 <script src="/tree/js/gentree.js"></script>
 
 </body>
