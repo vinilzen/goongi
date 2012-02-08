@@ -108,7 +108,12 @@
         <img alt=""  {if $owner->user_info.user_photo == ''} src="./images/nophoto.gif" {else} src="{$owner->user_photomain('./images/nophoto.gif')}{/if}">
         <p><a href="javascript:void(0);">Показать подробную информацию</a></p>
     </div>
-<div class="g_inf_text"><p>14 сентября 1932 — 21 октября 2009 <span>(3 Хешван 5770)</span></p></div>
+ {assign var=foo value="-"|explode:$owner->profile_info.profilevalue_4}
+{assign var=birth value= "$foo[2].$foo[1].$foo[0]"}
+
+ {assign var=foo value="-"|explode:$owner->profile_info.profilevalue_12}
+{assign var=deat value= "$foo[2].$foo[1]"."$foo[0]"}
+<div class="g_inf_text"><p>{$birth} - {if $owner->profile_info.profilevalue_12 == '0000-00-00' && $owner->profile_info.profilevalue_16 == '1'}Дата смерти не известна{else}{$deat}{/if}<span></span></p></div>
 
 <div class="clear"><img src="images/x.gif" alt="" /></div>
 </div>

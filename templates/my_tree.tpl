@@ -42,6 +42,8 @@ $(function() {
 	});
 	$('#print_tree_w').hide();
 })
+
+
 </script>
 {/literal}
 
@@ -49,11 +51,12 @@ $(function() {
 
 <div class="window rezina" id="print_tree_w">
 	<div class="close"></div>
-	<div class="w_t"></div>
-	<div class="w_c">
+	<div class="w_t" id = "w_t"></div>
+<div class="w_m" id = "w_m"></div>
+	<div class="w_c" id = "w_c">
     	<h1>печать семейного холста</h1>
-        <div class="crumb"><a href="#">Главная</a><a href="#">Профиль</a><span>Календарь</span></div>
-        <div class="r_link"><a href="#" class="ico2">&nbsp;</a></div>
+        <div class="crumb"><a href="#">Главная</a><a href="my_tree.php">Дерево</a><span>Печать</span></div>
+      <!--  <div class="r_link"><a href="#" class="ico2">&nbsp;</a></div>-->
         <ul class="vk">
             <li class="active"><a href="#">Новый холст</a></li>
         </ul>
@@ -80,24 +83,26 @@ $(function() {
                 </div>
             	<h2>Тип графика</h2>
                 <div class="radio">
-                	<label><input type="radio" value="1" name="type" /><span>Бабочка</span></label>
-                    <label><input type="radio" value="1" name="type" /><span>Близкие родственники</span></label>
-                    <label><input type="radio" value="1" name="type" /><span>Предки</span></label>
-                    <label><input type="radio" value="1" name="type" /><span>Потомки</span></label>
-                    <label><input type="radio" value="1" name="type" /><span>Песочные часы</span></label>
+                    <label><input type="radio" value="Бабочка" name="type" /><span>Бабочка</span></label>
+                    <label><input type="radio" value="Близкие родственники" name="type" /><span>Близкие родственники</span></label>
+                    <label><input type="radio" value="Предки" name="type" /><span>Предки</span></label>
+                    <label><input type="radio" value="Потомки" name="type" /><span>Потомки</span></label>
+                    <label><input type="radio" value="Песочные часы" name="type" /><span>Песочные часы</span></label>
                 </div>
+            
             </li>
             <li class="st">
             	<div class="num">2</div>
             	<h2>Стиль графика</h2>
                 <div class="foo2">
                     <ul>
-                        <li><a href="#"><img src="images/t1.jpg" alt="" /></a></li>
-                        <li><a href="#"><img src="images/t2.jpg" alt="" /></a></li>
-                        <li><a href="#"><img src="images/t3.jpg" alt="" /></a></li>
-                        <li><a href="#"><img src="images/t1.jpg" alt="" /></a></li>
-                        <li><a href="#"><img src="images/t2.jpg" alt="" /></a></li>
-                        <li><a href="#"><img src="images/t3.jpg" alt="" /></a></li>
+                        <li><a onclick = "($('#stil').val($(this).attr('title')))" title = "images/t1.jpg" ><img src="images/t1.jpg" alt="" /></a></li>
+                        <li><a onclick = "($('#stil').val($(this).attr('title')))" title = "images/t2.jpg" ><img src="images/t2.jpg" alt="" /></a></li>
+                        <li><a onclick = "($('#stil').val($(this).attr('title')))" title = "images/t3.jpg"><img src="images/t3.jpg" alt="" /></a></li>
+                        <li><a onclick = "($('#stil').val($(this).attr('title')))" title = "images/t1.jpg"><img src="images/t1.jpg" alt="" /></a></li>
+                        <li><a onclick = "($('#stil').val($(this).attr('title')))" title = "images/t2.jpg"><img src="images/t2.jpg" alt="" /></a></li>
+                        <li><a onclick = "($('#stil').val($(this).attr('title')))" title = "images/t3.jpg"><img src="images/t3.jpg" alt="" /></a></li>
+                        <input type = "hidden" value = "" id = "stil">
                    </ul>
                 </div>
             </li>
@@ -105,20 +110,29 @@ $(function() {
             	<div class="num">3</div>
             	<h2>Настройки</h2>
                 <div class="form add_w">
-                	<form method="post" action="" name="settings">
-                    <div class="input"><label>Исходное лицо</label><input type="text" value="" name="name"  /></div>
-                    <div class="input"><label>Заголовок</label><input type="text" value="" name="title"  /></div>
-                    <div class="input"><label>Личная инфориация</label><input type="text" value="" name="inf"  /></div>
+                    <div class="input"><label>Исходное лицо</label><input type="text" value="" name="name"  id ="name" /></div>
+                    <div class="input"><label>Заголовок</label><input type="text" value="" name="title" id="title" /></div>
+                    <div class="input"><label>Личная инфориация</label><input type="text" value="" name="inf" id="inf" /></div>
                     <div class="radio"><label>Поколения</label>
                         <label><input type="radio" value="1" name="po" /><span>Показывать все поколения</span></label>
-                        <label style="float:left;"><input type="radio" value="2" name="po" /><span>Ограничить количество поколений до</span></label><select name="kol"><option>1</option></select>
+                        <label style="float:left;"><input type="radio" value="" name="po" id = "po"/><span>Ограничить количество поколений до</span></label>
+                        <select name="kol" onChange = "$('#po').val(this.value)">
+                                    <option value = "Ограничить количество поколений до 1">1</option>
+                                    <option value = "Ограничить количество поколений до 2">2</option>
+                                    <option value = "Ограничить количество поколений до 3">3</option>
+                                    <option value = "Ограничить количество поколений до 4">4</option>
+                                    <option value = "Ограничить количество поколений до 5">5</option>
+                        </select>
                     </div>
                     <div class="radio"><label>Способ печати</label>
-                        <label><input type="radio" value="1" name="print" /><span>Показывать все поколения</span></label>
-                        <label><input type="radio" value="2" name="print" /><span>Одна страница - для печати большого плаката</span></label>
+                        <label><input type="radio" value="Показывать все поколения" name="print" /><span>Показывать все поколения</span></label>
+                        <label><input type="radio" value="Одна страница - для печати большого плаката" name="print" /><span>Одна страница - для печати большого плаката</span></label>
                     </div>
-                    <span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Создать дерево" name="creat"  /></span><span class="r">&nbsp;</span></span><button type="reset" class="reset" name="reset">Очистить настройки</button>
-                    </form>
+                    <span class="button2">
+                    <span class="l">&nbsp;</span><span class="c">
+                    <input type="button" value="Создать дерево" name="creat" onClick = "print_tree({$user->user_info.user_id})" />
+                    </span><span class="r">&nbsp;</span></span>
+                    <button type="reset" class="reset" name="reset">Очистить настройки</button>
                 </div>
             </li>
         </ul>

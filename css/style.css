@@ -275,6 +275,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	
 	.pred		{ width:120px; padding-right:64px; float:right;}
 	.pred strong	{ display:block;}
+	.pred strong .p_m { font-size:11px;color:#000;}
 	.pred img	{ padding:2px; border:1px solid #d7d7d7;}
 	.pred p		{ font-size:11px; padding-bottom:8px;}
 	.pred span	{ font-size:11px; color:#7f7f7f; display:inline-block; padding-bottom:8px;}
@@ -533,7 +534,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.edit .input select	{ width:390px;}
 	.form.edit .input p			{ font-size:11px; color:#7f7f7f; padding-top:4px; padding-bottom:0;}
 	.form.edit .button			{ padding-top:24px; text-align:center; clear:both;}
-	.form.edit span		             { float:right;display:block; font-size:12px; font-weight:bold; margin-bottom:4px;width:auto;}
+	
 	
 	.form.add_w					{ overflow:hidden; padding-bottom:20px; width:auto;}
 	.form.add_w .input input,
@@ -682,6 +683,7 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 #print_tree_w			{ display:block;}
 #print_tree_w			{ width:741px; margin-left:-370px;}
 #print_tree_w .w_t		{ background:url(../images/w6t.png) no-repeat 0 0; height:7px; overflow:hidden;}
+#print_tree_w .w_m		{ background:url(../images/w6bg.png) no-repeat 0 0; height:auto; width:auto;}
 #print_tree_w .w_c h1	{ padding:10px 0 0 0px;}
 #print_tree_w .w_b		{ background:url(../images/w6b.png) no-repeat 0 0; height:14px; overflow:hidden;}
 #print_tree_w .w_c		{ padding:0px 35px 0 35px; background: url(../images/w6bg.png) repeat-y 0 0;}

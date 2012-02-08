@@ -3699,7 +3699,10 @@ function user_ajax_photo_upload($photo_name,$id_user)
     
 	  // CALL USER DELETE HOOK
 	  ($hook = SE_Hook::exists('se_user_delete')) ? SE_Hook::call($hook, $this->user_info['user_id']) : NULL;
-    
+
+           $database->database_query("DELETE FROM  se_role_in_family  WHERE  user_id = '{$this->user_info['user_id']}';");
+           $database->database_query("DELETE FROM se_tree_users WHERE user_id='{$this->user_info['user_id']}'");
+
 	  // DELETE USER, USERSETTING, PROFILE, STYLES TABLE ROWS
 	  $database->database_query("DELETE FROM se_users WHERE user_id='{$this->user_info['user_id']}' LIMIT 1");
 	  $database->database_query("DELETE FROM se_usersettings WHERE usersetting_user_id='{$this->user_info['user_id']}' LIMIT 1");
