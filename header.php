@@ -203,6 +203,8 @@ $owner = new SEUser(Array($user_id, $user_username));
 $user = new SEUser();
 $user->user_checkCookies();
 
+//echo '<pre>'; print_r($user); die();
+
 // INSTANTIATE JAVASCRIPT OBJECT
 $se_javascript = new SE_Javascript();
 

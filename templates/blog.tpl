@@ -56,8 +56,17 @@
             <div class="press_desc">
               {$entries[entries_loop].blogentry_body|choptext:75:"<br>"}
             </div>
-            <div class="autor"><a href="#"><img src="/uploads_user/1000/{$owner->user_info.user_id}/{$owner->user_info.user_photo}" alt="" /></a><span>Автор:</span>
-            <a href="#">{$entries[entries_loop].blogentry_author->user_displayname}</a></div>
+            <div class="autor">
+				<a href="#">
+					{if $user->profile_info.profilevalue_5 == 2}
+						<img src="{$user->user_photo('./images/avatars_17.gif')}" alt="" />
+					{else}
+						<img src="{$user->user_photo('./images/avatars_15.gif')}" alt="" />
+					{/if}
+				</a>
+				<span>Автор:</span>
+				<a href="#">{$entries[entries_loop].blogentry_author->user_displayname}</a>
+			</div>
       {/section}
   
   

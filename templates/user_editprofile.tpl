@@ -86,7 +86,13 @@
 	{if $user->level_info.level_photo_allow != 0}
 		<div class="input file">
 			<label><a href='user_editprofile_photo.php'>Загрузи новый аватар </a></label>
-			<div class="brdr"><img src="{$user->user_photo("./images/nophoto.gif")}" alt="" /></div>
+			<div class="brdr">
+				{if $user->profile_info.profilevalue_5 == 2}
+				<img src="{$user->user_photo('./images/avatars_11.gif')}" alt="" />
+				{else}
+				<img src="{$user->user_photo('./images/avatars_09.gif')}" alt="" />
+				{/if}
+			</div>
 			<p>Обратите внимание, что все изображения должны быть в формате jpeg, gif, png. Размером до 1 Mb.</p>
 		</div>
 	{/if}

@@ -29,17 +29,10 @@
     </form>
   </div>
 </div>
-
-
-
-
 {if $user->level_info.level_blog_create}
 
   {* DISPLAY MESSAGE IF NO BLOG ENTRIES *}
   {if !$total_blogentries}
-
-   
-
   {* DISPLAY ENTRIES *}
   {else}
    
@@ -50,7 +43,13 @@
       {section name=blogentry_loop loop=$blogentries}
         {assign var=i value=$i+1}
        <li id = "blog_msg{$blogentries[blogentry_loop].blogentry_id}">
-            <a><img src="{$user->user_photo('./images/no_photo.gif')}" alt="" /></a>
+            <a>
+				{if $user->profile_info.profilevalue_5 == 2}
+					<img src="{$user->user_photo('./images/avatars_17.gif')}" alt="" />
+				{else}
+					<img src="{$user->user_photo('./images/avatars_15.gif')}" alt="" />
+				{/if}
+			</a>
             <div>
                 <a class="name">{$blogentries[blogentry_loop].blogentry_author->user_displayname}</a>
                   <big><a href='{$url->url_create("blog_entry", $user->user_info.user_username, $blogentries[blogentry_loop].blogentry_id)}'>
@@ -60,14 +59,9 @@
                 <a href='user_blog_entry.php?blogentry_id={$blogentries[blogentry_loop].blogentry_id}' class="edit">Редактировать</a>
                 <span>{$data_rus[$i]}</span>
             </div>
-                 
-               
-                {if !empty($blogentries[blogentry_loop].blogentry_body)}
-                
-                  <p>{$blogentries[blogentry_loop].blogentry_body|strip_tags|truncate:1100}</p>
-                
-                {/if}
-              
+			{if !empty($blogentries[blogentry_loop].blogentry_body)}
+			  <p>{$blogentries[blogentry_loop].blogentry_body|strip_tags|truncate:1100}</p>
+			{/if}
         </li>
        {/section}
       </ul>

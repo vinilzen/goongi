@@ -86,8 +86,8 @@ elseif( $task == "suggest_friend" )
       "id"          => $friend_info['user_id'],
       "value"       => $friend_info['user_username'],
       "info"        => $friend->user_displayname,
-      "photo"       => $friend->user_photo("./images/nophoto.gif"),
-      "photo_width" => $misc->photo_size($friend->user_photo("./images/nophoto.gif"),'50','50','w')
+      "photo"       => $friend->user_photo("/images/avatars_17.gif"),
+      "photo_width" => $misc->photo_size($friend->user_photo("./images/avatars_17.gif"),'50','50','w')
     );
   }
 	
@@ -105,6 +105,7 @@ elseif( $task == "suggest_friend" )
 // AUTOSUGGEST USER
 elseif( $task == "suggest_user" )
 {
+	//die('108');
   // GET USER INPUT AND LIMIT
   $input = strtolower( $_GET['input'] );
   $len = strlen_utf8($input);
@@ -459,7 +460,7 @@ elseif($task == "comment_get")
   // MAKE COMMENT PAGES AND GET COMMENT ARRAY
   $page_vars = make_page($total_comments, $cpp, $p);
   $comments = $comment->comment_list($page_vars[0], $cpp);
-
+	//echo '<pre>'; print_r($comments); die();
   // CONSTRUCT JSON RESPONSE
   $response_array = array(
     'total_comments'  => (int) $total_comments,
@@ -477,14 +478,16 @@ elseif($task == "comment_get")
     if( substr($comment_data['comment_body'], -1, 1)=="\\" && substr($comment_data['comment_body'], -2, 2)!="\\\\" )
       $comment_data['comment_body'] .= "\\";
     
+   //echo '<pre>'; print_r($comment_data['comment_author']); die();
+    
     $response_array['comments'][(int) $comment_data['comment_id']] = array
     (
       'comment_authoruser_id'           => (int)    $comment_data['comment_authoruser_id'],
       'comment_authoruser_exists'       => (bool)   $comment_data['comment_author']->user_exists,
       'comment_authoruser_private'      => (bool)   $comment_data['comment_author_private'],
       'comment_authoruser_url'          => (string) $url->url_create('profile', $comment_data['comment_author']->user_info['user_username']),
-      'comment_authoruser_photo'        => (string) $comment_data['comment_author']->user_photo('./images/no_photo.gif', true),
-      'comment_authoruser_photo_width'  => (int)    $misc->photo_size($comment_data['comment_author']->user_photo('./images/nophoto.gif'),'75','75','w'),
+      'comment_authoruser_photo'        => (string) $comment_data['comment_author']->user_info['user_sex'] == 'w' ? $comment_data['comment_author']->user_photo('./images/avatars_17.gif', true):$comment_data['comment_author']->user_photo('./images/avatars_15.gif', true),
+      'comment_authoruser_photo_width'  => (int)    $comment_data['comment_author']->user_info['user_sex'] == 'w' ? $misc->photo_size($comment_data['comment_author']->user_photo('./images/avatars_17.gif'),'75','75','w'):$misc->photo_size($comment_data['comment_author']->user_photo('./images/avatars_15.gif'),'75','75','w'),
       'comment_authoruser_username'     => (string) $comment_data['comment_author']->user_info['user_username'],
       'comment_authoruser_displayname'  => (string) $comment_data['comment_author']->user_displayname,
       'comment_date'                    => (string) $datetime->cdate("{$setting['setting_dateformat']} {$setting['setting_timeformat']}", $datetime->timezone($comment_data['comment_date'], $global_timezone)),

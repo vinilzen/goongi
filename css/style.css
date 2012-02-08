@@ -120,7 +120,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.pro	{ width:137px; overflow:hidden;}
 	.pro div	{ text-align:center; margin-bottom:10px;}
 	.pro div img{ padding:2px; border:1px solid #d7d7d7;}
-	#brdr { width:138px; height:138px; }
+	#brdr { width:138px; min-height:138px; }
 	#brdr.preloader { background:url(../images/96.gif) no-repeat center center; }
 	#brdr img{ padding:2px; border:1px solid #d7d7d7;background:#ffffff;}
 	/*.brdr img{ padding:2px; border:1px solid #d7d7d7;}*/
@@ -220,7 +220,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.article_list		{ overflow:hidden; padding-top:20px; list-style:none;}
 	.article_list li	{ overflow:hidden; padding-bottom:20px; list-style:none;}
 	.article_list li img		{ margin-right:9px;border:1px solid #d7d7d7; padding:2px; float:left;}
-	.article_list li div		{ background:#d9f0fe; overflow:hidden; padding:9px 10px; margin-bottom:15px;}
+	.article_list li div		{ background:#d9f0fe; overflow:hidden; padding:16px 12px; margin-bottom:15px;}
 	.article_list li div big	{ font-weight: bold; font-size:12px; color:#2a86dc; margin-bottom:5px; display:block;}
 	.article_list li div span	{ display:block; font-size:11px; color:#7f7f7f;}
 	.article_list li div a.name	{ font-weight: bold; font-size:12px; color:#000; display:inline-block; text-decoration:none; float:right;}
@@ -471,7 +471,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .input.imggg {/*width:300px;*/ padding-left:170px;}
 	.form .input.photoedit { padding-right:80px;}
 	.form .input,
-	.form .radio		{ margin-bottom:17px; overflow:hidden;}
+	.form .radio		{ margin-bottom:17px; /*overflow:hidden;*/}
 	.form .error		{ font-size:11px; position:relative; margin-bottom:30px; color:#dc2a2a; }
 	.form p.p_inf		{ font-size:11px; padding-bottom:5px; color:#7f7f7f; width:390px;}
 	
@@ -694,7 +694,7 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .my_page_info { border-bottom: 1px solid #9E9E9E; margin-bottom: 15px;padding: 15px 0px 15px 0px;}
 .my_page_info p {padding-bottom: 13px;}
 .my_page_info p span {  color: #A1A1A1; display: inline-block; width: 165px;}
-.my_page_img {   float: left;   padding: 15px 0px 15px 0px; height:311px;   width: 385px;}
+.my_page_img {   float: left;   padding: 15px 0px 15px 0px; min-height:311px;   width: 300px;}
 .my_page_img img {   background: none repeat scroll 0 0 #FFFFFF;  border: 1px solid #D7D7D7;   padding: 2px;}
 .my_page_inf {    border-bottom: 1px solid #9E9E9E;    margin-bottom: 15px;    overflow: hidden;}
 .my_page_inf .my_page_info {    border-bottom: 0 none;    margin-bottom: 0;}

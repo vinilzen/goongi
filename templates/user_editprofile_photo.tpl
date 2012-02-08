@@ -56,7 +56,11 @@
 			<div class="input imggg">
 				<label>{lang_print id=770}</label>
 				<div id="brdr">
-					<img id="userEditPhotoImg" src='{$user->user_photo("./images/nophoto.gif")}' border='0' />
+					{if $user->profile_info.profilevalue_5 == 2}
+						<img id="userEditPhotoImg" border='0'  src="{$user->user_photo('./images/avatars_11.gif')}" alt="" />
+					{else}
+						<img id="userEditPhotoImg" border='0'  src="{$user->user_photo('./images/avatars_09.gif')}" alt="" />
+					{/if}
 				</div>
 				{if $user->user_photo() != ""}
 					<div id="userEditRemovePhotoLink">[ <a href='#' onclick='userPhotoRemove(); return false;'>{lang_print id=771}</a> ]</div>

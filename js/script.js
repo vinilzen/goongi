@@ -937,8 +937,8 @@ function update_group_list() {
         	
 	function comment_get (user_username, owner_id, user_id, type_com, iden_com, tab_com, col_com,page_show) {
             var cp = 10;
-          if (  type_com == 'blog') cp = 1000;
-		$.post( 'misc_js.php',
+			if (  type_com == 'blog') cp = 1000;
+				$.post( 'misc_js.php',
 				{	task:'comment_get',
 					user:''+user_username+'',
 					object_owner:'',
@@ -952,7 +952,7 @@ function update_group_list() {
 					if (data != null) { 
 						if (data.total_comments > 0 ) {
 							var str = '';
-                                                        var paginator = '';
+                            var paginator = '';
 							$.each(data.comments, function(i, val) {
 								var displayname = this.comment_authoruser_displayname;
 								var url = this.comment_authoruser_url;

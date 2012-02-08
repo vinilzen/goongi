@@ -163,18 +163,18 @@ class se_upload
 	  // AND SET DESIRED WIDTH AND HEIGHT
     $width  = $this->file_width ;
     $height = $this->file_height;
-    if( $height > $file_maxheight )
+    /*if( $height > $file_maxheight )
     { 
       $width = $file_maxwidth;//floor($width * $file_maxheight / $height);
       $height = $file_maxheight; 
-    } 
+    } */
     if( $width > $file_maxwidth )
     {
-      $height = $file_maxheight;//floor($height * $file_maxwidth / $width);
+      $height = floor($height * $file_maxwidth / $width);
       $width = $file_maxwidth;
     }
     
-    
+    //echo $width.'-'.$height; die();
 	  // RESIZE IMAGE AND PUT IN USER DIRECTORY
 	  switch($this->file_ext)
     {
@@ -403,27 +403,26 @@ class se_upload
 	//	  $file_maxwidth (OPTIONAL) REPRESENTING THE MAXIMUM WIDTH OF THE UPLOADED PHOTO
 	//	  $file_maxheight (OPTIONAL) REPRESENTING THE MAXIMUM HEIGHT OF THE UPLOADED PHOTO
 	// OUTPUT: BOOLEAN INDICATING WHETHER UPLOAD SUCCEEDED OR FAILED
-	function upload_photo_my($photo_dest, $file_maxwidth = "", $file_maxheight = "")
-  {
-	  // SET MAX WIDTH AND HEIGHT
-	  if( !$file_maxwidth  ) $file_maxwidth  = $this->file_maxwidth ;
-	  if( !$file_maxheight ) $file_maxheight = $this->file_maxheight;
-    
-	  // CHECK IF DIMENSIONS ARE LARGER THAN ADMIN SPECIFIED SETTINGS
-	  // AND SET DESIRED WIDTH AND HEIGHT
-    $width  = $this->file_width ;
+	function upload_photo_my($photo_dest)
+	{
+  
+  	$main_big_width = 270;
+  
+    $width  = $this->file_width;
     $height = $this->file_height;
-    if( $height > $file_maxheight )
+	if ($width > $main_big_width)
+	{
+		$height = floor($main_big_width*$height/$width);
+		$width = $main_big_width;
+	}
+	
+	
+	
+    /*if( $height > $file_maxheight )
     { 
       $width = floor($width * $file_maxheight / $height); 
       $height = $file_maxheight; 
-    } 
-    if( $width > $file_maxwidth )
-    {
-      $height = floor($height * $file_maxwidth / $width);
-      $width = $file_maxwidth;
-    }
-    
+    }*/
     
 	  // RESIZE IMAGE AND PUT IN USER DIRECTORY
 	  switch($this->file_ext)

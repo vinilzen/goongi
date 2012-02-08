@@ -34,7 +34,6 @@
 {if $user->user_exists != 0 && $owner->user_info.user_id !=  $user->user_info.user_id && $death != 1}
 	{if $owner->user_info.user_id != 0}
 		<div class="buttons" style="overflow:visible;">
-			
 			<div class="profil_mn"><a href="#" class="p_link"><span>профиль</span></a>
 				<div class="p_mn">
 					<div class="p_mn_t"></div>
@@ -64,16 +63,25 @@
 			</span>
 			<div class="clear"></div>
 		</div>
-		
 	{/if}
 {/if}
 { if $death != 1}
 <div class="my_page_inf">
-
 	<div class="my_page_img">
-         <img alt=""  {if $user->user_info.user_photo == ''} src="./images/nophoto.gif" {else} src="{$user->user_photomain('./images/nophoto.gif')}{/if}">
-        </div>
-
+	{if $owner->user_info.user_id == $user->user_info.user_id}
+		{if $user->profile_info.profilevalue_5 == 2}
+			<img {if $user->user_info.user_photo == ''} src="./images/avatars_05.gif" {else} src="{$user->user_photomain('./images/avatars_05.gif')}{/if}">
+		{else}
+			<img {if $user->user_info.user_photo == ''} src="./images/avatars_03.gif" {else} src="{$user->user_photomain('./images/avatars_03.gif')}{/if}">
+		{/if}
+	{else}
+		{if $owner->profile_info.profilevalue_5 == 2}
+			<img {if $owner->user_info.user_photo == ''} src="./images/avatars_05.gif" {else} src="{$owner->user_photomain('./images/avatars_05.gif')}{/if}">
+		{else}
+			<img {if $owner->user_info.user_photo == ''} src="./images/avatars_03.gif" {else} src="{$owner->user_photomain('./images/avatars_03.gif')}{/if}">
+		{/if}
+	{/if}
+    </div>
 	<div class="my_page_info">
 		{* SHOW PROFILE CATS AND FIELDS *}
 		{section name=cat_loop loop=$cats}
@@ -89,12 +97,10 @@
 					{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1 && $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value|substr:0:4 != "0000"} <!--({lang_sprintf id=852 1=$datetime->age($cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value)}) -->{/if}
 				</p>
 				{/section}
-				
 			{/section}
 		{/section}
 	</div>
 </div>
-
 {else}
 <div class="d_inf">
 <div class="sv"></div>

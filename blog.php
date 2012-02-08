@@ -221,7 +221,7 @@ else
   $comments_total = $database->database_num_rows($database->database_query("SELECT blogcomment_id FROM se_blogcomments WHERE blogcomment_blogentry_id='{$blogentry_info[blogentry_id]}'"));
 
 //print_r ($blogentries);
-//print_r ($owner);
+//echo '<pre>'; print_r ($owner); die();
 // ASSIGN VARIABLES AND DISPLAY BLOG PAGE
 $smarty->assign('owner',$owner);
 $smarty->assign('comments_total',$comments_total);

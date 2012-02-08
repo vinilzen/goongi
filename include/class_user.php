@@ -1784,7 +1784,7 @@ class SEUser
 	  $photo_newname = "0_".rand(1000, 9999).".jpg";
 	  $file_dest = $url->url_userdir($this->user_info['user_id']).$photo_newname;
 	  $thumb_dest = substr($file_dest, 0, strrpos($file_dest, "."))."_thumb".substr($file_dest, strrpos($file_dest, "."));
-          $file_big_dest = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_id'].substr($file_dest, strrpos($file_dest, "."));
+      $file_big_dest = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_id'].substr($file_dest, strrpos($file_dest, "."));
 	
 		// var_dump($file_dest); var_dump($thumb_dest); die();
 		
@@ -1807,7 +1807,7 @@ class SEUser
 	      $new_photo->upload_file($file_dest);
 	    }
 		
-		$new_photo->upload_photo_my($file_big_dest, 277,275);
+		$new_photo->upload_photo_my($file_big_dest, 270);
       
 	    // UPDATE USER INFO WITH IMAGE IF STILL NO ERROR
 	    if( !$new_photo->is_error ) {
@@ -1817,6 +1817,7 @@ class SEUser
 	  }
     
 	  $this->is_error = $new_photo->is_error;
+	 
 	}
   
   // END user_photo_upload() METHOD
@@ -1887,7 +1888,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
 	      $new_photo->upload_file($file_dest);
 	    }
 
-		$new_photo->upload_photo_my($file_big_dest, 277,275);
+		$new_photo->upload_photo_my($file_big_dest, 270);
 
 	    // UPDATE USER INFO WITH IMAGE IF STILL NO ERROR
 	    if( !$new_photo->is_error ) {

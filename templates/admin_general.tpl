@@ -52,7 +52,7 @@
 
 <br>
 
-<table cellpadding='0' cellspacing='0' width='600'>
+<table cellpadding='0' cellspacing='0' width='600' style="display:none;">
 <tr>
 <td class='header'>{lang_print id=206}</td>
 </tr>
@@ -101,7 +101,7 @@
 
 <br>
 
-<table cellpadding='0' cellspacing='0' width='600'>
+<table cellpadding='0' cellspacing='0' width='600' style="display:none;">
 <tr>
 <td class='header'>{lang_print id=208}</td>
 </tr>

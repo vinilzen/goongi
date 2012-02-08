@@ -11,7 +11,13 @@
 	<div class="bg">
 		<div class="c">
 			<div class="pro">
-				<div id="main_photo"><img src="{$user->user_photo('./images/no_photo.gif')}" alt="" /></div>
+				<div id="main_photo">
+					{if $user->profile_info.profilevalue_5 == 2}
+						<img src="{$user->user_photo('./images/avatars_11.gif')}" alt="" />
+					{else}
+						<img src="{$user->user_photo('./images/avatars_09.gif')}" alt="" />
+					{/if}
+				</div>
 					<ul>
 						<li>вы - id[{$user->user_info.user_id}]</li>
 						<li {if $global_page == 'my_tree'}class="active"{/if}><a href='/my_tree.php'>Мое дерево</a></li>
