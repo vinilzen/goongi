@@ -65,8 +65,8 @@ select option	{padding:0 0 0 3px}
 .person	{float:left; border:2px solid #9cd3ed; margin:0 30px; padding:8px 12px 0; width:130px; box-shadow:0 0 10px #ccc; background:#ecf9ff; text-align:center}
 .person .relation	{color:#666; margin:0 20px 10px 0; height:14px; text-align:left}
 .person .info	{cursor:pointer; width:16px; height:16px; float:right; background:url(../img/icons/info.png)}
-.person .photo	{margin:0 0 10px; overflow:hidden; position:relative; display:inline-block}
-.person .photo img	{height:120px; width:120px; display:block; margin:0 auto}
+.person .photo	{margin:0 0 10px; overflow:hidden; position:relative; display:inline-block; height:120px; overflow:hidden;}
+.person .photo img	{ width:120px; display:block; margin:0 auto}
 .person .photo.loading img	{visibility:hidden}
 .person .photo .ribbon	{background:url(../img/decor/ribbon.png); width:58px; height:58px; position:absolute; right:-2px; bottom:-2px}
 .person .name	{margin:0 0 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:left}
@@ -104,9 +104,15 @@ select option	{padding:0 0 0 3px}
 .popup .field	{line-height:21px}
 .popup .field	{padding:4px 0}
 .popup .field label	{margin:0 8px 0 0; display:inline-block; line-height:24px}
-.popup .field input[type=text]	{width:100%; box-sizing:border-box; -moz-box-sizing:border-box}
+.popup .field input[type=text]	{width:536px; box-sizing:border-box; -moz-box-sizing:border-box}
+.popup .field input[name=birthdate] {width:75px;}
+.popup .field input[name=deathdate] {width:80px;}
+.popup .field input[name=birthyear] {width:75px;}
+.popup .field input[name=deathyear] {width:80px;}
 .popup .field select	{width:100%}
 .popup .field .name	{font-weight:bold}
+.popup .field .name.fsz12	{font-weight:bold; font-size:12px;}
+.popup .field .name.fsz123	{font-weight:bold; font-size:12px; padding-right:14px;}
 .popup label	{display:block; margin:0 0 10px}
 
 .popup table	{table-layout:fixed; border-collapse:collapse}

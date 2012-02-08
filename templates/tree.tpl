@@ -206,7 +206,8 @@ function callback(form,act,doc) {
 			<input type="text" name="alias" value="<%= alias %>" />
 		</div>
 		<div class="field">
-			<label class="name"><input type="checkbox" name="invite" /> Пригласить</label>
+			<input type="hidden" name="invite" />
+			<div class="name fsz12">Пригласить по email</div>
 			<input type="text" name="email"  value="<%= invite %>" />
 		</div>
 		<!--div class="field">
@@ -218,7 +219,7 @@ function callback(form,act,doc) {
 			<tr>
 				<td>
 					<div class="field">
-						<div class="name">Дата рождения</div>
+						<div class="name fsz12">Дата рождения</div>
 						<table>
 							<tr>
 								<td width="40"><input type="text" maxlength="2" name="birthdate" value="<%= birthday ? new Date(birthday).getDate() : "" %>" /></td>
@@ -237,7 +238,7 @@ function callback(form,act,doc) {
 				<td class="sep"></td>
 				<td>
 					<div class="field">
-						<label class="name"><input type="checkbox" name="dead" <% if (death || death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label>
+						<label class="name fsz12"><input type="checkbox" name="dead" <% if (death || death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label>
 						<table>
 							<tr>
 								<td width="40"><input type="text" maxlength="2" name="deathdate" value="<%= death ? new Date(death).getDate() : "" %>" <% if (!death) { %> disabled="disabled" <% } %> /></td>
