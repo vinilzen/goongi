@@ -1715,26 +1715,47 @@ class SEUser
   }
 
 
-	function user_photo($nophoto_image = "", $thumb = FALSE)
-  {
-	  global $url;
+	function user_photo($nophoto_image = "", $thumb = FALSE, $id = 0)
+	{
+		global $url;
 
-    //if( !$user->user_exists || !$this->user_info['user_photo'] )
-    if( !$this->user_info['user_photo'] )
-      return $nophoto_image;
+	    //if( !$user->user_exists || !$this->user_info['user_photo'] )
 
-	  $user_photo = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_photo'];
-	  if( $thumb )
-    {
-	    $user_thumb = substr($user_photo, 0, strrpos($user_photo, "."))."_thumb".substr($user_photo, strrpos($user_photo, "."));
-	    if( file_exists($user_thumb) )
-        return $user_thumb;
-	  }
+		if ($id == 0)
+		{
+			if( !$this->user_info['user_photo'] )
+				return $nophoto_image;
 
-	  if( file_exists($user_photo) )
-      return $user_photo;
-
-	  return $nophoto_image;
+			$user_photo = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_photo'];
+		}
+		else
+		{
+			$my_user = $this->get_user_info(array($id));
+			if ($id == 3041 && 0) {
+				echo '<pre>'; print_r($my_user); die();
+			}
+			if ($my_user[$id]['photo'] == '')
+				return $nophoto_image;
+			
+			$user_photo = $url->url_userdir($id).$my_user[$id]['photo'];
+			
+		}
+		
+		if( $thumb === TRUE )
+	    {
+	    	
+		    $user_thumb = substr($user_photo, 0, strrpos($user_photo, "."))."_thumb".substr($user_photo, strrpos($user_photo, "."));
+		    
+		    if( file_exists($user_thumb) )
+	       		return $user_thumb;
+		}
+	
+		
+	
+		if( file_exists($user_photo) )
+	    	return $user_photo;
+	
+		return $nophoto_image;
 	}
 
   
@@ -1822,29 +1843,30 @@ class SEUser
   
   // END user_photo_upload() METHOD
 
-function user_ajax_photo_upload($photo_name,$id_user)
-  {
-	  global $database, $url;
-          // ENSURE USER DIRECTORY IS ADDED
-	  $user_directory = $url->url_userdir($id_user);
-	  $user_path_array = explode("/", $user_directory);
-	  array_pop($user_path_array);
-	  array_pop($user_path_array);
-	  $subdir = implode("/", $user_path_array)."/";
-	  if( !is_dir($subdir) )
-    {
-	    mkdir($subdir, 0777);
-	    chmod($subdir, 0777);
-	    $handle = fopen($subdir."index.php", 'x+');
-	    fclose($handle);
-	  }
-    if( !is_dir($user_directory) )
-    {
-      mkdir($user_directory, 0777);
-      chmod($user_directory, 0777);
-      $handle = fopen($user_directory."/index.php", 'x+');
-      fclose($handle);
-    }
+	function user_ajax_photo_upload($photo_name,$id_user)
+	{
+		global $database, $url;
+	          // ENSURE USER DIRECTORY IS ADDED
+		$user_directory = $url->url_userdir($id_user);
+		$user_path_array = explode("/", $user_directory);
+		array_pop($user_path_array);
+		array_pop($user_path_array);
+		$subdir = implode("/", $user_path_array)."/";
+		
+		if( !is_dir($subdir) )
+		{
+		    mkdir($subdir, 0777);
+		    chmod($subdir, 0777);
+		    $handle = fopen($subdir."index.php", 'x+');
+		   fclose($handle);
+		}
+		if( !is_dir($user_directory) )
+		{
+		  mkdir($user_directory, 0777);
+		  chmod($user_directory, 0777);
+		  $handle = fopen($user_directory."/index.php", 'x+');
+		  fclose($handle);
+		}
 
 	  // SET KEY VARIABLES
 	  $file_maxsize = "4194304";
@@ -1892,8 +1914,8 @@ function user_ajax_photo_upload($photo_name,$id_user)
 
 	    // UPDATE USER INFO WITH IMAGE IF STILL NO ERROR
 	    if( !$new_photo->is_error ) {
-	      $database->database_query("UPDATE se_users SET user_photo='{$photo_newname}' WHERE user_id='{$id_user}' LIMIT 1");
-	    //  $this->user_info['user_photo'] = $photo_newname;
+	     	$database->database_query("UPDATE se_users SET user_photo='{$photo_newname}' WHERE user_id='{$id_user}' LIMIT 1");
+	    	$this->user_info['user_photo'] = $photo_newname;
 	    }
 	  }
 
@@ -2015,7 +2037,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
     {
       $other_user_id = $user->user_info['user_id'];
     }
-    
+	
 	  // SET VARIABLE
 	  $friend_array = Array();
     

@@ -1,3 +1,18 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="description" content="Genealogy Tree">
+	<meta name="author" content="Alexander Orlov">
+	<link rel="stylesheet" href="/tree/css/default.css">
+	<script src="/tree/js/jquery.js"></script>
+	<script src="/tree/js/underscore.js"></script>
+	<script src="/tree/js/backbone.js"></script>
+	<!--[if lte IE 8]><script src="/tree/js/excanvas.js"></script><![endif]-->
+	<script src="/tree/js/base64.js"></script>
+	<script src="/tree/js/utils.js"></script>
+</head>
+<body>
 {literal}
 <script type='text/javascript'>
 function file_send() {
@@ -40,29 +55,14 @@ function getIFrameXML(iframe) {
 }
 
 function callback(form,act,doc) {
-  form.setAttribute('action', act);
-  form.removeAttribute('target');
-  alert(doc.body.innerHTML);
+	form.setAttribute('action', act);
+	form.removeAttribute('target');
+	var id = $('input[name=u_id]').attr('value');
+	$('div[data-id=' + id + '] .photo').css('background','none');
+	$('div[data-id=' + id + '] .photo').html('<img style="visibility: visible;" src="' + doc.body.innerHTML + '">');	
 }
 </script>
 {/literal}
-
-<!doctype html>
-<head>
-	<meta charset="utf-8">
-	<title></title>
-	<meta name="description" content="Genealogy Tree">
-	<meta name="author" content="Alexander Orlov">
-	<link rel="stylesheet" href="/tree/css/default.css">
-	<script src="/tree/js/jquery.js"></script>
-	<script src="/tree/js/underscore.js"></script>
-	<script src="/tree/js/backbone.js"></script>
-	<!--[if lte IE 8]><script src="/tree/js/excanvas.js"></script><![endif]-->
-	<script src="/tree/js/base64.js"></script>
-	<script src="/tree/js/utils.js"></script>
-</head>
-<body>
-
 <!--div id="header">
 	<div class="caption">Моё дерево</div>
 	<div class="float-r">
@@ -96,8 +96,12 @@ function callback(form,act,doc) {
                     <% if ( photo)  { %>
                         <img src="<%= TREE.url.image(id, photo) %>" />
                     <% } %>
-                    <% if ( !photo)  { %>
-                         <img src="images/no_photo.gif" />
+                    <% if ( !photo)  { %>{/literal}
+					{if $user->profile_info.profilevalue_5 == 2}
+                        <img src="/images/avatars_11.gif" />
+					{else}
+						<img src="/images/avatars_09.gif" />
+					{/if}{literal}
                    <% } %>
 
 			
@@ -186,7 +190,7 @@ function callback(form,act,doc) {
 					<% if (Base64.decode(fname) !== "") { %>
 						<div class="field">
 							<div class="name">Загрузи новый аватар</div>
-							<form id="my_form" method="post" action="" enctype="multipart/form-data" onsubmit="file_send()">
+							<form id="my_form" method="post" action="" enctype="multipart/form-data" onsubmit="file_send();">
 								<input type="file" name="photo" />
 								<input type = "hidden" name = "u_id" value = "<%= id %>">
 								<input type="submit" value="отправить">

@@ -949,7 +949,7 @@ function update_group_list() {
 					cpp:''+cp+'',
 					p:''+page_show+''},
 				function(data) {
-					if (data != null) { 
+					if (data != null) {
 						if (data.total_comments > 0 ) {
 							var str = '';
                             var paginator = '';
@@ -972,13 +972,10 @@ function update_group_list() {
 								str = str + '</div></div></div></li>';
 								
 							});
-                                        var  url_p  = '';
-				if (  data.type == 'profile') url_p = 'profile.php';
-                               // else url_p = 'profile.php';
-                           //         alert(data.type);
-                        if (data.maxpage > 1)
-                            {
-                               // alert($('#pag_com')[0].value)
+                            var  url_p  = '';
+							if (  data.type == 'profile') url_p = 'profile.php';
+
+							if (data.maxpage > 1) {
                                 paginator = '<div class="pager">';
                                 var s = data.p-1;
                                 var p = data.p+1;
@@ -993,12 +990,15 @@ function update_group_list() {
                                }
                                 if(data.p != data.maxpage ) paginator = paginator+ '<a onclick = "change('+p+');" href="'+url_p+'?user='+user_username+'&pag_com='+p+'" class="next">Туда</a>';
                                  paginator = paginator+ '</div></form>';
-                             }
-                             $('#comments_list').append(str+paginator);
-                                                                                }
+                            }
+							$('#comments_list').html('');
+                            $('#comments_list').append(str+paginator);
+						} else {
+							$('#comments_list').html('<p style="color:red;">Здесь еще никто, ничего не писал.</p>');
+						}
                                                
-                                                $('#comments_count').html('');
-                                                $('#comments_count').append(data.total_comments);
+						$('#comments_count').html('');
+						$('#comments_count').append(data.total_comments);
 					} else {
 						alert('Неизвестная ошибка =(');
 					}

@@ -15,7 +15,7 @@
 {* $Id: profile.tpl 255 2009-11-18 02:21:01Z steve $ *}
     
 <!-- <div class='page_header'>{lang_sprintf id=786 1=$owner->user_displayname}</div> -->
-<h1>{$owner->user_info.user_displayname} [{$owner->user_info.user_id}]</h1>
+<h1>{$owner->user_info.user_displayname}</h1>
 <div class="crumb">
 	<a href="/">Главная</a>
 	<span>{lang_print id=652}<!-- Профиль --></span>
@@ -41,10 +41,9 @@
 						<div class="p_mn_b">
 							<a href="/tree.php?user={$owner->user_info.user_username}">Древо</a>
 							<a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a>
-							<a href="javascript:void(0);">История рода</a>
-							<a href="javascript:void(0);" rel="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
-							<a href="javascript:void(0);">Медали</a>
-							<a href="javascript:void(0);">Визитки</a>
+							<a href="/user_history.php?user={$owner->user_info.user_username}">История рода</a>
+							<a href="/user_blog.php?user={$owner->user_info.user_username}" rel="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
+							<!-- <a href="">Медали</a> -->
 						</div>
 					</div>
 				</div>
@@ -152,7 +151,7 @@
 
       {* SHOW COMMENTS *}
 	  <h2>Записи на стене</h2>
-		<ul class="comments wall" id="comments_list"></ul>
+		<ul class="comments wall" id="comments_list"><img src="/images/142.gif" border="0"></ul>
                 <input type="hidden" id = "pag_com" name="pag_com" value="{$pag_com}">
 		
     {literal}

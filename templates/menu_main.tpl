@@ -19,34 +19,32 @@
 					{/if}
 				</div>
 					<ul>
-						<li>вы - id[{$user->user_info.user_id}]</li>
-						<li {if $global_page == 'my_tree'}class="active"{/if}><a href='/my_tree.php'>Мое дерево</a></li>
-							
+						<li>Это вы {$user->user_displayname_short}[{$user->user_info.user_id}]</li>
+						<li><a href='/my_tree.php' title="">Мое дерево</a></li>
 						{* SHOW FRIENDS MENU ITEM IF ENABLED *}
 						{if $setting.setting_connection_allow != 0}
 							<li {if $global_page == 'user_friends'}class="active"{/if}><a href='/user_friends.php'>{lang_print id=1170} {if $user->user_friend_total(1, 0) > 0}<span> ({$user->user_friend_total(1, 0)})</span> {/if}</a></li>
 						{/if}
-						
 					{* SHOW PROFILE MENU ITEM *}
-					<li {if $global_page == 'profile'}class="active"{/if}><a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a></li>
+					<li {if $global_page|strpos:"profile" === 0 || $global_page|strpos:"user_editprofile" === 0}class="active"{/if}><a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a></li>
 
 					{* SHOW APPS MENU ITEM IF ENABLED *}
 					{if $global_plugins.plugin_controls.show_menu_user}
 						{* SHOW ANY PLUGIN MENU ITEMS *}
 						{hook_foreach name=menu_user_apps var=user_apps_args}
-							<li><a href='{$user_apps_args.file}'>{lang_print id=$user_apps_args.title}</a></li>
+							<li {if $user_apps_args.file|strpos:"$global_page" === 0}class="active"{/if}><a href='{$user_apps_args.file}'>{lang_print id=$user_apps_args.title}</a></li>
 						{/hook_foreach}
 					{/if}
 
 					{* SHOW MESSAGES MENU ITEM IF ENABLED *}
 					{if $user->level_info.level_message_allow != 0}
-						<li {if $global_page == 'user_messages'}class="active"{/if}><a href='user_messages.php'>							
-                                                {lang_print id=654} <span>{if $user_unread_pms>0}({$user_unread_pms}){/if}</span><!-- сообщения --></a>
+						<li {if $global_page|strpos:"user_message" === 0}class="active"{/if}><a href='user_messages.php'>							
+                            {lang_print id=654} <span>{if $user_unread_pms>0}({$user_unread_pms}){/if}</span><!-- сообщения --></a>
 						</li>
 					{/if}
 					
 					{* SHOW SETTINGS MENU ITEM *}
-					<li {if $global_page == 'user_account'}class="active"{/if}><a href='user_account.php'>
+					<li {if $global_page|strpos:"user_account" === 0}class="active"{/if}><a href='user_account.php'>
 						{lang_print id=1173}<!-- настройки аккаунта -->
 					</a></li>
 				<ul>

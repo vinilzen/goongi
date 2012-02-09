@@ -150,38 +150,48 @@ class se_comment
 	  $comments = $database->database_query($comment_query);
 	  while($comment_info = $database->database_fetch_assoc($comments))
 	  {
-	    // CREATE AN OBJECT FOR AUTHOR
-	    $author = new se_user();
-	    //echo '<pre>'; print_r($comment_info); echo '</pre>';
-	    //echo '<pre>'; print_r()); die();
-	    if( $comment_info['user_id'] != $comment_info[$this->comment_type.'comment_authoruser_id'] )
-      {
-	      $author->user_exists = FALSE;
+		    // CREATE AN OBJECT FOR AUTHOR
+		  $author = new se_user();
+
+		  if( $comment_info['user_id'] != $comment_info[$this->comment_type.'comment_authoruser_id'] )
+	      {
+		      $author->user_exists = FALSE;
+		  }
+	      else
+	      {
+		      $author->user_exists = TRUE;
+		      $author->user_info['user_id'] = $comment_info['user_id'];
+		      $author->user_info['user_username'] = $comment_info['user_username'];
+		      $author->user_info['user_fname'] = $comment_info['user_fname'];
+		      $author->user_info['user_lname'] = $comment_info['user_lname'];
+		     
+				if ($user->get_sex($comment_info['user_id']) == 'w')
+				{
+					$author->user_info['user_photo'] = $user->user_photo('./images/avatars_17.gif',TRUE,$comment_info['user_id']);
+				}
+				else
+				{
+					$author->user_info['user_photo'] = $user->user_photo('./images/avatars_15.gif',TRUE,$comment_info['user_id']);
+				}
+				
+		      $author->user_info['user_sex'] = $author->get_sex($comment_info[$this->comment_type.'comment_authoruser_id']);
+		      $author->user_displayname();
+		  }
+		  
+		  
+	    	// echo '<pre>'; print_r($author); echo '</pre>'; die();
+		    // SET COMMENT ARRAY
+		    $comment_array[] = Array(
+		        'comment_id' => $comment_info[$this->comment_type.'comment_id'],
+		        'comment_authoruser_id' =>$comment_info[$this->comment_type.'comment_authoruser_id'],
+		        'comment_author' => $author,
+		        'comment_date' => $comment_info[$this->comment_type.'comment_date'],
+		        'comment_body' => $comment_info[$this->comment_type.'comment_body'],
+		        'comment_author_private' => $comment_info['is_profile_private']
+		    );
 	  }
-      else
-      {
-	      $author->user_exists = TRUE;
-	      $author->user_info['user_id'] = $comment_info['user_id'];
-	      $author->user_info['user_username'] = $comment_info['user_username'];
-	      $author->user_info['user_fname'] = $comment_info['user_fname'];
-	      $author->user_info['user_lname'] = $comment_info['user_lname'];
-	      $author->user_info['user_photo'] = $comment_info['user_photo'];
-	      $author->user_info['user_sex'] = $author->get_sex($comment_info[$this->comment_type.'comment_authoruser_id']);
-	      $author->user_displayname();
-	    }
-      	
-	    // SET COMMENT ARRAY
-	    $comment_array[] = Array(
-	        'comment_id' => $comment_info[$this->comment_type.'comment_id'],
-	        'comment_authoruser_id' =>$comment_info[$this->comment_type.'comment_authoruser_id'],
-	        'comment_author' => $author,
-	        'comment_date' => $comment_info[$this->comment_type.'comment_date'],
-	        'comment_body' => $comment_info[$this->comment_type.'comment_body'],
-	        'comment_author_private' => $comment_info['is_profile_private']
-	      );
-	  }
-    	//echo '<pre>'; print_r($comment_array); die();
-	  return $comment_array;
+		//echo '<pre>'; print_r($comment_array); die();
+		return $comment_array;
 	}
   
   // END comment_list() METHOD
