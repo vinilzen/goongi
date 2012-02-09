@@ -1,59 +1,37 @@
-{include file='header.tpl'}
+﻿{include file='header.tpl'}
+<h1>{lang_print id=1056}</h1>
+
+<div class="crumb">
+	<a href="/">Главная</a>
+	<span>{lang_print id=1055}</span>
+</div>
+
 
 {* $Id: user_account_privacy.tpl 8 2009-01-11 06:02:53Z john $ *}
-<table class='tabs' cellpadding='0' cellspacing='0'>
-<tr>
-<td class='tab0'>&nbsp;</td>
-<td class='tab2' NOWRAP><a href='user_account.php'>{lang_print id=655}</a></td>
-<td class='tab'>&nbsp;</td>
-<td class='tab1' NOWRAP><a href='user_account_privacy.php'>{lang_print id=1055}</a></td>
-<td class='tab'>&nbsp;</td>
-<td class='tab2' NOWRAP><a href='user_account_pass.php'>{lang_print id=756}</a></td>
-{if $user->level_info.level_profile_delete != 0}<td class='tab'>&nbsp;</td><td class='tab2' NOWRAP><a href='user_account_delete.php'>{lang_print id=757}</a></td>{/if}
-<td class='tab3'>&nbsp;</td>
-</tr>
-</table>
+<div class="buttons" >
+	<span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<a href='user_account.php'>{lang_print id=655}</a>
+	</span><span class="r">&nbsp;</span></span>
 
-<img src='./images/icons/settings48.gif' border='0' class='icon_big'>
-<div class='page_header'>{lang_print id=1056}</div>
-<div>{lang_print id=1057}</div>
-<br />
-<br />
+        <span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<a href='user_account_privacy.php'>{lang_print id=1055}</a>
+	</span><span class="r">&nbsp;</span></span>
+
+    <span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<a href='user_account_pass.php'>{lang_print id=756}</a>
+	</span><span class="r">&nbsp;</span></span>
+	
+	{if $user->level_info.level_profile_delete != 0}
+    <span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<a href='user_account_delete'>{lang_print id=757}</a>
+	</span><span class="r">&nbsp;</span></span>
+	{/if}
+</div>
+
+<!-- Измените параметры настройки Вашей конфиденциальности. <div>{lang_print id=1057}</div> -->
 
 {* SHOW SUCCESS MESSAGES *}
-{if $result != 0}
-  <table cellpadding='0' cellspacing='0'><tr><td class='success'>
-  <img src='./images/success.gif' border='0' class='icon'>{lang_print id=191}
-  </td></tr></table>
-{/if}
-
-
-{* JAVASCRIPT FOR CREATING SUGGESTION BOX *}
-{literal}
-<script type="text/javascript">
-<!-- 
-  window.addEvent('domready', function(){
-	var options = {
-		script:"misc_js.php?task=suggest_user&limit=10&",
-		varname:"input",
-		json:true,
-		shownoresults:false,
-		maxresults:10,
-		callback: function (obj) { 
-		  if(obj.id != '') {
-		    var newDiv = document.createElement('div');
-		    newDiv.id = 'block_'+obj.id;
-		    newDiv.innerHTML = "<div style='padding-left: 5px;'><div style='float: left;'><img src='./images/icons/action_delete2.gif' class='icon' style='cursor: pointer;' onClick=\"$('block_"+obj.id+"').getParent().removeChild($('block_"+obj.id+"'))\" border='0'><input type='hidden' name='user_blocklist[]' value='"+obj.id+"'></div><div><a href='profile.php?user="+obj.id+"'>"+obj.value+"</a></div><div style='clear: both;'></div></div>";
-		    $('blocks').insertBefore(newDiv, $('block_user'));
-		    $('block_user').value = '';
-		  }
-		}
-	};
-	var as_json = new bsn.AutoSuggest('block_user', options);
-  });
-//-->
-</script>
-{/literal}
+{if $result != 0}{lang_print id=191}{/if}
 
 <form action='user_account_privacy.php' method='post' name='info'>
 <table cellpadding='0' cellspacing='0'>
@@ -95,7 +73,7 @@
 {/if}
 
 {* SHOW PROFILE VIEWS SETTING *}
-{if $user->level_info.level_profile_views == 1}
+{if $user->level_info.level_profile_views == 1 && 0} нету у нас просмотров профиля
   <tr>
   <td class='form1' nowrap='nowrap'>{lang_print id=1060}:</td>
   <td class='form2'>
@@ -113,9 +91,11 @@
 {* SHOW PROFILE PRIVACY OPTIONS *}
 {if $privacy_options|@count > 1}
   <tr>
-  <td class='form1' nowrap='nowrap'>{lang_print id=967}:</td>
+	<td class='form1' nowrap='nowrap'>
+		{lang_print id=967}:
+		<div style='padding: 3px 0px 5px 0px;'>{lang_print id=968}</div>
+	</td>
   <td class='form2'>
-    <div style='padding: 3px 0px 5px 0px;'>{lang_print id=968}</div>
     <table cellpadding='0' cellspacing='0'>
     {* LIST PRIVACY OPTIONS *}
     {foreach from=$privacy_options key=k item=v}
@@ -132,9 +112,11 @@
 {* SHOW PROFILE COMMENT OPTIONS *}
 {if $comment_options|@count > 1}
   <tr>
-  <td class='form1' nowrap='nowrap'>{lang_print id=969}:</td>
+	<td class='form1' nowrap='nowrap'>
+		{lang_print id=969}:
+		<div style='padding: 3px 0px 5px 0px;'>{lang_print id=970}</div>
+	</td>
   <td class='form2'>
-    <div style='padding: 3px 0px 5px 0px;'>{lang_print id=970}</div>
     <table cellpadding='0' cellspacing='0'>
     {* LIST COMMENT OPTIONS *}
     {foreach from=$comment_options key=k item=v}
@@ -151,9 +133,12 @@
 {* SHOW PROFILE SEARCH OPTIONS *}
 {if $user->level_info.level_profile_search == 1}
   <tr>
-  <td class='form1' nowrap='nowrap'>{lang_print id=971}:</td>
+	<td class='form1' >
+		{lang_print id=971}:
+		<div style='padding: 3px 0px 5px 0px; width:300px;'>{lang_print id=972}</div>
+	</td>
   <td class='form2'>
-    <div style='padding: 3px 0px 5px 0px;'>{lang_print id=972}</div>
+    
     <table cellpadding='0' cellspacing='0'>
     <tr><td><input type='radio' name='search_profile' id='search_profile1' value='1'{if $user->user_info.user_search == 1} checked='checked'{/if}></td><td><label for='search_profile1'>{lang_print id=973}</label></td></tr>
     <tr><td><input type='radio' name='search_profile' id='search_profile0' value='0'{if $user->user_info.user_search == 0} checked='checked'{/if}></td><td><label for='search_profile0'>{lang_print id=974}</label></td></tr>
@@ -163,7 +148,7 @@
 {/if}
 
 {* SHOW ACTION PRIVACY SETTING *}
-{if $setting.setting_actions_privacy == 1}
+{if $setting.setting_actions_privacy == 1 && 0} нету у нас новостей
   <tr>
   <td class='form1' nowrap='nowrap'>{lang_print id=811}:</td>
   <td class='form2'>
@@ -181,10 +166,14 @@
 {/if}
 
 <tr>
-<td class='form1'>&nbsp;</td>
-<td class='form2'><input type='submit' class='button' value='{lang_print id=173}'></td>
+<td class='form1' colspan="2" style="text-align: center;">
+<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<input type="submit" value="Сохранить изменения">
+	</span><span class="r">&nbsp;</span></span></div>
+</td>
 </tr>
 </table>
+
 <input type='hidden' name='task' value='dosave'>
 </form>
 {include file='footer.tpl'}

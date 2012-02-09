@@ -460,7 +460,7 @@ elseif($task == "comment_get")
   // MAKE COMMENT PAGES AND GET COMMENT ARRAY
   $page_vars = make_page($total_comments, $cpp, $p);
   $comments = $comment->comment_list($page_vars[0], $cpp);
-	//echo '<pre>'; print_r($comments); die();
+//echo '<pre>'; print_r($comments); die();
   // CONSTRUCT JSON RESPONSE
   $response_array = array(
     'total_comments'  => (int) $total_comments,
@@ -486,7 +486,7 @@ elseif($task == "comment_get")
       'comment_authoruser_exists'       => (bool)   $comment_data['comment_author']->user_exists,
       'comment_authoruser_private'      => (bool)   $comment_data['comment_author_private'],
       'comment_authoruser_url'          => (string) $url->url_create('profile', $comment_data['comment_author']->user_info['user_username']),
-      'comment_authoruser_photo'        => (string) $comment_data['comment_author']->user_info['user_sex'] == 'w' ? $comment_data['comment_author']->user_photo('./images/avatars_17.gif', true):$comment_data['comment_author']->user_photo('./images/avatars_15.gif', true),
+      'comment_authoruser_photo'        => (string) $comment_data['comment_author']->user_info['user_photo'],
       'comment_authoruser_photo_width'  => (int)    $comment_data['comment_author']->user_info['user_sex'] == 'w' ? $misc->photo_size($comment_data['comment_author']->user_photo('./images/avatars_17.gif'),'75','75','w'):$misc->photo_size($comment_data['comment_author']->user_photo('./images/avatars_15.gif'),'75','75','w'),
       'comment_authoruser_username'     => (string) $comment_data['comment_author']->user_info['user_username'],
       'comment_authoruser_displayname'  => (string) $comment_data['comment_author']->user_displayname,

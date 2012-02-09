@@ -20,20 +20,22 @@
         <span class="button2"><span class="l">&nbsp;</span><span class="c">
 		<a href='user_account_pass.php'>{lang_print id=756}</a>
 	</span><span class="r">&nbsp;</span></span>
+	
+	{if $user->level_info.level_profile_delete != 0}
+    <span class="button2"><span class="l">&nbsp;</span><span class="c">
+		<a href='user_account_delete'>{lang_print id=757}</a>
+	</span><span class="r">&nbsp;</span></span>
+	{/if}
 </div>
 
 
 {* SHOW ERROR OR SUCCESS MESSAGES *}
 {if $result != 0}
-  <table cellpadding='0' cellspacing='0'><tr><td class='success'>
-  {capture assign="old_subnet_name"}{lang_print id=$old_subnet_name}{/capture}
-  {capture assign="new_subnet_name"}{lang_print id=$new_subnet_name}{/capture}
-  <img src='./images/success.gif' border='0' class='icon'>{lang_sprintf id=$result 1=$old_subnet_name 2=$new_subnet_name}
-  </td></tr></table>
+	{capture assign="old_subnet_name"}{lang_print id=$old_subnet_name}{/capture}
+	{capture assign="new_subnet_name"}{lang_print id=$new_subnet_name}{/capture}
+	<p>{lang_sprintf id=$result 1=$old_subnet_name 2=$new_subnet_name}<br /></p>
 {elseif $is_error != 0}
-  <table cellpadding='0' cellspacing='0'>
-  <tr><td class='error'>{lang_print id=$is_error}</td></tr>
-  </table>
+	{lang_print id=$is_error}
 {/if}
 
 
@@ -51,21 +53,22 @@
  <div class = "input">
   <label>{lang_print id=28}:</label>
     <input name='user_username' type='text' class='text' size='40' maxlength='50' value='{$user->user_info.user_username}'>
-    {capture assign=tip}{lang_print id=809}{/capture}
-    <img src='./images/icons/tip.gif' border='0' class='Tips1' title='{$tip|replace:"'":"&#039;"}'>
-    <div class='form_desc_accaunt'>{lang_print id=810}</div>
+    {capture assign=tip}{lang_print id=809}{/capture}   
+    <!--	<img src='./images/icons/tip.gif' border='0' class='Tips1' title='{$tip|replace:"'":"&#039;"}'>
+			<div class='form_desc_accaunt'>{lang_print id=810}</div>  
+			Внимание, при изменении имени пользователя, будут очищены все старые записи из Вашего канала активности. --> 
 </div>
 {/if}
 
 {if $cats|@count > 1}
- <div class = "input">
- <label> {lang_print id=709}</label>
-     <select name='user_profilecat_id'>
-    {section name=cat_loop loop=$cats}
-      <option value='{$cats[cat_loop].cat_id}'{if $user->user_info.user_profilecat_id == $cats[cat_loop].cat_id} selected='selected'{/if}>{lang_print id=$cats[cat_loop].cat_title}</option>
-    {/section}
-    </select>
-    <div class='form_desc_accaunt'>{lang_print id=1014}</div>
+<div class = "input">
+	<label>{lang_print id=709}</label>
+	<select name='user_profilecat_id'>
+	{section name=cat_loop loop=$cats}
+	  <option value='{$cats[cat_loop].cat_id}'{if $user->user_info.user_profilecat_id == $cats[cat_loop].cat_id} selected='selected'{/if}>{lang_print id=$cats[cat_loop].cat_title}</option>
+	{/section}
+	</select>
+	<div class='form_desc_accaunt'>{lang_print id=1014}</div>
 </div>
 {/if}
 
@@ -109,7 +112,7 @@
 {if $notifytypes|@count != 0}
  <div class = "input">
   <label>{lang_print id=959}:</label>
-   {lang_print id=960}
+   {lang_print id=960}<br /><br />
        {section name=notifytype_loop loop=$notifytypes}
       {capture assign="usersetting_col"}usersetting_notify_{$notifytypes[notifytype_loop].notifytype_name}{/capture}
      <input type='checkbox' name='notifications[{$notifytypes[notifytype_loop].notifytype_name}]' id='{$usersetting_col}' value='1'{if $user->usersetting_info.$usersetting_col == 1} checked='checked'{/if}>

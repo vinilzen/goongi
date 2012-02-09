@@ -76,8 +76,19 @@
 									$('#userEditRemovePhotoLink').html('');
 									setTimeout ( function() {
 										$("#brdr").removeClass("preloader");
-										$('#main_photo').html('<img width="111" src="/images/nophoto.gif" border="0" />');
-										$('#brdr').html('<img width="111" src="/images/nophoto.gif" border="0" />');
+					{/literal}
+										{if $user->profile_info.profilevalue_5 == 2}
+											{literal}
+												$('#main_photo').html('<img width="111" src="/images/avatars_11.gif" border="0" />');
+												$('#brdr').html('<img width="111" src="/images/avatars_11.gif" border="0" />');
+											{/literal}
+										{else}
+											{literal}
+												$('#main_photo').html('<img width="111" src="/images/avatars_09.gif" border="0" />');
+												$('#brdr').html('<img width="111" src="/images/avatars_09.gif" border="0" />');
+											{/literal}
+										{/if}
+					{literal}					
 										$('#userEditRemovePhotoLink').html(data);
 									}, 2000);
 								}

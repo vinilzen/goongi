@@ -59,9 +59,9 @@
             <div class="autor">
 				<a href="#">
 					{if $user->profile_info.profilevalue_5 == 2}
-						<img src="{$user->user_photo('./images/avatars_17.gif')}" alt="" />
+						<img src="{$user->user_photo('./images/avatars_17.gif',true)}" alt="" />
 					{else}
-						<img src="{$user->user_photo('./images/avatars_15.gif')}" alt="" />
+						<img src="{$user->user_photo('./images/avatars_15.gif',true)}" alt="" />
 					{/if}
 				</a>
 				<span>Автор:</span>

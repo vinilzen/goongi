@@ -41,11 +41,7 @@
   {capture assign="new_subnet_name"}{lang_print id=$new_subnet_name}{/capture}
   <div class='success'><img src='./images/success.gif' border='0' class='icon'> {lang_print id=191}<br>{lang_sprintf id=767 1=$old_subnet_name 2=$new_subnet_name}</div>
   <br>
-{elseif $result == 1}
-  <br>
-    <div class='success'><img src='./images/success.gif' border='0' class='icon'> {lang_print id=191}</div>
-  <br>
-{/if}
+{elseif $result == 1}{lang_print id=191}<br />{/if}
 
 {* SHOW ERROR MESSAGE *}
 {if $is_error != 0}

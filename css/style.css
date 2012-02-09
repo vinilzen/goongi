@@ -532,6 +532,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.edit .input .input_price select{ width:80px;}
 	.form.edit .input input,
 	.form.edit .input textarea	{ width:380px;}
+	.form.edit .input input[type=checkbox]	{ width:17px; float:left;}
 	.form.edit .input select	{ width:390px;}
 	.form.edit .input p			{ font-size:11px; color:#7f7f7f; padding-top:4px; padding-bottom:0;}
 	.form.edit .button			{ padding-top:24px; text-align:center; clear:both;}
@@ -544,7 +545,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.add_w .button			{ padding-top:5px; text-align:center; clear:both;}
 
 	.form.add_com					{ width: auto; padding-bottom:20px;}
-	.form.add_com .input textarea	{ width:490px; margin-bottom:5px;}
+	.form.add_com .input textarea	{width: 100%; margin-bottom:5px;}
 	
 	.form.seach					{ overflow:hidden; padding-bottom:20px; width:auto; border-right:1px solid #9E9E9E;}
 	.form.seach .input input,
@@ -698,7 +699,7 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .my_page_info { border-bottom: 1px solid #9E9E9E; margin-bottom: 15px;padding: 15px 0px 15px 0px;}
 .my_page_info p {padding-bottom: 13px;}
 .my_page_info p span {  color: #A1A1A1; display: inline-block; width: 165px;}
-.my_page_img {   float: left;   padding: 15px 0px 15px 0px; min-height:311px;   width: 300px;}
+.my_page_img {   float: left;   padding: 15px 0px 25px 0px; min-height:100px;   width: 300px;}
 .my_page_img img {   background: none repeat scroll 0 0 #FFFFFF;  border: 1px solid #D7D7D7;   padding: 2px;}
 .my_page_inf {    border-bottom: 1px solid #9E9E9E;    margin-bottom: 15px;    overflow: hidden;}
 .my_page_inf .my_page_info {    border-bottom: 0 none;    margin-bottom: 0;}
@@ -772,4 +773,8 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .death_page #footer .copy a		{ color:#777777; text-shadow: none;}
 .last {border-top:1px solid #1c1d1d; margin-top:5px; padding-top:5px;}
 .edit_group {display:none;}
-
+.form1 {vertical-align:top;font-size: 12px;font-weight: bold;margin-bottom: 4px; padding:16px 20px 0px 0px;}
+.form2 {vertical-align:top;margin-bottom: 4px; padding:16px 20px 0px 0px;}
+.form2 td {padding:1px 0px;vertical-align:top;}
+.change_pass {width:500px;}
+.change_pass  .form1 {width:240px; padding-left:100px; text-align:right;}

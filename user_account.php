@@ -129,6 +129,7 @@ if($task == "dosave")
 $field = new se_field("profile");
 $field->cat_list(0, 0, 0, "profilecat_signup='1' || profilecat_id='{$user->user_info['user_profilecat_id']}'", "profilecat_id='0'", "");
 
+//echo '<pre>'; print_r($notifytypes); die();
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('result', $result);
 $smarty->assign('is_error', $is_error);

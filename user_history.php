@@ -38,11 +38,16 @@ if( trim($search) ) $where = "(historyentry_title LIKE '%{$search}%' OR historye
 
 $page_vars = make_page($total_historyentries, $entries_per_page, $p);
 //$historyentries = $history->history_entries_list($page_vars[0], $entries_per_page, $s, $where);
-//print_r ($historyentries);
+
+if ($owner->user_info['user_id'] != 0 && $owner->user_info['user_id'] != $user->user_info['user_id'])
+	$user_id = $owner->user_info['user_id'];
+else
+	$user_id = $user->user_info['user_id'];
+
 if (!$historyentry_id)
 {
    
-      $sql = "SELECT tree_id FROM se_tree_users WHERE user_id='{$user->user_info['user_id']}'";
+      $sql = "SELECT tree_id FROM se_tree_users WHERE user_id='{$user_id}'";
       $resource = $database->database_query($sql);
       $treeid=$database->database_fetch_assoc($resource);
       $historyentry_historyentrycat_id = $treeid['tree_id'];
