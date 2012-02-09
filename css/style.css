@@ -161,9 +161,10 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.form_login .button1 span.c input	{ padding:10px 56px 0px 56px;}
 	.form_login .reg					{ display:inline-block; margin:0 0 10px 25px; font-size:11px;}
 	
-	.gifts			{ padding:30px 0 0 0; text-align:center;}
-	.gifts	a		{ text-decoration: none; color:#2a86dc; outline:none;}
-	.gifts a:hover	{ text-decoration:none;}
+	.gifts			{ padding:30px 0 0 0; text-align:center; }
+	.gifts	a		{ text-decoration: none; color:#2a86dc; outline:none;cursor:pointer;}
+	.gifts a:hover img	{ text-decoration:none;border: 1px solid #D7D7D7;}
+
 	
 	.medal			{ margin-bottom:15px; overflow:hidden; border-bottom:1px solid #999999; padding-bottom:15px;}
 	.medal div		{ overflow:hidden;}
@@ -236,7 +237,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.gift li .inf a.name	{ font-weight: bold; font-size:12px; color:#000; display:inline-block; text-decoration:none; margin-bottom:5px;}
 	.gift li .inf a.del,
 	.gift li .inf a.edit	{ font-size:11px; display:inline-block; float:right; margin-left:15px;}
-	.gift li .gif			{ clear:both; padding-left:60px;}
+	.gift li .gif			{ clear:both; }
 	.gift li .gif div		{ clear:both; text-align:center;}
 	.gift li .gif img		{ float:none; padding:0; border:0;}
 	

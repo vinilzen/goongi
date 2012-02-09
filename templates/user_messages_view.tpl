@@ -71,6 +71,7 @@
 
   <input type='hidden' name='task' value='reply'>
   <input type='hidden' name='pmconvo_id' value='{$pmconvo_info.pmconvo_id}'>
+  <input type='hidden' name='user_bellong' value='{$collaborators[0]->user_info.user_id}'>
   </form>
 </div>
 

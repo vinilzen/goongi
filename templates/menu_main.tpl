@@ -24,7 +24,7 @@
 							
 						{* SHOW FRIENDS MENU ITEM IF ENABLED *}
 						{if $setting.setting_connection_allow != 0}
-							<li {if $global_page == 'user_friends'}class="active"{/if}><a href='/user_friends.php'>{lang_print id=1170} {if $user->user_friend_total(1, 0) > 0}<span> ({$user->user_friend_total(1, 0)})</span> {/if}</a></li>
+							<li {if $global_page == 'user_friends'}class="active"{/if}><a {if $user->user_friend_total(1, 0) > 0}href='/user_friends_requests.php'{else}href='/user_friends.php'{/if}>{lang_print id=1170} {if $user->user_friend_total(1, 0) > 0}<span> ({$user->user_friend_total(1, 0)})</span> {/if}</a></li>
 						{/if}
 						
 					{* SHOW PROFILE MENU ITEM *}
@@ -34,7 +34,12 @@
 					{if $global_plugins.plugin_controls.show_menu_user}
 						{* SHOW ANY PLUGIN MENU ITEMS *}
 						{hook_foreach name=menu_user_apps var=user_apps_args}
-							<li><a href='{$user_apps_args.file}'>{lang_print id=$user_apps_args.title}</a></li>
+							<li>
+                                                        {if $user_apps_args.file == 'mf_gifts_user.php'}<a href='{$user_apps_args.file}'>{lang_print id=$user_apps_args.title} {if $user->get_total_gifts() > 0}<span> ({$user->get_total_gifts()})</span> {/if}</a>
+                                                        {else}
+                                                        <a href='{$user_apps_args.file}'>{lang_print id=$user_apps_args.title}</a>
+                                                        {/if}
+                                                        </li>
 						{/hook_foreach}
 					{/if}
 

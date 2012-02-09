@@ -299,7 +299,7 @@ function src(){
 	$('#add_to_fr').click(function(e){
 		var username = $(this).attr('rel');
 		var task_type = $(this).attr('rev');
-		ajax_post('user_friends_manage.php', { task: task_type, user: username, ajax:1 }, 'add_to_fr_li');
+		ajax_post('user_friends_manage.php', {task: task_type, user: username, ajax:1}, 'add_to_fr_li');
 		return false;
 	});
 	
@@ -453,7 +453,7 @@ function src(){
 		if (r==true) {
 			
 			$.post( 'event_ajax.php',
-					{	'task': 'eventdelete',
+					{'task': 'eventdelete',
 						'event_id': id},
 					function  (data){
 						if (data.result == true){
@@ -492,7 +492,7 @@ function src(){
 		var event_upload = $('#event_upload').val();
 		var event_tag = '';
 		$.post( 'user_event_add.php',
-				{	'task': 'doadd',
+				{'task': 'doadd',
 					'event_title': event_title,
 					'event_desc': event_desc,
 					'event_host': event_host,  // где
@@ -566,7 +566,7 @@ function src(){
                 '</div>');
                 $('#add_msg_b_g').html('');
                 $.post( 'mf_gifts_send_message.php',
-                           { 'task': 'show_gif'},
+                           {'task': 'show_gif'},
                             function(data) {
                     if ( data.is_error == '0') {
 
@@ -583,7 +583,8 @@ function src(){
                                     '<textarea onfocus="if (this.value == \'Пожалуйста, напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста, напишите сообщение\') this.style.color=\'#000\';" onblur="if (this.value == \'\') this.value=\'Пожалуйста, напишите сообщение\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"   rows=\'3\' cols=\'10\' id="message" name="message">Пожалуйста, напишите сообщение</textarea></div>'+
                                     '<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input onClick = "my_sender_gif(); return false;"  type="submit" class="button" value="Отправить" /></span><span class="r">&nbsp;</span></span></div>'
 	                                                );
-                          options = { serviceUrl:'users.php' };
+                       
+                          options = {serviceUrl:'users.php'};
                           $('#to_display').autocomplete(options);
                           $("#picture_gif").html('<img  src=\'mf_gifts/'+id_value+'.\' ><iput type = "hidden" id = "id_g" value ='+id_value+' >');
                       }
@@ -598,6 +599,9 @@ function src(){
      
         $('#add_msg, #add_msg_l').live("click", function () {
             var options;
+        var hoverText = $(this).attr("title");
+        if (hoverText == '' || (!hoverText))
+           hoverText="Введите имя и фамилию";
              $('#popup').height($('#content').height()).show();
               var scrOfY = src();
             $('body').append( '<div class="window rezina" id="add_msg_w">'+
@@ -613,13 +617,13 @@ function src(){
                 '</div>');
                 $('#add_msg_b').html('');
                 $.post( 'user_messages_new.php',
-                           { 'task': 'show_f'},
+                           {'task': 'show_f'},
                             function(data) {
                     if ( data.is_error == '0') {
                           $('#add_msg_w').show();
                           $('#add_msg_b').append(
                                            '<div class="input"><label>Имя и фамилия<!-- {lang_print id=790} кому --></label>'+
-                                               '<input onfocus="if (this.value == \'Введите имя и фамилию\') this.value =\'\'; if (this.value == \'Введите имя и фамилию\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя и фамилию\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="Введите имя и фамилию" type="text" name="to_display" id="to_display" />'+
+                                               '<input onfocus="if (this.value == \'Введите имя и фамилию\') this.value =\'\'; if (this.value == \'Введите имя и фамилию\')  this.style.color=\'#000\';"  onblur="if (this.value == \'\') this.value=\'Введите имя и фамилию\'; if (this.value == \'\')  this.style.color=\'#7f7f7f\';" value="'+hoverText+'";type="text" name="to_display" id="to_display" />'+
                                            ' </div>'+
                                    
                                        '<div class="clear"></div>'+
@@ -627,8 +631,9 @@ function src(){
 '                                   <textarea onfocus="if (this.value == \'Пожалуйста, напишите сообщение\') this.value =\'\'; if (this.value == \'Пожалуйста, напишите сообщение\') this.style.color=\'#000\';" onblur="if (this.value == \'\') this.value=\'Пожалуйста, напишите сообщение\'; if (this.value == \'\') this.style.color=\'#7f7f7f\';"   rows=\'3\' cols=\'10\' id="message" name="message">Пожалуйста, напишите сообщение</textarea></div>'+
                                     '<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input onClick = "my_sender(); return false;"  type="submit" class="button" value="Отправить" /></span><span class="r">&nbsp;</span></span></div>'
 	                                                );
-                          options = { serviceUrl:'users.php' };
+                          options = {serviceUrl:'users.php'};
                           $('#to_display').autocomplete(options);
+                       
                       }
                    if (data.error == '1') {
                            alert( data.result);
@@ -656,7 +661,7 @@ function src(){
                 '</div>');
                 $('#invite_show_b').html('');
         $.post( 'invite.php',
-                            { 'json': 1 },
+                            {'json': 1},
                             function(data) {
                     if ( data.error == '0') {
                          $('#invite_show').show();
@@ -697,7 +702,7 @@ function src(){
 							'<span class="button3"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Отменить" name="cancel_edit_group" class="cancel_edit_group" id="del_group" /></span><span class="r">&nbsp;</span></span></div></div></div>');
 		$('.friend_list_w').html('');	
 		$.post(	"user_friends.php",
-				{ 'json': 1,'task':'get_friends' },
+				{'json': 1,'task':'get_friends'},
 				function(data) {
 					if ( data.error == '0') {
 						var group_id_curent = $('#edit_group_b').attr('rel');
@@ -734,7 +739,7 @@ function src(){
 								}
 							 });
 							 $.post(	"user_friends.php",
-										{ 'json': 1,'task': 'save_group','group': group_id_curent, 'users':users },
+										{'json': 1,'task': 'save_group','group': group_id_curent, 'users':users},
 										function(data_save) {
 											if ( data_save.error == '0') {
 												location.href='user_friends.php';
@@ -757,7 +762,7 @@ function src(){
 	$('#del_group').click(function() {
 		var group_id_curent = $('#edit_group_b').attr('rel');
 		$.post(	"user_friends.php",
-					{ 'json': 1,'task': 'del_group','group': group_id_curent},
+					{'json': 1,'task': 'del_group','group': group_id_curent},
 					function(data_save) {
 						if ( data_save.error == '0') {
 							location.href='user_friends.php';
@@ -791,7 +796,7 @@ function createGroup() {
 	if (go == 1) {
 		go = 0;
 		$.post(	"user_add_group.php", 	
-				{ task: 'add' , gn: $('#group_name').attr('value') },
+				{task: 'add' , gn: $('#group_name').attr('value')},
 				function(data) {
 					if ( data.success == '0') {
 						$('#msg_gr').html(data.msg);
@@ -814,7 +819,7 @@ function createGroup() {
 function update_group_list() {
 
 	$.post(	"user_add_group.php", 
-			{ task: 'update' },
+			{task: 'update'},
 			function(data) {
 				if ( data.success == '0') {
 					alert(data.msg);
@@ -939,7 +944,7 @@ function update_group_list() {
             var cp = 10;
 			if (  type_com == 'blog') cp = 1000;
 				$.post( 'misc_js.php',
-				{	task:'comment_get',
+				{task:'comment_get',
 					user:''+user_username+'',
 					object_owner:'',
 					object_owner_id:'',
@@ -1012,7 +1017,7 @@ function update_group_list() {
 		if (r==true) {
 
 			$.post( 'misc_js.php',
-					{	task:'comment_delete',
+					{task:'comment_delete',
 						user:''+author_username+'',
 						comment_id: ''+com_id+'',
 						type:type_com,
@@ -1092,7 +1097,7 @@ function update_group_list() {
 				function(data) {
 					if (data != null) {
 						if (data.result == 'success') {
-                           window.location.href="user_history_entry.php?historyentry_id="+historyentry_id_b;                        }else
+                           window.location.href="user_history_entry.php?historyentry_id="+historyentry_id_b;}else
 						   alert('Истроия рода редактируется '+ data.name_user+', попробуйте позже');
 					}
 				} ,
@@ -1145,7 +1150,7 @@ function update_group_list() {
 function my_invite() {
   $.post(
     "invite.php",
-    { invite_emails: $('#invite_emails').attr('value') , invite_message: $('#invite_message').attr('value'),task:'doinvite' },
+    {invite_emails: $('#invite_emails').attr('value') , invite_message: $('#invite_message').attr('value'),task:'doinvite'},
     function(data) {
     $('#invite_show_b').html('<h1>' + data + '</h1>');
       setTimeout ( function() {
@@ -1157,9 +1162,12 @@ function my_invite() {
   );
 }
 function my_sender_gif() {
+ var mes = $('#message').attr('value');
+    if (mes == 'Пожалуйста, напишите сообщение')
+        mes = '';
 	$.post(
 		"mf_gifts_send_message.php",
-		{ gift_id: $('#id_g').attr('value'), to: $('#to_display').attr('value'), subject: $('#subject').attr('value') , message: $('#message').attr('value'),task:'send', privateе:'0' },
+		{gift_id: $('#id_g').attr('value'), to: $('#to_display').attr('value'), subject: $('#subject').attr('value') , message: mes,task:'send', privateе:'0'},
 		function(data) {
                      if ( data.is_error == '0') {
                         $('.w_t').html('<h3>' + data.result + '</h3>');
@@ -1182,9 +1190,12 @@ function my_sender_gif() {
   }
   
 function my_sender() {
+    var mes = $('#message').attr('value');
+    if (mes == 'Пожалуйста, напишите сообщение')
+        mes = '';
 	$.post(
 		"user_messages_new.php",
-		{ task: 'send' , to: $('#to_display').attr('value'), subject: $('#subject').attr('value') , message: $('#message').attr('value') },
+		{task: 'send' , to: $('#to_display').attr('value'), subject: $('#subject').attr('value') ,message: mes},
 		function(data) {
                       if ( data.is_error == '0') {
 			//$('.w_t').hide();
@@ -1211,7 +1222,7 @@ function my_sender() {
    function print_tree(id){
    $.post(
 		"my_tree.php",
-		{ task: 'print' ,id: id, tipe: $(":radio[name=type]").filter(":checked").val(), stil:$('#stil').val(), name: $('#name').val(),
+		{task: 'print' ,id: id, tipe: $(":radio[name=type]").filter(":checked").val(), stil:$('#stil').val(), name: $('#name').val(),
                  title: $('#title').val(), inf: $('#inf').val(), level:$(":radio[name=po]").filter(":checked").val(),level_print:$(":radio[name=print]").filter(":checked").val()},
 		function(data) {
                       if ( data.is_error == '0') {
@@ -1251,7 +1262,7 @@ function Show_piple(owner_id){
                                  '</div>');
                     $('.friend_list h200').html('');
                     $.post("misc_js.php",
-        { 'task':'candle_golosa', owner_id: '' + owner_id + ''},
+        {'task':'candle_golosa', owner_id: '' + owner_id + ''},
         function(data) {
           if ( data.error == '0') {
                                             $('#svecha_list').show();
@@ -1284,7 +1295,7 @@ function Show_piple(owner_id){
     // alert(country_id);
      $('#city_show').remove();
       $.post("user_vizitki_entry.php",
-        { 'task':'get_city', countryid: '' + country_id + ''},
+        {'task':'get_city', countryid: '' + country_id + ''},
         function(data) {
           if ( data.error == '0') {
           var  sel;

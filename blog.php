@@ -53,6 +53,7 @@ $blog = new se_blog($owner->user_info['user_id']);
 
 // GENERATE WHERE CLAUSE
 $privacy_max = $owner->user_privacy_max($user);
+$privacy_max=1;
 $where = "(blogentry_privacy & '{$privacy_max}')";
 
 if( !empty($blogentry_id) && is_numeric($blogentry_id) )
@@ -222,7 +223,13 @@ else
 
 //print_r ($blogentries);
 //echo '<pre>'; print_r ($owner); die();
+//
+  //echo $owner->user_info['user_id'];
 // ASSIGN VARIABLES AND DISPLAY BLOG PAGE
+
+  if ($owner->user_info['user_id'] == $user->user_info['user_id'])
+          $smarty->assign('guest',0);
+  else $smarty->assign('guest',1);
 $smarty->assign('owner',$owner);
 $smarty->assign('comments_total',$comments_total);
 $smarty->assign('total_blogentries', $total_blogentries);

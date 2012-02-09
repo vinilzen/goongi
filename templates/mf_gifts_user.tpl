@@ -6,9 +6,9 @@
         <span>Подарки</span></div>
     <div class="buttons">
         <div class="show"><span>Показать:</span>
-            <a href="mf_gifts_user.php?gif_change=1">Мои подарки</a>
-            <a href="mf_gifts_user.php?gif_change=2">Отправленные</a>
-            <a href="mf_gifts_send.php">Отправить подарок</a>
+            <a href="mf_gifts_user.php?gif_change=1" {if $gif_change == '1' || $gif_change == ''}class = "active" {/if}>Мои подарки</a>
+            <a href="mf_gifts_user.php?gif_change=2" {if $gif_change == '2'}class = "active" {/if}>Отправленные</a>
+            <a href="mf_gifts_send.php" >Отправить подарок</a>
            {* <a id="add_gif" href="#">Отправить подарок</a>*}
         </div>
 
@@ -28,7 +28,8 @@
            <a class="name" href='{$url->url_create('profile', $con.from->user_info.user_username)}'>
            {$con.from->user_displayname}</a> 
           <a href="mf_gifts_send.php?displayname={$con.from->user_displayname}" class="del">Отправить подарок в ответ</a>
-          <a id="add_msg" href="#" class="edit">Написать сообщение</a>
+          <a id="add_msg" href="#" title = "{$con.from->user_displayname}" class="edit">Написать сообщение</a>
+        
           <span>{$datetime->cdate("`$setting.setting_dateformat`", $datetime->timezone("`$con.date`", $global_timezone))}</span>
           
     </div>

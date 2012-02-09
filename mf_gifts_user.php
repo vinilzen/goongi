@@ -4,7 +4,7 @@ include "header.php";
 
 if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task'])) { $task = $_GET['task']; } else { $task = ""; }
 if(isset($_POST['p'])) { $p = $_POST['p']; } elseif(isset($_GET['p'])) { $p = $_GET['p']; } else { $p = 1; }
-if(isset($_POST['gif_change'])) { $task = $_POST['gif_change']; } elseif(isset($_GET['gif_change'])) { $gif_change = $_GET['gif_change']; } else { $gif_change = ""; }
+if(isset($_POST['gif_change'])) { $task = $_POST['gif_change']; } elseif(isset($_GET['gif_change'])) { $gif_change = $_GET['gif_change']; } else { $gif_change = ''; }
 // PRELOAD LANGUAGE
 SE_Language::_preload_multi(80000007);
   
@@ -24,9 +24,11 @@ SE_Language::_preload_multi(80000007);
         }
         
 if ($gif_change==1 || $gif_change==''){
-   
+        $sql = "UPDATE `mf_gifts` SET `read` = 1  WHERE to_id=$ownergift";
+        $database->database_query($sql);
         $type = array();
         $type_query = "SELECT * FROM mf_gifts WHERE to_id=$ownergift ORDER BY date DESC";
+
         $total_vars = $database->database_num_rows($database->database_query($type_query));
         $vars_per_page = 30;
         $page_vars = make_page($total_vars, $vars_per_page, $p);

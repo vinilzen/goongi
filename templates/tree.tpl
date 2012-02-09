@@ -104,6 +104,7 @@ function callback(form,act,doc) {
 		</a>
 	</div>
 	<div class="birth">
+<% iduser = id%>
 <% d = new Date(birthday).getDate()%>
 <% y = new Date(birthday).getFullYear()%>
 <% m = new Date(birthday).getMonth()+1 %>
@@ -152,7 +153,7 @@ function callback(form,act,doc) {
             
 		<div class="relation">
                 
-               <%= id == {/literal}{$user->user_info.user_id}{literal} ? "Ты" : "" %>
+               <%= id == {/literal}{$user->user_info.user_id}{literal} ? "Ты " : "" %>
                 </div>
 		<div class="photo loading">
 			<img src="<%= TREE.url.image(id, photo) %>" />
@@ -164,7 +165,8 @@ function callback(form,act,doc) {
 				<li class="edit">Редактировать</li>
 				<li class="remove">Удалить человека</li>
 			</ul>
-			<div class="toggle"></div>
+<%= iduser == {/literal}{$user->user_info.user_id}{literal} ? "<div class='toggle'></div>" : "" %>
+			<!--<div class="toggle"></div>-->
 		</div>
 	</div>
 </script>

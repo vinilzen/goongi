@@ -42,7 +42,7 @@
 							<a href="/tree.php?user={$owner->user_info.user_username}">Древо</a>
 							<a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a>
 							<a href="javascript:void(0);">История рода</a>
-							<a href="javascript:void(0);" rel="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
+							<a href="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
 							<a href="javascript:void(0);">Медали</a>
 							<a href="javascript:void(0);">Визитки</a>
 						</div>
@@ -119,7 +119,7 @@
 
  {assign var=foo value="-"|explode:$owner->profile_info.profilevalue_12}
 {assign var=deat value= "$foo[2].$foo[1]"."$foo[0]"}
-<div class="g_inf_text"><p>{$birth} - {if $owner->profile_info.profilevalue_12 == '0000-00-00' && $owner->profile_info.profilevalue_16 == '1'}Дата смерти не известна{else}{$deat}{/if}<span></span></p></div>
+<div class="g_inf_text"><p>{if $owner->profile_info.profilevalue_4 == '0000-00-00'}Дата рождения не известна{else}{$birth}{/if} - {if $owner->profile_info.profilevalue_12 == '0000-00-00' && $owner->profile_info.profilevalue_16 == '1'}Дата смерти не известна{else}{$deat}{/if}<span></span></p></div>
 
 <div class="clear"><img src="images/x.gif" alt="" /></div>
 </div>

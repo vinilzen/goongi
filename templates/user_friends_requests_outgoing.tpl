@@ -1,7 +1,7 @@
 ﻿{include file='header.tpl'}
 
 {* $Id: user_friends_requests_outgoing.tpl 8 2009-01-11 06:02:53Z john $ *}
-<h1>{lang_print id=896}<!-- Я ХОЧУ ДРУЖИТЬ С ... --></h1>
+<h1>{lang_print id=896}</h1><!-- Я ХОЧУ ДРУЖИТЬ С ... -->
 
 <div class="crumb">
 	<a href="/">Главная</a>
@@ -11,21 +11,23 @@
 
 <ul class="vk">
 	<li><a href="user_friends.php">{lang_print id=894}</a></li>
-	<li><a href="user_friends_requests.php" >{lang_print id=895} <span>({$user->user_friend_total(1, 0)})</span></a></li>
+	<li><a href="user_friends_requests.php" >{lang_print id=895} {if $user->user_friend_total(1, 0)>0}<span>({$user->user_friend_total(1, 0)})</span>{/if}</a></li>
 	<li class="active"><a href="user_friends_requests_outgoing.php">{lang_print id=896} </a></li>
 </ul>
 
-<div class='page_header'>{lang_print id=896}</div>
+<!--<div class='page_header'>{lang_print id=896}</div>-->
 <div>{lang_print id=915}</div>
 <br />
-<br />
+
 
 {* DISPLAY MESSAGE IF NO FRIEND REQUESTS *}
 {if $total_friends == 0}
 
-  <table cellpadding='0' cellspacing='0' align='center'>
-  <tr><td class='result'><img src='./images/icons/bulb16.gif' border='0' class='icon'>{lang_print id=916}</td></tr>
-  </table>
+    <table cellpadding='0' cellspacing='0' align='center'>
+    <tr><td class='result'>
+    <!--<img src='./images/icons/bulb16.gif' border='0' class='icon'>-->
+    {lang_print id=916}</td></tr>
+      </table>
 
 {* DISPLAY FRIEND REQUESTS *}
 {else}

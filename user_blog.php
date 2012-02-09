@@ -11,9 +11,6 @@ $p            = ( !empty($_POST['p'])             ? $_POST['p']             : ( 
 $s            = ( !empty($_POST['s'])             ? $_POST['s']             : ( !empty($_GET['s'])            ? $_GET['s']            : NULL  ) );
 
 
-
-
-
 // CREATE BLOG OBJECT
 $entries_per_page = 5;
 $blog = new se_blog($user->user_info['user_id']);

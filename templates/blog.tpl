@@ -8,7 +8,7 @@
     </script>
     {/literal}
 {* BLOG ENTRIE(S) *}
-
+{if $guest == 0}
   {section name=entries_loop loop=$entries}
    
       {* MAKE SURE TITLE IS NOT BLANK *}
@@ -68,6 +68,50 @@
 				<a href="#">{$entries[entries_loop].blogentry_author->user_displayname}</a>
 			</div>
       {/section}
+{else}
+<h1>Статьи</h1>
+<div class="crumb">
+	<a href="/#">Главная</a>
+	<a href="{$url->url_create("profile", $owner->user_info.user_username)}">{lang_print id=652}<!-- Профиль --></a>
+	<span>Статьи</span>
+</div>
+ {if $entries}
+     {* LIST BLOG ENTRIES *}
+      <ul class="article_list">
+      
+        {section name=entries_loop loop=$entries}
+       <li>
+            <a>
+				{if $owner->profile_info.profilevalue_5 == 2}
+					<img src="{$owner->user_photo('./images/avatars_17.gif')}" alt="" />
+				{else}
+					<img src="{$owner->user_photo('./images/avatars_15.gif')}" alt="" />
+				{/if}
+			</a>
+            <div>
+                <a class="name">{$entries[entries_loop].blogentry_author->user_displayname}</a>
+                  <big><a href='{$url->url_create("blog_entry", $owner->user_info.user_username, $entries[entries_loop].blogentry_id)}'>
+                   {if $entries[entries_loop].blogentry_title != ""}
+                        {assign var='blogentry_title' value=$entries[entries_loop].blogentry_title}
+                      {else}
+                        {lang_block id=1500015 var=blogentry_title}{/lang_block}
+                      {/if}
+                {$blogentry_title}
+                  </a></big>
+               
+                <span>{$data_rus[$i]}</span>
+            </div>
+			{if !empty($entries[entries_loop].blogentry_body)}
+			  <p>{$entries[entries_loop].blogentry_body|strip_tags|truncate:1100}</p>
+			{/if}
+        </li>
+       {/section}
+      </ul>
+     {else}
+        У пользователя нет статей
+        {/if}
+
+{/if}
   
   
   {* STUFF TO SHOW IF ONLY ONE BLOG ENTRY *}

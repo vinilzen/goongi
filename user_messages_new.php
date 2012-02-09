@@ -46,7 +46,7 @@ $friends = $user->user_friend_list(0, $total_friends, 0);
 //echo $user->user_info['user_id'];
 $id_my = $user->user_info['user_id'];
 //conv_id
-$resource =$database->database_query("SELECT pmconvoop_pmconvo_id FROM se_pmconvoops WHERE pmconvoop_user_id ='{$id_my}' AND pmconvoop_deleted_outbox != 1");
+$resource =$database->database_query("SELECT pmconvoop_pmconvo_id FROM se_pmconvoops WHERE pmconvoop_user_id ='{$id_my}'");
  while( $pmconvoop_info=$database->database_fetch_assoc($resource) )
  {
      $convo_idp = $pmconvoop_info['pmconvoop_pmconvo_id'];

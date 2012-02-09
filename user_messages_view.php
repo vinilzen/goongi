@@ -9,7 +9,7 @@ if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task']
 if(isset($_GET['pmconvo_id'])) { $pmconvo_id = $_GET['pmconvo_id']; } elseif(isset($_POST['pmconvo_id'])) { $pmconvo_id = $_POST['pmconvo_id']; } else { $pmconvo_id = 0; }
 if(isset($_POST['b'])) { $b = $_POST['b']; } elseif(isset($_GET['b'])) { $b = $_GET['b']; } else { $b = 0; } 
 if($b != 1 && $b != 0) { $b = 0; }
-
+if(isset($_POST['user_bellong'])) { $user_bellong = $_POST['user_bellong']; } elseif(isset($_GET['user_bellong'])) { $user_bellong = $_GET['user_bellong']; } else { $user_bellong = 0; }
 
 // CHECK FOR ADMIN ALLOWANCE OF MESSAGES
 if( !$user->level_info['level_message_allow'] )
@@ -52,7 +52,7 @@ if($task == "reply")
   {
     if( !$collaborator->user_blocked($user->user_info['user_id']) )
     {
-      $user->user_message_send('','', '', $reply, $pmconvo_info['pmconvo_id']);
+      $user->user_message_send($user_bellong,'', '', $reply, $pmconvo_info['pmconvo_id']);
       header("Location: user_messages_view.php?pmconvo_id=".$pmconvo_info['pmconvo_id']."#bottom");
       exit();
     }
@@ -70,8 +70,9 @@ elseif($task == "delete")
   if($b == 0) { header("Location: user_messages.php"); exit(); } else { header("Location: user_messages_outbox.php"); exit(); }
 }
 
-//print_r ($pm_info['pms']);
-// ASSIGN VARIABLES AND INCLUDE FOOTER
+//print_r ($pm_info['pms'][0]['belongs']);
+//print_r ($pm_info['collaborators'][0]->user_info['user_id']);
+//// ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('b', $b);
 $smarty->assign('blockerror', $blockerror);
 $smarty->assign_by_ref('pms',           $pm_info['pms']);

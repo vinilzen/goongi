@@ -666,7 +666,8 @@ class SEUser
            
            
         }
-	
+
+     
 	function check_existing_parent($id, $role) { // if exist mother|father ($role) return false
 		$familys = $this->get_family_list($id);
 		$father_fam = false;
@@ -709,6 +710,7 @@ class SEUser
 		else
 			return false;
 	}
+
 
 
   function &getLevelSettings($level_id)
@@ -1938,7 +1940,17 @@ function user_ajax_photo_upload($photo_name,$id_user)
 	//	  $user_details (OPTIONAL) REPRESENTING WHETHER THE QUERY SHOULD JOIN TO THE USER TABLE OR NOT
 	//	  $where (OPTIONAL) REPRESENTING ADDITIONAL THINGS TO INCLUDE IN THE WHERE CLAUSE
 	// OUTPUT: AN INTEGER REPRESENTING THE NUMBER OF FRIENDS
-  
+
+
+         function  get_total_gifts()
+      {
+            global $database;
+            $sql = "SELECT * FROM `mf_gifts` WHERE `to_id`='{$this->user_info['user_id']}' AND `read` =0";
+          //  $gigt_query = "SELECT * FROM mf_gifts WHERE to_id = '{$this->user_info['user_id']}' AND read =0 ";
+//echo $gigt_query;
+             return (int) $database->database_num_rows($database->database_query($sql));
+      }
+	
 	function user_friend_total($direction = 0, $friend_status = 1, $user_details = 0, $where = "")
   {
 	  global $database, $setting;
@@ -4170,9 +4182,17 @@ function user_ajax_photo_upload($photo_name,$id_user)
       ";*/
       $sql = "
         INSERT INTO se_pms
-          (pm_authoruser_id, pm_pmconvo_id, pm_date, pm_body)
+          (pm_authoruser_id, pm_pmconvo_id, pm_date, pm_body, belongs)
         VALUES
-          ('{$this->user_info['user_id']}', '{$convo_id}', '{$pm_date}', '{$message}')
+          ('{$this->user_info['user_id']}', '{$convo_id}', '{$pm_date}', '{$message}','{$this->user_info['user_id']}')
+      ";
+     $resource = $database->database_query($sql);
+     
+          $sql = "
+        INSERT INTO se_pms
+          (pm_authoruser_id, pm_pmconvo_id, pm_date, pm_body , belongs)
+        VALUES
+          ('{$this->user_info['user_id']}', '{$convo_id}', '{$pm_date}', '{$message}','$id_mes')
       ";
           
       $resource = $database->database_query($sql);
@@ -4355,6 +4375,16 @@ function user_ajax_photo_upload($photo_name,$id_user)
         notify_object_id IN('".implode("', '", $delete_array)."')
     ";
     
+    $database->database_query($sql);
+
+    $sql = "
+      DELETE FROM
+        se_pms
+      WHERE
+       belongs='{$this->user_info['user_id']}' &&
+       pm_pmconvo_id IN('".implode("', '", $delete_array)."')
+    ";
+
     $database->database_query($sql);
   }
   
@@ -4567,7 +4597,7 @@ function user_ajax_photo_upload($photo_name,$id_user)
       FROM
         se_pms
       WHERE
-        pm_pmconvo_id='{$convo_id}'
+        pm_pmconvo_id='{$convo_id}' &&  belongs ='{$this->user_info['user_id']}'
       ORDER BY
         pm_date ASC
     ";

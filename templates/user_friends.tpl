@@ -9,7 +9,7 @@
 </div>
 <ul class="vk">
 	<li class="active"><a href="user_friends.php">{lang_print id=894}</a></li>
-	<li><a href="user_friends_requests.php" >{lang_print id=895} <span>({$user->user_friend_total(1, 0)})</span></a></li>
+	<li><a href="user_friends_requests.php" >{lang_print id=895} {if $user->user_friend_total(1, 0)>0}<span>({$user->user_friend_total(1, 0)})</span>{/if}</a></li>
 	<li><a href="user_friends_requests_outgoing.php">{lang_print id=896}</a></li>
 </ul>
 <div class="buttons">
@@ -93,8 +93,8 @@
 				{$friends[friend_loop]->user_displayname}
 			</a></h2>
 			<div class='friends_stats'>
-				{if $friends[friend_loop]->user_info.user_dateupdated != 0}<div>{lang_print id=849} {assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}</div>{/if}
-				{if $friends[friend_loop]->user_info.user_lastlogindate != 0}<div>{lang_print id=906} {assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}</div>{/if}
+				<!--{if $friends[friend_loop]->user_info.user_dateupdated != 0}<div>{lang_print id=849} {assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}</div>{/if}-->
+				<!--{if $friends[friend_loop]->user_info.user_lastlogindate != 0}<div>{lang_print id=906} {assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}</div>{/if}-->
 				{if $show_details != 0}
 					{if $friends[friend_loop]->friend_explain != ""}<div>{lang_print id=907} &nbsp;{$friends[friend_loop]->friend_explain|truncate:30:"...":true}</div>{/if}
 				{/if}
