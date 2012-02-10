@@ -1,4 +1,3 @@
-
 /*GLOBAL*/
 html, body	{height:100%; margin:0; padding:0;} 
 html		{background:#fdfbdd url(../images/bg.gif);}
@@ -541,7 +540,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.add_w					{ overflow:hidden; padding-bottom:20px; width:auto;}
 	.form.add_w .input input,
 	.form.add_w .input textarea	{ width:390px; color:#7f7f7f;}
-	.form.add_w .input table input	{ width:188px;}
+	.form.add_w .input table input	{ width:182px; margin-right:16px;}
 	.form.add_w .button			{ padding-top:5px; text-align:center; clear:both;}
 
 	.form.add_com					{ width: auto; padding-bottom:20px;}

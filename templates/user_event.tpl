@@ -1,7 +1,9 @@
 ﻿{include file='header.tpl'}
 
 {* $Id: user_event.tpl 270 2009-12-10 23:50:37Z steve $ *}
-
+<link href="/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<link href="/css/flick/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css"/>
+<script src="/js/jquery-ui.min.js"></script>
 <h1>{lang_print id=3000086}</h1>
 <div class="crumb">
 	<a href="/">Главная</a>
