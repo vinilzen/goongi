@@ -1191,6 +1191,7 @@ function my_sender_gif() {
 
 		}
                    else {
+                      if (data.result == 'Выберите пользователя из списка')
                       $('#to_display').val("");
                       alert( data.result);
                   }
@@ -1221,6 +1222,7 @@ function my_sender() {
                        
 		}
                    else {
+                       if (data.result == 'Выберите пользователя из списка')
                       $('#to_display').val("");
                       alert( data.result);
                   }

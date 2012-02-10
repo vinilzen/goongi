@@ -13,7 +13,7 @@
             </span><span class="r">&nbsp;</span></span>
     </div>
  </form>
-
+{if !$vizitkientries}<p style="color: red;text-align:center; text:bold; ">Вы не создали еще ни одной визитки</p>{/if}
  <ul class="visitka_list">
 {section name=vizitkientry_loop loop=$vizitkientries}
     <li id = "vizitka_{$vizitkientries[vizitkientry_loop].ad_id}">

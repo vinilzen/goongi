@@ -21,7 +21,7 @@ if(isset($_POST['search_text'])) { $search_text = $_POST['search_text']; } elsei
 if(isset($_POST['t'])) { $t = $_POST['t']; } elseif(isset($_GET['t'])) { $t = $_GET['t']; } else { $t = 0; }
 
 // SET VARS
-$results_per_page = 20;
+$results_per_page = 10;
 $results = Array();
 $total_results = 0;
 $is_results = 0;
