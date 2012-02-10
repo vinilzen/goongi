@@ -23,7 +23,7 @@
 						<li><a href='/my_tree.php' title="">Мое дерево</a></li>
 						{* SHOW FRIENDS MENU ITEM IF ENABLED *}
 						{if $setting.setting_connection_allow != 0}
-							<li {if $global_page == 'user_friends'}class="active"{/if}><a {if $user->user_friend_total(1, 0) > 0}href='/user_friends_requests.php'{else}href='/user_friends.php'{/if}>{lang_print id=1170} {if $user->user_friend_total(1, 0) > 0}<span> ({$user->user_friend_total(1, 0)})</span> {/if}</a></li>
+							<li  {if $global_page|strpos:"user_friends" === 0}class="active"{/if}><a {if $user->user_friend_total(1, 0) > 0}href='/user_friends_requests.php'{else}href='/user_friends.php'{/if}>{lang_print id=1170} {if $user->user_friend_total(1, 0) > 0}<span> ({$user->user_friend_total(1, 0)})</span> {/if}</a></li>
 						{/if}
 					{* SHOW PROFILE MENU ITEM *}
 					<li {if $global_page|strpos:"profile" === 0 || $global_page|strpos:"user_editprofile" === 0}class="active"{/if}><a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a></li>

@@ -111,27 +111,22 @@
 				<input type="text" value="Введите название мероприятия" onfocus="if (this.value == 'Введите название мероприятия') this.value ='';" onblur="if (this.value == '') this.value='Введите название мероприятия';"  name="event_title" id="event_title"  />
 			</div>
             <div class="input"><label>Начало</label>
-				<div style="display:none;">
-					<select name="day_b" id="day_b" disabled="disabled"><option>01</option></select>
-					<select name="month_b" id="month_b" disabled="disabled"><option>сентября</option></select>
-					<select name="year_b" id="year_b" disabled="disabled"><option>1975</option></select>
-				</div>
 				<table cellpadding="0" cellspacing="0"><tr><td>
-					<span>{$compatible_input_dateformat}</span>
+					<span>{lang_print id=88}</span>
 					<input type="text" name="event_date_start" id="event_date_start" value="" />
 				</td><td>
-					<span>{$compatible_input_timeformat}</span>
-					<input type="text" name="event_time_start" id="event_time_start" value="" />
+					<span>Время</span>
+					<input type="text" name="event_time_start" id="event_time_start" value="чч:мм" />
 				</td></tr></table>
 			</div>
 			
 			<div class="input"><label>Конец</label>
 				<table cellpadding="0" cellspacing="0"><tr><td>
-					<span>{$compatible_input_dateformat}</span>
+					<span>{lang_print id=88}</span>
 					<input type="text" name="event_date_end" id="event_date_end" value="" />
 				</td><td>
-					<span>{$compatible_input_timeformat}</span>
-					<input type="text" name="event_time_end" id="event_time_end" value="" />
+					<span>Время</span>
+					<input type="text" name="event_time_end" id="event_time_end" value="чч:мм" />
 				</td></tr></table>
             </div>
             <div class="input"><label>Описание</label>

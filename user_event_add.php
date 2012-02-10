@@ -45,7 +45,7 @@ switch( $compatible_input_timeformat )
     $compatible_input_timeformat = 'H:i';
     break;
 }
-
+//echo $compatible_input_dateformat.'-'.$compatible_input_timeformat; die();
 
 // GET PRIVACY SETTINGS
 $level_event_privacy = unserialize($user->level_info['level_event_privacy']);
@@ -137,8 +137,8 @@ if( $task=="doadd" ) {
   $event_time_end   = preg_replace('/[^aAmMpP0-9:]/', '', $_POST['event_time_end']);
   
   // Process time
-  $event_date_start_array = split('/', $event_date_start);
-  $event_date_end_array = split('/', $event_date_end);
+  $event_date_start_array = explode('.', $event_date_start);
+  $event_date_end_array = explode('.', $event_date_end);
   
   // Fix for other orders
   //EU
@@ -147,16 +147,11 @@ if( $task=="doadd" ) {
     $event_date_start = "{$event_date_start_array[1]}/{$event_date_start_array[0]}/{$event_date_start_array[2]}";
     $event_date_end = "{$event_date_end_array[1]}/{$event_date_end_array[0]}/{$event_date_end_array[2]}";
   }
-  //JA/ZH
-  elseif( $compatible_input_dateformat=='Y/m/d' )
-  {
-    $event_date_start = "{$event_date_start_array[1]}/{$event_date_start_array[2]}/{$event_date_start_array[0]}";
-    $event_date_end = "{$event_date_end_array[1]}/{$event_date_end_array[2]}/{$event_date_end_array[0]}";
-  }
   
   $event_date_start_processed = strtotime("{$event_date_start} {$event_time_start}");
-  $event_date_end_processed   = strtotime("{$event_date_end} {$event_time_end}");
   
+  $event_date_end_processed   = strtotime("{$event_date_end} {$event_time_end}");
+
   // FIX RESULT FOR PHP4 AND UNTIMEZONE
   if( $event_date_start_processed===-1  )
     $event_date_start_processed = FALSE;
@@ -167,10 +162,9 @@ if( $task=="doadd" ) {
     $event_date_end_processed   = FALSE;
   else
     $event_date_end_processed = $datetime->untimezone($event_date_end_processed, $global_timezone);
-  
+ 
   $event->event_info['event_date_start']  = $event_date_start_processed;
   $event->event_info['event_date_end']    = $event_date_end_processed;
-  
   
   // GET FIELDS
   $field = new se_field("event", $event->eventvalue_info);
