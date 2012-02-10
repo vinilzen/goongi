@@ -545,7 +545,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.add_w .button			{ padding-top:5px; text-align:center; clear:both;}
 
 	.form.add_com					{ width: auto; padding-bottom:20px;}
-	.form.add_com .input textarea	{width: 100%; margin-bottom:5px;}
+	.form.add_com .input textarea	{width: 652px; margin-bottom:5px;}
 	
 	.form.seach					{ overflow:hidden; padding-bottom:20px; width:auto; border-right:1px solid #9E9E9E;}
 	.form.seach .input input,
