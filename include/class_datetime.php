@@ -260,12 +260,11 @@ class se_datetime {
 	// INPUT: $time REPRESENTING A MYSQL-FORMAT DATE (YYYY-MM-DD)
 	// OUTPUT: AN INTEGER REPRESENTING AN AGE BASED ON THE DATE
 	function age($time) {
-
 	  $now = time();
 	  $now_day = date("d", $now);
 	  $now_month = date("m", $now);
 	  $now_year = date("Y", $now);
-
+      
 	  $time_day = substr($time, 8, 2);
 	  $time_month = substr($time, 5, 2);
 	  $time_year = substr($time, 0, 4);
@@ -286,6 +285,26 @@ class se_datetime {
 	  return $years;
   
 	} // END age() METHOD
+
+        function russian_date($date){
+           /// $date=explode(".", date("d.m.Y"));
+            switch ($date){
+            case 01: $m='января'; break;
+            case 02: $m='февраля'; break;
+            case 03: $m='марта'; break;
+            case 04: $m='апреля'; break;
+            case 05: $m='мая'; break;
+            case 06: $m='июня'; break;
+            case 07: $m='июля'; break;
+            case 08: $m='августа'; break;
+            case 09: $m='сентября'; break;
+            case 10: $m='октября'; break;
+            case 11: $m='ноября'; break;
+            case 12: $m='декабря'; break;
+            }
+           return $m;
+        }
+       
 
 }
 ?>

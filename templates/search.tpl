@@ -3,7 +3,7 @@
 {* $Id: search.tpl 8 2009-01-11 06:02:53Z john $ *}
 
 <h1>{lang_print id=924}<!-- Поиск по сайту --></h1>
-<div class="crumb"><a href="#">Главная</a><span>{lang_print id=646}<!-- Поиск --></span></div>
+<div class="crumb seach"><a href="#">Главная</a><span>{lang_print id=646}<!-- Поиск --></span></div>
 <div class="buttons">
 	<form action='search.php' name='search_form' method='post'>
 		
@@ -33,7 +33,7 @@
     <table cellpadding='0' cellspacing='0' align='center'>
     <tr>
     <td class='result'>
-      <img src='./images/icons/bulb16.gif' class='icon'>
+ <!--     <img src='./images/icons/bulb16.gif' class='icon'>-->
       {lang_sprintf id=927 1=$search_text}
     </td>
     </tr>
@@ -43,7 +43,7 @@
 
 
     {* SHOW DIFFERENT RESULT TOTALS *}
-    <table class='tabs' cellpadding='0' cellspacing='0'>
+ <!--   <table class='tabs' cellpadding='0' cellspacing='0'>
     <tr>
     <td class='tab0'>&nbsp;</td>
       {section name=search_loop loop=$search_objects}
@@ -52,32 +52,33 @@
       {/section}
       <td class='tab3'>&nbsp;</td>
     </tr>
-    </table>
+    </table>-->
 
     <div class='search_results'>
-
+{if $p_start != $p_end}<b>{lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_results}</b>{/if}
       {* SHOW PAGES *}
-      {if $p != 1}<a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a> &nbsp;|&nbsp;&nbsp;{/if}
+  <!--    {if $p != 1}<a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a> &nbsp;|&nbsp;&nbsp;{/if}
       {if $p_start == $p_end}
-        <b>{lang_sprintf id=184 1=$p_start 2=$total_results}</b> ({lang_sprintf id=928 1=$search_time}) 
+       <b>{lang_sprintf id=184 1=$p_start 2=$total_results}</b> ({lang_sprintf id=928 1=$search_time})
       {else}
         <b>{lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_results}</b> ({lang_sprintf id=928 1=$search_time}) 
       {/if}
       {if $p != $maxpage}&nbsp;&nbsp;|&nbsp; <a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{/if}
 
-      <br><br>
+      <br><br>-->
 <ul class="friends_list">
       {* SHOW RESULTS *}
       {section name=result_loop loop=$results}
 <li>
 	<a href="{$results[result_loop].result_url}"><img src='{$results[result_loop].result_icon}' class='photo' border='0'></a>
 	<div>
-		<p><a href="#">vip</a><a href="#">название группы</a></p>
+		<!--<p><a href="#">vip</a><a href="#">название группы</a></p>-->
 		<h2><a href="{$results[result_loop].result_url}">
-			{$results[result_loop].result_name_1|truncate:30:"...":true}
+			<!--{$results[result_loop].result_name_1|truncate:35:"...":true}-->
+                        {$results[result_loop].result_name_1}
 		</a></h2>
-		<a href="#" class="add_msg">Написать сообщение</a><br />
-		<a href="#">Добавить в группу</a><br />
+		<a href="#" title = "{$results[result_loop].result_name_1}" class="add_msg" id="add_msg">Написать сообщение</a><br />
+		<!--<a href="#">Добавить в группу</a><br />-->
 		<!-- <a href="#" class="del">Убрать из друзей</a> -->
 	   
         <a href="{$results[result_loop].result_url}" class="title"></a>
@@ -87,14 +88,15 @@
 </li>
         {cycle name="clear_cycle" values=",<div style='clear: both; height: 0px;'></div>"}
       {/section}
-
+{if $p_start != $p_end}<b>{lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_results}</b>{/if}
       {* SHOW PAGES *}
-      {if $p != 1}<a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a> &nbsp;|&nbsp;&nbsp;{/if}
+    <!--  {if $p != 1}<a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a> &nbsp;|&nbsp;&nbsp;{/if}
       {if $p_start == $p_end}
         <b>{lang_sprintf id=184 1=$p_start 2=$total_results}</b> ({lang_sprintf id=928 1=$search_time}) 
       {else}
         <b>{lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_results}</b> ({lang_sprintf id=928 1=$search_time}) 
       {/if}
+-->
       {if $p != $maxpage}&nbsp;&nbsp;|&nbsp; <a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{/if}
 
 

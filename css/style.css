@@ -479,6 +479,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	
 	.form .input label,
 	.form .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
+	.form .input p		{  font-size:12px; font-weight:bold; margin-bottom:4px; margin-right:80px;}
 	.edit_blog .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.form .radio div input	{ float:left; margin-right:5px !important;}
 	.edit_blog {padding:0px 0px 14px 0px;} 
@@ -491,7 +492,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .input.date				{ float:left; overflow:hidden; width:212px; clear:none;}
 	.form .input.dates				{ float:left; overflow:hidden; width:300px; clear:none;}
 	.form .input.date label			{ overflow:hidden;}
-	.form .input.date input			{ float:left;}
+	.form .input.date input			{ float:left;width:10px;}
 	.form .input.date select		{ float:left; margin-right:1px; padding:4px 4px 4px 0px;}
 	.form .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px;}
 	.form .input .gif input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:190px;}
@@ -552,6 +553,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.seach .input textarea	{ width:170px; color:#7f7f7f; margin-bottom:10px;}
 	.form.seach .input select		{ width:180px;margin-bottom:10px;}
 	.form.seach .input .date select	{ width:85px;margin-bottom:10px;}
+	.form.seach .input .date input	{ width:75px;margin-bottom:10px;}
 	.form.seach .input table input	{ width:180px;}
 	.form.seach .button			{ padding-top:5px; text-align:center; clear:both;}
 
@@ -568,6 +570,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.auth .reg					{ display:inline-block; }
 	
 	.crumb			{ margin-bottom:15px; overflow:hidden; position:relative; margin-top:-11px; border-bottom:1px solid #999999; padding-bottom:10px;}
+	.crumb.seach	{ margin-bottom:15px; overflow:hidden; position:relative; margin-top:-11px; padding-bottom:10px;border-bottom:0}
 	.crumb span,
 	.crumb a		{ font:11px arial; color:#8d8d8d; text-decoration:none; padding-right:17px; display:inline-block; margin-right:5px;}
 	.crumb a		{ background:url(../images/n3.gif) no-repeat 100% 5px;}

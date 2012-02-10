@@ -12,7 +12,7 @@
         <a href='user_blog_entry.php'>Написать статью</a>
 		</span><span class="r">&nbsp;</span></span>
 </div>
-
+{if !$blogentries}<p style="color: red;text-align:center; text:bold; ">Вы не написали еще ни одной статьи</p>{/if}
 {* SEARCH FIELD *}
 <div style='width: 550px;border: 1px solid #AAAAAA; background: #EEEEEE;margin-bottom:8px;{if $search == ""} display: none;{/if}' id='blog_search'>
   <div style='padding: 10px;'>
