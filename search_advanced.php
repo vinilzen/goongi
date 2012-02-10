@@ -24,7 +24,7 @@ $showfields = 1;
 $linked_field_title = "";
 $linked_field_value = "";
 $sort = "user_dateupdated DESC";
-$users_per_page = 24;
+$users_per_page = 10;
 
 
 // BROWSE USERS WITH A VALUE IN A SPECIFIC FIELD
@@ -39,7 +39,7 @@ if($task == "browse")
   $showfields = 0;
 
   // BEGIN CONSTRUCTING BROWSE QUERY
-  $browse_query = "SELECT se_users.user_id, se_users.user_username, se_users.user_fname, se_users.user_lname, se_users.user_photo FROM se_profilevalues LEFT JOIN se_users ON se_profilevalues.profilevalue_user_id=se_users.user_id LEFT JOIN se_levels ON se_levels.level_id=se_users.user_level_id WHERE se_users.user_verified='1' AND se_users.user_enabled='1' AND (se_users.user_search='1' OR se_levels.level_profile_search='0') ";
+  $browse_query = "SELECT se_users.user_id, se_users.user_username, se_users.user_fname, se_users.user_lname, se_users.user_photo FROM se_profilevalues LEFT JOIN se_users ON se_profilevalues.profilevalue_user_id=se_users.user_id LEFT JOIN se_levels ON se_levels.level_id=se_users.user_level_id WHERE se_users.user_verified='1' AND se_users.user_lastlogindate!='0'  AND (se_users.user_search='1' OR se_levels.level_profile_search='0') ";
 
   // GET FIELD INFO
   $field_info = $database->database_fetch_assoc($database->database_query("SELECT profilefield_id AS field_id, profilefield_title AS field_title, profilefield_type AS field_type, profilefield_options AS field_options, profilefield_dependency AS field_dependency FROM se_profilefields WHERE profilefield_id='$field_id'"));
@@ -191,7 +191,7 @@ else
   if(isset($_POST['user_withphoto'])) { $user_withphoto = $_POST['user_withphoto']; } elseif(isset($_GET['user_withphoto'])) { $user_withphoto = $_GET['user_withphoto']; } else { $user_withphoto = 0; }
 
   // BEGIN CONSTRUCTING SEARCH QUERY    
-  $search_query = "SELECT se_users.user_id, se_users.user_username, se_users.user_fname, se_users.user_lname, se_users.user_photo FROM se_profilevalues LEFT JOIN se_users ON se_profilevalues.profilevalue_user_id=se_users.user_id LEFT JOIN se_levels ON se_levels.level_id=se_users.user_level_id WHERE se_users.user_profilecat_id='{$cat_selected}' AND se_users.user_verified='1' AND se_users.user_enabled='1' AND se_users.user_id != '$s_id' AND (se_users.user_search='1' OR se_levels.level_profile_search='0')";
+  $search_query = "SELECT se_users.user_id, se_users.user_username, se_users.user_fname, se_users.user_lname, se_users.user_photo FROM se_profilevalues LEFT JOIN se_users ON se_profilevalues.profilevalue_user_id=se_users.user_id LEFT JOIN se_levels ON se_levels.level_id=se_users.user_level_id WHERE se_users.user_profilecat_id='{$cat_selected}' AND se_users.user_verified='1' AND se_users.user_enabled='1' AND se_users.user_id != '$s_id' AND se_users.user_lastlogindate != '0' AND (se_users.user_search='1' OR se_levels.level_profile_search='0')";
   if($user_online == 1) { $search_query .= " AND user_lastactive>'".(time()-10*60)."' AND user_invisible=0"; }
   if($user_withphoto == 1) { $search_query .= " AND user_photo <> ''"; }
   if($field->field_query != "") { $search_query .= " AND ".$field->field_query; }

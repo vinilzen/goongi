@@ -46,7 +46,6 @@
 							<a href="javascript:void(0);">Медали</a>
 							<a href="javascript:void(0);">Визитки</a>
 							<a href="/user_history.php?user={$owner->user_info.user_username}">История рода</a>
-							
 							<!-- <a href="">Медали</a> -->
 						</div>
 					</div>
@@ -96,6 +95,7 @@
 					<span>
 						{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}:
 					</span>
+                                        
 					{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_formatted}
 					{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1 && $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value|substr:0:4 != "0000"} <!--({lang_sprintf id=852 1=$datetime->age($cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value)}) -->{/if}
 				</p>

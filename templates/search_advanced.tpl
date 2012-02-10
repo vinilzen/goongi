@@ -2,6 +2,7 @@
 
 {* $Id: search_advanced.tpl 217 2009-08-11 23:20:02Z phil $ *}
 <h1>{lang_print id=1087}</h1><!--Расширенный поиск пользователей-->
+<div class="crumb seach"><a href="#">Главная</a><a href="search.php">{lang_print id=646}<!-- Поиск --></a><span>{lang_print id=1087}</span></div>
 <!--({lang_print id=1088})--><!--Поиск пользователей по ключевым словам и критериям.-->
 {* SHOW PAGE TITLE *}
 {if $showfields == 1}
@@ -49,17 +50,17 @@
       {section name=cat_loop loop=$cats}
       {section name=subcat_loop loop=$cats[cat_loop].subcats}
       {section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
-      {lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1} {lang_print id=736}{/if}
+      {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title != '500376' }<label>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}</label>{else}
+    </br><p>От </p>{/if}
+      {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1} <label>До</label>{/if}
 
           {* TEXT FIELD/TEXTAREA *}
           {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 1 || $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 2}
 	    {* RANGED SEARCH *}
 	    {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_search == 2}
- <div class="date">
 	      <input type='text' class='text' size='5' name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_min' value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_min}' maxlength='100'>
 	      - 
 	      <input type='text' class='text' size='5' name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_max' value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_max}' maxlength='100'>	  
-</div>
 	    {* EXACT VALUE SEARCH *}
 	    {else}
               <input type='text' class='text' size='15' name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value}' maxlength='100'>
@@ -85,7 +86,6 @@
 
 	    {* RANGED SEARCH *}
 	    {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_search == 2}
-<div class = "date">
               <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_min'>
               <option value='-1'></option>
               {section name=option_loop loop=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options}
@@ -99,7 +99,6 @@
                 <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options[option_loop].value}'{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options[option_loop].value == $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_max} SELECTED{/if}>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_options[option_loop].label}</option>
               {/section}
               </select>
-</div>
 	    {* EXACT VALUE SEARCH *}
 	    {else}
               <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}'>
@@ -117,17 +116,19 @@
 	    {* BIRTHDAYS *}
 	    {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1}
 <div class = "date">
-              <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_3_min'>
+        <input type="text" value = "" name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_3_min' >
+          <!--    <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_3_min'>
               {section name=date3_min loop=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3}
                 <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_min].value}'{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_min == $cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_min].value} SELECTED{/if}>{if $smarty.section.date3_min.first}[ {lang_print id=1116} ]{else}{math equation='x-y' x=$smarty.now|date_format:"%Y" y=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_min].name}{/if}</option>
               {/section}
-              </select>
+              </select>-->
 	      -
-              <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_3_max'>
+            <input type="text" value = "" name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_3_max'>
+          <!--    <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}_3_max'>
               {section name=date3_max loop=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3}
                 <option value='{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_max].value}'{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_max == $cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_max].value} SELECTED{/if}>{if $smarty.section.date3_max.first}[ {lang_print id=1117} ]{else}{math equation='x-y' x=$smarty.now|date_format:"%Y" y=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].date_array3[date3_max].name}{/if}</option>
               {/section}
-              </select>
+              </select>-->
 </div>
 	    {* NORMAL DATES *}
 	    {else}
@@ -211,16 +212,15 @@
 
 
 </td>
-<td style='padding-left: 10px;' valign='top'>
+<td style='padding-left: 25px;' valign='top'>
 
 
 
 {* SHOW MESSAGE IF NO RESULTS FOUND *}
 {if $total_users == 0 && ($showfields == 0 || $cats_menu != NULL)}
-  <br>
-  <table cellpadding='0' cellspacing='0' align='center'>
-  <tr><td class='result'><img src='./images/icons/bulb22.gif' border='0' class='icon'> {lang_print id=1085}</td></tr>
-  </table>
+ 
+ {lang_print id=1085}<!--Ни один человек не найден, который соответствовал бы данным критериям поиска.-->
+
 
 
 {* SHOW RESULTS *}
@@ -243,7 +243,7 @@
   {section name=user_loop loop=$users}
     <div class='browse_result' style='float: left; padding: 5px; width: 100px; height: 100px; text-align: center;'>
       <a href='{$url->url_create('profile',$users[user_loop]->user_info.user_username)}'><img src='{$users[user_loop]->user_photo('./images/no_photo_thumb.gif', TRUE)}' class='photo' style='display: block; margin-left: auto; margin-right: auto;' width='60' height='60' border='0' alt="{lang_sprintf id=509 1=$users[user_loop]->user_displayname_short}">{$users[user_loop]->user_displayname|truncate:20:"...":true}</a>
-      {if $users[user_loop]->is_online == 1}<div style='margin-top: 3px;'><img src='./images/icons/online16.gif' border='0' class='icon2'>{lang_print id=1086}</div>{/if}
+      {if $users[user_loop]->is_online == 1}<div style='margin-top: 3px;font: normal normal normal 11px/normal arial;color:#7F7F7F;'>{lang_print id=1086}</div>{/if}
     </div>
     {cycle name="newrow" values=",,,,,<div style='clear: both; margin-top: 10px;'>&nbsp;</div>"}
   {/section}

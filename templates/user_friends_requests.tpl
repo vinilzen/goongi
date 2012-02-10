@@ -9,7 +9,7 @@
 	<span>{lang_print id=895}<!-- Мои друзья --></span>
 </div>
 <ul class="vk">
-	<li><a href="user_friends.php">{lang_print id=894}</a></li>
+	<li><a  href="user_friends.php">{lang_print id=894}</a></li>
 	<li class="active"><a href="user_friends_requests.php" >{lang_print id=895} {if $user->user_friend_total(1, 0)>0}<span>({$user->user_friend_total(1, 0)})</span>{/if}</a></li>
 	<li><a href="user_friends_requests_outgoing.php">{lang_print id=896}</a></li>
 </ul>

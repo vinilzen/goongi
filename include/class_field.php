@@ -589,13 +589,14 @@ class se_field {
 
 	        $year = substr($field_value, 0, 4); 
 		$month = substr($field_value, 5, 2); 
-		$day = substr($field_value, 8, 2); 
-
+		$day = substr($field_value, 8, 2);
+               
+               
 		// FORMAT VALUE FOR DISPLAY
 		if($format == 1 && $field_info[field_display] != 0) {
 	   	  if($field_value != "0000-00-00") { 
 		    if($year == "0000") { $year = ""; }
-		    if($month == "00") { $month = ""; } else { $month = $datetime->cdate("F", mktime(0, 0, 0, $month, 1, 1990)); }
+		    if($month == "00") { $month = ""; } else { $month=$datetime->russian_date($month);} //$month = $datetime->cdate("F", mktime(0, 0, 0, $month, 1, 1990)); }
 		    if($day == "00") { $day = ""; } else { $day = $datetime->cdate("$day_format", mktime(0, 0, 0, 1, $day, 1990)); }
 	            switch($date_order) {
 	              case "mdy": $field_value_formatted = "$month $day $year"; break;
