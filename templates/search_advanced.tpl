@@ -51,8 +51,8 @@
       {section name=subcat_loop loop=$cats[cat_loop].subcats}
       {section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
       {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title != '500376' }<label>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}</label>{else}
-    </br><p>От </p>{/if}
-      {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1} <label>До</label>{/if}
+    </br><span>От </span>{/if}
+      {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1} <span>До</span>{/if}
 
           {* TEXT FIELD/TEXTAREA *}
           {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 1 || $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 2}

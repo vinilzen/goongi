@@ -480,6 +480,8 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .input label,
 	.form .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.form .input p		{  font-size:12px; font-weight:bold; margin-bottom:4px; margin-right:80px;}
+	.form .input span		{  font-size:12px; font-weight:bold; margin-right:20px;}
+	
 	.edit_blog .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.form .radio div input	{ float:left; margin-right:5px !important;}
 	.edit_blog {padding:0px 0px 14px 0px;} 
