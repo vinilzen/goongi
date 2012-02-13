@@ -59,18 +59,19 @@
 			<img src="{$friends[friend_loop]->user_photo('./images/no_photo.gif')}" class="photo" width="{$misc->photo_size($friends[friend_loop]->user_photo('./images/no_photo.gif'),'90','90','w')}" border="0" alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}" />
 		</a>
     
-		<div><font class='big'><a href='{$url->url_create('profile', $friends[friend_loop]->user_info.user_username)}'><img src='./images/icons/user16.gif' border='0' class='icon'>{$friends[friend_loop]->user_displayname}</a></div></font><br>
+		<div><h2><a href='{$url->url_create('profile', $friends[friend_loop]->user_info.user_username)}'>{$friends[friend_loop]->user_displayname}</a></div></h2><br>
       
-      {if $friends[friend_loop]->user_info.user_dateupdated != 0}{lang_print id=849} &nbsp;{assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}{/if}
-      {if $friends[friend_loop]->user_info.user_lastlogindate != 0}{lang_print id=906} &nbsp;{assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}{/if}
+ <!--     {if $friends[friend_loop]->user_info.user_dateupdated != 0}{lang_print id=849} &nbsp;{assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}{/if}-->
+  <!--    {if $friends[friend_loop]->user_info.user_lastlogindate != 0}{lang_print id=906} &nbsp;{assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}{/if}-->
       {if $friends[friend_loop]->friend_type != ""}{lang_print id=882} &nbsp;{$friends[friend_loop]->friend_type}{/if}
       {if $friends[friend_loop]->friend_explain != ""}{lang_print id=907} &nbsp;{$friends[friend_loop]->friend_explain}</td></tr>{/if}
 
     <a class="add" rel="{$friends[friend_loop]->user_info.user_id}" rev="{$friends[friend_loop]->user_info.user_username}" href="user_friends_manage.php?user={$friends[friend_loop]->user_info.user_username}">{lang_print id=887}</a><br>
     <a class="reject" rel="{$friends[friend_loop]->user_info.user_id}" rev="{$friends[friend_loop]->user_info.user_username}" href="user_friends_manage.php?task=reject&user={$friends[friend_loop]->user_info.user_username}">{lang_print id=911}</a><br>
     {if $user->level_info.level_message_allow != 0}
-		<a href="user_messages_new.php?to_user={$friends[friend_loop]->user_displayname}&to_id={$friends[friend_loop]->user_info.user_username}">			{lang_print id=839}
-		</a><br>
+		<!--<a href="user_messages_new.php?to_user={$friends[friend_loop]->user_displayname}&to_id={$friends[friend_loop]->user_info.user_username}">			{lang_print id=839}
+		</a><br>-->
+<a href="#" title="{$friends[friend_loop]->user_displayname}" id="add_msg">{lang_print id=839}</a>
 	{/if}
     </li>
   {/section}

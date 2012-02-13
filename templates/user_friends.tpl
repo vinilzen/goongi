@@ -100,7 +100,7 @@
 				{/if}
 			</div>
 			
-			<a href="#" rev="{$friends[friend_loop]->user_info.user_id}" class="send_msg_to">{lang_print id=839}</a><br />
+			<a href="#" rev="{$friends[friend_loop]->user_info.user_id}" class="send_msg_to"  title="{$friends[friend_loop]->user_displayname}" id="add_msg">{lang_print id=839}</a><br />
 			<a href='friends.php?user={$friends[friend_loop]->user_info.user_username}'>{lang_sprintf id=836 1=''}</a><br />
 			<a class="del" rel="{$friends[friend_loop]->user_info.user_id}" rev="{$friends[friend_loop]->user_info.user_username}" href="#">{lang_print id=889}</a>
 		</div>

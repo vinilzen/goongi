@@ -19,6 +19,8 @@ if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task']
 if(isset($_POST['p'])) { $p = (int) $_POST['p']; } elseif(isset($_GET['p'])) { $p = (int) $_GET['p']; } else { $p = 1; }
 if(isset($_POST['search_text'])) { $search_text = $_POST['search_text']; } elseif(isset($_GET['search_text'])) { $search_text = $_GET['search_text']; } else { $search_text = ""; }
 if(isset($_POST['t'])) { $t = $_POST['t']; } elseif(isset($_GET['t'])) { $t = $_GET['t']; } else { $t = 0; }
+if(isset($_POST['them'])) { $them = $_POST['them']; } else { $them = 0; }
+
 
 // SET VARS
 $results_per_page = 10;
@@ -39,7 +41,8 @@ if($task == "dosearch" && $search_text != "")
   $start_timer = getmicrotime();
 
   // SEARCH PROFILES
-  search_profile();
+ //case
+     search_profile();
 
   // CALL SEARCH HOOK
   ($hook = SE_Hook::exists('se_search_do')) ? SE_Hook::call($hook, array()) : NULL;
@@ -48,8 +51,10 @@ if($task == "dosearch" && $search_text != "")
   for($r=0;$r<count($search_objects);$r++)
   {
     if($search_objects[$r][search_total] != 0)
-    { 
-      if($total_results == 0) { header("Location: search.php?task=dosearch&search_text=".urlencode($search_text)."&t=".$search_objects[$r]['search_type']); exit(); }
+    {
+         
+      if($total_results == 0) { header("Location: search.php?task=dosearch&search_text=".urlencode($search_text)."&t=".$search_objects[$r]['search_type']."&them=".$them); exit(); }
+   //echo  $them;
       $is_results = 1; 
     }
   }
@@ -90,7 +95,7 @@ if($task == "dosearch" && $search_text != "")
 $global_page_title[0] = 646;
 $global_page_description[0] = 924;
 
-
+echo $them;
 // ASSIGN SMARTY VARIABLES AND INCLUDE FOOTER
 $smarty->assign('search_text', $search_text);
 $smarty->assign('url_search', urlencode($search_text));
@@ -101,6 +106,7 @@ $smarty->assign('search_objects', $search_objects);
 $smarty->assign('search_time', $search_time);
 $smarty->assign('maxpage', $maxpage);
 $smarty->assign('t', $t);
+$smarty->assign('them', $them);
 $smarty->assign('p', $p);
 $smarty->assign('p_start', (($p-1)*$results_per_page)+1);
 $smarty->assign('p_end', (($p-1)*$results_per_page)+count($results));

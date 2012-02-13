@@ -383,6 +383,7 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.group_list ul		{ overflow:hidden; list-style:none;}
 	.group_list ul li	{ overflow:hidden; list-style:none; margin-bottom:5px;}
 	.group_list ul li a	{ display:block; padding:0 0 0 10px; line-height:25px;}
+	.group_list ul li a.active 	{ background:#ececec;}
 	.group_list ul li a:hover	{ background:#ececec;}
 	
 	.spep	{ overflow:hidden; list-style:none;}
@@ -548,6 +549,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.add_com .input textarea	{width: 100%; margin-bottom:5px;}
 	
 	.form.seach					{ overflow:hidden; padding-bottom:20px; width:auto; border-right:1px solid #9E9E9E;}
+	.form.seach .input			{ padding-bottom:0; margin-bottom:0;}
 	.form.seach .input input,
 	.form.seach .input textarea	{ width:170px; color:#7f7f7f; margin-bottom:10px;}
 	.form.seach .input select		{ width:180px;margin-bottom:10px;}
@@ -555,6 +557,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.seach .input .date input	{ width:75px;margin-bottom:10px;}
 	.form.seach .input table input	{ width:180px;}
 	.form.seach .button			{ padding-top:5px; text-align:center; clear:both;}
+	.browse_pages				{margin-bottom:20px;margin-top:10px;}
 
 	
 	

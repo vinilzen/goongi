@@ -510,6 +510,27 @@ class se_field {
 		    if(isset($_POST[$var3_min])) { $field_3_min = $_POST[$var3_min]; } elseif(isset($_GET[$var3_min])) { $field_3_min = $_GET[$var3_min]; } else { $field_3_min = ""; }
 		    if(isset($_POST[$var3_max])) { $field_3_max = $_POST[$var3_max]; } elseif(isset($_GET[$var3_max])) { $field_3_max = $_GET[$var3_max]; } else { $field_3_max = ""; }
 
+
+                     if ($field_3_min == 'От') $field_3_min ='';
+                     if ($field_3_max == 'До') $field_3_max ='';
+                      // CONSTRUCT YEAR ARRAY
+	          $year_array = Array();
+	          $year_count = 1;
+	          $current_year = $datetime->cdate("Y", time());
+	          $year_array[0] = Array('name' => "581", 'value' => "0", 'selected' => "");
+	          for($y=$current_year;$y>=1920;$y--) {
+	            if($year == $y) { $selected = " SELECTED"; } else { $selected = ""; }
+	            $year_array[$year_count] = Array('name' => $y,
+	    						'value' => $y,
+	    						'selected' => $selected);
+	            $year_count++;
+	          }
+                    $per_min=$field_3_min;
+                    $per_max=$field_3_max;
+                     $field_3_min =$year_array[$field_3_min]['value'];
+                     $field_3_max =$year_array[$field_3_max]['value'];
+                    // print_r ($field_3_min);
+                     
 		    $this->url_string .= $var3_min."=".urlencode($field_3_min)."&";
 		    $this->url_string .= $var3_max."=".urlencode($field_3_max)."&";
 
@@ -520,7 +541,8 @@ class se_field {
 		      if($this->field_query != "") { $this->field_query .= " AND "; } 
 		      $this->field_query .= $this->type."value_$field_info[field_id]<='$field_value_min-".date('m', time())."-".date('d', time())."'"; 
 		    }
-
+                 
+                   
 		    // CONSTRUCT SEARCH VALUES (MAX YEAR)
 		    // IMPORTANT NOTE - BECAUSE IT DISPLAYS THE AGE (NOT THE YEAR) TO THE SEARCHER, THIS ACTUALLY CORRESPONDS TO THE MAXIMUM AGE (MINIMUM YEAR)
 		    $field_value_max = str_pad($field_3_max, 4, '0', STR_PAD_LEFT);
@@ -528,13 +550,14 @@ class se_field {
 		      if($this->field_query != "") { $this->field_query .= " AND "; } 
 		      $this->field_query .= $this->type."value_$field_info[field_id]>=DATE_ADD('".($field_value_max-1)."-".date('m', time())."-".date('d', time())."', INTERVAL 1 DAY)"; 
 		    }
-
+                  
 		    // EXCLUDE USERS WHO HAVE NOT ENTERED A BIRTH YEAR
 		    if($field_value_min != "0000" || $field_value_max != "0000") {
 		      if($this->field_query != "") { $this->field_query .= " AND "; } 
 		      $this->field_query .= "YEAR(".$this->type."value_$field_info[field_id])<>'0000'"; 
 		    }
-
+                    $field_value_min = $per_min;
+                    $field_value_max = $per_max;
 
 		  // DATE IS NOT A BIRTHDAY
 		  } else {
