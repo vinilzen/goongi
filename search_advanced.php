@@ -24,13 +24,14 @@ $showfields = 1;
 $linked_field_title = "";
 $linked_field_value = "";
 $sort = "user_dateupdated DESC";
-$users_per_page = 10;
+$users_per_page = 16;
 
 
 // BROWSE USERS WITH A VALUE IN A SPECIFIC FIELD
 // LINKED FROM PROFILE
 if($task == "browse")
 {
+   
   // GET BASIC VARIABLES
   $field_id = $_GET['field_id'];
   $field_value = $_GET['field_value'];
@@ -77,6 +78,7 @@ if($task == "browse")
       break;
     case 3:
     case 4:
+       
       $browse_query .= " AND profilevalue_{$field_info['field_id']}='{$field_value}'";
       $options = unserialize($field_info['field_options']);
       for($i=0,$max=count($options);$i<$max;$i++)
@@ -171,6 +173,7 @@ if($task == "browse")
 // SEARCH THROUGH USERS BASED ON NUMEROUS PROFILE CRITERIA
 else
 {
+
   // START FIELD OBJECT
   $field = new se_field("profile");
 
@@ -190,12 +193,14 @@ else
   if(isset($_POST['user_online'])) { $user_online = $_POST['user_online']; } elseif(isset($_GET['user_online'])) { $user_online = $_GET['user_online']; } else { $user_online = 0; }
   if(isset($_POST['user_withphoto'])) { $user_withphoto = $_POST['user_withphoto']; } elseif(isset($_GET['user_withphoto'])) { $user_withphoto = $_GET['user_withphoto']; } else { $user_withphoto = 0; }
 
+
+
   // BEGIN CONSTRUCTING SEARCH QUERY    
   $search_query = "SELECT se_users.user_id, se_users.user_username, se_users.user_fname, se_users.user_lname, se_users.user_photo FROM se_profilevalues LEFT JOIN se_users ON se_profilevalues.profilevalue_user_id=se_users.user_id LEFT JOIN se_levels ON se_levels.level_id=se_users.user_level_id WHERE se_users.user_profilecat_id='{$cat_selected}' AND se_users.user_verified='1' AND se_users.user_enabled='1' AND se_users.user_id != '$s_id' AND se_users.user_lastlogindate != '0' AND (se_users.user_search='1' OR se_levels.level_profile_search='0')";
   if($user_online == 1) { $search_query .= " AND user_lastactive>'".(time()-10*60)."' AND user_invisible=0"; }
   if($user_withphoto == 1) { $search_query .= " AND user_photo <> ''"; }
   if($field->field_query != "") { $search_query .= " AND ".$field->field_query; }
-
+//echo $field->field_query;
   // GET TOTAL USERS
   $total_users = $database->database_num_rows($database->database_query($search_query));
 
@@ -204,7 +209,7 @@ else
 
   // ADD LIMIT TO QUERY
   $search_query .= " ORDER BY $sort LIMIT $page_vars[0], $users_per_page";
-
+//echo $search_query;
   // GET USERS
   $online_users_array = online_users();
   $users = $database->database_query($search_query);
