@@ -18,7 +18,6 @@ function src(){
  
 	$(function() {
 		$( "#event_date_start, #event_date_end" ).datepicker();
-		
 		$( "#event_date_start, #event_date_end" ).datepicker( "option", "dateFormat", 'dd.m.yy' );
 		$( "#event_date_start, #event_date_end" ).datepicker( "option", "dayNamesMin", ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'] );
 		$( "#event_date_start, #event_date_end" ).datepicker( "option", "dayNames", ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'] );
@@ -1009,7 +1008,7 @@ function update_group_list() {
 							$('#comments_list').html('');
                             $('#comments_list').append(str+paginator);
 						} else {
-							$('#comments_list').html('<p style="color:red;">Здесь еще никто, ничего не писал.</p>');
+							$('#comments_list').html('<p class="error">Здесь еще никто, ничего не писал.</p>');
 						}
                                                
 						$('#comments_count').html('');

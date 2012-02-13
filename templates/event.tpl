@@ -57,15 +57,19 @@
 	{section name=officer_loop loop=$officers}
 		<div class="img">
 			<a href="{$url->url_create("profile", $officers[officer_loop].member->user_info.user_username)}">
-				<img src="./uploads_user/1000/1/0_3554_thumb.jpg" alt="">
+				{if $officers[officer_loop].member->user_info.user_sex == 'w'}
+					<img {if $officers[officer_loop].member->user_info.user_photo == ''} src="./images/avatars_17.gif" {else} src="{$officers[officer_loop].member->user_photo('./images/avatars_17.gif', true)}{/if}">
+				{else}
+					<img {if $officers[officer_loop].member->user_info.user_photo == ''} src="./images/avatars_15.gif" {else} src="{$officers[officer_loop].member->user_photo('./images/avatars_15.gif', true)}{/if}">
+				{/if}
 			</a>
 		</div>
 		<div class="name"><span>Автор:</span>
 			{if $officers[officer_loop].eventmember_rank == 3}
-				 <a href="{$url->url_create("profile", $officers[officer_loop].member->user_info.user_username)}">{$officers[officer_loop].member->user_displayname}</a>
+<a href="{$url->url_create("profile", $officers[officer_loop].member->user_info.user_username)}">{$officers[officer_loop].member->user_displayname}</a>
 			{/if}
 		</div>
-	{/section} 
+	{/section}
 	<div class="inf">
 		{if !empty($event->event_info.event_desc)}
 			{$event->event_info.event_desc}
@@ -75,18 +79,6 @@
 	
 <h2>В мероприятии участвуют</h2>
 <ul class="friend_list h200">
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li style="margin-right: 0px; "><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li style="margin-right: 0px; "><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li style="margin-right: 0px; "><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
 	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
 	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
 	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
@@ -126,11 +118,6 @@
           </div>
         </td>
     </tr></table>
-
-
-
-
-
 
 <table width='100%' cellpadding='0' cellspacing='0' style="display:none;"><tr><td class='profile_leftside' width='200' >
 {* BEGIN LEFT COLUMN *}
@@ -251,8 +238,6 @@
     
     {/if}
     
-    
-    
     {* SHOW REPORT THIS EVENT MENU ITEM *}
     <tr>
       <td class='profile_menu1'>
@@ -297,15 +282,12 @@
   </table>
   {* END RSVP OPTIONS *}
   
-  
-  
   {* PLUGIN RELATED PROFILE SIDEBAR *}
   {foreach from=$global_plugins key=plugin_k item=plugin_v}
     {if !empty($plugin_v.menu_event_side)}
       {include file=$plugin_v.menu_event_side.file}
     {/if} 
   {/foreach}
-  
   {/if}
   
   
@@ -313,13 +295,11 @@
 {* END LEFT COLUMN *}
 </td><td class='profile_rightside'>
 {* BEGIN RIGHT COLUMN *}
-  
-  
+
   
   {* DISPLAY IF EVENT IS PRIVATE TO VIEWING USER *}
   {if !$allowed_to_view}
     
-    <img src='./images/icons/error48.gif' border='0' class='icon_big' />
     <div class='page_header'>{lang_print id=3000173}</div>
     You are not allowed to view this event.
     
@@ -339,19 +319,6 @@
             </tr>
           </table>
         </td>
-        
-        {*
-        <td valign='bottom'>
-          <table cellpadding='0' cellspacing='0'>
-            <tr>
-              <td class='event_tab' id='event_tabs_calendar' onMouseUp="this.blur();" nowrap="nowrap">
-                <a href='javascript:void(0);' onMouseDown="SocialEngine.Event.loadProfileTab('calendar');" onMouseUp="this.blur();">{lang_print id=3000244}</a>
-              </td>
-            </tr>
-          </table>
-        </td>
-        *}
-        
         <td valign='bottom'>
           <table cellpadding='0' cellspacing='0'>
             <tr>

@@ -53,61 +53,61 @@
 
 {* EVENT SEARCH *}
 {if $user->level_info.level_event_search}
-<div><b>{lang_print id=3000121}</b></div>
-<div class="form_desc">{lang_print id=3000122}</div>
-<table cellpadding='0' cellspacing='0'>
-  <tr>
-    <td><input type='radio' name='event_search' id='event_search_1' value='1'{if  $event->event_info.event_search} checked{/if} /></td>
-    <td><label for='event_search_1'>{lang_print id=3000123}</label></td>
-  </tr>
-  <tr>
-    <td><input type='radio' name='event_search' id='event_search_0' value='0'{if !$event->event_info.event_search} checked{/if} /></td>
-    <td><label for='event_search_0'>{lang_print id=3000124}</label></td>
-  </tr>
-</table>
-<br />
-<br />
+<div class="input">
+<!-- 	<label>{lang_print id=3000121}</label> -->
+	<label>{lang_print id=3000122}</label>
+	<table cellpadding='0' cellspacing='0'>
+	  <tr>
+		<td><input type='radio' name='event_search' id='event_search_1' value='1'{if  $event->event_info.event_search} checked{/if} /></td>
+		<td><label class="setlab" for='event_search_1'>{lang_print id=3000123}</label></td>
+	  </tr>
+	  <tr>
+		<td><input type='radio' name='event_search' id='event_search_0' value='0'{if !$event->event_info.event_search} checked{/if} /></td>
+		<td><label class="setlab" for='event_search_0'>{lang_print id=3000124}</label></td>
+	  </tr>
+	</table>
+</div>
 {/if}
 
 
 {* EVENT INVITE *}
 {* if $user->level_info.level_event_invite *}
-<div><b>{lang_print id=3000267}</b></div>
-<div class="form_desc">{lang_print id=3000268}</div>
-<table cellpadding='0' cellspacing='0'>
-  <tr>
-    <td><input type='radio' name='event_invite' id='event_invite_1' value='1'{if  $event->event_info.event_invite} checked{/if} /></td>
-    <td><label for='event_invite_1'>{lang_print id=3000265}</label></td>
-  </tr>
-  <tr>
-    <td><input type='radio' name='event_invite' id='event_invite_0' value='0'{if !$event->event_info.event_invite} checked{/if} /></td>
-    <td><label for='event_invite_0'>{lang_print id=3000266}</label></td>
-  </tr>
-</table>
-<br />
-<br />
+<div class="input">
+	<!-- 	<div><b>{lang_print id=3000267}</b></div> -->
+	<label>{lang_print id=3000268}</label>
+	<table cellpadding='0' cellspacing='0'>
+	  <tr>
+		<td><input type='radio' name='event_invite' id='event_invite_1' value='1'{if  $event->event_info.event_invite} checked{/if} /></td>
+		<td><label class="setlab" for='event_invite_1'>{lang_print id=3000265}</label></td>
+	  </tr>
+	  <tr>
+		<td><input type='radio' name='event_invite' id='event_invite_0' value='0'{if !$event->event_info.event_invite} checked{/if} /></td>
+		<td><label class="setlab" for='event_invite_0'>{lang_print id=3000266}</label></td>
+	  </tr>
+	</table>
+</div>
 {* /if *}
 
 
 {* EVENT PRIVACY *}
 {if $privacy_options|@count > 1}
-<div><b>{lang_print id=3000125}</b></div>
-<div class="form_desc">{lang_print id=3000126}</div>
-<table cellpadding='0' cellspacing='0'>
-{foreach from=$privacy_options name=privacy_loop key=k item=v}
-  <tr>
-    <td><input type='radio' name='event_privacy' id='privacy_{$k}' value='{$k}'{if $event->event_info.event_privacy == $k} checked{/if} /></td>
-    <td><label for='privacy_{$k}'>{lang_print id=$v}</label></td>
-  </tr>
-{/foreach}
-</table>
-<br />
-<br />
+<div class="input">
+	<!-- <div><b>{lang_print id=3000125}</b></div> -->
+	<label>{lang_print id=3000126}</label>
+	<table cellpadding='0' cellspacing='0'>
+	{foreach from=$privacy_options name=privacy_loop key=k item=v}
+	  <tr>
+		<td><input type='radio' name='event_privacy' id='privacy_{$k}' value='{$k}'{if $event->event_info.event_privacy == $k} checked{/if} /></td>
+		<td><label class="setlab" for='privacy_{$k}'>{lang_print id=$v}</label></td>
+	  </tr>
+	{/foreach}
+	</table>
+</div>
 {/if}
 
 
 {* EVENT COMMENTS *}
-{if $comment_options|@count > 1}
+{if $comment_options|@count > 1 && 0}
 <div><b>{lang_print id=3000127}</b></div>
 <div class="form_desc">{lang_print id=3000128}</div>
 <table cellpadding='0' cellspacing='0'>
@@ -166,14 +166,6 @@
 		<input type='submit' class='button' value='{$langBlockTemp}' /><input type='hidden' name='task' value='dosave' />
 	</span><span class="r">&nbsp;</span></span></div>
 {/lang_block}
-      
-      </form>
-<br />
-      <form action='user_event_edit_settings.php?event_id={$event->event_info.event_id}' method='GET'>
-      {lang_block id=39 var=langBlockTemp}<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type='submit' class='button' value='{$langBlockTemp}' /></span><span class="r">&nbsp;</span></span></div>{/lang_block}
-      </form>
+</form>
 </div>
-<br />
-
-
 {include file='footer.tpl'}

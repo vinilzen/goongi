@@ -104,29 +104,6 @@
 		<input type='text' class='text' name='field_{$fields[field_loop].field_id}' id='field_{$fields[field_loop].field_id}' value='{$fields[field_loop].field_value}' style='{$fields[field_loop].field_style}' maxlength='{$fields[field_loop].field_maxlength}'>
 	</div>
 
-      {* JAVASCRIPT FOR CREATING SUGGESTION BOX *}
-      {if $fields[field_loop].field_options != "" && $fields[field_loop].field_options|@count != 0}
-      {literal}
-      <script type="text/javascript">
-      <!-- 
-      window.addEvent('domready', function(){
-	var options = {
-		script:"misc_js.php?task=suggest_field&limit=5&{/literal}{section name=option_loop loop=$fields[field_loop].field_options}options[]={$fields[field_loop].field_options[option_loop].label}&{/section}{literal}",
-		varname:"input",
-		json:true,
-		shownoresults:false,
-		maxresults:5,
-		multisuggest:false,
-		callback: function (obj) {  }
-	};
-	var as_json{/literal}{$fields[field_loop].field_id}{literal} = new bsn.AutoSuggest('field_{/literal}{$fields[field_loop].field_id}{literal}', options);
-      });
-      //-->
-      </script>
-      {/literal}
-      {/if}
-
-
     {* TEXTAREA *}
     {elseif $fields[field_loop].field_type == 2}
     <div class="input">

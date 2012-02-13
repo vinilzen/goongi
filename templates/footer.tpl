@@ -116,7 +116,7 @@
 					<input type="text" name="event_date_start" id="event_date_start" value="" />
 				</td><td>
 					<span>Время</span>
-					<input type="text" name="event_time_start" id="event_time_start" value="чч:мм" />
+					<input type="text" onfocus="if (this.value == 'чч:мм') this.value ='';" onblur="if (this.value == '') this.value='чч:мм';" name="event_time_start" id="event_time_start" value="чч:мм" />
 				</td></tr></table>
 			</div>
 			
@@ -126,7 +126,7 @@
 					<input type="text" name="event_date_end" id="event_date_end" value="" />
 				</td><td>
 					<span>Время</span>
-					<input type="text" name="event_time_end" id="event_time_end" value="чч:мм" />
+					<input type="text" onfocus="if (this.value == 'чч:мм') this.value ='';" onblur="if (this.value == '') this.value='чч:мм';" name="event_time_start" name="event_time_end" id="event_time_end" value="чч:мм" />
 				</td></tr></table>
             </div>
             <div class="input"><label>Описание</label>

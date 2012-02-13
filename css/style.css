@@ -473,11 +473,13 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .input.photoedit { padding-right:80px;}
 	.form .input,
 	.form .radio		{ margin-bottom:17px; /*overflow:hidden;*/}
+	.error		{ color:red;text-align:center;font-weight: bold;font-size:13px;}
 	.form .error		{ font-size:11px; position:relative; margin-bottom:30px; color:#dc2a2a; }
 	.form p.p_inf		{ font-size:11px; padding-bottom:5px; color:#7f7f7f; width:390px;}
 	
 	.form .input label,
 	.form .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
+	.form .input label.setlab	{ display:block; font-size:12px; font-weight:normal; margin:0px 0px 0px 10px;}
 	.form .input p		{  font-size:12px; font-weight:bold; margin-bottom:4px; margin-right:80px;}
 	.edit_blog .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.form .radio div input	{ float:left; margin-right:5px !important;}
@@ -545,7 +547,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.add_w .button			{ padding-top:5px; text-align:center; clear:both;}
 
 	.form.add_com					{ width: auto; padding-bottom:20px;}
-	.form.add_com .input textarea	{width: 652px; margin-bottom:5px;}
+	.form.add_com .input textarea	{width: 660px; margin-bottom:5px;}
 	
 	.form.seach					{ overflow:hidden; padding-bottom:20px; width:auto; border-right:1px solid #9E9E9E;}
 	.form.seach .input input,
@@ -704,7 +706,7 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .my_page_img {   float: left;   padding: 15px 0px 25px 0px; min-height:100px;   width: 300px;}
 .my_page_img img {   background: none repeat scroll 0 0 #FFFFFF;  border: 1px solid #D7D7D7;   padding: 2px;}
 .my_page_inf {    border-bottom: 1px solid #9E9E9E;    margin-bottom: 15px;    overflow: hidden;}
-.my_page_inf .my_page_info {    border-bottom: 0 none;    margin-bottom: 0;}
+.my_page_inf .my_page_info {float: left; border-bottom: 0 none;    margin-bottom: 0;}
 
 	.profil_mn	{ float:right; position:relative;}
 	.profil_mn a.p_link	{ color:#2a86dc; font:14px "Trebuchet MS", Arial, Helvetica, sans-serif; text-transform:uppercase; display:inline-block; margin-right:20px; position:relative; z-index:11; padding-right:9px; background: url(../images/nn.gif) no-repeat 100% -58px; padding-top:5px; text-decoration:none;}
@@ -780,3 +782,4 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .form2 td {padding:1px 0px;vertical-align:top;}
 .change_pass {width:500px;}
 .change_pass  .form1 {width:240px; padding-left:100px; text-align:right;}
+.form .input input.se_event_calendar {width:181px;}

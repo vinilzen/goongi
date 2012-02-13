@@ -102,6 +102,9 @@ $members_per_page = 10;
 if($v == "members") { $p_members = $p; } else { $p_members = 1; }
 $page_vars_members = make_page($total_members, $members_per_page, $p_members);
 $members = $event->event_member_list($page_vars_members[0], $members_per_page, "se_users.user_username", $members_where);
+
+//print_r($members); die();
+
 //$members = $event->event_member_list($page_vars_members[0], $members_per_page, "is_viewers_friend DESC, se_users.user_username", implode(" AND ", $where));
 
 // GET MASTER TOTAL OF MEMBERS

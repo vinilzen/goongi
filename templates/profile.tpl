@@ -43,10 +43,7 @@
 							<a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a>
 							<a href="javascript:void(0);">История рода</a>
 							<a href="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
-							<a href="javascript:void(0);">Медали</a>
-							<a href="javascript:void(0);">Визитки</a>
-							<a href="/user_history.php?user={$owner->user_info.user_username}">История рода</a>
-							<!-- <a href="">Медали</a> -->
+							<!-- <a href="javascript:void(0);">Медали</a> -->
 						</div>
 					</div>
 				</div>
@@ -78,9 +75,9 @@
 		{/if}
 	{else}
 		{if $owner->profile_info.profilevalue_5 == 2}
-			<img {if $owner->user_info.user_photo == ''} src="./images/avatars_05.gif" {else} src="{$owner->user_photomain('./images/avatars_05.gif')}{/if}">
+			<img {if $owner->user_info.user_photo == ''}src="./images/avatars_05.gif"{else} src="{$owner->user_photomain('./images/avatars_05.gif')}{/if}">
 		{else}
-			<img {if $owner->user_info.user_photo == ''} src="./images/avatars_03.gif" {else} src="{$owner->user_photomain('./images/avatars_03.gif')}{/if}">
+			<img {if $owner->user_info.user_photo == ''}src="./images/avatars_03.gif"{else} src="{$owner->user_photomain('./images/avatars_03.gif')}{/if}">
 		{/if}
 	{/if}
     </div>

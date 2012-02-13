@@ -1697,21 +1697,23 @@ class SEUser
         
   function user_photomain($nophoto_image = "", $thumb = FALSE)
   {
- global $url;
+	global $url;
 
     //if( !$user->user_exists || !$this->user_info['user_photo'] )
     if( !$this->user_info['user_photo'] )
       return $nophoto_image;
     
-     $user_photo = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_photo'];
-            if( file_exists($user_photo) )
-            {
-               $userid = $this->user_info['user_id'];
-               $subdir = $userid+999-(($userid-1)%1000);
-	       $userdir = "./uploads_user/$subdir/$userid/$userid.jpg";
-               return $userdir;
-            }
-            else  return $nophoto_image;
+    $user_photo = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_photo'];
+    if( file_exists($user_photo) )
+	{
+		$userid = $this->user_info['user_id'];
+		//return $userid;
+		$subdir = $userid+999-(($userid-1)%1000);
+		$userdir = "./uploads_user/$subdir/$userid/$userid.jpg";
+		return $userdir;
+	}
+    else
+		return $nophoto_image;
 
 
   }

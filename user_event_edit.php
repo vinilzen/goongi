@@ -22,6 +22,7 @@ if( 3 & ~$user->level_info['level_event_allow'] )
 // INITIALIZE EVENT OBJECT
 $event = new se_event($user->user_info['user_id'], $event_id);
 
+//echo '<pre>'; print_r($event);
 
 if( !$event->event_exists )
 {
@@ -102,16 +103,32 @@ elseif( $task=="dosave" )
   $event->event_info['event_location']        = $_POST['event_location'];
   $event->event_info['event_eventcat_id']     = $_POST['event_eventcat_id'];
   $event->event_info['event_eventsubcat_id']  = $_POST['event_eventsubcat_id'];
-
-  $event_date_start = $_POST['event_date_start'];
-  $event_time_start = preg_replace('/[^aAmMpP0-9:]/', '', $_POST['event_time_start']);
-  $event_date_end   = $_POST['event_date_end'];
-  $event_time_end   = preg_replace('/[^aAmMpP0-9:]/', '', $_POST['event_time_end']);
+  
+  	  $event_date_start = $_POST['event_date_start'];
+	  $event_time_start = preg_replace('/[^aAmMpP0-9:]/', '', $_POST['event_time_start']);
+	  
+	 
+	  
+	if ( $event->event_info['event_eventcat_id'] == 2)
+	{
+	  $event_date_end   = $_POST['event_date_end'];
+	  $event_time_end   = preg_replace('/[^aAmMpP0-9:]/', '', $_POST['event_time_end']);
+	}
+	else
+	{
+	  $event_date_end   =  $event_date_start;
+	  $event_time_end   =  $event_time_start;
+	}
 
   // Process time
-  $event_date_start_array = split('/', $event_date_start);
-  $event_date_end_array = split('/', $event_date_end);
-
+  $event_date_start_array = explode('.', $event_date_start);
+  $event_date_end_array = explode('.', $event_date_end);
+	
+	//echo $event_date_start.'-'.$event_time_start.'<br>';
+	//echo '<pre>';  print_r($event_date_start_array); echo '</pre>';
+	//echo '<pre>';  print_r($event_date_end_array); echo '</pre>';
+	//echo  $event_date_start.'-'.$event_date_end; die();
+	
   // Fix for other orders
   //EU
   if( $compatible_input_dateformat=='d/m/Y' )
@@ -142,7 +159,6 @@ elseif( $task=="dosave" )
 
   $event->event_info['event_date_start']  = $event_date_start_processed;
   $event->event_info['event_date_end']    = $event_date_end_processed;
-
 
   // GET FIELDS
   $field = new se_field("event", $event->eventvalue_info);
@@ -229,7 +245,7 @@ for($i=1; $i<=7; $i++)
   $day_names[$i] = strftime('%A', mktime(0, 0, 0, 11, $i+1, 2008));
 
 
-
+//echo '<pre>'; print_r($event); die();
 
 // ASSIGN VARIABLES AND SHOW USER EDIT EVENT PAGE
 $smarty->assign('result',     $result);
@@ -239,7 +255,8 @@ $smarty->assign('compatible_input_dateformat', $compatible_input_dateformat);
 $smarty->assign('compatible_input_timeformat', $compatible_input_timeformat);
 $smarty->assign('event_date_start_tz', $datetime->timezone($event->event_info['event_date_start'], $global_timezone));
 $smarty->assign('event_date_end_tz', $datetime->timezone($event->event_info['event_date_end'], $global_timezone));
-
+$smarty->assign('event_date_start_format',date('d.n.Y', $event->event_info['event_date_start']));
+$smarty->assign('event_date_end_format',date('d.n.Y', $event->event_info['event_date_end']));
 $smarty->assign_by_ref('event',       $event);
 $smarty->assign_by_ref('cats',        $cat_array);
 $smarty->assign_by_ref('month_names', $month_names);

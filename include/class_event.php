@@ -421,12 +421,6 @@ class se_event
   // END event_list() METHOD
   
   
-  
-  
-  
-  
-  
-  
   //
 	// THIS METHOD CREATES/EDITS AN EVENT
   //
@@ -657,13 +651,7 @@ class se_event
 	}
   
   // END event_edit() METHOD
-  
-  
-  
-  
-  
-  
-  
+ 
   
   //
 	// THIS METHOD EDITS AN EVENT'S SETTINGS
@@ -755,12 +743,6 @@ class se_event
   // END event_edit_settings() METHOD
   
   
-  
-  
-  
-  
-  
-  
   //
 	// THIS METHOD DELETES AN EVENT
   //
@@ -835,12 +817,7 @@ class se_event
 	}
   
   // END event_delete() METHOD
-  
-  
-  
-  
-  
-  
+
   
   
   //
@@ -861,12 +838,6 @@ class se_event
 	}
   
   // END event_lastupdate() METHOD
-  
-  
-  
-  
-  
-  
   
   
   //
@@ -990,12 +961,6 @@ class se_event
   // END event_member_total() METHOD
   
   
-  
-  
-  
-  
-  
-  
   //
 	// THIS METHOD RETURNS AN ARRAY OF EVENT INVITEES
   //
@@ -1071,7 +1036,7 @@ class se_event
     
 	  // RUN QUERY
 	  $resource = $database->database_query($sql);
-    
+    $my_user = new se_user();
 	  // GET EVENT MEMBERS INTO AN ARRAY
 	  $eventmember_array = array();
 	  while( $eventmember_info=$database->database_fetch_assoc($resource) )
@@ -1089,8 +1054,9 @@ class se_event
 	    $member->user_info['user_signupdate']     = $eventmember_info['user_signupdate'];
 	    $member->is_viewers_friend                = $eventmember_info['is_viewers_friend'];
 	    $member->is_viewers_blocklist             = $eventmember_info['is_viewers_blocklist'];
+		$member->user_info['user_sex']    		  = $my_user->get_sex($eventmember_info['user_id']);
 	    $member->user_displayname();
-      
+		
       if( $eventmember_info['eventmember_status'] && !$eventmember_info['eventmember_approved'] )
         $eventmember_info['eventmember_rsvp_lvid'] = $this->event_rsvp_levels['-1'];
       elseif( !$eventmember_info['eventmember_status'] && $eventmember_info['eventmember_approved'] )
