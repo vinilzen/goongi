@@ -1,8 +1,8 @@
-G/* z-index stack
-05	#header
-07	#user
-10	#fader
-20	.popup
+/* z-index stack
+ 05	#header
+ 07	#user
+ 10	#fader
+ 20	.popup
 */
 
 *	{margin:0; padding:0}
@@ -53,7 +53,7 @@ select option	{padding:0 0 0 3px}
 
 #viewpoint	{width:99999px; padding:200px 600px; overflow:hidden}
 #viewpoint.drag	{cursor:move}
-#viewpoint .family	{float:left; padding:60px 0 0}
+#viewpoint .family	{float:left; margin:60px 0 0}
 #viewpoint .family canvas	{position:absolute; z-index:-1}
 #viewpoint .family .children	{clear:both}
 
@@ -92,7 +92,7 @@ select option	{padding:0 0 0 3px}
 .popup	{background:#fff; border-radius:6px; box-shadow:0 0 10px #333; padding:0 20px; border:1px solid #ccc}
 .popup, .popup input, .popup select	{font-size:12px}
 
-.popup .close	{float:right; background:url(../img/icons/cross.png); width:16px; height:16px; margin:6px -15px 0 0; cursor:pointer}
+.popup .close	{position:absolute; right:21px; top:0; background:url(../img/icons/cross.png); width:16px; height:16px; margin:6px -15px 0 0; cursor:pointer}
 .popup .header	{padding:8px 0 0; font-size:15px; border-bottom:1px solid #ccc; line-height:32px}
 .popup .content	{padding:14px 0 18px}
 .popup .footer	{padding:16px 0 0}
@@ -105,21 +105,23 @@ select option	{padding:0 0 0 3px}
 .popup .field	{padding:4px 0}
 .popup .field label	{margin:0 8px 0 0; display:inline-block; line-height:24px}
 .popup .field input[type=text]	{width:536px; box-sizing:border-box; -moz-box-sizing:border-box}
-.popup .field input[name=birthdate] {width:75px;}
-.popup .field input[name=deathdate] {width:80px;}
-.popup .field input[name=birthyear] {width:75px;}
-.popup .field input[name=deathyear] {width:80px;}
-.popup .field select	{width:100%}
+.popup .field input[name=birthdate] {width:40px}
+.popup .field input[name=deathdate] {width:40px}
+.popup .field input[name=birthyear] {width:60px}
+.popup .field input[name=deathyear] {width:60px}
+.popup .field select	{margin:0 5px}
 .popup .field .name	{font-weight:bold}
 .popup .field .name.fsz12	{font-weight:bold; font-size:12px;}
 .popup .field .name.fsz123	{font-weight:bold; font-size:12px; padding-right:14px;}
 .popup label	{display:block; margin:0 0 10px}
 
-.popup table	{table-layout:fixed; border-collapse:collapse}
+.popup table	{border-collapse:collapse}
 .popup th, .popup td	{line-height:21px; white-space:nowrap; padding:0 20px 0 0}
 .popup th	{text-align:left; font-weight:normal; color:#666}
 
 .popup.center	{left:50%; top:50%; position:fixed}
+*+html .popup .button	{float:left}
+*+html .popup .cancel	{margin:4px 0 0}
 
 #actions	{width:500px; margin-left:-200px}
 #actions canvas	{position:absolute; left:0; top:0; z-index:-1}
