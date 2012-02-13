@@ -35,15 +35,6 @@
 
 
       {* START BY SHOWING PROFILE CATEGORIES *}
-      {if $cats_menu|@count > 0}
-	 <div class="input">
-          <select name='categories' class='text' onChange="location.href='search_advanced.php?cat_selected='+this.options[this.selectedIndex].value;">
-          {section name=cat_menu_loop loop=$cats_menu}
-            <option value='{$cats_menu[cat_menu_loop].cat_id}'{if $cats_menu[cat_menu_loop].cat_id == $cat_selected} selected='selected'{/if}>{lang_print id=$cats_menu[cat_menu_loop].cat_title}</option>
-          {/section}
-          </select>
-	</div>
-      {/if}
 
       {* LOOP THROUGH FIELDS *}
  <div class="input">
@@ -51,9 +42,8 @@
       {section name=subcat_loop loop=$cats[cat_loop].subcats}
       {section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
       {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title != '500376' }<label>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}</label>{else}
-    </br><span>От </span>{/if}
-      {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1} <span>До</span>{/if}
-
+    </br><span style="font-size:12px; font-weight:bold; margin-bottom:4px;margin-right:80px;">От </span>{/if}
+      {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1} <span style="font-size:12px; font-weight:bold; margin-bottom:4px;margin-right:80px;">До</span>{/if}
           {* TEXT FIELD/TEXTAREA *}
           {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 1 || $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 2}
 	    {* RANGED SEARCH *}
