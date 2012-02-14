@@ -133,8 +133,22 @@ if( $task=="doadd" ) {
   
   $event_date_start = $_POST['event_date_start'];
   $event_time_start = preg_replace('/[^aAmMpP0-9:]/', '', $_POST['event_time_start']);
-  $event_date_end   = $_POST['event_date_end'];
-  $event_time_end   = preg_replace('/[^aAmMpP0-9:]/', '', $_POST['event_time_end']);
+  if($event_time_start == ':')
+	$event_time_start = '12:00';
+	
+	if ( $event->event_info['event_eventcat_id'] == 2)
+	{
+	  $event_date_end   = $_POST['event_date_end'];
+	  $event_time_end   = preg_replace('/[^aAmMpP0-9:]/', '', $_POST['event_time_end']);
+	  if($event_time_end == ':')
+	 	$event_time_end = '12:00';
+	}
+	else
+	{
+	  $event_date_end   =  $event_date_start;
+	  $event_time_end   =  $event_time_start;
+	}
+
   
   // Process time
   $event_date_start_array = explode('.', $event_date_start);

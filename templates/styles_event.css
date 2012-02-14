@@ -1,4 +1,3 @@
-
 /* $Id: styles_event.css 243 2009-11-14 02:58:23Z phil $ */
 
 
@@ -328,7 +327,8 @@ div.event_rsvps {
 /* BROWSE EVENT MEMBERS */
 div.event_member {
 	padding: 5px;
-	border: 1px solid #DDDDDD;
+	border:none;
+	border-bottom: 1px solid #DDDDDD;
 	margin-top: 10px;
 	background: #FFFFFF;
 }

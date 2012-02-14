@@ -431,7 +431,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	span:active.button1 span.c input,
 	span:hover.button1 span.c input		{ color:#fff;}
 	
-	.button2	{ overflow:hidden; height:26px; display:inline-block; cursor:pointer;}
+	.button2	{float:left; overflow:hidden; height:26px; display:inline-block; cursor:pointer;}
 	.button2 span	{display:inline-block; overflow:hidden; float:left;}
 	.button2 span.l,
 	.button2 span.r	{ width:2px; height:26px; overflow:hidden;}
@@ -440,6 +440,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.button2 span.c	{ height:26px; background:url(../images/b1bg.png) repeat-x 0 0; padding:0 0px; overflow:hidden;}
 	.button2 span.c input	{ padding:2px 10px 0px 10px; width: auto; font: bold 14px Trebuchet MS; color:#fff; text-shadow:-1px -1px #206cd9; background: none; border:0; cursor:pointer;}
 	.button2 span.c a  { display:block; text-decoration:none; padding:2px 10px 0px 10px; width: auto; font: bold 14px Trebuchet MS; color:#fff; text-shadow:-1px -1px #206cd9; background: none; border:0; cursor:pointer;}
+	.button2 span.c a.selected  { color:pink;}
 	a:hover.button2 span,
 	span:hover.button2 span		{ background-position:0 -0px;}
 	a:active.button2 span,

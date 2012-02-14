@@ -107,12 +107,17 @@ elseif( $task=="dosave" )
   	  $event_date_start = $_POST['event_date_start'];
 	  $event_time_start = preg_replace('/[^aAmMpP0-9:]/', '', $_POST['event_time_start']);
 	  
+	 if($event_time_start == ':')
+	 	$event_time_start = '12:00';
 	 
+	// echo $event_time_start; die();
 	  
 	if ( $event->event_info['event_eventcat_id'] == 2)
 	{
 	  $event_date_end   = $_POST['event_date_end'];
 	  $event_time_end   = preg_replace('/[^aAmMpP0-9:]/', '', $_POST['event_time_end']);
+	  if($event_time_end == ':')
+	 	$event_time_end = '12:00';
 	}
 	else
 	{
@@ -123,11 +128,7 @@ elseif( $task=="dosave" )
   // Process time
   $event_date_start_array = explode('.', $event_date_start);
   $event_date_end_array = explode('.', $event_date_end);
-	
-	//echo $event_date_start.'-'.$event_time_start.'<br>';
-	//echo '<pre>';  print_r($event_date_start_array); echo '</pre>';
-	//echo '<pre>';  print_r($event_date_end_array); echo '</pre>';
-	//echo  $event_date_start.'-'.$event_date_end; die();
+
 	
   // Fix for other orders
   //EU
@@ -156,6 +157,12 @@ elseif( $task=="dosave" )
     $event_date_end_processed   = FALSE;
   else
     $event_date_end_processed = $datetime->untimezone($event_date_end_processed, $global_timezone);
+
+	//echo '<pre>';  print_r($_POST); echo '</pre>';
+	//echo '<pre>';  print_r($event_date_start_array); echo '</pre>';
+	//echo '<pre>';  print_r($event_date_end_array); echo '</pre>';
+	//echo  $event_date_start.'-'.$event_date_end.'-'.$event_date_start_processed.'-'.$event_date_end_processed; die();
+
 
   $event->event_info['event_date_start']  = $event_date_start_processed;
   $event->event_info['event_date_end']    = $event_date_end_processed;
@@ -245,7 +252,7 @@ for($i=1; $i<=7; $i++)
   $day_names[$i] = strftime('%A', mktime(0, 0, 0, 11, $i+1, 2008));
 
 
-//echo '<pre>'; print_r($event); die();
+//echo '<pre>'; print_r(); die();
 
 // ASSIGN VARIABLES AND SHOW USER EDIT EVENT PAGE
 $smarty->assign('result',     $result);
@@ -255,8 +262,12 @@ $smarty->assign('compatible_input_dateformat', $compatible_input_dateformat);
 $smarty->assign('compatible_input_timeformat', $compatible_input_timeformat);
 $smarty->assign('event_date_start_tz', $datetime->timezone($event->event_info['event_date_start'], $global_timezone));
 $smarty->assign('event_date_end_tz', $datetime->timezone($event->event_info['event_date_end'], $global_timezone));
-$smarty->assign('event_date_start_format',date('d.n.Y', $event->event_info['event_date_start']));
-$smarty->assign('event_date_end_format',date('d.n.Y', $event->event_info['event_date_end']));
+$smarty->assign('event_date_start_format',date('d.n.Y', $datetime->timezone($event->event_info['event_date_start'], $global_timezone)));
+$smarty->assign('event_date_end_format',date('d.n.Y', $datetime->timezone($event->event_info['event_date_start'], $global_timezone)));
+
+$smarty->assign('event_time_start_format',date('G:i', $datetime->timezone($event->event_info['event_date_start'], $global_timezone)));
+$smarty->assign('event_time_end_format',date('G:i', $datetime->timezone($event->event_info['event_date_end'], $global_timezone)));
+
 $smarty->assign_by_ref('event',       $event);
 $smarty->assign_by_ref('cats',        $cat_array);
 $smarty->assign_by_ref('month_names', $month_names);
