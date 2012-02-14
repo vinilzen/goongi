@@ -7,13 +7,26 @@
 	<a href='user_event.php'>{lang_print id=3000086}</a>
 	<span>{$event->event_info.event_title}<!-- {lang_print id=$eventcat_info.subcat_title} --></span>
 </div>
-<div class="buttons">
+<div class="buttons" id="event_id" rel="{$event->event_info.event_id}">	
+	{if $event->event_info.event_user_id != $event->user_id}
+		<span class="button2"><span class="l">&nbsp;</span><span class="c">
+			<a href="#" class="att {if $event->eventmember_info.eventmember_rsvp == 1}selected{/if}" id="attend">Пойду</a>
+		</span><span class="r">&nbsp;</span></span>
+		<span class="button2"><span class="l">&nbsp;</span><span class="c">
+			<a href="#" class="att {if $event->eventmember_info.eventmember_rsvp == 2}selected{/if}" id="maybe_attend">Возможно пойду</a>
+		</span><span class="r">&nbsp;</span></span>
+		<span class="button2"><span class="l">&nbsp;</span><span class="c">
+			<a href="#" class="att {if $event->eventmember_info.eventmember_rsvp == 3}selected{/if}" id="not_attend">Не пойду</a>
+		</span><span class="r">&nbsp;</span></span>
+		<span id="prldr"></span>
+	{else}
 	<span class="button2"><span class="l">&nbsp;</span><span class="c">
 		<a href="/user_event_edit.php?event_id={$event->event_info.event_id}">Редактировать</a>
 	</span><span class="r">&nbsp;</span></span>
 	<span class="button3"><span class="l">&nbsp;</span><span class="c">
 		<input type="button" value="Удалить" name="creat" id="event_del" rel="{$event->event_info.event_id}" />
 	</span><span class="r">&nbsp;</span></span>
+	{/if}
 </div>
 {* HIDDEN DIV TO DISPLAY CANCEL REQUEST CONFIRMATION MESSAGE 3000221 *}
 
@@ -76,7 +89,7 @@
 		{/if}
 	</div>
 </div>
-	
+{if $event->event_info.event_eventcat_id == 2}
 <h2>В мероприятии участвуют</h2>
 <ul class="friend_list h200">
 	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
@@ -84,6 +97,8 @@
 	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
 	<li style="margin-right: 0px; "><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
 </ul>
+{/if}
+
     <table cellpadding='0' cellspacing='0' width='100%' style="display:none;"><tr>
         <td valign='top'>
           <div class='event_headline'>{lang_print id=3000160} ({$event->event_info.event_totalmembers})</div>

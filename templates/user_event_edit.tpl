@@ -1,8 +1,5 @@
 ﻿{include file='header.tpl'}
 {* $Id: user_event_edit.tpl 22 2009-01-16 05:50:49Z john $ *}
-<link href="/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
-<link href="/css/flick/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css"/>
-<script src="/js/jquery-ui.min.js"></script>
 <h1>{lang_print id=3000136}</h1>
 <div class="crumb">
 	<a href="/">Главная</a>
@@ -68,9 +65,9 @@
 		</div>
 	</td><td>
 		<div class="input" {if $event->event_info.event_eventcat_id == 1}style="display:none"{/if}>
-			<label>Время:</label>
+			<label>Время</label>
 			<div class="se_event_calendar_container">
-				<input style="width: 149px;margin-right: 6px;" onfocus="if (this.value == 'чч:мм') this.value ='';" onblur="if (this.value == '') this.value='чч:мм';"  type="text" name="event_time_start" id="event_time_start" value="чч:мм" />
+				<input style="width: 149px;margin-right: 6px;" onfocus="if (this.value == 'чч:мм') this.value ='';" onblur="if (this.value == '') this.value='чч:мм';"  type="text" name="event_time_start" id="event_time_start" value="{$event_time_start_format}" />
 			</div>
 		</div>
 	</td></tr></table>
@@ -101,11 +98,10 @@
 			<div class="input">	
 				<label>Время</label>
 				<div class="se_event_calendar_container">
-					<input style="width: 149px;margin-right: 6px;" onfocus="if (this.value == 'чч:мм') this.value ='';" onblur="if (this.value == '') this.value='чч:мм';" type="text" name="event_time_end" id="event_time_end" value="чч:мм" />
+					<input style="width: 149px;margin-right: 6px;" onfocus="if (this.value == 'чч:мм') this.value ='';" onblur="if (this.value == '') this.value='чч:мм';" type="text" name="event_time_end" id="event_time_end" value="{$event_time_end_format}" />
 				</div>
 			</div>
 		</td></tr></table>
-	
 		<div class="input">	
 			<label>{lang_print id=3000115}</label>
 			<input type='text' class='text' name='event_host' value='{$event->event_info.event_host}' maxlength='250' size='30'></td>
@@ -125,11 +121,10 @@
       
 </form>
 <br />
-{if $event->user_rank >= 2}
-  <a href='#' rel="{$event->event_info.event_id}" id="event_del">
-	{lang_print id=3000169}
-  </a>
-{/if}
+<br />
+<br />
+<br />
+{if $event->user_rank >= 2}<a href='#' rel="{$event->event_info.event_id}" id="event_del">{lang_print id=3000169}</a>{/if}
 </div>
 
 {include file='footer.tpl'}

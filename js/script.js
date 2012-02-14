@@ -14,8 +14,7 @@ function src(){
 }
 
  $(document).ready(function(){
- 
- 
+
 	$(function() {
 		$( "#event_date_start, #event_date_end" ).datepicker();
 		$( "#event_date_start, #event_date_end" ).datepicker( "option", "dateFormat", 'dd.m.yy' );
@@ -768,6 +767,136 @@ function src(){
 
 	})
 	
+	$("#selevt_for_invite").live("click", function () {
+		$('#edit_group').remove();	
+		$('#popup').height($('#content').height()).css('opacity','0.6').show();
+		var scrOfY = src();
+		$('body').append(	'<div class="window" id="edit_group"><div class="close"></div><div class="w_c">'+
+							'<h1 id="title_edit_gr">Пригласить на мероприятие</h1><p><strong>Выберите друзей</strong></p>'+
+							'<ul class="friend_list_w"></ul>'+
+							'<div class="buttons_w"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Принласить" name="creat" id="send_invite" /></span><span class="r">&nbsp;</span></span>'+
+							'<span class="button3"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Отменить" name="cancel_edit_group" class="cancel_edit_group" id="del_group" /></span><span class="r">&nbsp;</span></span></div></div></div>');
+		$('.friend_list_w').html('');	
+		$.post(	"user_friends.php",
+				{'json': 1,'task':'get_friends'},
+				function(data) {
+					if ( data.error == '0') {
+						var event_id_curent = $('#edit_event').attr('rel');
+									
+						//$('#title_edit_gr').append( $('#event_'+event_id_curent).html() );
+						$.each(data.result, function(key, value) {	
+							//var photo = value['user_photo'].replace(/(\w+)\.jpg/, "$1"+"_thumb.jpg");
+							userid = key;
+							subdir = Math.floor(Math.floor(userid / 1000) * 1000 + 1000);
+							if (value['user_photo'] != '')
+								userdir = './uploads_user/'+subdir+ '/' + userid+ '/' + value['user_photo'];
+							else
+								userdir ='./images/no_photo_thumb.gif'
+							
+							var check = '';
+							/*if ($('#frend_'+key).attr('class') != '' ) {	
+								var str = $('#frend_'+key).attr('class');
+								
+								regexp = "group_"+group_id_curent;
+								alert(str + '-' + regexp);
+								idx = str.search(regexp);
+								if (idx != -1) 
+									var check = 'class="check"';
+								else 
+									var check = '';
+							} else {
+								var check = '';
+							}*/
+														
+							$('.friend_list_w').append('<li '+check+' rel="'+key+'"><a href="#"><img width="51" height="52" src="'+userdir+'" /></a><a href="/'+value['user_username']+'">'+value['user_displayname']+'</a></li>');
+							
+						});
+						$('#edit_group').fadeIn();
+					
+						$('#send_invite').click(function() {
+							var users = [];
+							$(".friend_list_w li").each(function(){
+								if ($(this).attr('class') == 'check') {
+									users[users.length] = $(this).attr('rel');
+								}
+							 });
+							 $.post(	"event_ajax.php",
+										{'json': 1,'task': 'eventmemberinvite','event_id': event_id_curent, 'invites':users},
+										function(data_save) {
+											if ( data_save.error == '0') {
+												alert('ok');
+												//location.href='user_event_edit_members.php?event_id='+event_id_curent;
+											}
+											if ( data_save.error == '1') {
+												alert('error');
+											}
+										},'json')
+						});
+					}
+					if (data.error == '1') {
+						alert( data.result);
+					}
+				},
+				'json');
+		
+	})
+	
+	
+	
+	$('#not_attend').click(function() {
+		$('#prldr').html('<img src="/images/142.gif" border="0">');
+		var event_id = $('#event_id').attr('rel');
+		$.post(	"event_ajax.php",
+				{'json': 1,'task': 'eventrsvp','event_id': event_id, 'event_rsvp':3},
+				function(data_save) {
+						if ( data_save.result ) {
+							$(".att").removeClass('selected');
+							$("#not_attend").addClass('selected');
+						} else {
+							alert('error');
+						}
+						$('#prldr').html('');
+				},
+				'json')
+		return false;
+	})
+	
+	$('#maybe_attend').click(function() {
+		$('#prldr').html('<img src="/images/142.gif" border="0">');
+		var event_id = $('#event_id').attr('rel');
+		$.post(	"event_ajax.php",
+				{'json': 1,'task': 'eventrsvp','event_id': event_id, 'event_rsvp':2},
+				function(data_save) {
+						if ( data_save.result ) {
+							$(".att").removeClass('selected');
+							$("#maybe_attend").addClass('selected');
+						} else {
+							alert('error');
+						}
+						$('#prldr').html('');
+				},
+				'json')
+		return false;
+	})
+	
+	$('#attend').click(function() {
+		$('#prldr').html('<img src="/images/142.gif" border="0">');
+		var event_id = $('#event_id').attr('rel');
+		$.post(	"event_ajax.php",
+				{'json': 1,'task': 'eventrsvp','event_id': event_id, 'event_rsvp':1},
+				function(data_save) {
+						if ( data_save.result ) {
+							$(".att").removeClass('selected');
+							$("#attend").addClass('selected');
+						} else {
+							alert('error');
+						}
+						$('#prldr').html('');
+				},
+				'json')
+		return false;
+	})
+	
 	$('#del_group').click(function() {
 		var group_id_curent = $('#edit_group_b').attr('rel');
 		$.post(	"user_friends.php",
@@ -780,6 +909,7 @@ function src(){
 							alert('error');
 						}
 					},'json')
+		return false;
 	});
 	
 	

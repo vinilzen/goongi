@@ -5,14 +5,14 @@
 <h1>{lang_print id=3000157}</h1>
 <div class="crumb">
 	<a href="/">Главная</a>
-	<a href='user_event.php'>{lang_print id=3000086}</a>
+	<a href='user_event.php'>{lang_print id=80001031}</a>
 	<a href='event/{$event->event_info.event_id}/'>{$event->event_info.event_title}</a>
 	<span>{lang_print id=3000001}</span>
 </div>
 <ul class="vk">
-	<li><a href='user_event_edit.php?event_id={$event->event_info.event_id}'>{lang_print id=3000137}</a></li>
+	<li><a href='user_event_edit.php?event_id={$event->event_info.event_id}'>{lang_print id=80001032}</a></li>
 	<li><a href='user_event_edit_members.php?event_id={$event->event_info.event_id}'>{lang_print id=3000138}</a></li>
-	<li class="active"><a href='user_event_edit_settings.php?event_id={$event->event_info.event_id}'>{lang_print id=3000001}</a></li>
+	<li class="active"><a href='user_event_edit_settings.php?event_id={$event->event_info.event_id}'>{lang_print id=80001033}</a></li>
 </ul>
 <!--
       <div class='page_header'>{lang_sprintf id=3000156 1="event.php?event_id=`$event->event_info.event_id`" 2=$event->event_info.event_title}</div>

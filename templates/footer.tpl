@@ -114,13 +114,13 @@
 				<table cellpadding="0" cellspacing="0"><tr><td>
 					<span>{lang_print id=88}</span>
 					<input type="text" name="event_date_start" id="event_date_start" value="" />
-				</td><td>
+				</td><td class="only_mer">
 					<span>Время</span>
 					<input type="text" onfocus="if (this.value == 'чч:мм') this.value ='';" onblur="if (this.value == '') this.value='чч:мм';" name="event_time_start" id="event_time_start" value="чч:мм" />
 				</td></tr></table>
 			</div>
 			
-			<div class="input"><label>Конец</label>
+			<div class="input only_mer"><label>Конец</label>
 				<table cellpadding="0" cellspacing="0"><tr><td>
 					<span>{lang_print id=88}</span>
 					<input type="text" name="event_date_end" id="event_date_end" value="" />
@@ -129,11 +129,12 @@
 					<input type="text" onfocus="if (this.value == 'чч:мм') this.value ='';" onblur="if (this.value == '') this.value='чч:мм';" name="event_time_start" name="event_time_end" id="event_time_end" value="чч:мм" />
 				</td></tr></table>
             </div>
+			
             <div class="input"><label>Описание</label>
 				<textarea rows="3" cols="10" id="event_desc" name="event_desc" onfocus="if (this.value == 'Введите небольшое описание о мероприятии') this.value ='';" onblur="if (this.value == '') this.value='Введите небольшое описание о мероприятии';">Введите небольшое описание о мероприятии</textarea>
 			</div>
 			
-            <div class="input"><label>{lang_print id=3000115}</label>
+            <div class="input only_mer"><label>{lang_print id=3000115}</label>
 				<input type="text" value="" name="event_host" id="event_host"  />
 			</div>
 			

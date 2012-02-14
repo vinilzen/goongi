@@ -1,17 +1,18 @@
 ﻿{include file='header.tpl'}
 
 {* $Id: user_event_edit_members.tpl 9 2009-01-11 06:03:21Z john $ *}
-<h1>{lang_sprintf id=3000141 1="event.php?event_id=`$event->event_info.event_id`" 2=$event->event_info.event_title}</h1>
+<h1>{lang_print id=80001031} - {$event->event_info.event_title}</h1>
 <div class="crumb">
 	<a href="/">Главная</a>
-	<a href='user_event.php'>{lang_print id=3000086}</a>
+	<a href='user_event.php'>{lang_print id=80001031}</a>
 	<a href='event/{$event->event_info.event_id}/'>{$event->event_info.event_title}</a>
 	<span>{lang_print id=3000138}</span>
 </div>
 <ul class="vk">
-	<li><a href='user_event_edit.php?event_id={$event->event_info.event_id}'>{lang_print id=3000137}</a></li>
+	<li><a href='user_event_edit.php?event_id={$event->event_info.event_id}' id="edit_event" rel="{$event->event_info.event_id}">{lang_print id=80001032}</a>
+	</li>
 	<li class="active"><a href='user_event_edit_members.php?event_id={$event->event_info.event_id}'>{lang_print id=3000138}</a></li>
-	<li><a href='user_event_edit_settings.php?event_id={$event->event_info.event_id}'>{lang_print id=3000001}</a></li>
+	<li><a href='user_event_edit_settings.php?event_id={$event->event_info.event_id}'>{lang_print id=80001033}</a></li>
 </ul>
 
 {lang_print id=3000142}
@@ -19,15 +20,9 @@
 
 
 {* JAVASCRIPT *}
+{*
 {lang_javascript ids=3000080,3000081,3000082,3000083,3000084,3000085,3000093,3000097,3000153,3000154,3000170,3000219,3000223,3000225,3000229}
-<script type="text/javascript" src="./include/js/class_event.js"></script>
-<script type="text/javascript">
-  
-  SocialEngine.Event = new SocialEngineAPI.Event({$event->event_generate_javascript_structure()});
-  SocialEngine.RegisterModule(SocialEngine.Event);
-  
-</script>
-
+*}
 
 {* HIDDEN DIV TO DISPLAY MEMBER DELETE CONFIRMATION MESSAGE *}
 <div style='display: none;' id='confirmeventmemberdelete'>
@@ -81,96 +76,13 @@
 </div>
 
 
+<div style="margin-top:10px;"><a href="javascript:void(0)" id="selevt_for_invite">{lang_print id=3000145}</a></div>
 
+<table cellpadding="0" cellspacing="0" width="100%"><tr>
+<td style="padding-left: 10px;" valign="top">
 
-<table cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" width="270">
-{* BEGIN LEFT COLUMN *}
-  
-  
-  
-  <div style="border: 1px solid rgb(187, 187, 187); padding: 10px; background: rgb(238, 238, 238) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
-    
-    <form name="event_members_form" action="user_event_edit_members.php?event_id={$event->event_info.event_id}" method="post">
-    
-    <table align="center" cellpadding="0" cellspacing="0">
-      <tr>
-        <td style="font-weight: bold;" align="right">{lang_print id=643}&nbsp;</td>
-        <td style="padding-left: 3px;">
-          <table cellpadding="0" cellspacing="0">
-            <tr>
-              <td><input maxlength="100" name="search" class="event_search text" value="{$search}" type="text" />&nbsp;</td>
-              <td>{lang_block id=646 var=langBlockTemp}<input class="button" value="{$langBlockTemp}" style="vertical-align: middle;" type="submit" />{/lang_block}</td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      
-      <tr>
-        <td style="font-weight: bold;" align="right">{lang_print id=3000144}&nbsp;</td>
-        <td style="padding: 3px;">
-          <select name="v" class="event_small" onchange="document.event_members_form.submit();">
-            <option value=""{if !isset($v)} selected{/if}>{lang_print id=3000143}</option>
-            
-            {if $event->event_info.event_inviteonly}<option value="-2"{if $v=="-2"} selected{/if}>{lang_print id=3000080}</option>{/if}
-            <option value="-1"{if $v=="-1"} selected{/if}>{lang_print id=3000222}</option>
-            
-            <option value="0"{if $v=="0"} selected{/if}>{lang_print id=3000081}</option>
-            <option value="1"{if $v=="1"} selected{/if}>{lang_print id=3000082}</option>
-            <option value="2"{if $v=="2"} selected{/if}>{lang_print id=3000083}</option>
-            <option value="3"{if $v=="3"} selected{/if}>{lang_print id=3000084}</option>
-          </select>
-        </td>
-      </tr>
-      
-      <tr>
-        <td style="font-weight: bold;" align="right">{lang_print id=900}&nbsp;</td>
-        <td style="padding: 3px;">
-          <select name="s" class="event_small" onchange="document.event_members_form.submit();">
-            <option value=""{if !isset($v)} selected{/if}> </option>
-            <option value="se_users.user_dateupdated DESC"{if $v=='se_users.user_dateupdated DESC'} selected{/if}>{lang_print id=901}</option>
-            <option value="se_users.user_lastlogindate DESC"{if $v=='se_users.user_lastlogindate DESC'} selected{/if}>{lang_print id=902}</option>
-          </select>
-        </td>
-      </tr>
-    </table>
-    
-    <input name="p" value="1" type="hidden" />
-    </form>
-    
-  </div>
-
-  <div style="margin-top: 10px;">
-    <table align="center" cellpadding="0" cellspacing="0">
-      <tr>
-        <td>
-          <a href="javascript:void(0)" onclick="SocialEngine.Event.memberInvitePopulate();">
-            <img src="./images/icons/event_invite16.gif" class="button" border="0" />
-            {lang_print id=3000145}
-          </a>
-        </td>
-      </tr>
-    </table>
-  </div>
-  
-  
-  
-{* END LEFT COLUMN *}
-</td><td style="padding-left: 10px;" valign="top">
-{* BEGIN RIGHT COLUMN *}
-  
-  
-  
   {if !$total_members}
-  
-  <table align="center" cellpadding="0" cellspacing="0">
-    <tr>
-      <td class="result">
-        <img src="./images/icons/bulb16.gif" class="icon" />
         {lang_print id=3000146}
-      </td>
-    </tr>
-  </table>
-
   {else}
   
   {* PAGINATION *}
@@ -208,7 +120,6 @@
         </td>
         <td style="padding-left: 7px; vertical-align: top;" width="100%">
           <div class="event_member_title">
-            <img src="./images/icons/user16.gif" class="icon" border="0" />
             <a href="{$url->url_create('profile', $members[member_loop].member->user_info.user_username)}">{$members[member_loop].member->user_displayname}</a>
           </div>
           <div style="padding-top: 5px;">
