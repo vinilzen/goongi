@@ -457,8 +457,115 @@ function user_privacy_levels($privacy_level)
 
 function search_profile()
 {
-	global $database, $url, $results_per_page, $p, $search_text, $t, $search_objects, $results, $total_results,$user;
+	global $database, $url, $results_per_page, $p, $search_text, $t, $search_objects, $results, $total_results,$user, $them;
+        
+if ($them == 'blog')
+{
+     $start = ($p - 1) * $results_per_page;
+	  $limit = $results_per_page+1;
+  $sql = "SELECT * FROM se_blogentries  WHERE blogentry_title LIKE '%{$search_text}%'";
+  $resource = $database->database_query($sql." LIMIT $start, $limit");
+  $total_profiles = $database->database_num_rows($database->database_query($sql." LIMIT 201"));
+  $blogentry_array = Array();
+   while( $blogentry_info=$database->database_fetch_assoc($resource) )
+    {
+     if( !trim($blogentry_info['blogentry_title']) )
+      {
+        SE_Language::_preload(1500015);
+        SE_Language::load();
+        $blogentry_info['blogentry_title'] = SE_Language::_get(1500015);
+      }
+      // Load category title
+      if( !empty($blogentry_info['blogentrycat_languagevar_id']) )
+      {
+        SE_Language::_preload($blogentry_info['blogentrycat_languagevar_id']);
+      }
+  	    // CONVERT HTML CHARACTERS BACK
+	    $blogentry_info['blogentry_body'] = str_replace("\r\n", "", htmlspecialchars_decode($blogentry_info['blogentry_body'], ENT_QUOTES));
 
+
+     $results[] = Array(
+        'result_url' => $url->url_create("blog_entry", $user->getusername($blogentry_info['blogentry_user_id']), $blogentry_info['blogentry_id']),
+         //$url->url_create('profile', $blogentry_info['blogentry_user_id']),
+        'result_icon' => '',
+        'result_name' => 509,
+        'result_name_1' => $blogentry_info['blogentry_title'],
+        'result_desc' => '',
+        'result_online' => $blogentry_info['blogentry_body']);
+        
+	  }
+
+        $total_results = $total_profiles;
+	
+}
+elseif ($them == 'event')
+{
+     $start = ($p - 1) * $results_per_page;
+	  $limit = $results_per_page+1;
+          
+    $sql = "SELECT * FROM se_events  WHERE event_eventcat_id='1' AND event_title LIKE '%{$search_text}%'";
+  $resource = $database->database_query($sql." LIMIT $start, $limit");
+  $total_profiles = $database->database_num_rows($database->database_query($sql." LIMIT 201"));
+  $blogentry_array = Array();
+   while( $blogentry_info=$database->database_fetch_assoc($resource) )
+    {
+     if( !trim($blogentry_info['event_title']) )
+      {
+        SE_Language::_preload(1500015);
+        SE_Language::load();
+        $blogentry_info['event_title'] = SE_Language::_get(1500015);
+      }
+    
+  	    // CONVERT HTML CHARACTERS BACK
+	    $blogentry_info['blogentry_body'] = str_replace("\r\n", "", htmlspecialchars_decode($blogentry_info['blogentry_body'], ENT_QUOTES));
+     $results[] = Array(
+        'result_url' => $url->url_create('event', NULL,$blogentry_info['event_id']),
+        'result_icon' => $blogentry_info['event_photo'],
+        'result_name' => 509,
+        'result_name_1' => $blogentry_info['event_title'],
+        'result_desc' => '',
+        'result_online' => $blogentry_info['event_desc']);
+
+	  }
+
+        $total_results = $total_profiles;
+
+}
+elseif ($them == 'action')
+{
+   $start = ($p - 1) * $results_per_page;
+	  $limit = $results_per_page+1;
+  $sql = "SELECT * FROM se_events WHERE event_eventcat_id='2' AND event_title LIKE '%{$search_text}%'";
+  //$sql = "SELECT * FROM se_events WHERE event_id='{2}' LIMIT 1";
+  $resource = $database->database_query($sql." LIMIT $start, $limit");
+  $total_profiles = $database->database_num_rows($database->database_query($sql." LIMIT 201"));
+  $blogentry_array = Array();
+   while( $blogentry_info=$database->database_fetch_assoc($resource) )
+    {
+     if( !trim($blogentry_info['event_title']) )
+      {
+        SE_Language::_preload(1500015);
+        SE_Language::load();
+        $blogentry_info['event_title'] = SE_Language::_get(1500015);
+      }
+
+  	    // CONVERT HTML CHARACTERS BACK
+	    $blogentry_info['blogentry_body'] = str_replace("\r\n", "", htmlspecialchars_decode($blogentry_info['blogentry_body'], ENT_QUOTES));
+     $results[] = Array(
+        'result_url' => $url->url_create('event', NULL,$blogentry_info['event_id']),
+        'result_icon' => $blogentry_info['event_photo'],
+        'result_name' => 509,
+        'result_name_1' => $blogentry_info['event_title'],
+        'result_desc' => '',
+        'result_online' => $blogentry_info['event_desc']);
+
+	  }
+
+        $total_results = $total_profiles;
+
+}
+ else{
+   
 	// GET FIELDS
 	$fields = $database->database_query("
     SELECT
@@ -585,7 +692,7 @@ $s_id = $user->user_info['user_id'];
 	  // SET TOTAL RESULTS
 	  $total_results = $total_profiles;
 	}
-  
+}
 	// SET ARRAY VALUES
 	SE_Language::_preload_multi(509, 1072);
 	if($total_profiles > 200) { $total_profiles = "200+"; }

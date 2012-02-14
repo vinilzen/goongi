@@ -84,12 +84,13 @@ function callback(form,act,doc) {
 {literal}
 
 <div id="user" class="closed">
-	<div class="print"></div>
 	<div class="body"></div>
 	<div class="toggle"><div></div></div>
 </div>
 
 <script id="user-tmpl" type="text/html">
+        <%= id == {/literal}{$user->user_info.user_id}{literal} ? "<div class='print'></div>" : "" %>
+
 	<div class="name"><a href="/user_editprofile.php" target="_top"><%= Base64.decode(displayname) %></a></div>
 	<div class="photo">
 		<a href="/{$user->user_info.user_username}" target="_top">

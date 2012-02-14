@@ -179,13 +179,13 @@
 				<div class="form_login">
 					<h1>{lang_print id=6000142}<!-- Войти на сайт --></h1>
 					<form action='login.php' name="login" method='post'>
-						<div class="input"><label>{lang_print id=28}<!-- Логин --></label><input type="text" value='{$prev_email}' name="email"  size='25' maxlength='100' /></div>
+						<div class="input"><label>{lang_print id=28}<!-- Логин --></label><input type="text" value='{$prev_email}' name="email"  size='25' maxlength='100'  tabindex="1"/></div>
 						
-						<div class="input"><label><a href="/lostpass.php">{lang_print id=675}<!-- Забыли пароль? --></a>{lang_print id=29}<!-- Пароль --></label><input type="password" value="" name='password' size='25' maxlength='100' /></div>
+						<div class="input"><label><a href="/lostpass.php">{lang_print id=675}<!-- Забыли пароль? --></a>{lang_print id=29}<!-- Пароль --></label><input type="password" value="" name='password' size='25' maxlength='100'  tabindex="2" /></div>
 						
-						<div class="check"><label><input type='checkbox' class='checkbox' name='persistent' value='1' id='rememberme' /><span>{lang_print id=660}<!-- Запомнить меня --></span></label></div>
+						<div class="check"><label><input type='checkbox' class='checkbox' name='persistent' value='1' id='rememberme'  tabindex="3"/><span>{lang_print id=660}<!-- Запомнить меня --></span></label></div>
 						
-						<span class="button1"><span class="l">&nbsp;</span><span class="c"><input type="submit" value='{lang_print id=30}' /></span><span class="r">&nbsp;</span></span>
+						<span class="button1"><span class="l">&nbsp;</span><span class="c"><input type="submit" value='{lang_print id=30}'  tabindex="4"/></span><span class="r">&nbsp;</span></span>
 						<input type="hidden" name="task" value="dologin">
 					</form>
 					<a href="/signup.php" class="reg">{lang_print id=6000143}<!-- Зарегистрироваться --></a>

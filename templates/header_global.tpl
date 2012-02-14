@@ -8,6 +8,7 @@
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 <meta http-equiv="X-UA-Compatible" content="IE=7" /> 
 <meta name='Description' content="{if $global_page_description != ""}{lang_sprintf id=$global_page_description[0] 1=$global_page_description[1] 2=$global_page_description[2]}{else}{lang_print id=1156}{/if}" />
+<link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
 
 {* INLUCDE MAIN STYLESHEET *}
 {*

@@ -19,7 +19,7 @@ if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task']
 if(isset($_POST['p'])) { $p = (int) $_POST['p']; } elseif(isset($_GET['p'])) { $p = (int) $_GET['p']; } else { $p = 1; }
 if(isset($_POST['search_text'])) { $search_text = $_POST['search_text']; } elseif(isset($_GET['search_text'])) { $search_text = $_GET['search_text']; } else { $search_text = ""; }
 if(isset($_POST['t'])) { $t = $_POST['t']; } elseif(isset($_GET['t'])) { $t = $_GET['t']; } else { $t = 0; }
-if(isset($_POST['them'])) { $them = $_POST['them']; } else { $them = 0; }
+if(isset($_POST['them'])) { $them = $_POST['them']; }  elseif(isset($_GET['them'])) { $them = $_GET['them']; } else { $them = 0; }
 
 
 // SET VARS
@@ -40,21 +40,19 @@ if($task == "dosearch" && $search_text != "")
   // START SEARCH TIMER
   $start_timer = getmicrotime();
 
-  // SEARCH PROFILES
- //case
-     search_profile();
-
+  search_profile();
+ //  print_r ($results);
   // CALL SEARCH HOOK
-  ($hook = SE_Hook::exists('se_search_do')) ? SE_Hook::call($hook, array()) : NULL;
-
+  if ($them == 's'){($hook = SE_Hook::exists('se_search_do')) ? SE_Hook::call($hook, array()) : NULL;}
+     
+//print_r ($search_objects);
   // GET GRAND TOTAL RESULTS
+
   for($r=0;$r<count($search_objects);$r++)
   {
     if($search_objects[$r][search_total] != 0)
     {
-         
       if($total_results == 0) { header("Location: search.php?task=dosearch&search_text=".urlencode($search_text)."&t=".$search_objects[$r]['search_type']."&them=".$them); exit(); }
-   //echo  $them;
       $is_results = 1; 
     }
   }
@@ -62,8 +60,8 @@ if($task == "dosearch" && $search_text != "")
   // END TIMER
   $end_timer = getmicrotime();
   $search_time = round($end_timer - $start_timer, 3); 
-
   // CHECK TO SEE IF THERE IS A "NEXT PAGE"
+  
   if(count($results) > $results_per_page)
   { 
     $is_next_page = 1;
@@ -81,7 +79,8 @@ if($task == "dosearch" && $search_text != "")
   }
   else
   {
-    if(($total_results % $results_per_page) != 0) { $maxpage = ($total_results) / $results_per_page + 1; } else { $maxpage = ($total_results) / $results_per_page; }
+    if(($total_results % $results_per_page) != 0) { $maxpage = ($total_results) / $results_per_page + 1; }
+    else { $maxpage = ($total_results) / $results_per_page; }
     $maxpage = (int) $maxpage; 
   }
 
@@ -90,12 +89,10 @@ if($task == "dosearch" && $search_text != "")
 }
 
 
-
 // SET THE GLOBAL PAGE TITLE
 $global_page_title[0] = 646;
 $global_page_description[0] = 924;
 
-echo $them;
 // ASSIGN SMARTY VARIABLES AND INCLUDE FOOTER
 $smarty->assign('search_text', $search_text);
 $smarty->assign('url_search', urlencode($search_text));

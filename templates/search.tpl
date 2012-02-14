@@ -1,4 +1,4 @@
-﻿{include file='header.tpl'}
+{include file='header.tpl'}
 
 {* $Id: search.tpl 8 2009-01-11 06:02:53Z john $ *}
 
@@ -13,7 +13,7 @@
 		</span><span class="r">&nbsp;</span></span>
 		<input type='hidden' name='task' value='dosearch'>
 		<input type='hidden' name='t' value='' id = "t">
-                <input type='hidden' name='them' value='' id = "them">
+                <input type='hidden' name='them' value='{$them}' id = "them">
 		<a href='search_advanced.php'>{lang_print id=926}</a>
 	</form>						
 </div>
@@ -34,7 +34,6 @@
     <table cellpadding='0' cellspacing='0' align='center'>
     <tr>
     <td class='result'>
- <!--     <img src='./images/icons/bulb16.gif' class='icon'>-->
       {lang_sprintf id=927 1=$search_text}
     </td>
     </tr>
@@ -48,25 +47,42 @@
     <tr>
     <td class='tab0'>&nbsp;</td>
       {section name=search_loop loop=$search_objects}
-        <td class='tab{if $t == $search_objects[search_loop].search_type}1{else}2{/if}' NOWRAP>{if $search_objects[search_loop].search_total == 0}{lang_sprintf id=$search_objects[search_loop].search_lang 1=$search_objects[search_loop].search_total}{else}<a href='search.php?task=dosearch&search_text={$url_search}&t={$search_objects[search_loop].search_type}'>{lang_sprintf id=$search_objects[search_loop].search_lang 1=$search_objects[search_loop].search_total}</a>{/if}</td>
+        <td class='tab{if $t == $search_objects[search_loop].search_type}1{else}2{/if}' NOWRAP>{if $search_objects[search_loop].search_total == 0}{lang_sprintf id=$search_objects[search_loop].search_lang 1=$search_objects[search_loop].search_total}{else}<a href='search.php?task=dosearch&search_text={$url_search}&t={$search_objects[search_loop].search_type}&t={$them}'>{lang_sprintf id=$search_objects[search_loop].search_lang 1=$search_objects[search_loop].search_total}</a>{/if}</td>
         <td class='tab'>&nbsp;</td>
       {/section}
       <td class='tab3'>&nbsp;</td>
     </tr>
     </table>-->
 
-    <div class='search_results'>
-{if $p_start != $p_end}<b>{lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_results}</b>{/if}
-      {* SHOW PAGES *}
-  <!--    {if $p != 1}<a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a> &nbsp;|&nbsp;&nbsp;{/if}
-      {if $p_start == $p_end}
-       <b>{lang_sprintf id=184 1=$p_start 2=$total_results}</b> ({lang_sprintf id=928 1=$search_time})
-      {else}
-        <b>{lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_results}</b> ({lang_sprintf id=928 1=$search_time}) 
+ {* SHOW PAGES *}
+      
+     
+<div class='search_results'>
+ {* SHOW PAGES *}
+      {if $p != 1}<a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&them={$them}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a> &nbsp;|&nbsp;&nbsp;{/if}
+        {if $p != 1 || $p != $maxpage}
+        <b>{lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_results}</b>
       {/if}
-      {if $p != $maxpage}&nbsp;&nbsp;|&nbsp; <a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{/if}
+      {if $p != $maxpage}&nbsp;&nbsp;|&nbsp; <a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&them={$them}&p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{/if}
 
-      <br><br>-->
+{if $them == 'blog' || $them == 'event' || $them == 'action'}
+<ul class="friends_list">
+      {* SHOW RESULTS *}
+      {section name=result_loop loop=$results}
+<li>
+
+	<div>
+		<h2><a href="{$results[result_loop].result_url}">
+                        {$results[result_loop].result_name_1}
+		</a></h2>
+	<div class="body">{$results[result_loop].result_online|truncate:660:"...":true}</div>
+        <div class='search_result_text2'>{lang_sprintf id=$results[result_loop].result_desc 1=$results[result_loop].result_desc_1 2=$results[result_loop].result_desc_2 3=$results[result_loop].result_desc_3}</div>
+	    {if $results[result_loop].result_online == 1}<span>{lang_print id=929}</span>{/if}
+	</div>
+</li>
+        {cycle name="clear_cycle" values=",<div style='clear: both; height: 0px;'></div>"}
+      {/section}
+{else}
 <ul class="friends_list">
       {* SHOW RESULTS *}
       {section name=result_loop loop=$results}
@@ -89,29 +105,16 @@
 </li>
         {cycle name="clear_cycle" values=",<div style='clear: both; height: 0px;'></div>"}
       {/section}
-{if $p_start != $p_end}<b>{lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_results}</b>{/if}
-      {* SHOW PAGES *}
-    <!--  {if $p != 1}<a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a> &nbsp;|&nbsp;&nbsp;{/if}
-      {if $p_start == $p_end}
-        <b>{lang_sprintf id=184 1=$p_start 2=$total_results}</b> ({lang_sprintf id=928 1=$search_time}) 
-      {else}
-        <b>{lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_results}</b> ({lang_sprintf id=928 1=$search_time}) 
-      {/if}
--->
-      {if $p != $maxpage}&nbsp;&nbsp;|&nbsp; <a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{/if}
+{/if}
 
+    {if $p != 1}<a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&them={$them}&p={math equation='p-1' p=$p}'>&#171; {lang_print id=182}</a> &nbsp;|&nbsp;&nbsp;{/if}
+     {if $p != 1 || $p != $maxpage}
+        <b>{lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_results}</b>
+      {/if}
+      {if $p != $maxpage}&nbsp;&nbsp;|&nbsp; <a href='search.php?task=dosearch&search_text={$url_search}&t={$t}&them={$them}&p={math equation='p+1' p=$p}'>{lang_print id=183} &#187;</a>{/if}
 
     </div>
   {/if}
 {/if}
 
-
-{* JAVASCRIPT TO AUTOFOCUS ON SEARCH FIELD *}
-{literal}
-<script type="text/javascript">
-<!-- 
-  window.addEvent('load', function(){ $('search_text').focus(); });
-//-->
-</script>
-{/literal}
 {include file='footer.tpl'}
