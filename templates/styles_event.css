@@ -224,8 +224,6 @@ div.event_pages_bottom
 	margin-bottom: 10px; 
 	text-align: center; 
 	padding: 7px 5px 7px 5px; 
-	background: #F3F3F3; 
-	border-bottom: 1px solid #CCCCCC;
 }
 
 input.event_search
@@ -332,6 +330,8 @@ div.event_member {
 	margin-top: 10px;
 	background: #FFFFFF;
 }
+.event_member img { border: 1px solid #D7D7D7;padding: 2px;float: left;margin-right: 20px;}
+.event_member h2 a {text-decoration: none;color: black;}
 td.event_member0 {
 	padding: 5px;
 }

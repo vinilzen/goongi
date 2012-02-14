@@ -95,6 +95,7 @@ function src(){
 		$('#add_meropriatie_w').css("top", scrOfY + 50 + 'px').fadeIn();
 		e.preventDefault();
 	});
+	
 	$('#add_action').click(function(e){
 		$('#popup').height($('#content').height()).css('opacity','0.6').show();
 		var scrOfY = src();
@@ -454,10 +455,55 @@ function src(){
 	});
 	
 	
+	$('.memb_cancel').click(function() {
+		var id = $(this).attr('rel');
+		var event_id = $('#edit_event').attr('rel');
+		var r=confirm("Вы действительно хотите отозвать приглашение?");
+		if (r==true) {
+			
+			$.post( 'event_ajax.php',
+					{'task': 'eventmembercancel','event_id': event_id	,'user_id':id},
+					function  (data){
+						if (data.result == true){
+							alert('Приглашение отклонено.');
+							location.href='user_event_edit_members.php?event_id='+event_id;
+						} else {
+							alert(data.error);
+						}
+					},
+					'json'
+			);
+		} else {
+			return false;
+		}
+	})
+	
+	$('.memb_del').click(function() {
+		var id = $(this).attr('rel');
+		var event_id = $('#edit_event').attr('rel');
+		var r=confirm("Вы действительно хотите удалить пользователя из этого мероприятия?");
+		if (r==true) {
+			
+			$.post( 'event_ajax.php',
+					{'task': 'eventmemberdelete','event_id': event_id	,'user_id':id},
+					function  (data){
+						if (data.result == true){
+							alert('Пользователь успешно удалено.');
+							location.href='user_event_edit_members.php?event_id='+event_id;
+						} else {
+							alert(data.error);
+						}
+					},
+					'json'
+			);
+		} else {
+			return false;
+		}
+	})
 	
 	$('#event_del').click(function() {
 		var id = $(this).attr('rel');
-		var r=confirm("you want delete ");
+		var r=confirm("Вы действительно хотите удалить это событие?");
 		if (r==true) {
 			
 			$.post( 'event_ajax.php',
@@ -476,7 +522,6 @@ function src(){
 		} else {
 			return false;
 		}
-	
 	})
 	
 	$('#add_event_submit').click(function() {
@@ -655,8 +700,8 @@ function src(){
         
          $('#invite').live("click", function () {
             $('#popup').height($('#content').height()).show();
-              var scrOfY = src();
-               $('body').append( '<div class="window rezina" id="invite_show">'+
+            var scrOfY = src();
+            $('body').append( '<div class="window rezina" id="invite_show">'+
                       '<div class="close"></div>'+
                       '<div class="w_t">'+
                       '<h1>Пригласите ваших друзей</h1>'+
@@ -667,10 +712,10 @@ function src(){
                       '</div>'+
                       '<div class="w_b"></div>'+
                 '</div>');
-                $('#invite_show_b').html('');
-        $.post( 'invite.php',
-                            {'json': 1},
-                            function(data) {
+            $('#invite_show_b').html('');
+			$.post( 'invite.php',
+				{'json': 1},
+				function(data) {
                     if ( data.error == '0') {
                          $('#invite_show').show();
                           $('#invite_show_b').append('<div id="form_auth">'+
@@ -687,11 +732,10 @@ function src(){
                                                     '</div>'+
                                                       '<input type="hidden" name="task" value="doinvite">'
                                                 );
-                      }
-                   if (data.error == '1') {
+                    }
+					if (data.error == '1') {
                            alert( data.result);
                     }
-
             },
             'json');
              return false;
@@ -774,7 +818,7 @@ function src(){
 		$('body').append(	'<div class="window" id="edit_group"><div class="close"></div><div class="w_c">'+
 							'<h1 id="title_edit_gr">Пригласить на мероприятие</h1><p><strong>Выберите друзей</strong></p>'+
 							'<ul class="friend_list_w"></ul>'+
-							'<div class="buttons_w"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Принласить" name="creat" id="send_invite" /></span><span class="r">&nbsp;</span></span>'+
+							'<div class="buttons_w"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Принласить" name="creat" id="send_invite" /></span><span class="r">&nbsp;</span></span><span id="prldre"></span>'+
 							'<span class="button3"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Отменить" name="cancel_edit_group" class="cancel_edit_group" id="del_group" /></span><span class="r">&nbsp;</span></span></div></div></div>');
 		$('.friend_list_w').html('');	
 		$.post(	"user_friends.php",
@@ -814,6 +858,7 @@ function src(){
 						$('#edit_group').fadeIn();
 					
 						$('#send_invite').click(function() {
+							$('#prldre').html('<img src="/images/142.gif" border="0" />');
 							var users = [];
 							$(".friend_list_w li").each(function(){
 								if ($(this).attr('class') == 'check') {
@@ -824,12 +869,13 @@ function src(){
 										{'json': 1,'task': 'eventmemberinvite','event_id': event_id_curent, 'invites':users},
 										function(data_save) {
 											if ( data_save.error == '0') {
-												alert('ok');
-												//location.href='user_event_edit_members.php?event_id='+event_id_curent;
+												$('#prldre').html('Приглашение высланы.');
+												location.href='user_event_edit_members.php?event_id='+event_id_curent;
 											}
 											if ( data_save.error == '1') {
 												alert('error');
 											}
+											$('#prldre').html('');
 										},'json')
 						});
 					}

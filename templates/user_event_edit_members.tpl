@@ -79,32 +79,11 @@
 <div style="margin-top:10px;"><a href="javascript:void(0)" id="selevt_for_invite">{lang_print id=3000145}</a></div>
 
 <table cellpadding="0" cellspacing="0" width="100%"><tr>
-<td style="padding-left: 10px;" valign="top">
+<td valign="top">
 
   {if !$total_members}
         {lang_print id=3000146}
   {else}
-  
-  {* PAGINATION *}
-  <div class="event_pages_top">
-    {if $p != 1}
-      <a href='javascript:void(0);' onclick='document.event_members_form.p.value={math equation="p-1" p=$p};document.event_members_form.submit();'>&#171; {lang_print id=182}</a>
-    {else}
-      <font class='disabled'>&#171; {lang_print id=182}</font>
-    {/if}
-    {if $p_start == $p_end}
-      &nbsp;|&nbsp; {lang_sprintf id=184 1=$p_start 2=$total_members} &nbsp;|&nbsp; 
-    {else}
-      &nbsp;|&nbsp; {lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_members} &nbsp;|&nbsp; 
-    {/if}
-    {if $p != $maxpage}
-      <a href='javascript:void(0);' onclick='document.event_members_form.p.value={math equation="p+1" p=$p};document.event_members_form.submit();'>{lang_print id=183} &#187;</a>
-    {else}
-      <font class='disabled'>{lang_print id=183} &#187;</font>
-    {/if}
-  </div>
-  
-  
   
   {* MEMBER LIST *}
   {section name=member_loop loop=$members}
@@ -120,7 +99,7 @@
         </td>
         <td style="padding-left: 7px; vertical-align: top;" width="100%">
           <div class="event_member_title">
-            <a href="{$url->url_create('profile', $members[member_loop].member->user_info.user_username)}">{$members[member_loop].member->user_displayname}</a>
+            <h2><a href="{$url->url_create('profile', $members[member_loop].member->user_info.user_username)}">{$members[member_loop].member->user_displayname}</a></h2>
           </div>
           <div style="padding-top: 5px;">
             <div class="event_member_info">{lang_print id=3000147} {lang_print id=$event->event_rsvp_levels.$member_status}</div>
@@ -148,17 +127,14 @@
               
             {* IF MEMBER WAS INVITED BY LEADER *}
             {elseif $members[member_loop].eventmember_approved && !$members[member_loop].eventmember_status}
-              <div><a href='javascript:void(0);' onclick='SocialEngine.Event.memberCancel({$members[member_loop].member->user_info.user_id});'>Cancel Invite</a></div>
+              <div><a href='javascript:void(0);' class="memb_cancel" rel="{$members[member_loop].member->user_info.user_id}">Отозвать приглашение</a></div>
               
             {* NORMAL MEMBER *}
             {else}
               
               {* SHOW REMOVE MEMBER LINK *}
-              <div><a href='javascript:void(0);' onclick='SocialEngine.Event.memberDelete({$members[member_loop].member->user_info.user_id});'>{lang_print id=3000151}</a></div>
-              
-              {* SHOW SEND MESSAGE LINK *}
-              <div><a href='javascript:void(0);' onClick="TB_show('{lang_print id=784}', 'user_messages_new.php?to_user={$members[member_loop].member->user_displayname}&to_id={$members[member_loop].member->user_info.user_username}&TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=839}</a></div>
-              
+              <div><a href='javascript:void(0);' class="memb_del"  rel="{$members[member_loop].member->user_info.user_id}">{lang_print id=3000151}</a></div>
+
             {/if}
           </div>
         </td>
