@@ -18,7 +18,7 @@
 <!--<div class='page_header'>{lang_print id=896}</div>-->
 <div>{lang_print id=915}</div>
 <br />
-
+<a href = "/search.php">Поиск друзей</a>
 
 {* DISPLAY MESSAGE IF NO FRIEND REQUESTS *}
 {if $total_friends == 0}
@@ -26,7 +26,9 @@
     <table cellpadding='0' cellspacing='0' align='center'>
     <tr><td class='result'>
     <!--<img src='./images/icons/bulb16.gif' border='0' class='icon'>-->
-    {lang_print id=916}</td></tr>
+    {lang_print id=916}</td>
+
+    </tr>
       </table>
 
 {* DISPLAY FRIEND REQUESTS *}
