@@ -286,7 +286,7 @@ elseif( $task == "candle_post" )
    $owner_id_s = ( isset($_POST['owner_id']) ? $_POST['owner_id'] : NULL );
 
    $user_thumb = substr($user_photo_s, 0, strrpos($user_photo_s, "."))."_thumb".substr($$user_photo_s, strrpos($user_photo_s, "."));
- // echo $user_thumb;
+
   // MUST BE LOGGED IN TO USE THIS TASK
   if( !$user->user_exists )
   {
@@ -311,7 +311,7 @@ elseif( $task == "candle_post" )
                }
                else $result = 'Вы уже зажгли свечу';
     }
- $field1 = $database->database_query("SELECT * FROM se_user_candle");
+ $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_id ='{$owner_id_s}'");
 	      $count= $database->database_num_rows($field1);
   
   // SEND AJAX CONFIRMATION
