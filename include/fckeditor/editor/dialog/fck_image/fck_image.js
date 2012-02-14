@@ -126,8 +126,8 @@ window.onload = function()
 	LoadSelection() ;
 
 	// Show/Hide the "Browse Server" button.
-	GetE('tdBrowse').style.display				= FCKConfig.ImageBrowser	? '' : 'none' ;
-	GetE('divLnkBrowseServer').style.display	= FCKConfig.LinkBrowser		? '' : 'none' ;
+	GetE('tdBrowse').style.display				= FCKConfig.ImageBrowser	? '' : '' ;
+	GetE('divLnkBrowseServer').style.display	= FCKConfig.LinkBrowser		? '' : '' ;
 
 	UpdateOriginal() ;
 

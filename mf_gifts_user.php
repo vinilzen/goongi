@@ -1,7 +1,11 @@
 <?
 $page = "mf_gifts_user";
 include "header.php";
-
+ if( !$user->user_exists)
+    {
+    header("Location: home.php");
+    exit();
+    }
 if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task'])) { $task = $_GET['task']; } else { $task = ""; }
 if(isset($_POST['p'])) { $p = $_POST['p']; } elseif(isset($_GET['p'])) { $p = $_GET['p']; } else { $p = 1; }
 if(isset($_POST['gif_change'])) { $task = $_POST['gif_change']; } elseif(isset($_GET['gif_change'])) { $gif_change = $_GET['gif_change']; } else { $gif_change = ''; }

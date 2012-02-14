@@ -368,6 +368,14 @@ class SEUser
             $role_p = $database->database_fetch_assoc($resource);
             return $role_p['family_id'];
         }
+
+         function getusername($user_id)
+        {
+            global $database;
+            $resource = $database->database_query("SELECT `user_username` FROM `se_users` WHERE `user_id` = '$user_id'");
+            $username = $database->database_fetch_assoc($resource);
+            return $username['user_username'];
+        }
 	
 	function get_parent_family_id($user_id,$new_user) {
              global $database;

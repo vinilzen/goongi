@@ -68,7 +68,7 @@ window.onload = function()
 	LoadSelection() ;
 
 	// Show/Hide the "Browse Server" button.
-	GetE('tdBrowse').style.display = FCKConfig.FlashBrowser	? '' : 'none' ;
+	GetE('tdBrowse').style.display = FCKConfig.FlashBrowser	? '' : '' ;
 
 	// Set the actual uploader URL.
 	if ( FCKConfig.FlashUpload )

@@ -7,7 +7,6 @@ include "admin_header.php";
 
 if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task'])) { $task = $_GET['task']; } else { $task = "main"; }
 if(isset($_POST['t'])) { $filename = $_POST['t']; } elseif(isset($_GET['t'])) { $filename = $_GET['t']; } else { $filename = ""; }
-
 // REMOVE ANY BACK-PATHING FROM URL
 $filename = str_replace("..", "", $filename);
 

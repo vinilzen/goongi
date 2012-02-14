@@ -192,6 +192,8 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 
 	.friends_list		{ overflow:hidden; list-style:none; width:467px;}
 	.friends_list li		{ overflow:hidden; list-style:none; padding:20px 0; border-bottom:1px solid #d7d7d7;}
+	.friends_list li div div.body p	{  color: #7F7F7F; font-size: 11px; padding:0;margin:0;float:left;}
+	.friends_list li  div .body 	{  color: #7F7F7F; font-size: 11px;}
 	.friends_list li .frend_img	{ display:block; width:135px; /*border:1px solid red;*/ float:left;}
 	.friends_list li img	{ border:1px solid #d7d7d7; padding:2px; float:left; margin-right:20px;}
 	.friends_list li div	{ overflow:hidden;}
@@ -260,12 +262,12 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	.editor_block .buttons_editor	{ width:660px; overflow:hidden;}
 
 	.vk		{ overflow:hidden; list-style:none; margin-bottom:20px; position:relative; z-index:1; margin-top:-16px; background:#fff;}
-	.vk li	{ overflow:hidden; list-style:none; float:left; border-left:1px solid #cccccc; border-bottom:1px solid #cccccc; border-top:0;}
+	.vk li	{ overflow:hidden; list-style:none; float:left;  border-bottom:1px solid #cccccc; border-top:0;}
 	.vk li span{font: bold 12px arial;}
 	.vk li a	{ display:inline-block; background:#d7d7d7; border:1px solid #fff; padding:0 45px; font:14px Trebuchet MS; color:#000; text-decoration:none; line-height:28px;}
 	.vk li.active	{ border-bottom:0px; border-left:0;}
-	.vk li.active a	{ border:1px solid #fff; border-top:1px solid #ccc; border-left:1px solid #ccc; background:#fff;}
-	.vk li.active.last_b a	{ border-right:1px solid #ccc;}
+	.vk li.active a	{ border:1px solid #fff; border-top:1px solid #ccc; border-left:1px solid #ccc; border-right:1px solid #cccccc; background:#fff;}
+	.vk li.first_b a	{overflow:hidden; list-style:none; float:left; border-left:1px solid #cccccc;border-top:0;}
 	.vk li.active a font	{ color:#8a8a8a;}
 	.vk li a:hover	{ background:#ccc;}
 	.vk li.active a:hover	{ background:#fff;}
@@ -502,7 +504,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.edit_blog .input input		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px;}
 	.form .input textarea	{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:344px; height:95px;}
 	.form .input select		{ padding:4px; border:1px solid #e5e5e5; background:#fff; width:354px;}
-	.form .inputlog input		{ padding:4px;margin-bottom:20px; border:1px solid #e5e5e5; background:#fff; width:194px;}
+	
 	.form .input label a		{ display:inline-block; font-weight:normal;  display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.form .check		{ clear:both; margin-bottom:25px;}
 	.form .check.rem	{ clear:both; margin-bottom:25px;margin-top:-5px; }
@@ -570,7 +572,8 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.auth  .button1				{ margin-bottom:18px; margin-left:45px; float:left; margin-right:20px;}
 	.form.auth  .button1 span.c input{ padding:10px 56px 0px 56px;}
 	.form .inputlog label  {  font-size:12px; font-weight:bold; margin-bottom:4px;}
-	.form .inputlog a  {  font-size:11px; font-weight:bold; margin-bottom:4px;margin-right:80px;float:right;}
+	.form .inputlog a  {  font-size:11px; font-weight:bold; margin-bottom:4px;margin-right:80px;float:right;clear:both;}
+	.form .inputlog input		{ padding:4px;margin-bottom:20px; border:1px solid #e5e5e5; background:#fff; width:194px;}
 	.form.auth		               { padding-left:60px; padding-top:30px; padding-bottom:20px;}
 	.form.auth .reg					{ display:inline-block; }
 	

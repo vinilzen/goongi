@@ -1,4 +1,15 @@
 {include file='header.tpl'}
+{literal}
+<script type="text/javascript">
+	  document.onkeydown = function(e) {
+	    e = e || window.event;
+	    if (e.keyCode == 13) {
+	      $('#seach_f').submit();
+	    }
+	    return true;
+	  }
+	</script>
+{/literal}
 {* $Id: search_advanced.tpl 217 2009-08-11 23:20:02Z phil $ *}
 <h1>{lang_print id=1087}</h1><!--Расширенный поиск пользователей-->
 <div class="crumb seach"><a href="#">Главная</a><a href="search.php">{lang_print id=646}<!-- Поиск --></a><span>{lang_print id=1087}</span></div>

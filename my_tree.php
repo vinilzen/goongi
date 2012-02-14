@@ -6,6 +6,14 @@ $page = "my_tree";
 include "header.php";
 $task = ( isset($_POST['task']) ? $_POST['task'] : ( isset($_GET['task']) ? $_GET['task'] : NULL ) );
 
+
+ if( !$user->user_exists)
+    {
+    header("Location: home.php");
+    exit();
+    }
+
+    
 if( $task == "print" )
 {
     $result = 0;

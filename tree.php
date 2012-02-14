@@ -5,6 +5,13 @@
 $page = "tree";
 include "header.php";
 
+
+ if( !$user->user_exists)
+    {
+    header("Location: home.php");
+    exit();
+    }
+
 $users = $user->get_users();
 //$family_array = $user->get_relatives_displayname(); // array ( user_id => displayname )
 if ( isset($owner) && $owner->user_exists == 1 )

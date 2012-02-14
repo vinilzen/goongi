@@ -1274,8 +1274,8 @@ function update_group_list() {
 
 					if (data != null) {
 						if (data.is_error == 1) {
-														$('#count_candle').html('');
-														$('#count_candle').append(data.count);
+                                                $('#count_candle').html('');
+                                                $('#count_candle').append(data.count);
 						} else {
 							alert(data.is_error);
 						}

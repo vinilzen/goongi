@@ -8,25 +8,14 @@
 
 {* $Id: user_account.tpl 8 2009-01-11 06:02:53Z john $ *}
 
-<div class="buttons" >
-	<span class="button2"><span class="l">&nbsp;</span><span class="c">
-		<a href='user_account.php'>{lang_print id=655}</a>
-	</span><span class="r">&nbsp;</span></span>
-
-        <span class="button2"><span class="l">&nbsp;</span><span class="c">
-		<a href='user_account_privacy.php'>{lang_print id=1055}</a>
-	</span><span class="r">&nbsp;</span></span>
-
-        <span class="button2"><span class="l">&nbsp;</span><span class="c">
-		<a href='user_account_pass.php'>{lang_print id=756}</a>
-	</span><span class="r">&nbsp;</span></span>
-	
-	{if $user->level_info.level_profile_delete != 0}
-    <span class="button2"><span class="l">&nbsp;</span><span class="c">
-		<a href='user_account_delete'>{lang_print id=757}</a>
-	</span><span class="r">&nbsp;</span></span>
-	{/if}
-</div>
+<ul class="vk">
+		<li  class="active"><a href='user_account.php'>{lang_print id=655}</a></li>
+ 		<li><a href='user_account_privacy.php'>{lang_print id=1055}</a></li>
+		<li><a href='user_account_pass.php'>{lang_print id=756}</a></li>
+                {if $user->level_info.level_profile_delete != 0}
+                        <li><a href='user_account_delete'>{lang_print id=757}</a></li>
+                {/if}
+</ul>
 
 
 {* SHOW ERROR OR SUCCESS MESSAGES *}

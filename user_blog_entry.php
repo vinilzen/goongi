@@ -155,6 +155,7 @@ for( $c=0; $c<count($level_blog_comments); $c++ )
 
 // CONVERT HTML CHARACTERS BACK
 $blogentry_info['blogentry_body'] = str_replace("\r\n", "", htmlspecialchars_decode($blogentry_info['blogentry_body']));
+$blogentry_info['blogentry_body'] = strtr($blogentry_info['blogentry_body'], array('\\'=>'\\\\',"'"=>"\\'",'"'=>'\\"',"\r"=>'\\r',"\n"=>'\\n','</'=>'<\/'));
 
 
 // ASSIGN VARIABLES AND SHOW NEW BLOGENTRY PAGE

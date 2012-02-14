@@ -59,7 +59,7 @@ function callback(form,act,doc) {
 	form.removeAttribute('target');
 	var id = $('input[name=u_id]').attr('value');
 	$('div[data-id=' + id + '] .photo').css('background','none');
-	$('div[data-id=' + id + '] .photo').html('<img style="visibility: visible;" src="' + doc.body.innerHTML + '">');	
+	$('div[data-id=' + id + '] .photo').html('<img style="visibility: visible;" src="' + doc.body.innerHTML + '">');
 }
 </script>
 {/literal}
@@ -84,49 +84,44 @@ function callback(form,act,doc) {
 {literal}
 
 <div id="user" class="closed">
-	<div class="print"></div>
 	<div class="body"></div>
 	<div class="toggle"><div></div></div>
 </div>
 
 <script id="user-tmpl" type="text/html">
+        <%= id == {/literal}{$user->user_info.user_id}{literal} ? "<div class='print'></div>" : "" %>
+
 	<div class="name"><a href="/user_editprofile.php" target="_top"><%= Base64.decode(displayname) %></a></div>
 	<div class="photo">
 		<a href="/{$user->user_info.user_username}" target="_top">
-                    <% if ( photo)  { %>
-                        <img src="<%= TREE.url.image(id, photo) %>" />
-                    <% } %>
-                    <% if ( !photo)  { %>{/literal}
-					{if $user->profile_info.profilevalue_5 == 2}
-                        <img src="/images/avatars_11.gif" />
-					{else}
-						<img src="/images/avatars_09.gif" />
-					{/if}{literal}
-                   <% } %>
+		<% if (photo) { %>
+			<img src="<%= TREE.url.image(id, photo) %>" />
+		<% } %>
+		<% if (!photo) { %>{/literal}
+			{if $user->profile_info.profilevalue_5 == 2}
+				<img src="/images/avatars_11.gif" />
+			{else}
+				<img src="/images/avatars_09.gif" />
+			{/if}{literal}
+	 <% } %>
 
-			
 		</a>
 	</div>
 	<div class="birth">
-<% iduser = id%>
-<% d = new Date(birthday).getDate()%>
-<% y = new Date(birthday).getFullYear()%>
-<% m = new Date(birthday).getMonth()+1 %>
-<% data =d+'.'+m+'.'+y %>
-
-       <%= birthday ? (sex === "m" ? "Родился " : "Родилась ") + data: "" %>
-         <% if ( !birthday ) { %>
-                Дата рождения не известна 
-         <% } %>
-        </div>
+		<% iduser = id %>
+		<%= birthday ? (sex === "m" ? "Родился " : "Родилась ") + birthday : "" %>
+		<% if (!birthday) { %>
+			Дата рождения не известна
+		<% } %>
+		</div>
 		<table class="family">
-                    <% if (json.users[mother] || json.users[father]) { %>
+			<% if (json.users[mother] || json.users[father]) { %>
 				<tr>
 					<th>Родители:</th>
-                                        <td><b>
-					<% if (json.users[mother]){ %> <%= Base64.decode(json.users[mother].displayname) %><% } %>
-                                        <% if ( json.users[father] && json.users[mother]) { %>,<% } %> <% if (json.users[father]){ %><%= Base64.decode(json.users[father].displayname) %><% } %>
-                                 </b></td>
+					<td><b>
+						<% if (json.users[mother]){ %> <%= Base64.decode(json.users[mother].displayname) %><% } %>
+						<% if (json.users[father] && json.users[mother]) { %>,<% } %> <% if (json.users[father]){ %><%= Base64.decode(json.users[father].displayname) %><% } %>
+					</b></td>
 				</tr>
 			<% } %>
 			<% if (json.users[spouse]) { %>
@@ -154,11 +149,10 @@ function callback(form,act,doc) {
 <script id="person-tmpl" type="text/html">
 	<div class="person <%= sex === "w" ? "alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
 		<div class="info"></div>
-            
+
 		<div class="relation">
-                
-               <%= id == {/literal}{$user->user_info.user_id}{literal} ? "Ты " : "" %>
-                </div>
+			<%= id == {/literal}{$user->user_info.user_id}{literal} ? "Ты " : "" %>
+		</div>
 		<div class="photo loading">
 			<img src="<%= TREE.url.image(id, photo) %>" />
 			<% if (death || death_bool==1) { %> <div class="ribbon"></div> <% } %>
@@ -169,7 +163,7 @@ function callback(form,act,doc) {
 				<li class="edit">Редактировать</li>
 				<li class="remove">Удалить человека</li>
 			</ul>
-<%= iduser == {/literal}{$user->user_info.user_id}{literal} ? "<div class='toggle'></div>" : "" %>
+			<%= iduser == {/literal}{$user->user_info.user_id}{literal} ? "<div class='toggle'></div>" : "" %>
 			<!--<div class="toggle"></div>-->
 		</div>
 	</div>
@@ -218,7 +212,7 @@ function callback(form,act,doc) {
 		<div class="field">
 			<input type="hidden" name="invite" />
 			<div class="name fsz12">Пригласить по email</div>
-			<input type="text" name="email"  value="<%= invite %>" />
+			<input type="text" name="email" value="<%= invite %>" />
 		</div>
 		<!--div class="field">
 			<div class="name">Мать/Отец</div>
@@ -232,15 +226,15 @@ function callback(form,act,doc) {
 						<div class="name fsz12">Дата рождения</div>
 						<table>
 							<tr>
-								<td width="40"><input type="text" maxlength="2" name="birthdate" value="<%= birthday ? new Date(birthday).getDate() : "" %>" /></td>
-								<td width="80" style="padding:0 5px">
+								<td><input type="text" maxlength="2" name="birthdate" value="<%= birthday ? birthday.split("-")[2] : "" %>" /></td>
+								<td>
 									<select name="birthmonth">
 										<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
-											<option value="<%= i+1 %>" <% if (new Date(birthday).getMonth() === i) { %> selected="selected" <% } %>><%= month %></option>
+											<option value="<%= i+1 %>" <% if (birthday && birthday.split("-")[1] == i+1) { %> selected="selected" <% } %>><%= month %></option>
 										<% }) %>
 									</select>
 								</td>
-								<td width="60"><input type="text" maxlength="4" name="birthyear" value="<%= birthday ? new Date(birthday).getFullYear() : "" %>" /></td>
+								<td><input type="text" maxlength="4" name="birthyear" value="<%= birthday ? birthday.split("-")[0] : "" %>" /></td>
 							</tr>
 						</table>
 					</div>
@@ -251,15 +245,15 @@ function callback(form,act,doc) {
 						<label class="name fsz12"><input type="checkbox" name="dead" <% if (death || death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label>
 						<table>
 							<tr>
-								<td width="40"><input type="text" maxlength="2" name="deathdate" value="<%= death ? new Date(death).getDate() : "" %>" <% if (!death) { %> disabled="disabled" <% } %> /></td>
-								<td width="80" style="padding:0 5px">
+								<td><input type="text" maxlength="2" name="deathdate" value="<%= death ? death.split("-")[2] : "" %>" <% if (!death) { %> disabled="disabled" <% } %> /></td>
+								<td>
 									<select name="deathmonth" <% if (!death) { %> disabled="disabled" <% } %>>
 										<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
-											<option value="<%= i+1 %>" <% if (new Date(death).getMonth() === i) { %> selected="selected" <% } %>><%= month %></option>
+											<option value="<%= i+1 %>" <% if (death && death.split("-")[1] == i+1) { %> selected="selected" <% } %>><%= month %></option>
 										<% }) %>
 									</select>
 								</td>
-								<td width="60"><input type="text" maxlength="4" name="deathyear" value="<%= death ? new Date(death).getFullYear() : "" %>" <% if (!death) { %> disabled="disabled" <% } %> /></td>
+								<td><input type="text" maxlength="4" name="deathyear" value="<%= death ? death.split("-")[0] : "" %>" <% if (!death) { %> disabled="disabled" <% } %> /></td>
 							</tr>
 						</table>
 					</div>
@@ -292,21 +286,16 @@ function callback(form,act,doc) {
 				<th>Имя</th>
 				<td><%= Base64.decode(fname) %></td>
 			</tr>
-			<tr>
-				<th>Возраст</th>
-				<td><%= new Date().getFullYear() - new Date(birthday).getFullYear() %></td>
-			</tr>
-			<tr>
-				<th>День рождения</th>
-                           <% if (birthday) { %>
-                                <% d = new Date(birthday).getDate()%>
-                                <% y = new Date(birthday).getFullYear()%>
-                                <% m = new Date(birthday).getMonth()+1 %>
-                                <% data =d+'.'+m+'.'+y %>
-				<td><%= data %></td>
-                            <% } %>
-
-			</tr>
+			<% if (birthday) { %>
+				<tr>
+					<th>Возраст</th>
+					<td><%= new Date().getFullYear() - birthday.split("-")[1] %></td>
+				</tr>
+				<tr>
+					<th>День рождения</th>
+					<td><%= birthday %></td>
+				</tr>
+			<% } %>
 		</table>
 	</div>
 </script>
