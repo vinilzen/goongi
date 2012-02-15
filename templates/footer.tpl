@@ -23,11 +23,13 @@
 {if $ads->ad_right != "" && 0}
   <div class='ad_right' width='1' style='display: table-cell; visibility: visible;'>{$ads->ad_right}</div>
 {/if}
+
             <div class="left_small">
             	<div class="left_c">
 					<!-- start USER MENU -->
 					{include file='menu_main.tpl'}
 					<!-- end USER MENU -->
+{if $ads->ad_title != ''}
                 	<div class="block0">
                     	<div class="bg">
                         	<div class="c">
@@ -41,6 +43,7 @@
                         </div>
                         <div class="b1"><a href="/user_vizitki.php">Создать себе визитку</a></div>
                     </div>
+{/if}
                 </div>
             </div>
             <div class="clear"></div>

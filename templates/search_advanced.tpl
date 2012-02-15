@@ -261,9 +261,9 @@
     <div class='browse_result' style='float: left; padding: 5px; width: 90px; height: 110px; text-align: center;'>
       <a href='{$url->url_create('profile',$users[user_loop]->user_info.user_username)}'>
       {if $users[user_loop]->user_info.profilevalue_5 == 2}
-						<img src="{$users[user_loop]->user_photo('./images/avatars_17.gif')}" class='photo' style='display: block; margin-left: auto; margin-right: auto;' width='60' height='60' border='0' alt="{lang_sprintf id=509 1=$users[user_loop]->user_displayname_short}">
+						<img src="{$users[user_loop]->user_photo('./images/avatars_17.gif', TRUE)}" class='photo' style='display: block; margin-left: auto; margin-right: auto;' width='60' height='60' border='0' alt="{lang_sprintf id=509 1=$users[user_loop]->user_displayname_short}">
 					{else}
-						<img src="{$users[user_loop]->user_photo('./images/avatars_15.gif')}" class='photo' style='display: block; margin-left: auto; margin-right: auto;' width='60' height='60' border='0' alt="{lang_sprintf id=509 1=$users[user_loop]->user_displayname_short}">
+						<img src="{$users[user_loop]->user_photo('./images/avatars_15.gif', TRUE)}" class='photo' style='display: block; margin-left: auto; margin-right: auto;' width='60' height='60' border='0' alt="{lang_sprintf id=509 1=$users[user_loop]->user_displayname_short}">
 					{/if}
 <!--<img src='{$users[user_loop]->user_photo('./images/no_photo_thumb.gif', TRUE)}' class='photo' style='display: block; margin-left: auto; margin-right: auto;' width='60' height='60' border='0' alt="{lang_sprintf id=509 1=$users[user_loop]->user_displayname_short}">-->
       {$users[user_loop]->user_displayname|truncate:20:"...":true}</a>

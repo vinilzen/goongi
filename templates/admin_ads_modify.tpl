@@ -1,7 +1,7 @@
 {include file='admin_header.tpl'}
 {literal}
 <script type="text/javascript">
- function Show_city(country_id){
+ function getCityList(country_id){
 var request = new Request.JSON({
       'url' : 'admin_ads_modify.php',
       'method' : 'post',
@@ -12,15 +12,10 @@ var request = new Request.JSON({
       onComplete: function(responseObject)
       {
         if ( responseObject.error == '0') {
-         document.getElementById('city_show').style.display = 'none';
-         var  sel;
+         document.getElementById('dhtmlgoodies_city').style.display = 'none';
          var  city;
-         sel = 'город-<select name="city" id = "city_show">';
-         responseObject.result.forEach(function(value) {
-           city = city+'<option>'+value+'</option>';
-         });
-          city = city+ '</select>';
-            document.getElementById('countydiv').innerHTML= sel+city;
+            city = 'город-<select name="dhtmlgoodies_city" id="dhtmlgoodies_city"><option id="op" value="-1"></option>'+responseObject.result+'</select>';
+            document.getElementById('countydiv').innerHTML= city;
 
           }
           if (responseObject.error == '1') {
@@ -451,19 +446,24 @@ var request = new Request.JSON({
     <td class='form2'>
     <table cellpadding='0' cellspacing='0' >
     <tr>
-        <td>cтрана- <select name="contry" onChange = "Show_city(this.value)">
+        <td>cтрана-<select name='dhtmlgoodies_country' id='dhtmlgoodies_country' onchange="getCityList(this.value);">
+                  <option id='op' value='-1'></option>
+                                      {$ad_country}</select>
+                <!--<select name="contry" onChange = "Show_city(this.value)">
                         {section name=s loop=$ad_country}
                           <option value = "{$ad_country[s].vizitkisetting_id}" {if $ad_info_country == $ad_country[s].vizitkisetting_id} SELECTED{/if}>{$ad_country[s].vizitkisetting_country}</option>
                          {/section}
-                </select>
+                </select>-->
         &nbsp;&nbsp;&nbsp;</td>
  
-        <td><div id="countydiv">город-
-            <select name="city" id = "city_show">
+        <td><div id="countydiv">город-<select name='dhtmlgoodies_city' id='dhtmlgoodies_city'>
+                                  <option id='op' value='-1'></option>
+                                      {$ad_city}</select>
+           <!-- <select name="city" id = "city_show">
                     {section name=s loop=$ad_city}
                         <option {if $ad_info_city == $ad_city[s]} SELECTED{/if}>{$ad_city[s]}</option>
                     {/section}
-                </select>
+                </select>-->
 </div>
     </td>
     </tr>
