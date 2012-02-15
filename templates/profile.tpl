@@ -111,7 +111,20 @@
             <label><a  onClick="Show_piple({$owner->user_info.user_id})" href="javascript:void(0);">Зажгли свечу</a> : <span id = "count_candle">{$count_candle}</span></label>
     </div>
     <div class="img">
-        <img alt=""  {if $owner->user_info.user_photo == ''} src="./images/nophoto.gif" {else} src="{$owner->user_photomain('./images/nophoto.gif')}{/if}">
+{if $owner->user_info.user_id == $user->user_info.user_id}
+		{if $user->profile_info.profilevalue_5 == 2}
+			<img {if $user->user_info.user_photo == ''} src="./images/avatars_05.gif" {else} src="{$user->user_photomain('./images/avatars_05.gif')}{/if}">
+		{else}
+			<img {if $user->user_info.user_photo == ''} src="./images/avatars_03.gif" {else} src="{$user->user_photomain('./images/avatars_03.gif')}{/if}">
+		{/if}
+	{else}
+		{if $owner->profile_info.profilevalue_5 == 2}
+			<img {if $owner->user_info.user_photo == ''}src="./images/avatars_05.gif"{else} src="{$owner->user_photomain('./images/avatars_05.gif')}{/if}">
+		{else}
+			<img {if $owner->user_info.user_photo == ''}src="./images/avatars_03.gif"{else} src="{$owner->user_photomain('./images/avatars_03.gif')}{/if}">
+		{/if}
+	{/if}
+       <!-- <img alt=""  {if $owner->user_info.user_photo == ''} src="./images/nophoto.gif" {else} src="{$owner->user_photomain('./images/nophoto.gif')}{/if}">-->
         <p><a href="javascript:void(0);">Показать подробную информацию</a></p>
     </div>
  {assign var=foo value="-"|explode:$owner->profile_info.profilevalue_4}

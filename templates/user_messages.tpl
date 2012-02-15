@@ -87,9 +87,9 @@
 		<a href="user_messages_view.php?pmconvo_id={$pms[pm_loop].pmconvo_id}&task=delete" class="del">{lang_print id=155}<!-- удалить --></a>
 		<a href="{$url->url_create('profile', $pms[pm_loop].pm_user->user_info.user_username)}">
                 {if $pms[pm_loop].pm_user->user_info.profilevalue_5 == 2}
-                        <img src="{$pms[pm_loop].pm_user->user_photo('./images/avatars_11.gif')}"  alt="{lang_sprintf id=786 1=$pms[pm_loop].pm_user->user_displayname_short}" >
+                        <img src="{$pms[pm_loop].pm_user->user_photo('./images/avatars_11.gif', TRUE)}"  alt="{lang_sprintf id=786 1=$pms[pm_loop].pm_user->user_displayname_short}" >
                 {else}
-                        <img src="{$pms[pm_loop].pm_user->user_photo('./images/avatars_09.gif')}"  alt="{lang_sprintf id=786 1=$pms[pm_loop].pm_user->user_displayname_short}" >
+                        <img src="{$pms[pm_loop].pm_user->user_photo('./images/avatars_09.gif', TRUE)}"  alt="{lang_sprintf id=786 1=$pms[pm_loop].pm_user->user_displayname_short}" >
                 {/if}
 <!--			<img src="{$pms[pm_loop].pm_user->user_photo('./images/no_photo_thumb.gif', TRUE)}" alt="{lang_sprintf id=786 1=$pms[pm_loop].pm_user->user_displayname_short}" />-->
 		</a>
