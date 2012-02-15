@@ -192,9 +192,9 @@ function src(){
 		}
 	});
 	$(".pro li").hover(function(){
-		$(this).addClass('active');
+		$(this).addClass('active_hover');
 	},function(){
-		$(this).removeClass('active')
+		$(this).removeClass('active_hover')
 	});
 	
 	$('.visitka_list li').each(function(i){
