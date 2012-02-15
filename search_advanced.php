@@ -196,7 +196,7 @@ else
 
 
   // BEGIN CONSTRUCTING SEARCH QUERY    
-  $search_query = "SELECT se_users.user_id, se_users.user_username, se_users.user_fname, se_users.user_lname, se_users.user_photo FROM se_profilevalues LEFT JOIN se_users ON se_profilevalues.profilevalue_user_id=se_users.user_id LEFT JOIN se_levels ON se_levels.level_id=se_users.user_level_id WHERE se_users.user_profilecat_id='{$cat_selected}' AND se_users.user_verified='1' AND se_users.user_enabled='1' AND se_users.user_id != '$s_id' AND se_users.user_lastlogindate != '0' AND (se_users.user_search='1' OR se_levels.level_profile_search='0')";
+  $search_query = "SELECT se_users.user_id, se_users.user_username, se_users.user_fname, se_users.user_lname, se_users.user_photo,se_profilevalues.profilevalue_5 FROM se_profilevalues LEFT JOIN se_users ON se_profilevalues.profilevalue_user_id=se_users.user_id LEFT JOIN se_levels ON se_levels.level_id=se_users.user_level_id WHERE se_users.user_profilecat_id='{$cat_selected}' AND se_users.user_verified='1' AND se_users.user_enabled='1' AND se_users.user_id != '$s_id' AND se_users.user_lastlogindate != '0' AND (se_users.user_search='1' OR se_levels.level_profile_search='0')";
   if($user_online == 1) { $search_query .= " AND user_lastactive>'".(time()-10*60)."' AND user_invisible=0"; }
   if($user_withphoto == 1) { $search_query .= " AND user_photo <> ''"; }
   if($field->field_query != "") { $search_query .= " AND ".$field->field_query; }
@@ -221,6 +221,7 @@ else
     $search_user->user_info['user_fname'] = $user_info['user_fname'];
     $search_user->user_info['user_lname'] = $user_info['user_lname'];
     $search_user->user_info['user_photo'] = $user_info['user_photo'];
+    $search_user->user_info['profilevalue_5'] = $user_info['profilevalue_5'];
     $search_user->user_displayname();
     
     // DETERMINE IF USER IS ONLINE
@@ -236,7 +237,7 @@ else
 
 
 
-
+//print_r ($user_array);
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('users', $user_array);
 $smarty->assign('total_users', $total_users);

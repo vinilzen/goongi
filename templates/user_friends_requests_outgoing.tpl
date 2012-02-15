@@ -74,8 +74,8 @@
 		<div>
             <h2><a href="{$url->url_create('profile', $friends[friend_loop]->user_info.user_username)}">{$friends[friend_loop]->user_displayname}</a></h2>
 		
-		  {if $friends[friend_loop]->user_info.user_dateupdated != 0}{lang_print id=849} &nbsp;<br />{assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}<br />{/if}
-		  {if $friends[friend_loop]->user_info.user_lastlogindate != 0}{lang_print id=906} &nbsp;{assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}<br />{/if}
+		<!--  {if $friends[friend_loop]->user_info.user_dateupdated != 0}{lang_print id=849} &nbsp;<br />{assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}<br />{/if}
+		  {if $friends[friend_loop]->user_info.user_lastlogindate != 0}{lang_print id=906} &nbsp;{assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}<br />{/if}-->
 		  {if $friends[friend_loop]->friend_type != ""}{lang_print id=882} &nbsp;{$friends[friend_loop]->friend_type}<br />{/if}
 		  {if $friends[friend_loop]->friend_explain != ""}{lang_print id=907} &nbsp;{$friends[friend_loop]->friend_explain}<br />{/if}
 			<br>

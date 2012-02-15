@@ -2076,11 +2076,13 @@ class SEUser
           se_users.user_lname,
           se_users.user_photo, 
           se_users.user_lastlogindate, 
-          se_users.user_dateupdated
-      ";
-      
+          se_users.user_dateupdated,
+          se_profilevalues.profilevalue_5
+         ";
+    //  se_profilevalues.profilevalue_5
       if( $other_user_id )
       {
+          
         $friend_query .= ",
           CASE
             WHEN (SELECT TRUE FROM se_friends WHERE friend_user_id1='{$other_user_id}' AND friend_user_id2=se_users.user_id AND friend_status='1' LIMIT 1)
@@ -2112,17 +2114,26 @@ class SEUser
 	    $friend_query .= "
         FROM
           se_friends
+   
         LEFT JOIN
           se_users ON
+     
+       
       ";
       
 	    // MAKE SURE TO JOIN ON THE CORRECT FIELD (DEPENDENT ON DIRECTION)
 	    if( $direction == 1 ) $friend_query .= "
         se_friends.friend_user_id1=se_users.user_id
+          LEFT JOIN
+       se_profilevalues
+       ON se_profilevalues.profilevalue_user_id= se_users.user_id
       ";
       
 	    if( $direction != 1 ) $friend_query .= "
         se_friends.friend_user_id2=se_users.user_id
+          LEFT JOIN
+       se_profilevalues
+       ON se_profilevalues.profilevalue_user_id= se_users.user_id
       ";
       
 	    // JOIN ON FRIEND EXPLAIN TABLE, IF NECESSARY
@@ -2130,8 +2141,12 @@ class SEUser
         LEFT JOIN
           se_friendexplains
           ON se_friends.friend_id=se_friendexplains.friendexplain_friend_id
+          
+   
       ";
-      
+     //  LEFT JOIN
+    //      se_profilevalues
+    //      ON se_profilevalues.profilevalue_user_id=se_users.user_id
 	    // CONTINUE QUERY
 	    $friend_query .= "
         WHERE
@@ -2164,8 +2179,10 @@ class SEUser
 	  $groups = $this->user_group_list();
 	    // LOOP OVER FRIENDS
 	    $friends = $database->database_query($friend_query);
+       //     print_r ($friend_query);
 	    while($friend_info = $database->database_fetch_assoc($friends)) {
-			// CREATE AN OBJECT FOR FRIEND
+         //         print_r ($friend_info);
+               		// CREATE AN OBJECT FOR FRIEND
 			$friend = new SEUser();
 			$friend->user_info['user_id'] = $friend_info['user_id'];
 			$friend->user_info['user_username'] = $friend_info['user_username'];
@@ -2174,6 +2191,7 @@ class SEUser
 			$friend->user_info['user_photo'] = $friend_info['user_photo'];
 			$friend->user_info['user_lastlogindate'] = $friend_info['user_lastlogindate'];
 			$friend->user_info['user_dateupdated'] = $friend_info['user_dateupdated'];
+                        $friend->user_info['profilevalue_5'] = $friend_info['profilevalue_5'];
 			$friend->is_viewers_friend = @$friend_info['is_viewers_friend'];
 			$friend->is_viewers_blocklist = @$friend_info['is_viewers_blocklist'];
 			$friend->user_displayname();
@@ -3938,7 +3956,8 @@ class SEUser
 				se_users.user_username,
 				se_users.user_fname,
 				se_users.user_lname,
-				se_users.user_photo
+				se_users.user_photo,
+                                se_profilevalues.profilevalue_5
     ";
     
     // GET MESSAGE AUTHOR, REPLIED STATUS
@@ -3957,13 +3976,18 @@ class SEUser
       LEFT JOIN
         se_pms
         ON se_pms.pm_pmconvo_id=se_pmconvos.pmconvo_id
+    
     ";
     
     // INCOMING MESSAGES - JOIN TO USER TABLE TO GET AUTHOR
     if( !$direction ) $sql .= "
       LEFT JOIN
         se_users
-        ON se_users.user_id=se_pms.pm_authoruser_id";
+        ON se_users.user_id=se_pms.pm_authoruser_id
+      LEFT JOIN
+       se_profilevalues
+       ON se_profilevalues.profilevalue_user_id= se_users.user_id
+        ";
     
     // OUTGOING MESSAGES - JOIN TO PMCONVOOPS AND USER TABLE TO GET RECIPIENT
     if(  $direction ) $sql .= "
@@ -3973,6 +3997,9 @@ class SEUser
       LEFT JOIN
         se_users
         ON se_users.user_id=se_pmconvoops_other.pmconvoop_user_id
+      LEFT JOIN
+       se_profilevalues
+       ON se_profilevalues.profilevalue_user_id= se_users.user_id
     ";
     
     
@@ -4036,10 +4063,11 @@ class SEUser
     
     // EXECUTE QUERY
     $resource = $database->database_query($sql);
-    
+//   echo $sql;
     // GET MESSAGES
 	  while( $message_info=$database->database_fetch_assoc($resource) )
     {
+
       // CREATE AN OBJECT FOR MESSAGE AUTHOR/RECIPIENT
       $pm_user = new SEUser();
       $pm_user->user_info['user_id']        = $message_info['user_id'];
@@ -4047,6 +4075,7 @@ class SEUser
       $pm_user->user_info['user_photo']     = $message_info['user_photo'];
       $pm_user->user_info['user_fname']     = $message_info['user_fname'];
       $pm_user->user_info['user_lname']     = $message_info['user_lname'];
+      $pm_user->user_info['profilevalue_5']     = $message_info['profilevalue_5'];
       $pm_user->user_displayname();
       
       // Remove breaks for preview
@@ -4591,12 +4620,16 @@ class SEUser
         user_fname,
         user_lname,
         user_photo,
-        user_blocklist
+        user_blocklist,
+        se_profilevalues.profilevalue_5
       FROM
         se_pmconvoops
       LEFT JOIN
         se_users
         ON se_users.user_id=se_pmconvoops.pmconvoop_user_id
+     LEFT JOIN
+        se_profilevalues
+        ON se_profilevalues.profilevalue_user_id=se_pmconvoops.pmconvoop_user_id
       WHERE
         se_pmconvoops.pmconvoop_pmconvo_id='{$convo_id}' &&
         se_pmconvoops.pmconvoop_user_id!='{$this->user_info['user_id']}'
@@ -4608,13 +4641,15 @@ class SEUser
     $collaborators_by_id = array();
     while( $result=$database->database_fetch_assoc($resource) )
     {
+       
       $coll = new SEUser();
       $coll->user_info['user_id']        = $result['user_id'];
       $coll->user_info['user_username']  = $result['user_username'];
       $coll->user_info['user_photo']     = $result['user_photo'];
       $coll->user_info['user_fname']     = $result['user_fname'];
       $coll->user_info['user_lname']     = $result['user_lname'];
-      $coll->user_info['user_blocklist'] = $result['user_blocklist']; // this was added to fix blocklist bug
+      $coll->user_info['user_blocklist'] = $result['user_blocklist'];
+      $coll->user_info['profilevalue_5'] = $result['profilevalue_5'];// this was added to fix blocklist bug
       $coll->user_displayname();
       
       $collaborators[] =& $coll;
@@ -4642,11 +4677,16 @@ class SEUser
       $pm_info = $result;
       
       if( $pm_info['pm_authoruser_id']==$this->user_info['user_id'] )
+      {
         $pm_info['author'] =& $this;
+      }
       else
+      {
         $pm_info['author'] =& $collaborators_by_id[$pm_info['pm_authoruser_id']];
-      
+      }
+     
       $pms[] =& $pm_info;
+  //      print_r ($pms);
       unset($pm_info);
     }
     
