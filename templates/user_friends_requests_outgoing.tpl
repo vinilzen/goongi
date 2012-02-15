@@ -65,13 +65,17 @@
   {* LOOP THROUGH FRIENDS *}
     <li id="frend_{$friends[friend_loop]->user_info.user_id}">
 		<a href="{$url->url_create('profile', $friends[friend_loop]->user_info.user_username)}" class="frend_img">
-			<img src="{$friends[friend_loop]->user_photo('./images/no_photo.gif')}" alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}" />
+                                         {if $friends[friend_loop]->user_info.profilevalue_5 == 2}
+						<img src="{$friends[friend_loop]->user_photo('./images/avatars_11.gif')}"  border='0' class='photo' alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}" >
+					{else}
+						<img src="{$friends[friend_loop]->user_photo('./images/avatars_09.gif')}"  border='0' class='photo' alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}" >
+					{/if}
 		</a>
 		<div>
             <h2><a href="{$url->url_create('profile', $friends[friend_loop]->user_info.user_username)}">{$friends[friend_loop]->user_displayname}</a></h2>
 		
-		  {if $friends[friend_loop]->user_info.user_dateupdated != 0}{lang_print id=849} &nbsp;<br />{assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}<br />{/if}
-		  {if $friends[friend_loop]->user_info.user_lastlogindate != 0}{lang_print id=906} &nbsp;{assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}<br />{/if}
+		<!--  {if $friends[friend_loop]->user_info.user_dateupdated != 0}{lang_print id=849} &nbsp;<br />{assign var='last_updated' value=$datetime->time_since($friends[friend_loop]->user_info.user_dateupdated)}{lang_sprintf id=$last_updated[0] 1=$last_updated[1]}<br />{/if}
+		  {if $friends[friend_loop]->user_info.user_lastlogindate != 0}{lang_print id=906} &nbsp;{assign var='last_login' value=$datetime->time_since($friends[friend_loop]->user_info.user_lastlogindate)}{lang_sprintf id=$last_login[0] 1=$last_login[1]}<br />{/if}-->
 		  {if $friends[friend_loop]->friend_type != ""}{lang_print id=882} &nbsp;{$friends[friend_loop]->friend_type}<br />{/if}
 		  {if $friends[friend_loop]->friend_explain != ""}{lang_print id=907} &nbsp;{$friends[friend_loop]->friend_explain}<br />{/if}
 			<br>

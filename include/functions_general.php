@@ -635,7 +635,8 @@ $s_id = $user->user_info['user_id'];
       se_users.user_username,
       se_users.user_fname,
       se_users.user_lname,
-      se_users.user_photo
+      se_users.user_photo,
+      se_profilevalues.profilevalue_5
     FROM
       se_profilevalues
     LEFT JOIN
@@ -674,14 +675,20 @@ $s_id = $user->user_info['user_id'];
 	    $profile->user_info['user_fname'] = $profile_info['user_fname'];
 	    $profile->user_info['user_lname'] = $profile_info['user_lname'];
 	    $profile->user_info['user_photo'] = $profile_info['user_photo'];
+            $profile->user_info['profilevalue_5'] = $profile_info['profilevalue_5'];
 	    $profile->user_displayname();
-      
+   // print_r($profile_info);
+
 	    // DETERMINE IF USER IS ONLINE
 	    $is_online = (bool) in_array($profile_info['user_username'], $online_users_array[0]);
-      
+           if ($profile->user_info['profilevalue_5'] == 2)
+            $icon = $profile->user_photo('./images/avatars_11.gif');
+            else
+            $icon = $profile->user_photo('./images/avatars_09.gif');
+					
 	    $results[] = Array(
         'result_url' => $url->url_create('profile', $profile_info['user_username']),
-        'result_icon' => $profile->user_photo('./images/no_photo.gif', TRUE),
+        'result_icon' =>$icon,
         'result_name' => 509,
         'result_name_1' => $profile->user_displayname,
         'result_desc' => '',
