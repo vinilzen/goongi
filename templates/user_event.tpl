@@ -138,50 +138,13 @@
       </tr>
     </table>
   </div>
-  
-  
-  {* DISPLAY PAGINATION MENU IF APPLICABLE *}
-  {if $maxpage > 1}
-    <div class='center'>
-      {if $p != 1}
-        <a href='user_event.php?view=list&search={$search}&p={math equation="p-1" p=$p}'>&#171; {lang_print id=182}</a>
-      {else}
-        <font class='disabled'>&#171; {lang_print id=182}</font>
-      {/if}
-      {if $p_start == $p_end}
-        &nbsp;|&nbsp; {lang_sprintf id=184 1=$p_start 2=$total_events} &nbsp;|&nbsp; 
-      {else}
-        &nbsp;|&nbsp; {lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_events} &nbsp;|&nbsp; 
-      {/if}
-      {if $p != $maxpage}
-        <a href='user_event.php?view=list&search={$search}&p={math equation="p+1" p=$p}'>{lang_print id=183} &#187;</a>
-      {else}
-        <font class='disabled'>{lang_print id=183} &#187;</font>
-      {/if}
-    </div>
-    <br />
-  {/if}
-  
-  
+
   {* DISPLAY EVENT LISTINGS *}
   {section name=event_loop loop=$events}
   <div id='seEvent_{$events[event_loop].event->event_info.event_id}' class="seEvent {cycle values='seEvent1,seEvent2'}">
 
     <table cellpadding='0' cellspacing='0' width='100%'>
       <tr>
-        <td class='seEventLeft' width='1'>
-          <div class='seEventPhoto' style='width: 140px;'>
-            <table cellpadding='0' cellspacing='0' width='140'>
-              <tr>
-                <td>
-                  <a href='{$url->url_create("event", $user->user_info.user_username, $events[event_loop].event->event_info.event_id)}'>
-                    <img src='{$events[event_loop].event->event_photo("./images/nophoto.gif")}' border='0' width='{$misc->photo_size($events[event_loop].event->event_photo("./images/nophoto.gif"),"140","140","w")}' />
-                  </a>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </td>
         <td class='seEventRight' width='100%'>
         
           {* SHOW EVENT TITLE *}
@@ -229,17 +192,8 @@
           <div class='seEventStats'>
             {lang_print id=3000277}
             
-            <span class="seEventStatusAccept"{if $events[event_loop].event->is_member} style="display:none;"{/if}>
-              <a href='javascript:void(0);' onclick="SocialEngine.Event.removeShow({$events[event_loop].event->event_info.event_id});">
-                {lang_print id=$events[event_loop].event_rsvp_lvid}
-              </a>
-            </span>
-            
-            <span class="seEventStatusRSVP"{if !$events[event_loop].event->is_member} style="display:none;"{/if}>
-              <a href='javascript:void(0);' onclick="SocialEngine.Event.rsvpShow({$events[event_loop].event->event_info.event_id});" id="seEventRSVP_{$events[event_loop].event->event_info.event_id}">
-                {lang_print id=$events[event_loop].event_rsvp_lvid}
-              </a>
-            </span>
+            <span class="seEventStatusAccept"{if $events[event_loop].event->is_member} style="display:none;"{/if}>{lang_print id=$events[event_loop].event_rsvp_lvid}</span>
+            <span class="seEventStatusRSVP"{if !$events[event_loop].event->is_member} style="display:none;"{/if}>{lang_print id=$events[event_loop].event_rsvp_lvid}</span>
           </div>
           
           {* SHOW EVENT DESCRIPTION *}
@@ -252,52 +206,37 @@
             
             {* JOIN *}
             <div class="seEventOption1 seEventUserOptionJoin"{if !$events[event_loop].event->is_member_waiting || !$events[event_loop].event_approved} style="display:none;"{/if}>
-              <a href='javascript:void(0);' onclick="SocialEngine.Event.join({$events[event_loop].event->event_info.event_id});">
-                <img src='./images/icons/event_join16.gif' border='0' class='button' />
+              <a href="/event/{$events[event_loop].event->event_info.event_id}/">
                 {lang_print id=3000168}
               </a>
             </div>
             
             {* CANCEL REQUEST *}
             <div class="seEventOption1 seEventUserOptionRequestCancel"{if !$events[event_loop].event->is_member_waiting || $events[event_loop].event_approved} style="display:none;"{/if}>
-              <a href='javascript:void(0);' onclick="SocialEngine.Event.cancelShow({$events[event_loop].event->event_info.event_id});">
-                <img src='./images/icons/event_remove16.gif' border='0' class='button' />
+               <a href="/event/{$events[event_loop].event->event_info.event_id}/">
                 {lang_print id=3000170}
               </a>
             </div>
             
             {* EDIT *}
             <div class="seEventOption1 seEventUserOptionEdit"{if $events[event_loop].event->user_rank!=3} style="display:none;"{/if}>
-              <a href='user_event_edit.php?event_id={$events[event_loop].event->event_info.event_id}'>
-                <img src='./images/icons/event_edit16.gif' border='0' class='button' />
-                {lang_print id=3000245}
-              </a>
+              <a href='user_event_edit.php?event_id={$events[event_loop].event->event_info.event_id}'>{lang_print id=3000245}</a>
             </div>
             
             {* RSVP *}
             <div class="seEventOption1 seEventUserOptionRsvp"{if !$events[event_loop].event->is_member} style="display:none;"{/if}>
-              <a href='javascript:void(0);' onclick="SocialEngine.Event.rsvpShow({$events[event_loop].event->event_info.event_id});">
-                <img src='./images/icons/event_rsvp16.gif' border='0' class='button' />
-                {lang_print id=3000097}
-              </a>
+              <a href="/event/{$events[event_loop].event->event_info.event_id}/">{lang_print id=3000097}</a>
             </div>
             
             {* LEAVE *}
             <div class="seEventOption1 seEventUserOptionLeave"{if $events[event_loop].event->user_rank==3 || !$events[event_loop].event->is_member} style="display:none;"{/if}>
-              <a href='javascript:void(0);' onclick="SocialEngine.Event.leaveShow({$events[event_loop].event->event_info.event_id});">
-                <img src='./images/icons/event_remove16.gif' border='0' class='button' />
-                {lang_print id=3000219}
-              </a>
+               <a href="/event/{$events[event_loop].event->event_info.event_id}/">{lang_print id=3000219}</a>
             </div>
             
-            {* DELETE *}
+            {* DELETE *}{*
             <div class="seEventOption1 seEventUserOptionDelete"{if $events[event_loop].event->user_rank!=3} style="display:none;"{/if}>
-              <a href='javascript:void(0);' onclick="SocialEngine.Event.deleteShow({$events[event_loop].event->event_info.event_id});">
-                <img src='./images/icons/event_delete16.gif' border='0' class='button' />
-                {lang_print id=3000169}
-              </a>
-            </div>
-            
+              <a onclick="SocialEngine.Event.deleteShow({$events[event_loop].event->event_info.event_id});">{lang_print id=3000169}</a>
+            </div> *}
           </div>
         </td>
       </tr>
@@ -305,13 +244,9 @@
     
   </div>
   {/section}
-
-  <div style='clear: both; height: 0px;'></div>
-  
   
   {* DISPLAY PAGINATION MENU IF APPLICABLE *}
   {if $maxpage > 1}
-    <div class='center'>
       {if $p != 1}
         <a href='user_event.php?view=list&search={$search}&p={math equation="p-1" p=$p}'>&#171; {lang_print id=182}</a>
       {else}
@@ -327,8 +262,6 @@
       {else}
         <font class='disabled'>{lang_print id=183} &#187;</font>
       {/if}
-    </div>
-    <br />
   {/if}
   
   

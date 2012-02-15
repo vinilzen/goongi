@@ -7,9 +7,10 @@
 	<a href='user_event.php'>{lang_print id=3000086}</a>
 	<span>{$event->event_info.event_title}<!-- {lang_print id=$eventcat_info.subcat_title} --></span>
 </div>
+{if $event->eventmember_info|count > 0}
 <div class="buttons" id="event_id" rel="{$event->event_info.event_id}">
-	<pre>{$event|print_r}</pre>
-	{if $event->event_info.event_user_id != $event->user_id}
+	<!-- <pre>{$event|print_r}</pre> -->
+	{if $event->event_info.event_user_id != $event->user_id }
 		<span class="button2"><span class="l">&nbsp;</span><span class="c">
 			<a href="#" class="att {if $event->eventmember_info.eventmember_rsvp == 1}selected{/if}" id="attend">Пойду</a>
 		</span><span class="r">&nbsp;</span></span>
@@ -29,44 +30,7 @@
 	</span><span class="r">&nbsp;</span></span>
 	{/if}
 </div>
-{* HIDDEN DIV TO DISPLAY CANCEL REQUEST CONFIRMATION MESSAGE 3000221 *}
-
-{* HIDDEN DIV TO DISPLAY LEAVE CONFIRMATION MESSAGE 3000220 *}
-
-{* HIDDEN DIV TO DISPLAY DELETE CONFIRMATION MESSAGE - 3000094 *}
-
-
-
-{* HIDDEN DIV TO DISPLAY MEMBER INVITE *}
-<div style='display: none;' id='eventmemberinvite'>
-  {* NO FRIENDS MESSAGE *}
-  <div style='text-align:center;margin:10px;font-weight:bold;border: 1px dashed #CCCCCC;background: #FFFFFF;padding: 7px 8px 7px 7px;' id='noFriends'>
-    <img src='./images/icons/bulb16.gif' class='icon'>
-    {lang_print id=3000227}
-    <br />
-    <br />
-    {lang_block id=39 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.TB_remove();' />{/lang_block}
-  </div>
-  
-  {* INVITE DIALOG *}
-  <div style='display:none;text-align:left;padding:10px;' id='inviteForm'>
-    <div>{lang_print id=3000226}</div>
-    <br />
-    
-    <div><a href='javascript:void(0);' id="eventMemberInviteSelectAll" onClick="var checkboxes = document.getElementsByTagName('input'); for( var i=0, l=checkboxes.length; i<l; i++ ) if( checkboxes[i].type=='checkbox' && parseInt(checkboxes[i].value)>0 ) {ldelim} checkboxes[i].checked = true; parent.SocialEngine.Event.memberInviteUpdate(checkboxes[i].value, true); {rdelim}">{lang_print id=3000228}</a></div>
-    <div id='invite_friendlist' class='invite_friendlist'></div>
-    
-    <div style='margin-top: 20px;'>
-      {lang_block id=3000225 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.SocialEngine.Event.memberInviteSend();' />{/lang_block}
-      {lang_block id=39 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.TB_remove();' />{/lang_block}
-    </div>
-  </div>
-  
-  {* RESULT DIALOG *}
-  <div style='display:none;text-align:left;padding:10px;' id='inviteResults'></div>
-</div>
-
-
+{/if}
 <div class="meropriatie_item">
 	{section name=officer_loop loop=$officers}
 		<div class="img">
@@ -90,14 +54,75 @@
 		{/if}
 	</div>
 </div>
-{if $event->event_info.event_eventcat_id == 2}
-<h2>В мероприятии участвуют</h2>
-<ul class="friend_list h200">
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-	<li style="margin-right: 0px; "><a href="#"><img src="images/3.jpg" alt=""></a><a href="#">Александр Белый</a></li>
-</ul>
+{if $event->event_info.event_eventcat_id == 2 && $members|@count > 1}
+<h2>Приглашенные</h2>
+        {* LOOP THROUGH MEMBERS *}
+        {section name=member_loop loop=$members}
+		 {if $members[member_loop].member->user_info.user_id!=$event->event_info.event_user_id}
+          <div class='event_members_result' {if $smarty.section.member_loop.last}style="border:none;"{/if}>
+            <div class='event_members_photo'>
+              <a href='{$url->url_create("profile",$members[member_loop].member->user_info.user_username)}'>
+				{if $friends[friend_loop]->profile_info.profilevalue_5 == 2}
+					<img src="{$members[member_loop].member->user_photo('./images/avatars_17.gif',true)}" alt="{lang_sprintf id=509 1=$members[member_loop].member->user_displayname_short}" />
+				{else}
+					<img src="{$members[member_loop].member->user_photo('./images/avatars_15.gif',true)}" alt="{lang_sprintf id=509 1=$members[member_loop].member->user_displayname_short}" />
+				{/if}
+              </a>
+            </div>
+            <div class='profile_friend_info'>
+              <div class='profile_friend_name'>
+                <h2><a href='{$url->url_create("profile",$members[member_loop].member->user_info.user_username)}'>
+                  {$members[member_loop].member->user_displayname}
+                </a></h2>
+              </div>
+              <div class='profile_friend_details'>
+                {if $members[member_loop].member->user_info.user_dateupdated != 0}
+                <div>
+                  {lang_print id=849}
+                  {assign var='last_updated' value=$datetime->time_since($members[member_loop].member->user_info.user_dateupdated)}
+                  {lang_sprintf id=$last_updated[0] 1=$last_updated[1]}
+                </div>
+                {/if}
+                
+                {* SHOW EVENT MEMBER RANK *}
+                <div>
+                  {if $members[member_loop].member->user_info.user_id==$event->event_info.event_user_id}
+                    {lang_print id=3000152}
+                  {else}
+                    {lang_print id=3000163}
+                  {/if}
+                </div>
+                
+                {* SHOW EVENT MEMBER RSVP *}
+                <div>
+                  {lang_print id=$members[member_loop].eventmember_rsvp_lvid}
+                </div>
+              </div>
+            </div>
+           <!-- <div class='profile_friend_options'>
+              {if !$members[member_loop].member->is_viewers_friend && !$members[member_loop].member->is_viewer_blocklisted && $members[member_loop].member->user_info.user_id!=$user->user_info.user_id && $user->user_exists}
+              <div id='addfriend_{$members[member_loop].member->user_info.user_id}'>
+                <a href="javascript:TB_show('{lang_print id=876}', 'user_friends_manage.php?user={$members[member_loop].member->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=838}</a>
+              </div>
+              {/if}
+            </div> -->
+            <div style='clear: both;'></div>
+          </div>
+		 {/if}
+        {/section}
+        
+        {* DISPLAY PAGINATION MENU IF APPLICABLE *}
+        {if $maxpage_members > 1}
+          <div style='text-align: center; margin-top: 5px;'>
+            {if $p_members != 1}<a href='event.php?event_id={$event->event_info.event_id}&v=members&search={$search}&p={math equation='p-1' p=$p_members}'>&#171; {lang_print id=182}</a>{else}<font class='disabled'>&#171; {lang_print id=182}</font>{/if}
+            {if $p_start_members == $p_end_members}
+              &nbsp;|&nbsp; {lang_sprintf id=184 1=$p_start_members 2=$total_members} &nbsp;|&nbsp; 
+            {else}
+              &nbsp;|&nbsp; {lang_sprintf id=185 1=$p_start_members 2=$p_end_members 3=$total_members} &nbsp;|&nbsp; 
+            {/if}
+            {if $p_members != $maxpage_members}<a href='event.php?event_id={$event->event_info.event_id}&v=members&search={$search}&p={math equation='p+1' p=$p_members}'>{lang_print id=183} &#187;</a>{else}<font class='disabled'>{lang_print id=183} &#187;</font>{/if}
+          </div>
+        {/if}
 {/if}
 
     <table cellpadding='0' cellspacing='0' width='100%' style="display:none;"><tr>
@@ -523,26 +548,7 @@
       
       
       {* MEMBERS TAB - SHOW EVENT MEMBERS AND INVITED USERS *}
-      <div id='event_members' style='display: none;'>
-        
-        {* JAVASCRIPT FOR CHANGING FRIEND MENU OPTION *}
-        {literal}
-        <script type="text/javascript">
-       <!-- 
-          function friend_update(status, id)
-          {
-            if(status == 'pending') {
-              if($('addfriend_'+id))
-                $('addfriend_'+id).style.display = 'none';
-            } else if(status == 'remove') {
-              if($('addfriend_'+id))
-                $('addfriend_'+id).style.display = 'none';
-              }
-            }
-        //-->
-        </script>
-        {/literal}
-        
+      <div id='event_members'>    
         <table cellpadding='0' cellspacing='0' width='100%'>
         <tr>
         <td valign='top'>
@@ -613,76 +619,7 @@
               <font class='disabled'>{lang_print id=183} &#187;</font>
             {/if}
           </div>
-        {/if}
-        
-        {* LOOP THROUGH MEMBERS *}
-        {section name=member_loop loop=$members}
-          <div class='event_members_result' style='overflow: hidden;'>
-            <div class='event_members_photo'>
-              <a href='{$url->url_create("profile",$members[member_loop].member->user_info.user_username)}'>
-                <img src='{$members[member_loop].member->user_photo("./images/no_photo.gif")}' width='{$misc->photo_size($members[member_loop].member->user_photo("./images/no_photo.gif"),"90","90","w")}' border='0' alt="{lang_sprintf id=509 1=$members[member_loop].member->user_displayname_short}" class='photo' />
-              </a>
-            </div>
-            <div class='profile_friend_info'>
-              <div class='profile_friend_name'>
-                <a href='{$url->url_create("profile",$members[member_loop].member->user_info.user_username)}'>
-                  {$members[member_loop].member->user_displayname}
-                </a>
-              </div>
-              <div class='profile_friend_details'>
-                {if $members[member_loop].member->user_info.user_dateupdated != 0}
-                <div>
-                  {lang_print id=849}
-                  {assign var='last_updated' value=$datetime->time_since($members[member_loop].member->user_info.user_dateupdated)}
-                  {lang_sprintf id=$last_updated[0] 1=$last_updated[1]}
-                </div>
-                {/if}
-                
-                {* SHOW EVENT MEMBER RANK *}
-                <div>
-                  {if $members[member_loop].member->user_info.user_id==$event->event_info.event_user_id}
-                    {lang_print id=3000152}
-                  {else}
-                    {lang_print id=3000163}
-                  {/if}
-                </div>
-                
-                {* SHOW EVENT MEMBER RSVP *}
-                <div>
-                  {lang_print id=$members[member_loop].eventmember_rsvp_lvid}
-                </div>
-              </div>
-            </div>
-            <div class='profile_friend_options'>
-              {if !$members[member_loop].member->is_viewers_friend && !$members[member_loop].member->is_viewer_blocklisted && $members[member_loop].member->user_info.user_id!=$user->user_info.user_id && $user->user_exists}
-              <div id='addfriend_{$members[member_loop].member->user_info.user_id}'>
-                <a href="javascript:TB_show('{lang_print id=876}', 'user_friends_manage.php?user={$members[member_loop].member->user_info.user_username}&TB_iframe=true&height=300&width=450', '', './images/trans.gif');">{lang_print id=838}</a>
-              </div>
-              {/if}
-              {if !$members[member_loop].member->is_viewer_blocklisted && ($user->level_info.level_message_allow == 2 || ($user->level_info.level_message_allow == 1 && $members[member_loop].member->is_viewers_friend)) && $members[member_loop].member->user_info.user_id!=$user->user_info.user_id}
-              <div id='messageuser_{$members[member_loop].member->user_info.user_id}'>
-                <a href="javascript:TB_show('{lang_print id=784}', 'user_messages_new.php?to_user={$members[member_loop].member->user_displayname}&to_id={$members[member_loop].member->user_info.user_username}&TB_iframe=true&height=400&width=450', '', './images/trans.gif');">{lang_print id=839}</a>
-              </div>
-              {/if}
-            </div>
-            <div style='clear: both;'></div>
-          </div>
-          {if !$smarty.section.member_loop.last}<div style='clear: both; height: 8px;'></div>{/if}
-        {/section}
-        
-        {* DISPLAY PAGINATION MENU IF APPLICABLE *}
-        {if $maxpage_members > 1}
-          <div style='text-align: center; margin-top: 5px;'>
-            {if $p_members != 1}<a href='event.php?event_id={$event->event_info.event_id}&v=members&search={$search}&p={math equation='p-1' p=$p_members}'>&#171; {lang_print id=182}</a>{else}<font class='disabled'>&#171; {lang_print id=182}</font>{/if}
-            {if $p_start_members == $p_end_members}
-              &nbsp;|&nbsp; {lang_sprintf id=184 1=$p_start_members 2=$total_members} &nbsp;|&nbsp; 
-            {else}
-              &nbsp;|&nbsp; {lang_sprintf id=185 1=$p_start_members 2=$p_end_members 3=$total_members} &nbsp;|&nbsp; 
-            {/if}
-            {if $p_members != $maxpage_members}<a href='event.php?event_id={$event->event_info.event_id}&v=members&search={$search}&p={math equation='p+1' p=$p_members}'>{lang_print id=183} &#187;</a>{else}<font class='disabled'>{lang_print id=183} &#187;</font>{/if}
-          </div>
-        {/if}
-        
+        {/if}        
       </div>
       {* END MEMBERS TAB *}
       

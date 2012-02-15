@@ -45,37 +45,6 @@
   {lang_block id=39 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.TB_remove();' />{/lang_block}
 </div>
 
-
-{* HIDDEN DIV TO DISPLAY MEMBER INVITE *}
-<div style='display: none;' id='eventmemberinvite'>
-  {* NO FRIENDS MESSAGE *}
-  <div style='text-align:center;margin:10px;font-weight:bold;border: 1px dashed #CCCCCC;background: #FFFFFF;padding: 7px 8px 7px 7px;' id='noFriends'>
-    <img src='./images/icons/bulb16.gif' class='icon'>
-    {lang_print id=3000227}
-    <br />
-    <br />
-    {lang_block id=39 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.TB_remove();' />{/lang_block}
-  </div>
-  
-  {* INVITE DIALOG *}
-  <div style='display:none;text-align:left;padding:10px;' id='inviteForm'>
-    <div>{lang_print id=3000226}</div>
-    <br />
-    
-    <div><a href='javascript:void(0);' id="eventMemberInviteSelectAll" onClick="var checkboxes = document.getElementsByTagName('input'); for( var i=0, l=checkboxes.length; i<l; i++ ) if( checkboxes[i].type=='checkbox' && parseInt(checkboxes[i].value)>0 ) {ldelim} checkboxes[i].checked = true; parent.SocialEngine.Event.memberInviteUpdate(checkboxes[i].value, true); {rdelim}">{lang_print id=3000228}</a></div>
-    <div id='invite_friendlist' class='invite_friendlist'></div>
-    
-    <div style='margin-top: 20px;'>
-      {lang_block id=3000225 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.SocialEngine.Event.memberInviteSend();' />{/lang_block}
-      {lang_block id=39 var=langBlockTemp}<input type='button' class='button' value='{$langBlockTemp}' onClick='parent.TB_remove();' />{/lang_block}
-    </div>
-  </div>
-  
-  {* RESULT DIALOG *}
-  <div style='display:none;text-align:left;padding:10px;' id='inviteResults'></div>
-</div>
-
-
 <div style="margin-top:10px;"><a href="javascript:void(0)" id="selevt_for_invite">{lang_print id=3000145}</a></div>
 
 <table cellpadding="0" cellspacing="0" width="100%"><tr>
@@ -86,7 +55,6 @@
   {else}
   
   {* MEMBER LIST *}
- <!-- <pre>{$members|print_r}</pre> -->
   {section name=member_loop loop=$members}
   {assign var=member_status value=$members[member_loop].eventmember_rsvp}
   <div class="event_member">
@@ -95,9 +63,11 @@
       <tr>
         <td>
           <a href="{$url->url_create('profile', $members[member_loop].member->user_info.user_username)}">
-		  
-            <img src="{$members[member_loop].member->user_photo('./images/no_photo.gif')}" class="photo" border="0" width="60" height="60" />
-			
+			{if $friends[friend_loop]->profile_info.profilevalue_5 == 2}
+				<img src="{$members[member_loop].member->user_photo('./images/avatars_11.gif')}" alt="{lang_sprintf id=509 1=$members[member_loop].member->user_displayname_short}" />
+			{else}
+				<img src="{$members[member_loop].member->user_photo('./images/avatars_09.gif')}" alt="{lang_sprintf id=509 1=$members[member_loop].member->user_displayname_short}" />
+			{/if}
           </a>
         </td>
         <td style="padding-left: 7px; vertical-align: top;" width="100%">
@@ -147,26 +117,26 @@
   </div>
   {/section}
   
-  
-  
-  {* PAGINATION *}
-  <div class="event_pages_bottom">
-    {if $p != 1}
-      <a href='javascript:void(0);' onclick='document.event_members_form.p.value={math equation="p-1" p=$p};document.event_members_form.submit();'>&#171; {lang_print id=182}</a>
-    {else}
-      <font class='disabled'>&#171; {lang_print id=182}</font>
-    {/if}
-    {if $p_start == $p_end}
-      &nbsp;|&nbsp; {lang_sprintf id=184 1=$p_start 2=$total_members} &nbsp;|&nbsp; 
-    {else}
-      &nbsp;|&nbsp; {lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_members} &nbsp;|&nbsp; 
-    {/if}
-    {if $p != $maxpage}
-      <a href='javascript:void(0);' onclick='document.event_members_form.p.value={math equation="p+1" p=$p};document.event_members_form.submit();'>{lang_print id=183} &#187;</a>
-    {else}
-      <font class='disabled'>{lang_print id=183} &#187;</font>
-    {/if}
-  </div>
+	{if $maxpage > 1}
+		{* PAGINATION *}
+		<div class="event_pages_bottom">
+			{if $p != 1}
+			  <a href='javascript:void(0);' onclick='document.event_members_form.p.value={math equation="p-1" p=$p};document.event_members_form.submit();'>&#171; {lang_print id=182}</a>
+			{else}
+			  <font class='disabled'>&#171; {lang_print id=182}</font>
+			{/if}
+			{if $p_start == $p_end}
+			  &nbsp;|&nbsp; {lang_sprintf id=184 1=$p_start 2=$total_members} &nbsp;|&nbsp; 
+			{else}
+			  &nbsp;|&nbsp; {lang_sprintf id=185 1=$p_start 2=$p_end 3=$total_members} &nbsp;|&nbsp; 
+			{/if}
+			{if $p != $maxpage}
+			  <a href='javascript:void(0);' onclick='document.event_members_form.p.value={math equation="p+1" p=$p};document.event_members_form.submit();'>{lang_print id=183} &#187;</a>
+			{else}
+			  <font class='disabled'>{lang_print id=183} &#187;</font>
+			{/if}
+		</div>
+	{/if}
   
   {/if}
   

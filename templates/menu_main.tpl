@@ -44,10 +44,12 @@
 							{assign var=str value=$str.0}
 							<li {if $global_page|strpos:"$str" === 0  || 
 									($global_page|strpos:"mf_gift" === 0 && $user_apps_args.file == 'mf_gifts_user.php' ) ||
-									(($global_page|strpos:"event" === 0 || $global_page|strpos:"user_event" === 0) && ( $user_apps_args.file == 'event.php' ||  $user_apps_args.file == 'user_event.php'  )) ||
 									($global_page == 'blog' && $str == 'user_blog' ) }class="active"{/if}>
 								{if $user_apps_args.file == 'mf_gifts_user.php'}
 									<a href='{$user_apps_args.file}'>{lang_print id=$user_apps_args.title} {if $user->get_total_gifts() > 0}<span> ({$user->get_total_gifts()})</span> {/if}</a>
+								{elseif $user_apps_args.file == 'user_event.php' }
+									<a href='{$user_apps_args.file}{if $user->get_isset_event_invite() > 0}?view=list{/if}'>{lang_print id=$user_apps_args.title} {if $user->get_isset_event_invite() > 0}<span> ({$user->get_isset_event_invite()})</span> {/if}</a>
+								
 								{else}
 									<a href='{$user_apps_args.file}'>{lang_print id=$user_apps_args.title}</a>
 								{/if}

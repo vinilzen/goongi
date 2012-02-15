@@ -1960,12 +1960,6 @@ class SEUser
   // END user_photo_delete() METHOD
 
 
-
-
-
-
-
-
 	// THIS METHOD RETURNS THE TOTAL NUMBER OF FRIENDS
 	// INPUT: $direction (OPTIONAL) REPRESENTING A "0" FOR OUTGOING CONNECTIONS AND A "1" FOR INCOMING CONNECTIONS
 	//	  $friend_status (OPTIONAL) REPRESENTING THE FRIEND STATUS (1 FOR CONFIRMED, 0 FOR PENDING REQUESTS)
@@ -1974,29 +1968,36 @@ class SEUser
 	// OUTPUT: AN INTEGER REPRESENTING THE NUMBER OF FRIENDS
 
 
-         function  get_total_gifts()
-      {
-            global $database;
-            $sql = "SELECT * FROM `mf_gifts` WHERE `to_id`='{$this->user_info['user_id']}' AND `read` =0";
-          //  $gigt_query = "SELECT * FROM mf_gifts WHERE to_id = '{$this->user_info['user_id']}' AND read =0 ";
-//echo $gigt_query;
-             return (int) $database->database_num_rows($database->database_query($sql));
-      }
+	function  get_total_gifts()
+    {
+		global $database;
+		$sql = "SELECT * FROM `mf_gifts` WHERE `to_id`='{$this->user_info['user_id']}' AND `read` =0";
+		return (int) $database->database_num_rows($database->database_query($sql));
+    }
+	
+
+	function  get_isset_event_invite()
+    {
+		global $database;
+		$sql = "SELECT * FROM `se_eventmembers` WHERE `eventmember_user_id`='{$this->user_info['user_id']}' AND `eventmember_status` =0";
+		return (int) $database->database_num_rows($database->database_query($sql));
+    }
+	
 	
 	function user_friend_total($direction = 0, $friend_status = 1, $user_details = 0, $where = "")
-  {
-	  global $database, $setting;
+	{
+		global $database, $setting;
     
-    if( !$setting['setting_connection_allow'] )
-      return 0;
+		if( !$setting['setting_connection_allow'] )
+			return 0;
     
-    // BEGIN FRIEND QUERY
-    $friend_query = "
-      SELECT
-        NULL
-      FROM
-        se_friends
-    ";
+	    // BEGIN FRIEND QUERY
+	    $friend_query = "
+	      SELECT
+	        NULL
+	      FROM
+	        se_friends
+	    ";
     
     // JOIN TO FRIEND TABLE IF NECESSARY
     if( $user_details ) $friend_query .= "

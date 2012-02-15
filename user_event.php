@@ -16,12 +16,12 @@ if( 3 & ~$user->level_info['level_event_allow'] )
 
 // SET VARIABLES AND INITIALIZE EVENT OBJECT
 $task         = ( !empty($_POST['task'])          ? $_POST['task']          : ( !empty($_GET['task'])         ? $_GET['task']         : NULL    ) );
-$view         = ( !empty($_POST['view'])          ? $_POST['view']          : ( !empty($_GET['view'])         ? $_GET['view']         : 'list'  ) );
+$view         = ( !empty($_POST['view'])          ? $_POST['view']          : ( !empty($_GET['view'])         ? $_GET['view']         : 'month'  ) );
 $date         = ( !empty($_POST['date'])          ? $_POST['date']          : ( !empty($_GET['date'])         ? $_GET['date']         : NULL    ) );
 $search       = ( !empty($_POST['search'])        ? $_POST['search']        : ( !empty($_GET['search'])       ? $_GET['search']       : NULL    ) );
 $p            = ( !empty($_POST['p'])             ? $_POST['p']             : ( !empty($_GET['p'])            ? $_GET['p']            : 1       ) );
 $s            = ( !empty($_POST['s'])             ? $_POST['s']             : ( !empty($_GET['s'])            ? $_GET['s']            : NULL    ) );
-$view = "month";  // OR 'list'
+//$view = "month";  // OR 'list'
 $show_notification = !empty($_GET['show_notification']);
 if( !empty($search) ) $view = "list";
 if( !$s ) $s = "se_events.event_date_start DESC";
