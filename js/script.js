@@ -762,11 +762,16 @@ function src(){
 						$('#title_edit_gr').append( $('#group_'+group_id_curent).html() );
 						$.each(data.result, function(key, value) {		
 							//var photo = value['user_photo'].replace(/(\w+)\.jpg/, "$1"+"_thumb.jpg");
-                                                        userid = key;
-                                                        subdir = Math.floor(Math.floor(userid / 1000) * 1000 + 1000);
-                                                        if (value['user_photo'] != '')
-                                                        userdir = './uploads_user/'+subdir+ '/' + userid+ '/' + value['user_photo'];
-                                                        else userdir ='./images/no_photo_thumb.gif'
+							userid = key;
+							subdir = Math.floor(Math.floor(userid / 1000) * 1000 + 1000);
+							if (value['user_photo'] != '') {
+								userdir = './uploads_user/'+subdir+ '/' + userid+ '/' + value['user_photo'];
+							} else {
+								if (value['user_sex'] == 'm')
+									userdir ='./images/avatars_15.gif'
+								else
+									userdir ='./images/avatars_17.gif'
+							}
 							if ($('#frend_'+key).attr('class') != '') {
 								var str = $('#frend_'+key).attr('class');
 								regexp = "group_"+group_id_curent;
@@ -828,15 +833,18 @@ function src(){
 						var event_id_curent = $('#edit_event').attr('rel');
 									
 						//$('#title_edit_gr').append( $('#event_'+event_id_curent).html() );
-						$.each(data.result, function(key, value) {	
+						$.each(data.result, function(key, value) {
 							//var photo = value['user_photo'].replace(/(\w+)\.jpg/, "$1"+"_thumb.jpg");
 							userid = key;
 							subdir = Math.floor(Math.floor(userid / 1000) * 1000 + 1000);
-							if (value['user_photo'] != '')
+							if (value['user_photo'] != '') {
 								userdir = './uploads_user/'+subdir+ '/' + userid+ '/' + value['user_photo'];
-							else
-								userdir ='./images/no_photo_thumb.gif'
-							
+							} else {
+								if (value['user_sex'] == 'm')
+									userdir ='./images/avatars_15.gif'
+								else
+									userdir ='./images/avatars_17.gif'
+							}
 							var check = '';
 							/*if ($('#frend_'+key).attr('class') != '' ) {	
 								var str = $('#frend_'+key).attr('class');
@@ -868,14 +876,12 @@ function src(){
 							 $.post(	"event_ajax.php",
 										{'json': 1,'task': 'eventmemberinvite','event_id': event_id_curent, 'invites':users},
 										function(data_save) {
-											if ( data_save.error == '0') {
+											if ( data_save.result == true) {
 												$('#prldre').html('Приглашение высланы.');
 												location.href='user_event_edit_members.php?event_id='+event_id_curent;
+											} else {
+												$('#prldre').html('Ошибка.');
 											}
-											if ( data_save.error == '1') {
-												alert('error');
-											}
-											$('#prldre').html('');
 										},'json')
 						});
 					}

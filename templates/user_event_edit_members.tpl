@@ -86,15 +86,18 @@
   {else}
   
   {* MEMBER LIST *}
+ <!-- <pre>{$members|print_r}</pre> -->
   {section name=member_loop loop=$members}
-  {assign var=member_status value=$members[member_loop].eventmember_status}
+  {assign var=member_status value=$members[member_loop].eventmember_rsvp}
   <div class="event_member">
     
     <table cellpadding="0" cellspacing="0">
       <tr>
         <td>
           <a href="{$url->url_create('profile', $members[member_loop].member->user_info.user_username)}">
+		  
             <img src="{$members[member_loop].member->user_photo('./images/no_photo.gif')}" class="photo" border="0" width="60" height="60" />
+			
           </a>
         </td>
         <td style="padding-left: 7px; vertical-align: top;" width="100%">
@@ -102,7 +105,9 @@
             <h2><a href="{$url->url_create('profile', $members[member_loop].member->user_info.user_username)}">{$members[member_loop].member->user_displayname}</a></h2>
           </div>
           <div style="padding-top: 5px;">
-            <div class="event_member_info">{lang_print id=3000147} {lang_print id=$event->event_rsvp_levels.$member_status}</div>
+			{if $members[member_loop].eventmember_rank != 3}
+				<div class="event_member_info">{lang_print id=3000147} {lang_print id=$event->event_rsvp_levels.$member_status}</div>
+			{/if}
             {if $members[member_loop].member->user_info.user_dateupdated}
             {assign var="user_dateupdated" value=$datetime->time_since($members[member_loop].member->user_info.user_dateupdated)}
             <div class="event_member_info">{lang_print id=3000148} &nbsp;{lang_sprintf id=$user_dateupdated[0] 1=$user_dateupdated[1]}</div>
@@ -126,9 +131,8 @@
               <div><a href='javascript:void(0);' onclick='SocialEngine.Event.memberReject({$members[member_loop].member->user_info.user_id});'>{lang_print id=3000150}</a></div>
               
             {* IF MEMBER WAS INVITED BY LEADER *}
-            {elseif $members[member_loop].eventmember_approved && !$members[member_loop].eventmember_status}
+            {elseif $members[member_loop].eventmember_approved && !$members[member_loop].eventmember_status || $member_status == 0}
               <div><a href='javascript:void(0);' class="memb_cancel" rel="{$members[member_loop].member->user_info.user_id}">Отозвать приглашение</a></div>
-              
             {* NORMAL MEMBER *}
             {else}
               

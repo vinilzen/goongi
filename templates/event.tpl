@@ -7,7 +7,8 @@
 	<a href='user_event.php'>{lang_print id=3000086}</a>
 	<span>{$event->event_info.event_title}<!-- {lang_print id=$eventcat_info.subcat_title} --></span>
 </div>
-<div class="buttons" id="event_id" rel="{$event->event_info.event_id}">	
+<div class="buttons" id="event_id" rel="{$event->event_info.event_id}">
+	<pre>{$event|print_r}</pre>
 	{if $event->event_info.event_user_id != $event->user_id}
 		<span class="button2"><span class="l">&nbsp;</span><span class="c">
 			<a href="#" class="att {if $event->eventmember_info.eventmember_rsvp == 1}selected{/if}" id="attend">Пойду</a>

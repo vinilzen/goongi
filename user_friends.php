@@ -52,6 +52,7 @@ if ( isset($_POST['json']) && $_POST['json'] == 1 ){
 			
 			foreach ($friends AS $k=>$v){
 				$result[ $v->user_info['user_id'] ] = $v->user_info;
+				$result[ $v->user_info['user_id'] ]['user_sex'] = $user->get_sex( $v->user_info['user_id'] );
 			}
 			//echo '<pre>';
 			//print_r($result);
