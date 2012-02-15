@@ -1,5 +1,5 @@
 function src(){
-			scrOfY = 0;
+	scrOfY = 0;
 		 if( typeof( window.pageYOffset ) == 'number' ) {
 						 //Netscape compliant
 						 scrOfY = window.pageYOffset;
@@ -190,6 +190,11 @@ function src(){
 		if($(this).attr('class')!='active'){
 			$(this).stop().fadeTo('normal',"0.5");
 		}
+	});
+	$(".pro li").hover(function(){
+		$(this).addClass('active');
+	},function(){
+		$(this).removeClass('active')
 	});
 	
 	$('.visitka_list li').each(function(i){
@@ -1500,25 +1505,6 @@ function Show_piple(owner_id){
           city = city+ '</select>';
             document.getElementById('countydiv').innerHTML= sel+city;
                        
-          }
-          if (data.error == '1') {
-            alert( 'нет городов');
-          }
-        },
-        'json');
-                                return false;
-  }
-
-  function getCityList(country_id){
-    // alert(country_id);
-     $('#dhtmlgoodies_city').remove();
-      $.post("user_editprofile.php",
-        {'task':'get_city', countryid: '' + country_id + ''},
-        function(data) {
-          if ( data.error == '0') {
-          var  city;
-         city = '<select name="dhtmlgoodies_city" id="dhtmlgoodies_city"><option id="op" value="-1"></option>'+data.result+'</select>';
-            document.getElementById('countydiv').innerHTML= city;
           }
           if (data.error == '1') {
             alert( 'нет городов');

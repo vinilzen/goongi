@@ -18,9 +18,7 @@
 						<img src="{$user->user_photo('./images/avatars_09.gif')}" alt="" />
 					{/if}
 				</div>
-				<ul>
-					<li>Это вы {$user->user_displayname_short}[{$user->user_info.user_id}]</li>
-					
+				<ul>					
 					{* SHOW FRIENDS MENU ITEM IF ENABLED *}
 					<li {if $global_page|strpos:"profile" === 0 || $global_page|strpos:"user_editprofile" === 0}class="active"{/if}><a href='{$url->url_create("profile", $user->user_info.user_username)}'>{lang_print id=652}</a></li>
 					
