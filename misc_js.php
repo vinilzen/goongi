@@ -432,7 +432,7 @@ elseif($task == "comment_get")
   $tab = ( isset($_POST['tab']) ? $_POST['tab'] : NULL );
   $col = ( isset($_POST['col']) ? $_POST['col'] : NULL );
   
-  //print_r($iden);  print_r($type);  print_r($value); die();
+ 
   
   if( !$type || !$iden || !$value ) exit();
   
@@ -459,8 +459,9 @@ elseif($task == "comment_get")
 
   // MAKE COMMENT PAGES AND GET COMMENT ARRAY
   $page_vars = make_page($total_comments, $cpp, $p);
+
   $comments = $comment->comment_list($page_vars[0], $cpp);
-//echo '<pre>'; print_r($comments); die();
+
   // CONSTRUCT JSON RESPONSE
   $response_array = array(
     'total_comments'  => (int) $total_comments,
@@ -471,14 +472,12 @@ elseif($task == "comment_get")
     'type'            =>  $type,
     'comments'        => array()
   );
- 
+  
   foreach( $comments as $comment_index=>$comment_data )
   {
     // Escape trailing backslash
     if( substr($comment_data['comment_body'], -1, 1)=="\\" && substr($comment_data['comment_body'], -2, 2)!="\\\\" )
       $comment_data['comment_body'] .= "\\";
-    
-   //echo '<pre>'; print_r($comment_data['comment_author']); die();
     
     $response_array['comments'][(int) $comment_data['comment_id']] = array
     (
