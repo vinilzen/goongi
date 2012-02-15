@@ -2,5 +2,5 @@
 $database_host = 'localhost';
 $database_username = 'root';
 $database_password = '';
-$database_name = '_goongi';
+$database_name = 'goongi';
 ?>
