@@ -73,7 +73,12 @@ class se_ads
     
 	  // IF VIEWER IS LOGGED-IN, ONLY SHOW AD IF VIEWER'S LEVEL AND SUBNETS MATCH
 	  else
-    { 
+    {
+         //     print_r ($user);
+             // if $user->profile_info['profilevalue_7'] !='';
+             // echo $user->profile_info[profilevalue_8];
+     //      $vizitkientry_contry profilevalue_7
+               $ad_querystring .= " AND vizitkientry_contry = '{$user->profile_info['profilevalue_7']}' AND vizitkientry_city ='{$user->profile_info['profilevalue_9']}'";
 	 //   $level_id = $user->level_info['level_id'];
 	 //   $subnet_id = $user->subnet_info['subnet_id'];
 	//    $ad_querystring .= " AND (ad_levels LIKE '%,{$level_id},%' AND ad_subnets LIKE '%,{$subnet_id},%')";

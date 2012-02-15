@@ -1,5 +1,6 @@
-﻿{include file='header.tpl'}
-
+{include file='header.tpl'}
+{literal}
+{/literal}
 {* $Id: user_editprofile.tpl 8 2009-01-11 06:02:53Z john $ *}
 
 <h1>РЕДАКТИРОВАТЬ ЛИЧНУЮ ИНФОРМАЦИЮ</h1>
@@ -115,7 +116,20 @@
     {* SELECT BOX *}
     {elseif $fields[field_loop].field_type == 3}
     <div class="input">
+{*вывод страны*}
 		<label>{lang_print id=$fields[field_loop].field_title}{if $fields[field_loop].field_required != 0}*{/if}</label>
+                    {if $fields[field_loop].field_id == 7  }
+                <div><select name='dhtmlgoodies_country' id='dhtmlgoodies_country' onchange="getCityList(this.value);">
+                  <option id='op' value='-1'></option>
+                                      {$country}</select>
+                  </div>
+{elseif $fields[field_loop].field_id == 8}
+     <div id = "countydiv">
+                <select name='dhtmlgoodies_city' id='dhtmlgoodies_city'>
+                  <option id='op' value='-1'></option>
+                                      {$city}</select>
+                  </div>
+            {else}
 		<!-- @ --><select name='field_{$fields[field_loop].field_id}' id='field_{$fields[field_loop].field_id}' onchange="ShowHideDeps('{$fields[field_loop].field_id}', this.value);" style='{$fields[field_loop].field_style}'>
 			<option value='-1'></option>
 			{* LOOP THROUGH FIELD OPTIONS *}
@@ -123,6 +137,8 @@
 			<option id='op' value='{$fields[field_loop].field_options[option_loop].value}'{if $fields[field_loop].field_options[option_loop].value == $fields[field_loop].field_value} SELECTED{/if}>{lang_print id=$fields[field_loop].field_options[option_loop].label}</option>
 			{/section}
 		</select>
+
+                {/if}
     </div>
       {* LOOP THROUGH DEPENDENT FIELDS *}
       <div id='field_options_{$fields[field_loop].field_id}'>
@@ -273,6 +289,65 @@
     {capture assign='field_error'}{lang_print id=$fields[field_loop].field_error}{/capture}
     {if $field_error != ""}<div class='form_error'><img src='./images/icons/error16.gif' border='0' class='icon'> {$field_error}</div>{/if}
   {/section}
+{* Дополнительная часть*}
+<!--
+            {if $cat_id == 3}
+            <tr>
+              <td class='form1' width='150'>Страна</td>
+              <td class='form2'>
+
+                          <div><select name='dhtmlgoodies_country' id='dhtmlgoodies_country' onchange="getRegionList(this.value);">
+                  <option id='op' value='-1'></option>
+                                      {$country}</select>
+                  </div>
+                        <div id='dhtmlgoodies_country'>
+                                            Страна, в которой Вы в текущий момент проживаете.
+                                                    </div>
+
+
+                <div class='form_desc'></div>
+
+
+                        </td>
+                </tr>
+            <tr>
+            <tr>
+              <td class='form1' width='150'>Регион</td>
+              <td class='form2'>
+
+                          <div><select name='dhtmlgoodies_region' id='dhtmlgoodies_region' onchange="getCityList(this.value);">
+                  <option id='op' value='-1'></option>
+                                      {$region}</select>
+                  </div>
+                        <div id='dhtmlgoodies_region'>
+                                            Регион, в котором Вы в текущий момент проживаете.
+                                                    </div>
+
+
+                <div class='form_desc'></div>
+
+                        </td>
+                </tr>
+            <tr>
+              <td class='form1' width='150'>Город</td>
+              <td class='form2'>
+
+                          <div><select name='dhtmlgoodies_city' id='dhtmlgoodies_city'>
+                  <option id='op' value='-1'></option>
+                                      {$city}</select>
+                  </div>
+                        <div id='dhtmlgoodies_city'>
+                                            Город, в котором Вы в текущий момент проживаете.
+                                                    </div>
+
+
+                <div class='form_desc'></div>
+
+
+                        </td>
+                </tr>
+            {/if}
+-->
 	<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c">
 		<input type="submit" value="{lang_print id=173}" name="log" />
 	</span><span class="r">&nbsp;</span></span></div>

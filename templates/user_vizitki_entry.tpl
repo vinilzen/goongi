@@ -103,19 +103,26 @@ if (($('#name_v').val() == '') || ($('#categor').val() == '') || ($('#desc').val
 
                 <h2>Выбор региона трансляции</h2>
                 <div class="input"><label>Страна</label>
-                <select name="contry" onChange = "Show_city(this.value)">
+                <select name='dhtmlgoodies_country' id='dhtmlgoodies_country' onchange="getCityList(this.value);">
+                  <option id='op' value='-1'></option>
+                                      {$country}</select></div>
+                  
+            <!--    <select name="contry" onChange = "Show_city(this.value)">
                         {section name=s loop=$country}
                           <option value = "{$country[s].vizitkisetting_id}" {if $vizitkientry_info.vizitkientry_contry == $country[s].vizitkisetting_id} SELECTED{/if}>{$country[s].vizitkisetting_country}</option>
                          {/section}
-                </select></div>
+                </select></div>-->
 
                 <div class="input"><label>Город</label>
                 <div id="countydiv"></div>
-                <select name="city" id = "city_show">
+                <select name='dhtmlgoodies_city' id='dhtmlgoodies_city'>
+                  <option id='op' value='-1'></option>
+                                      {$city}</select>
+             <!--   <select name="city" id = "city_show">
                     {section name=s loop=$city}
                         <option {if $vizitkientry_info.vizitkientry_city == $city[s]} SELECTED{/if}>{$city[s]}</option>
                     {/section}
-                </select>
+                </select>-->
                 </div>
 <div class="button">
                 <span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Сохранить" onClick = "checkparam()" name="save" /></span><span class="r">&nbsp;</span></span>
