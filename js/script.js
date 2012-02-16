@@ -423,7 +423,7 @@ function src(){
 	$('.friends_list .add').click(function() {
 		var username = $(this).attr('rev');
 		//var r=confirm("you want to add a user " + username);
-                var r=confirm("Вы хотите добавить пользователя " + username + "?");
+                var r=true;//confirm("Вы хотите добавить пользователя " + username + "?");
 		if (r==true) {
 			
 			var id = $(this).attr('rel');
@@ -1164,7 +1164,7 @@ function update_group_list() {
 								var date = this.comment_date;
 								str = str + '<li id="comment_li_'+i+'"><div class="comment_text"><a href="' + url + '">';
 								str = str + '<img src="' + photo + '" alt="" /></a>';
-								str = str + '<div class="inf"><a href="' + url + '" class="name">' + i + ' - ' + displayname + '[' + author_id + ']</a>';
+								str = str + '<div class="inf"><a href="' + url + '" class="name">' + displayname + '</a>';
 								str = str + '<p id="comment_msg_'+i+'">' + msg + '</p>';
 								str = str + '<div class="date">';
 								if ( user_id == owner_id || author_id == user_id )
@@ -1468,14 +1468,23 @@ function Show_piple(owner_id){
                                              var userid;
                                              var subdir;
                                              var userdir;
-                                          //    alert($('#user').value);
+                                           //  var small;
+                                            
                                                $.each(data.result, function(key, value) {
+                                                   //  alert(value['profilevalue_5']);
                                                 userid = value['user_candle_id'];
                                                 subdir = Math.floor(Math.floor(userid / 1000) * 1000 + 1000);
-                                                if (value['user_candle_photo'] != '_thumb')
-                                                userdir = './uploads_user/'+subdir+ '/' + userid+ '/' + value['user_candle_photo']+'.jpg';
-                                                else userdir ='./images/no_photo_thumb.gif'
-
+                                                if (value['user_photo'] != '_thumb')
+                                                    {
+                                                   //   small =  value['user_photo']+'_thumb.jpg';
+                                                        userdir = './uploads_user/'+subdir+ '/' + userid+ '/' +value['user_photo'];
+                                                    }
+                                                else
+                                                    {
+                                                        if (value['profilevalue_5'] == 2)
+                                                            userdir ='./images/avatars_17.gif';
+                                                            else userdir ='./images/avatars_15.gif';
+                                                    }
                                             //    $('.friend_list').append('<li><a href="#"><img src="/uploads_user/1000/'+value['user_candle_id']+'/'+value['user_candle_photo']+'.jpg" alt="" /></a><a href="#">'+ value['user_candle_name']+'</a></li>');
                                                 $('.friend_list').append('<li><a href="#"><img src='+userdir+' alt="" /></a><a href="#">'+ value['user_candle_name']+'</a></li>');
                                              });

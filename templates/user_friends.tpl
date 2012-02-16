@@ -84,9 +84,9 @@
 	<li id="frend_{$friends[friend_loop]->user_info.user_id}" class="{foreach from=$friends[friend_loop]->user_info.groups item=group key=k}group_{$k} {/foreach}">
 		<a href="{$url->url_create('profile',$friends[friend_loop]->user_info.user_username)}"  class="frend_img">
 			{if $friends[friend_loop]->profile_info.profilevalue_5 == 2}
-				<img src="{$friends[friend_loop]->user_photo('./images/avatars_17.gif',true)}" alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}" />
+				<img src="{$friends[friend_loop]->user_photo('./images/avatars_11.gif')}" alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}" />
 			{else}
-				<img src="{$friends[friend_loop]->user_photo('./images/avatars_15.gif',true)}" alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}" />
+				<img src="{$friends[friend_loop]->user_photo('./images/avatars_09.gif')}" alt="{lang_sprintf id=509 1=$friends[friend_loop]->user_displayname_short}" />
 			{/if}
 		</a>
 		<div>

@@ -1730,15 +1730,15 @@ class SEUser
 	function user_photo($nophoto_image = "", $thumb = FALSE, $id = 0)
 	{
 		global $url;
-
 	    //if( !$user->user_exists || !$this->user_info['user_photo'] )
 
 		if ($id == 0)
 		{
 			if( !$this->user_info['user_photo'] )
 				return $nophoto_image;
+                     $user_photo = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_photo'];
+                 
 
-			$user_photo = $url->url_userdir($this->user_info['user_id']).$this->user_info['user_photo'];
 		}
 		else
 		{
@@ -1750,12 +1750,19 @@ class SEUser
 				return $nophoto_image;
 			
 			$user_photo = $url->url_userdir($id).$my_user[$id]['photo'];
-			
+                        
+			if( $thumb === TRUE )
+                     {
+                        $user_thumb = substr($user_photo, 0, strrpos($user_photo, "."))."_thumb".substr($user_photo, strrpos($user_photo, "."));
+
+                        if( file_exists($user_thumb) )
+                            return $user_thumb;
+                    }
 		}
 		
-		if( $thumb === TRUE )
+		if( $thumb == TRUE )
 	    {
-	    	echo 123;
+	    
 		    $user_thumb = substr($user_photo, 0, strrpos($user_photo, "."))."_thumb".substr($user_photo, strrpos($user_photo, "."));
 		    
 		    if( file_exists($user_thumb) )

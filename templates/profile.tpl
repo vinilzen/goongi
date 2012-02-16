@@ -41,7 +41,7 @@
 						<div class="p_mn_b">
 							<a href="/tree.php?user={$owner->user_info.user_username}">Древо</a>
 							<a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a>
-							<a href="javascript:void(0);">История рода</a>
+							<a href="/user_history.php?user={$owner->user_info.user_username}">История рода</a>
 							<a href="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
 							<!-- <a href="javascript:void(0);">Медали</a> -->
 						</div>
