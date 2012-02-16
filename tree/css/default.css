@@ -93,31 +93,24 @@ select option	{padding:0 0 0 3px}
 .popup, .popup input, .popup select	{font-size:12px}
 
 .popup .close	{position:absolute; right:21px; top:0; background:url(../img/icons/cross.png); width:16px; height:16px; margin:6px -15px 0 0; cursor:pointer}
-.popup .header	{padding:8px 0 0; font-size:15px; border-bottom:1px solid #ccc; line-height:32px}
-.popup .content	{padding:14px 0 18px}
-.popup .footer	{padding:16px 0 0}
+.popup .header	{padding:8px 16px 0 0; font-size:15px; border-bottom:1px solid #ccc; line-height:32px}
+.popup .content	{padding:14px 0 15px}
+.popup .footer	{padding:10px 0 0}
 .popup .footer .button	{margin:0 16px 0 0}
 .popup .footer .cancel	{color:#2a86dc; border-bottom:1px dashed #2a86dc; font-size:14px; font-weight:bold; cursor:pointer; display:inline-block; font-family:trebuchet ms}
 
-.popup .field table .sep	{width:16px}
-.popup .field table th, .popup .field table td	{padding:0}
-.popup .field	{line-height:21px}
-.popup .field	{padding:4px 0}
-.popup .field label	{margin:0 8px 0 0; display:inline-block; line-height:24px}
-.popup .field input[type=text]	{width:536px; box-sizing:border-box; -moz-box-sizing:border-box}
-.popup .field input[name=birthdate] {width:40px}
-.popup .field input[name=deathdate] {width:40px}
-.popup .field input[name=birthyear] {width:60px}
-.popup .field input[name=deathyear] {width:60px}
-.popup .field select	{margin:0 5px}
-.popup .field .name	{font-weight:bold}
-.popup .field .name.fsz12	{font-weight:bold; font-size:12px;}
-.popup .field .name.fsz123	{font-weight:bold; font-size:12px; padding-right:14px;}
-.popup label	{display:block; margin:0 0 10px}
+.popup label	{margin:0 8px 0 0; display:inline-block; line-height:24px}
+.popup input[type=text]	{width:165px; box-sizing:border-box; -moz-box-sizing:border-box}
+.popup input[name=birthdate], .popup input[name=deathdate] {width:30px}
+.popup input[name=birthyear], .popup input[name=deathyear] {width:40px}
+.popup select	{margin:0 5px}
+.popup label	{margin:0 5px 0 0}
 
 .popup table	{border-collapse:collapse}
-.popup th, .popup td	{line-height:21px; white-space:nowrap; padding:0 20px 0 0}
-.popup th	{text-align:left; font-weight:normal; color:#666}
+.popup th, .popup td	{line-height:21px; white-space:nowrap}
+.popup th	{text-align:left; font-weight:normal; color:#666; padding:0 15px 0 0}
+
+.personal th	{color:#000; font-weight:bold; line-height:28px}
 
 .popup.center	{left:50%; top:50%; position:fixed}
 *+html .popup .button	{float:left}

@@ -89,8 +89,7 @@ function callback(form,act,doc) {
 </div>
 
 <script id="user-tmpl" type="text/html">
-        <%= id == {/literal}{$user->user_info.user_id}{literal} ? "<div class='print'></div>" : "" %>
-
+	<%= id == {/literal}{$user->user_info.user_id}{literal} ? "<div class='print'></div>" : "" %>
 	<div class="name"><a href="/user_editprofile.php" target="_top"><%= Base64.decode(displayname) %></a></div>
 	<div class="photo">
 		<a href="/{$user->user_info.user_username}" target="_top">
@@ -170,93 +169,66 @@ function callback(form,act,doc) {
 </script>
 
 <script id="personal-tmpl" type="text/html">
-	<div class="body">
+	<div class="body personal">
 		<input type="hidden" name="id" value="<%= id %>" />
 		<table>
 			<tr>
+				<th>Пол</th>
 				<td>
-					<div class="field">
-						<div class="name">Пол</div>
-						<label><input type="radio" name="sex" value="m" <% if (sex === "m") { %> checked="checked" <% } %> /> Мужской</label>
-						<label><input type="radio" name="sex" value="w" <% if (sex === "w") { %> checked="checked" <% } %> /> Женский</label>
-					</div>
-				</td>
-				<td class="sep"></td>
-				<td>
-					<% if (Base64.decode(fname) !== "") { %>
-						<div class="field">
-							<div class="name">Загрузи новый аватар</div>
-							<form id="my_form" method="post" action="" enctype="multipart/form-data" onsubmit="file_send();">
-								<input type="file" name="photo" />
-								<input type = "hidden" name = "u_id" value = "<%= id %>">
-								<input type="submit" value="отправить">
-							</form>
-						</div>
-					<% } %>
+					<label><input type="radio" name="sex" value="m" <% if (sex === "m") { %> checked="checked" <% } %> /> Мужской</label>
+					<label><input type="radio" name="sex" value="w" <% if (sex === "w") { %> checked="checked" <% } %> /> Женский</label>
 				</td>
 			</tr>
-		</table>
-
-		<div class="field">
-			<div class="name">Имя</div>
-			<input type="text" name="fname" value="<%= Base64.decode(fname) %>" />
-		</div>
-		<div class="field">
-			<div class="name">Фамилия</div>
-			<input type="text" name="lname" <% if (Base64.decode(lname) === "") { %> value="<%= Base64.decode(json.users[id].lname) %>" <% } %> value="<%= Base64.decode(lname) %>" />
-		</div>
-		<div class="field">
-			<div class="name">Прозвище</div>
-			<input type="text" name="alias" value="<%= alias %>" />
-		</div>
-		<div class="field">
-			<input type="hidden" name="invite" />
-			<div class="name fsz12">Пригласить по email</div>
-			<input type="text" name="email" value="<%= invite %>" />
-		</div>
-		<!--div class="field">
-			<div class="name">Мать/Отец</div>
-			<select><option></option></select>
-		</div-->
-
-		<table>
+			<% if (Base64.decode(fname) !== "") { %>
 			<tr>
+				<th>Загрузи новый аватар</th>
 				<td>
-					<div class="field">
-						<div class="name fsz12">Дата рождения</div>
-						<table>
-							<tr>
-								<td><input type="text" maxlength="2" name="birthdate" value="<%= birthday ? birthday.split("-")[2] : "" %>" /></td>
-								<td>
-									<select name="birthmonth">
-										<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
-											<option value="<%= i+1 %>" <% if (birthday && birthday.split("-")[1] == i+1) { %> selected="selected" <% } %>><%= month %></option>
-										<% }) %>
-									</select>
-								</td>
-								<td><input type="text" maxlength="4" name="birthyear" value="<%= birthday ? birthday.split("-")[0] : "" %>" /></td>
-							</tr>
-						</table>
-					</div>
+					<form id="my_form" method="post" action="" enctype="multipart/form-data" onsubmit="file_send();">
+						<input type="file" name="photo" size="1" />
+						<input type="hidden" name="u_id" value="<%= id %>">
+						<input type="submit" value="отправить">
+					</form>
 				</td>
-				<td class="sep"></td>
+			</tr>
+			<% } %>
+			<tr>
+				<th>Имя</th>
+				<td><input type="text" name="fname" value="<%= Base64.decode(fname) %>" /></td>
+			</tr>
+			<tr>
+				<th>Фамилия</th>
+				<td><input type="text" name="lname" <% if (Base64.decode(lname) === "") { %> value="<%= Base64.decode(json.users[id].lname) %>" <% } %> value="<%= Base64.decode(lname) %>" /></td>
+			</tr>
+			<tr>
+				<th>Прозвище</th>
+				<td><input type="text" name="alias" value="<%= alias %>" /></td>
+			</tr>
+			<tr>
+				<th>Пригласить по email</th>
+				<td><input type="hidden" name="invite" /><input type="text" name="email" value="<%= invite %>" /></td>
+			</tr>
+			<tr>
+				<th>Дата рождения</th>
 				<td>
-					<div class="field">
-						<label class="name fsz12"><input type="checkbox" name="dead" <% if (death || death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label>
-						<table>
-							<tr>
-								<td><input type="text" maxlength="2" name="deathdate" value="<%= death ? death.split("-")[2] : "" %>" <% if (!death) { %> disabled="disabled" <% } %> /></td>
-								<td>
-									<select name="deathmonth" <% if (!death) { %> disabled="disabled" <% } %>>
-										<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
-											<option value="<%= i+1 %>" <% if (death && death.split("-")[1] == i+1) { %> selected="selected" <% } %>><%= month %></option>
-										<% }) %>
-									</select>
-								</td>
-								<td><input type="text" maxlength="4" name="deathyear" value="<%= death ? death.split("-")[0] : "" %>" <% if (!death) { %> disabled="disabled" <% } %> /></td>
-							</tr>
-						</table>
-					</div>
+					<input type="text" maxlength="2" name="birthdate" value="<%= birthday ? birthday.split("-")[2] : "" %>" />
+					<select name="birthmonth">
+						<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
+							<option value="<%= i+1 %>" <% if (birthday && birthday.split("-")[1] == i+1) { %> selected="selected" <% } %>><%= month %></option>
+						<% }) %>
+					</select>
+					<input type="text" maxlength="4" name="birthyear" value="<%= birthday ? birthday.split("-")[0] : "" %>" />
+				</td>
+			</tr>
+			<tr>
+				<th><input type="checkbox" name="dead" <% if (death || death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label></th>
+				<td>
+					<input type="text" maxlength="2" name="deathdate" value="<%= death ? death.split("-")[2] : "" %>" <% if (!death) { %> disabled="disabled" <% } %> />
+					<select name="deathmonth" <% if (!death) { %> disabled="disabled" <% } %>>
+						<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
+							<option value="<%= i+1 %>" <% if (death && death.split("-")[1] == i+1) { %> selected="selected" <% } %>><%= month %></option>
+						<% }) %>
+					</select>
+					<input type="text" maxlength="4" name="deathyear" value="<%= death ? death.split("-")[0] : "" %>" <% if (!death) { %> disabled="disabled" <% } %> />
 				</td>
 			</tr>
 		</table>
