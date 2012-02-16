@@ -123,9 +123,9 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	#brdr.preloader { background:url(../images/96.gif) no-repeat center center; }
 	#brdr img{ padding:2px; border:1px solid #d7d7d7;background:#ffffff;}
 	/*.brdr img{ padding:2px; border:1px solid #d7d7d7;}*/
-	.pro ul			{ list-style:none; overflow:hidden;}
-	.pro ul li		{ list-style:none; overflow:hidden; height:25px; padding-left:12px;}
-	.pro ul li a	{ color:#000; text-decoration:none; display:inline-block; line-height:25px;}
+	.pro ul		{ list-style:none; overflow:hidden;}
+	.pro ul li		{ list-style:none; overflow:hidden; height:25px;}
+	.pro ul li a	{ color:#000; text-decoration:none; display:block; line-height:25px; padding-left: 12px;}
 	.pro ul li a span	{ font: bold 12px arial; }
 	.pro ul li.active	{ background:#e2d6d5;}
 	.pro ul li.active_hover{ background:#f0eaea;}
@@ -486,6 +486,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.form .input label.setlab	{ display:block; font-size:12px; font-weight:normal; margin:0px 0px 0px 10px;}
 	.form .input p		{  font-size:12px; font-weight:bold; margin-bottom:4px; margin-right:80px;}
+	.form .input.file p		{  font-weight:normal; }
 	.edit_blog .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.form .radio div input	{ float:left; margin-right:5px !important;}
 	.edit_blog {padding:0px 0px 14px 0px;} 

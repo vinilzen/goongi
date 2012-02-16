@@ -1762,7 +1762,6 @@ class SEUser
 		
 		if( $thumb == TRUE )
 	    {
-	    
 		    $user_thumb = substr($user_photo, 0, strrpos($user_photo, "."))."_thumb".substr($user_photo, strrpos($user_photo, "."));
 		    
 		    if( file_exists($user_thumb) )

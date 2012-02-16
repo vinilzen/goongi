@@ -35,7 +35,6 @@
 	<script type="text/javascript" src="/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/js/jquery.autocomplete-min.js"></script>
 	<script type="text/javascript" src="/js/jQuery.Carousel.js"></script>
-	<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="/js/script.js"></script>
 
 
