@@ -72,10 +72,12 @@ if (($('#name_v').val() == '') || ($('#categor').val() == '') || ($('#desc').val
                 <div class="input file_v">
                 <label>Изображение</label>
                 <div class="fakeupload">
-                <input type="file" onchange="this.form.fakeupload.value = this.value; " class="realupload2" id="realupload2" size="1" name="upload2" />
-                <input type="text" class="inpupload" value="" name="fakeupload" id = "fakeupload"/></div>
+                <input type="file" onchange="this.form.fakeupload.value = this.value; " class="realupload2" id="realupload2"  name="upload2" />
+                <input type="text" class="inpupload" value="" name="fakeupload" id = "fakeupload"/>
+                </div>
                     <p>Обратите внимание, что все изображения должны соответствовать размеру 105x105 пикселей.</p>
                 </div>
+
                 <div class="input"><label>Описание</label>
                 <textarea OnChange = "$('#p_body').text(this.value);" rows="3" cols="10" id ="desc"  name="desc">{if !empty($vizitkientry_info.vizitkientry_body)}{$vizitkientry_info.vizitkientry_body}{/if}</textarea>
                 <p>Осталось символов: 5</p></div>

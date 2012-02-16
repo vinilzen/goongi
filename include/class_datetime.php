@@ -46,23 +46,114 @@ class se_datetime {
 	// INPUT: $format REPRESENTING A DATE FORMAT BASED ON THE PHP DATE() FUNCTION FORMAT
 	//	  $time (OPTIONAL) REPRESENTING A TIMESTAMP
 	// OUTPUT: A STRING REPRESENTING A FORMATTED DATE BASED ON THE GIVEN TIMESTAMP
-	function cdate($format, $time = "") {
+
+        function cdate($format, $time = "") {
+
+            $langdate = array (
+            'January' => "января",
+            'February' => "февраля",
+            'March' => "марта",
+            'April' => "апреля",
+            'May' => "мая",
+            'June' => "июня",
+            'July' => "июля",
+            'August' => "августа",
+            'September' => "сентября",
+            'October' => "октября",
+            'November' => "ноября",
+            'December' => "декабря",
+            'Jan' => "янв",
+            'Feb' => "фев",
+            'Mar' => "мар",
+            'Apr' => "апр",
+            'May' => "мая",
+            'Jun' => "июн",
+            'Jul' => "июл",
+            'Aug' => "авг",
+            'Sep' => "сен",
+            'Oct' => "окт",
+            'Nov' => "ноя",
+            'Dec' => "дек",
+
+            'Sunday' => "Воскресенье",
+            'Monday' => "Понедельник",
+            'Tuesday' => "Вторник",
+            'Wednesday' => "Среда",
+            'Thursday' => "Четверг",
+            'Friday' => "Пятница",
+            'Saturday' => "Суббота",
+
+            'Sun' => "Вс",
+            'Mon' => "Пн",
+            'Tue' => "Вт",
+            'Wed' => "Ср",
+            'Thu' => "Чт",
+            'Fri' => "Пт",
+            'Sat' => "Сб",
+            );
+
+            if($time == "") { $time = time(); }
+
+
+            $date = strtr(date($format, $time), $langdate);
+
+
+            if(($format == "F")||($format == "f")||($format == "Y")||($format == "M")||($format == "j")||($format == "m")||($format == "J")||($format == "n")||($format == "d")||($format == "N")||($format == "D")) {
+            $f = array('января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря');
+            $r = array('Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь');
+            $langdateshortweekdays = array("Вс","Пн","Вт","Ср","Чт","Пт","Сб");
+            $date = str_replace($f, $r, $date);
+            }
+
+            return $date;
+
+
+            } // END cdate() METHOD
+
+
+            function ru_monf($m) {
+
+            $langdate = array (
+            'January' => "Январь",
+            'February' => "Февраль",
+            'March' => "Март",
+            'April' => "Апрель",
+            'May' => "Май",
+            'June' => "Июняь",
+            'July' => "Июль",
+            'August' => "Август",
+            'September' => "Сентябрь",
+            'October' => "Октябрь",
+            'November' => "Ноябрь",
+            'December' => "Декабрь"
+            );
+            $date = strtr($m, $langdate);
+
+            return $date;
+
+
+            } // END ru_monf() METHOD
+
+/*	function cdate($format, $time = "") {
 	  global $multi_language;
 
 	  if($time == "") { $time = time(); }
 
 	  if(!$multi_language) {
+            //   setlocale(LC_ALL, 'ru_RU.UTF-8');
+                 setlocale(LC_ALL, 'ru_RU.cp1251');
 	    return date($format, $time);
 	  } else {
 	    $date_letters = Array("a", "A", "B", "c", "D", "d", "F", "m", "M", "I", "i", "g", "h", "H", "G", "j", "l", "L", "n", "O", "r", "S", "s", "t", "U", "W", "w", "Y", "y", "z", "Z", "T");
 	    $strftime_letters = Array("%p", "%p", "", "", "%a", "%d", "%B", "%m", "%b", "", "%M", "%I", "%I", "%H", "%H", "%e", "%A", "", "%m", "", "", "", "%S", "", "", "%V", "%w", "%Y", "%y", "%j", "", "%Z");
 	    $new_format = str_replace($date_letters, $strftime_letters, $format);
+            setlocale(LC_ALL, 'ru_RU.cp1251');
 	    return strftime($new_format, $time);
 	  }
 
 	} // END cdate() METHOD
 
-
+*/
 
 
 

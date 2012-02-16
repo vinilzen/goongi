@@ -41,7 +41,7 @@
 						<div class="p_mn_b">
 							<a href="/tree.php?user={$owner->user_info.user_username}">Древо</a>
 							<a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a>
-							<a href="javascript:void(0);">История рода</a>
+							<a href="/user_history.php?user={$owner->user_info.user_username}">История рода</a>
 							<a href="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
 							<!-- <a href="javascript:void(0);">Медали</a> -->
 						</div>
@@ -125,7 +125,7 @@
 		{/if}
 	{/if}
        <!-- <img alt=""  {if $owner->user_info.user_photo == ''} src="./images/nophoto.gif" {else} src="{$owner->user_photomain('./images/nophoto.gif')}{/if}">-->
-        <p><a href="javascript:void(0);">Показать подробную информацию</a></p>
+      <!--  <p><a href="javascript:void(0);">Показать подробную информацию</a></p>-->
     </div>
  {assign var=foo value="-"|explode:$owner->profile_info.profilevalue_4}
 {assign var=birth value= "$foo[2].$foo[1].$foo[0]"}

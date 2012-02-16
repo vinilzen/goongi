@@ -27,8 +27,8 @@
       <a href="javascript:void(0);" onClick="$('secure_image').src = './images/secure.php?' + (new Date()).getTime();">{lang_print id=975}</a>
       {capture assign=tip}{lang_print id=691}{/capture}<img src='./images/icons/tip.gif' border='0' class='Tips1' title='{$tip|escape:quotes}'>
 {/if}
-	<div class="check rem"><label><input type='checkbox' class='checkbox' name='persistent' id='persistent' value='1' /><span>{lang_print id=660}</span></label></div>
-	<span class="button1"><span class="l">&nbsp;</span><span class="c"><input type='submit' class='button' value='{lang_print id=30}' /></span><span class="r">&nbsp;</span></span>     
+	<div class="check rem"><label><input type='checkbox' class='checkbox' name='persistent' id='persistent' value='1'tabindex="3" /><span>{lang_print id=660}</span></label></div>
+	<span class="button1"><span class="l">&nbsp;</span><span class="c"><input type='submit' class='button' value='{lang_print id=30}' tabindex="4"/></span><span class="r">&nbsp;</span></span>
 	
 	<noscript><input type='hidden' name='javascript_disabled' value='1' /></noscript>
 	<input type='hidden' name='task' value='dologin' />
