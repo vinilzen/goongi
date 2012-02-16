@@ -52,6 +52,7 @@
 					<input type="text" class="inpupload" value="" name="fakeupload" />
 				</div>
 				<p>{lang_print id=715} {$user->level_info.level_photo_exts}</p>
+				<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="{lang_print id=714}" name="log" /></span><span class="r">&nbsp;</span></span></div>
 			</div>
 			<div class="input imggg">
 				<label>{lang_print id=770}</label>
@@ -61,9 +62,11 @@
 					{else}
 						<img id="userEditPhotoImg" border='0'  src="{$user->user_photo('./images/avatars_09.gif')}" alt="" />
 					{/if}
+					{if $user->user_photo() != ""}
+						<div id="userEditRemovePhotoLink">[ <a href='#' onclick='userPhotoRemove(); return false;'>{lang_print id=771}</a> ]</div>
+					{/if}
 				</div>
 				{if $user->user_photo() != ""}
-					<div id="userEditRemovePhotoLink">[ <a href='#' onclick='userPhotoRemove(); return false;'>{lang_print id=771}</a> ]</div>
 					{literal}
 					<script type="text/javascript">
 						function userPhotoRemove() {
@@ -101,7 +104,6 @@
 				{/if}
 				
 			</div>
-			<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="{lang_print id=714}" name="log" /></span><span class="r">&nbsp;</span></span></div>
 			<input type='hidden' name='task' value='upload' />
 			<input type='hidden' name='MAX_FILE_SIZE' value='5000000' />
 		</form>
