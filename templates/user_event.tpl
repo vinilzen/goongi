@@ -266,5 +266,17 @@
   
   
 {/if}
-
+{literal}
+<script type="text/javascript">
+ $(document).ready(function(){
+		$(function() {
+			$( "#event_date_start, #event_date_end" ).datepicker();
+			$( "#event_date_start, #event_date_end" ).datepicker( "option", "dateFormat", 'dd.m.yy' );
+			$( "#event_date_start, #event_date_end" ).datepicker( "option", "dayNamesMin", ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'] );
+			$( "#event_date_start, #event_date_end" ).datepicker( "option", "dayNames", ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'] );
+			$( "#event_date_start, #event_date_end" ).datepicker( "option", "monthNames", ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']);
+		});
+})
+</script>
+{/literal}
 {include file='footer.tpl'}
