@@ -1195,7 +1195,7 @@ function update_group_list() {
 							$('#comments_list').html('');
                             $('#comments_list').append(str+paginator);
 						} else {
-							$('#comments_list').html('<p class="error">Здесь еще никто, ничего не писал.</p>');
+							$('#comments_list').html('<p class="error" style="color:black">Здесь еще никто, ничего не писал.</p>');
 						}
                                                
 						$('#comments_count').html('');

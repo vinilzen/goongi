@@ -23,6 +23,7 @@
         <a href='user_history_entry.php'>Написать историю</a></span>
         <span class="r">&nbsp;</span></span>
     </div>
+<p style="text-align:center; text:bold; ">Вы не написали еще свою историю</p>
     {/if}
 
 

@@ -125,7 +125,7 @@
 		{/if}
 	{/if}
        <!-- <img alt=""  {if $owner->user_info.user_photo == ''} src="./images/nophoto.gif" {else} src="{$owner->user_photomain('./images/nophoto.gif')}{/if}">-->
-        <p><a href="javascript:void(0);">Показать подробную информацию</a></p>
+      <!--  <p><a href="javascript:void(0);">Показать подробную информацию</a></p>-->
     </div>
  {assign var=foo value="-"|explode:$owner->profile_info.profilevalue_4}
 {assign var=birth value= "$foo[2].$foo[1].$foo[0]"}
