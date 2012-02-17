@@ -140,8 +140,8 @@
             <ul class="menu">
                 <li><a href="/search.php">{lang_print id=200}<!-- Поиск --></a></li>
                 <li id = "invite"><a href="/invite.php">{lang_print id=647}<!-- Пригласить --></a></li>
-                <li><a href="#">{lang_print id=6000144}<!-- Подарки --></a></li>
-                <li><a href="#"><span>{lang_print id=687}<!-- Язык --></span></a></li>
+               <!-- <li><a href="#">{lang_print id=6000144}</a></li>--><!-- Подарки -->
+              <!--  <li><a href="#"><span>{lang_print id=687}</span></a></li>--><!-- Язык -->
                 <li>
 				{if $user->user_exists != 0}
 					<form method="POST" id="user_logout" action="user_logout.php" style="display:inline;margin:0;">

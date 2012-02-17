@@ -105,6 +105,29 @@
 </div>
 {else}
 <div class="d_inf">
+<div class="buttons">
+        	  <span class="button3"><span class="l">&nbsp;</span><span class="c">
+			<a class = "dead" href="/user_editprofile.php?user={$owner->user_info.user_username}">Редактировать информацию</a>
+		</span><span class="r">&nbsp;</span>
+	</span>
+
+<div class="profil_mn"><a href="#" class="pd_link"><span>профиль</span></a>
+				<div class="pd_mn">
+					<div class="pd_mn_t"></div>
+					<div class="pd_mn_c">
+						<div class="pd_mn_b">
+							<a href="/tree.php?user={$owner->user_info.user_username}">Древо</a>
+							<a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a>
+							<a href="/user_history.php?user={$owner->user_info.user_username}">История рода</a>
+							<a href="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
+							<!-- <a href="javascript:void(0);">Медали</a> -->
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+
+
 <div class="sv"></div>
     <div class="golosa">
             <span class="button3"><span class="l">&nbsp;</span><span class="c">
@@ -116,18 +139,23 @@
 {if $owner->user_info.user_id == $user->user_info.user_id}
 		{if $user->profile_info.profilevalue_5 == 2}
 			<img {if $user->user_info.user_photo == ''} src="./images/avatars_05.gif" {else} src="{$user->user_photomain('./images/avatars_05.gif')}{/if}">
+                      <!--   <div class="ribbon"></div>-->
 		{else}
 			<img {if $user->user_info.user_photo == ''} src="./images/avatars_03.gif" {else} src="{$user->user_photomain('./images/avatars_03.gif')}{/if}">
+                      <!--   <div class="ribbon"></div>-->
 		{/if}
 	{else}
 		{if $owner->profile_info.profilevalue_5 == 2}
 			<img {if $owner->user_info.user_photo == ''}src="./images/avatars_05.gif"{else} src="{$owner->user_photomain('./images/avatars_05.gif')}{/if}">
+                      <!--   <div class="ribbon"></div>-->
 		{else}
 			<img {if $owner->user_info.user_photo == ''}src="./images/avatars_03.gif"{else} src="{$owner->user_photomain('./images/avatars_03.gif')}{/if}">
+                      <!--  <div class="ribbon"></div>-->
 		{/if}
 	{/if}
        <!-- <img alt=""  {if $owner->user_info.user_photo == ''} src="./images/nophoto.gif" {else} src="{$owner->user_photomain('./images/nophoto.gif')}{/if}">-->
-      <!--  <p><a href="javascript:void(0);">Показать подробную информацию</a></p>-->
+       <p><a id = "in_de" href="javascript:void(0);" >Показать подробную информацию</a></p>
+        
     </div>
  {assign var=foo value="-"|explode:$owner->profile_info.profilevalue_4}
 {assign var=birth value= "$foo[2].$foo[1].$foo[0]"}
@@ -137,8 +165,39 @@
 <div class="g_inf_text"><p>{if $owner->profile_info.profilevalue_4 == '0000-00-00'}Дата рождения не известна{else}{$birth}{/if} - {if $owner->profile_info.profilevalue_12 == '0000-00-00' && $owner->profile_info.profilevalue_16 == '1'}Дата смерти не известна{else}{$deat}{/if}<span></span></p></div>
 
 <div class="clear"><img src="images/x.gif" alt="" /></div>
+
+
+
 </div>
-            <div class="clear"><img src="images/x.gif" alt="" /></div>
+
+
+
+<div id = "info_dead">
+<div class="g_inf_i">
+<div class="my_page_info">
+{section name=cat_loop loop=$cats}
+			{section name=subcat_loop loop=$cats[cat_loop].subcats}
+				<h2>{lang_print id=$cats[cat_loop].subcats[subcat_loop].subcat_title}<!-- персональная инфорвация --></h2>
+				{* LOOP THROUGH FIELDS IN TAB, ONLY SHOW FIELDS THAT HAVE BEEN FILLED IN *}
+				{section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
+				<p>
+					<span>
+						{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}:
+					</span>
+
+					{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value_formatted}
+					{if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_special == 1 && $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value|substr:0:4 != "0000"} <!--({lang_sprintf id=852 1=$datetime->age($cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_value)}) -->{/if}
+				</p>
+				{/section}
+			{/section}
+		{/section}
+                {if $country != ''}<p><span> Страна рождения</span>{$country}</p>{/if}
+                {if $city != ''}<p><span> Город</span>{$city}</p>{/if}
+
+</div>
+</div>
+        </div>
+         <div class="clear"><img src="images/x.gif" alt="" /></div>
 
 {/if}
 
@@ -158,7 +217,11 @@
 	<h2>Написать сообщение</h2>
 	<div class="form add_com napisat_so">
 		<div class="input">
-			<textarea id="comment_msg" rows="3" cols="10" name="text"></textarea>
+		{ if $death != 1}
+                    <textarea id="comment_msg" rows="3" cols="10" name="text"></textarea>
+                {else}
+                    <textarea id="comment_msg" rows="3" cols="10" name="text" style ='background:#777777; color:#FFFFFF;'></textarea>
+                {/if}
 		</div>
 		<span class="button2"><span class="l">&nbsp;</span><span class="c">
 			<input type="submit"  style="padding:1px 8px 0px 8px;"  onclick="comment_post('{$owner->user_info.user_username}',{$owner->user_info.user_id}, {$user->user_info.user_id}, 'profile', 'user_id', 'users' , 'user'); return false;" value="Отправить" name="creat" />

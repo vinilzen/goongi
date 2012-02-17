@@ -204,8 +204,8 @@ function callback(form,act,doc) {
 				<td><input type="text" name="alias" value="<%= alias %>" /></td>
 			</tr>
 			<tr>
-				<th>Пригласить по email</th>
-				<td><input type="hidden" name="invite" /><input type="text" name="email" value="<%= invite %>" /></td>
+			<th ><input type="checkbox" name="invite" /> Пригласить по email</label></th>
+				<td><input type="hidden" name="invite" /><input type="text" id = "email" name="email" value="<%= invite %>" <% if (!invite) { %> disabled="disabled" <% } %>/></td>
 			</tr>
 			<tr>
 				<th>Дата рождения</th>
@@ -222,13 +222,13 @@ function callback(form,act,doc) {
 			<tr>
 				<th><input type="checkbox" name="dead" <% if (death || death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label></th>
 				<td>
-					<input type="text" maxlength="2" name="deathdate" value="<%= death ? death.split("-")[2] : "" %>" <% if (!death) { %> disabled="disabled" <% } %> />
-					<select name="deathmonth" <% if (!death) { %> disabled="disabled" <% } %>>
+					<input type="text" maxlength="2" id = "deathdate" name="deathdate" value="<%= death ? death.split("-")[2] : "" %>" <% if (!death_bool) { %> disabled="disabled" <% } %> />
+					<select id = "deathmonth" name="deathmonth" <% if (!death_bool) { %> disabled="disabled" <% } %>>
 						<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
 							<option value="<%= i+1 %>" <% if (death && death.split("-")[1] == i+1) { %> selected="selected" <% } %>><%= month %></option>
 						<% }) %>
 					</select>
-					<input type="text" maxlength="4" name="deathyear" value="<%= death ? death.split("-")[0] : "" %>" <% if (!death) { %> disabled="disabled" <% } %> />
+					<input type="text" maxlength="4" id = "deathyear" name="deathyear" value="<%= death ? death.split("-")[0] : "" %>" <% if (!death_bool) { %> disabled="disabled" <% } %> />
 				</td>
 			</tr>
 		</table>

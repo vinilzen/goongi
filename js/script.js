@@ -24,7 +24,18 @@ function src(){
 		});
 		*/
 
-	
+	$('#info_dead').hide();
+        $('#in_de').toggle(function(e){
+		e.preventDefault();
+                 $('#in_de').html('Скрыть подробную информацию');
+		$('#info_dead').slideDown();
+	},function(e){
+		e.preventDefault();
+                $('#in_de').html('Показать подробную информацию');
+		$('#info_dead').slideUp();
+	});
+
+
 	$('.profil_mn .p_link').toggle(function(e){
 		e.preventDefault();
 		$(this).addClass('active');

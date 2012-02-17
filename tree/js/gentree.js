@@ -585,6 +585,7 @@ TREE.popups.collection = {
 		initialize: function() {
 			this.el.on('click', '.save', $.proxy(this, 'save'));
 			this.el.on('change', '[name=dead]', $.proxy(this, 'toggleDead'));
+                        this.el.on('change', '[name=invite]', $.proxy(this, 'toggleInvite'));
 		},
 
 		render: function(options) {
@@ -643,10 +644,18 @@ TREE.popups.collection = {
 		},
 
 		toggleDead: function(e) {
-			var field = $(e.target).closest('.field'),
-				inp = field.find('[type=text], select');
-			$(e.target).is(':checked') ? inp.removeAttr('disabled') : inp.attr('disabled', 'disabled');
+                    
+		//	var field = $(e.target).closest('.field'),
+		//		inp = field.find('[type=text], select');
+			$(e.target).is(':checked') ? $('#deathmonth, #deathyear, #deathdate').removeAttr('disabled') : $('#deathmonth, #deathyear, #deathdate').attr('disabled', 'disabled');
+		},
+                
+                toggleInvite: function(e) {
+		//	var field = $(e.target).closest('.field'),
+		//		inp = field.find('[type=text]');
+			$(e.target).is(':checked') ? $('#email').removeAttr('disabled') : $('#email').attr('disabled', 'disabled');
 		}
+
 
 	}),
 
