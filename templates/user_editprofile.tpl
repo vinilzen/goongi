@@ -81,7 +81,7 @@
 <div class="form edit">
 <form action='user_editprofile.php' method='POST'>
 	{if $user->level_info.level_photo_allow != 0}
-		<div class="input file">
+		<div class="input file edit_profile">
 			<label><a href='user_editprofile_photo.php'>Загрузи новый аватар </a></label>
 			<div class="brdr">
 				{if $user->profile_info.profilevalue_5 == 2}
