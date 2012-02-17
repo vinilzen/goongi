@@ -46,6 +46,7 @@
       {if $collaborators|@count == 1}<label>{lang_print id=802}</label>{else}<label>{lang_print id=803}</label>{/if}
       <textarea name='reply' id='reply_body' rows='3' cols='60'></textarea>
     </div>
+<div class="buttons_edit_blog">
         <span class="button2">
         <span class="l">&nbsp;</span>
         <span class="c">
@@ -73,7 +74,7 @@
             <span class="r">&nbsp;</span>
             </span>
           {/if}
-
+</div>
   <input type='hidden' name='task' value='reply'>
   <input type='hidden' name='pmconvo_id' value='{$pmconvo_info.pmconvo_id}'>
   <input type='hidden' name='user_bellong' value='{$collaborators[0]->user_info.user_id}'>
