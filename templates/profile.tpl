@@ -56,8 +56,7 @@
 						{if $is_friend_pending == 0 && $is_friend == FALSE }{lang_print id=838}{/if}
 						{if $is_friend_pending == 1} {* подтвердить запрос *}{lang_print id=887}{/if}
 						{if $is_friend != FALSE }{* remove *}{lang_print id=889}{/if}
-					</a>							
-				
+					</a>
 			</span><span class="r">&nbsp;</span>
 			</span>
 			<div class="clear"></div>
@@ -65,7 +64,7 @@
 	{/if}
 {/if}
 { if $death != 1}
-<div class="my_page_inf">
+<div class="my_page_inf" {if $user->user_exists == 0}style="border-top:0px;"{/if}>
 	<div class="my_page_img">
 	{if $owner->user_info.user_id == $user->user_info.user_id}
 		{if $user->profile_info.profilevalue_5 == 2}
@@ -143,18 +142,11 @@
 {/if}
 
  
-      <!-- <div class='page_header'></div> -->
-  
-    {if 0}
-    {* PLUGIN RELATED PROFILE SIDEBAR *}
-    {hook_foreach name=profile_side var=profile_side_args}
-      {include file=$profile_side_args.file}
-    {/hook_foreach}
-	{/if}
+<div class='clear'></div>
   {* END LEFT COLUMN *}
 
   {* BEGIN RIGHT COLUMN *}
-
+{if $user->user_exists != 0}
 	<h2>Написать сообщение</h2>
 	<div class="form add_com napisat_so">
 		<div class="input">
@@ -164,19 +156,17 @@
 			<input type="submit"  style="padding:1px 8px 0px 8px;"  onclick="comment_post('{$owner->user_info.user_username}',{$owner->user_info.user_id}, {$user->user_info.user_id}, 'profile', 'user_id', 'users' , 'user'); return false;" value="Отправить" name="creat" />
 		</span><span class="r">&nbsp;</span></span>
 	</div>
-
-      {* SHOW COMMENTS *}
-	  <h2>Записи на стене</h2>
-		<ul class="comments wall" id="comments_list"><img src="/images/142.gif" border="0"></ul>
-                <input type="hidden" id = "pag_com" name="pag_com" value="{$pag_com}">
+{/if}
+    {* SHOW COMMENTS *}
+	<h2>Записи на стене</h2>
+	<ul class="comments wall" id="comments_list"><img src="/images/142.gif" border="0"></ul>
+	<input type="hidden" id = "pag_com" name="pag_com" value="{$pag_com}">
 		
     {literal}
 	<script type="text/javascript">
 		comment_get('{/literal}{$owner->user_info.user_username}{literal}',{/literal}{$owner->user_info.user_id}{literal}, {/literal}{$user->user_info.user_id}{literal},'profile','user_id', 'users' , 'user',{/literal}{$pag_com}{literal});
 	</script>
     {/literal}
-    
-    
     
     {* FRIENDS TAB *}
     {if $total_friends_all != 0}
