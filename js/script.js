@@ -751,76 +751,8 @@ function src(){
 
     
 	$("#edit_group_b").live("click", function () {
-		$('#edit_group').remove();
-		$('#popup').height($('#content').height()).css('opacity','0.6').show();
-		var scrOfY = src();
-		$('body').append(	'<div class="window" id="edit_group"><div class="close"></div><div class="w_c">'+
-							'<h1 id="title_edit_gr">редактировать группу </h1><p><strong>Выберите друзей</strong></p>'+
-							'<ul class="friend_list_w"></ul>'+
-							'<div class="buttons_w"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Сохранить" name="creat" id="save_group" /></span><span class="r">&nbsp;</span></span>'+
-							'<span class="button3"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Отменить" name="cancel_edit_group" class="cancel_edit_group" id="del_group" /></span><span class="r">&nbsp;</span></span></div></div></div>');
-		$('.friend_list_w').html('');	
-		$.post(	"user_friends.php",
-				{'json': 1,'task':'get_friends'},
-				function(data) {
-					if ( data.error == '0') {
-						var group_id_curent = $('#edit_group_b').attr('rel');
-									
-						$('#title_edit_gr').append( $('#group_'+group_id_curent).html() );
-						$.each(data.result, function(key, value) {		
-							//var photo = value['user_photo'].replace(/(\w+)\.jpg/, "$1"+"_thumb.jpg");
-							userid = key;
-							subdir = Math.floor(Math.floor(userid / 1000) * 1000 + 1000);
-							if (value['user_photo'] != '') {
-								userdir = './uploads_user/'+subdir+ '/' + userid+ '/' + value['user_photo'];
-							} else {
-								if (value['user_sex'] == 'm')
-									userdir ='./images/avatars_15.gif'
-								else
-									userdir ='./images/avatars_17.gif'
-							}
-							if ($('#frend_'+key).attr('class') != '') {
-								var str = $('#frend_'+key).attr('class');
-								regexp = "group_"+group_id_curent;
-								idx = str.search(regexp)
-								if (idx != -1) 
-									var check = 'class="check"';
-								else 
-									var check = '';
-							} else {
-								var check = '';
-							}
-							$('.friend_list_w').append('<li '+check+' rel="'+key+'"><a href="#"><img width="51" height="52" src="'+userdir+'" /></a><a href="/'+value['user_username']+'">'+value['user_displayname']+'</a></li>');
-						});
-						$('#edit_group').fadeIn();
-						
-						$('#save_group').click(function() {
-							var users = [];
-							$(".friend_list_w li").each(function(){
-								
-								if ($(this).attr('class') == 'check') {
-									users[users.length] = $(this).attr('rel');
-								}
-							 });
-							 $.post(	"user_friends.php",
-										{'json': 1,'task': 'save_group','group': group_id_curent, 'users':users},
-										function(data_save) {
-											if ( data_save.error == '0') {
-												location.href='user_friends.php';
-											}
-											if ( data_save.error == '1') {
-												alert('error');
-											}
-										},'json')
-						});
-					}
-					if (data.error == '1') {
-						alert( data.result);
-					}
-				},
-				'json');
-		
-
+		var group_id = $('#edit_group_b').attr('rel');
+		edit_member_group(group_id);
 	})
 	
 	$("#selevt_for_invite").live("click", function () {
@@ -1003,10 +935,12 @@ function createGroup() {
 					if (data.success == '1') {
 						$('#msg_gr').html(data.msg);
 						setTimeout ( function() {
-							$('#popup').fadeOut(300);
 							$('.window').hide();
+							edit_member_group(data.group_id);
+							//$('#popup').fadeOut(300);
 						}, 1000);
-						location.href='user_friends.php';
+						
+						//location.href='user_friends.php';
 						//update_group_list();
 					}
 				}
@@ -1544,3 +1478,71 @@ function getCityList(country_id){
   }
   
    
+function edit_member_group (group_id_curent) {
+	$('#edit_group').remove();
+	$('#popup').height($('#content').height()).css('opacity','0.6').show();
+	var scrOfY = src();
+	$('body').append(	'<div class="window" id="edit_group"><div class="close"></div><div class="w_c">'+
+						'<h1 id="title_edit_gr">редактировать группу </h1><p><strong>Выберите друзей</strong></p>'+
+						'<ul class="friend_list_w"></ul>'+
+						'<div class="buttons_w"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Сохранить" name="creat" id="save_group" /></span><span class="r">&nbsp;</span></span>'+
+						'<span class="button3"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="Отменить" name="cancel_edit_group" class="cancel_edit_group" id="del_group" /></span><span class="r">&nbsp;</span></span></div></div></div>');
+	$('.friend_list_w').html('');	
+	$.post(	"user_friends.php",
+			{'json': 1,'task':'get_friends'},
+			function(data) {
+				if ( data.error == '0') {								
+					$('#title_edit_gr').append( $('#group_'+group_id_curent).html() );
+					$.each(data.result, function(key, value) {	
+						//var photo = value['user_photo'].replace(/(\w+)\.jpg/, "$1"+"_thumb.jpg");
+						userid = key;
+						subdir = Math.floor(Math.floor(userid / 1000) * 1000 + 1000);
+						if (value['user_photo'] != '') {
+							userdir = './uploads_user/'+subdir+ '/' + userid+ '/' + value['user_photo'];
+						} else {
+							if (value['user_sex'] == 'm')
+								userdir ='./images/avatars_15.gif'
+							else
+								userdir ='./images/avatars_17.gif'
+						}
+						if ($('#frend_'+key).attr('class') != '') {
+							var str = $('#frend_'+key).attr('class');
+							regexp = "group_"+group_id_curent;
+							idx = str.search(regexp)
+							if (idx != -1) 
+								var check = 'class="check"';
+							else 
+								var check = '';
+						} else {
+							var check = '';
+						}
+						$('.friend_list_w').append('<li '+check+' rel="'+key+'"><a href="#"><img width="51" height="52" src="'+userdir+'" /></a><a href="/'+value['user_username']+'">'+value['user_displayname']+'</a></li>');
+					});
+					$('#edit_group').fadeIn();
+					
+					$('#save_group').click(function() {
+						var users = [];
+						$(".friend_list_w li").each(function(){
+							
+							if ($(this).attr('class') == 'check') {
+								users[users.length] = $(this).attr('rel');
+							}
+						 });
+						 $.post(	"user_friends.php",
+									{'json': 1,'task': 'save_group','group': group_id_curent, 'users':users},
+									function(data_save) {
+										if ( data_save.error == '0') {
+											location.href='user_friends.php';
+										}
+										if ( data_save.error == '1') {
+											alert('error');
+										}
+									},'json')
+					});
+				}
+				if (data.error == '1') {
+					alert( data.result);
+				}
+			},
+			'json');
+}

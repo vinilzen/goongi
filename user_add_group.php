@@ -41,7 +41,7 @@ if ( $_POST['task'] == 'add' && isset($_POST['gn']) ) {
 		$group_id = $user->user_add_group($group_name);
 		if ( $group_id ) {
 			
-			echo json_encode(array("success"=>"1","msg"=>"Группа ".$group_name."[". $group_id ."] успешно создана!"));
+			echo json_encode(array("success"=>"1","msg"=>"Группа ".$group_name." успешно создана!","group_id"=>$group_id));
 			die();	
 		} else {
 			echo json_encode(array("success"=>"0","msg"=>"Произошла ошибка при создании группы, попробуйте еще раз."));
