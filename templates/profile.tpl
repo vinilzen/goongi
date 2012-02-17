@@ -99,6 +99,8 @@
 				{/section}
 			{/section}
 		{/section}
+                {if $country != ''}<p><span> Страна рождения</span>{$country}</p>{/if}
+                {if $city != ''}<p><span> Город</span>{$city}</p>{/if}
 	</div>
 </div>
 {else}

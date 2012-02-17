@@ -142,7 +142,7 @@ if(isset($_POST['dhtmlgoodies_country'])) {
 }
 
 
-if(isset($_POST['dhtmlgoodies_region']))
+/*if(isset($_POST['dhtmlgoodies_region']))
 {
 	$region=$_POST['dhtmlgoodies_region'];
 	$region_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_user_id FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
@@ -158,7 +158,7 @@ if(isset($_POST['dhtmlgoodies_region']))
 		$query="UPDATE `se_profilevalues` SET `profilevalue_8` = '$region' WHERE  `se_profilevalues`.`profilevalue_user_id` = '".$user->user_info['user_id']."'";
 		$database->database_query($query);
 	}
-}
+}*/
 
 if(isset($_POST['dhtmlgoodies_city']))
 {
@@ -169,12 +169,12 @@ if(isset($_POST['dhtmlgoodies_city']))
 	//$sql = "SELECT profilevalue_9 FROM se_profilevalues WHERE profilevalue_id='".$user->user_info['user_id']."' LIMIT 1";
 	if($city_id <= 0)
 	{
-		$query="INSERT INTO `se_profilevalues` (`profilevalue_user_id`, `profilevalue_9`) VALUES ($id_ex,'$city')";
+		$query="INSERT INTO `se_profilevalues` (`profilevalue_user_id`, `profilevalue_8`) VALUES ($id_ex,'$city')";
 		$database->database_query($query);
 	}
 	else
 	{
-		$query="UPDATE `se_profilevalues` SET `profilevalue_9` = '$city' WHERE  profilevalue_user_id = '".$user->user_info['user_id']."'";
+		$query="UPDATE `se_profilevalues` SET `profilevalue_8` = '$city' WHERE  profilevalue_user_id = '".$user->user_info['user_id']."'";
 		$database->database_query($query);
 	}
 }
@@ -198,7 +198,7 @@ while ($country_bd = $database->database_fetch_assoc ($sql))
 	$country .= "<option value='" . $country_bd[country_id] . "'" . $country_sel . ">" . $country_bd[name] . "</option>\n";
 }
 
-$region_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_8 FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
+/*$region_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_8 FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
 $region_id = $region_tb[profilevalue_8];
 if($region_id > 0)
 {
@@ -218,9 +218,9 @@ else
 		$region .= "<option value='" . $region_bd[region_id] . "'" . $region_sel . ">" . $region_bd[name] . "</option>\n";
 	}
 }
-
-$city_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_9 FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
-$city_id = $city_tb[profilevalue_9];
+*/
+$city_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_8 FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
+$city_id = $city_tb[profilevalue_8];
 
 
 if($city_id > 0)
