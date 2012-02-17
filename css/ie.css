@@ -1,45 +1,23 @@
-input[type=checkbox], input[type=radio] {
-  width: 14px !important;
-  height: 15px !important;
-}
-input[type=radio] {
-  padding: 0px !important;
-  margin:0px 8px 0 0 !important;
-  border: 0px !important;
-}
-
-		div.answer input{
-			position:absolute;
-		}
-		.test .answer input { left:-9999px; visibility:visible;}
-		div.answer span.inputRadio{
-			display:inline;
-			zoom:1;
-			width:14px;
-			height:14px;
-			background:url(../images/radioBut.png) left 0 no-repeat;
-			margin:0px 5px 2px 0px;
-			vertical-align:middle;
-			position:absolute;
-		}
-		div.answer.checked span.inputRadio{
-			background:url(../images/radioBut.png) left -25px no-repeat;
-		}
-		
-		div.answer_ch input{
-			position:absolute;
-		}
-		.answer_ch input { left:-9999px; visibility:visible;}
-		div.answer_ch span.inputRadio{
-			display:inline;
-			zoom:1;
-			width:13px;
-			height:14px;
-			background:url(../images/check.png) left 1px no-repeat;
-			margin:0px 5px 2px 0px;
-			vertical-align:middle;
-			position:absolute;
-		}
-		div.answer_ch.checked span.inputRadio{
-			background:url(../images/check.png) left -24px no-repeat;
-		}
+input[type=checkbox], input[type=radio] {  width: 14px !important;  height: 15px !important;}
+input[type=radio] {  padding: 0px !important;  margin:0px 8px 0 0 !important;  border: 0px !important;}
+div.answer input{	position:absolute;}
+.test .answer input { left:-9999px; visibility:visible;}
+div.answer span.inputRadio{display:inline;zoom:1;	width:14px;	height:14px;background:url(../images/radioBut.png) left 0 no-repeat;margin:0px 5px 2px 0px;vertical-align:middle;position:absolute;}
+div.answer.checked span.inputRadio{background:url(../images/radioBut.png) left -25px no-repeat;}
+div.answer_ch input{position:absolute;}
+.answer_ch input { left:-9999px; visibility:visible;}
+div.answer_ch span.inputRadio{display:inline;	zoom:1;	width:13px;	height:14px;background:url(../images/check.png) left 1px no-repeat;margin:0px 5px 2px 0px;vertical-align:middle;	position:absolute;}
+div.answer_ch.checked span.inputRadio{	background:url(../images/check.png) left -24px no-repeat;}
+.form_login .button1 span.c input {padding: 10px 38px 0px 39px;}
+#content{text-align:center;}
+#content div.head{text-align:center;}
+#content div.head div{text-align:left;}
+#content div{text-align:left;}
+#content h1{text-align:left;}
+#content h2{text-align:left;}
+#content h3{text-align:left;}
+.my_page_img {text-align:left;}
+.comments li .inf {text-align:left;}
+.comments li .inf .date {text-align:left; clear:none}
+.comments li .inf .name {text-align:left; width:100%;}
+h2 {text-align:left;}

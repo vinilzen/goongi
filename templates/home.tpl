@@ -13,6 +13,9 @@
 						<h1><!-- Поиск: -->Поиск людей на сайте</h1>
 						<div class="search">
 							<form action='search.php' method='post'>
+								<input type='hidden' name='task' value='dosearch' />
+								<input type='hidden' name='t' value='0' />
+								<input type="text" class="srch" name="search_text" onblur="if (this.value == '') this.value='Введите сюда фамилию'; if (this.value == '') this.style.color='#999999';" onfocus="if (this.value == 'Введите сюда фамилию') this.value =''; if (this.value == 'Введите сюда фамилию')  this.style.color='#000000';" value="Введите сюда фамилию" />
 								<span class="button2">
 									<span class="l">&nbsp;</span>
 									<span class="c">
@@ -20,11 +23,8 @@
 									</span>
 									<span class="r">&nbsp;</span>
 								</span>
-								<input type='hidden' name='task' value='dosearch' />
-								<input type='hidden' name='t' value='0' />
-								<input type="text" class="srch" name="search_text" onblur="if (this.value == '') this.value='Введите сюда фамилию'; if (this.value == '') this.style.color='#999999';" onfocus="if (this.value == 'Введите сюда фамилию') this.value =''; if (this.value == 'Введите сюда фамилию')  this.style.color='#000000';" value="Введите сюда фамилию" />
 							</form>
-							<a href='search_advan	ced.php'>{lang_print id=926}<!-- Расширенный поиск --></a>
+							{if $user->user_exists != 0}<a href='search_advan	ced.php'>{lang_print id=926}<!-- Расширенный поиск --></a>{/if}
 						</div>
 						<ul class="index_ul">
 							<li>Вы сможете составить генеалогическое древо своей семьи.</li>
