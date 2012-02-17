@@ -649,6 +649,7 @@ $s_id = $user->user_info['user_id'];
       se_users.user_verified='1' AND
       se_users.user_enabled='1' AND
       se_users.user_id != '$s_id' AND
+      se_users.user_lastlogindate != 0 AND
       (se_users.user_search='1' OR se_levels.level_profile_search='0') AND
       ($profile_query)
   ";

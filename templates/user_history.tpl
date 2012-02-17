@@ -23,6 +23,7 @@
         <a href='user_history_entry.php'>Написать историю</a></span>
         <span class="r">&nbsp;</span></span>
     </div>
+<p style="text-align:center; text:bold; ">Вы не написали еще свою историю</p>
     {/if}
 
 
@@ -34,7 +35,7 @@
       {* LIST history ENTRIES *}
       <form action='user_history.php' name='entryform' method='post'>
       {section name=historyentry_loop loop=$historyentries}
-			{if $owner->user_info.user_id == 0}
+			{if $owner->user_info.user_id == 0 && $show_edit == 1 }
 				<div class="buttons">
 					<span class="button2"><span class="l">&nbsp;</span><span class="c">
 						<a onclick = "check_history({$historyentries[historyentry_loop].historyentry_id});">Редактировать</a>

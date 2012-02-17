@@ -123,9 +123,9 @@ input[type=checkbox]				 	{  padding: 0px 0px 0px 0px !important;  margin:0px 8p
 	#brdr.preloader { background:url(../images/96.gif) no-repeat center center; }
 	#brdr img{ padding:2px; border:1px solid #d7d7d7;background:#ffffff;}
 	/*.brdr img{ padding:2px; border:1px solid #d7d7d7;}*/
-	.pro ul			{ list-style:none; overflow:hidden;}
-	.pro ul li		{ list-style:none; overflow:hidden; height:25px; padding-left:12px;}
-	.pro ul li a	{ color:#000; text-decoration:none; display:inline-block; line-height:25px;}
+	.pro ul		{ list-style:none; overflow:hidden;}
+	.pro ul li		{ list-style:none; overflow:hidden; height:25px;}
+	.pro ul li a	{ color:#000; text-decoration:none; display:block; line-height:25px; padding-left: 12px;}
 	.pro ul li a span	{ font: bold 12px arial; }
 	.pro ul li.active	{ background:#e2d6d5;}
 	.pro ul li.active_hover{ background:#f0eaea;}
@@ -474,7 +474,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	
 	.form		{ overflow:hidden; width:354px;}
 	
-	.form .input.imggg {/*width:300px;*/ padding-left:170px;}
+	.form .input.imggg {/*width:300px;*/ padding-left:0px;}
 	.form .input.photoedit { padding-right:80px;}
 	.form .input,
 	.form .radio		{ margin-bottom:17px; /*overflow:hidden;*/}
@@ -486,6 +486,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.form .input label.setlab	{ display:block; font-size:12px; font-weight:normal; margin:0px 0px 0px 10px;}
 	.form .input p		{  font-size:12px; font-weight:bold; margin-bottom:4px; margin-right:80px;}
+	.form .input.file p		{  font-weight:normal; }
 	.edit_blog .radio label		{ display:block; font-size:12px; font-weight:bold; margin-bottom:4px;}
 	.form .radio div input	{ float:left; margin-right:5px !important;}
 	.edit_blog {padding:0px 0px 14px 0px;} 
@@ -522,7 +523,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .input.code a.f5		{ float:left; border:1px solid #e5e5e5; margin-right:20px; background:url(../images/f5.gif) no-repeat 0 0; text-decoration:none; display:block; width:38px; height:38px;}
 	.form .input.code input		{ width:132px; font-size:25px;}
 	
-	.form .file		 	{width:228px; overflow:hidden; float:right; z-index:1;cursor:pointer;}	
+	.form .file		 	{width:458px; overflow:hidden; float:right; z-index:1;cursor:pointer;}	
 	.form .file .fakeupload {width:228px; height:25px; overflow:hidden; position: relative; z-index:1;cursor:pointer; background:url(../images/file1.png) no-repeat 0 0;}	
 	.form .file .fakeupload input.realupload2 { opacity:0; filter:alpha(opacity:0); position:relative; z-index:1; font-size:199px;cursor:pointer;padding:0px;margin:0px;border:none;margin-left:0px;}	
 	.form .file .fakeupload input.inpupload 	{ cursor:pointer; position:absolute; top:0; left:0; z-index:0; width:124px;}	
@@ -531,7 +532,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .file_v		 	{width:390px; overflow:hidden; z-index:1;cursor:pointer;}	
 	.form .file_v .fakeupload {width:390px; height:25px; overflow:hidden; position: relative; z-index:1;cursor:pointer; background:url(../images/file1.jpg) no-repeat 0 0;}	
 	.form .file_v .fakeupload input.realupload2 { opacity:0; filter:alpha(opacity:0); position:relative; z-index:1; font-size:199px;cursor:pointer;padding:0px;margin:0px;border:none;margin-left:0px;}	
-	.form .file_v .fakeupload input.inpupload 	{ cursor:pointer; position:absolute; top:0; left:0; z-index:0; width:285px;}	
+	.form .file_v .fakeupload input.inpupload 	{ cursor:pointer; position:absolute; top:0; left:0; z-index:0; width:295px;}	
 	.form .file_v p		 	{ font-size:11px; color:#7f7f7f; padding-top:4px; padding-bottom:0;}	
 
 	.form.edit		{ overflow:hidden; margin-bottom:25px; width:auto;}
@@ -539,10 +540,11 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.edit .input .input_price select{ width:80px;}
 	.form.edit .input input,
 	.form.edit .input textarea	{ width:380px;}
+	.form.edit .input .button input	{ width:160px;}
 	.form.edit .input input[type=checkbox]	{ width:17px; float:left;}
 	.form.edit .input select	{ width:390px;}
 	.form.edit .input p			{ font-size:11px; color:#7f7f7f; padding-top:4px; padding-bottom:0;}
-	.form.edit .button			{ padding-top:24px; text-align:center; clear:both;}
+	.form.edit .button			{ padding-top:15px; text-align:center; clear:both;}
 	
 	
 	.form.add_w					{ overflow:hidden; padding-bottom:20px; width:auto;}
@@ -791,3 +793,4 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .change_pass {width:500px;}
 .change_pass  .form1 {width:240px; padding-left:100px; text-align:right;}
 .form .input input.se_event_calendar {width:181px;}
+#userEditRemovePhotoLink {padding-top:5px;}

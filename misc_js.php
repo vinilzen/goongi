@@ -323,9 +323,18 @@ elseif( $task == "candle_golosa" )
 {
  //   print_r ($user);
 $owner_id =( isset($_POST['owner_id']) ? $_POST['owner_id'] : NULL );
- $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_id ='{$owner_id}'");
+ $field1 = $database->database_query("SELECT se_user_candle.*,se_profilevalues.profilevalue_5,se_users.user_photo   FROM se_user_candle
+         LEFT JOIN se_profilevalues ON se_profilevalues.profilevalue_user_id=se_user_candle.user_candle_id
+         LEFT JOIN se_users ON se_users.user_id=se_user_candle.user_candle_id
+         WHERE se_user_candle.user_id ='{$owner_id}'");
+ //echo $field1;
  while($info=$database->database_fetch_assoc($field1))
+ {
+      $info['user_photo']= substr($info['user_photo'], 0, strrpos($info['user_photo'], "."))."_thumb".substr($info['user_photo'], strrpos($info['user_photo'], "."));
 	      $info_candle[]= $info;
+
+      //        print_r ($info);
+ }
 header("Content-Type: application/json");
  echo json_encode(array('error' => 0, 'result' => $info_candle));
  exit();
@@ -432,7 +441,7 @@ elseif($task == "comment_get")
   $tab = ( isset($_POST['tab']) ? $_POST['tab'] : NULL );
   $col = ( isset($_POST['col']) ? $_POST['col'] : NULL );
   
-  //print_r($iden);  print_r($type);  print_r($value); die();
+ 
   
   if( !$type || !$iden || !$value ) exit();
   
@@ -459,8 +468,9 @@ elseif($task == "comment_get")
 
   // MAKE COMMENT PAGES AND GET COMMENT ARRAY
   $page_vars = make_page($total_comments, $cpp, $p);
+
   $comments = $comment->comment_list($page_vars[0], $cpp);
-//echo '<pre>'; print_r($comments); die();
+
   // CONSTRUCT JSON RESPONSE
   $response_array = array(
     'total_comments'  => (int) $total_comments,
@@ -471,14 +481,12 @@ elseif($task == "comment_get")
     'type'            =>  $type,
     'comments'        => array()
   );
- 
+  
   foreach( $comments as $comment_index=>$comment_data )
   {
     // Escape trailing backslash
     if( substr($comment_data['comment_body'], -1, 1)=="\\" && substr($comment_data['comment_body'], -2, 2)!="\\\\" )
       $comment_data['comment_body'] .= "\\";
-    
-   //echo '<pre>'; print_r($comment_data['comment_author']); die();
     
     $response_array['comments'][(int) $comment_data['comment_id']] = array
     (
@@ -490,7 +498,7 @@ elseif($task == "comment_get")
       'comment_authoruser_photo_width'  => (int)    $comment_data['comment_author']->user_info['user_sex'] == 'w' ? $misc->photo_size($comment_data['comment_author']->user_photo('./images/avatars_17.gif'),'75','75','w'):$misc->photo_size($comment_data['comment_author']->user_photo('./images/avatars_15.gif'),'75','75','w'),
       'comment_authoruser_username'     => (string) $comment_data['comment_author']->user_info['user_username'],
       'comment_authoruser_displayname'  => (string) $comment_data['comment_author']->user_displayname,
-      'comment_date'                    => (string) $datetime->cdate("{$setting['setting_dateformat']} {$setting['setting_timeformat']}", $datetime->timezone($comment_data['comment_date'], $global_timezone)),
+      'comment_date'                    => (string) $datetime->cdate("{$setting['setting_dateformat']} в {$setting['setting_timeformat']}", $datetime->timezone($comment_data['comment_date'], $global_timezone)),
       'comment_body'                    => (string) $comment_data['comment_body']
     );
   }

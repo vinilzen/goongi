@@ -38,11 +38,21 @@ if( trim($search) ) $where = "(historyentry_title LIKE '%{$search}%' OR historye
 
 $page_vars = make_page($total_historyentries, $entries_per_page, $p);
 //$historyentries = $history->history_entries_list($page_vars[0], $entries_per_page, $s, $where);
+$id_tree_us = $user->get_tree_id($user->user_info['user_id']);
+$id_tree_owner = $user->get_tree_id($owner->user_info['user_id']);
 
 if ($owner->user_info['user_id'] != 0 && $owner->user_info['user_id'] != $user->user_info['user_id'])
+{
 	$user_id = $owner->user_info['user_id'];
+         if ($id_tree_us == $id_tree_owner) $show_edit = 1;
+         else $show_edit = 0;
+        
+}
 else
+{ 
 	$user_id = $user->user_info['user_id'];
+       $show_edit = 1;
+}
 
 if (!$historyentry_id)
 {
@@ -65,6 +75,7 @@ $smarty->assign_by_ref('historyentries', $historyentries);
 
 $smarty->assign('s', $s);
 $smarty->assign('search', $search);
+$smarty->assign('show_edit', $show_edit);
 
 $smarty->assign('p', $page_vars[1]);
 $smarty->assign('maxpage', $page_vars[2]);

@@ -251,8 +251,10 @@ SE_Language::select($user);
 
 if( SE_Language::info('language_setlocale') )
 {
-  $multi_language = 1;
-  setlocale(LC_TIME, SE_Language::info('language_setlocale'));
+ // $multi_language = 1;
+ // setlocale(LC_TIME, SE_Language::info('language_setlocale'));
+    setlocale(LC_ALL,'ru_RU.CP1251');
+    $multi_language = "yes";
 }
 
 header("Content-Language: ".SE_Language::info('language_code'));

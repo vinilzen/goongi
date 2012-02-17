@@ -19,7 +19,7 @@ if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task']
 if(isset($_POST['p'])) { $p = (int) $_POST['p']; } elseif(isset($_GET['p'])) { $p = (int) $_GET['p']; } else { $p = 1; }
 if(isset($_POST['search_text'])) { $search_text = $_POST['search_text']; } elseif(isset($_GET['search_text'])) { $search_text = $_GET['search_text']; } else { $search_text = ""; }
 if(isset($_POST['t'])) { $t = $_POST['t']; } elseif(isset($_GET['t'])) { $t = $_GET['t']; } else { $t = 0; }
-if(isset($_POST['them'])) { $them = $_POST['them']; }  elseif(isset($_GET['them'])) { $them = $_GET['them']; } else { $them = 0; }
+if(isset($_POST['them'])) { $them = $_POST['them']; }  elseif(isset($_GET['them'])) { $them = $_GET['them']; } else { $them = 'user'; }
 
 
 // SET VARS

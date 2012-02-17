@@ -146,13 +146,13 @@ class se_comment
         {$start}, {$limit}
     ";
     
-    //print_r($comment_query); die();
+     
 	  $comments = $database->database_query($comment_query);
 	  while($comment_info = $database->database_fetch_assoc($comments))
 	  {
 		    // CREATE AN OBJECT FOR AUTHOR
 		  $author = new se_user();
-
+ 			
 		  if( $comment_info['user_id'] != $comment_info[$this->comment_type.'comment_authoruser_id'] )
 	      {
 		      $author->user_exists = FALSE;
@@ -164,7 +164,7 @@ class se_comment
 		      $author->user_info['user_username'] = $comment_info['user_username'];
 		      $author->user_info['user_fname'] = $comment_info['user_fname'];
 		      $author->user_info['user_lname'] = $comment_info['user_lname'];
-		     
+		     	
 				if ($user->get_sex($comment_info['user_id']) == 'w')
 				{
 					$author->user_info['user_photo'] = $user->user_photo('./images/avatars_17.gif',TRUE,$comment_info['user_id']);

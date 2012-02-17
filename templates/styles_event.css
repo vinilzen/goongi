@@ -42,7 +42,7 @@ div.event_pages_top{	margin-bottom: 10px;text-align: center;padding: 7px 5px 7px
 div.event_pages_bottom{	margin-bottom: 10px;text-align: center;padding: 7px 5px 7px 5px;}
 input.event_search{	border: 1px solid #AAAAAA;}
 div.event_member{padding: 5px;border: 1px solid #DDDDDD;	margin-top: 10px;background: #FFFFFF;margin-bottom: 10px;}
-div.event_member_info{font-size: 9px;color: #666666;}
+div.event_member_info{color: #666666;}
 div.event_member_title{font-weight: bold;padding-top: 5px;}
 
 /* EVENTS */
