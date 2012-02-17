@@ -17,6 +17,8 @@ if($user->user_exists == 0 && $setting['setting_permission_search'] == 0)
 $s_id = $user->user_info['user_id'];
 if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task'])) { $task = $_GET['task']; } else { $task = "main"; }
 if(isset($_POST['p'])) { $p = $_POST['p']; } elseif(isset($_GET['p'])) { $p = $_GET['p']; } else { $p = 1; }
+if(isset($_POST['field_7'])) { $country_id = $_POST['field_7']; } elseif(isset($_GET['field_7'])) { $country_id = $_GET['field_7']; } else { $country_id = ''; }
+if(isset($_POST['field_8'])) { $city_id = $_POST['field_8']; } elseif(isset($_GET['field_8'])) { $city_id = $_GET['field_8']; } else { $city_id = ''; }
 
 
 // SET VARS
@@ -200,10 +202,10 @@ else
   if($user_online == 1) { $search_query .= " AND user_lastactive>'".(time()-10*60)."' AND user_invisible=0"; }
   if($user_withphoto == 1) { $search_query .= " AND user_photo <> ''"; }
   if($field->field_query != "") { $search_query .= " AND ".$field->field_query; }
-//echo $field->field_query;
+  //if($city_id != "") { $search_query .= " AND profilevalue_9='".$city_id.'\'';}
   // GET TOTAL USERS
   $total_users = $database->database_num_rows($database->database_query($search_query));
-
+//print_r ($field->field_query);
   // MAKE SEARCH PAGES
   $page_vars = make_page($total_users, $users_per_page, $p);
 
@@ -234,6 +236,91 @@ else
   $global_page_title[0] = 926;
   $global_page_description[0] = 1088;
 }
+
+
+
+//$country_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_7 FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
+//$country_id = $country_tb[profilevalue_7];
+$sql = $database->database_query ("SELECT * FROM country");
+while ($country_bd = $database->database_fetch_assoc ($sql))
+{
+	if($country_id == $country_bd[country_id])
+		$country_sel = " SELECTED";
+	else
+		$country_sel = "";
+
+	$country .= "<option value='" . $country_bd[country_id] . "'" . $country_sel . ">" . $country_bd[name] . "</option>\n";
+}
+
+/*$region_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_8 FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
+$region_id = $region_tb[profilevalue_8];
+if($region_id > 0)
+{
+	$region_tb = $database->database_fetch_assoc($database->database_query("SELECT region_id, name FROM region WHERE region_id='".$region_id."' LIMIT 1"));
+	$region .= "<option value='" . $region_tb[region_id] . "' SELECTED>" . $region_tb[name] . "</option>\n";
+}
+else
+{
+	$sql = $database->database_query ("SELECT * FROM region");
+	while ($region_bd = $database->database_fetch_assoc ($sql))
+	{
+		if($region_id == $region_bd[region_id])
+			$region_sel = " SELECTED";
+		else
+			$region_sel = "";
+
+		$region .= "<option value='" . $region_bd[region_id] . "'" . $region_sel . ">" . $region_bd[name] . "</option>\n";
+	}
+}
+*/
+//$city_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_9 FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
+//$city_id = $city_tb[profilevalue_9];
+
+
+if($city_id > 0)
+{
+    if ($country_id != '') $country_s = 'country_id ='.$country_id;
+
+	//$sql = $database->database_query("SELECT city_id, name FROM city WHERE city_id='".$city_id."' ".$country_s);
+    $sql = $database->database_query ("SELECT * FROM city  WHERE ".$country_s." ORDER BY name ASC");
+        while ($city_bd = $database->database_fetch_assoc ($sql))
+	{
+
+		if($city_id == $city_bd[city_id])
+			$city_sel = " SELECTED";
+		else
+			$city_sel = "";
+
+		$city .= "<option value='" . $city_bd[city_id] . "'" . $city_sel . ">" . $city_bd[name] . "</option>\n";
+	}
+
+	//$city .= "<option value='" . $city_tb[city_id] . "' SELECTED>" . $city_tb[name] . "</option>\n";
+}
+else
+{
+if ($country_id != '') $country_s = ' country_id ='.$country_id;
+	$sql = $database->database_query ("SELECT * FROM city  WHERE ".$country_s." ORDER BY name ASC");
+   //    echo $sql;
+	while ($city_bd = $database->database_fetch_assoc ($sql))
+	{
+		if($city_id == $city_bd[city_id])
+			$city_sel = " SELECTED";
+		else
+			$city_sel = "";
+
+		$city .= "<option value='" . $city_bd[city_id] . "'" . $city_sel . ">" . $city_bd[name] . "</option>\n";
+	}
+}
+
+
+
+
+
+$smarty->assign('country', $country);
+//$smarty->assign('region', $region);
+$smarty->assign('city', $city);
+
+
 
 
 

@@ -108,7 +108,22 @@
 	    {* EXACT VALUE SEARCH *}
 	    {else}
             <div class="input">
+
             <label>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_title}</label>
+   {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id == 7  }
+                <div><select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' id='dhtmlgoodies_country' onchange="getCityList(this.value);">
+                  <option id='op' value='-1'>любая</option>
+                                      {$country}</select>
+                  </div>
+{elseif  $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id == 8}
+     <div id = "countydiv">
+                <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}' id='dhtmlgoodies_city'>
+                  <option id='op' value='-1'>
+                     любой
+                </option>
+                                      {$city}</select>
+                  </div>
+            {else}
               <select name='field_{$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id}'>
               <option value='-1'>
                {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id == 5} любой{/if}
@@ -121,7 +136,7 @@
               </select>
             </div>
 	    {/if}
-
+{/if}
 
           {* DATE FIELD *}
           {elseif $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 5}

@@ -210,13 +210,30 @@ $global_page_description[2] = strip_tags(implode(" - ", $field->field_values));
 //echo '<pre>'; var_dump($actions->actions_display(0, $setting['setting_actions_actionsonprofile'], "se_actions.action_user_id='{$owner->user_info['user_id']}'")); die();
 //print_r ($field->cats[0]);
 //// ASSIGN VARIABLES AND INCLUDE FOOTER
-//print_r ($field->cats);
+
 $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_id ='{$owner->user_info['user_id']}'");
 $count_candle= $database->database_num_rows($field1);
+
+    if ($field->value_info['profilevalue_7'] != '')
+    {
+        $country_id =$field->value_info['profilevalue_7'];
+        $country_tb = $database->database_fetch_assoc($database->database_query("SELECT name FROM country WHERE country_id = '".$country_id."' LIMIT 1"));
+        $country=$country_tb['name'];
+    }
+
+    if ($field->value_info['profilevalue_8'] != '' && $field->value_info['profilevalue_7'] != '')
+    {
+        $city_id =$field->value_info['profilevalue_8'];
+        $city_tb = $database->database_fetch_assoc($database->database_query("SELECT name FROM city WHERE country_id = '".$country_id."' AND city_id = '".$city_id."' LIMIT 1"));
+        $city=$city_tb['name'];
+    }
+
 //print_r ($field->value_info['profilevalue_16']);
 $smarty->assign('death',$field->value_info['profilevalue_16']);
 $smarty->assign('count_candle', $count_candle);
 $smarty->assign('v', $v);
+$smarty->assign('city', $city);
+$smarty->assign('country', $country);
 $smarty->assign('profile_views', $profile_views);
 $smarty->assign('cats', $field->cats);
 $smarty->assign('is_profile_private', $is_profile_private);
