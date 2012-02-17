@@ -88,12 +88,8 @@
 <li>
 	<a href="{$results[result_loop].result_url}"><img src='{$results[result_loop].result_icon}' class='photo' border='0'></a>
 	<div>
-		<!--<p><a href="#">vip</a><a href="#">название группы</a></p>-->
-		<h2><a href="{$results[result_loop].result_url}">
-			<!--{$results[result_loop].result_name_1|truncate:35:"...":true}-->
-                        {$results[result_loop].result_name_1}
-		</a></h2>
-		<a href="#" title = "{$results[result_loop].result_name_1}" class="add_msg" id="add_msg">Написать сообщение</a><br />
+		<h2><a href="{$results[result_loop].result_url}">{$results[result_loop].result_name_1}</a></h2>
+		{if $user->user_exists != 0}<a href="#" title = "{$results[result_loop].result_name_1}" class="add_msg" id="add_msg">Написать сообщение</a><br />{/if}
 		<!--<a href="#">Добавить в группу</a><br />-->
 		<!-- <a href="#" class="del">Убрать из друзей</a> -->
 	   
