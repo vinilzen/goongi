@@ -12,7 +12,7 @@
 <form class = 'login' action='login.php' method='POST' name='login'>
 
 	<div class="inputlog">
-        <label>{lang_print id=89}</label><a href='/signup.php' class="reg">{lang_print id=6000143}</a>
+        <label><a href='/signup.php' class="reg">{lang_print id=6000143}</a>{lang_print id=89}</label>
             <input type='text' class='text' name='email' id='email' value='{$email}' size='30' maxlength='70' tabindex="1"/>
         </div>
 

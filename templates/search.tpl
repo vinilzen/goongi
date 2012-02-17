@@ -6,17 +6,16 @@
 <div class="crumb seach"><a href="#">Главная</a><span>{lang_print id=646}<!-- Поиск --></span></div>
 <div class="buttons">
 	<form action='search.php' name='search_form' method='post'>
-		
-		<input type='text' size='30' class="srch_inp" name='search_text' id='search_text' value='{$search_text}' maxlength='100'></td>
+		<input type='text' size='30' class="srch_inp" name='search_text' id='search_text' value='{$search_text}' maxlength='100'>
 		<span class="button2" style="margin:0;"><span class="l">&nbsp;</span><span class="c">
 			<input type='submit' class='button' value='{lang_print id=646}'>
 		</span><span class="r">&nbsp;</span></span>
 		<input type='hidden' name='task' value='dosearch'>
 		<input type='hidden' name='t' value='' id = "t">
-                <input type='hidden' name='them' { if $them == ''}value='user' {else}  value='{$them}'{/if} id = "them">
-		<a href='search_advanced.php'>{lang_print id=926}</a>
+        <input type='hidden' name='them' { if $them == ''}value='user' {else}  value='{$them}'{/if} id = "them">
+		{if $user->user_exists != 0}<a href='search_advanced.php'>{lang_print id=926}</a>{/if}
 	</form>						
-</div>
+</div>{if $user->user_exists != 0}
 <div class="group_list">
 	<ul>
 		<!-- <li><a {if $them === "quik"} class = 'active'{/if} href="javascript:void(0);" onclick = "$('#them').val('quik');       $('.group_list ul li a').removeClass('active');   $(this).addClass('active');">Быстрый поиск</a></li>-->
@@ -25,7 +24,7 @@
 		<li><a {if $them === "event"} class = 'active'{/if} href="javascript:void(0);" onclick = "$('#them').val('event');   $('.group_list ul li a').removeClass('active');   $(this).addClass('active');">Поиск событий</a></li>
 		<li><a {if $them === "blog"} class = 'active'{/if} href="javascript:void(0);" onclick = "$('#them').val('blog');    $('.group_list ul li a').removeClass('active');   $(this).addClass('active');">Поиск статей</a></li>
 	</ul>
-</div>
+</div>{/if}
 
 {if $search_text != ""}
 
