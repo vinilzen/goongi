@@ -228,11 +228,20 @@ $count_candle= $database->database_num_rows($field1);
         $city=$city_tb['name'];
     }
 
+    if ($field->value_info['profilevalue_9'] != '')
+    {
+        $country_birhday_id =$field->value_info['profilevalue_9'];
+        $country_birhday_tb = $database->database_fetch_assoc($database->database_query("SELECT name FROM country WHERE country_id = '".$country_birhday_id."' LIMIT 1"));
+        $country_birhday=$country_birhday_tb['name'];
+    }
+
+
 //print_r ($field->value_info['profilevalue_16']);
 $smarty->assign('death',$field->value_info['profilevalue_16']);
 $smarty->assign('count_candle', $count_candle);
 $smarty->assign('v', $v);
 $smarty->assign('city', $city);
+$smarty->assign('country_birhday', $country_birhday);
 $smarty->assign('country', $country);
 $smarty->assign('profile_views', $profile_views);
 $smarty->assign('cats', $field->cats);

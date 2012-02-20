@@ -82,9 +82,9 @@ class se_vizitki
         {
              global $database, $user;
 	   $sql = "
-        INSERT INTO se_vizitki_country
+        INSERT INTO country
         (
-        vizitkisetting_country
+        name
         )
         VALUES
         (
@@ -98,7 +98,7 @@ class se_vizitki
         function get_all_country()
         {
              global $database, $user;
-	   $sql = "SELECT * FROM se_vizitki_country;";
+	   $sql = "SELECT * FROM country";
            $resource = $database->database_query($sql);
             while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
             $country[] = $vizitkientry_info;
@@ -119,14 +119,14 @@ class se_vizitki
         {
              global $database, $user;
 	$sql = "
-        INSERT INTO se_vizitki_city
+        INSERT INTO city
         (
-            vizitki_country_id,
-            vizitki_city
+           country_id,
+           name
         )
         VALUES
         (
-          '$id',
+            '$id',
             '$city'
         )";
       $resource = $database->database_query($sql);
@@ -136,7 +136,7 @@ class se_vizitki
         function get_all_city()
         {
              global $database, $user;
-	   $sql = "SELECT * FROM se_vizitki_city;";
+	   $sql = "SELECT * FROM city;";
            $resource = $database->database_query($sql);
             while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
             $city[] = $vizitkientry_info;
@@ -146,10 +146,10 @@ class se_vizitki
          function get_country_city($country)
         {
              global $database, $user;
-	   $sql = "SELECT * FROM se_vizitki_city WHERE vizitki_country_id = '{$country}';";
+	   $sql = "SELECT * FROM city WHERE country_id = '{$country}';";
            $resource = $database->database_query($sql);
             while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
-            $city[] = $vizitkientry_info['vizitki_city'];
+            $city[] = $vizitkientry_info['name'];
             return $city;
 	}
   

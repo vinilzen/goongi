@@ -668,10 +668,10 @@ function createNewcity()
           </tr>
           <td><label>Регионы трансляции (Страна) </label></td>
           {section name=nation loop=$country}
-          <tr id="vizitkiEntrycountryRow_{$country[nation].vizitkisetting_id}">
+          <tr id="vizitkiEntrycountryRow_{$country[nation].country_id}">
             <td>
-              <span class="oldcountryContainer"><a href="javascript:void(0);" onclick="switchOldcountry({$country[nation].vizitkisetting_id});">{$country[nation].vizitkisetting_country}</a></span>
-              <span class="oldcountryInput" style="display:none;"><input type='text' class='text' size='30' maxlength='50' onblur="editOldcountry({$country[nation].vizitkisetting_id});" value="{$country[nation].vizitkisetting_country}" /></span>
+              <span class="oldcountryContainer"><a href="javascript:void(0);" onclick="switchOldcountry({$country[nation].country_id});">{$country[nation].name}</a></span>
+              <span class="oldcountryInput" style="display:none;"><input type='text' class='text' size='30' maxlength='50' onblur="editOldcountry({$country[nation].country_id});" value="{$country[nation].name}" /></span>
 
             </td>
           </tr>
@@ -690,22 +690,22 @@ function createNewcity()
           </tr>
         <td><label>Регионы трансляции (Города) </label></td>
           {section name=nation loop=$city}
-          <tr id="vizitkiEntrycityRow_{$city[nation].vizitkisetting_id}">
+          <tr id="vizitkiEntrycityRow_{$city[nation].city_id}">
             <td>
              {section name=loop loop=$country}
-                {if $city[nation].vizitki_country_id  == $country[loop].vizitkisetting_id}
-                    {assign var=art value=$country[loop].vizitkisetting_country}
+                {if $city[nation].country_id  == $country[loop].country_id}
+                    {assign var=art value=$country[loop].name}
                 {/if}
              {/section}
-             <span class="oldcityContainer"><a href="javascript:void(0);" onclick="switchOldcity({$city[nation].vizitkisetting_id});">{$city[nation].vizitki_city} {$art}</a></span>
+             <span class="oldcityContainer"><a href="javascript:void(0);" onclick="switchOldcity({$city[nation].city_id});">{$city[nation].name} {$art}</a></span>
            
               <span class="oldcitySelect" style="display:none;">
                         <select name="contry" id = "oldcountry">
                          {section name=loop loop=$country}
-                           <option value = "{$country[loop].vizitkisetting_id}" {if $city[nation].vizitki_country_id  == $country[loop].vizitkisetting_id} SELECTED{/if}>{$country[loop].vizitkisetting_country}</option>
+                           <option value = "{$country[loop].country_id}" {if $city[nation].country_id  == $country[loop].country_id} SELECTED{/if}>{$country[loop].name}</option>
                          {/section}
                         </select></span>&nbsp;&nbsp;&nbsp;
-            <span class="oldcityInput" style="display:none;"><input type='text' class='text' size='30' maxlength='50' OnChange="editOldcity({$city[nation].vizitkisetting_id}); document.info.submit();" value="{$city[nation].vizitki_city}" /></span>
+            <span class="oldcityInput" style="display:none;"><input type='text' class='text' size='30' maxlength='50' OnChange="editOldcity({$city[nation].city_id}); document.info.submit();" value="{$city[nation].name}" /></span>
             </td>
           </tr>
           {/section}
@@ -715,7 +715,7 @@ function createNewcity()
               <span id="newcityContainerSel" style="display:none;">
                         <select name="contry" id='newcitySelect' >
                          {section name=loop loop=$country}
-                           <option value = "{$country[loop].vizitkisetting_id}" {if $city[nation].vizitkisetting_id == $country[loop].vizitkisetting_id} SELECTED{/if}>{$country[loop].vizitkisetting_country}</option>
+                           <option value = "{$country[loop].country_id}" {if $city[nation].country_id == $country[loop].country_id} SELECTED{/if}>{$country[loop].name}</option>
                          {/section}
                         </select></span>&nbsp;&nbsp;&nbsp;
                 <span id="newcityContainer" style="display:none;"><input type='text' id='newcityInput' class='text' size='30' maxlength='50' OnChange="editNewcity(); document.info.submit();" /></span>

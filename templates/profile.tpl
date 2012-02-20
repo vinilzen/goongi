@@ -98,8 +98,9 @@
 				{/section}
 			{/section}
 		{/section}
-                {if $country != ''}<p><span> Страна рождения</span>{$country}</p>{/if}
+                {if $country != ''}<p><span> Страна проживания</span>{$country}</p>{/if}
                 {if $city != ''}<p><span> Город</span>{$city}</p>{/if}
+                {if $country_birhday != ''}<p><span> Страна рождения</span>{$country_birhday}</p>{/if}
 	</div>
 </div>
 {else}
@@ -190,8 +191,9 @@
 				{/section}
 			{/section}
 		{/section}
-                {if $country != ''}<p><span> Страна рождения</span>{$country}</p>{/if}
+                {if $country != ''}<p><span> Страна проживания</span>{$country}</p>{/if}
                 {if $city != ''}<p><span> Город</span>{$city}</p>{/if}
+                 {if $country_birhday != ''}<p><span> Страна рождения</span>{$country_birhday}</p>{/if}
 
 </div>
 </div>
