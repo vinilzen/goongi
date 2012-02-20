@@ -74,6 +74,9 @@ if( $view=="month" )
     $events[$day][] =& $event_array_raw[$event_index];
   }
   
+  	//echo $month_text; die();
+  
+  	if (0)
 	switch ($month_text) {
 		case 'December':
 			$month_lang = 3000342;
@@ -128,13 +131,13 @@ if( $view=="month" )
 			break;
 	}
   
-  
   // ASSIGN
   $smarty->assign('days_in_month', $days_in_month);
   $smarty->assign('first_day_of_month', $first_day_of_month);
   $smarty->assign('last_day_of_month', $last_day_of_month);
   $smarty->assign('total_cells', $total_cells);
-  $smarty->assign('month',SE_Language::get($month_lang));
+  //$smarty->assign('month',SE_Language::get($month_lang));
+  $smarty->assign('month',$month_text);
   $smarty->assign('year', $month_year);
   $smarty->assign('date_last', $date_last);
   $smarty->assign('date_current', $date);

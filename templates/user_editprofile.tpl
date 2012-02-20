@@ -118,25 +118,30 @@
     <div class="input">
 {*вывод страны*}
 		<label>{lang_print id=$fields[field_loop].field_title}{if $fields[field_loop].field_required != 0}*{/if}</label>
-                    {if $fields[field_loop].field_id == 7  }
-                <div><select name='dhtmlgoodies_country' id='dhtmlgoodies_country' onchange="getCityList(this.value);">
-                  <option id='op' value='-1'></option>
-                                      {$country}</select>
-                  </div>
-{elseif $fields[field_loop].field_id == 8}
-     <div id = "countydiv">
-                <select name='dhtmlgoodies_city' id='dhtmlgoodies_city'>
-                  <option id='op' value='-1'></option>
-                                      {$city}</select>
-                  </div>
-</div>
+			{if $fields[field_loop].field_id == 7  }
+                <div>
+					<select name='dhtmlgoodies_country' id='dhtmlgoodies_country' onchange="getCityList(this.value);">
+						<option id='op' value='-1'></option>
+						{$country}
+					</select>
+                </div>
+			{elseif $fields[field_loop].field_id == 8}
+				<div id = "countydiv">
+					<select name='dhtmlgoodies_city' id='dhtmlgoodies_city'>
+						<option id='op' value='-1'></option>
+						{$city}
+					</select>
+                </div>
+	</div>
 <!--Страна рождения-->
     <div class="input">
-<label>Страна рождения</label>
- <div><select name='dhtmlgoodies_country_birhday' id='dhtmlgoodies_country_birhday'">
-                  <option id='op' value='-1'></option>
-                                      {$country_birhday}</select>
-                  </div>
+		<label>Страна рождения</label>
+		 <div>
+			<select name='dhtmlgoodies_country_birhday' id='dhtmlgoodies_country_birhday'">
+				<option id='op' value='-1'></option>
+				-{$country_birhday}-
+			</select>
+		 </div>
             {else}
 		<!-- @ --><select name='field_{$fields[field_loop].field_id}' id='field_{$fields[field_loop].field_id}' onchange="ShowHideDeps('{$fields[field_loop].field_id}', this.value);" style='{$fields[field_loop].field_style}'>
 			<option value='-1'></option>
@@ -145,8 +150,7 @@
 			<option id='op' value='{$fields[field_loop].field_options[option_loop].value}'{if $fields[field_loop].field_options[option_loop].value == $fields[field_loop].field_value} SELECTED{/if}>{lang_print id=$fields[field_loop].field_options[option_loop].label}</option>
 			{/section}
 		</select>
-
-                {/if}
+		{/if}
     </div>
       {* LOOP THROUGH DEPENDENT FIELDS *}
       <div id='field_options_{$fields[field_loop].field_id}'>

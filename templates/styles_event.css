@@ -80,7 +80,7 @@ td.event_cellblank {background: #F4F4F4;color: #555555;border-left: 1px solid #C
 td.event_cell1 {background: #FFFFFF;color: #555555;border-left: 1px solid #CDCDCD;border-top: 1px solid #CDCDCD;vertical-align: top;text-align: right;}
 td.event_cell2 {background-image: url(./images/event_cell2.gif);background-repeat: no-repeat;color: #555555;border-left: 1px solid #AAAAAA;border-top: 1px solid #AAAAAA;vertical-align: top;text-align: right;}
 td.event_cell3 {background-image: url(./images/event_cell3.gif);background-repeat: no-repeat;color: #555555;border-left: 1px solid #AAAAAA;border-top: 1px solid #AAAAAA;vertical-align: top;text-align: right;}
-td.event_cellheader {padding: 5px 5px 5px 7px;background: #EEEEEE;font-weight: bold;color: #333333;width: 150px;border-left: 1px solid #AAAAAA;border-top: 1px solid #AAAAAA;}
+td.event_cellheader {padding: 5px 5px 5px 7px;background: #EEEEEE;font-weight: bold;color: #333333;width: 92px;border-left: 1px solid #AAAAAA;border-top: 1px solid #AAAAAA;overflow:hidden;}
 
 td.event_celldesc {text-align: left;padding: 3px 5px 5px 5px;vertical-align: top;}
 td.event_cellnum1, td.event_cellnum2 {padding: 0px 4px 4px 0px;font-size: 22px; line-height: 22px; color: #BBBBBB; vertical-align: bottom;text-align: right;}

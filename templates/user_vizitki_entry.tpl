@@ -23,7 +23,7 @@ if (($('#name_v').val() == '') || ($('#categor').val() == '') || ($('#desc').val
     if  ($('#name_v').val() == '')  $('.error').append('Заполните поле название услуги<br/>');
     if  ($('#categor').val() == '') $('.error').append('Заполните поле категория<br/>');
     if  ($('#desc').val() == '')  $('.error').append('Заполните поле описание<br/>');
-    if ($('#fakeupload').val() == '')  $('.error').append('Загрузите изображение<br/>');
+    if ($('#fakeupload').val() == '' && $('#p_img').attr('src') == 'images/6.jpg' )  $('.error').append('Загрузите изображение<br/>');
 }
     else {$('#edit_profil').submit(); }
 }
