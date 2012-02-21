@@ -105,29 +105,32 @@
 </div>
 {else}
 <div class="d_inf">
-<div class="buttons">
-        	  <span class="button3"><span class="l">&nbsp;</span><span class="c">
-			<a class = "dead" href="/user_editprofile.php?user={$owner->user_info.user_username}">Редактировать информацию</a>
-		</span><span class="r">&nbsp;</span>
-	</span>
-
-<div class="profil_mn"><a href="#" class="pd_link"><span>профиль</span></a>
-				<div class="pd_mn">
-					<div class="pd_mn_t"></div>
-					<div class="pd_mn_c">
-						<div class="pd_mn_b">
-							<a href="/tree.php?user={$owner->user_info.user_username}">Древо</a>
-							<a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a>
-							<a href="/user_history.php?user={$owner->user_info.user_username}">История рода</a>
-							<a href="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
-							<!-- <a href="javascript:void(0);">Медали</a> -->
-						</div>
+	<div class="buttons">
+		<span class="button3">
+			<span class="l">&nbsp;</span>
+			<span class="c">
+				<a class = "dead" href="/user_editprofile.php?user={$owner->user_info.user_username}">Редактировать информацию</a>
+			</span>
+			<span class="r">&nbsp;</span>
+		</span>
+		<div class="profil_mn">
+			<a href="#" class="pd_link">
+				<span>профиль</span>
+			</a>
+			<div class="pd_mn">
+				<div class="pd_mn_t"></div>
+				<div class="pd_mn_c">
+					<div class="pd_mn_b">
+						<a href="/tree.php?user={$owner->user_info.user_username}">Древо</a>
+						<!-- <a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a> -->
+						<a href="/user_history.php?user={$owner->user_info.user_username}">История рода</a>
+						<a href="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
+						<!-- <a href="javascript:void(0);">Медали</a> -->
 					</div>
 				</div>
 			</div>
-</div>
-
-
+		</div>
+	</div>
 <div class="sv"></div>
     <div class="golosa">
             <span class="button3"><span class="l">&nbsp;</span><span class="c">

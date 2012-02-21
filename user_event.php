@@ -71,8 +71,8 @@ if( $view=="month" )
   // INDEX BY DAY
   //echo '<pre>'; print_r($event_array_raw); die();
   foreach($event_array_raw as $event_index=>$event_array_single ) {
-    $day = date("j", $event_array_raw[$event_index]['event']->event_info['event_date_start']);
-    $events[$day][] =& $event_array_raw[$event_index];
+  	$day = date("j", $event_array_raw[$event_index]['event']->event_info['event_date_start']);
+   	$events[$day][] =& $event_array_raw[$event_index];
 	while ($day < date("j", $event_array_raw[$event_index]['event']->event_info['event_date_end'])) // long event - a few days 
 	{
 		$day ++;

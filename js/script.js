@@ -45,6 +45,15 @@ function src(){
 		$(this).removeClass('active');
 		$(this).parent().find('div.p_mn').slideUp();
 	});
+	$('.profil_mn .pd_link').toggle(function(e){
+		e.preventDefault();
+		$(this).addClass('active');
+		$(this).parent().find('div.pd_mn').slideDown();
+	},function(e){
+		e.preventDefault();
+		$(this).removeClass('active');
+		$(this).parent().find('div.pd_mn').slideUp();
+	});
 	
 	$('.head .menu li:last').addClass('last');
 	$('.head .menu li:last').prev().addClass('lang');
