@@ -69,9 +69,16 @@ if( $view=="month" )
   $event_array_raw = $event->event_list(0, $total_events, $s, $where, 1);
   
   // INDEX BY DAY
+  //echo '<pre>'; print_r($event_array_raw); die();
   foreach($event_array_raw as $event_index=>$event_array_single ) {
     $day = date("j", $event_array_raw[$event_index]['event']->event_info['event_date_start']);
     $events[$day][] =& $event_array_raw[$event_index];
+	while ($day < date("j", $event_array_raw[$event_index]['event']->event_info['event_date_end'])) // long event - a few days 
+	{
+		$day ++;
+		$events[$day][] =& $event_array_raw[$event_index];
+	}
+
   }
   
   	//echo $month_text; die();
@@ -174,7 +181,7 @@ $smarty->assign('view', $view);
 
 $smarty->assign('total_events', $total_events);
 $smarty->assign_by_ref('events', $events);
-
+//echo "<pre>"; print_r($events); die();
 $smarty->assign('show_notification', $show_notification);
 include "footer.php";
 ?>

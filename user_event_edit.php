@@ -22,8 +22,6 @@ if( 3 & ~$user->level_info['level_event_allow'] )
 // INITIALIZE EVENT OBJECT
 $event = new se_event($user->user_info['user_id'], $event_id);
 
-//echo '<pre>'; print_r($event);
-
 if( !$event->event_exists )
 {
   header("Location: user_event.php");
@@ -252,7 +250,7 @@ for($i=1; $i<=7; $i++)
   $day_names[$i] = strftime('%A', mktime(0, 0, 0, 11, $i+1, 2008));
 
 
-//echo '<pre>'; print_r(); die();
+//echo '<pre>'; print_r($event->event_info); die();
 
 // ASSIGN VARIABLES AND SHOW USER EDIT EVENT PAGE
 $smarty->assign('result',     $result);
@@ -263,7 +261,7 @@ $smarty->assign('compatible_input_timeformat', $compatible_input_timeformat);
 $smarty->assign('event_date_start_tz', $datetime->timezone($event->event_info['event_date_start'], $global_timezone));
 $smarty->assign('event_date_end_tz', $datetime->timezone($event->event_info['event_date_end'], $global_timezone));
 $smarty->assign('event_date_start_format',date('d.n.Y', $datetime->timezone($event->event_info['event_date_start'], $global_timezone)));
-$smarty->assign('event_date_end_format',date('d.n.Y', $datetime->timezone($event->event_info['event_date_start'], $global_timezone)));
+$smarty->assign('event_date_end_format',date('d.n.Y', $datetime->timezone($event->event_info['event_date_end'], $global_timezone)));
 
 $smarty->assign('event_time_start_format',date('G:i', $datetime->timezone($event->event_info['event_date_start'], $global_timezone)));
 $smarty->assign('event_time_end_format',date('G:i', $datetime->timezone($event->event_info['event_date_end'], $global_timezone)));

@@ -530,7 +530,7 @@ function src(){
 					function  (data){
 						if (data.result == true){
 							alert('Событие успешно удалено.');
-							location.href='user_event.php';
+							location.href='/user_event.php';
 						} else {
 							alert(data.error);
 						}
@@ -810,7 +810,7 @@ function src(){
 								var check = '';
 							}*/
 														
-							$('.friend_list_w').append('<li '+check+' rel="'+key+'"><a href="#"><img width="51" height="52" src="'+userdir+'" /></a><a href="/'+value['user_username']+'">'+value['user_displayname']+'</a></li>');
+							$('.friend_list_w').append('<li '+check+' rel="'+key+'"><a href="javascript:void(0)"><img width="51" height="52" src="'+userdir+'" /></a><a href="javascript:void(0)">'+value['user_displayname']+'</a></li>');
 							
 						});
 						$('#edit_group').fadeIn();
