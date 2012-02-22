@@ -16,6 +16,7 @@
 		<a href="/user_editprofile_photo.php">{lang_print id=769}</a>
 	</span><span class="r">&nbsp;</span></span>
 </div>
+<div class="clear"><!-- --></div>
 {*
 {section name=cat_loop loop=$cats}
 	<a href='user_editprofile.php?cat_id={$cats[cat_loop].subcat_id}'>{lang_print id=$cats[cat_loop].subcat_title}</a>
