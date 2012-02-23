@@ -152,7 +152,7 @@
 		 </div>
             {else}
 		<!-- @ --><select name='field_{$fields[field_loop].field_id}' id='field_{$fields[field_loop].field_id}' onchange="ShowHideDeps('{$fields[field_loop].field_id}', this.value);" style='{$fields[field_loop].field_style}'>
-			<option value='-1'></option>
+			<!-- <option value='-1'></option> -->
 			{* LOOP THROUGH FIELD OPTIONS *}
 			{section name=option_loop loop=$fields[field_loop].field_options}
 			<option id='op' value='{$fields[field_loop].field_options[option_loop].value}'{if $fields[field_loop].field_options[option_loop].value == $fields[field_loop].field_value} SELECTED{/if}>{lang_print id=$fields[field_loop].field_options[option_loop].label}</option>
@@ -170,7 +170,7 @@
 				<div id='field_{$fields[field_loop].field_id}_option{$fields[field_loop].field_options[option_loop].value}' style='margin: 5px 5px 10px 5px;{if $fields[field_loop].field_options[option_loop].value != $fields[field_loop].field_value} display: none;{/if}'>
 				{lang_print id=$fields[field_loop].field_options[option_loop].dep_field_title}{if $fields[field_loop].field_options[option_loop].dep_field_required != 0}*{/if}
 				<select name='field_{$fields[field_loop].field_options[option_loop].dep_field_id}'>
-					<option value='-1'></option>
+					<!-- <option value='-1'></option> -->
 					{* LOOP THROUGH DEP FIELD OPTIONS *}
 					{section name=option2_loop loop=$fields[field_loop].field_options[option_loop].dep_field_options}
 						<option id='op' value='{$fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].value}'{if $fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].value == $fields[field_loop].field_options[option_loop].dep_field_value} SELECTED{/if}>{lang_print id=$fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].label}</option>
@@ -211,7 +211,7 @@
         <div id='field_{$fields[field_loop].field_id}_option{$fields[field_loop].field_options[option_loop].value}' {if $fields[field_loop].field_options[option_loop].value != $fields[field_loop].field_value} display: none;{/if}'>
 			{lang_print id=$fields[field_loop].field_options[option_loop].dep_field_title}{if $fields[field_loop].field_options[option_loop].dep_field_required != 0}*{/if}
             <select name='field_{$fields[field_loop].field_options[option_loop].dep_field_id}'>
-			  <option value='-1'></option>
+			  <!-- <option value='-1'></option> -->
 			  {* LOOP THROUGH DEP FIELD OPTIONS *}
 			  {section name=option2_loop loop=$fields[field_loop].field_options[option_loop].dep_field_options}
 				<option id='op' value='{$fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].value}'{if $fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].value == $fields[field_loop].field_options[option_loop].dep_field_value} SELECTED{/if}>{lang_print id=$fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].label}</option>
@@ -277,7 +277,7 @@
               <div id='field_{$fields[field_loop].field_id}_option{$fields[field_loop].field_options[option_loop].value}' style='margin: 5px 5px 10px 5px;{if $fields[field_loop].field_options[option_loop].value != $fields[field_loop].field_value} display: none;{/if}'>
               {lang_print id=$fields[field_loop].field_options[option_loop].dep_field_title}{if $fields[field_loop].field_options[option_loop].dep_field_required != 0}*{/if}
 				<select name='field_{$fields[field_loop].field_options[option_loop].dep_field_id}'>
-					<option value='-1'></option>
+					<!-- <option value='-1'></option> -->
 					{* LOOP THROUGH DEP FIELD OPTIONS *}
 					{section name=option2_loop loop=$fields[field_loop].field_options[option_loop].dep_field_options}
 						<option id='op' value='{$fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].value}'{if $fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].value == $fields[field_loop].field_options[option_loop].dep_field_value} SELECTED{/if}>{lang_print id=$fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].label}</option>
