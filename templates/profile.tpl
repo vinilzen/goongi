@@ -166,7 +166,7 @@
 
  {assign var=foo value="-"|explode:$owner->profile_info.profilevalue_12}
 {assign var=deat value= "$foo[2].$foo[1].$foo[0]"}
-<div class="g_inf_text"><p>{if $owner->profile_info.profilevalue_4 == '0000-00-00'}Дата рождения не известна{else}{$birth}{/if} - {if $owner->profile_info.profilevalue_12 == '0000-00-00' && $owner->profile_info.profilevalue_16 == '1'}Дата смерти не известна{else}{$deat}{/if}<span></span></p></div>
+<div class="g_inf_text"><p>{if $owner->profile_info.profilevalue_4 == '0000-00-00'}Дата рождения не известна{else}{$birth}{/if} - {if $owner->profile_info.profilevalue_12 == '0000-00-00' && $owner->profile_info.profilevalue_16 == '1'}Дата смерти не известна{else}{$deat} ({$jdate_death}){/if}<span></span></p></div>
 
 <div class="clear"><img src="images/x.gif" alt="" /></div>
 

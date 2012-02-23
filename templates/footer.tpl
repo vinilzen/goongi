@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="b1"><a href="/user_vizitki.php">Создать себе визитку</a></div>
+						{if $user->user_exists != 0}<div class="b1"><a href="/user_vizitki.php">Создать себе визитку</a></div>{/if}
                     </div>
 {/if}
                 </div>

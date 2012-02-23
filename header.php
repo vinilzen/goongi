@@ -216,9 +216,9 @@ $admin->admin_checkCookies();
 
 
 // CANNOT ACCESS USER-ONLY AREA IF NOT LOGGED IN
-if( !$user->user_exists && substr($page, 0, 5) == "user_" )
+if( !$user->user_exists && (substr($page, 0, 5) == "user_" || substr($page, 0, 7) == "profile") )
 {
-  header("Location: login.php?return_url=".$url->url_current());
+  header("Location: /login.php?return_url=".$url->url_current());
   exit();
 }
 

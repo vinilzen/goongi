@@ -234,9 +234,28 @@ $count_candle= $database->database_num_rows($field1);
         $country_birhday_tb = $database->database_fetch_assoc($database->database_query("SELECT name FROM country WHERE country_id = '".$country_birhday_id."' LIMIT 1"));
         $country_birhday=$country_birhday_tb['name'];
     }
+//echo "<pre>"; print_r($owner); echo "</pre>"; die();
 
 
-//print_r ($field->value_info['profilevalue_16']);
+if ($field->value_info['profilevalue_16'] == 1 && $owner->profile_info['profilevalue_12'] != '0000-00-00')
+{
+	$date_d = explode('-', $owner->profile_info['profilevalue_12']);
+//	echo "<pre>"; print_r($date_d); echo "</pre>"; echo '$date_d - '.$date_d.'<br>';
+	$jdDate = gregoriantojd( $date_d[1], $date_d[2], $date_d[0]); 
+	//echo '$jdDate - '.$jdDate.'<br>'; die();
+	$gregorianMonthName = jdmonthname ( $jdDate, 1 ); 
+	//echo '$gregorianMonthName - '.$gregorianMonthName.'<br>';
+	$hebrewDate = jdtojewish ($jdDate); 
+	//echo '$hebrewDate - '.$hebrewDate.'<br>';
+	
+	list ($hebrewMonth, $hebrewDay, $hebrewYear) = split ('/', $hebrewDate); 
+	
+	$hebrewMonthName = jdmonthname ( $jdDate, 4);  
+	//echo '$hebrewMonthName - '.$hebrewMonthName.'<br>';	die();
+
+	$smarty->assign('jdate_death', "$hebrewDay $hebrewMonthName $hebrewYear"); 
+
+}
 $smarty->assign('death',$field->value_info['profilevalue_16']);
 $smarty->assign('count_candle', $count_candle);
 $smarty->assign('v', $v);

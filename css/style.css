@@ -782,7 +782,7 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 	.d_inf .img p	{ padding:5px 0 0 0; font-size:11px; text-align:center;}
 	.d_inf .img p a	{ text-decoration:none; display:inline-block; line-height:110%; border-bottom:1px dashed #464645; color:#777;}
 	.d_inf .img p a:hover	{ border-bottom:0; padding-bottom:1px;}
-	.d_inf .g_inf_text		{ overflow:hidden; color:#fff;}
+	.d_inf .g_inf_text		{ color:#fff;}
 	.d_inf .g_inf_text p	{ text-align:center; color:#fff;}
 	.d_inf .g_inf_text p span		{ color:#b3b3b3;}
 	.d_inf .img .ribbon 	{background:url(../images/ribbon.png); width:58px; height:58px; position:absolute; right:400px; bottom:10px; }
