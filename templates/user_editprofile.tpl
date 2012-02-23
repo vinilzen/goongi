@@ -121,14 +121,21 @@
 		<label>{lang_print id=$fields[field_loop].field_title}{if $fields[field_loop].field_required != 0}*{/if}</label>
 			{if $fields[field_loop].field_id == 7  }
                 <div>
-					<select name='dhtmlgoodies_country' id='dhtmlgoodies_country' onchange="getCityList(this.value);">
+					<select name='dhtmlgoodies_country' id='dhtmlgoodies_country' onchange="getCityList(this.value, 'cou');">
 						<option id='op' value='-1'></option>
 						{$country}
 					</select>
                 </div>
+			{elseif $fields[field_loop].field_id == 16}
+				<div id="region">
+					<select name="dhtmlgoodies_region" id="dhtmlgoodies_region" onchange="getCityList(this.value, 'reg');">
+						<option id='op' value='-1'></option>
+						{$region}
+					</select>
+				</div>
 			{elseif $fields[field_loop].field_id == 8}
-				<div id = "countydiv">
-					<select name='dhtmlgoodies_city' id='dhtmlgoodies_city'>
+				<div id="countydiv">
+					<select name="dhtmlgoodies_city" id="dhtmlgoodies_city">
 						<option id='op' value='-1'></option>
 						{$city}
 					</select>

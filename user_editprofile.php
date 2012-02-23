@@ -7,11 +7,29 @@ include "header.php";
 
 if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task'])) { $task = $_GET['task']; } else { $task = "main"; }
 if(isset($_POST['cat_id'])) { $cat_id = $_POST['cat_id']; } elseif(isset($_GET['cat_id'])) { $cat_id = $_GET['cat_id']; } else { $cat_id = NULL; }
-$countryjs_id = ( !empty($_POST['countryid'])          ? $_POST['countryid']          : ( !empty($_GET['countryid'])         ? $_GET['countryid']         : NULL ) );
+$countryjs_id = ( !empty($_POST['countryid']) ? $_POST['countryid'] : ( !empty($_GET['countryid']) ? $_GET['countryid'] : NULL ) );
+$regionjs_id = ( !empty($_POST['regoinid']) ? $_POST['regoinid'] : ( !empty($_GET['regoinid']) ? $_GET['regoinid'] : NULL ) );
 
 if( $task=="get_city" )
 {
-if ($countryjs_id != '') {$country_s = 'country_id ='.$countryjs_id; $error = 0;} else $error = 1;
+	if ($countryjs_id != '' && $regionjs_id == '')
+	{
+		$country_s = 'country_id ='.$countryjs_id;
+		$error = 0;
+	}
+	elseif ($regionjs_id != '')
+	{
+		$country_s = 'region_id ='.$regionjs_id;
+		$error = 0;
+	}
+	else
+	{
+		$error = 1;
+		header("Content-Type: application/json");
+		echo json_encode(array('result' => '','error' => $error));
+		exit();
+	}
+	
 	$sql = $database->database_query ("SELECT * FROM city  WHERE ".$country_s." ORDER BY name ASC");
 	while ($city_bd = $database->database_fetch_assoc ($sql))
 	{
@@ -22,9 +40,52 @@ if ($countryjs_id != '') {$country_s = 'country_id ='.$countryjs_id; $error = 0;
 
 		$city .= "<option value='" . $city_bd[city_id] . "'" . $city_sel . ">" . $city_bd[name] . "</option>\n";
 	}
-  header("Content-Type: application/json");
-  echo json_encode(array('result' => $city,'error' => $error));
-  exit();
+	
+	$sql = $database->database_query ("SELECT * FROM region  WHERE ".$country_s." ORDER BY name ASC");
+	while ($region_bd = $database->database_fetch_assoc ($sql))
+	{
+		if($region_id == $region_bd[region_id])
+			$region_sel = " SELECTED";
+		else
+			$region_sel = "";
+
+		$region .= "<option value='" . $region_bd[region_id] . "'" . $region_sel . ">" . $region_bd[name] . "</option>\n";
+	}
+	
+	header("Content-Type: application/json");
+	echo json_encode(array('result' => $city,'error' => $error, 'region' => $region));
+	exit();
+}
+
+if( $task=="get_region" )
+{
+	if ($countryjs_id != '')
+	{
+		$country_s = 'region_id ='.$countryjs_id;
+		$error = 0;
+	}
+	else
+	{
+		$error = 1;
+		header("Content-Type: application/json");
+		echo json_encode(array('result' => '','error' => $error));
+		exit();
+	}
+	$sql = "SELECT * FROM city  WHERE ".$country_s." ORDER BY name ASC";
+	//echo $sql; die();
+	$sql = $database->database_query ($sql);
+	while ($city_bd = $database->database_fetch_assoc ($sql))
+	{
+		if($city_id == $city_bd[city_id])
+			$city_sel = " SELECTED";
+		else
+			$city_sel = "";
+
+		$city .= "<option value='" . $city_bd[city_id] . "'" . $city_sel . ">" . $city_bd[name] . "</option>\n";
+	}
+	header("Content-Type: application/json");
+	echo json_encode(array('result' => $city,'error' => $error));
+	exit();
 }
 
 
@@ -159,7 +220,7 @@ if(isset($_POST['dhtmlgoodies_country_birhday'])) {
 }
 
 
-/*if(isset($_POST['dhtmlgoodies_region']))
+if(isset($_POST['dhtmlgoodies_region']))
 {
 	$region=$_POST['dhtmlgoodies_region'];
 	$region_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_user_id FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
@@ -167,15 +228,15 @@ if(isset($_POST['dhtmlgoodies_country_birhday'])) {
 	//$sql = "SELECT profilevalue_8 FROM se_profilevalues WHERE profilevalue_user_id=$id_ex LIMIT 1";
 	if($region_id <= 0)
 	{
-		$query="INSERT INTO `se_profilevalues` (`profilevalue_user_id`, `profilevalue_8`) VALUES ($id_ex,'$region')";
+		$query="INSERT INTO `se_profilevalues` (`profilevalue_user_id`, `profilevalue_16`) VALUES ($id_ex,'$region')";
 		$database->database_query($query);
 	}
 	else
 	{
-		$query="UPDATE `se_profilevalues` SET `profilevalue_8` = '$region' WHERE  `se_profilevalues`.`profilevalue_user_id` = '".$user->user_info['user_id']."'";
+		$query="UPDATE `se_profilevalues` SET `profilevalue_16` = '$region' WHERE  `se_profilevalues`.`profilevalue_user_id` = '".$user->user_info['user_id']."'";
 		$database->database_query($query);
 	}
-}*/
+}
 
 if(isset($_POST['dhtmlgoodies_city']))
 {
@@ -215,8 +276,11 @@ while ($country_bd = $database->database_fetch_assoc ($sql))
 	$country .= "<option value='" . $country_bd[country_id] . "'" . $country_sel . ">" . $country_bd[name] . "</option>\n";
 }
 
-/*$region_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_8 FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
-$region_id = $region_tb[profilevalue_8];
+$region_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_16 FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
+$region_id = $region_tb[profilevalue_16];
+
+//echo $region_id; die();
+
 if($region_id > 0)
 {
 	$region_tb = $database->database_fetch_assoc($database->database_query("SELECT region_id, name FROM region WHERE region_id='".$region_id."' LIMIT 1"));
@@ -235,7 +299,6 @@ else
 		$region .= "<option value='" . $region_bd[region_id] . "'" . $region_sel . ">" . $region_bd[name] . "</option>\n";
 	}
 }
-*/
 $city_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_8 FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
 $city_id = $city_tb[profilevalue_8];
 
@@ -294,7 +357,7 @@ while ($country_birhday_bd = $database->database_fetch_assoc ($sql))
 $smarty->assign('country', $country);
 $smarty->assign('country_birhday', $country_birhday);
 $smarty->assign('city', $city);
-
+$smarty->assign('region', $region);
 
 
 

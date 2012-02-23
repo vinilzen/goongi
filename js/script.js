@@ -1478,23 +1478,48 @@ function Show_piple(owner_id){
         'json');
                                 return false;
   }
-function getCityList(country_id){
+function getCityList(country_id, reg){
     // alert(country_id);
-    $('#dhtmlgoodies_city').remove();
+    //$('#dhtmlgoodies_city').remove();
+	$('#dhtmlgoodies_city').attr('disabled', 'disabled');
+	$('#dhtmlgoodies_region').attr('disabled', 'disabled');
+	if (reg == 'reg') {
+	
+	  $('#dhtmlgoodies_region').removeAttr('disabled', 'disabled');
+      $.post("user_editprofile.php",
+        {'task':'get_region', countryid: '' + country_id + ''},
+        function(data) {
+			if ( data.error == '0') {
+				var  city;
+				city = '<select name="dhtmlgoodies_city" id="dhtmlgoodies_city"><option id="op" value="-1"></option>'+data.result+'</select>';
+				document.getElementById('countydiv').innerHTML= city;
+			}
+			if (data.error == '1') {
+				alert( 'нет городов');
+			}
+        },
+        'json');
+	} else {
       $.post("user_editprofile.php",
         {'task':'get_city', countryid: '' + country_id + ''},
         function(data) {
-         if ( data.error == '0') {
-         var  city;
-        city = '<select name="dhtmlgoodies_city" id="dhtmlgoodies_city"><option id="op" value="-1"></option>'+data.result+'</select>';
-            document.getElementById('countydiv').innerHTML= city;
-          }
-          if (data.error == '1') {
-            alert( 'нет городов');
-          }
+			if ( data.error == '0') {
+				var  city;
+				city = '<select name="dhtmlgoodies_city" id="dhtmlgoodies_city"><option id="op" value="-1"></option>'+data.result+'</select>';
+				document.getElementById('countydiv').innerHTML= city;
+				if (data.region != '') {
+					var  region;
+					region = '<select name="dhtmlgoodies_region" id="dhtmlgoodies_region"  onchange="getCityList(this.value, \'reg\');"><option id="op" value="-1"></option>'+data.region+'</select>';
+					document.getElementById('region').innerHTML= region;
+				}
+			}
+			if (data.error == '1') {
+				alert( 'нет городов');
+			}
         },
         'json');
-                      return false;
+	}
+    return false;
   }
   
    
