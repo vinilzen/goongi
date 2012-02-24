@@ -23,7 +23,7 @@
     <p>{$vizitkientries[vizitkientry_loop].vizitkientry_body}<br /><strong>от  {$foo[0]} {$foo[1]}</strong></p>
     <p>{$vizitkientries[vizitkientry_loop].vizitkientry_telephon}<br />
     {$vizitkientries[vizitkientry_loop].vizitkientry_email}<br />
-    <a href="#">{$vizitkientries[vizitkientry_loop].vizitkientry_site}</a></p>
+    <a href="{$vizitkientries[vizitkientry_loop].vizitkientry_site}" target="_blank">{$vizitkientries[vizitkientry_loop].vizitkientry_site}</a></p>
     <p><a href = "user_vizitki_entry.php?vizitkientry_id={$vizitkientries[vizitkientry_loop].ad_id}">редактировать</a>
      <a href="#" onclick="delete_vizitka('deletevizitka',{$vizitkientries[vizitkientry_loop].ad_id}); return false;" class="del">удалить</a></p>
 </li>

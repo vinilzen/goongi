@@ -73,67 +73,47 @@ class se_vizitki
   //
   
 	function se_vizitki($user_id=NULL)
-  {
+	{
 	  $this->user_id = $user_id;
 	}
 
 //add transation country
-        function add_country_translate($country)
-        {
-             global $database, $user;
-	   $sql = "
-        INSERT INTO country
-        (
-        name
-        )
-        VALUES
-        (
-          '$country'
-        )";
-      $resource = $database->database_query($sql);
- 
+    function add_country_translate($country)
+    {
+		global $database, $user;
+		$sql = "INSERT INTO country ( name ) VALUES(  '$country' )";
+		$resource = $database->database_query($sql);
 	}
 
 
-        function get_all_country()
-        {
-             global $database, $user;
-	   $sql = "SELECT * FROM country";
-           $resource = $database->database_query($sql);
-            while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
-            $country[] = $vizitkientry_info;
-            return $country;
+    function get_all_country()
+    {
+		global $database, $user;
+		$sql = "SELECT * FROM country";
+		$resource = $database->database_query($sql);
+		while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
+		$country[] = $vizitkientry_info;
+		return $country;
 	}
 
-       function get_all_money()
-       {
-            global $database, $user;
+    function get_all_money()
+    {
+	   global $database, $user;
 	   $sql = "SELECT * FROM se_vizitki_many;";
-           $resource = $database->database_query($sql);
-            while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
-            $money[] = $vizitkientry_info;
-            return $money;
-       }
-
-         function add_city_translate($id=NULL,$city)
-        {
-             global $database, $user;
-	$sql = "
-        INSERT INTO city
-        (
-           country_id,
-           name
-        )
-        VALUES
-        (
-            '$id',
-            '$city'
-        )";
-      $resource = $database->database_query($sql);
-
+	   $resource = $database->database_query($sql);
+	   while( $vizitkientry_info=$database->database_fetch_assoc($resource) )
+	   $money[] = $vizitkientry_info;
+	   return $money;
 	}
 
-        function get_all_city()
+	function add_city_translate($id=NULL,$city)
+	{
+        global $database, $user;
+		$sql = "INSERT INTO city ( country_id, name ) VALUES (  '$id','$city')";
+		$resource = $database->database_query($sql);
+	}
+
+    function get_all_city()
         {
              global $database, $user;
 	   $sql = "SELECT * FROM city;";
@@ -143,8 +123,8 @@ class se_vizitki
             return $city;
 	}
 
-         function get_country_city($country)
-        {
+    function get_country_city($country)
+    {
              global $database, $user;
 	   $sql = "SELECT * FROM city WHERE country_id = '{$country}';";
            $resource = $database->database_query($sql);
@@ -241,12 +221,6 @@ class se_vizitki
   // END METHOD vizitki_entry_info()
   //
 
-
-
-
-
-
-
 	//
   // BEGIN METHOD vizitki_entries_total()
   //
@@ -261,16 +235,11 @@ class se_vizitki
   //
   
 	function vizitki_entries_total($where = "")
-  {
+	{
 	  global $database;
     
 	  // BEGIN ENTRY QUERY
-	  $sql = "
-      SELECT
-        NULL
-      FROM
-        se_vizitkientries
-    ";
+	  $sql = "SELECT  NULL  FROM     se_vizitkientries";
     
 	  // IF NO USER ID SPECIFIED, JOIN TO USER TABLE
 	  if( !$this->user_id ) $sql .= "
@@ -305,12 +274,8 @@ class se_vizitki
   //
   // END METHOD vizitki_entries_total()
   //
-
-
-
-
-
-
+  
+  
 
   //
   // BEGIN METHOD vizitki_entries_list()
@@ -532,10 +497,6 @@ class se_vizitki
 
 
 
-
-
-
-
 	// 
   // BEGIN METHOD vizitki_entry_post()
   //
@@ -670,7 +631,7 @@ if ($vizitkientry_image != ''){
 
 
 
-        function vizitka_photo_upload($last_id,$file, $width, $height){
+    function vizitka_photo_upload($last_id,$file, $width, $height){
 		global $database;
 		
 		$extension = strtolower(substr(strrchr($file_name, "."), 1));

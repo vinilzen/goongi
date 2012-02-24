@@ -26,7 +26,7 @@
 {elseif $is_error != 0}
   <div class='error'> {lang_print id=$is_error}</div><br>
 {/if}
-
+<div class="fl">
 <form action='user_account_pass.php' method='POST'>
 <table cellpadding='0' cellspacing='0' class="change_pass">
 <tr>
@@ -50,5 +50,5 @@
 </tr>
 </table>
 <input type='hidden' name='task' value='dosave'>
-</form>
+</form></div>
 {include file='footer.tpl'}

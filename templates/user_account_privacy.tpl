@@ -21,7 +21,7 @@
 
 {* SHOW SUCCESS MESSAGES *}
 {if $result != 0}{lang_print id=191}{/if}
-
+<div class="fl">
 <form action='user_account_privacy.php' method='post' name='info'>
 <table cellpadding='0' cellspacing='0'>
 
@@ -165,4 +165,5 @@
 
 <input type='hidden' name='task' value='dosave'>
 </form>
+</div>
 {include file='footer.tpl'}

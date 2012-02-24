@@ -36,33 +36,17 @@
 		<li class="last"><a href="#" class="gr_name" rel="0">Показать всех</a></li>
 	</ul>
 </div>
-<div class='friends_search' style="display:none;">
-	{lang_print id=899}
-    <form action='user_friends.php' method='post' name='searchform'>
-		<input type='text' maxlength='100' size='30' class='text' id='search' name='search' value='{$search}' />
-		<div id='suggest' class='suggest'></div>
-		<input type='submit' class='button' value='{lang_print id=646}' />
-		<input type='hidden' name='s' value='{$s}' />
-		<input type='hidden' name='p' value='{$p}' />
-	  {lang_print id=900}
-		<select name='s' class='small'>
-			<option value='{$u}'{if $s == "ud"} SELECTED{/if}>{lang_print id=901}</option>
-			<option value='{$l}'{if $s == "ld"} SELECTED{/if}>{lang_print id=902}</option>
-			<option value='{$t}'{if $s == "t"} SELECTED{/if}>{lang_print id=903}</option>
-		</select>
-    </form>
-</div>
 
-
-{if $total_friends == 0}		{* DISPLAY MESSAGE IF NO FRIENDS *}
-
-	{if $search != ""}		{* DISPLAY MESSAGE IF NO SEARCHED FRIENDS *}
+{if $total_friends == 0}
+	{* DISPLAY MESSAGE IF NO FRIENDS *}
+	{if $search != ""}
+		{* DISPLAY MESSAGE IF NO SEARCHED FRIENDS *}
 		{lang_print id=905}
-	{else}		{* DISPLAY MESSAGE IF NO FRIENDS ON LIST *}
+	{else}
+		{* DISPLAY MESSAGE IF NO FRIENDS ON LIST *}
 		{lang_print id=904}
 	{/if}
-
-{else}		{* DISPLAY FRIENDS *}
+{else}{* DISPLAY FRIENDS *}
 
   {* DISPLAY PAGINATION MENU IF APPLICABLE *}
   {if $maxpage > 1}
@@ -77,7 +61,7 @@
     </div>
   {/if}
 
-  <div style='margin-left: auto; margin-right: auto; width: 850px;'>
+  <div class="frlst">
   <ul class="friends_list">
     {section name=friend_loop loop=$friends}
     {* LOOP THROUGH FRIENDS *}

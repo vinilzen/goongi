@@ -97,7 +97,7 @@
 	
 {* LOOP THROUGH FIELDS *}
 {section name=field_loop loop=$fields}
-	
+{if $fields[field_loop].field_id != 16 }
 
     {* TEXT FIELD *}
     {if $fields[field_loop].field_type == 1}
@@ -126,7 +126,7 @@
 						{$country}
 					</select>
                 </div>
-			{elseif $fields[field_loop].field_id == 16}
+			{elseif $fields[field_loop].field_id == 17}
 				<div id="region">
 					<select name="dhtmlgoodies_region" id="dhtmlgoodies_region" onchange="getCityList(this.value, 'reg');">
 						<option id='op' value='-1'></option>
@@ -301,73 +301,14 @@
 
     {/if}
 
-    <!-- <div class='form_desc'>{lang_print id=$fields[field_loop].field_desc}</div> -->
-
     {capture assign='current_subnet'}{lang_print id=$user->subnet_info.subnet_name}{/capture}
     {if $fields[field_loop].field_id == $setting.setting_subnet_field1_id || $fields[field_loop].field_id == $setting.setting_subnet_field2_id}{lang_sprintf id=766 1=$current_subnet}{/if}
 
     {capture assign='field_error'}{lang_print id=$fields[field_loop].field_error}{/capture}
     {if $field_error != ""}<div class='form_error'><img src='./images/icons/error16.gif' border='0' class='icon'> {$field_error}</div>{/if}
+	{/if}
   {/section}
 {* Дополнительная часть*}
-<!--
-            {if $cat_id == 3}
-            <tr>
-              <td class='form1' width='150'>Страна</td>
-              <td class='form2'>
-
-                          <div><select name='dhtmlgoodies_country' id='dhtmlgoodies_country' onchange="getRegionList(this.value);">
-                  <option id='op' value='-1'></option>
-                                      {$country}</select>
-                  </div>
-                        <div id='dhtmlgoodies_country'>
-                                            Страна, в которой Вы в текущий момент проживаете.
-                                                    </div>
-
-
-                <div class='form_desc'></div>
-
-
-                        </td>
-                </tr>
-            <tr>
-            <tr>
-              <td class='form1' width='150'>Регион</td>
-              <td class='form2'>
-
-                          <div><select name='dhtmlgoodies_region' id='dhtmlgoodies_region' onchange="getCityList(this.value);">
-                  <option id='op' value='-1'></option>
-                                      {$region}</select>
-                  </div>
-                        <div id='dhtmlgoodies_region'>
-                                            Регион, в котором Вы в текущий момент проживаете.
-                                                    </div>
-
-
-                <div class='form_desc'></div>
-
-                        </td>
-                </tr>
-            <tr>
-              <td class='form1' width='150'>Город</td>
-              <td class='form2'>
-
-                          <div><select name='dhtmlgoodies_city' id='dhtmlgoodies_city'>
-                  <option id='op' value='-1'></option>
-                                      {$city}</select>
-                  </div>
-                        <div id='dhtmlgoodies_city'>
-                                            Город, в котором Вы в текущий момент проживаете.
-                                                    </div>
-
-
-                <div class='form_desc'></div>
-
-
-                        </td>
-                </tr>
-            {/if}
--->
 	<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c">
 		<input type="submit" value="{lang_print id=173}" name="log" />
 	</span><span class="r">&nbsp;</span></span></div>

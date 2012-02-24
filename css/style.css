@@ -15,6 +15,8 @@ html>body #minHeight	{float:left;width:0px;height:100%;}
 .width		{width:100%;}
 .all		{float:left; width:100%;}
 .clear 		{clear: both;}
+.fl {float:left;}
+.fr {float:right;}
 
 /*TAGS*/
 DIV, TD, INPUT, SELECT, TEXTAREA	{font: 12px "Arial", Helvetica, sans-serif; outline:none;}
@@ -535,7 +537,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form .file_v .fakeupload {width:390px; height:25px; overflow:hidden; position: relative; z-index:1;cursor:pointer; background:url(../images/file1.jpg) no-repeat 0 0;}	
 	.form .file_v .fakeupload input.realupload2 { opacity:0; filter:alpha(opacity:0); position:relative; z-index:1; font-size:199px;cursor:pointer;padding:0px;margin:0px;border:none;margin-left:0px;}	
 	.form .file_v .fakeupload input.inpupload 	{ cursor:pointer; position:absolute; top:0; left:0; z-index:0; width:295px;}	
-	.form .file_v p		 	{ font-size:11px; color:#7f7f7f; padding-top:4px; padding-bottom:0;}	
+	.form .file_v p		 	{ font-size:11px; color:#7f7f7f; padding-top:4px; padding-bottom:0;cursor:default;}	
 
 	.form.edit		{ margin-bottom:25px; width:auto;overflow: visible;}
 	.form.edit .input .input_price input{ width:300px;}
@@ -817,3 +819,5 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 .change_pass  .form1 {width:240px; padding-left:100px; text-align:right;}
 .form .input input.se_event_calendar {width:181px;}
 #userEditRemovePhotoLink {padding-top:5px;}
+.frlst{margin-left: auto; margin-right: auto; width: 450px;float:left;}
+.search_results{margin-left: auto; margin-right: auto; width: 450px;float:left;}

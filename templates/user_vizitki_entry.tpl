@@ -1,30 +1,19 @@
 {literal}
 <script type="text/javascript">
 function handleFiles(file){
-         document.getElementById('p_img').innerHTML='';
- var data = file.get(0).files.item(0).getAsDataURL(); // Получаем содержимое файла
-//alert(data);
-        // for(var i=0;i<files.length;i++){
-       //          var f = files[i];
-
-        //          if(f.type.indexOf('p_img')==0){
-        //                         var img = document.createElement('img');
-        ///                         img.src = f.getAsDataURL();
-	//				img.style.width='300px';
-         //                        document.getElementById('p_img').appendChild(img);
-       //          }
-       //  }
+    document.getElementById('p_img').innerHTML='';
+	var data = file.get(0).files.item(0).getAsDataURL(); // Получаем содержимое файла
 }
 
 function checkparam()
 {
-if (($('#name_v').val() == '') || ($('#categor').val() == '') || ($('#desc').val() == '') || ($('#fakeupload').val() == ''))
-{
-    if  ($('#name_v').val() == '')  $('.error').append('Заполните поле название услуги<br/>');
-    if  ($('#categor').val() == '') $('.error').append('Заполните поле категория<br/>');
-    if  ($('#desc').val() == '')  $('.error').append('Заполните поле описание<br/>');
-    if ($('#fakeupload').val() == '' && $('#p_img').attr('src') == 'images/6.jpg' )  $('.error').append('Загрузите изображение<br/>');
-}
+	if (($('#name_v').val() == '') || ($('#categor').val() == '') || ($('#desc').val() == '') || ($('#fakeupload').val() == ''))
+	{
+		if  ($('#name_v').val() == '')  $('.error').append('Заполните поле название услуги<br/>');
+		if  ($('#categor').val() == '') $('.error').append('Заполните поле категория<br/>');
+		if  ($('#desc').val() == '')  $('.error').append('Заполните поле описание<br/>');
+		if ($('#fakeupload').val() == '' && $('#p_img').attr('src') == 'images/6.jpg' )  $('.error').append('Загрузите изображение<br/>');
+	}
     else {$('#edit_profil').submit(); }
 }
 
@@ -39,7 +28,6 @@ function CalculateCharsInTextArea(TextElementId, CaptionElementId) {
 
 </script>
 {/literal}
-
 
 {include file='header.tpl'}
 <h1>Создать визитку</h1>
@@ -114,27 +102,32 @@ function CalculateCharsInTextArea(TextElementId, CaptionElementId) {
                 <input type="text"  OnChange = "$('#p_site').text(this.value);" value="{if !empty($vizitkientry_info.vizitkientry_site)}{$vizitkientry_info.vizitkientry_site}{/if}" name="link" /></div>
 
                 <h2>Выбор региона трансляции</h2>
-                <div class="input"><label>Страна</label>
-                <select name='dhtmlgoodies_country' id='dhtmlgoodies_country' onchange="getCityList(this.value);">
-                  <option id='op' value='-1'></option>
-                                      {$country}</select></div>
-                  
-            <!--    <select name="contry" onChange = "Show_city(this.value)">
-                        {section name=s loop=$country}
-                          <option value = "{$country[s].vizitkisetting_id}" {if $vizitkientry_info.vizitkientry_contry == $country[s].vizitkisetting_id} SELECTED{/if}>{$country[s].vizitkisetting_country}</option>
-                         {/section}
-                </select></div>-->
+                <div class="input">
+					<label>Страна</label>
+					<select name='dhtmlgoodies_country' id='dhtmlgoodies_country' onchange="getCityList(this.value, 'cou');">
+					  <option id='op' value='-1'></option>
+					  {$country}
+					</select>
+				</div>
+				
+                <div class="input">
+					<label>Регион</label>
+					<div id="region">
+						<select name='dhtmlgoodies_region' id='dhtmlgoodies_region' onchange="getCityList(this.value, 'reg');">
+						  <option id='op' value='-1'></option>
+						  {$region}
+						</select>
+					</div>
+				</div>
 
-                <div class="input"><label>Город</label>
-                <div id="countydiv"></div>
-                <select name='dhtmlgoodies_city' id='dhtmlgoodies_city'>
-                  <option id='op' value='-1'></option>
-                                      {$city}</select>
-             <!--   <select name="city" id = "city_show">
-                    {section name=s loop=$city}
-                        <option {if $vizitkientry_info.vizitkientry_city == $city[s]} SELECTED{/if}>{$city[s]}</option>
-                    {/section}
-                </select>-->
+                <div class="input">
+					<label>Город</label>
+					<div id="countydiv">
+						<select name='dhtmlgoodies_city' id='dhtmlgoodies_city'>
+							<option id='op' value='-1'></option>
+							{$city}
+						</select>
+					</div>
                 </div>
 <div class="button">
                 <span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="button" value="Сохранить" onClick = "checkparam()" name="save" /></span><span class="r">&nbsp;</span></span>

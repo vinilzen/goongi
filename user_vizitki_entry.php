@@ -100,6 +100,7 @@ if( $task=="dosave" )
   $vizitkientry_email            = $_POST['mail'];
   $vizitkientry_site             = $_POST['link'];
   $vizitkientry_contry           = $_POST['dhtmlgoodies_country'];
+  $vizitkientry_region           = $_POST['dhtmlgoodies_region'];
   $vizitkientry_city             = $_POST['dhtmlgoodies_city'];
   
  
@@ -132,6 +133,7 @@ if( $task=="dosave" )
       $vizitkientry_email,
       $vizitkientry_site,
       $vizitkientry_contry,
+      $vizitkientry_region,
       $vizitkientry_city,
       $link
   );
@@ -237,6 +239,7 @@ else $city[] = 'нет городов';
 $country=$vizitki->get_all_country();
 */
 $country_id = $vizitkientry_info['vizitkientry_contry'];
+$region_id = $vizitkientry_info['vizitkientry_region'];
 $city_id = $vizitkientry_info['vizitkientry_city'];
 if($city_id > 0)
 {
@@ -244,23 +247,40 @@ if($city_id > 0)
 
 	//$sql = $database->database_query("SELECT city_id, name FROM city WHERE city_id='".$city_id."' ".$country_s);
     $sql = $database->database_query ("SELECT * FROM city  WHERE ".$country_s." ORDER BY name ASC");
-        while ($city_bd = $database->database_fetch_assoc ($sql))
+    while ($city_bd = $database->database_fetch_assoc ($sql))
 	{
 
 		if($city_id == $city_bd[city_id])
+		{
 			$city_sel = " SELECTED";
+			$country_id = $city_bd[country_id];
+		}
 		else
+		{
 			$city_sel = "";
-
+		}
 		$city .= "<option value='" . $city_bd[city_id] . "'" . $city_sel . ">" . $city_bd[name] . "</option>\n";
 	}
+	
+	if ($country_id != '') $country_s = 'country_id ='.$country_id;
+	
+	$sql =  $database->database_query ("SELECT * FROM region  WHERE ".$country_s." ORDER BY name ASC");
+	while ($region_bd = $database->database_fetch_assoc ($sql))
+	{
+		if($region_id == $region_bd[city_id])
+			$region_sel = " SELECTED";
+		else
+			$region_sel = "";
 
+		$region.= "<option value='" . $region_bd[region_id] . "'" . $region_sel . ">" . $region_bd[name] . "</option>\n";
+	}
 	//$city .= "<option value='" . $city_tb[city_id] . "' SELECTED>" . $city_tb[name] . "</option>\n";
 }
 else
 {
-if ($country_id != '') $country_s = 'country_id ='.$country_id;
-//$sql = "SELECT * FROM city  WHERE ".$country_s." ORDER BY name ASC";
+	if ($country_id != '')
+		$country_s = 'country_id ='.$country_id;
+	//$sql = "SELECT * FROM city  WHERE ".$country_s." ORDER BY name ASC";
 	$sql = $database->database_query ("SELECT * FROM city  WHERE ".$country_s." ORDER BY name ASC");
    //    echo $sql;
 	while ($city_bd = $database->database_fetch_assoc ($sql))
@@ -285,6 +305,8 @@ while ($country_bd = $database->database_fetch_assoc ($sql))
 	$country .= "<option value='" . $country_bd[country_id] . "'" . $country_sel . ">" . $country_bd[name] . "</option>\n";
 }
 
+
+$smarty->assign('region', $region);
 $smarty->assign('city', $city);
 $smarty->assign('country', $country);
 
