@@ -300,7 +300,8 @@ if($region_id > 0)
 }
 else
 {
-	$sql = $database->database_query ("SELECT * FROM region");
+	if ($country_id != '') $country_s = ' country_id ='.$country_id;
+	$sql = $database->database_query ("SELECT * FROM region WHERE ".$country_s.";");
 	while ($region_bd = $database->database_fetch_assoc ($sql))
 	{
 		if($region_id == $region_bd[region_id])
@@ -337,7 +338,7 @@ if($city_id > 0)
 }
 else
 {
-if ($country_id != '') $country_s = ' country_id ='.$country_id;
+	if ($country_id != '') $country_s = ' country_id ='.$country_id;
 	$sql = $database->database_query ("SELECT * FROM city  WHERE ".$country_s." ORDER BY name ASC");
    //    echo $sql;
 	while ($city_bd = $database->database_fetch_assoc ($sql))

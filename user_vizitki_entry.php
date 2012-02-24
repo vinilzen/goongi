@@ -22,13 +22,11 @@ if( !$user->level_info['level_vizitki_create'] )
 // START vizitki METHOD 
 $vizitki = new se_vizitki($user->user_info['user_id']);
 
-
-
 // MAKE SURE THIS vizitki ENTRY BELONGS TO THIS USER AND IS NUMERIC
 if( $vizitkientry_id )
 {
   $vizitkientry_info = $vizitki->vizitki_entry_info($vizitkientry_id);
-  
+	//echo '<pre>'; print_r($vizitkientry_info); die();
   if( !$vizitkientry_info )
   {
     header("Location: user_vizitki.php");
@@ -39,46 +37,42 @@ if( $vizitkientry_id )
   $comments_total = $database->database_num_rows($database->database_query("SELECT vizitkicomment_id FROM se_vizitkicomments WHERE vizitkicomment_vizitkientry_id='{$vizitkientry_info[vizitkientry_id]}'"));
 }
 
-
-
-
-
- 
 // DO SAVE
 if( $task=="dosave" )
 {
    
-    if ($_FILES['upload2']['name']){
-  $file_maxsize = "4194304";
-  $file_exts = Array('jpg', 'jpeg', 'gif', 'png');
-  $file_types = Array('image/jpeg', 'image/jpg', 'image/jpe', 'image/pjpeg', 'image/pjpg', 'image/x-jpeg', 'x-jpg', 'image/gif', 'image/x-gif', 'image/png', 'image/x-png');
-  $file_maxwidth = 105;
-  $file_maxheight = 105;
-  $ext = str_replace(".", "", strrchr($_FILES['upload2']['name'], "."));
-  $rand = rand(100000000, 999999999);
-  $photo_newname = "banner$rand.".$ext;
-  $photo_newname2 = "banner1$rand".$ext;
-  $file_dest = "./uploads_admin/ads/$photo_newname";
-  $file_dest2 = "./uploads_admin/ads/$photo_newname";
-  $photo_name = "upload2";
-  $new_photo = new se_upload();
-  //$new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
-  
-  $link = "<a href='$file_dest' target='_blank'><img src='$file_dest' border='0' width = '105' height = '105'/></a>";
-  $link  = str_replace("'","&#039;", $link);
-   
- 
-     $new_photo->crop($_FILES['upload2']['tmp_name'],$file_dest);
-     $new_photo->resize($file_dest,$file_dest2, $file_maxwidth, $file_maxheight);
-   //else
-  //{
-     // $new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
-      //    if($new_photo->is_error == 0)
- //     move_uploaded_file($_FILES['upload2']['tmp_name'], $file_dest);
-      //$new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
-            //    $new_photo->upload_photo($file_dest);
-  //        }
-    }
+  if ($_FILES['upload2']['name'])
+  {
+	  $file_maxsize = "4194304";
+	  $file_exts = Array('jpg', 'jpeg', 'gif', 'png');
+	  $file_types = Array('image/jpeg', 'image/jpg', 'image/jpe', 'image/pjpeg', 'image/pjpg', 'image/x-jpeg', 'x-jpg', 'image/gif', 'image/x-gif', 'image/png', 'image/x-png');
+	  $file_maxwidth = 105;
+	  $file_maxheight = 105;
+	  $ext = str_replace(".", "", strrchr($_FILES['upload2']['name'], "."));
+	  $rand = rand(100000000, 999999999);
+	  $photo_newname = "banner$rand.".$ext;
+	  $photo_newname2 = "banner1$rand".$ext;
+	  $file_dest = "./uploads_admin/ads/$photo_newname";
+	  $file_dest2 = "./uploads_admin/ads/$photo_newname";
+	  $photo_name = "upload2";
+	  $new_photo = new se_upload();
+	  //$new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
+	  
+	  $link = "<a href='$file_dest' target='_blank'><img src='$file_dest' border='0' width = '105' height = '105'/></a>";
+	  $link  = str_replace("'","&#039;", $link);
+	   
+	 
+	  $new_photo->crop($_FILES['upload2']['tmp_name'],$file_dest);
+	  $new_photo->resize($file_dest,$file_dest2, $file_maxwidth, $file_maxheight);
+	   //else
+	  //{
+	     // $new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
+	      //    if($new_photo->is_error == 0)
+	 //     move_uploaded_file($_FILES['upload2']['tmp_name'], $file_dest);
+	      //$new_photo->new_upload($photo_name, $file_maxsize, $file_exts, $file_types, $file_maxwidth, $file_maxheight);
+	            //    $new_photo->upload_photo($file_dest);
+	  //        }
+  }
   else {
       $photo_newname = '';
       $link ='';
@@ -143,7 +137,7 @@ if( $task=="dosave" )
   
   // STUFF TO DO ON SUCCESS
   if( $result_array['result'] )
-  {
+  {	
     // UPDATE LAST UPDATE DATE (SAY THAT 10 TIMES FAST)
     $user->user_lastupdate();
     
@@ -189,22 +183,28 @@ if( $task=="dosave" )
     'vizitkientry_comments'        => $vizitkientry_comments,
     'vizitkientry_trackbacks'      => $vizitkientry_trackbacks
   );
+ 
+ 
 }
+
+
 if( $task=="get_city" )
 {
-$city=$vizitki->get_country_city($country_id);
-if (count($city) == 0) $error = 1;
-else $error = 0;
-  header("Content-Type: application/json");
-  echo json_encode(array('result' => &$city,'error' => $error));
-  exit();
+	$city=$vizitki->get_country_city($country_id);
+	
+	if (count($city) == 0)
+		$error = 1;
+	else
+		$error = 0;
+	
+	header("Content-Type: application/json");
+	echo json_encode(array('result' => &$city,'error' => $error));
+	exit();
 }
 
 
 // GET vizitki ENTRY CATEGORIES
 $vizitkientrycats_array = $vizitki->vizitki_category_list($user->user_info['user_id']);
-
-
 
 // GET PREVIOUS PRIVACY SETTINGS
 $level_vizitki_privacy = unserialize($user->level_info['level_vizitki_privacy']);
@@ -228,7 +228,7 @@ for( $c=0; $c<count($level_vizitki_comments); $c++ )
 
 // CONVERT HTML CHARACTERS BACK
 $vizitkientry_info['vizitkientry_body'] = str_replace("\r\n", "", htmlspecialchars_decode($vizitkientry_info['vizitkientry_body']));
-//print_r ($vizitkientry_info);
+
 
 /*if ($vizitkientry_info['vizitkientry_contry'] != '')
 {
@@ -241,8 +241,10 @@ $country=$vizitki->get_all_country();
 $country_id = $vizitkientry_info['vizitkientry_contry'];
 $region_id = $vizitkientry_info['vizitkientry_region'];
 $city_id = $vizitkientry_info['vizitkientry_city'];
+
 if($city_id > 0)
 {
+	
     if ($country_id != '') $country_s = 'country_id ='.$country_id;
 
 	//$sql = $database->database_query("SELECT city_id, name FROM city WHERE city_id='".$city_id."' ".$country_s);
@@ -267,13 +269,14 @@ if($city_id > 0)
 	$sql =  $database->database_query ("SELECT * FROM region  WHERE ".$country_s." ORDER BY name ASC");
 	while ($region_bd = $database->database_fetch_assoc ($sql))
 	{
-		if($region_id == $region_bd[city_id])
+		if($region_id == $region_bd[region_id])
 			$region_sel = " SELECTED";
 		else
 			$region_sel = "";
 
 		$region.= "<option value='" . $region_bd[region_id] . "'" . $region_sel . ">" . $region_bd[name] . "</option>\n";
 	}
+	//echo '<pre>'; print_r($region); die();
 	//$city .= "<option value='" . $city_tb[city_id] . "' SELECTED>" . $city_tb[name] . "</option>\n";
 }
 else
@@ -291,6 +294,17 @@ else
 			$city_sel = "";
 
 		$city .= "<option value='" . $city_bd[city_id] . "'" . $city_sel . ">" . $city_bd[name] . "</option>\n";
+	}
+	
+	$sql =  $database->database_query ("SELECT * FROM region  WHERE ".$country_s." ORDER BY name ASC");
+	while ($region_bd = $database->database_fetch_assoc ($sql))
+	{
+		if($region_id == $region_bd[region_id])
+			$region_sel = " SELECTED";
+		else
+			$region_sel = "";
+
+		$region.= "<option value='" . $region_bd[region_id] . "'" . $region_sel . ">" . $region_bd[name] . "</option>\n";
 	}
 }
 

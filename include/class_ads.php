@@ -43,7 +43,7 @@ class se_ads
 	// OUTPUT: AD BANNER HTML (IF AVAILABLE) FOR PAGE TOP, BELOW MENU, LEFT, RIGHT, AND BOTTOM
 	//function se_ads() {
 	function load()
-  {
+	{
              
 	  global $database, $datetime, $setting, $user;
     
@@ -66,97 +66,87 @@ class se_ads
     $ad_querystring .= " AND (ad_limit_ctr=0 OR ad_limit_ctr<(ad_total_clicks/(ad_total_views+1))*100)";
     
 	  // IF VIEWER IS NOT LOGGED-IN, ONLY SHOW PUBLIC AD CAMPAIGNS
-    if( !$user->user_exists )
-    {
-//	    $ad_querystring .= " AND ad_public='1'";
-    }
+  	//echo '<pre>'; print_r($user); die();
     
 	  // IF VIEWER IS LOGGED-IN, ONLY SHOW AD IF VIEWER'S LEVEL AND SUBNETS MATCH
-	  else
-    {
-         //     print_r ($user);
-             // if $user->profile_info['profilevalue_7'] !='';
-             // echo $user->profile_info[profilevalue_8];
-     //      $vizitkientry_contry profilevalue_7
-               $ad_querystring .= " AND vizitkientry_contry = '{$user->profile_info['profilevalue_7']}' AND vizitkientry_city ='{$user->profile_info['profilevalue_8']}'";
-	 //   $level_id = $user->level_info['level_id'];
-	 //   $subnet_id = $user->subnet_info['subnet_id'];
-	//    $ad_querystring .= " AND (ad_levels LIKE '%,{$level_id},%' AND ad_subnets LIKE '%,{$subnet_id},%')";
-	  }
+		if( $user->user_exists )
+		{
+			$ad_querystring .= " AND vizitkientry_contry = '{$user->profile_info['profilevalue_7']}' ";
+			$ad_querystring .= " AND (vizitkientry_region ={$user->profile_info['profilevalue_17']} OR vizitkientry_region = -1)";
+			$ad_querystring .= " AND (vizitkientry_city ={$user->profile_info['profilevalue_8']} OR vizitkientry_city = -1)";
+		}
     
 	  // RANDOMIZE QUERY RESULTS
 	  $ad_querystring .= " ORDER BY RAND()";
     
 	  // DETERMINE WHICH ADS SHOULD BE SHOWN
+	  //echo $ad_querystring; die();
+	  
 	  $ad_query = $database->database_query($ad_querystring);
     
 	  // PREPARE STAT UPDATE QUERY
 	  $stats_id_array = array();
     
 	  // SET AD HTML FOR EACH POSITION
-	  while( $ad_info = $database->database_fetch_assoc($ad_query) )
-    {
+		while( $ad_info = $database->database_fetch_assoc($ad_query) )
+		{
+			//echo '<pre>'; print_r($ad_info); die();
 	    // CONVERT TO HTML AND ADD CLICK-TRACKING JAVASCRIPT
-	    $ad_info['ad_html'] = htmlspecialchars_decode($ad_info['ad_html'], ENT_QUOTES);
-	    $ad_info['ad_html'] = "<div onClick=\"document.getElementById('doclickimage{$ad_info['ad_id']}').src='ad.php?ad_id={$ad_info['ad_id']}';\">{$ad_info['ad_html']}<img src='images/trans.gif' border='0' id='doclickimage{$ad_info['ad_id']}' style='display: none;'></div>";
+			$ad_info['ad_html'] = htmlspecialchars_decode($ad_info['ad_html'], ENT_QUOTES);
+			$ad_info['ad_html'] = "<div onClick=\"document.getElementById('doclickimage{$ad_info['ad_id']}').src='ad.php?ad_id={$ad_info['ad_id']}';\">{$ad_info['ad_html']}<img src='images/trans.gif' border='0' id='doclickimage{$ad_info['ad_id']}' style='display: none;'></div>";
       
-	    $this->ad_custom[$ad_info['ad_id']] = $ad_info['ad_html'];
-     // echo $ad_info['ad_position'];
-     
-	    if( $ad_info['ad_position'] == "top" && !$this->ad_top )
-      {
-                
-
-        $this->ad_top = $ad_info['ad_html'];
-        $stats_id_array[] = $ad_info['ad_id'];
-        $this->ad_title = $ad_info['ad_name'];
-    
-      
-      $this->vizitkientry_body = $ad_info['vizitkientry_body '];
-      $this->vizitkientry_category = $ad_info['vizitkientry_category'];
-      $this->ad_filename = $ad_info['ad_filename'];
-      $this->vizitkientry_price = $ad_info['vizitkientry_price'];
-      $this->vizitkientry_telephon= $ad_info['$vizitkientry_telephon'];
-      $this->vizitkientry_email= $ad_info['vizitkientry_email'];
-      $this->vizitkientry_site= $ad_info['vizitkientry_site'];
-      $this->vizitkientry_contry= $ad_info['vizitkientry_contry'];
-      $this->vizitkientry_city= $ad_info['vizitkientry_city'];
-      $this->ad_html= $ad_info['ad_html'];
-	    }
-
-          
-	    elseif( $ad_info['ad_position'] == "belowmenu" && !$this->ad_belowmenu )
-      {
-	      $this->ad_belowmenu = $ad_info['ad_html'];
-        $stats_id_array[] = $ad_info['ad_id'];
-	    }
-	    elseif( $ad_info['ad_position'] == "left" && !$this->ad_left )
-      {
-        $this->ad_left = $ad_info['ad_html'];
-        $stats_id_array[] = $ad_info['ad_id'];
-	    }
-	    elseif( $ad_info['ad_position'] == "right" && !$this->ad_right )
-      {
-        $this->ad_right = $ad_info['ad_html'];
-        $stats_id_array[] = $ad_info['ad_id'];
-	    }
-	    elseif( $ad_info['ad_position'] == "feed" && !$this->ad_feed )
-      {
-        $this->ad_feed = $ad_info['ad_html'];
-        $stats_id_array[] = $ad_info['ad_id'];
-	    }
-	    elseif( $ad_info['ad_position'] == "bottom" && !$this->ad_bottom )
-      {
-        $this->ad_bottom = $ad_info['ad_html'];
-        $stats_id_array[] = $ad_info['ad_id'];
-	    }
+			$this->ad_custom[$ad_info['ad_id']] = $ad_info['ad_html'];
+			if( $ad_info['ad_position'] == "top" && !$this->ad_top )
+			{
+				$this->ad_top = $ad_info['ad_html'];
+				$stats_id_array[] = $ad_info['ad_id'];
+				$this->ad_title = $ad_info['ad_name'];
+				
+				  
+				$this->vizitkientry_body = $ad_info['vizitkientry_body '];
+				$this->vizitkientry_category = $ad_info['vizitkientry_category'];
+				$this->ad_filename = $ad_info['ad_filename'];
+				$this->vizitkientry_price = $ad_info['vizitkientry_price'];
+				$this->vizitkientry_telephon= $ad_info['$vizitkientry_telephon'];
+				$this->vizitkientry_email= $ad_info['vizitkientry_email'];
+				$this->vizitkientry_site= $ad_info['vizitkientry_site'];
+				$this->vizitkientry_contry= $ad_info['vizitkientry_contry'];				
+				$this->vizitkientry_region= $ad_info['vizitkientry_region'];
+				$this->vizitkientry_city= $ad_info['vizitkientry_city'];
+				$this->ad_html= $ad_info['ad_html'];
+			}
+		    elseif( $ad_info['ad_position'] == "belowmenu" && !$this->ad_belowmenu )
+			{
+			    $this->ad_belowmenu = $ad_info['ad_html'];
+		        $stats_id_array[] = $ad_info['ad_id'];
+			}
+			elseif( $ad_info['ad_position'] == "left" && !$this->ad_left )
+			{
+	       		$this->ad_left = $ad_info['ad_html'];
+	       		$stats_id_array[] = $ad_info['ad_id'];
+		    }
+			elseif( $ad_info['ad_position'] == "right" && !$this->ad_right )
+			{
+		  	  $this->ad_right = $ad_info['ad_html'];
+		  	  $stats_id_array[] = $ad_info['ad_id'];
+		    }
+		    elseif( $ad_info['ad_position'] == "feed" && !$this->ad_feed )
+			{
+			    $this->ad_feed = $ad_info['ad_html'];
+		    	$stats_id_array[] = $ad_info['ad_id'];
+		    }
+	   		elseif( $ad_info['ad_position'] == "bottom" && !$this->ad_bottom )
+      		{
+	        	$this->ad_bottom = $ad_info['ad_html'];
+	       		$stats_id_array[] = $ad_info['ad_id'];
+		    }
 	  }
     
 	  // UPDATE THE ADS VIEW STATS
-    if( !empty($stats_id_array) )
-    {
-      $database->database_query("UPDATE se_ads SET ad_total_views=ad_total_views+1 WHERE ad_id IN('".join("', '", $stats_id_array)."')");
-	  }
+	    if( !empty($stats_id_array) )
+	    {
+	      $database->database_query("UPDATE se_ads SET ad_total_views=ad_total_views+1 WHERE ad_id IN('".join("', '", $stats_id_array)."')");
+		}
 	}
   
   // END se_ads() METHOD

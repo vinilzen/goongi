@@ -157,64 +157,45 @@ class se_vizitki
   //
   
 	function vizitki_entry_info($vizitkientry_id)
-  {
-    global $database, $user;
+	{
+    	global $database, $user;
     
-    if( !is_numeric($vizitkientry_id) )
-      return FALSE;
+    	if( !is_numeric($vizitkientry_id) )
+    	  return FALSE;
     
-    $sql = "
-      SELECT
-        se_ads.*
-    ";
+    	$sql = "SELECT  se_ads.* ";
     
-    if( !$this->user_id ) $sql .= ",
-        se_users.user_id,
-        se_users.user_username,
-        se_users.user_photo,
-        se_users.user_fname,
-        se_users.user_lname
-    ";
+	    if( !$this->user_id ) $sql .= ",
+	        se_users.user_id,
+	        se_users.user_username,
+	        se_users.user_photo,
+	        se_users.user_fname,
+	        se_users.user_lname
+	    ";
     
     // IF A USER IS LOGGED IN, SEE IF THEY ARE SUBSCRIBED
    
-    $sql .= "
-      FROM
-        se_ads
-    ";
-    
-    
-    
-    if( !$this->user_id ) $sql .= "
-      LEFT JOIN
-        se_users
-        ON se_users.user_id=se_ads.vizitkientry_user_id
-    ";
-    
-    $sql .= "
-      WHERE
-       ad_id='{$vizitkientry_id}'
-    ";
-    
-    if( $this->user_id ) $sql .= " &&
-        vizitkientry_user_id='{$this->user_id}'
-    ";
-    
-    $sql .= "
-      LIMIT
-        1
-    ";
-    
-    $resource = $database->database_query($sql);
-    
-    if( !$database->database_num_rows($resource) )
-      return FALSE;
-    
-    // PREPARE THE DATA
-    $vizitkientry_info = $database->database_fetch_assoc($resource);
-    //$vizitkientry_info['vizitki_trackbacks'] = split("\n", $vizitkientry_info['vizitki_trackbacks']);
-    
-    return $vizitkientry_info;
+	    $sql .= "FROM  se_ads ";   
+	    if( !$this->user_id ) 
+	    	$sql .= " LEFT JOIN se_users ON se_users.user_id=se_ads.vizitkientry_user_id ";
+	    
+	    $sql .= " WHERE  ad_id='{$vizitkientry_id}'";
+	    
+	    if( $this->user_id )
+	    	$sql .= " && vizitkientry_user_id='{$this->user_id}' ";
+	    
+	    $sql .= " LIMIT 1";
+	    
+	    $resource = $database->database_query($sql);
+	    
+	    if( !$database->database_num_rows($resource) )
+	      return FALSE;
+	    
+	    // PREPARE THE DATA
+	    $vizitkientry_info = $database->database_fetch_assoc($resource);
+	    //$vizitkientry_info['vizitki_trackbacks'] = split("\n", $vizitkientry_info['vizitki_trackbacks']);
+	    
+	    return $vizitkientry_info;
 	}
   
   //
@@ -517,7 +498,7 @@ class se_vizitki
   //    returns FALSE or the vizitki entry id
   //
   
-	function vizitki_entry_post($vizitkientry_id=NULL, $vizitkientry_user_id,$vizitkientry_title, $vizitkientry_body, $vizitkientry_vizitkientrycat_id=NULL, $vizitkientry_search=NULL, $vizitkientry_privacy=NULL, $vizitkientry_comments=NULL, $vizitkientry_trackbacks=NULL,$vizitkientry_category=NULL, $vizitkientry_image=NULL,$vizitkientry_price=NULL,$vizitkientry_telephon=NULL,$vizitkientry_email=NULL,$vizitkientry_site=NULL,$vizitkientry_contry=NULL,$vizitkientry_city=NULL,$link)
+	function vizitki_entry_post($vizitkientry_id=NULL, $vizitkientry_user_id,$vizitkientry_title, $vizitkientry_body, $vizitkientry_vizitkientrycat_id=NULL, $vizitkientry_search=NULL, $vizitkientry_privacy=NULL, $vizitkientry_comments=NULL, $vizitkientry_trackbacks=NULL,$vizitkientry_category=NULL, $vizitkientry_image=NULL,$vizitkientry_price=NULL,$vizitkientry_telephon=NULL,$vizitkientry_email=NULL,$vizitkientry_site=NULL,$vizitkientry_contry=NULL,$vizitkientry_region=NULL,$vizitkientry_city=NULL,$link)
   {
 	  global $database, $user;
     if( !empty($vizitkientry_id) )
@@ -541,7 +522,8 @@ if ($vizitkientry_image != ''){
           vizitkientry_telephon='$vizitkientry_telephon',
           vizitkientry_email='$vizitkientry_email',
           vizitkientry_site='$vizitkientry_site',
-          vizitkientry_contry='$vizitkientry_contry',
+          vizitkientry_contry='$vizitkientry_contry',          
+          vizitkientry_region='$vizitkientry_region',
           vizitkientry_city='$vizitkientry_city'
          
         WHERE
@@ -568,7 +550,8 @@ if ($vizitkientry_image != ''){
           vizitkientry_telephon,
           vizitkientry_email,
           vizitkientry_site,
-          vizitkientry_contry,
+          vizitkientry_contry,          
+          vizitkientry_region,
           vizitkientry_city,
            ad_html
         )
@@ -584,6 +567,7 @@ if ($vizitkientry_image != ''){
           '$vizitkientry_email',
           '$vizitkientry_site',
           '$vizitkientry_contry',
+          '$vizitkientry_region',
           '$vizitkientry_city',
           '$link'
 
@@ -693,24 +677,24 @@ if ($vizitkientry_image != ''){
 
 
 	function vizitki_entry_delete($vizitkientry_id)
-  {
-	  global $database;
-    $ad_id = $vizitkientry_id;
-    if( !is_array($vizitkientry_id) )
-      $vizitkientry_id = array($vizitkientry_id);
+	{
+		global $database;
+		$ad_id = $vizitkientry_id;
+		if( !is_array($vizitkientry_id) )
+			$vizitkientry_id = array($vizitkientry_id);
     
-    $vizitkientry_id = array_unique(array_filter($vizitkientry_id));
+		$vizitkientry_id = array_unique(array_filter($vizitkientry_id));
   
 	  // CREATE DELETE QUERY
-	  $sql = "DELETE FROM se_ads WHERE ad_id='$ad_id' LIMIT 1";
+		$sql = "DELETE FROM se_ads WHERE ad_id='$ad_id' LIMIT 1";
     
 	  // IF USER ID IS NOT EMPTY, ADD USER ID CLAUSE
 	
     
 	  // RUN QUERY
-    $resource = $database->database_query($sql);
+		$resource = $database->database_query($sql);
  
-    return (bool) ($database->database_affected_rows($resource)==count($vizitkientry_id) );
+		return (bool) ($database->database_affected_rows($resource)==count($vizitkientry_id) );
 	}
   
   //
