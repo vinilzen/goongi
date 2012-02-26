@@ -57,11 +57,6 @@ select option	{padding:0 0 0 3px}
 #viewpoint .family canvas	{position:absolute; z-index:-1}
 #viewpoint .family .children	{clear:both}
 
-/* refactoring
-.generation	{padding:30px 0}
-.marriage	{display:inline-block}
-*/
-
 .person	{float:left; border:2px solid #9cd3ed; margin:0 30px; padding:8px 12px 0; width:130px; box-shadow:0 0 10px #ccc; background:#ecf9ff; text-align:center}
 .person .relation	{color:#666; margin:0 20px 10px 0; height:14px; text-align:left}
 .person .info	{cursor:pointer; width:16px; height:16px; float:right; background:url(../img/icons/info.png)}
@@ -128,6 +123,7 @@ select option	{padding:0 0 0 3px}
 #actions .siblings .button	{float:right; clear:both; margin:8px 0}
 #actions .children .button	{margin:19px 0 0}
 #actions.closed .parents,
+#actions.closed .spouse,
 #actions.closed .siblings,
 #actions.closed .children,
 #actions.closed canvas	{visibility:hidden}

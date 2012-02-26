@@ -52,7 +52,6 @@ var TREE = {
 		}
 	},
 
-	// drawn: [],
 	url: {
 		image: function(id, photo) {
 			return 'http://' + window.location.host + '/uploads_user/{0}/{1}/{2}'.format(Math.floor(id / 1000) * 1000 + 1000, id, photo)
@@ -124,51 +123,7 @@ var TREE = {
 		});
 
 	},
-/*
-	render: function() {
-		this.renderPerson(json.user, $('<div class="generation" />').appendTo(this.viewpoint));
-		this.renderAdjust();
-		this.centerView();
-		console.log(_.isEqual(_.keys(json.users).sort(), TREE.drawn.sort()) ? 'GREAT SUCCESS' : 'EPIC FAIL');
-	},
 
-	renderPerson: function(person, $generation) {
-		if (!person || _.include(this.drawn, person.id)) {
-			return false;
-		}
-
-		var father = json.users[person.father],
-			mother = json.users[person.mother],
-			$parents = $generation.prev('.generation').length ? $generation.prev('.generation') : $('<div class="generation" />').insertBefore($generation),
-			$children = $generation.next('.generation').length ? $generation.next('.generation') : $('<div class="generation" />').insertAfter($generation);
-
-		this.tmpl.person(person, $generation).appendTo($generation);
-		this.drawn.push(person.id);
-
-		this.renderPerson(father, $parents);
-		this.renderPerson(mother, $parents);
-
-		_(person.children).chain().map(function(childId) {
-			return json.users[childId]
-		}).each(function(child) {
-			this.renderPerson(child, $children);
-		}, this);
-
-	},
-
-	renderAdjust: function() {
-		_.each(json.users, function(person) {
-			var spouse = json.users[person.spouse];
-			if (!spouse) {
-				return false
-			}
-			var $marriage = $('.person').filter(function() {
-				return $(this).data('id') == person.id || $(this).data('id') == spouse.id
-			});
-			!$marriage.parent('.marriage').length && $marriage.wrapAll('<div class="marriage" />');
-		});
-	},
-*/
 	render: function(options) {
 		var parent = json.users[json.user.father] || json.users[json.user.mother] || json.user;
 		while (json.users[parent.father] || json.users[parent.mother]) {
@@ -585,7 +540,7 @@ TREE.popups.collection = {
 		initialize: function() {
 			this.el.on('click', '.save', $.proxy(this, 'save'));
 			this.el.on('change', '[name=dead]', $.proxy(this, 'toggleDead'));
-                        this.el.on('change', '[name=invite]', $.proxy(this, 'toggleInvite'));
+			this.el.on('change', '[name=invite]', $.proxy(this, 'toggleInvite'));
 		},
 
 		render: function(options) {
@@ -644,18 +599,12 @@ TREE.popups.collection = {
 		},
 
 		toggleDead: function(e) {
-                    
-		//	var field = $(e.target).closest('.field'),
-		//		inp = field.find('[type=text], select');
 			$(e.target).is(':checked') ? $('#deathmonth, #deathyear, #deathdate').removeAttr('disabled') : $('#deathmonth, #deathyear, #deathdate').attr('disabled', 'disabled');
 		},
-                
-                toggleInvite: function(e) {
-		//	var field = $(e.target).closest('.field'),
-		//		inp = field.find('[type=text]');
+
+		toggleInvite: function(e) {
 			$(e.target).is(':checked') ? $('#email').removeAttr('disabled') : $('#email').attr('disabled', 'disabled');
 		}
-
 
 	}),
 
