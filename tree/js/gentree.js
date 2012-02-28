@@ -584,8 +584,9 @@ TREE.popups.collection = {
 
 		initialize: function() {
 			this.el.on('click', '.save', $.proxy(this, 'save'));
+			this.el.on('click', '#jd_trig', $.proxy(this, 'toggleJd'));
 			this.el.on('change', '[name=dead]', $.proxy(this, 'toggleDead'));
-                        this.el.on('change', '[name=invite]', $.proxy(this, 'toggleInvite'));
+            this.el.on('change', '[name=invite]', $.proxy(this, 'toggleInvite'));
 		},
 
 		render: function(options) {
@@ -652,7 +653,23 @@ TREE.popups.collection = {
 			
 			
 		},
-                
+        
+		toggleJd: function(e) {
+			if ( $(e.target).attr('class') == 'sel' ) {
+				if ( $(e.target).html() == 'Еврейский календарь' ) {
+					$(e.target).html('Григорианский календарь');
+					$('.norm_date').hide();
+					$('.jd_date').show();
+				} else {
+					if ( $(e.target).html() == 'Григорианский календарь' ) {
+						$(e.target).html('Еврейский календарь');
+						$('.norm_date').show();
+						$('.jd_date').hide();
+					}
+				}
+			}
+		},
+		
         toggleInvite: function(e) {
 		//	var field = $(e.target).closest('.field'),
 		//		inp = field.find('[type=text]');
