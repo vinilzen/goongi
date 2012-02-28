@@ -503,17 +503,14 @@ class se_vizitki
 	  global $database, $user;
     if( !empty($vizitkientry_id) )
     {
-$sql = "
-        UPDATE
-          se_ads
-        SET";
+		$sql = " UPDATE se_ads  SET";
 
-if ($vizitkientry_image != ''){
-     $sql .= " ad_filename ='$vizitkientry_image',
-              ad_html='$link',
-        ";
-   
-}
+	if ($vizitkientry_image != ''){
+	     $sql .= " ad_filename ='$vizitkientry_image',
+	              ad_html='$link',
+	        ";
+	   
+	}
     $sql .= "
           ad_name='$vizitkientry_title',
           vizitkientry_body='$vizitkientry_body',
@@ -546,6 +543,11 @@ if ($vizitkientry_image != ''){
           vizitkientry_body,
           vizitkientry_category,
           ad_filename,
+          ad_date_start,
+          ad_date_end,
+          ad_position,
+          ad_levels,
+		  ad_subnets,
           vizitkientry_price,
           vizitkientry_telephon,
           vizitkientry_email,
@@ -553,7 +555,7 @@ if ($vizitkientry_image != ''){
           vizitkientry_contry,          
           vizitkientry_region,
           vizitkientry_city,
-           ad_html
+          ad_html
         )
         VALUES
         (
@@ -562,6 +564,11 @@ if ($vizitkientry_image != ''){
           '$vizitkientry_body',
           '$vizitkientry_category',
           '$vizitkientry_image',
+          '" . time() . "',
+          0,
+		  'top',
+		  '',
+		  '',
           '$vizitkientry_price',
           '$vizitkientry_telephon',
           '$vizitkientry_email',
@@ -575,7 +582,7 @@ if ($vizitkientry_image != ''){
 
       
       $resource = $database->database_query($sql);
-   // print_r($database->database_affected_rows($resource));
+		// print_r($database->database_affected_rows($resource));
       if( $database->database_affected_rows($resource) )
       {
         $vizitkientry_id = $database->database_insert_id();

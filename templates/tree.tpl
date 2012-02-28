@@ -4,7 +4,7 @@
 	<title></title>
 	<meta name="description" content="Genealogy Tree">
 	<meta name="author" content="Alexander Orlov">
-	<link rel="stylesheet" href="/tree/css/default.css">
+	<link rel="stylesheet" href="/tree/css/default.css?p={1|rand:200}">
 	<script src="/tree/js/jquery.js"></script>
 	<script src="/tree/js/underscore.js"></script>
 	<script src="/tree/js/backbone.js"></script>
@@ -158,7 +158,7 @@ function callback(form,act,doc) {
 			<img src="<%= TREE.url.image(id, photo) %>" />
 			<% if (death || death_bool==1) { %> <div class="ribbon"></div> <% } %>
 		</div>
-		<div class="name"><%= Base64.decode(displayname) %></div>
+		<div class="name"><a href="/<%= Base64.decode(username) %>" target="_blank"><%= Base64.decode(displayname) %></a></div>
 		<div class="actions closed">
 			<ul>
 				<li class="edit">Редактировать</li>
