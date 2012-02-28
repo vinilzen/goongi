@@ -9,8 +9,6 @@
 
 
 
-
-
 class se_ads
 {
       var $ad_top; 			// VARIABLE REPRESENTING PAGE TOP BANNER HTML
@@ -45,28 +43,27 @@ class se_ads
 	function load()
 	{
              
-	  global $database, $datetime, $setting, $user;
+		global $database, $datetime, $setting, $user;
     
 	  // GET CURRENT TIME IN ADMINS TIMEZONE
-	  $nowtime = time();
+		$nowtime = time();
     
 	  // BEGIN BUILDING AD QUERY 
-	  $ad_querystring = "SELECT * FROM se_ads WHERE ad_date_start<'{$nowtime}' AND (ad_date_end>'{$nowtime}' OR ad_date_end='0')";
+		$ad_querystring = "SELECT * FROM se_ads WHERE ad_date_start<'{$nowtime}' AND (ad_date_end>'{$nowtime}' OR ad_date_end='0')";
     
 	  // MAKE SURE AD IS NOT PAUSED
-	  $ad_querystring .= " AND ad_paused!='1'";
+		$ad_querystring .= " AND ad_paused!='1'";
     
 	  // MAKE SURE AD HAS NOT REACHED ITS VIEW LIMIT
-	  $ad_querystring .= " AND (ad_limit_views=0 OR ad_limit_views>ad_total_views)";
+		$ad_querystring .= " AND (ad_limit_views=0 OR ad_limit_views>ad_total_views)";
     
 	  // MAKE SURE AD HAS NOT REACHED ITS CLICK LIMIT
-	  $ad_querystring .= " AND (ad_limit_clicks=0 OR ad_limit_clicks>ad_total_clicks)";
+		$ad_querystring .= " AND (ad_limit_clicks=0 OR ad_limit_clicks>ad_total_clicks)";
     
 	  // MAKE SURE AD HAS NOT REACHED ITS CTR LIMIT
-    $ad_querystring .= " AND (ad_limit_ctr=0 OR ad_limit_ctr<(ad_total_clicks/(ad_total_views+1))*100)";
+		$ad_querystring .= " AND (ad_limit_ctr=0 OR ad_limit_ctr<(ad_total_clicks/(ad_total_views+1))*100)";
     
 	  // IF VIEWER IS NOT LOGGED-IN, ONLY SHOW PUBLIC AD CAMPAIGNS
-  	//echo '<pre>'; print_r($user); die();
     
 	  // IF VIEWER IS LOGGED-IN, ONLY SHOW AD IF VIEWER'S LEVEL AND SUBNETS MATCH
 		if( $user->user_exists )
@@ -77,15 +74,15 @@ class se_ads
 		}
     
 	  // RANDOMIZE QUERY RESULTS
-	  $ad_querystring .= " ORDER BY RAND()";
+		$ad_querystring .= " ORDER BY RAND()";
     
 	  // DETERMINE WHICH ADS SHOULD BE SHOWN
 	  //echo $ad_querystring; die();
 	  
-	  $ad_query = $database->database_query($ad_querystring);
+		$ad_query = $database->database_query($ad_querystring);
     
 	  // PREPARE STAT UPDATE QUERY
-	  $stats_id_array = array();
+		$stats_id_array = array();
     
 	  // SET AD HTML FOR EACH POSITION
 		while( $ad_info = $database->database_fetch_assoc($ad_query) )
@@ -103,7 +100,7 @@ class se_ads
 				$this->ad_title = $ad_info['ad_name'];
 				
 				  
-				$this->vizitkientry_body = $ad_info['vizitkientry_body '];
+				$this->vizitkientry_body = $ad_info['vizitkientry_body'];
 				$this->vizitkientry_category = $ad_info['vizitkientry_category'];
 				$this->ad_filename = $ad_info['ad_filename'];
 				$this->vizitkientry_price = $ad_info['vizitkientry_price'];
@@ -161,14 +158,14 @@ class se_ads
 	// OUTPUT: AD BANNER HTML (IF AVAILABLE) FOR GIVEN AD ID
   
 	function ads_display($ad_id)
-  {
-	  global $database;
+	{
+		global $database;
     
-	  // UPDATE THE ADS VIEW STATS
-    $database->database_query("UPDATE se_ads SET ad_total_views=ad_total_views+1 WHERE ad_id='{$ad_id}' LIMIT 1");
+		// UPDATE THE ADS VIEW STATS
+		$database->database_query("UPDATE se_ads SET ad_total_views=ad_total_views+1 WHERE ad_id='{$ad_id}' LIMIT 1");
 	  
-	  // DISPLAY AD
-	  return $this->ad_custom[$ad_id];
+		// DISPLAY AD
+		return $this->ad_custom[$ad_id];
 	}
   
   // END ads_display() METHOD

@@ -648,9 +648,12 @@ TREE.popups.collection = {
 		//	var field = $(e.target).closest('.field'),
 		//		inp = field.find('[type=text], select');
 			$(e.target).is(':checked') ? $('#deathmonth, #deathyear, #deathdate').removeAttr('disabled') : $('#deathmonth, #deathyear, #deathdate').attr('disabled', 'disabled');
+			$(e.target).is(':checked') ? $('#jd_trig').addClass('sel') : $('#jd_trig').removeClass('sel');
+			
+			
 		},
                 
-                toggleInvite: function(e) {
+        toggleInvite: function(e) {
 		//	var field = $(e.target).closest('.field'),
 		//		inp = field.find('[type=text]');
 			$(e.target).is(':checked') ? $('#email').removeAttr('disabled') : $('#email').attr('disabled', 'disabled');
@@ -678,4 +681,72 @@ TREE.popups.collection = {
 
 	})
 
+}
+
+function recount_gregorian() {
+  var y = parseInt(document.hebrew_date.year.value);
+  var m = document.hebrew_date.month.selectedIndex;
+  var d = parseInt(document.hebrew_date.date.value);
+  if (d != '' && y !='' && !isNaN(d) && !isNaN(y) && y > 10 ) {
+	  var civDate = heb2civ(d, m + 1, y);
+	  if (civDate === null) {
+		alert ('Ошибка ввода!');
+		set_today();
+	  } else {
+		var civm = civDate[1] - 1;
+		var civy = civDate[2];
+		var civd = civDate[0];
+		if (civd < 10)
+			$('#deathdate').val('0'+civd);
+		else
+			$('#deathdate').val(civd);
+		$('#deathyear').val(civy);
+		$('#deathmonth option:eq('+civm+')').attr("selected", "selected"); 
+	  }
+  }
+  return;
+}
+
+function recount_hebrew() {
+  var y = parseInt(document.gregorian_date.year.value);
+  var m = document.gregorian_date.month.selectedIndex;
+  var d = parseInt(document.gregorian_date.date.value);
+  var tzeit =  document.gregorian_date.after_tzeis[0].checked;
+  var hebDate = civ2heb(d, m + 1, y);
+  var hMonth = hebDate[2];
+  var hYear = hebDate[3];
+  var hebDay = hebDate[1];
+  if (!tzeit) {
+	hebDate = civ2heb(d+1, m + 1, y);
+	hMonth = hebDate[2];
+	hYear = hebDate[3];
+	hebDay = hebDate[1];
+  }
+  document.hebrew_date.date.value = hebDay;
+  document.hebrew_date.month.options[hMonth].selected =1;
+  document.hebrew_date.year.value = hYear;
+  return;
+}
+
+function set_today() {
+	var now = new Date();
+	var day = now.getDay() + 1;
+	var date = now.getDate();
+	var m = now.getMonth();
+	var y = now.getYear();
+	if (y < 1900)
+	  y+= 1900;
+
+	document.gregorian_date.date.value = date;
+	document.gregorian_date.month.options[m].selected =1;
+	document.gregorian_date.year.value = y;
+
+	var hebDate = civ2heb(date, m + 1, y);
+	hMonth = hebDate[2];
+	hYear = hebDate[3];
+	hebDay = hebDate[1];
+
+	document.hebrew_date.date.value = hebDay;
+	document.hebrew_date.month.options[hMonth].selected = 1;
+	document.hebrew_date.year.value = hYear;
 }

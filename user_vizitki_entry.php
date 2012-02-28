@@ -89,7 +89,7 @@ if( $task=="dosave" )
   $vizitkientry_category         = $_POST['categor'];
   $vizitkientry_image            = $photo_newname;//$_POST['fakeupload'];
   $vizitkientry_body             = $_POST['desc'];
-  $vizitkientry_price            = $_POST['cena'].'-'.$_POST['money'];
+  $vizitkientry_price            = $_POST['cena'].''.$_POST['money'];
   $vizitkientry_telephon         = $_POST['phone'];
   $vizitkientry_email            = $_POST['mail'];
   $vizitkientry_site             = $_POST['link'];
