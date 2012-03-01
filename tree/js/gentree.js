@@ -125,15 +125,34 @@ var TREE = {
 	},
 
 	render: function(options) {
-		var parent = json.users[json.user.father] || json.users[json.user.mother] || json.user;
-		while (json.users[parent.father] || json.users[parent.mother]) {
-			parent = json.users[parent.father] || json.users[parent.mother];
-		}
 		this.viewpoint.empty();
-		this.renderFamily(parent.id, this.viewpoint);
-		this.viewpoint.width(this.viewpoint.children().width());
+		var bw = this.renderFamilyBackward(json.user.id, this.viewpoint);
+		var fw = this.renderFamilyForward(json.user.id, this.viewpoint).addClass('forward');
+		this.viewpoint.width(_.max([bw.width(), fw.width()]));
 
-		this.renderPath();
+		var merge = $('.person').filter(function() {
+			return $(this).data('id') == json.user.id
+		})
+
+		if (merge.eq(0).offset().left > merge.eq(1).offset().left) {
+			fw.css({
+				left: merge.eq(0).offset().left - merge.eq(1).offset().left
+			})
+		} else {
+			bw.css({
+				left: merge.eq(1).offset().left - merge.eq(0).offset().left
+			})
+		}
+		fw.css({
+			top: merge.eq(0).offset().top - merge.eq(1).offset().top
+		});
+		merge.eq(1).css({
+			visibility: 'hidden'
+		});
+
+
+		this.renderPathBackward();
+		this.renderPathForward();
 		if (window.location.hash) {
 			var scroll = window.location.hash.replace('#', '').split(',');
 			setTimeout(function() {
@@ -144,8 +163,8 @@ var TREE = {
 		}
 	},
 
-	renderFamily: function(parentId, node) {
-		var family = $('<div class="family" />').appendTo(node),
+	renderFamilyForward: function(parentId, node) {
+		var family = $('<span class="family" />').appendTo(node),
 			parents = $('<div class="parents" />').appendTo(family),
 			children = $('<div class="children" />').appendTo(family);
 		this.tmpl.person(json.users[parentId]).appendTo(parents);
@@ -154,12 +173,29 @@ var TREE = {
 		_(json.users).chain().filter(function(user) {
 			return user.father === parentId || user.mother === parentId
 		}).each(function(child) {
-			this.renderFamily(child.id, children);
+			this.renderFamilyForward(child.id, children);
 		}, this);
+		return family
 	},
 
-	renderPath: function() {
-		this.viewpoint.find('.family').each(function() {
+	renderFamilyBackward: function(childId, node) {
+		var family = $('<span class="family" />').appendTo(node),
+			parents = $('<div class="parents" />').appendTo(family),
+			children = $('<div class="children" />').appendTo(family);
+		this.tmpl.person(json.users[childId]).appendTo(children);
+
+		_(json.users).chain().filter(function(user) {
+			return user.id === json.users[childId].father || user.id === json.users[childId].mother
+		}).sortBy(function(user) {
+			return user.id !== json.users[childId].father
+		}).each(function(parent) {
+			parent && this.renderFamilyBackward(parent.id, parents);
+		}, this);
+		return family
+	},
+
+	renderPathForward: function() {
+		this.viewpoint.children('.family').eq(1).find('.family').andSelf().each(function() {
 
 			var family = $(this),
 				ctx = $('<canvas />').attr({
@@ -219,6 +255,57 @@ var TREE = {
 					ctx.lineTo(x, parentLink[1]);
 					ctx.lineTo(x, parentLink[1] + 30);
 
+				});
+			}
+
+			ctx.stroke();
+
+		});
+	},
+
+	renderPathBackward: function() {
+		this.viewpoint.children('.family').eq(0).find('.family').andSelf().each(function() {
+
+			var family = $(this),
+				ctx = $('<canvas />').attr({
+					width: family.width(),
+					height: 478
+				}).prependTo(family),
+				children = family.children('.children').children(),
+
+				parents = family.find('.person').filter(function() {
+					return $(this).data('id') === children.data('father-id') || $(this).data('id') === children.data('mother-id')
+				});
+
+			ctx = ctx.getContext();
+			ctx.strokeStyle = '#999';
+			ctx.beginPath();
+
+			var x, y, parentLink;
+
+			if (parents.length) {
+				switch (parents.length) {
+				case 1:
+					x = (family.outerWidth() / 2).toHalf();
+					y = parents.outerHeight();
+					ctx.moveTo(x, y);
+					ctx.lineTo(x, y + 30.5);
+					parentLink = [x, y + 30.5];
+					break;
+				case 2:
+					x = [parents.eq(0).offset().left + parents.eq(0).width() - family.offset().left, parents.eq(1).offset().left - family.offset().left];
+					y = parents.eq(0).outerHeight();
+					ctx.moveTo(x[0], y / 2);
+					ctx.lineTo(x[1], y / 2);
+					parentLink = [((x[1] - x[0]) / 2 + x[0]).toHalf(), y / 2];
+					break;
+				}
+
+				children.each(function() {
+					x = $(this).offset().left - family.closest('.family').offset().left + $(this).outerWidth() / 2 + .5;
+					y = $(this).offset().top;
+					ctx.moveTo(x, parentLink[1]);
+					ctx.lineTo(x, parentLink[1] + $(this).offset().top - family.closest('.family').offset().top);
 				});
 			}
 
