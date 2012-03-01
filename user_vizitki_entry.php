@@ -89,13 +89,13 @@ if( $task=="dosave" )
   $vizitkientry_category         = $_POST['categor'];
   $vizitkientry_image            = $photo_newname;//$_POST['fakeupload'];
   $vizitkientry_body             = $_POST['desc'];
-  $vizitkientry_price            = $_POST['cena'].'-'.$_POST['money'];
+  $vizitkientry_price            = $_POST['cena'].''.$_POST['money'];
   $vizitkientry_telephon         = $_POST['phone'];
   $vizitkientry_email            = $_POST['mail'];
   $vizitkientry_site             = $_POST['link'];
-  $vizitkientry_contry           = $_POST['dhtmlgoodies_country'];
-  $vizitkientry_region           = $_POST['dhtmlgoodies_region'];
-  $vizitkientry_city             = $_POST['dhtmlgoodies_city'];
+  $vizitkientry_contry           = $_POST['dhtmlgoodies_country'] == '' ? '-1' : $_POST['dhtmlgoodies_country'];
+  $vizitkientry_region           = $_POST['dhtmlgoodies_region'] == '' ? '-1' : $_POST['dhtmlgoodies_region'];
+  $vizitkientry_city             = $_POST['dhtmlgoodies_city'] == '' ? '-1' : $_POST['dhtmlgoodies_city'];
   
  
 
@@ -111,25 +111,25 @@ if( $task=="dosave" )
  
   // POST ENTRY
   $result_array = $vizitki->vizitki_entry_post(
-    $vizitkientry_id,
-    $user->user_info['user_id'],
-    $vizitkientry_title,
-    $vizitkientry_body,
-    $vizitkientry_vizitkientrycat_id,
-    $vizitkientry_search,
-    $vizitkientry_privacy,
-    $vizitkientry_comments,
-    $vizitkientry_trackbacks,
-      $vizitkientry_category,
-      $vizitkientry_image,
-      $vizitkientry_price,
-      $vizitkientry_telephon,
-      $vizitkientry_email,
-      $vizitkientry_site,
-      $vizitkientry_contry,
-      $vizitkientry_region,
-      $vizitkientry_city,
-      $link
+		$vizitkientry_id,
+		$user->user_info['user_id'],
+		$vizitkientry_title,
+		$vizitkientry_body,
+		$vizitkientry_vizitkientrycat_id,
+		$vizitkientry_search,
+		$vizitkientry_privacy,
+		$vizitkientry_comments,
+		$vizitkientry_trackbacks,
+		$vizitkientry_category,
+		$vizitkientry_image,
+		$vizitkientry_price,
+		$vizitkientry_telephon,
+		$vizitkientry_email,
+		$vizitkientry_site,
+		$vizitkientry_contry,
+		$vizitkientry_region,
+		$vizitkientry_city,
+		$link
   );
   
   if( empty($vizitkientry_id) && !empty($result_array['vizitkientry_id']) )
@@ -137,7 +137,7 @@ if( $task=="dosave" )
   
   // STUFF TO DO ON SUCCESS
   if( $result_array['result'] )
-  {	
+  {
     // UPDATE LAST UPDATE DATE (SAY THAT 10 TIMES FAST)
     $user->user_lastupdate();
     

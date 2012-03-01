@@ -190,16 +190,16 @@ if(isset($_POST['dhtmlgoodies_country'])) {
         $id_ex = $user->user_info['user_id'];
         $sql = "SELECT profilevalue_7 FROM se_profilevalues WHERE profilevalue_user_id=$id_ex LIMIT 1";
         if(!$database->database_query($sql))
-            {
+        {
             $query="INSERT INTO `se_profilevalues` (`profilevalue_user_id`, `profilevalue_7`) VALUES ($id_ex,'$country')";
             $database->database_query($query);
-            }
+        }
         else
-            {
+        {
             
             $query="UPDATE `se_profilevalues` SET `profilevalue_7` = '$country' WHERE  profilevalue_user_id = $id_ex";
             $database->database_query($query);
-            }
+       }
 }
 
 if(isset($_POST['dhtmlgoodies_country_birhday'])) {
@@ -207,16 +207,16 @@ if(isset($_POST['dhtmlgoodies_country_birhday'])) {
         $id_ex = $user->user_info['user_id'];
         $sql = "SELECT profilevalue_9 FROM se_profilevalues WHERE profilevalue_user_id=$id_ex LIMIT 1";
         if(!$database->database_query($sql))
-            {
+        {
             $query="INSERT INTO `se_profilevalues` (`profilevalue_user_id`, `profilevalue_9`) VALUES ($id_ex,'$country_birhday')";
             $database->database_query($query);
-            }
+        }
         else
-            {
+        {
 
             $query="UPDATE `se_profilevalues` SET `profilevalue_9` = '$country_birhday' WHERE  profilevalue_user_id = $id_ex";
             $database->database_query($query);
-            }
+        }
 }
 
 
@@ -356,6 +356,7 @@ else
 $country_birhday_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_9 FROM se_profilevalues WHERE profilevalue_user_id='".$user->user_info['user_id']."' LIMIT 1"));
 $country_birhday_id = $country_birhday_tb[profilevalue_9];
 $sql = $database->database_query ("SELECT * FROM country");
+
 while ($country_birhday_bd = $database->database_fetch_assoc ($sql))
 {
 	if($country_birhday_id == $country_birhday_bd[country_id])

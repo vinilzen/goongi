@@ -4,13 +4,15 @@
 	<title></title>
 	<meta name="description" content="Genealogy Tree">
 	<meta name="author" content="Alexander Orlov">
-	<link rel="stylesheet" href="/tree/css/default.css">
+	<link rel="stylesheet" href="/tree/css/default.css?p={1|rand:200}">
 	<script src="/tree/js/jquery.js"></script>
 	<script src="/tree/js/underscore.js"></script>
 	<script src="/tree/js/backbone.js"></script>
 	<!--[if lte IE 8]><script src="/tree/js/excanvas.js"></script><![endif]-->
 	<script src="/tree/js/base64.js"></script>
 	<script src="/tree/js/utils.js"></script>
+	<script src="/js/kdate.js"></script>
+	<script src="/js/heb2civ.js"></script>
 </head>
 <body>
 {literal}
@@ -156,7 +158,7 @@ function callback(form,act,doc) {
 			<img src="<%= TREE.url.image(id, photo) %>" />
 			<% if (death || death_bool==1) { %> <div class="ribbon"></div> <% } %>
 		</div>
-		<div class="name"><%= Base64.decode(displayname) %></div>
+		<div class="name"><a href="/<%= Base64.decode(username) %>" target="_blank"><%= Base64.decode(displayname) %></a></div>
 		<div class="actions closed">
 			<ul>
 				<li class="edit">Редактировать</li>
@@ -205,7 +207,7 @@ function callback(form,act,doc) {
 			</tr>
 			<tr>
 			<th ><input type="checkbox" name="invite" /> Пригласить по email</label></th>
-				<td><input type="hidden" name="invite" /><input type="text" id = "email" name="email" value="<%= invite %>" <% if (!invite) { %> disabled="disabled" <% } %>/></td>
+			<td><input type="hidden" name="invite" /><input type="text" id = "email" name="email" value="<%= invite %>" <% if (!invite) { %> disabled="disabled" <% } %>/></td>
 			</tr>
 			<tr>
 				<th>Дата рождения</th>
@@ -220,15 +222,43 @@ function callback(form,act,doc) {
 				</td>
 			</tr>
 			<tr>
-				<th><input type="checkbox" name="dead" <% if (death || death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label></th>
+				<th>
+					<label class="kalend"><input type="checkbox" name="dead" <% if (death || death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label><br />
+					<span id="jd_trig">Еврейский календарь</span>
+				</th>
 				<td>
-					<input type="text" maxlength="2" id = "deathdate" name="deathdate" value="<%= death ? death.split("-")[2] : "" %>" <% if (!death_bool) { %> disabled="disabled" <% } %> />
-					<select id = "deathmonth" name="deathmonth" <% if (!death_bool) { %> disabled="disabled" <% } %>>
-						<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
-							<option value="<%= i+1 %>" <% if (death && death.split("-")[1] == i+1) { %> selected="selected" <% } %>><%= month %></option>
-						<% }) %>
-					</select>
-					<input type="text" maxlength="4" id = "deathyear" name="deathyear" value="<%= death ? death.split("-")[0] : "" %>" <% if (!death_bool) { %> disabled="disabled" <% } %> />
+					<div class="norm_date">
+						<input type="text" maxlength="2" id = "deathdate" name="deathdate" value="<%= death ? death.split("-")[2] : "" %>" <% if (!death_bool) { %> disabled="disabled" <% } %> />
+						<select id = "deathmonth" name="deathmonth" <% if (!death_bool) { %> disabled="disabled" <% } %>>
+							<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
+								<option value="<%= i+1 %>" <% if (death && death.split("-")[1] == i+1) { %> selected="selected" <% } %>><%= month %></option>
+							<% }) %>
+						</select>
+						<input type="text" maxlength="4" id = "deathyear" name="deathyear" value="<%= death ? death.split("-")[0] : "" %>" <% if (!death_bool) { %> disabled="disabled" <% } %> />
+					</div>
+					<div class="jd_date">
+						<form name="hebrew_date">
+							<input type="text" maxlength="2" name="date" onkeyup="recount_gregorian();" onblur="recount_gregorian();" value="" />
+							<select onchange="recount_gregorian();" name="month">
+								<option>нисана</option>
+								<option>ияра</option>
+								<option>сивана</option>
+								<option>тамуза</option>
+								<option>ава</option>
+								<option>элуля</option>
+								<option>тишрея</option>
+								<option>хешвана</option>
+								<option>кислева</option>
+								<option>тевета</option>
+								<option>швата</option>
+								<option>адара</option>
+								<option>адара I</option>
+								<option>адара II</option>
+							</select>
+							<input type="text" maxlength="4" name="year" value="" onkeyup="recount_gregorian();" onblur="recount_gregorian();" />
+						</form>
+					</div>
+					
 				</td>
 			</tr>
 		</table>
@@ -238,6 +268,7 @@ function callback(form,act,doc) {
 		<div class="cancel">Отмена</div>
 	</div>
 </script>
+
 
 <script id="popup-tmpl" type="text/html">
 	<div class="popup hide">

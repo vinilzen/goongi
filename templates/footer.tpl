@@ -29,21 +29,21 @@
 					<!-- start USER MENU -->
 					{include file='menu_main.tpl'}
 					<!-- end USER MENU -->
-{if $ads->ad_title != ''}
-                	<div class="block0">
-                    	<div class="bg">
-                        	<div class="c">
-                            	<div class="rec">
-                                	<p><strong>{$ads->ad_title}</strong><br /><span>{$ads->vizitkientry_category}</span></p>
-                                    <div>{$ads->ad_html}</div>
-                                    <p><font>{$ads->vizitkientry_body}<br /><strong>{$ads->vizitkientry_price} </strong></font></p>
-									<p><font>{$ads->vizitkientry_telephon}<br /><a href="{$ads->vizitkientry_site}" target="_blank">{$ads->vizitkientry_site}</a></font></p>
-                                </div>
-                            </div>
-                        </div>
-						{if $user->user_exists != 0}<div class="b1"><a href="/user_vizitki.php">Создать себе визитку</a></div>{/if}
-                    </div>
-{/if}
+					{if $ads->ad_title != ''}
+						<div class="block0">
+							<div class="bg">
+								<div class="c">
+									<div class="rec">
+										<p><strong>{$ads->ad_title}</strong><br /><span>{$ads->vizitkientry_category}</span></p>
+										<div>{$ads->ad_html}</div>
+										<p><font>{$ads->vizitkientry_body}<br /><strong>{$ads->vizitkientry_price} </strong></font></p>
+										<p><font>{$ads->vizitkientry_telephon}<br /><a title="{$ads->vizitkientry_body}" href="{$ads->vizitkientry_site}" target="_blank">{$ads->vizitkientry_site}</a></font></p>
+									</div>
+								</div>
+							</div>
+							{if $user->user_exists != 0}<div class="b1"><a href="/user_vizitki.php">Создать себе визитку</a></div>{/if}
+						</div>
+					{/if}
                 </div>
             </div>
             <div class="clear"></div>

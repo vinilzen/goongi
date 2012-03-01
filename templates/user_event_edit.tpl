@@ -127,7 +127,7 @@
 <br />
 <br />
 <br />
-{if $event->user_rank >= 2}<a href='#' rel="{$event->event_info.event_id}" id="event_del">{lang_print id=3000169}</a>{/if}
+{if $event->user_rank >= 2}<a href='#' rel="{$event->event_info.event_id}" id="event_del">{lang_print id=175} {if $event->event_info.event_eventcat_id == 2}мероприятие{else}событие{/if}</a>{/if}
 </div>
 
 {include file='footer.tpl'}

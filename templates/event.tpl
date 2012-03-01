@@ -1,10 +1,10 @@
 ﻿{include file='header.tpl'}
 
 {* $Id: event.tpl 162 2009-04-30 01:43:11Z john $ *}
-<h1>{lang_print id=3000086} - {$event->event_info.event_title}</h1>
+<h1>{$event->event_info.event_title}</h1>
 <div class="crumb">
 	<a href="/">Главная</a>
-	<a href='user_event.php'>{lang_print id=3000086}</a>
+	<a href='user_event.php'>{if $event->event_info.event_eventcat_id == 1}{lang_print id=3000086}{else}{lang_print id=80001031}{/if}</a>
 	<span>{$event->event_info.event_title}<!-- {lang_print id=$eventcat_info.subcat_title} --></span>
 </div>
 {if $event->eventmember_info|count > 0}
