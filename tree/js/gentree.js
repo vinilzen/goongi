@@ -146,7 +146,7 @@ var TREE = {
 		fw.css({
 			top: merge.eq(0).offset().top - merge.eq(1).offset().top
 		});
-		merge.eq(1).css({
+		merge.eq(0).css({
 			visibility: 'hidden'
 		});
 
