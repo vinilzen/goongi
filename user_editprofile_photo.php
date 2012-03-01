@@ -4,11 +4,14 @@
 
 $page = "user_editprofile_photo";
 include "header.php";
+if ($owner->user_exists == 0 ) {
+	$owner = $user;
+}
 
 $task = ( isset($_POST['task']) ? $_POST['task'] : NULL );
 
 // CHECK FOR ADMIN ALLOWANCE OF PHOTO
-if( !$user->level_info['level_photo_allow'] ) {
+if( !$owner->level_info['level_photo_allow'] ) {
   header("Location: user_home.php");
   exit();
 }
@@ -18,8 +21,8 @@ $is_error = 0;
 
 // DELETE PHOTO
 if( $task == "remove" ) {
-  $user->user_photo_delete();
-  $user->user_lastupdate();
+  $owner->user_photo_delete();
+  $owner->user_lastupdate();
   echo 'Вы можете загрузить новое фото!'; die();
   exit();
 }
@@ -27,25 +30,25 @@ if( $task == "remove" ) {
 
 // UPLOAD PHOTO
 if( $task == "upload" ) {
-  $user->user_photo_upload("photo");
-  $is_error = $user->is_error;
+  $owner->user_photo_upload("photo");
+  $is_error = $owner->is_error;
   if( !$is_error ) {
     // SAVE LAST UPDATE DATE
-    $user->user_lastupdate(); 
+    $owner->user_lastupdate(); 
     
     // DETERMINE SIZE OF THUMBNAIL TO SHOW IN ACTION
-    $photo_width = $misc->photo_size($user->user_photo(), "111", "111", "w");
-    $photo_height = $misc->photo_size($user->user_photo(), "111", "111", "h");
+    $photo_width = $misc->photo_size($owner->user_photo(), "111", "111", "w");
+    $photo_height = $misc->photo_size($owner->user_photo(), "111", "111", "h");
     
     // INSERT ACTION
-    $action_media = Array(Array('media_link'=>$url->url_create('profile', $user->user_info['user_username']), 'media_path'=>$user->user_photo(), 'media_width'=>$photo_width, 'media_height'=>$photo_height));
-    $actions->actions_add($user, "editphoto", Array($user->user_info['user_username'], $user->user_displayname), $action_media, 999999999, TRUE, "user", $user->user_info['user_id'], $user->user_info['user_privacy']);
+    $action_media = Array(Array('media_link'=>$url->url_create('profile', $owner->user_info['user_username']), 'media_path'=>$owner->user_photo(), 'media_width'=>$photo_width, 'media_height'=>$photo_height));
+    $actions->actions_add($user, "editphoto", Array($owner->user_info['user_username'], $owner->user_displayname), $action_media, 999999999, TRUE, "user", $owner->user_info['user_id'], $owner->user_info['user_privacy']);
   }
 }
 
 // GET TABS TO DISPLAY ON TOP MENU
-$field = new se_field("profile", $user->profile_info);
-$field->cat_list(0, 0, 0, "profilecat_id='{$user->user_info['user_profilecat_id']}'");
+$field = new se_field("profile", $owner->profile_info);
+$field->cat_list(0, 0, 0, "profilecat_id='{$owner->user_info['user_profilecat_id']}'");
 $cat_array = $field->subcats;
 
 

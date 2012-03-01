@@ -6,7 +6,7 @@
 
 <div class="crumb">
 	<a href="/">Главная</a>
-	<a href="{$url->url_create("profile", $user->user_info.user_username)}">{lang_print id=652}<!-- Профиль --></a>
+	<a href="{$url->url_create("profile", $owner->user_info.user_username)}">{lang_print id=652}<!-- Профиль --></a>
 	<span>{lang_print id=769}<!-- редактировать фото --></span>
 </div>
 <div class="buttons">
@@ -18,10 +18,10 @@
 {section name=cat_loop loop=$cats}
 	<a href='user_editprofile.php?cat_id={$cats[cat_loop].subcat_id}'>{lang_print id=$cats[cat_loop].subcat_title}</a>
 {/section}
-{if $user->level_info.level_photo_allow != 0}
+{if $owner->level_info.level_photo_allow != 0}
 	<a href='user_editprofile_photo.php'>{lang_print id=762}</a>
 {/if}
-{if $user->level_info.level_profile_style != 0 || $user->level_info.level_profile_style_sample != 0}
+{if $owner->level_info.level_profile_style != 0 || $owner->level_info.level_profile_style_sample != 0}
 	<a href='user_editprofile_style.php'>{lang_print id=763}</a>
 {/if}
 *}
@@ -44,29 +44,29 @@
 	{* SHOW REMOVE PHOTO LINK IF NECESSARY *}
 
 	<div class="form edit">
-		<form action='user_editprofile_photo.php' method='post' enctype='multipart/form-data'>
+		<form action='user_editprofile_photo.php?user={$owner->user_info.user_username}' method='post' enctype='multipart/form-data'>
 			<div class="input file photoedit">
 				<label>{lang_print id=772}</label>
 				<div class="fakeupload">
 					<input type="file" onchange="this.form.fakeupload.value = this.value;" class="realupload2" id="realupload2" size="1" name='photo' />
 					<input type="text" class="inpupload" value="" name="fakeupload" />
 				</div>
-				<p>{lang_print id=715} {$user->level_info.level_photo_exts}</p>
+				<p>{lang_print id=715} {$owner->level_info.level_photo_exts}</p>
 				<div class="button"><span class="button2"><span class="l">&nbsp;</span><span class="c"><input type="submit" value="{lang_print id=714}" name="log" /></span><span class="r">&nbsp;</span></span></div>
 			</div>
 			<div class="input imggg">
 				<label>{lang_print id=770}</label>
 				<div id="brdr">
-					{if $user->profile_info.profilevalue_5 == 2}
-						<img id="userEditPhotoImg" border='0'  src="{$user->user_photo('./images/avatars_11.gif')}" alt="" />
+					{if $owner->profile_info.profilevalue_5 == 2}
+						<img id="userEditPhotoImg" border='0'  src="{$owner->user_photo('./images/avatars_11.gif')}" alt="" />
 					{else}
-						<img id="userEditPhotoImg" border='0'  src="{$user->user_photo('./images/avatars_09.gif')}" alt="" />
+						<img id="userEditPhotoImg" border='0'  src="{$owner->user_photo('./images/avatars_09.gif')}" alt="" />
 					{/if}
-					{if $user->user_photo() != ""}
+					{if $owner->user_photo() != ""}
 						<div id="userEditRemovePhotoLink">[ <a href='#' onclick='userPhotoRemove(); return false;'>{lang_print id=771}</a> ]</div>
 					{/if}
 				</div>
-				{if $user->user_photo() != ""}
+				{if $owner->user_photo() != ""}
 					{literal}
 					<script type="text/javascript">
 						function userPhotoRemove() {
@@ -80,7 +80,7 @@
 									setTimeout ( function() {
 										$("#brdr").removeClass("preloader");
 					{/literal}
-										{if $user->profile_info.profilevalue_5 == 2}
+										{if $owner->profile_info.profilevalue_5 == 2}
 											{literal}
 												$('#main_photo').html('<img width="111" src="/images/avatars_11.gif" border="0" />');
 												$('#brdr').html('<img width="111" src="/images/avatars_11.gif" border="0" />');

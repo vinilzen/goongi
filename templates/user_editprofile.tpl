@@ -2,12 +2,14 @@
 {literal}
 {/literal}
 {* $Id: user_editprofile.tpl 8 2009-01-11 06:02:53Z john $ *}
-
+{if $owner->user_info.user_id == $user->user_info.user_id}
 <h1>РЕДАКТИРОВАТЬ ЛИЧНУЮ ИНФОРМАЦИЮ</h1>
-
+{else}
+<h1>ВЫ РЕДАКТИРУЕТЕ ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ {$owner->user_info.user_displayname}</h1>
+{/if}
 <div class="crumb">
 	<a href="/">Главная</a>
-	<a href="{$url->url_create("profile", $user->user_info.user_username)}">{lang_print id=652}<!-- Профиль --></a>
+	<a href="{$url->url_create("profile", $owner->user_info.user_username)}">{lang_print id=652}<!-- Профиль -->{if $owner->user_info.user_id != $user->user_info.user_id}&nbsp;{$owner->user_info.user_displayname}{/if}</a>
 	<span>{lang_print id=1000069}<!-- редактировать --></span>
 </div>
 
@@ -29,7 +31,7 @@
 *}
 
 
-{if $user->level_info.level_profile_style != 0 || $user->level_info.level_profile_style_sample != 0}
+{if $owner->level_info.level_profile_style != 0 || $owner->level_info.level_profile_style_sample != 0}
 	<a href='user_editprofile_style.php'>{lang_print id=763}</a>
 {/if}
 
@@ -80,15 +82,15 @@
 </script>
 {/literal}
 <div class="form edit">
-<form action='user_editprofile.php' method='POST'>
-	{if $user->level_info.level_photo_allow != 0}
+<form action='user_editprofile.php?user={$owner->user_info.user_username}' method='POST'>
+	{if $owner->level_info.level_photo_allow != 0}
 		<div class="input file edit_profile">
-			<label><a href='user_editprofile_photo.php'>Загрузи новый аватар </a></label>
+			<label><a href="user_editprofile_photo.php?user={$owner->user_info.user_username}">Загрузи новый аватар </a></label>
 			<div class="brdr">
-				{if $user->profile_info.profilevalue_5 == 2}
-				<img src="{$user->user_photo('./images/avatars_11.gif')}" alt="" />
+				{if $owner->profile_info.profilevalue_5 == 2}
+				<img src="{$owner->user_photo('./images/avatars_11.gif')}" alt="" />
 				{else}
-				<img src="{$user->user_photo('./images/avatars_09.gif')}" alt="" />
+				<img src="{$owner->user_photo('./images/avatars_09.gif')}" alt="" />
 				{/if}
 			</div>
 			<p>Обратите внимание, что все изображения должны быть в формате jpeg, gif, png. Размером до 1 Mb.</p>
@@ -97,7 +99,7 @@
 	
 {* LOOP THROUGH FIELDS *}
 {section name=field_loop loop=$fields}
-{if $fields[field_loop].field_id != 16 }
+{if $fields[field_loop].field_id != 16 || $owner->user_info.user_id != $user->user_info.user_id}
 
     {* TEXT FIELD *}
     {if $fields[field_loop].field_type == 1}
@@ -301,7 +303,7 @@
 
     {/if}
 
-    {capture assign='current_subnet'}{lang_print id=$user->subnet_info.subnet_name}{/capture}
+    {capture assign='current_subnet'}{lang_print id=$owner->subnet_info.subnet_name}{/capture}
     {if $fields[field_loop].field_id == $setting.setting_subnet_field1_id || $fields[field_loop].field_id == $setting.setting_subnet_field2_id}{lang_sprintf id=766 1=$current_subnet}{/if}
 
     {capture assign='field_error'}{lang_print id=$fields[field_loop].field_error}{/capture}

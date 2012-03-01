@@ -48,8 +48,8 @@ $is_profile_private = !$allowed_to_view;
 $allowed_to_comment = ($privacy_max & $owner->user_info['user_comments']);
 
 
-print_r($user);
-print_r($owner); die();
+//print_r($user);
+//print_r($owner); die();
 
 
 // UPDATE PROFILE VIEWS IF PROFILE VISIBLE
