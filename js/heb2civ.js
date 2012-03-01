@@ -77,3 +77,5 @@ for(var month = begmin; month < begmax+1; month++) {
 }
 return Result;
 }
+
+

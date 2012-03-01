@@ -387,6 +387,28 @@ while ($country_birhday_bd = $database->database_fetch_assoc ($sql))
 }
 
 
+if ($owner->profile_info['profilevalue_12'] != '0000-00-00')
+{
+	$date_d = explode('-', $owner->profile_info['profilevalue_12']);
+	//echo "<pre>"; print_r($date_d); echo "</pre>"; echo '$date_d - '.$date_d.'<br>';	die();
+	$jdDate = gregoriantojd( $date_d[1], $date_d[2], $date_d[0]); 
+	//echo '$jdDate - '.$jdDate.'<br>'; die();
+	$gregorianMonthName = jdmonthname ( $jdDate, 1 ); 
+	//echo '$gregorianMonthName - '.$gregorianMonthName.'<br>';
+	$hebrewDate = jdtojewish ($jdDate); 
+	//echo '$hebrewDate - '.$hebrewDate.'<br>';
+	
+	list ($hebrewMonth, $hebrewDay, $hebrewYear) = split ('/', $hebrewDate); 
+	
+	$hebrewMonthName = jdmonthname ( $jdDate, 4);
+	//echo '$hebrewMonthName - '.$hebrewMonthName.'<br>';	die();
+
+	$smarty->assign('jd_death_d', $hebrewDay);
+	$smarty->assign('jd_death_m', $hebrewMonth); 
+	$smarty->assign('jd_death_mn', $hebrewMonthName); 
+	$smarty->assign('jd_death_y', $hebrewYear); 
+
+}
 
 $smarty->assign('country', $country);
 $smarty->assign('country_birhday', $country_birhday);

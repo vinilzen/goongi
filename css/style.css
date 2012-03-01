@@ -498,7 +498,7 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.edit_blog .radio div input	{ float:left; margin-right:5px !important;}
 	
 	.form .radio div label	{ font-weight: normal; margin-bottom:0px; float:left; margin-right:20px;}
-	.form .input.date				{ float:left; overflow:hidden; width:212px; clear:none;}
+	.form .input.date				{ float:left; overflow:hidden; width:420px; clear:none;}
 	.form .input.dates				{ float:left; overflow:hidden; width:300px; clear:none;}
 	.form .input.date label			{ overflow:hidden;}
 	.form .input.date input			{ float:left;width:10px;}
@@ -544,6 +544,9 @@ button:active {	padding:0 0 0 0; margin:0; border:0;}
 	.form.edit .input .input_price select{ width:80px;}
 	.form.edit .input input,
 	.form.edit .input textarea	{ width:380px;}
+	.form.edit .input .jd_date input[name=date]{ width:35px;height:17px;margin-right: 1px;}
+	.form.edit .input .jd_date select[name=month]{ width:83px;}
+	.form.edit .input .jd_date input[name=year] { width: 48px;height: 17px;}
 	.form.edit .input .button input	{ width:160px;}
 	.form.edit .input input[type=checkbox]	{ width:17px; float:left;}
 	.form.edit .input select	{ width:390px;}
@@ -821,3 +824,6 @@ a.exel		{ background:url(../images/exel.gif) no-repeat 0 0;}
 #userEditRemovePhotoLink {padding-top:5px;}
 .frlst{margin-left: auto; margin-right: auto; width: 450px;float:left;}
 .search_results{margin-left: auto; margin-right: auto; width: 450px;float:left;}
+
+#edit_profile_nd {float:left; padding:0px 10px 0px 0px;}
+#edit_profile_jd {float:left; padding:0px 0px 0px 0px;}

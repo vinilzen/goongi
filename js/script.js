@@ -1591,3 +1591,76 @@ function edit_member_group (group_id_curent) {
 			},
 			'json');
 }
+
+function recount_gregorian() {
+	var y = parseInt($('.jd_date input[name=year]').val());
+	var m = parseInt($('.jd_date select[name=month] option:selected').attr('value'));
+	var d = parseInt($('.jd_date input[name=date]').val());
+  if (d != '' && y !='' && m !='' && !isNaN(d) && !isNaN(y) && y > 10 ) {
+	  var civDate = heb2civ(d, m + 1, y);
+	  if (civDate === null) {
+		alert ('Ошибка ввода!');
+		set_today();
+	  } else {
+		var civm = civDate[1];
+		var civy = civDate[2];
+		var civd = civDate[0];
+		if (civd < 10)
+			$('#deathdate').val('0'+civd);
+		else
+			$('#deathdate').val(civd);
+			
+		$('#deathyear').val(civy);
+		$('#deathmonth option:eq('+civm+')').attr("selected", "selected");
+		
+		$("select[name=field_12_1] option[value=" + civd + "]").attr("selected", true);
+		$("select[name=field_12_2] option[value=" + civm + "]").attr("selected", true);
+		$("select[name=field_12_3] option[value=" + civy + "]").attr("selected", true);
+	  }
+  }
+  return;
+}
+
+function recount_hebrew() {
+  var y = parseInt(document.gregorian_date.year.value);
+  var m = document.gregorian_date.month.selectedIndex;
+  var d = parseInt(document.gregorian_date.date.value);
+  var tzeit =  document.gregorian_date.after_tzeis[0].checked;
+  var hebDate = civ2heb(d, m + 1, y);
+  var hMonth = hebDate[2];
+  var hYear = hebDate[3];
+  var hebDay = hebDate[1];
+  if (!tzeit) {
+	hebDate = civ2heb(d+1, m + 1, y);
+	hMonth = hebDate[2];
+	hYear = hebDate[3];
+	hebDay = hebDate[1];
+  }
+  document.hebrew_date.date.value = hebDay;
+  document.hebrew_date.month.options[hMonth].selected =1;
+  document.hebrew_date.year.value = hYear;
+  return;
+}
+
+function set_today() {
+	var now = new Date();
+	var day = now.getDay() + 1;
+	var date = now.getDate();
+	var m = now.getMonth();
+	var y = now.getYear();
+	if (y < 1900)
+	  y+= 1900;
+
+	document.gregorian_date.date.value = date;
+	document.gregorian_date.month.options[m].selected =1;
+	document.gregorian_date.year.value = y;
+
+	var hebDate = civ2heb(date, m + 1, y);
+	hMonth = hebDate[2];
+	hYear = hebDate[3];
+	hebDay = hebDate[1];
+
+	document.hebrew_date.date.value = hebDay;
+	document.hebrew_date.month.options[hMonth].selected = 1;
+	document.hebrew_date.year.value = hYear;
+}

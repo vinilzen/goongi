@@ -5,7 +5,7 @@
 {if $owner->user_info.user_id == $user->user_info.user_id}
 <h1>РЕДАКТИРОВАТЬ ЛИЧНУЮ ИНФОРМАЦИЮ</h1>
 {else}
-<h1>ВЫ РЕДАКТИРУЕТЕ ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ {$owner->user_info.user_displayname}</h1>
+<h1>ВЫ РЕДАКТИРУЕТЕ ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ - {$owner->user_info.user_displayname}</h1>
 {/if}
 <div class="crumb">
 	<a href="/">Главная</a>
@@ -82,7 +82,7 @@
 </script>
 {/literal}
 <div class="form edit">
-<form action='user_editprofile.php?user={$owner->user_info.user_username}' method='POST'>
+<form action='user_editprofile.php?user={$owner->user_info.user_username}' method='POST' name="hebrew_date">
 	{if $owner->level_info.level_photo_allow != 0}
 		<div class="input file edit_profile">
 			<label><a href="user_editprofile_photo.php?user={$owner->user_info.user_username}">Загрузи новый аватар </a></label>
@@ -99,7 +99,7 @@
 	
 {* LOOP THROUGH FIELDS *}
 {section name=field_loop loop=$fields}
-{if $fields[field_loop].field_id != 16 || $owner->user_info.user_id != $user->user_info.user_id}
+{if ($fields[field_loop].field_id != 12 || $owner->user_info.user_id != $user->user_info.user_id)  && $fields[field_loop].field_id != 16}
 
     {* TEXT FIELD *}
     {if $fields[field_loop].field_type == 1}
@@ -238,25 +238,55 @@
     {* DATE FIELD *}
     {elseif $fields[field_loop].field_type == 5}
     <div class="input date">
-		<label>{lang_print id=$fields[field_loop].field_title}{if $fields[field_loop].field_required != 0}*{/if}</label>
-		
-		<select  style="width:45px;" name='field_{$fields[field_loop].field_id}_1' style='{$fields[field_loop].field_style}'>
-			{section name=date1 loop=$fields[field_loop].date_array1}
-				<option value='{$fields[field_loop].date_array1[date1].value}'{$fields[field_loop].date_array1[date1].selected}>{if $smarty.section.date1.first} {lang_print id=$fields[field_loop].date_array1[date1].name} {else}{$fields[field_loop].date_array1[date1].name}{/if}</option>
-			{/section}
-		</select>
+		<div class="norm_date"  id="edit_profile_nd">
+			<label>{lang_print id=$fields[field_loop].field_title}{if $fields[field_loop].field_required != 0}*{/if}</label>
+			
+			<select  style="width:45px;" name='field_{$fields[field_loop].field_id}_1' style='{$fields[field_loop].field_style}'>
+				{section name=date1 loop=$fields[field_loop].date_array1}
+					<option value='{$fields[field_loop].date_array1[date1].value}'{$fields[field_loop].date_array1[date1].selected}>{if $smarty.section.date1.first} {lang_print id=$fields[field_loop].date_array1[date1].name} {else}{$fields[field_loop].date_array1[date1].name}{/if}</option>
+				{/section}
+			</select>
 
-		<select  style="width:83px;" name='field_{$fields[field_loop].field_id}_2' style='{$fields[field_loop].field_style}'>
-			{section name=date2 loop=$fields[field_loop].date_array2}
-				<option value='{$fields[field_loop].date_array2[date2].value}'{$fields[field_loop].date_array2[date2].selected}>{if $smarty.section.date2.first} {lang_print id=$fields[field_loop].date_array2[date2].name} {else}{$fields[field_loop].date_array2[date2].name}{/if}</option>
-			{/section}
-		</select>
+			<select  style="width:83px;" name='field_{$fields[field_loop].field_id}_2' style='{$fields[field_loop].field_style}'>
+				{section name=date2 loop=$fields[field_loop].date_array2}
+					{if !$smarty.section.date2.first}<option value='{$fields[field_loop].date_array2[date2].value}'{$fields[field_loop].date_array2[date2].selected}>{$fields[field_loop].date_array2[date2].name}</option>{/if}
+				{/section}
+			</select>
 
-		<select  style="width:58px;" name='field_{$fields[field_loop].field_id}_3' style='{$fields[field_loop].field_style}'>
-			{section name=date3 loop=$fields[field_loop].date_array3}
-				<option value='{$fields[field_loop].date_array3[date3].value}'{$fields[field_loop].date_array3[date3].selected}>{if $smarty.section.date3.first} {lang_print id=$fields[field_loop].date_array3[date3].name} {else}{$fields[field_loop].date_array3[date3].name}{/if}</option>
-			{/section}
-		</select>
+			<select  style="width:58px;" name='field_{$fields[field_loop].field_id}_3' style='{$fields[field_loop].field_style}'>
+				{section name=date3 loop=$fields[field_loop].date_array3}
+					<option value='{$fields[field_loop].date_array3[date3].value}'{$fields[field_loop].date_array3[date3].selected}>{if $smarty.section.date3.first} {lang_print id=$fields[field_loop].date_array3[date3].name} {else}{$fields[field_loop].date_array3[date3].name}{/if}</option>
+				{/section}
+			</select>
+		</div>
+		{if $owner->user_info.user_id != $user->user_info.user_id && $fields[field_loop].field_id == 12}
+
+		<script src="/js/kdate.js"></script>
+
+		<script src="/js/heb2civ.js"></script>
+
+		<div class="jd_date" id="edit_profile_jd">
+			<label>Еврейский календарь<!--{$jd_death_mn}--></label>
+			<input type="text" maxlength="2" name="date" onkeyup="recount_gregorian();" onblur="recount_gregorian();" value="{$jd_death_d}" />
+			<select onchange="recount_gregorian();" name="month">
+				<option value=""></option>
+				<option value="0">нисана</option>
+				<option value="1">ияра</option>
+				<option value="2">сивана</option>
+				<option value="3">тамуза</option>
+				<option value="4">ава</option>
+				<option value="5">элуля</option>
+				<option value="6">тишрея</option>
+				<option value="7">хешвана</option>
+				<option value="8">кислева</option>
+				<option value="9">тевета</option>
+				<option value="10">швата</option>
+				<option value="11">адара</option>
+				<option value="12">адара I</option>
+			</select>
+			<input type="text" maxlength="4" name="year" value="{$jd_death_y}" onkeyup="recount_gregorian();" onblur="recount_gregorian();" />
+		</div>
+		{/if}
     </div>
 	<div class="clear"></div>
 

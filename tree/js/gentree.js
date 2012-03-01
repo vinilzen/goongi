@@ -738,6 +738,7 @@ function recount_gregorian() {
   var y = parseInt(document.hebrew_date.year.value);
   var m = document.hebrew_date.month.selectedIndex;
   var d = parseInt(document.hebrew_date.date.value);
+  
   if (d != '' && y !='' && !isNaN(d) && !isNaN(y) && y > 10 ) {
 	  var civDate = heb2civ(d, m + 1, y);
 	  if (civDate === null) {
