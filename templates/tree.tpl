@@ -148,11 +148,11 @@ function callback(form,act,doc) {
 <div id="viewpoint"></div>
 
 <script id="person-tmpl" type="text/html">
-	<div class="person <%= sex === "w" ? "alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
+	<span class="person <%= sex === "w" ? "alt" : "" %>" data-id="<%= id %>" data-father-id="<%= father %>" data-mother-id="<%= mother %>">
 		<div class="info"></div>
 
 		<div class="relation">
-			<%= id == {/literal}{$user->user_info.user_id}{literal} ? "Ты " : "" %>
+			<%= id == {/literal}{$user->user_info.user_id}{literal} ? "Ты " : id %>
 		</div>
 		<div class="photo loading">
 			<img src="<%= TREE.url.image(id, photo) %>" />
@@ -167,7 +167,7 @@ function callback(form,act,doc) {
 			<%= iduser == {/literal}{$user->user_info.user_id}{literal} ? "<div class='toggle'></div>" : "" %>
 			<!--<div class="toggle"></div>-->
 		</div>
-	</div>
+	</span>
 </script>
 
 <script id="personal-tmpl" type="text/html">
