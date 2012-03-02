@@ -224,17 +224,19 @@ function callback(form,act,doc) {
 			<tr>
 				<th>
 					<label class="kalend"><input type="checkbox" name="dead" <% if (death || death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label><br />
-					<span id="jd_trig">Еврейский календарь</span>
+					<span id="jd_trig" <% if (death || death_bool==1) { %> class="sel" <% } %>>Еврейский календарь</span>
 				</th>
 				<td>
 					<div class="norm_date">
-						<input type="text" maxlength="2" id = "deathdate" name="deathdate" value="<%= death ? death.split("-")[2] : "" %>" <% if (!death_bool) { %> disabled="disabled" <% } %> />
-						<select id = "deathmonth" name="deathmonth" <% if (!death_bool) { %> disabled="disabled" <% } %>>
-							<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
-								<option value="<%= i+1 %>" <% if (death && death.split("-")[1] == i+1) { %> selected="selected" <% } %>><%= month %></option>
-							<% }) %>
-						</select>
-						<input type="text" maxlength="4" id = "deathyear" name="deathyear" value="<%= death ? death.split("-")[0] : "" %>" <% if (!death_bool) { %> disabled="disabled" <% } %> />
+						<form name="gregorian_date">
+							<input  onkeyup="recount_hebrew();" onblur="recount_hebrew();" type="text" maxlength="2" id="deathdate" name="deathdate" value="<%= death ? death.split("-")[2] : "" %>" <% if (!death_bool) { %> disabled="disabled" <% } %> />
+							<select onchange="recount_hebrew();"  id="deathmonth" name="deathmonth" <% if (!death_bool) { %> disabled="disabled" <% } %>>
+								<% _.each(["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], function(month, i) { %>
+									<option value="<%= i+1 %>" <% if (death && death.split("-")[1] == i+1) { %> selected="selected" <% } %>><%= month %></option>
+								<% }) %>
+							</select>
+							<input  onkeyup="recount_hebrew();" onblur="recount_hebrew();" type="text" maxlength="4" id = "deathyear" name="deathyear" value="<%= death ? death.split("-")[0] : "" %>" <% if (!death_bool) { %> disabled="disabled" <% } %> />
+						</form>
 					</div>
 					<div class="jd_date">
 						<form name="hebrew_date">

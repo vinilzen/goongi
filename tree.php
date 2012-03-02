@@ -19,6 +19,7 @@ if ( isset($owner) && $owner->user_exists == 1 )
 else
 	$family = $user->get_family();
 
+
 //$unions = $user->get_user_union();
 //echo '<pre>->'; print_r($user); echo '</pre>';  die();
 // ASSIGN VARIABLES AND INCLUDE FOOTER

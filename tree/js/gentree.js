@@ -5,6 +5,7 @@ json.users[json.user.id] = json.user;
 $(function() {
 	TREE.initialize();
 	TREE.popups.initialize();
+	
 });
 
 var TREE = {
@@ -692,6 +693,7 @@ TREE.popups.collection = {
 		},
 
 		toggleJd: function(e) {
+			recount_hebrew();
 			if ( $(e.target).attr('class') == 'sel' ) {
 				if ( $(e.target).html() == 'Еврейский календарь' ) {
 					$(e.target).html('Григорианский календарь');
@@ -739,7 +741,7 @@ function recount_gregorian() {
   var m = document.hebrew_date.month.selectedIndex;
   var d = parseInt(document.hebrew_date.date.value);
   
-  if (d != '' && y !='' && !isNaN(d) && !isNaN(y) && y > 10 ) {
+  if (!isNaN(d) && !isNaN(y) && y > 10 ) {
 	  var civDate = heb2civ(d, m + 1, y);
 	  if (civDate === null) {
 		alert ('Ошибка ввода!');
@@ -752,6 +754,7 @@ function recount_gregorian() {
 			$('#deathdate').val('0'+civd);
 		else
 			$('#deathdate').val(civd);
+			
 		$('#deathyear').val(civy);
 		$('#deathmonth option:eq('+civm+')').attr("selected", "selected");
 	  }
@@ -760,24 +763,24 @@ function recount_gregorian() {
 }
 
 function recount_hebrew() {
-  var y = parseInt(document.gregorian_date.year.value);
-  var m = document.gregorian_date.month.selectedIndex;
-  var d = parseInt(document.gregorian_date.date.value);
-  var tzeit =  document.gregorian_date.after_tzeis[0].checked;
-  var hebDate = civ2heb(d, m + 1, y);
-  var hMonth = hebDate[2];
-  var hYear = hebDate[3];
-  var hebDay = hebDate[1];
-  if (!tzeit) {
-	hebDate = civ2heb(d+1, m + 1, y);
-	hMonth = hebDate[2];
-	hYear = hebDate[3];
-	hebDay = hebDate[1];
-  }
-  document.hebrew_date.date.value = hebDay;
-  document.hebrew_date.month.options[hMonth].selected =1;
-  document.hebrew_date.year.value = hYear;
-  return;
+
+	var y = parseInt($('#deathyear').val());
+	var m = document.gregorian_date.deathmonth.selectedIndex;
+	var d = parseInt($('#deathdate').val());
+
+	if (!isNaN(d) && !isNaN(y) && y > 10 ) {
+  
+		var hebDate = civ2heb(d, m + 1, y);
+		var hMonth = hebDate[2];
+		var hYear = hebDate[3];
+		var hebDay = hebDate[1];
+
+		document.hebrew_date.date.value = hebDay;
+		document.hebrew_date.month.options[hMonth].selected =1;
+		document.hebrew_date.year.value = hYear;
+	}
+	
+	return;
 }
 
 function set_today() {
@@ -789,9 +792,9 @@ function set_today() {
 	if (y < 1900)
 	  y+= 1900;
 
-	document.gregorian_date.date.value = date;
-	document.gregorian_date.month.options[m].selected =1;
-	document.gregorian_date.year.value = y;
+	document.gregorian_date.deathdate.value = date;
+	document.gregorian_date.deathmonth.options[m].selected =1;
+	document.gregorian_date.deathyear.value = y;
 
 	var hebDate = civ2heb(date, m + 1, y);
 	hMonth = hebDate[2];
