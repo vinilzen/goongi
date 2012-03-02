@@ -10,7 +10,20 @@ include "header.php";
 if ($owner->user_exists == 0 ) {
 	$owner = $user;
 }
-
+else 
+{
+	$resource = $database->database_query("SELECT tree_id FROM se_tree_users WHERE user_id='{$user->user_info['user_id']}'");
+	$treeid=$database->database_fetch_assoc($resource);
+	
+	$resource = $database->database_query("SELECT tree_id FROM se_tree_users WHERE user_id='{$owner->user_info['user_id']}'");
+	$owner_treeid=$database->database_fetch_assoc($resource);
+	
+	if($treeid['tree_id'] != $owner_treeid['tree_id'])
+	{
+		header("Location: /error.php");
+ 		exit();	
+	}
+}	
 
 if(isset($_POST['task'])) { $task = $_POST['task']; } elseif(isset($_GET['task'])) { $task = $_GET['task']; } else { $task = "main"; }
 if(isset($_POST['cat_id'])) { $cat_id = $_POST['cat_id']; } elseif(isset($_GET['cat_id'])) { $cat_id = $_GET['cat_id']; } else { $cat_id = NULL; }

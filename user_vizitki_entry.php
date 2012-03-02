@@ -5,9 +5,9 @@
 $page = "user_vizitki_entry";
 include "header.php";
 
-$task         = ( !empty($_POST['task'])          ? $_POST['task']          : ( !empty($_GET['task'])         ? $_GET['task']         : NULL ) );
-$vizitkientry_id = ( !empty($_POST['vizitkientry_id'])  ? $_POST['vizitkientry_id']  : ( !empty($_GET['vizitkientry_id']) ? $_GET['vizitkientry_id'] : NULL ) );
-$country_id = ( !empty($_POST['countryid'])          ? $_POST['countryid']          : ( !empty($_GET['countryid'])         ? $_GET['countryid']         : NULL ) );
+$task       		= ( !empty($_POST['task'])          	? $_POST['task']          : ( !empty($_GET['task'])         ? $_GET['task']         : NULL ) );
+$vizitkientry_id	= ( !empty($_POST['vizitkientry_id'])	? $_POST['vizitkientry_id']  : ( !empty($_GET['vizitkientry_id']) ? $_GET['vizitkientry_id'] : NULL ) );
+$country_id			= ( !empty($_POST['countryid'])         ? $_POST['countryid']          : ( !empty($_GET['countryid'])         ? $_GET['countryid']         : NULL ) );
 //echo $vizitkientry_id;
 
 // ENSURE vizitkiS ARE ENABLED FOR THIS USER
@@ -308,7 +308,7 @@ else
 	}
 }
 
-$sql = $database->database_query ("SELECT * FROM country");
+$sql = $database->database_query ("SELECT * FROM country ORDER BY  `name` ASC ");
 while ($country_bd = $database->database_fetch_assoc ($sql))
 {
 	if($country_id == $country_bd[country_id])

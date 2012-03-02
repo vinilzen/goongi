@@ -1596,7 +1596,7 @@ function recount_gregorian() {
 	var y = parseInt($('.jd_date input[name=year]').val());
 	var m = parseInt($('.jd_date select[name=month] option:selected').attr('value'));
 	var d = parseInt($('.jd_date input[name=date]').val());
-  if (d != '' && y !='' && m !='' && !isNaN(d) && !isNaN(y) && y > 10 ) {
+  if (d != 0 && !isNaN(d) && !isNaN(y) && y > 10 ) {
 	  var civDate = heb2civ(d, m + 1, y);
 	  if (civDate === null) {
 		alert ('Ошибка ввода!');
@@ -1622,23 +1622,18 @@ function recount_gregorian() {
 }
 
 function recount_hebrew() {
-  var y = parseInt(document.gregorian_date.year.value);
-  var m = document.gregorian_date.month.selectedIndex;
-  var d = parseInt(document.gregorian_date.date.value);
-  var tzeit =  document.gregorian_date.after_tzeis[0].checked;
-  var hebDate = civ2heb(d, m + 1, y);
+	var y = parseInt($('select[name=field_12_3]').val());
+	var m = parseInt($('select[name=field_12_2]').val());
+	var d = parseInt($('select[name=field_12_1]').val());
+	
+  var hebDate = civ2heb(d, m, y);
   var hMonth = hebDate[2];
   var hYear = hebDate[3];
   var hebDay = hebDate[1];
-  if (!tzeit) {
-	hebDate = civ2heb(d+1, m + 1, y);
-	hMonth = hebDate[2];
-	hYear = hebDate[3];
-	hebDay = hebDate[1];
-  }
-  document.hebrew_date.date.value = hebDay;
-  document.hebrew_date.month.options[hMonth].selected =1;
-  document.hebrew_date.year.value = hYear;
+  
+  $('.jd_date input[name=year]').val(hYear)
+  $('.jd_date input[name=date]').val(hebDay)
+  $('.jd_date select[name=month] option[value=' + hMonth + ']').attr("selected", true);
   return;
 }
 
@@ -1650,17 +1645,17 @@ function set_today() {
 	var y = now.getYear();
 	if (y < 1900)
 	  y+= 1900;
-
-	document.gregorian_date.date.value = date;
-	document.gregorian_date.month.options[m].selected =1;
-	document.gregorian_date.year.value = y;
-
+	  
+	$("select[name=field_12_1] option[value=" + date + "]").attr("selected", true);
+	$("select[name=field_12_2] option[value=" + m + "]").attr("selected", true);
+	$("select[name=field_12_3] option[value=" + y + "]").attr("selected", true);
+	
 	var hebDate = civ2heb(date, m + 1, y);
 	hMonth = hebDate[2];
 	hYear = hebDate[3];
 	hebDay = hebDate[1];
 
-	document.hebrew_date.date.value = hebDay;
-	document.hebrew_date.month.options[hMonth].selected = 1;
-	document.hebrew_date.year.value = hYear;
+	$('.jd_date input[name=year]').val(hYear)
+	$('.jd_date input[name=date]').val(hebDay)
+	$('.jd_date select[name=month] option[value=' + hMonth + ']').attr("selected", true);
 }

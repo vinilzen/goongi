@@ -156,7 +156,7 @@
 
     {* LOOP THROUGH FIELDS IN TAB *}
     {section name=field_loop loop=$cats[cat_loop].subcats[subcat_loop].fields}
-      
+      {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_id != 12}
      
       {* TEXT FIELD *}
       {if $cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_type == 1}
@@ -347,7 +347,7 @@
    <!--   <div class='form_desc'>{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_desc}</div>-->
       {capture assign='field_error'}{lang_print id=$cats[cat_loop].subcats[subcat_loop].fields[field_loop].field_error}{/capture}
       {if $field_error != ""}<div class='form_error'><img src='./images/icons/error16.gif' border='0' class='icon'> {$field_error}</div>{/if}
-
+	{/if}
     {/section}
 
   <br>

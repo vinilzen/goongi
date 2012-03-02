@@ -12,12 +12,13 @@
 	<a href="{$url->url_create("profile", $owner->user_info.user_username)}">{lang_print id=652}<!-- Профиль -->{if $owner->user_info.user_id != $user->user_info.user_id}&nbsp;{$owner->user_info.user_displayname}{/if}</a>
 	<span>{lang_print id=1000069}<!-- редактировать --></span>
 </div>
-
+{if $owner->user_info.user_id == $user->user_info.user_id}
 <div class="buttons" >
 	<span class="button2"><span class="l">&nbsp;</span><span class="c">
 		<a href="/user_editprofile_photo.php">{lang_print id=769}</a>
 	</span><span class="r">&nbsp;</span></span>
 </div>
+{/if}
 <div class="clear"><!-- --></div>
 {*
 {section name=cat_loop loop=$cats}
@@ -241,19 +242,19 @@
 		<div class="norm_date"  id="edit_profile_nd">
 			<label>{lang_print id=$fields[field_loop].field_title}{if $fields[field_loop].field_required != 0}*{/if}</label>
 			
-			<select  style="width:45px;" name='field_{$fields[field_loop].field_id}_1' style='{$fields[field_loop].field_style}'>
+			<select   onchange="recount_hebrew();" style="width:45px;" name='field_{$fields[field_loop].field_id}_1' style='{$fields[field_loop].field_style}'>
 				{section name=date1 loop=$fields[field_loop].date_array1}
 					<option value='{$fields[field_loop].date_array1[date1].value}'{$fields[field_loop].date_array1[date1].selected}>{if $smarty.section.date1.first} {lang_print id=$fields[field_loop].date_array1[date1].name} {else}{$fields[field_loop].date_array1[date1].name}{/if}</option>
 				{/section}
 			</select>
 
-			<select  style="width:83px;" name='field_{$fields[field_loop].field_id}_2' style='{$fields[field_loop].field_style}'>
+			<select  onchange="recount_hebrew();"  style="width:83px;" name='field_{$fields[field_loop].field_id}_2' style='{$fields[field_loop].field_style}'>
 				{section name=date2 loop=$fields[field_loop].date_array2}
 					{if !$smarty.section.date2.first}<option value='{$fields[field_loop].date_array2[date2].value}'{$fields[field_loop].date_array2[date2].selected}>{$fields[field_loop].date_array2[date2].name}</option>{/if}
 				{/section}
 			</select>
 
-			<select  style="width:58px;" name='field_{$fields[field_loop].field_id}_3' style='{$fields[field_loop].field_style}'>
+			<select  onchange="recount_hebrew();"  style="width:58px;" name='field_{$fields[field_loop].field_id}_3' style='{$fields[field_loop].field_style}'>
 				{section name=date3 loop=$fields[field_loop].date_array3}
 					<option value='{$fields[field_loop].date_array3[date3].value}'{$fields[field_loop].date_array3[date3].selected}>{if $smarty.section.date3.first} {lang_print id=$fields[field_loop].date_array3[date3].name} {else}{$fields[field_loop].date_array3[date3].name}{/if}</option>
 				{/section}
@@ -266,23 +267,22 @@
 		<script src="/js/heb2civ.js"></script>
 
 		<div class="jd_date" id="edit_profile_jd">
-			<label>Еврейский календарь<!--{$jd_death_mn}--></label>
+			<label>Еврейский календарь<!-- {$jd_death_mn} - {$jd_death_m} --></label>
 			<input type="text" maxlength="2" name="date" onkeyup="recount_gregorian();" onblur="recount_gregorian();" value="{$jd_death_d}" />
 			<select onchange="recount_gregorian();" name="month">
-				<option value=""></option>
-				<option value="0">нисана</option>
-				<option value="1">ияра</option>
-				<option value="2">сивана</option>
-				<option value="3">тамуза</option>
-				<option value="4">ава</option>
-				<option value="5">элуля</option>
-				<option value="6">тишрея</option>
-				<option value="7">хешвана</option>
-				<option value="8">кислева</option>
-				<option value="9">тевета</option>
-				<option value="10">швата</option>
-				<option value="11">адара</option>
-				<option value="12">адара I</option>
+				<option value="0" {if $jd_death_m == 8}selected="selected"{/if}>нисана</option>
+				<option value="1" {if $jd_death_m == 9}selected="selected"{/if}>ияра</option>
+				<option value="2" {if $jd_death_m == 10}selected="selected"{/if}>сивана</option>
+				<option value="3" {if $jd_death_m == 11}selected="selected"{/if}>тамуза</option>
+				<option value="4" {if $jd_death_m == 12}selected="selected"{/if}>ава</option>
+				<option value="5" {if $jd_death_m == 13}selected="selected"{/if}>элуля</option>
+				<option value="6" {if $jd_death_m == 1}selected="selected"{/if}>тишрея</option>
+				<option value="7" {if $jd_death_m == 2}selected="selected"{/if}>хешвана</option>
+				<option value="8" {if $jd_death_m == 3}selected="selected"{/if}>кислева</option>
+				<option value="9" {if $jd_death_m == 4}selected="selected"{/if}>тевета</option>
+				<option value="10" {if $jd_death_m == 5}selected="selected"{/if}>швата</option>
+				<option value="12" {if $jd_death_m == 6}selected="selected"{/if}>адара I</option>
+				<option value="13" {if $jd_death_m == 7}selected="selected"{/if}>адара II</option>
 			</select>
 			<input type="text" maxlength="4" name="year" value="{$jd_death_y}" onkeyup="recount_gregorian();" onblur="recount_gregorian();" />
 		</div>

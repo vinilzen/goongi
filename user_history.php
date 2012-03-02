@@ -44,28 +44,30 @@ $id_tree_owner = $user->get_tree_id($owner->user_info['user_id']);
 if ($owner->user_info['user_id'] != 0 && $owner->user_info['user_id'] != $user->user_info['user_id'])
 {
 	$user_id = $owner->user_info['user_id'];
-         if ($id_tree_us == $id_tree_owner) $show_edit = 1;
-         else $show_edit = 0;
-        
+	
+	if ($id_tree_us == $id_tree_owner) 
+		$show_edit = 1;
+	else 
+		$show_edit = 0;
+
 }
 else
 { 
 	$user_id = $user->user_info['user_id'];
-       $show_edit = 1;
+    $show_edit = 1;
 }
 
 if (!$historyentry_id)
 {
    
-      $sql = "SELECT tree_id FROM se_tree_users WHERE user_id='{$user_id}'";
-      $resource = $database->database_query($sql);
-      $treeid=$database->database_fetch_assoc($resource);
-      $historyentry_historyentrycat_id = $treeid['tree_id'];
+    $sql = "SELECT tree_id FROM se_tree_users WHERE user_id='{$user_id}'";
+    $resource = $database->database_query($sql);
+    $treeid=$database->database_fetch_assoc($resource);
+    $historyentry_historyentrycat_id = $treeid['tree_id'];
 
-$total_historyentries = $history->history_entries_total($where,$historyentry_historyentrycat_id);
-$historyentries = $history->history_entries_list($page_vars[0], $entries_per_page, $s, $where,$historyentry_historyentrycat_id);
+	$total_historyentries = $history->history_entries_total($where,$historyentry_historyentrycat_id);
+	$historyentries = $history->history_entries_list($page_vars[0], $entries_per_page, $s, $where,$historyentry_historyentrycat_id);
 
-  
 }
 //print_r ($historyentries);
 
