@@ -16,10 +16,12 @@
 {if $flag == 1}
 
 {else}
+
 <div class='page_header'>
 <a href='{$url->url_create('profile', $owner)}'>{lang_sprintf id=80000029 1=$owner}</a>
 </div>
 {/if}
+	<div class="clear"><!-- --></div>
    <ul class="gift">
   {foreach key=cid item=con from=$gifts}
     <li>

@@ -65,7 +65,7 @@
 <br>
 {/if}
 
-
+<div class="clear"><!-- --></div>
 {* CHECK IF THERE ARE NO MESSAGES IN INBOX *}
 {if $total_pms == 0}
   <div >{lang_print id=785}<!-- 785 --> </div>

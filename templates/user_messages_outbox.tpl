@@ -46,7 +46,7 @@
 {/literal}
 
 
-
+<div class="clear"><!-- --></div>
 
 
 {* CHECK IF THERE ARE NO MESSAGES IN OUTBOX *}
@@ -54,7 +54,6 @@
   <div >{lang_print id=799}</div>
 {* DISPLAY MESSAGES *}
 {else}
-
 <ul class="message_list">
   {* LIST SENT MESSAGES *}
   {section name=pm_loop loop=$pms}
