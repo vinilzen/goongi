@@ -128,7 +128,8 @@ var TREE = {
 	render: function(options) {
 		this.viewpoint.empty();
 		var bw = this.renderFamilyBackward(json.user.id, this.viewpoint);
-		var fw = this.renderFamilyForward(json.user.id, this.viewpoint).addClass('forward');
+		var startnode = json.user.father && json.users[json.user.father].id || json.user.mother && json.users[json.user.mother].id || json.user.id;
+		var fw = this.renderFamilyForward(startnode, this.viewpoint).addClass('forward');
 		this.viewpoint.width(_.max([bw.width(), fw.width()]));
 
 		var merge = $('.person').filter(function() {
@@ -169,6 +170,7 @@ var TREE = {
 			parents = $('<div class="parents" />').appendTo(family),
 			children = $('<div class="children" />').appendTo(family);
 		this.tmpl.person(json.users[parentId]).appendTo(parents);
+		parents.toggle(!(parentId === json.user.father || parentId === json.user.mother));
 		this.tmpl.person(json.users[json.users[parentId].spouse]).appendTo(parents);
 
 		_(json.users).chain().filter(function(user) {
@@ -237,13 +239,20 @@ var TREE = {
 					parentLink = [x, y + 30.5];
 					break;
 				case 2:
-					x = parents.eq(1).offset().left - family.offset().left;
-					y = parents.eq(0).outerHeight();
-					ctx.moveTo(x, y / 2);
-					ctx.lineTo(x - 60.5, y / 2);
-					ctx.moveTo(x - 30.5, y / 2);
-					ctx.lineTo(x - 30.5, y + 30.5);
-					parentLink = [x - 30.5, y + 30.5];
+					if (parents.filter(':visible').length) {
+						x = parents.eq(1).offset().left - family.offset().left;
+						y = parents.eq(0).outerHeight();
+						ctx.moveTo(x, y / 2);
+						ctx.lineTo(x - 60.5, y / 2);
+						ctx.moveTo(x - 30.5, y / 2);
+						ctx.lineTo(x - 30.5, y + 30.5);
+						parentLink = [x - 30.5, y + 30.5];
+					}	else {
+						x = children.offset().left - family.offset().left + children.outerWidth() / 2;
+						y = 30.5;
+						ctx.moveTo(x, y);
+						parentLink = [x, y];
+					}
 					break;
 				}
 
