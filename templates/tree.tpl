@@ -152,7 +152,7 @@ function callback(form,act,doc) {
 		<div class="info"></div>
 
 		<div class="relation">
-			<%= id == {/literal}{$user->user_info.user_id}{literal} ? "Ты " : id %>
+			<%= id == {/literal}{$user->user_info.user_id}{literal} ? "Ты " : "" %>
 		</div>
 		<div class="photo loading">
 			<img src="<%= TREE.url.image(id, photo) %>" />
