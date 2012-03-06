@@ -31,69 +31,83 @@ if($task == "send") {
 		$to = $_POST['to_display'];
 	}
 
-$total_friends = $user->user_friend_total(0);
-if ($total_friends>0)
-{
-$friends = $user->user_friend_list(0, $total_friends, 0);
-       foreach ($friends as $key => $value) {
-		if ($to == $value->user_info['user_displayname'])
-                        {
-                    $is_error = '0';
-                    $id_user = $value->user_info['user_id'];
-                }
-		 }
-}
-//echo $user->user_info['user_id'];
-$id_my = $user->user_info['user_id'];
-//conv_id
-$resource =$database->database_query("SELECT pmconvoop_pmconvo_id FROM se_pmconvoops WHERE pmconvoop_user_id ='{$id_my}'");
- while( $pmconvoop_info=$database->database_fetch_assoc($resource) )
- {
-     $convo_idp = $pmconvoop_info['pmconvoop_pmconvo_id'];
-     $resource2 =$database->database_query("SELECT pmconvoop_pmconvo_id FROM se_pmconvoops WHERE pmconvoop_user_id ='{$id_user}' AND pmconvoop_pmconvo_id = '{$convo_idp}'");
-         if ($database->database_num_rows($resource2)) {$convo_id = $pmconvoop_info['pmconvoop_pmconvo_id']; continue;}
-         else $convo_id = '';
- }
-//$convo_id = $resource['pmconvoop_pmconvo_id'];
-///
-if ($is_error == '0')
-{
-	$subject = $_POST['subject'];
-	$message = $_POST['message'];
+	$total_friends = $user->user_friend_total(0);
+	if ($total_friends>0)
+	{
+		$friends = $user->user_friend_list(0, $total_friends, 0);
+    
+	    foreach ($friends as $key => $value)
+	    {
+			if ($to == $value->user_info['user_displayname'])
+	        {
+	             $is_error = '0';
+	             $id_user = $value->user_info['user_id'];
+	        }
+		}
+	}
 	
-	$id = $user->user_message_send($id_user,$to, $subject, $message,$convo_id);
-	$is_error = $user->is_error;
+	$id_my = $user->user_info['user_id'];
+	
+	$resource =$database->database_query("SELECT pmconvoop_pmconvo_id FROM se_pmconvoops WHERE pmconvoop_user_id ='{$id_my}'");
+	
+	while( $pmconvoop_info=$database->database_fetch_assoc($resource) )
+	{
+		
+	    $convo_idp = $pmconvoop_info['pmconvoop_pmconvo_id'];
+	    if (isset($convo_idp) && $convo_idp != '' && is_numeric($convo_idp))
+		{
+		    //echo $id_my.'-'.$id_user.'-'. $convo_idp; 
+			
+		    $resource2 =$database->database_query("SELECT pmconvoop_pmconvo_id FROM se_pmconvoops WHERE pmconvoop_user_id ='{$id_user}' AND pmconvoop_pmconvo_id = '{$convo_idp}'");
+			if ($database->database_num_rows($resource2))
+			{
+				$convo_id = $pmconvoop_info['pmconvoop_pmconvo_id'];
+				continue;
+			}
+		    else
+		    	$convo_id = '';
+		}
+	}
 
-	if($is_error != 0) {
-		SE_Language::_preload($is_error);
-		SE_Language::load();
-		$error_message = SE_Language::_get($is_error);
-	} else $error_message = 'Ваше сообщение отправлено';
-// if ($is_error != 0)
-///      {echo $error_message; die();}
-// else {echo 'Отправленно'; die();}
-}
-else $error_message = 'Выберите пользователя из списка';
- echo json_encode(array(
-    'is_error' => $is_error,
-     'result' =>$error_message,
-     'id'=>$id
-  ));
- exit();
+	//echo '*'.$id_my.'-'.$convo_id; die();
 
+	if ($is_error == '0')
+	{
+		$subject = $_POST['subject'];
+		$message = $_POST['message'];
+		
+		$id = $user->user_message_send($id_user,$to, $subject, $message,$convo_id);
+		$is_error = $user->is_error;
+	
+		if($is_error != 0) {
+			SE_Language::_preload($is_error);
+			SE_Language::load();
+			$error_message = SE_Language::_get($is_error);
+		} else $error_message = 'Ваше сообщение отправлено';
+	}
+	else
+		$error_message = 'Выберите пользователя из списка';
+		
+	echo json_encode(array(	'is_error' => $is_error,
+					    	'result' =>$error_message,
+					    	'id'=>$id) );
+	exit();
 }
-if($task == "show_f") {
+
+if($task == "show_f")
+{
     $is_error=0;
-$total_friends = $user->user_friend_total(0);
-$friends = $user->user_friend_list(0, $total_friends, 0);
-  echo json_encode(array(
-    'is_error' => $is_error,
-    'total_friends' => $total_friends,
-    'photo'=>$user->user_photo("./images/nophoto.gif"),
-    'name'=>$user->user_friend_list(0, $total_friends, 0),
-    'friends' => $friends
-  ));
- exit();
+	
+	$total_friends = $user->user_friend_total(0);
+	$friends = $user->user_friend_list(0, $total_friends, 0);
+	echo json_encode(array(
+	    'is_error' => $is_error,
+	    'total_friends' => $total_friends,
+	    'photo'=>$user->user_photo("./images/nophoto.gif"),
+	    'name'=>$user->user_friend_list(0, $total_friends, 0),
+	    'friends' => $friends
+	  ));
+	exit();
 }
 
 
