@@ -17,6 +17,19 @@
 {if $owner->user_info.user_id == $user->user_info.user_id && $death != 1 || ($owner->user_info.user_lastlogindate == 0 && $death != 1)}
 
 <div class="buttons">
+	<div class="profil_mn"><a href="#" class="p_link"><span>профиль</span></a>
+		<div class="p_mn">
+			<div class="p_mn_t"></div>
+			<div class="p_mn_c">
+				<div class="p_mn_b">
+					<a href="/tree.php?user={$owner->user_info.user_username}">Древо</a>
+					<a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a>
+					<a href="/user_history.php?user={$owner->user_info.user_username}">История рода</a>
+					<a href="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<span class="button2">
 		<span class="l">&nbsp;</span><span class="c">
 			<a href="/user_editprofile.php{if $owner->user_info.user_lastlogindate == 0}?user={$owner->user_info.user_username}{/if}">Редактировать информацию</a>
@@ -24,7 +37,7 @@
 	</span>
 </div>
 {/if}
-{if $user->user_exists != 0 && $owner->user_info.user_id !=  $user->user_info.user_id && $death != 1 && $owner->user_info.user_lastlogindate != 	0 }
+{if $user->user_exists != 0 && $owner->user_info.user_id !=  $user->user_info.user_id && $death != 1 && $owner->user_info.user_lastlogindate != 0 }
 	{if $owner->user_info.user_id != 0}
 		<div class="buttons" style="overflow:visible;">
 			<div class="profil_mn"><a href="#" class="p_link"><span>профиль</span></a>
@@ -90,9 +103,10 @@
 				{/section}
 			{/section}
 		{/section}
-                {if $country != ''}<p><span> Страна проживания</span>{$country}</p>{/if}
-                {if $city != ''}<p><span> Город</span>{$city}</p>{/if}
-                {if $country_birhday != ''}<p><span> Страна рождения</span>{$country_birhday}</p>{/if}
+		
+		{if $country != ''}<p><span> Страна проживания</span>{$country}</p>{/if}
+		{if $city != ''}<p><span> Город</span>{$city}</p>{/if}
+		{if $country_birhday != ''}<p><span> Страна рождения</span>{$country_birhday}</p>{/if}
 	</div>
 </div>
 {else}

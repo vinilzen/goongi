@@ -84,7 +84,7 @@
 {/literal}
 <div class="form edit">
 <form action='user_editprofile.php?user={$owner->user_info.user_username}' method='POST' name="hebrew_date">
-	{if $owner->level_info.level_photo_allow != 0}
+	{if $owner->level_info.level_photo_allow != 0 && $owner->user_info.user_id == $user->user_info.user_id }
 		<div class="input file edit_profile">
 			<label><a href="user_editprofile_photo.php?user={$owner->user_info.user_username}">Загрузи новый аватар </a></label>
 			<div class="brdr">
