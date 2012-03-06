@@ -50,7 +50,7 @@ switch ($type_request) {
 					$new_user["birthday"] = isset($_POST['birthday'])?$_POST['birthday']:'0000-00-00';
 					
 					$new_user["death"] = isset($_POST['death'])?$_POST['death']:'0000-00-00'; // 0000-00-00
-                                        $new_user["death_b"] = isset($_POST['death_b'])?$_POST['death_b']:'0000-00-00';
+                    $new_user["death_b"] = isset($_POST['death_b'])?$_POST['death_b']:'0000-00-00';
 					$new_user["alias"] = isset($_POST['alias'])?$_POST['alias']:'';
 					
 					if (	$role == 'child'	|| 
@@ -82,7 +82,7 @@ switch ($type_request) {
 										$new_user["birthday"],
 										$new_user["sex"],
 										$new_user["death"],
-                                                                                $new_user["death_b"],
+                                        $new_user["death_b"],
 										$new_user["alias"],
 										$new_user["send_invite"],
 										$family_id,
@@ -123,7 +123,7 @@ switch ($type_request) {
 										$new_user["birthday"],
 										$new_user["sex"],
 										$new_user["death"],
-                                                                                $new_user["death_b"],
+                                        $new_user["death_b"],
 										$new_user["alias"],
 										$new_user["send_invite"],
 										$family_id,
@@ -163,7 +163,7 @@ switch ($type_request) {
 											$new_user["birthday"],
 											$new_user["sex"],
 											$new_user["death"],
-                                                                                        $new_user["death_b"],
+                                            $new_user["death_b"],
 											$new_user["alias"],
 											$new_user["send_invite"],
 											$family_id,
@@ -207,7 +207,7 @@ switch ($type_request) {
 											$new_user["birthday"],
 											$new_user["sex"],
 											$new_user["death"],
-                                                                                        $new_user["death_b"],
+                                            $new_user["death_b"],
 											$new_user["alias"],
 											$new_user["send_invite"],
 											$family_id,
@@ -237,20 +237,20 @@ switch ($type_request) {
 								$s = $user->get_sex($user_id);
 								$family_id = $user->get_main_family_id($user_id,$s,$new_user['lname']);
 								$level = $user->getlevel($user_id);
-                                                                        if ($level == 0) $level = -1;
-                                                                           elseif ($level > 0) $level = $level+ 1;
-                                                                               elseif ($level < 0) $level = $level - 1;
-                                                               
-                                                                $parent = $user->check_life_parent($user_id,$family_id);
-                                                              
-                                                                if ($parent == false)
-                                                                {
-                                                                     if ($s == 'w') $user->creat_husband($user_id,$new_user['lname']);
-                                                                     if ($s == 'm') $user->creat_wife($user_id,$new_user['lname']);
-                                                                        
-                                                                }
-                                                                elseif (($parent[0] == 'father') && ($s=='m') ) $user->creat_wife($user_id,$new_user['lname']);
-                                                                elseif (($parent[0] == 'mother') && ($s=='w') ) $user->creat_husband($user_id,$new_user['lname']);
+                                        if ($level == 0) $level = -1;
+                                           elseif ($level > 0) $level = $level+ 1;
+                                               elseif ($level < 0) $level = $level - 1;
+                               
+                                $parent = $user->check_life_parent($user_id,$family_id);
+                              
+                                if ($parent == false)
+                                {
+                                     if ($s == 'w') $user->creat_husband($user_id,$new_user['lname']);
+                                     if ($s == 'm') $user->creat_wife($user_id,$new_user['lname']);
+                                        
+                                }
+                                elseif (($parent[0] == 'father') && ($s=='m') ) $user->creat_wife($user_id,$new_user['lname']);
+                                elseif (($parent[0] == 'mother') && ($s=='w') ) $user->creat_husband($user_id,$new_user['lname']);
 
 								if ( $user->user_create_fast(
 									$new_user['fname'],
@@ -261,7 +261,7 @@ switch ($type_request) {
 									$new_user["birthday"],
 									$new_user["sex"],
 									$new_user["death"],
-                                                                        $new_user["death_b"],
+                                    $new_user["death_b"],
 									$new_user["alias"],
 									$new_user["send_invite"],
 									$family_id,
@@ -280,22 +280,22 @@ switch ($type_request) {
 							case 'brother'||'sister':
 								$role = 'child';
 								
-                                                                $level = $user->getlevel($user_id);
-                                                                //$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
-                                                                $family_id = $user->get_fam_brother($user_id);
-                                                                if ($level > 0){
-                                                                    $family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
-                                                                    $parent = $user->check_life_parentup($user_id,$family_id);}
-                                                                else
-                                                                $parent = $user->check_life_parent($user_id,$family_id);
-                                                             
-                                                                if ($parent == false)
-                                                                {
-                                                                        $user->creat_mother($user_id,$new_user['lname']);
-                                                                        $user->creat_father($user_id,$new_user['lname']);
-                                                                }
-                                                                elseif ($parent[0] == 'father') $user->creat_mother($user_id,$new_user['lname']);
-                                                                elseif ($parent[0] == 'mother') $user->creat_father($user_id,$new_user['lname']);
+                                $level = $user->getlevel($user_id);
+                                //$family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
+                                $family_id = $user->get_fam_brother($user_id);
+                                if ($level > 0){
+                                    $family_id = $user->get_parent_family_id($user_id,$new_user['lname']);
+                                    $parent = $user->check_life_parentup($user_id,$family_id);}
+                                else
+                                $parent = $user->check_life_parent($user_id,$family_id);
+                             
+                                if ($parent == false)
+                                {
+                                	$user->creat_mother($user_id,$new_user['lname']);
+                                	$user->creat_father($user_id,$new_user['lname']);
+                                }
+                                elseif ($parent[0] == 'father') $user->creat_mother($user_id,$new_user['lname']);
+                                elseif ($parent[0] == 'mother') $user->creat_father($user_id,$new_user['lname']);
                                                                 
 								if ( $user->user_create_fast(
 									$new_user['fname'],
@@ -306,11 +306,11 @@ switch ($type_request) {
 									$new_user["birthday"],
 									$new_user["sex"],
 									$new_user["death"],
-                                                                        $new_user["death_b"],
+                                    $new_user["death_b"],
 									$new_user["alias"],
 									$new_user["send_invite"],
 									$family_id,
-                                                                        $level ) ) {
+                                    $level ) ) {
 								
 									$error = 0;
 									$result = SE_Language::get(729);
@@ -357,6 +357,8 @@ switch ($type_request) {
 	
 	case 'edit':
 		
+		//print_r($_POST); die();
+		
 		$user_id = (int)$_POST['user_id'];
           
 		if ( isset($user_id) && $user_id != 0 ) {
@@ -364,23 +366,23 @@ switch ($type_request) {
 			$set = array(); // for table se_users
 			$set_fields = array(); // for table se_profilevalues
 			
-                         if ( isset($_POST['email']) && (isset($_POST['send_invite']) && $_POST['send_invite'] == 1)) {  // ADD CHECKING - PROZVISHE
+             if ( isset($_POST['email']) && (isset($_POST['send_invite']) && $_POST['send_invite'] == 1)) // ADD CHECKING - PROZVISHE
+			{
+                 $time = time();
+                 $invite =$database->database_fetch_assoc($database->database_query("SELECT invite_id FROM se_invites WHERE invite_user_id='$user_id' LIMIT 1;"));
+                 if ($invite != '')
+                 {
+                 	$database->database_query("UPDATE `se_invites` SET invite_date='$time', invite_email='{$_POST['email']}' WHERE invite_user_id='$user_id' LIMIT 1;");
+                 }
+                 else
+                 	$database->database_query("INSERT INTO se_invites (invite_user_id, invite_date, invite_email) VALUES ('$user_id', '".time()."', '{$_POST['email']}')");//invite
 
-                             $time = time();
-                             $invite =$database->database_fetch_assoc($database->database_query("SELECT invite_id FROM se_invites WHERE invite_user_id='$user_id' LIMIT 1;"));
-                             if ($invite != '')
-                             {
-                                  $database->database_query("UPDATE `se_invites` SET invite_date='$time', invite_email='{$_POST['email']}' WHERE invite_user_id='$user_id' LIMIT 1;");
-                             }
-                             else
-                                  $database->database_query("INSERT INTO se_invites (invite_user_id, invite_date, invite_email) VALUES ('$user_id', '".time()."', '{$_POST['email']}')");//invite
-
-                             $display = mysql_real_escape_string($_POST['fname']);
-                              $signup_password = randomcode(6);
-                              $crypt_password = $user->new_user_password_crypt($signup_password);
-			      $database->database_query("UPDATE `se_users` SET  user_password = '$crypt_password' WHERE `user_id` = $user_id LIMIT 1;");
-                              send_systememail('welcome', $_POST['email'], Array($display, $_POST['email'],$signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
-                         }
+				$display = mysql_real_escape_string($_POST['fname']);
+				$signup_password = randomcode(6);
+				$crypt_password = $user->new_user_password_crypt($signup_password);
+				$database->database_query("UPDATE `se_users` SET  user_password = '$crypt_password' WHERE `user_id` = $user_id LIMIT 1;");
+				send_systememail('welcome', $_POST['email'], Array($display, $_POST['email'],$signup_password, "<a href=\"".$url->url_base."login.php\">".$url->url_base."login.php</a>"));
+             }
 
 
 			if ( isset($_POST['alias']) ) {  // ADD CHECKING - PROZVISHE
@@ -395,79 +397,67 @@ switch ($type_request) {
 				$set[] = " `user_photo` = '" . mysql_real_escape_string($_POST['photo']) . "' ";
 			}
                         
-			if (isset($_POST['death']))
-                        {
-
-                        $dateb=$_POST['death'];
-                        $dateb =preg_replace('/[-]+?/','',$dateb);
-                     //   echo $dateb;
-                        }
-			if (isset($_POST['death']) && is_numeric($dateb) ) {  // ADD CHECKING
-			//	$d_date = date('Y-m-d',$_POST['death']);
-
-                            	$d_date = $_POST['death'];
-				$set_fields[] = " `profilevalue_12` = '" . $d_date . "' ";
-                                $set_fields[] = " `profilevalue_16` = '" . 1 . "' ";
+	   		if ( isset($_POST['death_b']) && (int)$_POST['death_b'] == 1 )
+	   		{
+	          	$set_fields[] = " `profilevalue_16` = '" . 1 . "' ";
+				
+				if (isset($_POST['death']))
+	            {
+	            	$dateb=$_POST['death'];
+	                $dateb =preg_replace('/[-]+?/','',$dateb);
+	            }
+				
+				if (isset($_POST['death']) && is_numeric($dateb) ) // ADD CHECKING
+				{
+	                $d_date = $_POST['death'];
+					$set_fields[] = " `profilevalue_12` = '" . $d_date . "' ";
+				}				
 			}
-                        else $set_fields[] = " `profilevalue_16` = '" . 0 . "' ";
-                        if (isset($_POST['birthday']))
-                        {
-
-                        $dateb=$_POST['birthday'];
-                        $dateb =preg_replace('/[-]+?/','',$dateb);
-                     //   echo $dateb;
-                        }
-			if (isset($_POST['birthday']) && is_numeric($dateb) ) {
-                           // ADD CHECKING
-				//$b_date = date('Y-m-d',$_POST['birthday']);
-                             //   echo $b_date;
-                                $b_date=$_POST['birthday'];
-				$set_fields[] = " `profilevalue_4` = '" . $b_date . "' ";
-                               // print_r ($set_fields);
+			else
+			{
+				$set_fields[] = " `profilevalue_16` = '" . 0 . "' ";
+				$set_fields[] = " `profilevalue_12` = '0000-00-00' ";
 			}
 			
-			if ( $user_id != $user->user_info['user_id'] ) { // new login
-				if (isset($_POST['email'])&& ($_POST['email']!='')) {  // ADD CHECKING
+           if (isset($_POST['birthday']))
+           {
+           		$dateb=$_POST['birthday'];
+                $dateb =preg_replace('/[-]+?/','',$dateb);
+           }
+		   
+			if (isset($_POST['birthday']) && is_numeric($dateb) )
+			{
+                $b_date=$_POST['birthday'];
+				$set_fields[] = " `profilevalue_4` = '" . $b_date . "' ";
+			}
+			
+			if ( $user_id != $user->user_info['user_id'] ) // new login
+			{
+				if (isset($_POST['email'])&& ($_POST['email']!=''))  // ADD CHECKING
+				{
 					$set[] = " `user_email` = '" . mysql_real_escape_string($_POST['email']) . "' ";
 					$set[] = " `user_newemail` = '" . mysql_real_escape_string($_POST['email']) . "' ";
-					
-					
 				}
 			}
 			
-			if (isset($_POST['displayname'])) { // ADD CHECKING
+			if (isset($_POST['displayname'])) // ADD CHECKING
+			{
 				$set[] = " `user_displayname` = '" . mysql_real_escape_string($_POST['displayname']) . "' ";
 			}
 			
-			if (isset($_POST['fname'])) {  // ADD CHECKING
+			if (isset($_POST['fname'])) // ADD CHECKING
+			{
                             
 				$set[] = " `user_fname` = '" . mysql_real_escape_string($_POST['fname']) . "' ";
 				$set_fields[] = " `profilevalue_2` = '" . mysql_real_escape_string($_POST['fname']) . "' ";
 			}
 
-                    /*   if (isset($_POST['file'])) {  // ADD CHECKING
-                           
-			      $user->user_photo_upload("photo");
-                              $is_error = $user->is_error;
-                              if( !$is_error ) {
-                                
-                                // SAVE LAST UPDATE DATE
-                                $user->user_lastupdate();
-
-                                // DETERMINE SIZE OF THUMBNAIL TO SHOW IN ACTION
-                                $photo_width = $misc->photo_size($user->user_photo(), "111", "111", "w");
-                                $photo_height = $misc->photo_size($user->user_photo(), "111", "111", "h");
-
-                                // INSERT ACTION
-                               // $action_media = Array(Array('media_link'=>$url->url_create('profile', $user->user_info['user_username']), 'media_path'=>$user->user_photo(), 'media_width'=>$photo_width, 'media_height'=>$photo_height));
-                               // $actions->actions_add($user, "editphoto", Array($user->user_info['user_username'], $user->user_displayname), $action_media, 999999999, TRUE, "user", $user->user_info['user_id'], $user->user_info['user_privacy']);
-                              }
-			}*/
-			
-			if ( isset($_POST['lname']) ) {
+			if ( isset($_POST['lname']) )
+			{
 				$set[] = " `user_lname` = '" . $_POST['lname'] . "' ";
 				$set_fields[] = " `profilevalue_3` = '" .mysql_real_escape_string($_POST['lname']) . "' ";
 			}
+
 
 			if ( isset($_POST['lname']) && isset($_POST['fname']) && strlen($_POST['fname']) && strlen($_POST['lname']) ) {
 				
@@ -481,6 +471,7 @@ switch ($type_request) {
 					$sex = 2	;
 				elseif ($_POST['sex'] == 'm')
 					$sex = 1;
+				
 				$set_fields[] = " `profilevalue_5` = " . $sex . " ";
 			}
 			

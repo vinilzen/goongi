@@ -45,6 +45,24 @@ function src(){
 		$(this).removeClass('active');
 		$(this).parent().find('div.p_mn').slideUp();
 	});
+	
+	$('#fake').click(function(e){
+		if($(this).attr('checked') == 'checked') {
+			$('.norm_date select').removeAttr('disabled');
+			$('#edit_profile_jd select').removeAttr('disabled');
+			$('#edit_profile_jd input').removeAttr('disabled');
+			$('#field_16').val(1);
+		} else {
+			$('.norm_date select').attr('disabled','disabled');
+			$('#edit_profile_jd select').attr('disabled','disabled');
+			$('#edit_profile_jd input').attr('disabled','disabled');
+			$('#field_16').val(0);
+		}
+	});
+	
+	
+	
+	
 	$('.profil_mn .pd_link').toggle(function(e){
 		e.preventDefault();
 		$(this).addClass('active');

@@ -156,7 +156,7 @@ function callback(form,act,doc) {
 		</div>
 		<div class="photo loading">
 			<img src="<%= TREE.url.image(id, photo) %>" />
-			<% if (death || death_bool==1) { %> <div class="ribbon"></div> <% } %>
+			<% if (death_bool==1) { %> <div class="ribbon"></div> <% } %>
 		</div>
 		<div class="name"><a href="/<%= Base64.decode(username) %>" target="_blank"><%= Base64.decode(displayname) %></a></div>
 		<div class="actions closed">
@@ -223,8 +223,8 @@ function callback(form,act,doc) {
 			</tr>
 			<tr>
 				<th>
-					<label class="kalend"><input type="checkbox" name="dead" <% if (death || death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label><br />
-					<span id="jd_trig" <% if (death || death_bool==1) { %> class="sel" <% } %>>Еврейский календарь</span>
+					<label class="kalend"><input type="checkbox" name="dead" <% if (death_bool==1) { %> checked="checked" <% } %> /> Дата смерти</label><br />
+					<span id="jd_trig" <% if (death_bool==1) { %> class="sel" <% } %>>Еврейский календарь</span>
 				</th>
 				<td>
 					<div class="norm_date">

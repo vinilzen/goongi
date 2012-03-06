@@ -2,8 +2,11 @@
 
 /* $Id: profile.php 42 2009-01-29 04:55:14Z john $ */
 
+
 $page = "profile";
 include "header.php";
+
+//	echo '<pre>'; print_r($owner); die();
 
 if  (!empty($_GET['pag_com']))
 {
@@ -211,8 +214,6 @@ $global_page_description[0] = 1158;
 $global_page_description[1] = $owner->user_displayname;
 $global_page_description[2] = strip_tags(implode(" - ", $field->field_values));
 
-//echo '<pre>'; var_dump($actions->actions_display(0, $setting['setting_actions_actionsonprofile'], "se_actions.action_user_id='{$owner->user_info['user_id']}'")); die();
-//print_r ($field->cats[0]);
 //// ASSIGN VARIABLES AND INCLUDE FOOTER
 
 $field1 = $database->database_query("SELECT * FROM se_user_candle WHERE user_id ='{$owner->user_info['user_id']}'");
@@ -258,7 +259,7 @@ if ($field->value_info['profilevalue_16'] == 1 && $owner->profile_info['profilev
 
 	$smarty->assign('jdate_death', "$hebrewDay $hebrewMonthName $hebrewYear");
 }
-if ($field->value_info['profilevalue_16'] == '')
+if ( $field->value_info['profilevalue_16'] == '' )
 	$field->value_info['profilevalue_16'] = 0;
 
 $smarty->assign('death',$field->value_info['profilevalue_16']);

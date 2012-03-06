@@ -1,11 +1,4 @@
-{literal}
-    <script type="text/javascript">
-    function change(pad)
-    {
-       document.getElementById('pag_com').value = pad;
-    }
-    </script>
-{/literal}
+{literal}<script type="text/javascript">function change(pad){document.getElementById('pag_com').value = pad; }</script>{/literal}
 
 {if $death == '1'}
 {include file='header_death.tpl'}
@@ -21,17 +14,17 @@
 	<span>{lang_print id=652}<!-- Профиль --></span>
 </div>
 
-{if $owner->user_info.user_id == $user->user_info.user_id && $death != 1}
+{if $owner->user_info.user_id == $user->user_info.user_id && $death != 1 || ($owner->user_info.user_lastlogindate == 0 && $death != 1)}
 
 <div class="buttons">
 	<span class="button2">
 		<span class="l">&nbsp;</span><span class="c">
-			<a href="/user_editprofile.php">Редактировать информацию</a>
+			<a href="/user_editprofile.php{if $owner->user_info.user_lastlogindate == 0}?user={$owner->user_info.user_username}{/if}">Редактировать информацию</a>
 		</span><span class="r">&nbsp;</span>
 	</span>
 </div>
 {/if}
-{if $user->user_exists != 0 && $owner->user_info.user_id !=  $user->user_info.user_id && $death != 1}
+{if $user->user_exists != 0 && $owner->user_info.user_id !=  $user->user_info.user_id && $death != 1 && $owner->user_info.user_lastlogindate != 	0 }
 	{if $owner->user_info.user_id != 0}
 		<div class="buttons" style="overflow:visible;">
 			<div class="profil_mn"><a href="#" class="p_link"><span>профиль</span></a>
@@ -43,7 +36,6 @@
 							<a href="/friends.php?user={$owner->user_info.user_username}">Друзья</a>
 							<a href="/user_history.php?user={$owner->user_info.user_username}">История рода</a>
 							<a href="/blog.php?user={$owner->user_info.user_username}">Статьи</a>
-							<!-- <a href="javascript:void(0);">Медали</a> -->
 						</div>
 					</div>
 				</div>
@@ -63,7 +55,7 @@
 		</div>
 	{/if}
 {/if}
-{ if $death != 1}
+{ if $death != 1 }
 <div class="my_page_inf" {if $user->user_exists == 0}style="border-top:0px;"{/if}>
 	<div class="my_page_img">
 	{if $owner->user_info.user_id == $user->user_info.user_id}

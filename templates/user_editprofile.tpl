@@ -150,12 +150,10 @@
 		 <div>
 			<select name='dhtmlgoodies_country_birhday' id='dhtmlgoodies_country_birhday'">
 				<option id='op' value='-1'></option>
-				-{$country_birhday}-
 			</select>
 		 </div>
             {else}
-		<!-- @ --><select name='field_{$fields[field_loop].field_id}' id='field_{$fields[field_loop].field_id}' onchange="ShowHideDeps('{$fields[field_loop].field_id}', this.value);" style='{$fields[field_loop].field_style}'>
-			<!-- <option value='-1'></option> -->
+				<select name='field_{$fields[field_loop].field_id}' id='field_{$fields[field_loop].field_id}' onchange="ShowHideDeps('{$fields[field_loop].field_id}', this.value);" style='{$fields[field_loop].field_style}'>
 			{* LOOP THROUGH FIELD OPTIONS *}
 			{section name=option_loop loop=$fields[field_loop].field_options}
 			<option id='op' value='{$fields[field_loop].field_options[option_loop].value}'{if $fields[field_loop].field_options[option_loop].value == $fields[field_loop].field_value} SELECTED{/if}>{lang_print id=$fields[field_loop].field_options[option_loop].label}</option>
@@ -173,7 +171,6 @@
 				<div id='field_{$fields[field_loop].field_id}_option{$fields[field_loop].field_options[option_loop].value}' style='margin: 5px 5px 10px 5px;{if $fields[field_loop].field_options[option_loop].value != $fields[field_loop].field_value} display: none;{/if}'>
 				{lang_print id=$fields[field_loop].field_options[option_loop].dep_field_title}{if $fields[field_loop].field_options[option_loop].dep_field_required != 0}*{/if}
 				<select name='field_{$fields[field_loop].field_options[option_loop].dep_field_id}'>
-					<!-- <option value='-1'></option> -->
 					{* LOOP THROUGH DEP FIELD OPTIONS *}
 					{section name=option2_loop loop=$fields[field_loop].field_options[option_loop].dep_field_options}
 						<option id='op' value='{$fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].value}'{if $fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].value == $fields[field_loop].field_options[option_loop].dep_field_value} SELECTED{/if}>{lang_print id=$fields[field_loop].field_options[option_loop].dep_field_options[option2_loop].label}</option>
@@ -239,22 +236,29 @@
     {* DATE FIELD *}
     {elseif $fields[field_loop].field_type == 5}
     <div class="input date">
-		<div class="norm_date"  id="edit_profile_nd">
-			<label>{lang_print id=$fields[field_loop].field_title}{if $fields[field_loop].field_required != 0}*{/if}</label>
+		<div {if $owner->user_info.user_id != $user->user_info.user_id && $fields[field_loop].field_id == 12}class="norm_date"{/if}  id="edit_profile_nd">
+			<label>
+				{if $owner->user_info.user_id != $user->user_info.user_id && $fields[field_loop].field_id == 12}
+					<input type="checkbox" name="fake" id="fake" {if $owner->profile_info.profilevalue_16 == 1}checked="checked"{/if} />
+					<input type="hidden" name="field_16" id="field_16" 
+						value="{if $owner->profile_info.profilevalue_16 == '' || $owner->profile_info.profilevalue_16 == 0}0{else}1{/if}" />
 			
-			<select   onchange="recount_hebrew();" style="width:45px;" name='field_{$fields[field_loop].field_id}_1' style='{$fields[field_loop].field_style}'>
+				{/if}
+				{lang_print id=$fields[field_loop].field_title}{if $fields[field_loop].field_required != 0}*{/if}</label>
+			
+			<select {if ($owner->profile_info.profilevalue_16 == '' || $owner->profile_info.profilevalue_16 == 0) && $fields[field_loop].field_id != 4 }disabled="disabled"{/if}   onchange="recount_hebrew();" style="width:45px;" name='field_{$fields[field_loop].field_id}_1' style='{$fields[field_loop].field_style}'>
 				{section name=date1 loop=$fields[field_loop].date_array1}
 					<option value='{$fields[field_loop].date_array1[date1].value}'{$fields[field_loop].date_array1[date1].selected}>{if $smarty.section.date1.first} {lang_print id=$fields[field_loop].date_array1[date1].name} {else}{$fields[field_loop].date_array1[date1].name}{/if}</option>
 				{/section}
 			</select>
 
-			<select  onchange="recount_hebrew();"  style="width:83px;" name='field_{$fields[field_loop].field_id}_2' style='{$fields[field_loop].field_style}'>
+			<select {if ($owner->profile_info.profilevalue_16 == '' || $owner->profile_info.profilevalue_16 == 0) && $fields[field_loop].field_id != 4 }disabled="disabled"{/if}   onchange="recount_hebrew();"  style="width:83px;" name='field_{$fields[field_loop].field_id}_2' style='{$fields[field_loop].field_style}'>
 				{section name=date2 loop=$fields[field_loop].date_array2}
 					{if !$smarty.section.date2.first}<option value='{$fields[field_loop].date_array2[date2].value}'{$fields[field_loop].date_array2[date2].selected}>{$fields[field_loop].date_array2[date2].name}</option>{/if}
 				{/section}
 			</select>
 
-			<select  onchange="recount_hebrew();"  style="width:58px;" name='field_{$fields[field_loop].field_id}_3' style='{$fields[field_loop].field_style}'>
+			<select {if ($owner->profile_info.profilevalue_16 == '' || $owner->profile_info.profilevalue_16 == 0) && $fields[field_loop].field_id != 4 }disabled="disabled"{/if}   onchange="recount_hebrew();"  style="width:58px;" name='field_{$fields[field_loop].field_id}_3' style='{$fields[field_loop].field_style}'>
 				{section name=date3 loop=$fields[field_loop].date_array3}
 					<option value='{$fields[field_loop].date_array3[date3].value}'{$fields[field_loop].date_array3[date3].selected}>{if $smarty.section.date3.first} {lang_print id=$fields[field_loop].date_array3[date3].name} {else}{$fields[field_loop].date_array3[date3].name}{/if}</option>
 				{/section}
@@ -265,11 +269,11 @@
 		<script src="/js/kdate.js"></script>
 
 		<script src="/js/heb2civ.js"></script>
-
+						
 		<div class="jd_date" id="edit_profile_jd">
 			<label>Еврейский календарь<!-- {$jd_death_mn} - {$jd_death_m} --></label>
-			<input type="text" maxlength="2" name="date" onkeyup="recount_gregorian();" onblur="recount_gregorian();" value="{$jd_death_d}" />
-			<select onchange="recount_gregorian();" name="month">
+			<input {if $owner->profile_info.profilevalue_16 == '' || $owner->profile_info.profilevalue_16 == 0}disabled="disabled"{/if}  type="text" maxlength="2" name="date" onkeyup="recount_gregorian();" onblur="recount_gregorian();" value="{$jd_death_d}" />
+			<select {if $owner->profile_info.profilevalue_16 == '' || $owner->profile_info.profilevalue_16 == 0}disabled="disabled"{/if}  onchange="recount_gregorian();" name="month">
 				<option value="0" {if $jd_death_m == 8}selected="selected"{/if}>нисана</option>
 				<option value="1" {if $jd_death_m == 9}selected="selected"{/if}>ияра</option>
 				<option value="2" {if $jd_death_m == 10}selected="selected"{/if}>сивана</option>
@@ -284,7 +288,7 @@
 				<option value="12" {if $jd_death_m == 6}selected="selected"{/if}>адара I</option>
 				<option value="13" {if $jd_death_m == 7}selected="selected"{/if}>адара II</option>
 			</select>
-			<input type="text" maxlength="4" name="year" value="{$jd_death_y}" onkeyup="recount_gregorian();" onblur="recount_gregorian();" />
+			<input {if $owner->profile_info.profilevalue_16 == '' || $owner->profile_info.profilevalue_16 == 0}disabled="disabled"{/if}  type="text" maxlength="4" name="year" value="{$jd_death_y}" onkeyup="recount_gregorian();" onblur="recount_gregorian();" />
 		</div>
 		{/if}
     </div>
@@ -337,7 +341,7 @@
     {if $fields[field_loop].field_id == $setting.setting_subnet_field1_id || $fields[field_loop].field_id == $setting.setting_subnet_field2_id}{lang_sprintf id=766 1=$current_subnet}{/if}
 
     {capture assign='field_error'}{lang_print id=$fields[field_loop].field_error}{/capture}
-    {if $field_error != ""}<div class='form_error'><img src='./images/icons/error16.gif' border='0' class='icon'> {$field_error}</div>{/if}
+    {if $field_error != ""}{$field_error}{/if}
 	{/if}
   {/section}
 {* Дополнительная часть*}

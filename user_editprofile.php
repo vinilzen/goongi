@@ -5,9 +5,7 @@
 $page = "user_editprofile";
 include "header.php";
 
-//print_r($owner); die();
-
-if ($owner->user_exists == 0 ) {
+if ($owner->user_exists == 0) {
 	$owner = $user;
 }
 else 
@@ -159,10 +157,13 @@ if(count($field_array) == 0) {
 // SAVE PROFILE FIELDS
 if($task == "dosave" && $is_error == 0)
 {
+	//echo $field->field_query; die();
   // SAVE PROFILE VALUES
   $profile_query = "UPDATE se_profilevalues SET {$field->field_query} WHERE profilevalue_user_id='{$owner->user_info['user_id']}'";
   $database->database_query($profile_query);
   
+  $profile_query = "UPDATE se_profilevalues SET  WHERE profilevalue_user_id='{$owner->user_info['user_id']}'";
+  $database->database_query($profile_query);
   
   // Flush cached data
   $owner->profile_info = NULL;
@@ -173,15 +174,6 @@ if($task == "dosave" && $is_error == 0)
   {
     $cache_object->remove('site_user_profiles_'.$owner->user_info['user_id']);
   }
-  
-  /*
-  $profilevalues_static =& SEUser::getProfileValues($owner->user_info['user_id']);
-  $profilevalues_static = NULL;
-  
-   = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_profilevalues WHERE profilevalue_user_id='".$owner->user_info[user_id]."'"));
-  //$owner->profile_info = $database->database_fetch_assoc($database->database_query("SELECT * FROM se_profilevalues WHERE profilevalue_user_id='".$owner->user_info[user_id]."'"));
-  */
-  
   
   // SAVE FIRST/LAST NAME, IF RELEVANT
   if(isset($field->field_special[2])) { $flquery[] = "user_fname='".$field->field_special[2]."'"; }
@@ -212,10 +204,7 @@ if($task == "dosave" && $is_error == 0)
   // INSERT ACTION
   $actions->actions_add($user, "editprofile", Array($owner->user_info['user_username'], $owner->user_displayname), Array(), 1800, false, "user", $owner->user_info['user_id'], $owner->user_info['user_privacy']);
 
-  
 }
-
-
 
 if(isset($_POST['dhtmlgoodies_country'])) {
         $country=$_POST['dhtmlgoodies_country'];
@@ -328,7 +317,6 @@ if($region_id > 0)
 		$region .= "<option value='" . $region_bd[region_id] . "'" . $region_sel . ">" . $region_bd[name] . "</option>\n";
 	}
 
-	//$region .= "<option value='" . $region_tb[region_id] . "' SELECTED>" . $region_tb[name] . "</option>\n";
 }
 else
 {
@@ -372,7 +360,7 @@ else
 {
 	if ($country_id != '') $country_s = ' country_id ='.$country_id;
 	$sql = $database->database_query ("SELECT * FROM city  WHERE ".$country_s." ORDER BY name ASC");
-   //    echo $sql;
+
 	while ($city_bd = $database->database_fetch_assoc ($sql))
 	{
 		if($city_id == $city_bd[city_id])
@@ -403,18 +391,15 @@ while ($country_birhday_bd = $database->database_fetch_assoc ($sql))
 if ($owner->profile_info['profilevalue_12'] != '0000-00-00')
 {
 	$date_d = explode('-', $owner->profile_info['profilevalue_12']);
-	//echo "<pre>"; print_r($date_d); echo "</pre>"; echo '$date_d - '.$date_d.'<br>';	die();
 	$jdDate = gregoriantojd( $date_d[1], $date_d[2], $date_d[0]); 
-	//echo '$jdDate - '.$jdDate.'<br>'; die();
+
 	$gregorianMonthName = jdmonthname ( $jdDate, 1 ); 
-	//echo '$gregorianMonthName - '.$gregorianMonthName.'<br>';
+
 	$hebrewDate = jdtojewish ($jdDate); 
-	//echo '$hebrewDate - '.$hebrewDate.'<br>';
 	
 	list ($hebrewMonth, $hebrewDay, $hebrewYear) = split ('/', $hebrewDate); 
 	
 	$hebrewMonthName = jdmonthname ( $jdDate, 4);
-	//echo '$hebrewMonthName - '.$hebrewMonthName.'<br>';	die();
 
 	$smarty->assign('jd_death_d', $hebrewDay);
 	$smarty->assign('jd_death_m', $hebrewMonth); 
@@ -427,9 +412,6 @@ $smarty->assign('country', $country);
 $smarty->assign('country_birhday', $country_birhday);
 $smarty->assign('city', $city);
 $smarty->assign('region', $region);
-
-
-
 
 // ASSIGN VARIABLES AND INCLUDE FOOTER
 $smarty->assign('result', $result);
