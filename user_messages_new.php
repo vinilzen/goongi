@@ -48,7 +48,7 @@ if($task == "send") {
 	
 	$id_my = $user->user_info['user_id'];
 	
-	$resource =$database->database_query("SELECT pmconvoop_pmconvo_id FROM se_pmconvoops WHERE pmconvoop_user_id ='{$id_my}'");
+	$resource =$database->database_query("SELECT pmconvoop_pmconvo_id FROM se_pmconvoops WHERE pmconvoop_user_id ='{$id_my}' || pmconvoop_user_id ='{$id_user}'  ");
 	
 	while( $pmconvoop_info=$database->database_fetch_assoc($resource) )
 	{

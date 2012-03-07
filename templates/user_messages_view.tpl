@@ -9,15 +9,12 @@
 <ul class="message_list">
 {section name=pm_loop loop=$pms}
 <li>
-	
-      <!--  <a href='user_messages_view.php?pmconvo_id={$pms[pm_loop].pm_pmconvo_id }&task=delete' class="del">{lang_print id=1181}</a>-->
 	<a href="{$url->url_create("profile",$pms[pm_loop].author->user_info.user_username)}">
-                 {if $pms[pm_loop].author->user_info.profilevalue_5 == 2 || $pms[pm_loop].author->profile_info.profilevalue_5}
-                        <img src="{$pms[pm_loop].author->user_photo('./images/avatars_17.gif', TRUE)}"  alt="" >
-                {else}
-                        <img src="{$pms[pm_loop].author->user_photo('./images/avatars_15.gif', TRUE)}"  alt="" >
-                {/if}
-		<!--<img src="{$pms[pm_loop].author->user_photo("./images/no_photo_thumb.gif", TRUE)}" alt="" />-->
+		{if $pms[pm_loop].author->user_info.profilevalue_5 == 2}
+			<img src="{$pms[pm_loop].author->user_photo('./images/avatars_17.gif', TRUE)}"  alt="" >
+		{else}
+			<img src="{$pms[pm_loop].author->user_photo('./images/avatars_15.gif', TRUE)}"  alt="" >
+		{/if}
 	</a>
 	<a href="{$url->url_create("profile",$pms[pm_loop].author->user_info.user_username)}" class="name">{$pms[pm_loop].author->user_displayname}</a>
 	<span>{$datetime->cdate("`$setting.setting_dateformat` в `$setting.setting_timeformat`", $datetime->timezone($pms[pm_loop].pm_date, $global_timezone))}</span>
