@@ -150,6 +150,7 @@
 		 <div>
 			<select name='dhtmlgoodies_country_birhday' id='dhtmlgoodies_country_birhday'">
 				<option id='op' value='-1'></option>
+				{$country_birhday}
 			</select>
 		 </div>
             {else}

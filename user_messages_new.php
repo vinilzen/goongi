@@ -31,20 +31,23 @@ if($task == "send") {
 		$to = $_POST['to_display'];
 	}
 
-	$total_friends = $user->user_friend_total(0);
-	if ($total_friends>0)
-	{
-		$friends = $user->user_friend_list(0, $total_friends, 0);
-    
-	    foreach ($friends as $key => $value)
-	    {
-			if ($to == $value->user_info['user_displayname'])
-	        {
-	             $is_error = '0';
-	             $id_user = $value->user_info['user_id'];
-	        }
-		}
+	//$total_friends = $user->user_friend_total(0);
+	$friends = $user->get_users();
+	
+	//echo '-+-'; die();
+	
+  // print_r($friends); die();
+	
+    foreach ($friends as $key => $value)
+    {
+		if ($to == $value)
+        {
+             $is_error = '0';
+             $id_user = $key;
+        }
 	}
+	
+	//echo $id_user; die();
 	
 	$id_my = $user->user_info['user_id'];
 	

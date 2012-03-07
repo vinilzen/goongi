@@ -2044,10 +2044,6 @@ class SEUser
 
 
 
-
-
-
-
 	// THIS METHOD RETURNS AN ARRAY OF USER'S FRIENDS
 	// INPUT: $start REPRESENTING THE FRIEND TO START WITH
 	//	  $limit REPRESENTING THE NUMBER OF FRIENDS TO RETURN
@@ -2059,48 +2055,47 @@ class SEUser
 	// OUTPUT: AN ARRAY OF THE USER'S FRIENDS
   
 	function user_friend_list($start, $limit, $direction = 0, $friend_status = 1, $sort_by = "se_users.user_dateupdated DESC", $where = "", $friend_details = 0, $other_user_id = 0)
-  {
-	  global $database, $setting, $user;
+	{
+		global $database, $setting, $user;
     
-    if( !$other_user_id && $user->user_info['user_id'] != $this->user_info['user_id'] )
-    {
-      $other_user_id = $user->user_info['user_id'];
-    }
+		if( !$other_user_id && $user->user_info['user_id'] != $this->user_info['user_id'] )
+		{
+			$other_user_id = $user->user_info['user_id'];
+		}
 	
 	  // SET VARIABLE
 	  $friend_array = Array();
     
-	  // MAKE SURE CONNECTIONS ARE ALLOWED
-	  if( $setting['setting_connection_allow'] )
-    {
-	    // BEGIN FRIEND QUERY
-	    $friend_query = "
-        SELECT 
-          se_friends.friend_id, 
-          se_users.user_id, 
-          se_users.user_username, 
-          se_users.user_fname,
-          se_users.user_lname,
-          se_users.user_photo, 
-          se_users.user_lastlogindate, 
-          se_users.user_dateupdated,
-          se_profilevalues.profilevalue_5
-         ";
-    //  se_profilevalues.profilevalue_5
-      if( $other_user_id )
-      {
-          
-        $friend_query .= ",
-          CASE
-            WHEN (SELECT TRUE FROM se_friends WHERE friend_user_id1='{$other_user_id}' AND friend_user_id2=se_users.user_id AND friend_status='1' LIMIT 1)
-              THEN 2
-            WHEN (SELECT TRUE FROM se_friends WHERE friend_user_id1='{$other_user_id}' AND friend_user_id2=se_users.user_id AND friend_status='0' LIMIT 1)
-              THEN 1
-            ELSE 0
-          END
-          AS is_viewers_friend
-        ";
-      }
+		// MAKE SURE CONNECTIONS ARE ALLOWED
+		if( $setting['setting_connection_allow'] )
+		{
+		    // BEGIN FRIEND QUERY
+		    $friend_query = "
+	        SELECT 
+	          se_friends.friend_id, 
+	          se_users.user_id, 
+	          se_users.user_username, 
+	          se_users.user_fname,
+	          se_users.user_lname,
+	          se_users.user_photo, 
+	          se_users.user_lastlogindate, 
+	          se_users.user_dateupdated,
+	          se_profilevalues.profilevalue_5
+	         ";
+			//  se_profilevalues.profilevalue_5
+			if( $other_user_id )
+			{
+		        $friend_query .= ",
+		          CASE
+		            WHEN (SELECT TRUE FROM se_friends WHERE friend_user_id1='{$other_user_id}' AND friend_user_id2=se_users.user_id AND friend_status='1' LIMIT 1)
+		              THEN 2
+		            WHEN (SELECT TRUE FROM se_friends WHERE friend_user_id1='{$other_user_id}' AND friend_user_id2=se_users.user_id AND friend_status='0' LIMIT 1)
+		              THEN 1
+		            ELSE 0
+		          END
+		          AS is_viewers_friend
+		        ";
+			}
       
         $friend_query .= ",
           CASE

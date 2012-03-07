@@ -224,20 +224,19 @@ if(isset($_POST['dhtmlgoodies_country'])) {
 }
 
 if(isset($_POST['dhtmlgoodies_country_birhday'])) {
-        $country_birhday=$_POST['dhtmlgoodies_country_birhday'];
-        $id_ex = $user_info['user_id'];
-        $sql = "SELECT profilevalue_9 FROM se_profilevalues WHERE profilevalue_user_id=$id_ex LIMIT 1";
-        if(!$database->database_query($sql))
-        {
-            $query="INSERT INTO `se_profilevalues` (`profilevalue_user_id`, `profilevalue_9`) VALUES ($id_ex,'$country_birhday')";
-            $database->database_query($query);
-        }
-        else
-        {
-
-            $query="UPDATE `se_profilevalues` SET `profilevalue_9` = '$country_birhday' WHERE  profilevalue_user_id = $id_ex";
-            $database->database_query($query);
-        }
+    $country_birhday=$_POST['dhtmlgoodies_country_birhday'];
+    $id_ex = $owner->user_info['user_id'];
+    $sql = "SELECT profilevalue_9 FROM se_profilevalues WHERE profilevalue_user_id=$id_ex LIMIT 1";
+    if(!$database->database_query($sql))
+    {
+        $query="INSERT INTO `se_profilevalues` (`profilevalue_user_id`, `profilevalue_9`) VALUES ($id_ex,'$country_birhday')";
+        $database->database_query($query);
+    }
+    else
+    {
+        $query="UPDATE `se_profilevalues` SET `profilevalue_9` = '$country_birhday' WHERE  profilevalue_user_id = $id_ex";
+        $database->database_query($query);
+    }
 }
 
 
@@ -353,8 +352,6 @@ if($city_id > 0)
 
 		$city .= "<option value='" . $city_bd[city_id] . "'" . $city_sel . ">" . $city_bd[name] . "</option>\n";
 	}
-
-	//$city .= "<option value='" . $city_tb[city_id] . "' SELECTED>" . $city_tb[name] . "</option>\n";
 }
 else
 {
@@ -375,7 +372,7 @@ else
 
 $country_birhday_tb = $database->database_fetch_assoc($database->database_query("SELECT profilevalue_9 FROM se_profilevalues WHERE profilevalue_user_id='".$owner->user_info['user_id']."' LIMIT 1"));
 $country_birhday_id = $country_birhday_tb[profilevalue_9];
-$sql = $database->database_query ("SELECT * FROM country");
+$sql = $database->database_query ("SELECT * FROM country ORDER BY name ASC");
 
 while ($country_birhday_bd = $database->database_fetch_assoc ($sql))
 {
