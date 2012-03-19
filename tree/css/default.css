@@ -53,13 +53,11 @@ select option	{padding:0 0 0 3px}
 
 #viewpoint	{width:99999px; padding:200px 600px; overflow:hidden}
 #viewpoint.drag	{cursor:move}
-#viewpoint .family	{display:inline-block; margin:60px 0; position:relative}
-#viewpoint .family canvas	{position:absolute; z-index:-1; left:0; bottom:0}
+#viewpoint .family	{float:left; margin:60px 0 0}
+#viewpoint .family canvas	{position:absolute; z-index:-1}
 #viewpoint .family .children	{clear:both}
-#viewpoint .family .parents, #viewpoint .family .children	{text-align:center}
-#viewpoint .family.forward .family, #viewpoint .family.forward .person	{float:left}
 
-.person	{display:inline-block; border:2px solid #9cd3ed; margin:0 30px; padding:8px 12px 0; width:130px; box-shadow:0 0 10px #ccc; background:#ecf9ff; text-align:center}
+.person	{float:left; border:2px solid #9cd3ed; margin:0 30px; padding:8px 12px 0; width:130px; box-shadow:0 0 10px #ccc; background:#ecf9ff; text-align:center}
 .person .relation	{color:#666; margin:0 20px 10px 0; height:14px; text-align:left}
 .person .info	{cursor:pointer; width:16px; height:16px; float:right; background:url(../img/icons/info.png)}
 .person .photo	{margin:0 0 10px; overflow:hidden; position:relative; display:inline-block; height:120px; overflow:hidden;}
