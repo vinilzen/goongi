@@ -22,3 +22,6 @@ div.answer_ch.checked span.inputRadio{	background:url(../images/check.png) left 
 .comments li .inf .name {text-align:left; width:100%;}
 h2 {text-align:left;}
 .form.auth .login .button1 {margin-left:0px;}
+.buttons {width:680px;}
+.p_mn {border:1px solid #dddddd;}
+.b1 a {width:100%; text-align:center;}
