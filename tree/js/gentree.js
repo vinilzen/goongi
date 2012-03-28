@@ -146,7 +146,7 @@ var TREE = {
 	},
 
 	renderFamily: function(parentId, node) {
-		var family = $('<div class="family" />').appendTo(node),
+		var family = $('<span class="family" />').appendTo(node),
 			parents = $('<div class="parents" />').appendTo(family),
 			children = $('<div class="children" />').appendTo(family);
 		this.tmpl.person(json.users[parentId]).appendTo(parents);
